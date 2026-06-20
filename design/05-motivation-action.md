@@ -1,0 +1,133 @@
+# 05 — Motivation and Action
+
+This document specifies the system's motivation (its innate drive and the value signal) and its action layer (how it selects actions). These together make the system act; without them it is a passive world-model.
+
+This is the least mature part of the system. The interfaces and a working default are specified unambiguously. Several internals are **[O]** — known open problems — and are flagged as such.
+
+---
+
+## 1. Principles
+
+- The system has **one or more fixed innate (terminal) drives**, set at configuration. These are the system's only source of "better." **[D]**
+- The innate drive **MUST NOT** be modifiable by the running system (cross-cutting requirement C3). If the drive could rewrite itself, the system could trivially maximize it by redefining it; this is prohibited.
+- The system has **no pre-loaded instrumental goals.** Instrumental goals (learned, revisable sub-goals) emerge at runtime as the system discovers what serves its drive. The base build ships with the drive only. **[D]**
+- The default drive is **curiosity** (Section 3). It is chosen because it produces a non-trivial value signal that pulls the system toward learnable experience and has no degenerate maximum reachable by inaction. **[D]**
+
+---
+
+## 2. The value signal
+
+```
+ValueSignal: float        # scalar; higher = more desirable, per the drive(s)
+```
+
+The motivation layer produces a value signal each fast-loop step from the system's own state and recent experience. The action layer (Section 4) uses it to choose actions. The value signal is internal; it is **not** supplied by the environment, the actuators, or any external reward.
+
+### 2.1 Drive interface — **[D]**
+```
+Drive:
+  id()    -> drive_id
+  value(context) -> float        # the drive's contribution to the value signal
+```
+`context` provides the drive with read access to: the current and recent global poses, the frames' recent measurement EMAs (recon/pred/effort), the recent observation stream, and the system's running drive-state (Section 3.3). A drive **MUST** be a pure function of `context` and its own fixed parameters; it **MUST NOT** hold hidden mutable policy state beyond the bookkeeping in 3.3.
+
+### 2.2 Combining multiple drives — **[D]**
+If more than one drive is configured, the value signal is a fixed weighted sum:
+```
+ValueSignal = Σ_d  drive_weight[d] · Drive_d.value(context)
+```
+Drive weights are fixed at configuration (Doc 07). The base build configures exactly one drive (curiosity); the multi-drive mechanism exists so a counter-drive can be added (Section 5) without code change.
+
+---
+
+## 3. The curiosity drive (default) — **[D]**, with **[O]** internals noted
+
+Curiosity rewards **learning progress** — the system reducing its own prediction error over time — with a **novelty** component that operates before a world-model exists. This two-part definition addresses the cold-start problem (no model ⇒ no prediction error ⇒ no signal) and the wandering problem (raw unpredictability traps the system on noise).
+
+### 3.1 Learning-progress term — **[O]**
+Reward is proportional to the **recent decrease** in the system's prediction error, not to the prediction error itself.
+```
+learning_progress = max(0,  pred_err_baseline − pred_err_recent)
+```
+where `pred_err_recent` is a short-window average of the system's prediction error (e.g. the mean `pred_err` over mapping frames, averaged over a recent window) and `pred_err_baseline` is a longer-window average. A region the system is *learning* yields positive learning progress; a region it has *mastered* (low, flat error) yields ~0; a region of *noise* (high, flat error) also yields ~0. This is what prevents the system from getting stuck on unlearnable noise.
+
+**[O] note:** the exact windows, the precise statistic, and the normalization are open and expected to be tuned. The requirement is that the term reward *reduction* in prediction error, not raw prediction error.
+
+### 3.2 Novelty term (cold-start) — **[O]**
+Before a usable world-model exists, prediction error is meaningless, so learning progress is undefined. The novelty term provides a signal from the **raw observation stream**, which exists from the first step:
+```
+novelty = unfamiliarity(observation, recent_observation_memory)
+```
+where `unfamiliarity` is high for observations dissimilar to those recently seen and low for familiar ones. `recent_observation_memory` is a bounded store of recent observations (Section 3.3).
+
+### 3.3 Combination and cold-start handover — **[D]/[O]**
+```
+curiosity_value = w_progress · learning_progress + w_novelty · novelty
+```
+At cold-start, `learning_progress ≈ 0` (no model), so `novelty` dominates and drives the system to gather varied experience, which lets frames form. As frames learn, `learning_progress` becomes informative and takes over. The handover is automatic (no phase switch); the weights `w_progress`, `w_novelty` are fixed (Doc 07).
+
+The drive maintains, as bookkeeping (not policy): the recent and baseline prediction-error windows, and `recent_observation_memory`. This bookkeeping is part of system state (Doc 06).
+
+---
+
+## 4. The action layer (policy)
+
+The policy selects, each fast-loop step, the `Action` to send to the actuators. Its objective is to **increase the value signal**.
+
+### 4.1 Policy interface — **[D]**
+```
+Policy:
+  select_action(context) -> Action
+```
+`context` provides read access to the current global pose, the frames' transition models (to predict consequences of candidate actions), the Drive(s) (to value predicted consequences), and the action space `[0, n_actions)`.
+
+### 4.2 Default policy — one-step curiosity lookahead — **[O]**
+For the discrete action space:
+1. For each candidate action `a` in `[0, n_actions)` (or a sampled subset if `n_actions` is large):
+   - use the frames' transition models to predict the next pose(s) for `a` (Doc 03 §3);
+   - estimate the value signal that the predicted outcome would yield, via the Drive(s) over the predicted context;
+2. Select the action with the highest estimated value. Break ties by lowest action index.
+3. With probability `exploration_epsilon` (Doc 07), select a uniformly random action instead (to retain exploration when lookahead is confident).
+
+### 4.3 Cold-start behavior — **[D]**
+When frames are empty or too immature for their transition predictions to be meaningful, the lookahead in 4.2 is uninformative; the policy therefore selects **uniformly random actions**. This is by design: at cold-start the system cannot direct action toward novelty (it has no model of what action leads where), so it acts randomly while the novelty drive (3.2) values the resulting experience, bootstrapping the world-model. As transition models improve, the lookahead automatically becomes meaningful and action becomes directed. No explicit phase switch is required; an implementation **MAY** gate lookahead on a configured minimum frame maturity (Doc 07) to avoid acting on noise.
+
+**[O] note:** one-step lookahead is myopic. Multi-step planning is a permitted, expected future replacement behind the same `Policy` interface; it is **out of scope** for the base build.
+
+---
+
+## 5. Stability: counter-drives — **[D]** (optional, not in base build)
+
+A single curiosity drive **MAY** wander (perpetually chasing novelty without consolidating). The specified remedy, **if** wandering is observed, is to add another **fixed terminal drive in tension** (e.g. a competence drive that rewards *mastering* — driving prediction error low and keeping it low — or a safety drive that penalizes states the system cannot predict at all). Such a drive is added via the multi-drive mechanism (Section 2.2) at configuration. It is **fixed and terminal**, exactly like curiosity.
+
+**MUST NOT:** the remedy for wandering is never a pre-loaded *instrumental* goal. Instrumental goals are always learned at runtime, never configured.
+
+The base build ships with curiosity only; counter-drives are a configuration option, not a code change.
+
+---
+
+## 6. The "no self-modification of the drive" rule — **[D]**, mandatory
+
+- Drive identities, drive parameters, and drive weights are **read-only** to the running system. They are set at boot (Doc 07) or restored from a snapshot (Doc 06) and never written by any runtime process.
+- Structural learning (Doc 04), online learning (Doc 03), and the policy (Section 4) **MUST NOT** alter any drive parameter.
+- **Optional / future:** drive parameters **MAY** be varied *between* snapshots by an external process (an outer selection across runs), never by the running instance. This is noted only so the snapshot format (Doc 06) records drive parameters explicitly; the base build does not implement drive evolution.
+
+---
+
+## 7. Data flow summary (for integration)
+
+Per fast-loop step:
+- Frames → produce global pose and measurement EMAs (Doc 03).
+- Drive(s) → read those plus the observation stream → produce the value signal (Sections 2–3).
+- Policy → read the global pose, the frames' transition models, and the Drive(s) → select an action (Section 4).
+- Action → actuators → world → next observation (Doc 02).
+
+---
+
+## 8. Definition of done (this document)
+1. One or more fixed drives produce a value signal; drive parameters are read-only at runtime (Section 6).
+2. The default curiosity drive implements a learning-progress term and a novelty term with automatic cold-start handover (Section 3).
+3. The policy selects actions to increase the value signal, with the one-step curiosity-lookahead default and random cold-start behavior (Section 4).
+4. The multi-drive mechanism exists so a fixed counter-drive can be configured without code change (Sections 2.2, 5).
+5. No runtime process modifies any drive parameter.
+6. The data flow in Section 7 is wired: frames feed the drive and the policy; the policy's action returns to the body.
