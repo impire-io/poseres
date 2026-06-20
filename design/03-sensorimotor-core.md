@@ -74,11 +74,13 @@ pred_pose = T2[a] · th + tb2[a]           # T2: [n_actions, D, H], tb2: [n_acti
 
 ### 3.1 Derived measurements
 ```
-fit_quality(obs) = ||recon - obs|| / (||obs|| + 1e-6)                       # lower = better fit
-prediction_error = ||pred_pose - encode(next_obs)|| / (||encode(next_obs)|| + 1e-6)
+fit_quality(obs) = ||recon - obs|| / (||obs|| + 1e-6)                          # lower = better fit
+prediction_error = ||decode(pred_pose) - next_obs|| / (||next_obs|| + 1e-6)    # OBSERVATION space
 effort           = ||pred_pose - pose||
 ```
-where `pose` and `pred_pose` are computed from the event's `previous_observation`, and `encode(next_obs)` is the encoder applied to the event's `observation`.
+where `pose` and `pred_pose` are computed from the event's `previous_observation`, `decode` is the decoder (Section 3), and `next_obs` is the event's `observation`.
+
+**MUST:** `prediction_error` is measured in **observation** space — decode the predicted pose back to an observation and compare it to the real next observation — **not** in the frame's own pose space (`||pred_pose − encode(next_obs)||`). A dimensionally-collapsed frame can make its own *pose* trivially predictable while predicting the *world* no better than baseline; the pose-space measure rewards that collapse, the observation-space measure does not. (Transition *learning*, Section 5.2, still targets the next pose; only this survival *measurement* is in observation space.)
 
 ### 3.2 Initialization
 On birth with a given `dim`:
@@ -92,19 +94,15 @@ On birth with a given `dim`:
 
 Given `event = (prev_obs, action, obs)`:
 
-1. Compute `fit = fit_quality(obs)`.
-2. **Gate.** If `fit >= fit_gate` (Doc 07): **drop**. Return `mapped=false`, all measurements null. Frame state unchanged.
-3. **Map.** Otherwise:
-   a. `pose = encode(obs)`.
-   b. **Learn placement** (Section 5.1).
-   c. `recon_err_ema ← ema_decay·recon_err_ema + (1−ema_decay)·fit`.
-   d. If `prev_obs` and `action` are non-null:
-      - compute `prediction_error` and `effort` (3.1) with current weights;
-      - **learn transition** (Section 5.2);
-      - update `pred_err_ema` and `effort_ema` with the same EMA rule.
-   e. Return `mapped=true`, `local_pose=pose`, `recon_error=fit`, `pred_error` and `effort` (or null if no previous obs).
+1. **Measure (every event).** Compute `fit = fit_quality(obs)`, and — if `prev_obs` and `action` are non-null — `prediction_error` and `effort` (3.1) with current weights.
+2. **Update survival EMAs (coverage-fair, every event).**
+   - `recon_err_ema ← ema_decay·recon_err_ema + (1−ema_decay)·fit`;
+   - if `prev_obs`/`action` non-null: update `pred_err_ema` and `effort_ema` with the same rule.
+   The EMAs are updated whether or not the frame goes on to map. A frame is scored on what it is *exposed to*, not only on what it elects to map.
+3. **Gate (mapping + learning).** If `fit < fit_gate` (Doc 07) the frame **maps**: `pose = encode(obs)`; **learn placement** (5.1); if `prev_obs`/`action` non-null, **learn transition** (5.2); contribute `local_pose` to the global pose. Otherwise it does **not** map: no learning, no global-pose contribution (the EMAs in step 2 were still updated).
+4. Return `FrameResult(mapped, local_pose=pose if mapped else null, recon_error=fit if mapped else null, pred_error/effort if mapped else null)`. (The per-event result is the telemetry view — measurements reported for mapped events only; the coverage-fair EMAs in step 2 are the internal score inputs.)
 
-**MUST:** the gate decision uses reconstruction error only.
+**MUST:** the gate decision (map vs not) uses reconstruction error only, and **learning happens only on mapped events** (sparsity by pull, T1). But **survival scoring is coverage-fair**: scoring only the cherry-picked mapped subset lets a low-dimensional frame explain little, very selectively, and still win — which defeats dimensionality selection (Doc 04 §5).
 
 ---
 
@@ -130,16 +128,18 @@ The Scorer is the single place a frame's survival score is defined. It is a sepa
 
 ```
 Scorer:
-  combine(recon_err_ema, pred_err_ema, effort_ema) -> survival_score      # lower = better
+  combine(recon_err_ema, pred_err_ema, effort_ema, dim) -> survival_score   # lower = better
 ```
 
-**Default implementation** — weighted sum:
+**Default implementation** — weighted sum with a parsimony term:
 ```
-survival_score = w_explain·recon_err_ema + w_predict·pred_err_ema + w_effort·effort_ema
+survival_score = w_explain·recon_err_ema + w_predict·pred_err_ema + w_effort·effort_ema + w_complexity·dim
 ```
-Default weights (Doc 07): `w_explain = 0.5`, `w_predict = 0.5`, `w_effort = 0.0`.
+Default weights (Doc 07): `w_explain = 0.5`, `w_predict = 0.5`, `w_effort = 0.0`, `w_complexity = 0.04`.
 
-**MUST:** swapping the Scorer changes selection behavior with no change to frames, bus, or engine. The frame produces the three raw EMAs; it **MUST NOT** compute the survival score itself. The validated configuration uses the explanatory and predictive terms; the effort term is wired and available but defaults to weight 0.
+**MUST:** swapping the Scorer changes selection behavior with no change to frames, bus, or engine. The frame produces the three raw EMAs and exposes its `dim`; it **MUST NOT** compute the survival score itself. The validated configuration uses the explanatory and predictive terms plus the parsimony term; the effort term is wired and available but defaults to weight 0.
+
+**Why the parsimony term (`w_complexity·dim`) is mandatory.** With honest, coverage-fair errors, reconstruction and prediction error keep drifting *down* past the true dimensionality via overfit — so "lowest error wins" over-dimensions. A per-dimension penalty places the winner at the **start of the diminishing-returns plateau** (MDL / Occam) — the true dimensionality. Without it, T4 does not hold. Its weight is **[D]** (expected to be tuned): too small and the population over-dimensions; too large and it collapses toward `dim = 1`.
 
 ---
 

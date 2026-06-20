@@ -50,6 +50,13 @@ In addition to the default (`true_dim = 3`, `obs_dim = 10`), the harness **MUST*
 - Total observation throughput per run reaching the **millions** (see Section 3.3).
 These scaled runs use the same world definition; only the dimensions and run length change.
 
+### 1.4 The dimensional signal is shallow (how to read T4)
+
+At the default configuration the world has a **real but shallow** dimensional elbow at `true_dim`. A dimension scan (train fixed-`dim` frames and measure honest, observation-space reconstruction and prediction error) shows error dropping steeply up to `true_dim` and then flattening — but *not* sharply: a flexible higher-`dim` frame keeps nibbling the error down via overfit, and a low-`dim` frame that maps only the easy observations looks deceptively good on that subset. Two consequences the harness and the reader **MUST** respect:
+
+- **Score honestly and fairly.** `best_dim` is meaningful only when prediction is scored in observation space and the survival EMAs are coverage-fair (Document 1, Sections 5.2 and 5.4). Pose-space prediction or mapped-subset-only scoring removes the elbow and the test becomes noise.
+- **Judge within-one, across horizons** (T4). Exact recovery of `true_dim` on every seed is not expected from this world; the shallow elbow is a property of the *validation world*, not a defect of the agent. Sharpening it (e.g. lowering `sensor_noise_std`, or adding an explicit bottleneck) is an optional future change to this document, not a fix the agent owes.
+
 ---
 
 ## 2. The effort-only ablation world and agent
@@ -117,9 +124,11 @@ The reference behavior these criteria encode is the validated behavior of the ar
 
 ### T4 — Structure grows to the right dimensionality (the load-bearing test)
 **Claim:** starting from zero frames, spawn-and-select grows the population so that its best frame's dimensionality matches the true latent dimensionality.
-**Measure:** per seed, `best_dim`; compare to `true_dim`. Report the full per-seed list of `best_dim` (the spread), the count of exact matches (`best_dim == true_dim`), and the count within one (`|best_dim − true_dim| ≤ 1`).
-**Pass:** `|best_dim − true_dim| ≤ 1` holds in a majority of seeds.
-**Mandatory reading rule:** the test is judged on the **spread across seeds**, not the mean. A mean near `true_dim` produced by a wide, uncentered spread (e.g. half the seeds far below and one far above) is a **FAIL of the underlying claim** even if the arithmetic mean lands near `true_dim`. The harness **MUST** surface the per-seed list so this is visible and **MUST NOT** report only the mean.
+**Measure:** per seed, `best_dim`; compare to `true_dim`. Report the full per-seed list of `best_dim` (the spread), the count of exact matches (`best_dim == true_dim`), and the count within one (`|best_dim − true_dim| ≤ 1`) — **at each of several horizon checkpoints**, not only at the end of the run (see the horizon rule below).
+**Pass:** `|best_dim − true_dim| ≤ 1` holds in a majority of seeds **at every horizon checkpoint**.
+**Mandatory reading rule (spread):** the test is judged on the **spread across seeds**, not the mean. A mean near `true_dim` produced by a wide, uncentered spread (e.g. half the seeds far below and one far above) is a **FAIL of the underlying claim** even if the arithmetic mean lands near `true_dim`. The harness **MUST** surface the per-seed list so this is visible and **MUST NOT** report only the mean.
+**Mandatory reading rule (horizon):** `best_dim` is a *trajectory*, not a fixed point. The harness **MUST** record `best_dim` at multiple offline-cycle checkpoints (default: at 18, 30, and 50 cycles) and require the within-one-majority criterion to hold at **every** checkpoint. A run that satisfies the criterion at one horizon but drifts away from it at a later horizon is a **FAIL**: the early agreement was a transient, not a discovered structure. (This rule exists because the exploratory prototype passed at 18 cycles and failed at 30 — see the project handoff. Reading `best_dim` at a single end-of-run snapshot is prohibited.)
+**Note (exact vs within-one):** `best_dim == true_dim` exactly is **not** required, and is not expected on every seed. The synthetic world's dimensional elbow is shallow (Section 1.4): honest error keeps decreasing slowly past `true_dim` via overfit, so individual seeds may sit one off. Within-one across horizons is the bar.
 
 ### T5 — Decay is default; population stays bounded
 **Claim:** frames that do not earn their keep are removed, and the population does not grow without bound.
@@ -146,7 +155,7 @@ The evaluation harness orchestrates runs and reports results. Requirements:
 
 - **Multi-seed by default.** The harness **MUST** run every seed in `seeds` (Document 1, Section 8.7) and aggregate per Section 3.4. A single-seed result **MUST NOT** be reported as if it validates a behavioral claim; single-seed runs are permitted only for debugging and **MUST** be labeled as such.
 - **Determinism check.** The harness **MUST** provide a mode that runs one seed twice and asserts byte-identical per-run summaries, verifying Document 1, Section 7.1.
-- **Per-test verdicts.** The harness **MUST** emit, for each of T1–T6, the measured aggregate, the pass criterion, and a PASS/FAIL. For T4 it **MUST** additionally emit the per-seed `best_dim` list and the exact/within-one counts. For T-SCALE it **MUST** emit per-`true_dim` `best_dim` spreads, throughput, and wall-clock, and label it investigatory.
+- **Per-test verdicts.** The harness **MUST** emit, for each of T1–T6, the measured aggregate, the pass criterion, and a PASS/FAIL. For T4 it **MUST** additionally emit the per-seed `best_dim` list and the exact/within-one counts **at each horizon checkpoint** (default 18/30/50 offline cycles), and the T4 verdict **MUST** require the within-one majority at every checkpoint (the horizon rule in Section 4, T4). For T-SCALE it **MUST** emit per-`true_dim` `best_dim` spreads, throughput, and wall-clock, and label it investigatory.
 - **Honest summaries only.** The harness **MUST NOT** smooth, cherry-pick, or report only favorable seeds. If a test fails, it reports FAIL with the numbers that show why.
 - **Result output.** The harness writes a human-readable summary (and **MAY** write a machine-readable summary, e.g. JSON) of the aggregated results. This output is a summary artifact, not frame-state persistence, and is the only thing the system writes to disk.
 

@@ -62,16 +62,18 @@ Defaults (Doc 07): `exploit_prob = 0.75`, `explore_dim_max_offset = 4`.
 Run once per slow-loop cycle, after spawning is decided but applied as below (aging first, then eviction, then spawn — see Section 6 ordering).
 
 ### 5.1 Survival score
-A frame's survival score is `Scorer.combine(recon_err_ema, pred_err_ema, effort_ema)` (Doc 03 §6). Lower is better.
+A frame's survival score is `Scorer.combine(recon_err_ema, pred_err_ema, effort_ema, dim)` (Doc 03 §6). Lower is better. The EMAs are **coverage-fair** (updated over every event the frame is exposed to, not only the ones it maps — Doc 03 §4) and prediction error is measured in **observation** space (Doc 03 §3.1); the score includes the **parsimony** term `w_complexity·dim` so selection lands on the true dimensionality rather than over-dimensioning. These three properties together are what make spawn-and-select grow to the right `dim` (Doc 02 validation T4).
 
 ### 5.2 Young-frame protection
 A frame with `age_cycles < min_age_cycles` (Doc 07) is **protected**: it is exempt from all eviction this cycle. This guarantees a freshly spawned candidate (including a new-dimensionality one) gets at least `min_age_cycles` cycles of exposure before it can be removed.
 
 ### 5.3 Population-scaled threshold
 ```
-threshold = survive_threshold_base · (1 + survive_threshold_pop_coeff · max(0, population_size − survive_threshold_pop_baseline))
+threshold = survive_threshold_base / (1 + survive_threshold_pop_coeff · max(0, population_size − survive_threshold_pop_baseline))
 ```
-Defaults in Doc 07. The threshold rises as the population grows, so eviction pressure increases with crowding.
+Defaults in Doc 07. The threshold **falls** as the population grows: since a frame is evicted when its survival score *exceeds* the threshold (lower score = better), a falling threshold **tightens** the tolerated-error bar under crowding, so eviction pressure rises with the population. This is what lets soft eviction pace the one-spawn-per-cycle and makes the population self-limit rather than only being held by the hard cap.
+
+**MUST:** the scaling divides (crowding tightens the bar). A threshold that *rises* with population — `base · (1 + coeff·…)` — makes eviction *vanish* as the population grows (everything falls under the rising bar), so the population grows at the spawn rate until it slams into the hard cap. That direction fails T5's "self-limits, not merely capped" criterion.
 
 ### 5.4 Soft eviction
 Remove **every** unprotected frame whose survival score exceeds `threshold`, worst first, but never reduce the population below `min_frames`.

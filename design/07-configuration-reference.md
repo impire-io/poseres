@@ -37,9 +37,10 @@ Status: **[V]** validated, **[D]** design, **[O]** open (see Doc 00 legend).
 | Parameter | Type | Default | Range / notes | Status |
 |---|---|---|---|---|
 | `scoring_mode` | enum | `predictive` | `predictive` or `effort_only` (diagnostic); applies to all frames | [V] |
-| `w_explain` | float | 0.5 | ≥ 0 | [V] |
-| `w_predict` | float | 0.5 | ≥ 0 | [V] |
+| `w_explain` | float | 0.5 | ≥ 0; on coverage-fair `recon_err_ema` (Doc 03 §4) | [V] |
+| `w_predict` | float | 0.5 | ≥ 0; on coverage-fair, **observation-space** `pred_err_ema` (Doc 03 §3.1) | [V] |
 | `w_effort` | float | 0.0 | ≥ 0; validated default is 0 | [V] |
+| `w_complexity` | float | 0.04 | ≥ 0; parsimony — penalty per latent `dim` (MDL/Occam); selects the true dimensionality; **expected to be tuned** | [D] |
 
 ---
 

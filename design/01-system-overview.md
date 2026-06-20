@@ -160,7 +160,7 @@ The system **MUST** be stoppable only at a consistent point (between processed e
 | **Global pose** | The set of local poses from all frames that mapped an observation; the system's interpretation. |
 | **Transition** | A frame's learned map from (pose, action) to predicted next pose. |
 | **Reconstruction error** | How poorly a frame reconstructs an observation from its pose (the *explanatory* measurement). |
-| **Prediction error** | How poorly a frame's transition predicts the next pose (the *predictive* measurement). |
+| **Prediction error** | How poorly a frame predicts the next **observation** — its predicted next pose, decoded, versus the real next observation (the *predictive* measurement, scored in observation space; Doc 03 §3.1). |
 | **Effort** | The magnitude of the displacement a transition predicts (the *regularizing* measurement). |
 | **Survival score** | The combined quantity used to keep or evict a frame; lower is better. |
 | **Event** | A unit processed against the state: exteroceptive (an observation arrived) or interoceptive (an internal threshold crossed). |

@@ -166,11 +166,13 @@ pred_pose  = T2[a] · th + tb2[a]           # T2: [n_actions, D, H], tb2: [n_act
 
 ```
 fit_quality(obs)      = ||recon - obs|| / (||obs|| + 1e-6)            # lower = better fit
-prediction_error      = ||pred_pose - encode(next_obs)|| / (||encode(next_obs)|| + 1e-6)
+prediction_error      = ||decode(pred_pose) - next_obs|| / (||next_obs|| + 1e-6)   # OBSERVATION space
 effort                = ||pred_pose - pose||                          # magnitude of predicted displacement
 ```
 
-`encode(next_obs)` is the encoder applied to the event's `observation`; `pose` and `pred_pose` are computed from the event's `previous_observation`.
+`decode` is the decoder (Section 5.1); `next_obs` is the event's `observation`; `pose` and `pred_pose` are computed from the event's `previous_observation`.
+
+**Requirement:** `prediction_error` is measured in **observation** space — decode the predicted pose to an observation and compare it to the real next observation — **not** in the frame's own pose space (`||pred_pose − encode(next_obs)||`). A dimensionally-collapsed frame makes its own pose trivially predictable while predicting the world no better than baseline; the pose-space measure rewards that collapse and defeats T4, the observation-space measure does not. Transition *learning* (Section 5.6) still targets the next pose; only this survival *measurement* is in observation space.
 
 ### 5.3 Initialization
 
@@ -184,19 +186,12 @@ When a frame is born with a given `dim`:
 
 Given `event = (prev_obs, action, obs)`:
 
-1. Compute `fit = fit_quality(obs)`.
-2. **Gate.** If `fit >= fit_gate` (config), the frame **drops** the event: return `FrameResult(mapped=false, local_pose=null, recon_error=null, pred_error=null, effort=null)`. The frame's state is unchanged on a drop.
-3. **Map.** Otherwise the frame maps the event:
-   a. Compute `pose = encode(obs)`.
-   b. **Learn placement** (Section 5.5).
-   c. Update `recon_err_ema = ema_decay · recon_err_ema + (1 - ema_decay) · fit`.
-   d. If `prev_obs` is not null and `action` is not null:
-      - Compute `prediction_error` and `effort` (Section 5.2), using the frame's *current* weights.
-      - **Learn transition** (Section 5.6).
-      - Update `pred_err_ema` and `effort_ema` with the same EMA rule.
-   e. Return `FrameResult(mapped=true, local_pose=pose, recon_error=fit, pred_error=prediction_error_or_null, effort=effort_or_null)`.
+1. **Measure (every event).** Compute `fit = fit_quality(obs)`, and — if `prev_obs` and `action` are non-null — `prediction_error` and `effort` (Section 5.2) with the frame's *current* weights.
+2. **Update survival EMAs (coverage-fair, every event).** Update `recon_err_ema = ema_decay · recon_err_ema + (1 - ema_decay) · fit`, and (when `prev_obs`/`action` are present) `pred_err_ema` and `effort_ema` with the same rule. These EMAs are updated whether or not the frame maps: a frame is scored on what it is *exposed to*, not only on what it elects to map.
+3. **Gate (mapping + learning).** If `fit < fit_gate` (config) the frame **maps**: compute `pose = encode(obs)`; **learn placement** (Section 5.5); if `prev_obs`/`action` are present, **learn transition** (Section 5.6); the frame contributes `local_pose` to the global pose. Otherwise the frame does **not** map: no learning, no global-pose contribution (the EMAs in step 2 were still updated).
+4. Return `FrameResult(mapped, local_pose=pose if mapped else null, recon_error=fit if mapped else null, pred_error=prediction_error_or_null if mapped else null, effort=effort_or_null if mapped else null)`. The per-event result is the telemetry view (measurements for mapped events, feeding T2); the coverage-fair EMAs in step 2 are the internal inputs to the Scorer.
 
-**Requirement:** the gate decision in step 2 uses reconstruction error only. Map/drop is a function of `fit_quality` and `fit_gate`, nothing else.
+**Requirement:** the gate decision uses reconstruction error only, and **learning happens only on mapped events** (sparsity by pull, Document 2 T1). But **survival scoring is coverage-fair** (EMAs updated every event): scoring only the cherry-picked mapped subset lets a low-dimensional frame explain little, very selectively, and still score well, which defeats dimensionality selection (T4).
 
 ### 5.5 Learning placement
 
@@ -243,16 +238,18 @@ Engine holds:
 
 ```
 Scorer:
-  combine(recon_err_ema, pred_err_ema, effort_ema) -> survival_score   # lower = better
+  combine(recon_err_ema, pred_err_ema, effort_ema, dim) -> survival_score   # lower = better
 ```
 
-**Default implementation:** weighted sum.
+**Default implementation:** weighted sum with a parsimony term.
 ```
-survival_score = w_explain · recon_err_ema + w_predict · pred_err_ema + w_effort · effort_ema
+survival_score = w_explain · recon_err_ema + w_predict · pred_err_ema + w_effort · effort_ema + w_complexity · dim
 ```
-Default weights: `w_explain = 0.5`, `w_predict = 0.5`, `w_effort = 0.0`.
+Default weights: `w_explain = 0.5`, `w_predict = 0.5`, `w_effort = 0.0`, `w_complexity = 0.04`.
 
 **Requirement:** the Scorer is the single place survival scoring is defined. Swapping the Scorer implementation **MUST** change selection behavior without any change to frames, bus, or engine. The default weights above are the configuration validated by the simulation; `w_effort` defaults to 0 because the validated configuration used explanatory + predictive terms only. The effort term is wired and available but inactive by default.
+
+**The parsimony term (`w_complexity · dim`) is required for T4.** With honest, coverage-fair errors, reconstruction and prediction error keep drifting down past the true dimensionality via overfit, so "lowest error wins" over-dimensions. The per-dimension penalty puts the winner at the start of the diminishing-returns plateau (MDL / Occam) — the true dimensionality. Its weight is expected to be tuned: too small over-dimensions, too large collapses toward `dim = 1`.
 
 ### 6.3 Online episode — `run_online_episode(steps)`
 
@@ -305,11 +302,13 @@ for f in frames:
         f.is_candidate = false
 
 # 2. Eviction (soft threshold + hard cap), protecting young frames.
-threshold = survive_threshold_base · (1 + survive_threshold_pop_coeff · max(0, count(frames) - survive_threshold_pop_baseline))
+# Threshold DIVIDES by the population factor: crowding tightens the tolerated-error
+# bar, so eviction pressure rises with the population and paces the spawn rate.
+threshold = survive_threshold_base / (1 + survive_threshold_pop_coeff · max(0, count(frames) - survive_threshold_pop_baseline))
 
 evictable = [ f for f in frames
-              if f.age_cycles >= min_age_cycles          # young/candidate frames are protected
-              and scorer.combine(f.emas) > threshold ]    # scored worse than the (population-scaled) threshold
+              if f.age_cycles >= min_age_cycles            # young/candidate frames are protected
+              and scorer.combine(f.emas, f.dim) > threshold ]   # scored worse than the (population-scaled) threshold
 
 # Soft eviction: remove all evictable frames, but never drop below min_frames.
 sort evictable by survival_score descending (worst first)
@@ -333,7 +332,7 @@ repeat `spawn_per_cycle` times:
 
 **Requirements:**
 - Young-frame protection (`age_cycles < min_age_cycles`) **MUST** exempt a frame from both soft eviction and the hard cap, so a freshly spawned candidate of a new dimensionality always gets at least `min_age_cycles` offline cycles (i.e. several online episodes each) of exposure before it can be removed.
-- The hard cap is the bound on memory and compute; the soft threshold is the routine pressure. Together they **MUST** keep the population bounded (Document 2, T5).
+- The hard cap is the bound on memory and compute; the soft threshold is the routine pressure. Together they **MUST** keep the population bounded (Document 2, T5). The population-scaled threshold (5.3 / above) **MUST** divide by the population factor so eviction *paces* the spawn rate and the population **self-limits** below the cap — not merely grow to the cap and stop. A threshold that rises with population makes soft eviction vanish and fails T5's "self-limits, not merely capped" criterion.
 
 ### 6.5 Proposal policy
 
@@ -433,9 +432,10 @@ All parameters, with types, defaults, and valid ranges. An implementation **MUST
 | Parameter | Type | Default | Range / notes |
 |---|---|---|---|
 | `scoring_mode` | enum | `predictive` | `predictive` or `effort_only` (ablation) |
-| `w_explain` | float | 0.5 | ≥ 0 |
-| `w_predict` | float | 0.5 | ≥ 0 |
+| `w_explain` | float | 0.5 | ≥ 0; on coverage-fair `recon_err_ema` |
+| `w_predict` | float | 0.5 | ≥ 0; on coverage-fair, observation-space `pred_err_ema` |
 | `w_effort` | float | 0.0 | ≥ 0 (validated default is 0) |
+| `w_complexity` | float | 0.04 | ≥ 0; parsimony penalty per latent `dim` (MDL/Occam); expected to be tuned |
 
 ### 8.5 Proposal policy
 | Parameter | Type | Default | Range / notes |
@@ -447,7 +447,7 @@ All parameters, with types, defaults, and valid ranges. An implementation **MUST
 | Parameter | Type | Default | Range / notes |
 |---|---|---|---|
 | `survive_threshold_base` | float | 0.8 | > 0 |
-| `survive_threshold_pop_coeff` | float | 0.04 | ≥ 0 |
+| `survive_threshold_pop_coeff` | float | 0.04 | ≥ 0; threshold **divides** by `(1 + coeff·…)` so crowding tightens the bar (§6.4) |
 | `survive_threshold_pop_baseline` | int | 4 | ≥ 0 |
 | `spawn_per_cycle` | int | 1 | ≥ 0 |
 | `min_age_cycles` | int | 2 | ≥ 0. Young-frame protection. |
