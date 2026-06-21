@@ -3,6 +3,29 @@
 Updated 2026-06-20, after running the STEP-0 gate, redesigning the scoring, and
 propagating the fix into the spec. Read this first, then work top-down.
 
+## STATUS — 2026-06-21: STEPS 2–4 BUILT (feature `001-validation-harness`)
+
+Adopted GitHub Spec Kit and folded **STEPS 2, 3, and 4 into one delivered feature**
+(`specs/001-validation-harness/`). The harness, the batched in-memory PRA-01 core,
+and the batched frame evaluation are all implemented under `src/pra/` with tests
+under `tests/`. Quality gate is green: `ruff format --check`, `ruff check`, and
+`pytest` (55 tests, none skipped).
+
+- **Reference suite passes (SC-005):** at the default config T1–T6 all PASS — T4
+  holds the within-one majority at every checkpoint (8/8, 8/8, 6/8), T5 self-limits.
+  The core reproduces the v4 oracle's per-checkpoint readings near bit-for-bit at
+  ~40× the speed; full default suite runs in ~80s.
+- **Determinism (SC-007):** a seed re-runs byte-identical (`pra-validate determinism`).
+- **T-SCALE (SC-006):** runnable + measured at `true_dim ∈ {20,35,50}`; the batched
+  core sustains ~60k observation×frame evaluations/s (>1.1M per dimensionality in a
+  ~20s run). It is **investigatory** — high-dim `best_dim` does **not** converge to
+  the true dim with the default proposal policy (`best_dim≈1`), the expected open
+  research finding (the high-dim proposal is the `[O]` interface-only seam).
+
+Remaining (research, not build): sharpen the world's dimensional elbow and/or a real
+high-dim proposal policy so T-SCALE converges at large `true_dim` (see Open question
+below). Everything in "Out of scope for first build" remains out of scope.
+
 ## Where things actually stand
 
 - **Design spec** (`design/01..07`) — the real system to build. Now reflects the
