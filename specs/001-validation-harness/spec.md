@@ -134,7 +134,8 @@ A researcher runs the investigatory scale test at large true dimensionality and 
 ## Assumptions
 
 - The system-under-test conforms to the updated PRA design (observation-space prediction, coverage-fair survival scoring, a parsimony term, and the corrected population-scaled decay). The harness validates that system; it does not redefine the scoring.
-- The default configuration is `true_dim = 3`, `obs_dim = 10`, eight seeds, warmup per the system specification, and three horizon checkpoints (the validated reference uses 18 / 30 / 50 consolidation cycles).
+- The default configuration is `true_dim = 3`, `obs_dim = 10`, eight seeds, warmup per the system specification, and three horizon checkpoints at 18 / 30 / 50 consolidation cycles (the validated reference). Each suite seed runs for `max(n_cycles, max(checkpoints)) = 50` offline cycles so every checkpoint is reached.
+- The exact numeric pass criteria for T1–T6 are fixed in PRA-02 §4 (e.g. T1 `mean_map_fraction < 0.99`; T2 late < early predictive error in a majority of seeds; T6 post-warmup `loss_fraction < 0.15`). This spec states the claims and judging rules; PRA-02 supplies the thresholds the verdicts cite (SC-004).
 - The world is the specified sensorimotor environment (nonlinear emission, hidden latent state never exposed to the system); the true latent dimensionality is known only to the harness, for scoring T4.
 - The harness runs in-memory on a single machine; distributed execution, external brokers, durable model-state persistence, and a vector index are out of scope for this feature (seams exist for them).
 - "Honest summary" is the governing principle: where a tension arises between a tidy report and a faithful one, the faithful one wins.

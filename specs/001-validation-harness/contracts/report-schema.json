@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pra.local/contracts/report-schema.json",
+  "title": "PRA Validation Verdict Report",
+  "description": "Machine-readable summary of an acceptance-suite run (FR-007). The only model output written to disk alongside the human-readable text. Honest-summary rules (FR-003, FR-008) are encoded structurally: T4 carries the full per-seed best_dim spread at every checkpoint, and no test may be represented by a mean alone.",
+  "type": "object",
+  "required": ["schema_version", "mode", "run_metadata", "tests"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "type": "string", "const": "1.0" },
+    "mode": { "enum": ["suite", "determinism", "scale"] },
+    "for_debugging_only": {
+      "type": "boolean",
+      "description": "True when the run is single-seed; such a run MUST NOT be presented as validating a behavioral claim (FR-012)."
+    },
+    "run_metadata": {
+      "type": "object",
+      "required": ["seeds", "true_dim", "obs_dim", "checkpoints", "wall_clock_seconds"],
+      "properties": {
+        "seeds": { "type": "array", "items": { "type": "integer" }, "minItems": 1 },
+        "true_dim": { "type": "integer", "minimum": 1 },
+        "obs_dim": { "type": "integer", "minimum": 1 },
+        "checkpoints": { "type": "array", "items": { "type": "integer", "minimum": 1 } },
+        "scoring_mode": { "enum": ["predictive", "effort_only"] },
+        "wall_clock_seconds": { "type": "number", "minimum": 0 },
+        "failed_seeds": {
+          "type": "array",
+          "description": "Seeds that errored mid-run (Edge Cases). Their presence means the aggregate is NOT a complete result.",
+          "items": { "type": "integer" }
+        }
+      }
+    },
+    "determinism_check": {
+      "type": "object",
+      "description": "Present for mode=determinism (FR-006, SC-003).",
+      "required": ["seed", "verdict"],
+      "properties": {
+        "seed": { "type": "integer" },
+        "verdict": { "enum": ["PASS", "FAIL"] },
+        "byte_diff_count": { "type": "integer", "minimum": 0 },
+        "first_difference": { "type": ["string", "null"] }
+      }
+    },
+    "tests": {
+      "type": "array",
+      "description": "One entry per acceptance test. T1-T6 carry PASS/FAIL; T-SCALE is INVESTIGATORY.",
+      "items": {
+        "type": "object",
+        "required": ["id", "claim", "criterion", "verdict", "measured"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "enum": ["T1", "T2", "T3", "T4", "T5", "T6", "T-SCALE"] },
+          "claim": { "type": "string" },
+          "criterion": { "type": "string", "description": "Exact pass criterion the verdict was judged against (SC-004)." },
+          "verdict": { "enum": ["PASS", "FAIL", "INVESTIGATORY", "NOT_AVAILABLE"] },
+          "measured": {
+            "type": "object",
+            "description": "The numbers that justify the verdict. For aggregate fields, mean+std. Never a mean where a spread is required.",
+            "properties": {
+              "mean": { "type": ["number", "null"] },
+              "std": { "type": ["number", "null"] },
+              "per_seed": { "type": "array", "items": { "type": ["number", "null"] } },
+              "note": { "type": "string" }
+            }
+          },
+          "horizon_readings": {
+            "type": "array",
+            "description": "REQUIRED for T4 (FR-003/FR-004, SC-002): the full per-seed best_dim spread at each checkpoint. T4 PASSes only if within_one_count > seeds/2 at EVERY checkpoint.",
+            "items": {
+              "type": "object",
+              "required": ["checkpoint", "best_dim_per_seed", "within_one_count", "exact_count", "n_seeds"],
+              "properties": {
+                "checkpoint": { "type": "integer", "minimum": 1 },
+                "best_dim_per_seed": { "type": "array", "items": { "type": "integer" } },
+                "within_one_count": { "type": "integer", "minimum": 0 },
+                "exact_count": { "type": "integer", "minimum": 0 },
+                "n_seeds": { "type": "integer", "minimum": 1 }
+              }
+            }
+          },
+          "t5_detail": {
+            "type": "object",
+            "description": "REQUIRED for T5 (FR-005): self-limiting evidence, not just final count.",
+            "properties": {
+              "final_population_mean": { "type": "number" },
+              "final_population_std": { "type": "number" },
+              "max_frames": { "type": "integer" },
+              "still_growing_per_seed": { "type": "array", "items": { "type": "boolean" } }
+            }
+          },
+          "scale_detail": {
+            "type": "array",
+            "description": "REQUIRED for T-SCALE (FR-009, SC-006): per true_dim spread + throughput + wall-clock.",
+            "items": {
+              "type": "object",
+              "required": ["true_dim", "best_dim_per_seed", "throughput", "wall_clock_seconds"],
+              "properties": {
+                "true_dim": { "type": "integer" },
+                "best_dim_per_seed": { "type": "array", "items": { "type": "integer" } },
+                "observation_steps": { "type": "integer" },
+                "throughput": { "type": "number" },
+                "wall_clock_seconds": { "type": "number" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
