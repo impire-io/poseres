@@ -1,0 +1,21 @@
+# PRA — Pose Resolution Architecture
+
+An in-memory, batched, deterministic core (PRA-01) and the validation harness
+(PRA-02) that runs the acceptance suite **T1–T6** plus the investigatory
+**T-SCALE**, emitting an honest, reproducible PASS/FAIL verdict per test.
+
+See `specs/001-validation-harness/` for the spec, plan, and contracts, and
+`design/` for the architecture documents. The behavioral oracle is
+`design/validate/pra_sim_v4.py`.
+
+## Quickstart
+
+```bash
+./.venv/bin/python -m pip install -e ".[dev]"   # numpy + pytest + ruff
+
+./.venv/bin/pra-validate suite                  # 8 seeds, true_dim=3, checkpoints 18/30/50
+./.venv/bin/pra-validate determinism --seed 1   # byte-identical re-run check
+./.venv/bin/pra-validate scale --true-dims 20,35,50
+
+./.venv/bin/ruff format --check . && ./.venv/bin/ruff check . && ./.venv/bin/pytest -q
+```
