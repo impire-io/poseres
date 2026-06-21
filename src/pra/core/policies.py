@@ -22,6 +22,7 @@ __all__ = [
     "ProposalPolicy",
     "DecayPolicy",
     "BiasedProposalPolicy",
+    "HighDimProposalPolicy",
     "PopulationScaledDecayPolicy",
 ]
 
@@ -63,6 +64,30 @@ class BiasedProposalPolicy:
         if rng.random() < self.exploit_prob:
             return max(1, best_dim + int(rng.choice([-1, 1])))
         return int(rng.integers(1, best_dim + self.explore_offset))
+
+
+class HighDimProposalPolicy:
+    """A high-dimensionality proposal variant for the T-SCALE study (PRA-01 §6.5).
+
+    The default biased policy steps ±1 from the best dim, which climbs only slowly
+    toward a large true dimensionality. This variant biases **upward** — exploit
+    nudges up by 0..2, explore samples a wider band above the best dim — so the
+    population can reach high dims within the scale run. Substitutable via the
+    ProposalPolicy seam with no change to any other component. Draw order matches
+    the default (random() first, then the dim draw) so determinism is preserved.
+    """
+
+    def __init__(self, config: Config, *, explore_lift: int = 4):
+        self.exploit_prob = float(config.exploit_prob)
+        self.explore_offset = int(config.explore_dim_max_offset)
+        self.explore_lift = int(explore_lift)
+
+    def propose_dimension(
+        self, best_dim: int, population_dims: Sequence[int], rng: np.random.Generator
+    ) -> int:
+        if rng.random() < self.exploit_prob:
+            return max(1, best_dim + int(rng.choice([0, 1, 2])))
+        return int(rng.integers(best_dim, best_dim + self.explore_offset + self.explore_lift + 1))
 
 
 class PopulationScaledDecayPolicy:

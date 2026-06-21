@@ -18,11 +18,13 @@ from pra.config import Config
 from pra.harness.acceptance import FAIL, evaluate_suite
 from pra.harness.report import (
     build_determinism_report,
+    build_scale_report,
     build_suite_report,
     render_json,
     render_text,
 )
 from pra.harness.runner import check_determinism, run_suite
+from pra.harness.scale import run_scale
 
 __all__ = ["main"]
 
@@ -84,6 +86,20 @@ def _cmd_determinism(args: argparse.Namespace) -> int:
     return 0 if result.verdict == "PASS" else 1
 
 
+def _cmd_scale(args: argparse.Namespace) -> int:
+    base = _build_config(args)
+    true_dims = list(_int_list(args.true_dims)) if args.true_dims else [20, 35, 50]
+    seeds = list(_int_list(args.seeds)) if args.seeds else list(base.seeds)
+    t0 = perf_counter()
+    readings = run_scale(base, true_dims, seeds)
+    report = build_scale_report(base, seeds, readings, perf_counter() - t0)
+    sys.stdout.write(render_text(report) + "\n")
+    if args.json:
+        _write_json(args.json, report)
+    # T-SCALE is investigatory: a poor dimensionality result is never a build failure.
+    return 0
+
+
 def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="pra-validate", description="PRA validation harness")
     sub = parser.add_subparsers(dest="command")
@@ -104,6 +120,13 @@ def _build_parser() -> argparse.ArgumentParser:
     p_det.add_argument("--config")
     p_det.add_argument("--json")
     p_det.set_defaults(func=_cmd_determinism)
+
+    p_scale = sub.add_parser("scale", help="investigatory T-SCALE run at large true_dim")
+    p_scale.add_argument("--true-dims", dest="true_dims")
+    p_scale.add_argument("--seeds")
+    p_scale.add_argument("--config")
+    p_scale.add_argument("--json")
+    p_scale.set_defaults(func=_cmd_scale)
 
     return parser
 
