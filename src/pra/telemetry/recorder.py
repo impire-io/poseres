@@ -19,7 +19,6 @@ __all__ = [
     "CheckpointReading",
     "EARLY_LATE_WINDOW",
     "MIN_PRED_SAMPLES",
-    "STILL_GROWING_SLOPE",
     "late_slope",
     "is_still_growing",
 ]
@@ -28,9 +27,6 @@ __all__ = [
 # fewer than MIN_PRED_SAMPLES early samples => "not available" (R8).
 EARLY_LATE_WINDOW = 200
 MIN_PRED_SAMPLES = 50
-# A seed whose population's late slope exceeds this (frames/cycle) is "still growing"
-# rather than self-limiting (R6; mirrors the v4 reference "paces spawn" boundary).
-STILL_GROWING_SLOPE = 0.5
 
 
 @dataclass
@@ -54,13 +50,19 @@ class CheckpointReading:
     population_size: int
 
 
-def late_slope(populations: list[int]) -> float:
-    """Least-squares slope (frames/cycle) over the final third of the cycles."""
+def _final_third(populations: list[int]) -> list[int]:
     n = len(populations)
     if n < 2:
+        return list(populations)
+    return populations[-max(2, n // 3) :]
+
+
+def late_slope(populations: list[int]) -> float:
+    """Least-squares slope (frames/cycle) over the final third — a reported
+    diagnostic of how fast the population is still moving."""
+    seg = np.asarray(_final_third(populations), dtype=np.float64)
+    if seg.shape[0] < 2:
         return 0.0
-    k = max(2, n // 3)
-    seg = np.asarray(populations[-k:], dtype=np.float64)
     xs = np.arange(seg.shape[0], dtype=np.float64)
     xbar = xs.mean()
     denom = float(((xs - xbar) ** 2).sum())
@@ -70,7 +72,15 @@ def late_slope(populations: list[int]) -> float:
 
 
 def is_still_growing(populations: list[int]) -> bool:
-    return late_slope(populations) > STILL_GROWING_SLOPE
+    """A seed is "still growing" iff its population is **strictly increasing over
+    its final third** of offline cycles (data-model §4, R6) — eviction failing to
+    pace spawn. A self-limiting population plateaus or oscillates and is not
+    flagged; a population pinned at the cap is flat (caught instead by the
+    ``final_population < max_frames`` clause of T5)."""
+    seg = _final_third(populations)
+    if len(seg) < 2:
+        return False
+    return all(b > a for a, b in zip(seg, seg[1:], strict=False))
 
 
 def _canonical_float(x: float | None) -> float | None:
