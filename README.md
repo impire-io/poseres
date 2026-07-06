@@ -17,6 +17,7 @@ See `specs/001-validation-harness/` for the spec, plan, and contracts, and
 ./.venv/bin/pra-validate suite --json out/report.json
 ./.venv/bin/pra-validate determinism --seed 1   # byte-identical re-run check
 ./.venv/bin/pra-validate scale --true-dims 20,35,50
+./.venv/bin/pra-validate scan --true-dim 20 --hidden-sizes 12,32,64   # diagnostic dimension scan
 
 ./.venv/bin/ruff format --check . && ./.venv/bin/ruff check . && ./.venv/bin/pytest -q
 ```
@@ -47,7 +48,7 @@ src/pra/
   world/event_source.py# EventSource seam + SensorimotorWorld (nonlinear, hidden latent)
   core/                # contracts, bus, scorer, policies, the batched FrameGroup kernel, engine
   telemetry/recorder.py# deterministic per-seed summary
-  harness/             # acceptance (T1-T6/T-SCALE), runner, report, cli, scale
+  harness/             # acceptance (T1-T6/T-SCALE), runner, report, cli, scale, scan
 tests/                 # unit (incl. batched-vs-reference proof) / contract (5 seams) / integration
 ```
 

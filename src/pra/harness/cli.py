@@ -25,6 +25,7 @@ from pra.harness.report import (
 )
 from pra.harness.runner import check_determinism, run_suite
 from pra.harness.scale import run_scale
+from pra.harness.scan import render_scan_text, run_scan
 
 __all__ = ["main"]
 
@@ -100,6 +101,50 @@ def _cmd_scale(args: argparse.Namespace) -> int:
     return 0
 
 
+def _parse_dims(text: str) -> list[int]:
+    """Accept '1-30' (inclusive range) or a comma list '1,2,4,8'."""
+    if "-" in text and "," not in text:
+        lo, hi = text.split("-", 1)
+        return list(range(int(lo), int(hi) + 1))
+    return [int(x) for x in text.split(",") if x.strip()]
+
+
+def _cmd_scan(args: argparse.Namespace) -> int:
+    base = _build_config(args)
+    true_dim = args.true_dim if args.true_dim is not None else base.true_dim
+    dims = _parse_dims(args.dims) if args.dims else list(range(1, true_dim + 11))
+    hidden_sizes = list(_int_list(args.hidden_sizes)) if args.hidden_sizes else [12]
+    seeds = list(_int_list(args.seeds)) if args.seeds else [1, 2, 3]
+    points = run_scan(
+        base,
+        true_dim,
+        dims,
+        hidden_sizes,
+        seeds,
+        train_episodes=args.train_episodes,
+        eval_episodes=args.eval_episodes,
+    )
+    sys.stdout.write(render_scan_text(points, true_dim, seeds, args.train_episodes) + "\n")
+    if args.json:
+        out = Path(args.json)
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(
+            json.dumps(
+                {
+                    "mode": "scan",
+                    "true_dim": true_dim,
+                    "seeds": seeds,
+                    "train_episodes": args.train_episodes,
+                    "eval_episodes": args.eval_episodes,
+                    "points": [vars(p) for p in points],
+                },
+                indent=2,
+            )
+        )
+    # diagnostic: never a pass/fail.
+    return 0
+
+
 def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="pra-validate", description="PRA validation harness")
     sub = parser.add_subparsers(dest="command")
@@ -127,6 +172,19 @@ def _build_parser() -> argparse.ArgumentParser:
     p_scale.add_argument("--config")
     p_scale.add_argument("--json")
     p_scale.set_defaults(func=_cmd_scale)
+
+    p_scan = sub.add_parser(
+        "scan", help="diagnostic dimension scan: honest error per pose-dim, equal experience"
+    )
+    p_scan.add_argument("--true-dim", dest="true_dim", type=int)
+    p_scan.add_argument("--dims", help="'1-30' or '1,2,4,8' (default 1..true_dim+10)")
+    p_scan.add_argument("--hidden-sizes", dest="hidden_sizes", help="comma list (default 12)")
+    p_scan.add_argument("--seeds")
+    p_scan.add_argument("--train-episodes", dest="train_episodes", type=int, default=100)
+    p_scan.add_argument("--eval-episodes", dest="eval_episodes", type=int, default=10)
+    p_scan.add_argument("--config")
+    p_scan.add_argument("--json")
+    p_scan.set_defaults(func=_cmd_scan)
 
     return parser
 
