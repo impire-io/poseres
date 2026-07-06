@@ -137,31 +137,46 @@ def _t2(predictive, n) -> AcceptanceVerdict:
     )
 
 
-def _t3(predictive, ablation, n) -> AcceptanceVerdict:
+def _margins_vs(predictive, baseline_by_seed) -> tuple[list[float | None], int, int]:
     margins: list[float | None] = []
     n_better = 0
     comparable = 0
     for s in predictive:
-        ab = ablation.get(s.seed)
-        if ab is None or s.improvement is None or ab.improvement is None:
+        b = baseline_by_seed.get(s.seed)
+        if b is None or s.improvement is None or b.improvement is None:
             margins.append(None)
             continue
         comparable += 1
-        margin = s.improvement - ab.improvement
+        margin = s.improvement - b.improvement
         margins.append(margin)
         if margin > 0:
             n_better += 1
-    measured = _aggregate(margins)
-    measured.note = f"predictive beat effort-only in {n_better}/{n} seeds"
-    if comparable == 0:
+    return margins, n_better, comparable
+
+
+def _t3(predictive, ablation, identity, n) -> AcceptanceVerdict:
+    """Two clauses, both required (PRA-02 §2): predictive improvement must beat
+    the effort-only (zero-pull) ablation AND the identity (learned-persistence)
+    ablation in a strict majority of seeds. The identity clause is the strong
+    claim — "the system predicts better than assuming nothing changes" — and is
+    the reported margin, being the binding one."""
+    margins_e, n_effort, comp_e = _margins_vs(predictive, ablation)
+    margins_i, n_ident, comp_i = _margins_vs(predictive, identity)
+    measured = _aggregate(margins_i if comp_i else margins_e)
+    measured.note = (
+        f"predictive beat effort-only in {n_effort}/{n} seeds and "
+        f"identity (persistence) in {n_ident}/{n} seeds"
+    )
+    if comp_e == 0 and comp_i == 0:
         verdict = NOT_AVAILABLE
     else:
-        verdict = PASS if strict_majority(n_better, n) else FAIL
+        verdict = PASS if strict_majority(n_effort, n) and strict_majority(n_ident, n) else FAIL
     return AcceptanceVerdict(
         "T3",
-        "Ablation — effort-only training does not learn the world; the predictive "
-        "anchor is what drives the improvement.",
-        "predictive improvement > effort-only improvement in a majority of seeds",
+        "Ablation — neither effort-only nor learned-persistence training learns "
+        "the world; the predictive anchor is what drives the improvement.",
+        "predictive improvement > effort-only AND > identity(persistence) "
+        "improvement, each in a majority of seeds",
         verdict,
         measured,
     )
@@ -239,15 +254,16 @@ def _t6(predictive, n) -> AcceptanceVerdict:
 
 
 def evaluate_suite(suite_run) -> list[AcceptanceVerdict]:
-    """Evaluate T1-T6 from a completed SuiteRun (the predictive + ablation pairs)."""
+    """Evaluate T1-T6 from a completed SuiteRun (predictive + both ablations)."""
     predictive = suite_run.predictive
     ablation = suite_run.ablation
+    identity = getattr(suite_run, "identity", {})
     n = len(predictive)
     checkpoints = list(suite_run.config.horizon_checkpoints)
     return [
         _t1(predictive, n),
         _t2(predictive, n),
-        _t3(predictive, ablation, n),
+        _t3(predictive, ablation, identity, n),
         _t4(predictive, suite_run.true_dim, checkpoints, n),
         _t5(predictive, suite_run.config.max_frames, n),
         _t6(predictive, n),

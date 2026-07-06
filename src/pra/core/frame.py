@@ -217,18 +217,27 @@ class FrameGroup:
         prev_obs: np.ndarray,
         a: int,
         next_obs: np.ndarray,
-        effort_only: bool,
+        scoring_mode: str,
         elect: np.ndarray,
         lr: float,
         clip: float,
     ) -> None:
+        """Train the per-action transition toward the mode's target (PRA-01 §5.6):
+        ``predictive`` → the next pose (the real dynamics), ``effort_only`` → the
+        zero pose (the T3 zero-pull ablation), ``identity`` → the current pose
+        (the learned-persistence ablation: "predict that nothing changes")."""
         m = elect.astype(np.float64)
         m1 = m[:, None]
         m2 = m[:, None, None]
         p, _ = self.encode(prev_obs)
         nxt, _ = self.encode(next_obs)
         pred, h = self.predict_next(p, a)
-        target = np.zeros_like(nxt) if effort_only else nxt
+        if scoring_mode == "effort_only":
+            target = np.zeros_like(nxt)
+        elif scoring_mode == "identity":
+            target = p
+        else:
+            target = nxt
         e = pred - target
         gT2 = np.clip(np.einsum("fd,fh->fdh", e, h), -clip, clip)
         gh = np.einsum("fdh,fd->fh", self.T2[:, a], e) * (1.0 - h**2)
@@ -336,7 +345,7 @@ class FrameStore:
 
     # ---- the batched online step --------------------------------------------
     def online_step(
-        self, obs: np.ndarray, prev_obs: np.ndarray | None, prev_a: int | None, effort_only: bool
+        self, obs: np.ndarray, prev_obs: np.ndarray | None, prev_a: int | None, scoring_mode: str
     ) -> StepStats:
         mapped = 0
         alive = 0
@@ -353,7 +362,7 @@ class FrameStore:
                 g.learn_placement(obs, pose, h, recon, hd, elect, self._lr, self._clip)
                 if prev_obs is not None:
                     g.learn_transition(
-                        prev_obs, prev_a, obs, effort_only, elect, self._lr, self._clip
+                        prev_obs, prev_a, obs, scoring_mode, elect, self._lr, self._clip
                     )
             # coverage-fair recon EMA over every exposure, using the pre-learning fit
             g.recon_err_ema = decay * g.recon_err_ema + (1.0 - decay) * fit

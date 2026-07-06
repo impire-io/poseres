@@ -14,7 +14,7 @@ from typing import Literal
 
 __all__ = ["Config", "ScoringMode", "OBS_DIM_REF", "HIDDEN_REF", "TRUE_DIM_REF"]
 
-ScoringMode = Literal["predictive", "effort_only"]
+ScoringMode = Literal["predictive", "effort_only", "identity"]
 
 # The validated reference scale (PRA-02 §1 defaults). Every scale-dependent
 # constant below was validated AT this scale; the effective_* rules hold the
@@ -107,8 +107,8 @@ class Config:
         )
 
         require(
-            self.scoring_mode in ("predictive", "effort_only"),
-            "scoring_mode must be 'predictive' or 'effort_only'",
+            self.scoring_mode in ("predictive", "effort_only", "identity"),
+            "scoring_mode must be 'predictive', 'effort_only', or 'identity'",
         )
         for name in ("w_explain", "w_predict", "w_effort", "w_complexity"):
             require(getattr(self, name) >= 0, f"{name} must be >= 0")

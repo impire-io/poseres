@@ -24,7 +24,14 @@ def test_too_few_pred_samples_reports_not_available():
     verdict = _t2([summary], 1)
     assert verdict.verdict == NOT_AVAILABLE
     # rendered honestly as "not available", never a fabricated value.
-    suite_run = SuiteRun(cfg, cfg.true_dim, [1], [summary], {}, [], 0.1, {})
+    suite_run = SuiteRun(
+        config=cfg,
+        true_dim=cfg.true_dim,
+        seeds=[1],
+        predictive=[summary],
+        ablation={},
+        wall_clock_seconds=0.1,
+    )
     text = render_text(build_suite_report(suite_run, [verdict]))
     assert "not available" in text
 

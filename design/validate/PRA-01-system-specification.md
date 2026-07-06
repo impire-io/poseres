@@ -197,14 +197,15 @@ Given `event = (prev_obs, action, obs)`:
 
 Minimize squared reconstruction error `||recon - obs||²` by gradient descent through the decoder and then the encoder, with learning rate `learning_rate` and every gradient element clipped to `[-gradient_clip, +gradient_clip]` before the update. Both encoder and decoder weights are updated. (This is standard single-hidden-layer backpropagation; the clip is mandatory and is what prevents divergence.)
 
-### 5.6 Learning transition (two modes)
+### 5.6 Learning transition (three modes)
 
 The transition update minimizes a loss over the transition weights **only**. The encoder is treated as fixed during this update: poses are computed with the current encoder and **no gradient flows into the encoder from the transition loss**.
 
 - **Predictive mode (default).** Loss = `||pred_pose - encode(next_obs)||²`. This trains the transition to predict reality.
-- **Effort-only mode (ablation; see Document 2, T3).** Loss = `||pred_pose||²`. This trains the transition to predict the smallest move, ignoring reality.
+- **Effort-only mode (ablation; see Document 2, T3 weak clause).** Loss = `||pred_pose||²`. This trains the transition to predict the smallest move, ignoring reality.
+- **Identity mode (ablation; see Document 2, T3 strong clause).** Loss = `||pred_pose - pose||²`. This trains the transition to predict that the pose stays where it is — through the decoder, the learned "nothing changes" (persistence) predictor.
 
-The mode is set once per run by configuration (`scoring_mode ∈ {predictive, effort_only}`) and applies to all frames in that run. In **both** modes the returned `pred_error` is the *true* predictive error from 5.2 (the effort-only run still measures honestly; it just does not learn from that measurement).
+The mode is set once per run by configuration (`scoring_mode ∈ {predictive, effort_only, identity}`) and applies to all frames in that run. In **every** mode the returned `pred_error` is the *true* predictive error from 5.2 (the ablation runs still measure honestly; they just do not learn from that measurement).
 
 Gradient descent uses `learning_rate` and the same `[-gradient_clip, +gradient_clip]` clip.
 
@@ -431,7 +432,7 @@ All parameters, with types, defaults, and valid ranges. An implementation **MUST
 ### 8.4 Scorer
 | Parameter | Type | Default | Range / notes |
 |---|---|---|---|
-| `scoring_mode` | enum | `predictive` | `predictive` or `effort_only` (ablation) |
+| `scoring_mode` | enum | `predictive` | `predictive`, `effort_only`, or `identity` (ablations; §5.6) |
 | `w_explain` | float | 0.5 | ≥ 0; on coverage-fair `recon_err_ema` |
 | `w_predict` | float | 0.5 | ≥ 0; on coverage-fair, observation-space `pred_err_ema` |
 | `w_effort` | float | 0.0 | ≥ 0 (validated default is 0) |

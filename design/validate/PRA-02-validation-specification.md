@@ -67,12 +67,26 @@ At the default configuration the world has a **real but shallow** dimensional el
 
 ---
 
-## 2. The effort-only ablation world and agent
+## 2. The ablation worlds and agents (T3)
 
-Test T4-supporting ablation (T3) requires a second, independent run configured identically except `scoring_mode = effort_only` (Document 1, Section 5.6). Requirements:
-- The ablation run **MUST** use a **fresh world** built from a different but deterministic seed (e.g. `seed + 9999`) so the two runs are independent yet reproducible.
-- The ablation run **MUST** receive the **same total experience** as the predictive run it is compared against (same `warmup_episodes`, and `n_cycles × episodes_per_cycle` online episodes total).
-- In the ablation, transitions learn to minimize predicted-move magnitude (Document 1, Section 5.6, effort-only mode), but the recorded `pred_error` is the **true** predictive error. The ablation measures honestly; it simply does not learn from the measurement.
+Test T3 requires two additional, independent runs per seed, each configured
+identically to the predictive run except for `scoring_mode`:
+
+1. **Effort-only** (`scoring_mode = effort_only`, fresh world from `seed + 9999`):
+   transitions learn to minimize predicted-move magnitude — the weak claim
+   ("training on effort alone does not learn the world").
+2. **Identity / learned persistence** (`scoring_mode = identity`, fresh world from
+   `seed + 18888`): transitions learn to predict that the pose **stays where it
+   is** — through the decoder this is the learned "nothing changes" predictor.
+   This is the strong claim: in this world persistence is a deceptively good
+   predictor (the analytic identity baseline at the reference is 0.165 vs the
+   validated system's 0.157), so beating it is what demonstrates *genuine*
+   dynamics learning rather than reconstruction quality alone.
+
+Requirements for both ablation runs:
+- Each **MUST** use a **fresh world** built from a different but deterministic seed so the runs are independent yet reproducible.
+- Each **MUST** receive the **same total experience** as the predictive run it is compared against (same `warmup_episodes`, and `n_cycles × episodes_per_cycle` online episodes total).
+- In every ablation the recorded `pred_error` is the **true** predictive error. The ablation measures honestly; it simply does not learn from the measurement.
 
 ---
 
@@ -124,11 +138,11 @@ The reference behavior these criteria encode is the validated behavior of the ar
 **Measure:** per seed, compare `pred_error_late` to `pred_error_early`.
 **Pass:** `pred_error_late < pred_error_early` in a majority of seeds. The harness also reports the aggregate early and late means.
 
-### T3 — Effort-only fails to learn the world (ablation)
-**Claim:** scoring/learning on effort alone does not reduce prediction error; an external predictive anchor is required.
-**Measure:** define `improvement = pred_error_early − pred_error_late`. Compute it for the predictive run and for the effort-only run (Section 2), per seed.
-**Pass:** `improvement(predictive) > improvement(effort_only)` in a majority of seeds. The harness reports both improvements with mean and standard deviation.
-*(This is the strongest positive result the system produces. The predictive run improves substantially; the effort-only run does not.)*
+### T3 — Neither effort-only nor learned persistence learns the world (ablation)
+**Claim:** the improvement comes from genuinely predicting the world's dynamics — not from training on effort alone (weak clause), and not from reconstruction quality plus assuming nothing changes (strong clause).
+**Measure:** define `improvement = pred_error_early − pred_error_late`. Compute it for the predictive run and for each ablation run (Section 2), per seed.
+**Pass:** `improvement(predictive) > improvement(effort_only)` **AND** `improvement(predictive) > improvement(identity)`, each in a majority of seeds. The harness reports both margins; the identity margin is the binding (reported) one.
+*(Reference measurement, 2026-07-06: predictive beat effort-only 8/8 with margin 0.465 ± 0.070 and beat learned-persistence 6/8 with margins +0.03 to +0.18 — the persistence clause is the tight one, as intended.)*
 
 ### T4 — Structure grows to the right dimensionality (the load-bearing test)
 **Claim:** starting from zero frames, spawn-and-select grows the population so that its best frame's dimensionality matches the true latent dimensionality.

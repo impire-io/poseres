@@ -1,12 +1,15 @@
 """Multi-seed orchestration (FR-001, data-model §4, research R7).
 
 Runs every configured seed for ``effective_n_cycles`` and captures each
-``PerSeedRunSummary``. For T3 it also runs each seed's effort-only ablation — a
-*separate* run with a fresh world (``seed + 9999``), ``scoring_mode=effort_only``,
-and equal online experience — and keeps the predictive/ablation summary pair
-joined by seed. A seed that errors is recorded in ``failed_seeds`` and never
-silently dropped (FR-008). The determinism check runs one seed twice and
-byte-compares the canonical summaries (FR-006, SC-003).
+``PerSeedRunSummary``. For T3 it also runs each seed's two ablations — separate
+runs with fresh worlds and equal online experience: ``effort_only`` (transitions
+pulled to the zero pose, ``seed + 9999``) and ``identity`` (transitions pulled to
+the *current* pose — the learned persistence predictor, ``seed + 18888``) — and
+keeps the summaries joined by seed. T3 requires genuine prediction to beat BOTH:
+zero-pull is the weak claim, persistence is the strong one (PRA-02 §2). A seed
+that errors is recorded in ``failed_seeds`` and never silently dropped (FR-008).
+The determinism check runs one seed twice and byte-compares the canonical
+summaries (FR-006, SC-003).
 """
 
 from __future__ import annotations
@@ -21,6 +24,7 @@ from pra.telemetry.recorder import PerSeedRunSummary
 __all__ = ["SuiteRun", "DeterminismResult", "run_suite", "check_determinism"]
 
 ABLATION_SEED_OFFSET = 9999
+IDENTITY_SEED_OFFSET = 18888
 
 
 @dataclass
@@ -30,6 +34,7 @@ class SuiteRun:
     seeds: list[int]
     predictive: list[PerSeedRunSummary]
     ablation: dict[int, PerSeedRunSummary]
+    identity: dict[int, PerSeedRunSummary] = field(default_factory=dict)
     failed_seeds: list[int] = field(default_factory=list)
     wall_clock_seconds: float = 0.0
     per_seed_wall: dict[int, float] = field(default_factory=dict)
@@ -50,6 +55,7 @@ class DeterminismResult:
 def run_suite(config: Config, *, with_ablation: bool = True) -> SuiteRun:
     predictive: list[PerSeedRunSummary] = []
     ablation: dict[int, PerSeedRunSummary] = {}
+    identity: dict[int, PerSeedRunSummary] = {}
     failed: list[int] = []
     per_seed_wall: dict[int, float] = {}
     t0 = perf_counter()
@@ -58,10 +64,12 @@ def run_suite(config: Config, *, with_ablation: bool = True) -> SuiteRun:
             ts = perf_counter()
             summary = Engine(config, scoring_mode="predictive").run(seed, do_offline=True)
             if with_ablation:
-                ab = Engine(config, scoring_mode="effort_only").run(
+                ablation[seed] = Engine(config, scoring_mode="effort_only").run(
                     seed + ABLATION_SEED_OFFSET, do_offline=False
                 )
-                ablation[seed] = ab
+                identity[seed] = Engine(config, scoring_mode="identity").run(
+                    seed + IDENTITY_SEED_OFFSET, do_offline=False
+                )
             predictive.append(summary)
             per_seed_wall[seed] = perf_counter() - ts
         except Exception:  # noqa: BLE001 — a failed seed is reported, not fatal (FR-008)
@@ -72,6 +80,7 @@ def run_suite(config: Config, *, with_ablation: bool = True) -> SuiteRun:
         seeds=list(config.seeds),
         predictive=predictive,
         ablation=ablation,
+        identity=identity,
         failed_seeds=failed,
         wall_clock_seconds=perf_counter() - t0,
         per_seed_wall=per_seed_wall,

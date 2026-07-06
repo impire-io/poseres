@@ -74,7 +74,7 @@ def _run_one_seed(
                     fit, pose, h, recon, hd = g.fit_quality(obs)
                     g.learn_placement(obs, pose, h, recon, hd, all_elect, lr, clip)
                     if prev_obs is not None:
-                        g.learn_transition(prev_obs, prev_a, obs, False, all_elect, lr, clip)
+                        g.learn_transition(prev_obs, prev_a, obs, "predictive", all_elect, lr, clip)
                 else:
                     fit, *_ = g.fit_quality(obs)
                     recon_acc[d].append(float(fit[0]))

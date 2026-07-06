@@ -111,7 +111,7 @@ def test_batched_equals_per_frame_loop():
         elect = np.ones(group.size, dtype=bool)
         fit, pose, h, recon, hd = group.fit_quality(obs)
         group.learn_placement(obs, pose, h, recon, hd, elect, LR, CLIP)
-        group.learn_transition(prev_obs, a, obs, False, elect, LR, CLIP)
+        group.learn_transition(prev_obs, a, obs, "predictive", elect, LR, CLIP)
         honest = group.honest_pred_err(prev_obs, a, obs)
 
         # reference per frame
@@ -146,7 +146,7 @@ def test_effort_only_branch_matches_reference():
         elect = np.ones(group.size, dtype=bool)
         _, pose, h, recon, hd = group.fit_quality(obs)
         group.learn_placement(obs, pose, h, recon, hd, elect, LR, CLIP)
-        group.learn_transition(prev_obs, a, obs, True, elect, LR, CLIP)
+        group.learn_transition(prev_obs, a, obs, "effort_only", elect, LR, CLIP)
         for w in refs:
             ref_learn_placement(w, obs)
             ref_learn_transition(w, prev_obs, a, obs, True)

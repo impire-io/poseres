@@ -45,7 +45,7 @@ Almost anything PRA can poke and watch. The rules are simple:
 
 A hand learning the shape of an object fits. So does attention moving through a space of ideas, a system feeling out what a user likes, or something finding its way around a body of knowledge. Fast, responsive worlds are its home turf.
 
-Slow, murky worlds are not — at least not yet. Anywhere a move only pays off months later, or the ground keeps shifting underneath you, is exactly where PRA struggles today. It's a model-builder, not a manager: it learns how a world *works*, it doesn't run one for you.
+Slow, shifting worlds are the wrong *shape* for it. Anywhere a move only pays off months later, or the ground keeps moving under you, this kind of learning has nothing steady to grip. And PRA is a model-builder, not a manager: it learns how a world *works* — it doesn't run one for you.
 
 ---
 
@@ -65,16 +65,18 @@ That's rare, and it's the whole point: you can trust what PRA claims, because th
 
 **On simple worlds, it works.** PRA starts from nothing and reliably works out roughly how complex its world is, sharpens its predictions as it goes, and keeps its own size in check. Provably, repeatably.
 
-**On complex worlds, it doesn't — yet.** Turn the complexity up and PRA currently reaches for the *simplest* possible explanation instead of the real one. The machinery runs at full scale — millions of steps on one machine, no supercomputer — but the discovery breaks down. We know exactly where, because the harness measures it.
+**On complex worlds, not yet.** Give it a world with many moving parts and PRA currently grabs the *simplest* explanation instead of the real one. The machinery runs at full scale — millions of steps on one machine, no supercomputer — but the discovery breaks down. We know exactly where, because the harness measures it.
 
 That gap isn't swept under the rug. It's the headline question the whole project exists to answer.
 
 ---
 
-### So what's it for?
+### Yours to experiment with
 
-Honestly: not a product you can download and point at a problem. Not yet. PRA is an architecture and a claim — that an intelligence can grow its own understanding of the world, from the ground up, without being told what to want.
+PRA isn't a paper you read. It's a working core you download, install, and point at a world of your own.
 
-If that claim holds at scale, it points toward machines that learn continuously and open-endedly, the way living things do — instead of being trained once and frozen. That's the bet.
+Every piece is built to be swapped. Wire in your own world through one clean connection and PRA starts learning it. Change what "better" means to it, change how it grows, change how ruthlessly it prunes — each is a single part you replace without touching the rest. Configure it, run it, watch what it does.
 
-Right now, PRA is the honest version of that bet: a working core, a hard open problem, and a test rig that won't let anyone pretend the problem is already solved.
+Putting it in people's hands is the whole bet. The discoveries that matter won't come from us guarding PRA as research — they'll come from people plugging it into worlds we'd never think of. And the open question, *does it hold up as worlds get bigger?*, isn't a disclaimer. It's the invitation.
+
+**[ Get the code ]**  ·  **[ Read the spec ]**  ·  **[ See what it can do ]**

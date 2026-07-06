@@ -80,7 +80,7 @@ class Engine:
         proposal = self._proposal
         decay = self._decay
         bus = self._bus_factory(store)
-        effort_only = self.scoring_mode == "effort_only"
+        scoring_mode = self.scoring_mode
         checkpoints = set(cfg.horizon_checkpoints)
 
         state = _RunState()
@@ -93,7 +93,7 @@ class Engine:
                 if state.warmed:
                     state.obs_after_warm += 1
                 state.obs_steps += 1
-                stats = store.online_step(obs, prev_obs, prev_a, effort_only)
+                stats = store.online_step(obs, prev_obs, prev_a, scoring_mode)
 
                 if stats.mapped == 0:
                     if state.warmed:
