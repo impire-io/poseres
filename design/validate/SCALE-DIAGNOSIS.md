@@ -1,0 +1,138 @@
+# T-SCALE diagnosis — why `best_dim` collapses at high `true_dim`
+
+Date: 2026-06-29. Instrument: `pra-validate scan` (dimension-scan diagnostic,
+added for this investigation) plus scratchpad experiments. Question under test:
+the build's T-SCALE run at `true_dim ∈ {20,35,50}` reports `best_dim ≈ 1` — is
+that a search problem, a scoring problem, a capacity problem, or a world problem?
+
+**Answer: none of the single hypotheses. It is a compound scale-invariance
+failure: three separate constants, each validated at the reference scale
+(`obs_dim=10`, `hidden_size=12`, `true_dim=3`), silently leave their validated
+regime when the dimensions grow.** In causal order:
+
+## 1. The world saturates (world-side)
+
+The emission is `tanh(E·latent)` with pre-activation variance = `true_dim`:
+
+| true_dim | pre-act sd | P(saturated, \|pre\|>2) | P(sign channel, \|pre\|>3) |
+|---|---|---|---|
+| 3 (reference) | 1.66 | 18% | 8% |
+| 20 | 4.49 | 65% | 49% |
+| 35 | 5.99 | 73% | 61% |
+| 50 | 7.11 | 77% | 67% |
+
+At scale the world is not "the same world, bigger" — it degenerates toward a
+binary sign channel whose latent geometry is largely unrecoverable and whose
+gradients vanish. Fix (spec change, PRA-02 §1): normalize the emission,
+`tanh(E·latent / sqrt(true_dim/3))` — the factor is exactly 1 at the reference
+`true_dim=3`, so the validated world is byte-identical and only scaled configs
+change regime.
+
+## 2. The learning rate diverges (agent-side, the binding constraint)
+
+`learning_rate=0.03` was validated at `obs_dim=10`. SGD's stability threshold
+shrinks as input norms grow (`‖obs‖²` is 6× larger at `obs_dim=60`). Probe at
+dim=20/hidden=32, normalized world, fan-in init, 300 episodes, seed 1:
+
+| lr | recon err | honest pred err |
+|---|---|---|
+| 0.030 | 1.138 (diverging) | 1.124 |
+| 0.010 | 0.645 | 0.683 |
+| 0.005 | 0.502 | 0.576 |
+| 0.002 | **0.335** | **0.381** |
+
+Every earlier flat scan — and the paradoxical "bigger hidden is worse" — was
+optimizer divergence, not representational capacity. This was the binding
+constraint masking everything else.
+
+## 3. The init scale saturates at birth (agent-side)
+
+`init_weight_scale=0.3` with no fan-in normalization: encoder pre-activation sd
+= `0.3·sqrt(obs_dim)` ≈ 2.3 at `obs_dim=60` (saturated at init), and initial
+output magnitude grows with `sqrt(hidden)`. Scale-invariant form: per-tensor
+`scale = 0.3·sqrt(fan_in_ref / fan_in)`, which reproduces exactly 0.3 at the
+reference dims.
+
+## Honest side-finding: prediction ≈ persistence, even at the reference
+
+Baselines for honest obs-space prediction error:
+
+- `true_dim=3` (stock world): identity baseline (predict next = current) =
+  **0.165**; the validated live system reaches 0.157. The celebrated T2
+  improvement is ~95% *reconstruction* learning; the margin beyond persistence
+  is ~5%.
+- `true_dim=20` (normalized world): identity = 0.230; an arctanh-linear oracle
+  = 0.208. The dynamics signal beyond persistence is intrinsically small.
+
+Implications: (a) at scale the dimensional elbow must be carried by the
+**explain/recon term**, not prediction; (b) T3's effort-only ablation pulls
+predictions toward *zero* — much weaker than an identity-transition ablation,
+so the suite never requires the system to beat persistence. Consider a
+PRA-02-level question: add an identity-ablation variant of T3, and/or increase
+`action_scale` at scale so actions move observations materially.
+
+## Experiments run (chronological)
+
+1. Scan `true_dim=3`, hidden 12 (sanity): capacity cliff exactly at 1→3
+   (pred 1.24→0.58), then a slow overfit decline — the documented shallow elbow.
+2. Scan `true_dim=20`, hidden {12,32,64}, stock world: flat ~0.8–1.3 at every
+   dim; bigger hidden worse. (Cause, in hindsight: saturation + lr divergence.)
+3. Scan `true_dim=20`, hidden {12,32}, normalized world: better absolute errors
+   (min 0.755) but still no elbow; min pred at dim 3. (Cause: lr divergence.)
+4. lr probe (table above): lr was the binding constraint.
+5. Definitive scan — normalized world + fan-in init + lr=0.002, hidden {12,32}:
+   **results below.**
+
+## 5. Definitive scan result — the elbow is restored; parsimony is the last layer
+
+Normalized world + fan-in init + lr=0.002, `true_dim=20`, 600 episodes, 3 seeds:
+
+| | hidden=12 | hidden=32 |
+|---|---|---|
+| dim 1 pred err | 0.694 | 0.868 |
+| dim 3 | 0.555 | 0.530 |
+| dim 10 | 0.444 | 0.391 |
+| dim 16 | 0.437 | 0.349 |
+| dim 18 | 0.440 | **0.339** |
+| dim 20 | 0.441 | 0.349 |
+| dim 25 | 0.441 | 0.327 |
+| dim 30 | 0.451 | 0.326 |
+
+- **hidden=12 plateaus at dim ≈ 10–16** — capped by its own hidden width (the
+  capacity bottleneck signature, finally visible once lr stopped diverging).
+- **hidden=32 keeps improving to dim ≈ 18–25** — the diminishing-returns elbow
+  sits at ≈ `true_dim`, shallow exactly as at the validated `true_dim=3`.
+  Conclusion: with the three scale-invariance fixes, dimensional structure at
+  scale is recoverable, and `hidden_size` must scale ≳ `true_dim`.
+- Honest caveat: the best frame (0.326) still does not beat the persistence
+  baseline (0.230) at this experience budget — prediction remains decode-floored
+  and the dynamics margin stays open.
+
+**Layer 4 — parsimony mis-scale (the remaining open [D] question).** With
+`w_complexity=0.04`, the score minimum still lands at dim 3: the error gain from
+dim 2→20 (~0.27) cannot outbid a linear penalty of `0.04·17 = 0.68`. The linear
+`w_complexity·dim` was matched to the reference regime, where error spans ~0.7
+over dims 1–8; at scale the same span stretches over dims 1–25 and the penalty
+overwhelms it. Candidate principled fixes (need reference re-validation):
+`w_complexity·log(dim)` (MDL-flavored), or an elbow-relative selection rule
+(penalize only past the point of diminishing returns). `w_complexity` is exactly
+the load-bearing [D] parameter the spec flagged.
+
+## Recommendation (spec changes — decision, not yet applied)
+
+1. **PRA-02 §1 (world):** `emit = tanh(E·latent / sqrt(true_dim/3)) + noise` —
+   reference world byte-identical, scaled worlds stay in the validated tanh regime.
+2. **PRA-01 §8 ([D] scaling rules, reference-preserving):**
+   `learning_rate = 0.03·(10/obs_dim)` (≈0.005 at obs 60; 0.002 measured better —
+   sweep the constant), and per-tensor `init_weight_scale = 0.3·sqrt(fan_in_ref/fan_in)`.
+3. **Config:** scaled runs set `hidden_size ≳ true_dim` (e.g. `2·true_dim`).
+4. **Open [D] research:** re-scale the parsimony term (log-dim or elbow-relative)
+   so selection can claim the restored elbow; re-validate T1–T6 at the reference
+   after any change.
+5. **PRA-02 candidate:** add an identity-transition ablation to T3 (beat
+   persistence, not just pull-to-zero), and consider a larger `action_scale` at
+   scale so the dynamics signal is material.
+
+After 1–3, re-run `pra-validate scan` (now a first-class command) and, once
+parsimony is re-scaled, the live T-SCALE — expecting `best_dim` to track the
+elbow rather than collapse to 1.
