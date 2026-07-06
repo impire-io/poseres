@@ -136,3 +136,34 @@ the load-bearing [D] parameter the spec flagged.
 After 1–3, re-run `pra-validate scan` (now a first-class command) and, once
 parsimony is re-scaled, the live T-SCALE — expecting `best_dim` to track the
 elbow rather than collapse to 1.
+
+## 6. Implementation + first live results (2026-06-29, same day)
+
+The recommendations were **implemented** as reference-preserving effective rules
+(PRA-01 §8.8, PRA-02 §1.2/§1.3, Doc 07 §9; `src/pra/config.py` effective_*,
+world normalization, fan-in init in `FrameGroup.add_frame`, `hidden_size =
+2·true_dim` in the scale runner). The lr rule's exponent was refined to 1.5 by a
+recipe probe (at `obs_dim=60`, `lr·(10/60)^1.5 ≈ 0.002` dominates the naive
+`1/obs_dim` rule ≈ 0.005 at every scanned dim). Reference preservation was
+verified bit-for-bit (seed-1 early/late/checkpoints identical to the validated
+build) and the full 63-test gate is green.
+
+**Live T-SCALE, default 50-cycle schedule** (13k steps/seed — far short of the
+spec's millions):
+
+| true_dim | best_dim per seed (was, before fixes) |
+|---|---|
+| 20 | [5, 5, 4] (was ≈1) |
+| 35 | [3, 4, 3] (was ≈1) |
+| 50 | [4, 5, 4] (was ≈1) |
+
+The collapse is gone, but live selection lands well below the elbow the scan
+proves recoverable (~12–22 at `true_dim=20`). Working hypothesis (the next open
+question): **selection-ladder dynamics** — frames are born at dims 2–6 and climb
+by ±1-ish proposals; each rung's candidate must out-score mature incumbents
+within `min_age_cycles = 2` of protection while being drastically undertrained
+relative to them; 50 cycles gives the ladder ~50 spawn opportunities for a
+~10-rung climb. A lengthened schedule (which PRA-02 §3.3 prescribes for scaled
+runs anyway) gives the ladder time; candidate-training-time scaling
+(`min_age_cycles` growing with dim) is the follow-up lever if length alone is
+insufficient. Long-schedule (1000-cycle) result: see below.

@@ -35,12 +35,13 @@ State: a current object index and a current latent vector.
   - set latent ← latent + `Δ_action`;
   - return `emit()`.
 - `emit()` (internal):
-  - `clean = tanh(E_k · latent)` where `k` is the current object and `tanh` is applied elementwise;
+  - `clean = tanh(E_k · latent / sqrt(true_dim / 3))` where `k` is the current object and `tanh` is applied elementwise;
   - `observation = clean + noise`, where each element of `noise` is drawn `Normal(0, sensor_noise_std²)`;
   - return `observation ∈ float[obs_dim]`.
 
 **Requirements:**
 - The emission is **nonlinear** (the `tanh`). This is mandatory: it ensures a purely linear frame cannot fully model the world, so the dimensionality result is not confounded by a linearity ceiling. An implementation **MUST NOT** replace the emission with a linear map.
+- The emission pre-activation is **normalized by `sqrt(true_dim / 3)`** (exactly 1 at the reference `true_dim = 3`, so the validated reference world is unchanged). Without it the pre-activation variance grows linearly with `true_dim` and the tanh saturates into a near-binary sign channel (65% of components saturated at `true_dim = 20` vs 18% at the reference), destroying the recoverable latent geometry — a scaled run would test a categorically different world, not the same world at scale. Evidence: `SCALE-DIAGNOSIS.md` §1.
 - The world **MUST NOT** expose `true_dim`, latent vectors, emission matrices, displacements, or object indices to the engine, the frames, or the telemetry used by the acceptance tests. The only output the agent may see is the observation vector. (`true_dim` is known to the *test harness* for scoring T4, but is not an input to the system under test.)
 
 ### 1.3 Scaled configurations (the research question)
@@ -49,6 +50,13 @@ In addition to the default (`true_dim = 3`, `obs_dim = 10`), the harness **MUST*
 - `true_dim ∈ {20, 35, 50}`, with `obs_dim` set to at least `3 × true_dim` (e.g. 60, 105, 150).
 - Total observation throughput per run reaching the **millions** (see Section 3.3).
 These scaled runs use the same world definition; only the dimensions and run length change.
+
+Scaled runs additionally **MUST** hold the validated training regime constant across
+scale: `hidden_size ≳ 2 × true_dim` (a frame cannot resolve dimensionality past its
+own hidden width), and the scale-invariant parameter rules of Document 1, Section 8
+(effective learning rate, fan-in init, effective parsimony — all exactly the raw
+constants at the reference scale). Without these the scaled result measures
+optimizer divergence, not the architecture (`SCALE-DIAGNOSIS.md` §§2–5).
 
 ### 1.4 The dimensional signal is shallow (how to read T4)
 

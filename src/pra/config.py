@@ -12,9 +12,18 @@ import dataclasses
 from dataclasses import dataclass
 from typing import Literal
 
-__all__ = ["Config", "ScoringMode"]
+__all__ = ["Config", "ScoringMode", "OBS_DIM_REF", "HIDDEN_REF", "TRUE_DIM_REF"]
 
 ScoringMode = Literal["predictive", "effort_only"]
+
+# The validated reference scale (PRA-02 §1 defaults). Every scale-dependent
+# constant below was validated AT this scale; the effective_* rules hold the
+# validated *regime* constant as dimensions grow, and are exactly the raw
+# constants at the reference (all scale factors equal 1). See
+# design/validate/SCALE-DIAGNOSIS.md for the evidence behind each rule.
+OBS_DIM_REF = 10
+HIDDEN_REF = 12
+TRUE_DIM_REF = 3
 
 
 @dataclass(frozen=True)
@@ -147,6 +156,29 @@ class Config:
         """Run length that guarantees every horizon checkpoint is reached
         (data-model §1): ``max(n_cycles, max(horizon_checkpoints))``."""
         return max(self.n_cycles, max(self.horizon_checkpoints))
+
+    # --- Scale-invariant parameter rules [D] (SCALE-DIAGNOSIS layers 2 & 4) ---
+    # SGD's stability threshold shrinks as ‖obs‖² grows (∝ obs_dim): the raw
+    # learning_rate diverges at obs_dim=60. The parsimony term must stay
+    # commensurate with the per-dim error span, which flattens as the world's
+    # information spreads over more observation dims. Both rules are exactly the
+    # raw constants at the reference scale.
+
+    @property
+    def effective_learning_rate(self) -> float:
+        """``learning_rate · (OBS_DIM_REF / obs_dim)^1.5`` — 0.03 at the reference.
+
+        The naive stability bound gives exponent 1 (‖obs‖² ∝ obs_dim), but the
+        outer-product gradients also grow with input norms; the 1.5 exponent is
+        the empirically supported rule (recipe probe, SCALE-DIAGNOSIS §5:
+        lr=0.002 dominates lr=0.005 at obs_dim=60 across every scanned dim).
+        """
+        return self.learning_rate * (OBS_DIM_REF / self.obs_dim) ** 1.5
+
+    @property
+    def effective_w_complexity(self) -> float:
+        """``w_complexity · (OBS_DIM_REF / obs_dim)`` — 0.04 at the reference."""
+        return self.w_complexity * (OBS_DIM_REF / self.obs_dim)
 
     def replace(self, **changes: object) -> Config:
         """Return a validated copy with ``changes`` applied."""

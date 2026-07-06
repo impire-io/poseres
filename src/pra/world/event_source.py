@@ -10,6 +10,14 @@ scoring T4, never read off the world by the engine.
 Draw order (fixed, for determinism — PRA-01 §7.1): per object ``start`` then
 ``emit``, in object-index order, then the action displacements. This mirrors the
 v4 behavioral oracle exactly.
+
+Scale normalization (SCALE-DIAGNOSIS layer 1): the emission pre-activation
+``E·latent`` has variance ``true_dim``, so without correction the tanh saturates
+into a near-binary sign channel as ``true_dim`` grows (65% saturated at 20 vs 18%
+at the reference 3). The emission is therefore normalized by
+``sqrt(true_dim / TRUE_DIM_REF)`` so every scale operates in the tanh regime the
+reference world was validated in. The factor is exactly 1.0 at ``true_dim=3`` —
+the validated reference world is byte-identical.
 """
 
 from __future__ import annotations
@@ -18,7 +26,7 @@ from typing import Protocol, runtime_checkable
 
 import numpy as np
 
-from pra.config import Config
+from pra.config import TRUE_DIM_REF, Config
 
 __all__ = ["EventSource", "SensorimotorWorld"]
 
@@ -57,6 +65,8 @@ class SensorimotorWorld:
         self._noise_std = float(config.sensor_noise_std)
         self._rng = rng
         true_dim = int(config.true_dim)
+        # Emission normalization; exactly 1.0 at the reference true_dim (see module doc).
+        self._emit_norm = float(np.sqrt(true_dim / TRUE_DIM_REF))
 
         # Draw order: per object (start, emit), then actions. Hidden from system.
         self.__objects: list[tuple[np.ndarray, np.ndarray]] = []
@@ -93,5 +103,5 @@ class SensorimotorWorld:
     def _emit(self) -> np.ndarray:
         assert self.__latent is not None and self.__obj is not None
         emit = self.__objects[self.__obj][1]
-        clean = np.tanh(emit @ self.__latent)
+        clean = np.tanh(emit @ self.__latent / self._emit_norm)
         return clean + self._rng.standard_normal(self._obs_dim) * self._noise_std

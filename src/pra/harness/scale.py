@@ -31,6 +31,10 @@ def run_scale(
         cfg = base.replace(
             true_dim=true_dim,
             obs_dim=max(base.obs_dim, 3 * true_dim),
+            # capacity must scale with the world: hidden < true_dim caps the
+            # resolvable dimensionality at the frame's own width
+            # (SCALE-DIAGNOSIS §5), so scaled runs use hidden ≳ 2·true_dim.
+            hidden_size=max(base.hidden_size, 2 * true_dim),
             seeds=tuple(seeds),
         )
         policy = proposal if proposal is not None else HighDimProposalPolicy(cfg)

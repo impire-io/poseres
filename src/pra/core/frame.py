@@ -22,7 +22,7 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from pra.config import Config
+from pra.config import HIDDEN_REF, OBS_DIM_REF, Config
 from pra.core.contracts import FrameResult, FrameState, SensorimotorEvent
 
 __all__ = ["FrameGroup", "FrameStore", "StepStats"]
@@ -80,15 +80,25 @@ class FrameGroup:
     def add_frame(
         self, frame_id: int, ema_init: float, scale: float, rng: np.random.Generator
     ) -> None:
-        """Append one frame, drawing its weights in the v4 Frame.__init__ order."""
+        """Append one frame, drawing its weights in the v4 Frame.__init__ order.
+
+        Scale-invariant init [D] (SCALE-DIAGNOSIS layer 3): tensors whose fan-in
+        grows with ``obs_dim``/``hidden`` are rescaled by ``sqrt(fan_in_ref /
+        fan_in)`` so pre-activation magnitudes stay in the regime validated at
+        the reference scale, where both factors are exactly 1.0 (the reference
+        weights are byte-identical). Pose-dim fan-ins (``Dc1``/``T1``) are left
+        at the raw scale — rescaling them would alter validated reference frames.
+        """
         D, H, Od, A = self.dim, self.H, self.obs_dim, self.A
+        f_obs = float(np.sqrt(OBS_DIM_REF / Od))
+        f_hid = float(np.sqrt(HIDDEN_REF / H))
         # Draw order is load-bearing for determinism (PRA-01 §7.1).
-        W1 = rng.standard_normal((H, Od)) * scale
-        W2 = rng.standard_normal((D, H)) * scale
+        W1 = rng.standard_normal((H, Od)) * (scale * f_obs)
+        W2 = rng.standard_normal((D, H)) * (scale * f_hid)
         Dc1 = rng.standard_normal((H, D)) * scale
-        Dc2 = rng.standard_normal((Od, H)) * scale
+        Dc2 = rng.standard_normal((Od, H)) * (scale * f_hid)
         T1 = rng.standard_normal((A, H, D)) * scale
-        T2 = rng.standard_normal((A, D, H)) * scale
+        T2 = rng.standard_normal((A, D, H)) * (scale * f_hid)
 
         self.frame_ids = np.append(self.frame_ids, np.int64(frame_id))
         self.is_candidate = np.append(self.is_candidate, True)
@@ -243,7 +253,7 @@ class FrameStore:
         self._groups: dict[int, FrameGroup] = {}
         self._next_id = 0
         self._fit_gate = float(config.fit_gate)
-        self._lr = float(config.learning_rate)
+        self._lr = float(config.effective_learning_rate)
         self._clip = float(config.gradient_clip)
         self._decay = float(config.ema_decay)
         self._scale = float(config.init_weight_scale)

@@ -38,7 +38,11 @@ class WeightedSumScorer:
         self.w_explain = float(config.w_explain)
         self.w_predict = float(config.w_predict)
         self.w_effort = float(config.w_effort)
-        self.w_complexity = float(config.w_complexity)
+        # Scale-invariant parsimony [D] (SCALE-DIAGNOSIS layer 4): the per-dim
+        # error span flattens as obs_dim grows, so the raw linear penalty
+        # overwhelms it at scale; the effective weight is the raw one at the
+        # reference obs_dim.
+        self.w_complexity = float(config.effective_w_complexity)
 
     def combine(
         self,

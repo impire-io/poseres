@@ -121,7 +121,16 @@ The following are the parameters an operator changes to run the system at larger
 - `max_frames` (§4) — raise for more capacity; the hard population bound.
 - `survive_threshold_*` (§4) — tune so eviction keeps pace with `spawn_per_cycle` at the chosen `max_frames`.
 - `policy` and `proposal policy` parameters (§4, §6) — the **[O]** components expected to be replaced for large `obs_dim`/`n_actions`/dimensionality.
-- `hidden_size` (§2) — frame capacity; raise for richer worlds.
+- `hidden_size` (§2) — frame capacity; **MUST scale ≳ 2 × the expected latent dimensionality** — a frame cannot resolve structure past its own hidden width.
+
+**Scale-invariant parameter rules [D]** (PRA-01 §8.8, evidence in
+`design/validate/SCALE-DIAGNOSIS.md`): `learning_rate`, `init_weight_scale`, and
+`w_complexity` are regime-dependent — their defaults were validated at
+`obs_dim = 10`, `hidden_size = 12` and silently leave that regime at larger
+dimensions (raw `learning_rate` *diverges* at `obs_dim = 60`). Implementations
+**MUST** apply them through the effective forms of PRA-01 §8.8
+(`·(10/obs_dim)^1.5`, per-tensor `·sqrt(fan_in_ref/fan_in)`, `·(10/obs_dim)`
+respectively). All factors are exactly 1 at the reference scale.
 
 The SIMD requirement (Doc 03 §7) is not a parameter — it is mandatory and is what makes raising `max_frames` and `hidden_size` feasible on one machine.
 

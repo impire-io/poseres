@@ -463,6 +463,25 @@ All parameters, with types, defaults, and valid ranges. An implementation **MUST
 | `steps_per_episode` | int | 40 | ≥ 1 |
 | `seeds` | list<int> | [1,2,3,4,5,6,7,8] | ≥ 1 seed |
 
+### 8.8 Scale-invariant parameter rules **[D]**
+
+Every constant above was validated at the reference scale `obs_dim = 10`,
+`hidden_size = 12`, `true_dim = 3`. Three of them are **regime-dependent**: used
+raw at larger dimensions they silently leave their validated operating regime
+(evidence and measurements: `SCALE-DIAGNOSIS.md`). Implementations **MUST** apply
+the raw parameter through these effective forms. Each factor is exactly 1 at the
+reference scale, so reference behavior is byte-identical.
+
+| Rule | Effective form | Why |
+|---|---|---|
+| Learning rate | `learning_rate · (10 / obs_dim)^1.5` | SGD stability threshold shrinks as input norms grow; raw 0.03 diverges at `obs_dim = 60` (recon 1.14 vs 0.34 at the scaled rate). Exponent 1.5 is empirical **[D]** (the naive bound gives 1; measured at `obs_dim = 60`, the 1.5-rule dominates the 1.0-rule at every scanned dim). |
+| Weight init | per-tensor `init_weight_scale · sqrt(fan_in_ref / fan_in)` for the tensors whose fan-in is `obs_dim` (encoder in) or `hidden_size` (pose/recon/transition out); pose-dim fan-ins stay raw | Unscaled init saturates the encoder at birth (`0.3·sqrt(60) ≈ 2.3` pre-activation sd) and initial output magnitude grows with `sqrt(hidden)`. |
+| Parsimony | `w_complexity · (10 / obs_dim)` | The per-dim error span flattens as the world's information spreads over more observation dims; the raw linear penalty (0.68 across dims 2→20) overwhelms the achievable error gain (~0.27) and forces collapse to low dim. |
+
+Additionally, scaled runs **MUST** set `hidden_size ≳ 2 × true_dim`: a frame
+cannot resolve dimensionality past its own hidden width (at `hidden_size = 12`
+the dimension scan plateaus at dim ≈ 10–16 regardless of the true value).
+
 ---
 
 ## 9. Forward seams (built now, populated later — DO NOT implement the later side)
