@@ -167,3 +167,32 @@ relative to them; 50 cycles gives the ladder ~50 spawn opportunities for a
 runs anyway) gives the ladder time; candidate-training-time scaling
 (`min_age_cycles` growing with dim) is the follow-up lever if length alone is
 insufficient. Long-schedule (1000-cycle) result: see below.
+
+## 7. Layer 5 — maturation time (the fifth scale-variant constant)
+
+**Schedule length alone does nothing:** 1000 cycles (20× the training, 240k
+steps/seed) lands at exactly the same `[5, 5, 4]`. The ladder is not slow — it
+is in a stable equilibrium. Mechanism: a candidate is evictable after
+`min_age_cycles = 2`, but at the scaled learning rate its error is still on its
+*transient* (score ≈ 0.85) far above its asymptote (≈ 0.44); eviction judges the
+transient, so every high-dim candidate dies young. `min_age_cycles = 2` was
+validated where convergence is ~15× faster — the *time axis* was scale-variant
+too.
+
+**Dose–response confirms the lever** (td=20, 500 cycles, 3 seeds):
+
+| min_age_cycles | best_dim per seed | mean |
+|---|---|---|
+| 2 (raw) | [5, 5, 4] | 4.7 |
+| 12 | [7, 5, 5] | 5.7 |
+| 24 | [8, 7, 5] | 6.7 |
+
+Selection climbs exactly as fast as candidates are allowed to prove themselves.
+Candidate rule (same pattern as the others, factor 1 at reference):
+`min_age_cycles · (obs_dim/10)^1.5 ≈ 29` at obs 60 — matching the lr rule's
+time-scale inverse (training slows by the factor the lr shrank). The decisive
+run (patience 29, 2000 cycles — enough for a full ladder climb) is the next
+measurement; not yet implemented as an effective rule pending its outcome. Note
+the honest trade-off: even if it climbs, wall-clock per rung grows ~15× at obs
+60 — spawn-and-select at scale is intrinsically slower unless the proposal
+policy learns to take bigger, patient jumps (the [O] seam again).
