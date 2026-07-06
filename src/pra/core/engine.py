@@ -117,7 +117,8 @@ class Engine:
                 obs = world.step(prev_a)
 
         def offline_cycle() -> None:
-            store.age_all(cfg.min_age_cycles)
+            # effective (scale-invariant) protection window — raw at the reference
+            store.age_all(cfg.effective_min_age_cycles)
             if store.population_size == 0:
                 return
             states = store.frame_states()
@@ -128,7 +129,7 @@ class Engine:
                 threshold,
                 min_frames=cfg.min_frames,
                 max_frames=cfg.max_frames,
-                min_age_cycles=cfg.min_age_cycles,
+                min_age_cycles=cfg.effective_min_age_cycles,
             )
             store.evict(remove)
             for fid in remove:

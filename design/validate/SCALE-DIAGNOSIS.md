@@ -190,9 +190,20 @@ too.
 Selection climbs exactly as fast as candidates are allowed to prove themselves.
 Candidate rule (same pattern as the others, factor 1 at reference):
 `min_age_cycles · (obs_dim/10)^1.5 ≈ 29` at obs 60 — matching the lr rule's
-time-scale inverse (training slows by the factor the lr shrank). The decisive
-run (patience 29, 2000 cycles — enough for a full ladder climb) is the next
-measurement; not yet implemented as an effective rule pending its outcome. Note
-the honest trade-off: even if it climbs, wall-clock per rung grows ~15× at obs
-60 — spawn-and-select at scale is intrinsically slower unless the proposal
-policy learns to take bigger, patient jumps (the [O] seam again).
+time-scale inverse (training slows by the factor the lr shrank).
+
+**Decisive run (patience 29, 2000 cycles, td=20, 3 seeds): `best_dim = [8, 18, 6]`.**
+One seed climbed to 18 — **within-one of the true 20**. The ladder has no
+equilibrium ceiling: given scale-matched patience and a long enough schedule, the
+unmodified spawn-and-select mechanism reaches the world's dimensional elbow. The
+climb is a slow, HIGH-VARIANCE stochastic search (the other seeds sat at 8 and 6
+after 2000 cycles); full dose–response: patience 2/12/24/29 → mean 4.7/5.7/6.7/10.7,
+max 5/7/8/18.
+
+The rule is now **implemented** as `Config.effective_min_age_cycles` (the sixth
+reference-preserving effective rule; factor exactly 1 at the reference) and
+propagated to PRA-01 §8.8 / Doc 07 §9. **Conclusion of the diagnosis: every layer
+of the collapse was calibration, not architecture. The remaining open frontier is
+search *speed/variance* — the [O] proposal-policy seam (candidates that jump
+toward promising dimensionalities instead of inching ±1), and/or longer
+schedules, exactly where the design anticipated innovation would concentrate.

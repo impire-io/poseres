@@ -25,6 +25,7 @@ def test_effective_params_are_raw_at_reference():
     cfg = Config()
     assert cfg.effective_learning_rate == cfg.learning_rate == 0.03
     assert cfg.effective_w_complexity == cfg.w_complexity == 0.04
+    assert cfg.effective_min_age_cycles == cfg.min_age_cycles == 2
 
 
 def test_effective_params_shrink_at_scale():
@@ -33,6 +34,8 @@ def test_effective_params_shrink_at_scale():
     assert np.isclose(cfg.effective_w_complexity, 0.04 * 10 / 60)
     assert cfg.effective_learning_rate < cfg.learning_rate
     assert cfg.effective_w_complexity < cfg.w_complexity
+    # patience GROWS with scale by the inverse of the lr factor: 2·6^1.5 ≈ 29
+    assert cfg.effective_min_age_cycles == 29
 
 
 def test_world_emission_regime_is_scale_invariant():

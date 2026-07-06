@@ -130,7 +130,8 @@ The following are the parameters an operator changes to run the system at larger
 dimensions (raw `learning_rate` *diverges* at `obs_dim = 60`). Implementations
 **MUST** apply them through the effective forms of PRA-01 §8.8
 (`·(10/obs_dim)^1.5`, per-tensor `·sqrt(fan_in_ref/fan_in)`, `·(10/obs_dim)`
-respectively). All factors are exactly 1 at the reference scale.
+respectively), and `min_age_cycles` through `·(obs_dim/10)^1.5` (protection must
+grow with convergence time). All factors are exactly 1 at the reference scale.
 
 The SIMD requirement (Doc 03 §7) is not a parameter — it is mandatory and is what makes raising `max_frames` and `hidden_size` feasible on one machine.
 

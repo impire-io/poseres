@@ -180,6 +180,19 @@ class Config:
         """``w_complexity · (OBS_DIM_REF / obs_dim)`` — 0.04 at the reference."""
         return self.w_complexity * (OBS_DIM_REF / self.obs_dim)
 
+    @property
+    def effective_min_age_cycles(self) -> int:
+        """``round(min_age_cycles · (obs_dim / OBS_DIM_REF)^1.5)`` — 2 at the reference.
+
+        The young-frame protection window must scale with convergence time, which
+        grows by the same factor the effective learning rate shrank: judged at the
+        raw window, a scaled candidate is evicted on its transient score (~0.85)
+        long before its asymptote (~0.44), and selection freezes at low dim
+        regardless of schedule length (SCALE-DIAGNOSIS §7: patience 2/12/24/29 →
+        mean best_dim 4.7/5.7/6.7/10.7 at true_dim=20, one seed reaching 18).
+        """
+        return int(round(self.min_age_cycles * (self.obs_dim / OBS_DIM_REF) ** 1.5))
+
     def replace(self, **changes: object) -> Config:
         """Return a validated copy with ``changes`` applied."""
         return dataclasses.replace(self, **changes)
