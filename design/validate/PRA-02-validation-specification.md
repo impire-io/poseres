@@ -169,6 +169,28 @@ The reference behavior these criteria encode is the validated behavior of the ar
 **Measure:** run T4 at `true_dim ∈ {20, 35, 50}` (Section 1.3) with run schedules long enough that `observation_steps` reaches the millions, using the batched evaluation required by Document 1, Section 7.2, and (for the large `true_dim` runs) the proposal policy supplied for high dimensionality (Document 1, Section 6.5). Report `best_dim` per seed at each `true_dim`, and report `throughput` and wall-clock.
 **Pass criterion is investigatory, not pass/fail for the build:** the build is *complete* when T-SCALE can be *run and measured* (the system reaches millions of observations on a single machine via batched evaluation, and emits the `best_dim` spread and throughput). Whether `best_dim` tracks `true_dim` at scale is the **research finding** the system is built to determine; a "no" is a valid and important result, not an implementation failure. The harness **MUST** make this run executable and its results legible; it **MUST NOT** treat a poor dimensionality result at high `true_dim` as a build defect.
 
+**Scaled reference result (2026-07-07; the research finding as of the six
+scale-invariance rules of Document 1 §8.8, 2000-cycle schedules, seeds {1,2,3},
+1,443,000 observation steps per `true_dim` — full trail in `SCALE-DIAGNOSIS.md`):**
+
+| `true_dim` | `best_dim` per seed | throughput (obs×frame evals/s) | wall |
+|---|---|---|---|
+| 20 | [8, 18, 6] | 31,788 | 25 min |
+| 35 | [8, 14, 10] | 21,808 | 74 min |
+| 50 | [8, 9, 10] | 14,694 | 187 min |
+
+Reading: **no collapse at any scale** (every seed finds genuine multi-dimensional
+structure; before the §8.8 rules every scaled run collapsed to `best_dim ≈ 1`),
+and one `true_dim = 20` seed reaches within-one of the truth — the mechanism has
+no dimensional ceiling. But the *climbed fraction* falls with scale: in a fixed
+2000-cycle budget the ±1-ish selection ladder covers a similar absolute number of
+rungs regardless of the target (fewer, larger maturation windows at higher
+`obs_dim`). Structure-finding survives scale; its convergence **rate** does not.
+This quantifies the open problem the high-dimensionality proposal seam
+(Document 1 §6.5, **[O]**) exists to solve: proposals that jump toward promising
+dimensionalities rather than inching, so the number of rungs — not the patience
+per rung — is what shrinks.
+
 ---
 
 ## 5. Harness behavior

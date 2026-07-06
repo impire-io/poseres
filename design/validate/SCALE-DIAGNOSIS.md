@@ -207,3 +207,25 @@ of the collapse was calibration, not architecture. The remaining open frontier i
 search *speed/variance* — the [O] proposal-policy seam (candidates that jump
 toward promising dimensionalities instead of inching ±1), and/or longer
 schedules, exactly where the design anticipated innovation would concentrate.
+
+## 8. Closing measurement — the scaled reference result (2026-07-07)
+
+Full T-SCALE with all six rules, 2000-cycle schedules, 3 seeds, 1.44M observation
+steps per dimensionality (4.8 hours wall-clock total):
+
+| true_dim | best_dim per seed | patience (auto) | throughput | wall |
+|---|---|---|---|---|
+| 20 | [8, 18, 6] | 29 | 31,788/s | 25 min |
+| 35 | [8, 14, 10] | 69 | 21,808/s | 74 min |
+| 50 | [8, 9, 10] | 116 | 14,694/s | 187 min |
+
+No collapse at any scale; every seed finds multi-dimensional structure (recall:
+all of these were ≈1 before the rules). The climbed fraction falls with scale —
+the ladder covers a similar absolute number of rungs in a fixed cycle budget
+because patience per rung grows while the budget doesn't. **Structure-finding
+survives scale; its convergence rate does not.** That sentence is the research
+finding this validation phase existed to produce, now recorded in PRA-02 §4
+T-SCALE as the scaled reference result. The validation chapter is closed; the
+successor problems are (a) the [O] high-dim proposal policy (make rung count,
+not rung patience, the thing that shrinks) and (b) T3's persistence clause at
+scale (untested there; the reference measurement is 6/8).
