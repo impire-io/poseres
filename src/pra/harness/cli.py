@@ -23,7 +23,7 @@ from pra.harness.report import (
     render_json,
     render_text,
 )
-from pra.harness.runner import check_determinism, run_suite
+from pra.harness.runner import auto_workers, check_determinism, run_suite
 from pra.harness.scale import run_scale
 from pra.harness.scan import render_scan_text, run_scan
 
@@ -59,9 +59,14 @@ def _write_json(path: str, report) -> None:
     out.write_text(json.dumps(render_json(report), indent=2))
 
 
+def _resolve_workers(args: argparse.Namespace, n_tasks: int) -> int:
+    requested = getattr(args, "workers", 0)
+    return auto_workers(n_tasks) if requested <= 0 else requested
+
+
 def _cmd_suite(args: argparse.Namespace) -> int:
     config = _build_config(args)
-    suite_run = run_suite(config)
+    suite_run = run_suite(config, workers=_resolve_workers(args, len(config.seeds)))
     if not suite_run.predictive:
         sys.stderr.write("pra-validate: every seed errored; the suite could not complete.\n")
         return 2
@@ -92,7 +97,7 @@ def _cmd_scale(args: argparse.Namespace) -> int:
     true_dims = list(_int_list(args.true_dims)) if args.true_dims else [20, 35, 50]
     seeds = list(_int_list(args.seeds)) if args.seeds else list(base.seeds)
     t0 = perf_counter()
-    readings = run_scale(base, true_dims, seeds)
+    readings = run_scale(base, true_dims, seeds, workers=_resolve_workers(args, len(seeds)))
     report = build_scale_report(base, seeds, readings, perf_counter() - t0)
     sys.stdout.write(render_text(report) + "\n")
     if args.json:
@@ -157,6 +162,12 @@ def _build_parser() -> argparse.ArgumentParser:
     p_suite.add_argument("--config")
     p_suite.add_argument("--json")
     p_suite.add_argument("--strict", action="store_true")
+    p_suite.add_argument(
+        "--workers",
+        type=int,
+        default=0,
+        help="parallel seed processes (0 = one per seed up to CPU count); never changes results",
+    )
     p_suite.set_defaults(func=_cmd_suite)
 
     p_det = sub.add_parser("determinism", help="run one seed twice; assert byte-identical")
@@ -171,6 +182,12 @@ def _build_parser() -> argparse.ArgumentParser:
     p_scale.add_argument("--seeds")
     p_scale.add_argument("--config")
     p_scale.add_argument("--json")
+    p_scale.add_argument(
+        "--workers",
+        type=int,
+        default=0,
+        help="parallel seed processes (0 = one per seed up to CPU count); never changes results",
+    )
     p_scale.set_defaults(func=_cmd_scale)
 
     p_scan = sub.add_parser(

@@ -10,10 +10,20 @@ zero-pull is the weak claim, persistence is the strong one (PRA-02 §2). A seed
 that errors is recorded in ``failed_seeds`` and never silently dropped (FR-008).
 The determinism check runs one seed twice and byte-compares the canonical
 summaries (FR-006, SC-003).
+
+**Parallel execution.** Seeds are fully independent runs (one seeded generator
+each, single-threaded BLAS pinned per process), so they execute in worker
+*processes* when ``workers > 1``. Parallelism MUST NOT — and by construction
+cannot — change any result: each run's float-op sequence is untouched, and
+results are reassembled in configured seed order. ``workers=1`` (the default for
+library callers) runs inline; the CLI defaults to one worker per seed up to the
+CPU count.
 """
 
 from __future__ import annotations
 
+import os
+from concurrent.futures import ProcessPoolExecutor
 from dataclasses import dataclass, field
 from time import perf_counter
 
@@ -21,10 +31,15 @@ from pra.config import Config
 from pra.core.engine import Engine
 from pra.telemetry.recorder import PerSeedRunSummary
 
-__all__ = ["SuiteRun", "DeterminismResult", "run_suite", "check_determinism"]
+__all__ = ["SuiteRun", "DeterminismResult", "run_suite", "check_determinism", "auto_workers"]
 
 ABLATION_SEED_OFFSET = 9999
 IDENTITY_SEED_OFFSET = 18888
+
+
+def auto_workers(n_tasks: int) -> int:
+    """One worker per task, capped at the machine's CPU count."""
+    return max(1, min(n_tasks, os.cpu_count() or 1))
 
 
 @dataclass
@@ -52,28 +67,62 @@ class DeterminismResult:
     first_difference: str | None
 
 
-def run_suite(config: Config, *, with_ablation: bool = True) -> SuiteRun:
+def _run_seed_group(
+    config: Config, seed: int, with_ablation: bool
+) -> tuple[int, PerSeedRunSummary, PerSeedRunSummary | None, PerSeedRunSummary | None, float]:
+    """One seed's predictive run + its two ablations (module-level: picklable)."""
+    ts = perf_counter()
+    summary = Engine(config, scoring_mode="predictive").run(seed, do_offline=True)
+    ab = ident = None
+    if with_ablation:
+        ab = Engine(config, scoring_mode="effort_only").run(
+            seed + ABLATION_SEED_OFFSET, do_offline=False
+        )
+        ident = Engine(config, scoring_mode="identity").run(
+            seed + IDENTITY_SEED_OFFSET, do_offline=False
+        )
+    return seed, summary, ab, ident, perf_counter() - ts
+
+
+def run_suite(config: Config, *, with_ablation: bool = True, workers: int = 1) -> SuiteRun:
     predictive: list[PerSeedRunSummary] = []
     ablation: dict[int, PerSeedRunSummary] = {}
     identity: dict[int, PerSeedRunSummary] = {}
     failed: list[int] = []
     per_seed_wall: dict[int, float] = {}
     t0 = perf_counter()
+
+    results: dict[int, tuple] = {}
+    if workers > 1 and len(config.seeds) > 1:
+        with ProcessPoolExecutor(max_workers=min(workers, len(config.seeds))) as pool:
+            futures = {
+                seed: pool.submit(_run_seed_group, config, seed, with_ablation)
+                for seed in config.seeds
+            }
+            for seed, fut in futures.items():
+                try:
+                    results[seed] = fut.result()
+                except Exception:  # noqa: BLE001 — reported, not fatal (FR-008)
+                    failed.append(seed)
+    else:
+        for seed in config.seeds:
+            try:
+                results[seed] = _run_seed_group(config, seed, with_ablation)
+            except Exception:  # noqa: BLE001 — reported, not fatal (FR-008)
+                failed.append(seed)
+
+    # reassemble in configured seed order — parallelism never reorders results
     for seed in config.seeds:
-        try:
-            ts = perf_counter()
-            summary = Engine(config, scoring_mode="predictive").run(seed, do_offline=True)
-            if with_ablation:
-                ablation[seed] = Engine(config, scoring_mode="effort_only").run(
-                    seed + ABLATION_SEED_OFFSET, do_offline=False
-                )
-                identity[seed] = Engine(config, scoring_mode="identity").run(
-                    seed + IDENTITY_SEED_OFFSET, do_offline=False
-                )
-            predictive.append(summary)
-            per_seed_wall[seed] = perf_counter() - ts
-        except Exception:  # noqa: BLE001 — a failed seed is reported, not fatal (FR-008)
-            failed.append(seed)
+        if seed not in results:
+            continue
+        _, summary, ab, ident, wall = results[seed]
+        predictive.append(summary)
+        if ab is not None:
+            ablation[seed] = ab
+        if ident is not None:
+            identity[seed] = ident
+        per_seed_wall[seed] = wall
+
     return SuiteRun(
         config=config,
         true_dim=config.true_dim,

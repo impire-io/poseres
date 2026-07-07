@@ -22,6 +22,11 @@ See `specs/001-validation-harness/` for the spec, plan, and contracts, and
 ./.venv/bin/ruff format --check . && ./.venv/bin/ruff check . && ./.venv/bin/pytest -q
 ```
 
+Independent seeds run in parallel worker processes by default (`--workers`,
+0 = one per seed up to the CPU count) — parallelism never changes results
+(byte-identical to sequential; each run keeps its own seeded, single-threaded
+pipeline). The full default suite runs in ~20s on a 14-core machine.
+
 `suite` emits, for each of **T1–T6**, the measured aggregate (mean ± std), the
 exact pass criterion, and PASS/FAIL. **T4** is shown as the full per-seed `best_dim`
 spread at every horizon checkpoint and PASSes only if the within-one-of-true
