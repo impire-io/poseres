@@ -12,9 +12,10 @@ import dataclasses
 from dataclasses import dataclass
 from typing import Literal
 
-__all__ = ["Config", "ScoringMode", "OBS_DIM_REF", "HIDDEN_REF", "TRUE_DIM_REF"]
+__all__ = ["Config", "ScoringMode", "PolicyMode", "OBS_DIM_REF", "HIDDEN_REF", "TRUE_DIM_REF"]
 
 ScoringMode = Literal["predictive", "effort_only", "identity"]
+PolicyMode = Literal["random", "curiosity"]
 
 # The validated reference scale (PRA-02 §1 defaults). Every scale-dependent
 # constant below was validated AT this scale; the effective_* rules hold the
@@ -74,6 +75,20 @@ class Config:
     episodes_per_cycle: int = 6
     steps_per_episode: int = 40
     seeds: tuple[int, ...] = tuple(range(1, 9))
+
+    # --- Drives (Doc 05 §2-§3; [O]-tagged internals are first-class tunables) ---
+    drive_weights: tuple[tuple[str, float], ...] = (("curiosity", 1.0),)
+    w_progress: float = 1.0
+    w_novelty: float = 1.0
+    lp_recent_window: int = 60
+    lp_baseline_window: int = 600
+    novelty_memory_size: int = 200
+
+    # --- Policy (Doc 05 §4). "random" is the pinned validation baseline: every
+    # existing mode keeps it and stays byte-identical to the validated build. ---
+    policy_mode: PolicyMode = "random"
+    exploration_epsilon: float = 0.1
+    lookahead_min_age_cycles: int = 2
 
     # --- Harness-only ---
     horizon_checkpoints: tuple[int, ...] = (18, 30, 50)
@@ -135,6 +150,32 @@ class Config:
         require(self.episodes_per_cycle >= 1, "episodes_per_cycle must be >= 1")
         require(self.steps_per_episode >= 1, "steps_per_episode must be >= 1")
         require(len(self.seeds) >= 1, "seeds must contain at least one seed")
+
+        require(len(self.drive_weights) >= 1, "drive_weights must be non-empty")
+        names = [n for n, _ in self.drive_weights]
+        require(len(set(names)) == len(names), "drive_weights names must be unique")
+        require(
+            all(w >= 0 and w == w for _, w in self.drive_weights),
+            "drive weights must be finite and >= 0",
+        )
+        require(self.w_progress >= 0, "w_progress must be >= 0")
+        require(self.w_novelty >= 0, "w_novelty must be >= 0")
+        require(self.lp_recent_window >= 1, "lp_recent_window must be >= 1")
+        require(
+            self.lp_baseline_window > self.lp_recent_window,
+            "lp_baseline_window must be > lp_recent_window",
+        )
+        require(self.novelty_memory_size >= 1, "novelty_memory_size must be >= 1")
+
+        require(
+            self.policy_mode in ("random", "curiosity"),
+            "policy_mode must be 'random' or 'curiosity'",
+        )
+        require(
+            0.0 <= self.exploration_epsilon <= 1.0,
+            "exploration_epsilon must be in [0, 1]",
+        )
+        require(self.lookahead_min_age_cycles >= 0, "lookahead_min_age_cycles must be >= 0")
 
         require(len(self.horizon_checkpoints) >= 1, "horizon_checkpoints must be non-empty")
         require(

@@ -16,10 +16,18 @@ mapped events. Prediction error is scored in observation space.
 
 from __future__ import annotations
 
+from collections import deque
 from collections.abc import Callable
 
 import numpy as np
 
+from pra.action.policy import (
+    CuriosityLookaheadPolicy,
+    Policy,
+    PolicyContext,
+    PolicyParams,
+    RandomPolicy,
+)
 from pra.config import Config
 from pra.core.bus import Bus, FrameProcessor, InMemorySyncBus
 from pra.core.frame import FrameStore
@@ -30,6 +38,8 @@ from pra.core.policies import (
     ProposalPolicy,
 )
 from pra.core.scorer import Scorer, WeightedSumScorer
+from pra.motivation.context import DriveContext
+from pra.motivation.drive import CuriosityDrive, WeightedDriveSet
 from pra.telemetry.recorder import (
     EARLY_LATE_WINDOW,
     MIN_PRED_SAMPLES,
@@ -40,6 +50,18 @@ from pra.telemetry.recorder import (
 from pra.world.event_source import EventSource, SensorimotorWorld
 
 __all__ = ["Engine"]
+
+# Lightweight context pieces for the pinned random baseline: RandomPolicy reads
+# only n_actions, so the baseline path never scans frames or evaluates drives —
+# zero added work, zero added RNG, byte-identical behavior (research R1).
+
+
+def _no_prediction(action: int) -> None:
+    return None
+
+
+def _zero_value(obs: np.ndarray) -> float:
+    return 0.0
 
 
 class Engine:
@@ -62,6 +84,8 @@ class Engine:
         proposal: ProposalPolicy | None = None,
         decay: DecayPolicy | None = None,
         bus_factory: Callable[[FrameProcessor], Bus] | None = None,
+        policy: Policy | None = None,
+        drives: WeightedDriveSet | None = None,
     ):
         self.config = config
         self.scoring_mode = scoring_mode or config.scoring_mode
@@ -70,6 +94,17 @@ class Engine:
         self._proposal = proposal or BiasedProposalPolicy(config)
         self._decay = decay or PopulationScaledDecayPolicy(config)
         self._bus_factory = bus_factory or InMemorySyncBus
+        # Agency (Doc 05): the drive set exists iff the run is in curiosity mode
+        # (or a set is injected); the policy default depends on the mode.
+        # policy_mode="random" is the pinned validation baseline (FR-008).
+        curiosity_mode = config.policy_mode == "curiosity" or drives is not None
+        self._drives = drives or (WeightedDriveSet.from_config(config) if curiosity_mode else None)
+        if policy is not None:
+            self._policy: Policy = policy
+        elif curiosity_mode:
+            self._policy = CuriosityLookaheadPolicy(PolicyParams.from_config(config))
+        else:
+            self._policy = RandomPolicy()
 
     def run(self, seed: int, *, do_offline: bool = True) -> PerSeedRunSummary:
         cfg = self.config
@@ -82,8 +117,11 @@ class Engine:
         bus = self._bus_factory(store)
         scoring_mode = self.scoring_mode
         checkpoints = set(cfg.horizon_checkpoints)
+        policy = self._policy
+        drives = self._drives
 
         state = _RunState()
+        agency = _AgencyState(cfg) if drives is not None else None
 
         def online_episode() -> None:
             obs = world.reset()
@@ -109,11 +147,64 @@ class Engine:
                 state.pop_sum += alive
                 if alive > 0:
                     state.map_fractions.append(stats.mapped / alive)
-                if stats.elect_pred_errors:
-                    state.pred_errors.append(float(np.mean(stats.elect_pred_errors)))
+                mean_pred = (
+                    float(np.mean(stats.elect_pred_errors)) if stats.elect_pred_errors else None
+                )
+                if mean_pred is not None:
+                    state.pred_errors.append(mean_pred)
+
+                if agency is None:
+                    # pinned baseline: RandomPolicy reads only n_actions — the
+                    # context is inert and no drive work happens (research R1).
+                    ctx = PolicyContext(
+                        observation=obs,
+                        n_actions=world.n_actions,
+                        best_frame_age=None,
+                        predict_decoded=_no_prediction,
+                        drive_value_of=_zero_value,
+                    )
+                else:
+                    # value the CURRENT observation first (memory through t−1:
+                    # the very first step sees an empty memory, novelty = 1.0)
+                    drive_ctx = DriveContext(
+                        observation=obs,
+                        recent_pred_errors=agency.pred_error_history,
+                        observation_memory=agency.observation_memory,
+                        step_index=state.obs_steps,
+                    )
+                    agency.record_value(drives, drive_ctx, obs)
+                    age, predictor = store.best_frame_predictor(scorer)
+
+                    def _value_of(
+                        hypothetical: np.ndarray,
+                        _hist=agency.pred_error_history,
+                        _mem=agency.observation_memory,
+                        _step=state.obs_steps,
+                    ) -> float:
+                        return drives.value(
+                            DriveContext(
+                                observation=hypothetical,
+                                recent_pred_errors=_hist,
+                                observation_memory=_mem,
+                                step_index=_step,
+                            )
+                        )
+
+                    def _predict(action: int, _p=predictor, _obs=obs):
+                        return None if _p is None else _p(_obs, action)
+
+                    ctx = PolicyContext(
+                        observation=obs,
+                        n_actions=world.n_actions,
+                        best_frame_age=age,
+                        predict_decoded=_predict,
+                        drive_value_of=_value_of,
+                    )
 
                 prev_obs = obs
-                prev_a = int(rng.integers(world.n_actions))
+                prev_a = policy.select_action(ctx, rng)
+                if agency is not None:
+                    agency.record_step(policy, obs, mean_pred)
                 obs = world.step(prev_a)
 
         def offline_cycle() -> None:
@@ -187,6 +278,7 @@ class Engine:
             checkpoints=checkpoint_readings,
             population_by_cycle=population_by_cycle,
             still_growing=is_still_growing(population_by_cycle),
+            agency=agency.summary() if agency is not None else None,
         )
 
 
@@ -201,6 +293,49 @@ class _RunState:
         self.warmed = False
         self.obs_steps = 0
         self.pop_sum = 0
+
+
+class _AgencyState:
+    """Per-run agency bookkeeping (Doc 05 §3.3): the drive-context FIFOs the
+    Engine owns on the drives' behalf, plus value-signal telemetry accumulators.
+    State, not policy — never persisted; exists only in curiosity mode."""
+
+    def __init__(self, config: Config) -> None:
+        self.pred_error_history: deque[float] = deque(maxlen=config.lp_baseline_window)
+        self.observation_memory: deque[np.ndarray] = deque(maxlen=config.novelty_memory_size)
+        self.values: list[float] = []
+        self.lp_terms: list[float] = []
+        self.novelty_terms: list[float] = []
+        self.directed_steps = 0
+        self.total_steps = 0
+
+    def record_value(self, drives: WeightedDriveSet, ctx: DriveContext, obs: np.ndarray) -> None:
+        self.values.append(drives.value(ctx))
+        for d in drives.drives:
+            if isinstance(d, CuriosityDrive):
+                self.lp_terms.append(d.learning_progress(ctx.recent_pred_errors))
+                self.novelty_terms.append(d.novelty(obs, ctx.observation_memory))
+                break
+
+    def record_step(self, policy: Policy, obs: np.ndarray, mean_pred: float | None) -> None:
+        self.total_steps += 1
+        if getattr(policy, "last_was_directed", False):
+            self.directed_steps += 1
+        # bookkeeping updates AFTER valuation (value at t sees memory through t−1)
+        if mean_pred is not None:
+            self.pred_error_history.append(mean_pred)
+        self.observation_memory.append(np.array(obs, copy=True))
+
+    def summary(self) -> dict:
+        return {
+            "value_signal_mean": float(np.mean(self.values)) if self.values else 0.0,
+            "value_signal_final": float(self.values[-1]) if self.values else 0.0,
+            "learning_progress_mean": float(np.mean(self.lp_terms)) if self.lp_terms else 0.0,
+            "novelty_mean": float(np.mean(self.novelty_terms)) if self.novelty_terms else 0.0,
+            "directed_fraction": self.directed_steps / self.total_steps
+            if self.total_steps
+            else 0.0,
+        }
 
 
 def _window_mean(values: list[float], *, require: int) -> float | None:

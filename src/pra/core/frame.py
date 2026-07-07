@@ -343,6 +343,32 @@ class FrameStore:
             return None
         return best[1], best[2], best[0]
 
+    def best_frame_predictor(self, scorer):
+        """The current best frame's ``(age_cycles, predict_decoded)`` for the
+        policy's one-step lookahead (Doc 05 §4.2): ``predict_decoded(obs, a)``
+        encodes ``obs`` with the best frame, applies its transition for ``a``,
+        and decodes the predicted pose back to observation space. Returns
+        ``(None, None)`` when no frame exists. Read-only: never mutates weights
+        or consumes RNG."""
+        best = self.best_frame(scorer)
+        if best is None:
+            return None, None
+        fid = best[0]
+        for g in self._groups.values():
+            idx = np.nonzero(g.frame_ids == fid)[0]
+            if idx.size == 0:
+                continue
+            i = int(idx[0])
+
+            def predict_decoded(obs: np.ndarray, action: int, g=g, i=i) -> np.ndarray:
+                pose, _ = g.encode(obs)
+                pred, _ = g.predict_next(pose, action)
+                recon, _ = g.reconstruct(pred)
+                return recon[i]
+
+            return int(g.age_cycles[i]), predict_decoded
+        return None, None
+
     # ---- the batched online step --------------------------------------------
     def online_step(
         self, obs: np.ndarray, prev_obs: np.ndarray | None, prev_a: int | None, scoring_mode: str

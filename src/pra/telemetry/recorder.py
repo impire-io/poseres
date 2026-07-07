@@ -109,6 +109,10 @@ class PerSeedRunSummary:
     population_by_cycle: list[int]
     still_growing: bool
     error: str | None = None
+    # Agency telemetry (002-motivation-action). Present ONLY when the run used a
+    # drive; None in every existing mode so the validated baseline summary's
+    # serialization is byte-identical (FR-008, research R2).
+    agency: dict | None = None
     _improvement: float | None = field(default=None, repr=False)
 
     @property
@@ -119,7 +123,7 @@ class PerSeedRunSummary:
 
     def canonical(self) -> dict:
         """Ordered, JSON-ready dict — the basis for byte-identical comparison."""
-        return {
+        out = {
             "seed": int(self.seed),
             "scoring_mode": self.scoring_mode,
             "mean_map_fraction": _canonical_float(self.mean_map_fraction),
@@ -143,6 +147,15 @@ class PerSeedRunSummary:
             "still_growing": bool(self.still_growing),
             "error": self.error,
         }
+        if self.agency is not None:
+            out["agency"] = {
+                "value_signal_mean": _canonical_float(self.agency["value_signal_mean"]),
+                "value_signal_final": _canonical_float(self.agency["value_signal_final"]),
+                "learning_progress_mean": _canonical_float(self.agency["learning_progress_mean"]),
+                "novelty_mean": _canonical_float(self.agency["novelty_mean"]),
+                "directed_fraction": _canonical_float(self.agency["directed_fraction"]),
+            }
+        return out
 
     def serialize(self) -> str:
         """Deterministic, byte-stable serialization (FR-010, SC-007)."""
