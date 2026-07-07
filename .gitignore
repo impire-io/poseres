@@ -6,3 +6,6 @@ venv/
 
 # Local Claude settings — never commit
 .claude/settings.local.json
+
+# macOS
+.DS_Store
