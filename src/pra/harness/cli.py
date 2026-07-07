@@ -15,8 +15,10 @@ from pathlib import Path
 from time import perf_counter
 
 from pra.config import Config
-from pra.harness.acceptance import FAIL, evaluate_suite
+from pra.harness.acceptance import FAIL, evaluate_suite, evaluate_t7
+from pra.harness.agency import run_agency
 from pra.harness.report import (
+    build_agency_report,
     build_determinism_report,
     build_scale_report,
     build_suite_report,
@@ -150,6 +152,22 @@ def _cmd_scan(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_agency(args: argparse.Namespace) -> int:
+    config = _build_config(args)
+    agency_run = run_agency(config, workers=_resolve_workers(args, len(config.seeds)))
+    if not agency_run.curious:
+        sys.stderr.write("pra-validate: every seed errored; agency run could not complete.\n")
+        return 2
+    t7 = evaluate_t7(agency_run)
+    report = build_agency_report(agency_run, t7)
+    sys.stdout.write(render_text(report) + "\n")
+    if args.json:
+        _write_json(args.json, report)
+    if args.strict and (t7.verdict == FAIL or agency_run.failed_seeds):
+        return 1
+    return 0
+
+
 def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="pra-validate", description="PRA validation harness")
     sub = parser.add_subparsers(dest="command")
@@ -202,6 +220,20 @@ def _build_parser() -> argparse.ArgumentParser:
     p_scan.add_argument("--config")
     p_scan.add_argument("--json")
     p_scan.set_defaults(func=_cmd_scan)
+
+    p_agency = sub.add_parser("agency", help="curious vs random comparison (T7) + agency telemetry")
+    p_agency.add_argument("--seeds")
+    p_agency.add_argument("--true-dim", dest="true_dim", type=int)
+    p_agency.add_argument("--config")
+    p_agency.add_argument("--json")
+    p_agency.add_argument("--strict", action="store_true")
+    p_agency.add_argument(
+        "--workers",
+        type=int,
+        default=0,
+        help="parallel seed processes (0 = one per seed up to CPU count); never changes results",
+    )
+    p_agency.set_defaults(func=_cmd_agency)
 
     return parser
 

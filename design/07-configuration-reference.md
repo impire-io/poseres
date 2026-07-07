@@ -66,15 +66,15 @@ Status: **[V]** validated, **[D]** design, **[O]** open (see Doc 00 legend).
 
 | Parameter | Type | Default | Range / notes | Status |
 |---|---|---|---|---|
-| `drives` | ordered list of drive declarations | `[curiosity]` | each declares `id`, parameters, and `drive_weight`; base build has exactly one | [D] |
-| `drive_weight[d]` | float | 1.0 (single drive) | ≥ 0; per drive; fixed at boot | [D] |
+| `drive_weights` | ordered name→weight map | `{curiosity: 1.0}` | non-empty; weights finite ≥ 0; names match the registered drive roster one-to-one; base build has exactly one | [V] |
 | `w_progress` | float | 1.0 | ≥ 0; curiosity learning-progress weight | [O] |
 | `w_novelty` | float | 1.0 | ≥ 0; curiosity novelty weight | [O] |
-| `pred_err_recent_window` | int | 50 | ≥ 1; steps in the short prediction-error window | [O] |
-| `pred_err_baseline_window` | int | 500 | ≥ `pred_err_recent_window`; steps in the long window | [O] |
-| `observation_memory_size` | int | 1000 | ≥ 1; size of `recent_observation_memory` for novelty | [O] |
+| `lp_recent_window` | int | 60 | ≥ 1; steps in the short prediction-error window | [O] |
+| `lp_baseline_window` | int | 600 | > `lp_recent_window`; steps in the long window | [O] |
+| `novelty_memory_size` | int | 200 | ≥ 1; bounded `recent_observation_memory` for novelty | [O] |
 
-**MUST:** all drive parameters above are read-only at runtime (Doc 05 §6).
+**MUST:** all drive parameters above are read-only at runtime (Doc 05 §6);
+structural immutability (frozen configuration) is the implemented enforcement.
 
 ---
 
@@ -82,10 +82,12 @@ Status: **[V]** validated, **[D]** design, **[O]** open (see Doc 00 legend).
 
 | Parameter | Type | Default | Range / notes | Status |
 |---|---|---|---|---|
-| `policy` | enum | `curiosity_lookahead_1step` | the configured policy implementation | [O] |
-| `action_candidate_sample` | int | `n_actions` | ≥ 1; number of candidate actions evaluated per step (subset if < `n_actions`) | [O] |
+| `policy_mode` | enum | `random` | `random` \| `curiosity`; **`random` is the pinned validation baseline** — the T1–T6 suite runs under it byte-identically; `curiosity` selects the one-step lookahead (agency mode, T7) | [V] |
 | `exploration_epsilon` | float | 0.1 | in [0, 1]; probability of a uniformly random action | [D] |
-| `min_frame_maturity_for_lookahead` | int | 5 | ≥ 0; slow-loop cycles before lookahead is trusted; below this the policy acts randomly | [D] |
+| `lookahead_min_age_cycles` | int | 2 | ≥ 0; best-frame maturity (slow-loop cycles) before lookahead is trusted; below this the policy acts randomly | [D] |
+
+Candidate-action subsetting for large action spaces remains an **[O]** extension
+of the policy seam (all `n_actions` are evaluated at the base build's sizes).
 
 ---
 

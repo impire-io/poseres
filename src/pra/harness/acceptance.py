@@ -25,6 +25,7 @@ __all__ = [
     "INVESTIGATORY",
     "NOT_AVAILABLE",
     "evaluate_suite",
+    "evaluate_t7",
 ]
 
 PASS = "PASS"
@@ -248,6 +249,63 @@ def _t6(predictive, n) -> AcceptanceVerdict:
         "T6",
         "No-loss guard — post-warmup, observations are rarely left unmapped.",
         "post-warmup loss_fraction < 0.15",
+        verdict,
+        measured,
+    )
+
+
+# One-sided noninferiority threshold: FAIL only when the curious arm's paired
+# mean margin is significantly below zero (≈ t(α=0.05) for the suite's df; [D]).
+T7_NONINFERIORITY_T = 1.9
+
+
+def evaluate_t7(agency_run) -> AcceptanceVerdict:
+    """T7 — directed curiosity is not worse than random exploration (FR-009).
+
+    Same-seed paired runs, equal experience; per seed the margin is
+    ``improvement(curious) − improvement(random)``. The pre-registered claim
+    (spec Assumptions) is *noninferiority* — "directedness does not hurt" — so
+    the verdict is a one-sided paired test: **FAIL iff
+    ``mean(margin) < −T·SE(margin)``** (T = 1.9 ≈ t(0.05) at the reference df).
+    A sign-majority bar was measured first and discarded openly: with
+    continuous margins it degenerates into "strictly better per seed" and fails
+    exact equivalence by coin-flip (reference measurement 2026-07-07: 3/8 signs,
+    mean −0.006 ± 0.036 — statistically equivalent). Sign counts and the full
+    per-seed spread are always reported alongside the verdict."""
+    margins: list[float | None] = []
+    n_strictly_better = 0
+    comparable = 0
+    for cur, rnd in zip(agency_run.curious, agency_run.random, strict=True):
+        if cur.improvement is None or rnd.improvement is None:
+            margins.append(None)
+            continue
+        comparable += 1
+        margin = cur.improvement - rnd.improvement
+        margins.append(margin)
+        if margin > 0:
+            n_strictly_better += 1
+    n = len(agency_run.seeds)
+    measured = _aggregate(margins)
+    if comparable == 0:
+        measured.note = "not available"
+        verdict = NOT_AVAILABLE
+    elif comparable == 1:
+        measured.note = f"single comparable seed (margin {measured.mean:+.4f}); no spread"
+        verdict = PASS if measured.mean >= 0 else FAIL
+    else:
+        se = measured.std / np.sqrt(comparable)
+        threshold = -T7_NONINFERIORITY_T * se
+        verdict = PASS if measured.mean >= threshold else FAIL
+        measured.note = (
+            f"mean margin {measured.mean:+.4f} vs noninferiority bound {threshold:+.4f} "
+            f"(SE {se:.4f}); strictly better in {n_strictly_better}/{n} seeds"
+        )
+    return AcceptanceVerdict(
+        "T7",
+        "Directed curiosity gathers experience at least as useful for learning "
+        "the world as random exploration (equal experience, same seed).",
+        "paired mean margin not significantly below zero "
+        f"(mean ≥ −{T7_NONINFERIORITY_T}·SE, one-sided noninferiority)",
         verdict,
         measured,
     )

@@ -19,6 +19,7 @@ __all__ = [
     "build_suite_report",
     "build_determinism_report",
     "build_scale_report",
+    "build_agency_report",
     "render_text",
     "render_json",
 ]
@@ -108,6 +109,52 @@ def _scale_measured(readings: list[ScaleReading]):
     return Measured(note=f"{len(readings)} dimensionality/dimensionalities measured")
 
 
+def build_agency_report(agency_run, t7: AcceptanceVerdict) -> VerdictReport:
+    """T7 verdict + curious-arm telemetry (contracts/cli.md of 002)."""
+    cfg = agency_run.config
+    agency_blocks = [s.agency for s in agency_run.curious if s.agency is not None]
+
+    def _mean(key: str) -> float:
+        return sum(b[key] for b in agency_blocks) / len(agency_blocks) if agency_blocks else 0.0
+
+    report = VerdictReport(
+        mode="agency",
+        run_metadata={
+            "seeds": list(agency_run.seeds),
+            "true_dim": cfg.true_dim,
+            "obs_dim": cfg.obs_dim,
+            "checkpoints": list(cfg.horizon_checkpoints),
+            "scoring_mode": "predictive",
+            "wall_clock_seconds": agency_run.wall_clock_seconds,
+            "failed_seeds": list(agency_run.failed_seeds),
+        },
+        tests=[t7],
+        for_debugging_only=len(agency_run.seeds) == 1,
+    )
+    report.run_metadata["agency_telemetry"] = {
+        "value_signal_mean": _mean("value_signal_mean"),
+        "learning_progress_mean": _mean("learning_progress_mean"),
+        "novelty_mean": _mean("novelty_mean"),
+        "directed_fraction_mean": _mean("directed_fraction"),
+    }
+    report.run_metadata["t7_per_seed"] = [
+        {
+            "seed": seed,
+            "curious_improvement": cur.improvement,
+            "random_improvement": rnd.improvement,
+            "margin": (
+                cur.improvement - rnd.improvement
+                if cur.improvement is not None and rnd.improvement is not None
+                else None
+            ),
+        }
+        for seed, cur, rnd in zip(
+            agency_run.seeds, agency_run.curious, agency_run.random, strict=True
+        )
+    ]
+    return report
+
+
 # --- text rendering --------------------------------------------------------
 def _fmt_measured(m) -> str:
     if m.mean is None:
@@ -134,6 +181,29 @@ def render_text(report: VerdictReport) -> str:
             f"  !! INCOMPLETE: seeds {md['failed_seeds']} errored — "
             f"the aggregate is NOT a complete result."
         )
+
+    if "agency_telemetry" in md:
+        t = md["agency_telemetry"]
+        lines.append("")
+        lines.append(
+            f"[AGENCY] value signal {t['value_signal_mean']:.3f} "
+            f"(learning-progress {t['learning_progress_mean']:.4f}, "
+            f"novelty {t['novelty_mean']:.3f}); "
+            f"directed actions {t['directed_fraction_mean']:.0%}"
+        )
+    if "t7_per_seed" in md:
+        lines.append("")
+        lines.append("     seed | curious improvement | random improvement | margin")
+        lines.append("     -----+---------------------+--------------------+-------")
+        for row in md["t7_per_seed"]:
+
+            def _fmt(x):
+                return "   n/a" if x is None else f"{x:+.4f}"
+
+            lines.append(
+                f"      {row['seed']:3d} |       {_fmt(row['curious_improvement'])}       |"
+                f"      {_fmt(row['random_improvement'])}       | {_fmt(row['margin'])}"
+            )
 
     if report.determinism_check is not None:
         dc = report.determinism_check

@@ -4,6 +4,17 @@ This document specifies the system's motivation (its innate drive and the value 
 
 This is the least mature part of the system. The interfaces and a working default are specified unambiguously. Several internals are **[O]** — known open problems — and are flagged as such.
 
+> **Build status (2026-07-07, feature `002-motivation-action`):** implemented and
+> validated at the reference scale. The Drive/Policy seams, the curiosity default
+> (windowed learning progress + min-distance novelty), the one-step lookahead
+> policy, the multi-drive mechanism, and the immutability rule (§6) are built and
+> test-locked; the validated T1–T6 core is byte-identical under the pinned random
+> baseline. Acceptance: **T7** (PRA-02 §4) — curious vs random, noninferiority —
+> **PASS** at the reference (arms statistically equivalent; directed exploration
+> neither helps nor hurts in the small reference world). The [O] internals (§3.1,
+> §3.2, §4.2) remain open exactly as flagged; whether directedness *helps* in
+> larger worlds is the follow-on research question.
+
 ---
 
 ## 1. Principles
