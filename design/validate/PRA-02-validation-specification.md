@@ -177,14 +177,21 @@ The reference behavior these criteria encode is the validated behavior of the ar
 **Pass criterion is investigatory, not pass/fail for the build:** the build is *complete* when T-SCALE can be *run and measured* (the system reaches millions of observations on a single machine via batched evaluation, and emits the `best_dim` spread and throughput). Whether `best_dim` tracks `true_dim` at scale is the **research finding** the system is built to determine; a "no" is a valid and important result, not an implementation failure. The harness **MUST** make this run executable and its results legible; it **MUST NOT** treat a poor dimensionality result at high `true_dim` as a build defect.
 
 **Scaled reference result (2026-07-07; the research finding as of the six
-scale-invariance rules of Document 1 §8.8, 2000-cycle schedules, seeds {1,2,3},
-1,443,000 observation steps per `true_dim` — full trail in `SCALE-DIAGNOSIS.md`):**
+scale-invariance rules of Document 1 §8.8, 2000-cycle schedules, 8 seeds,
+~3.85M observation steps per `true_dim`, parallel seed execution — full trail in
+`SCALE-DIAGNOSIS.md`):**
 
-| `true_dim` | `best_dim` per seed | throughput (obs×frame evals/s) | wall |
-|---|---|---|---|
-| 20 | [8, 18, 6] | 31,788 | 25 min |
-| 35 | [8, 14, 10] | 21,808 | 74 min |
-| 50 | [8, 9, 10] | 14,694 | 187 min |
+| `true_dim` | `best_dim` per seed (8 seeds) | median | throughput (obs×frame evals/s) | wall |
+|---|---|---|---|---|
+| 20 | [8, 18, 6, 9, 8, 6, 13, 4] | 8 | 229,348 | 10 min |
+| 35 | [8, 14, 10, 11, 13, 8, 16, 10] | 10.5 | 128,733 | 34 min |
+| 50 | [8, 9, 10, 11, 9, 9, 12, 10] | 9.5 | 51,746 | 141 min |
+
+(The first three entries of each spread exactly reproduce the earlier 3-seed
+measurement — per-seed determinism is visible in the data. Note the spread
+*shape*: wide at `true_dim = 20` (4–18: the climb is variance-dominated when
+maturation windows are plentiful, 2000/29 ≈ 69) and tight at `true_dim = 50`
+(8–12: uniformly stalled when windows are scarce, 2000/116 ≈ 17).)
 
 Reading: **no collapse at any scale** (every seed finds genuine multi-dimensional
 structure; before the §8.8 rules every scaled run collapsed to `best_dim ≈ 1`),

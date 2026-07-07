@@ -229,3 +229,13 @@ T-SCALE as the scaled reference result. The validation chapter is closed; the
 successor problems are (a) the [O] high-dim proposal policy (make rung count,
 not rung patience, the thing that shrinks) and (b) T3's persistence clause at
 scale (untested there; the reference measurement is 6/8).
+
+**8-seed confirmation (same day, parallel seed execution):** td 20/35/50 →
+[8, 18, 6, 9, 8, 6, 13, 4] / [8, 14, 10, 11, 13, 8, 16, 10] /
+[8, 9, 10, 11, 9, 9, 12, 10]; medians 8 / 10.5 / 9.5; minimum across all 24
+runs = 4 (no collapse anywhere). The first three entries of each spread exactly
+reproduce the 3-seed run — determinism visible in the data. Spread shape
+sharpens the mechanism reading: **wide at td=20** (4–18; ~69 maturation windows
+— the climb is a high-variance stochastic search) and **tight at td=50** (8–12;
+~17 windows — uniformly window-starved). Parallel throughput 229k obs×frame
+evals/s at td=20 (7× sequential); 24 runs in 3.1 h wall.
