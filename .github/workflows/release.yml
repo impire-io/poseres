@@ -5,6 +5,7 @@ on:
     tags: ["v*"]
 
 permissions:
+  contents: read
   id-token: write  # required for OIDC trusted publishing
 
 jobs:
