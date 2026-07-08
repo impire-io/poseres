@@ -19,7 +19,7 @@ import numpy as np
 from pra.config import Config
 from pra.motivation.context import DriveContext
 
-__all__ = ["Drive", "CuriosityDrive", "CuriosityParams", "WeightedDriveSet"]
+__all__ = ["Drive", "CuriosityDrive", "CuriosityParams", "CompetenceDrive", "WeightedDriveSet"]
 
 _EPS = 1e-6
 
@@ -99,6 +99,52 @@ class CuriosityDrive:
         return p.w_progress * lp + p.w_novelty * nov
 
 
+class CompetenceDrive:
+    """Competence: the fixed terminal counter-pole to curiosity (Doc 05 §5 —
+    "rewards mastering: driving prediction error low and keeping it low").
+
+    Two terms, both pure functions of the context:
+    - **mastery** = ``max(0, 1 − mean(recent pred errors))`` — high when the
+      system predicts well and keeps predicting well (the "keeping it low"
+      reading); history-shaped, so constant across one-step lookahead candidates.
+    - **familiarity** = ``1 − novelty`` — high for observations close to recent
+      experience; the per-candidate term that steers the lookahead toward
+      practice on what the system already almost knows.
+
+    Empirical grounding (AGENCY-DIAGNOSIS E5): at `true_dim=20` the
+    familiarity-directed lookahead beats random exploration (margin +0.067,
+    better in 6/8 seeds) where novelty-directed curiosity loses (−0.062) — in a
+    uniformly learnable world, concentrated practice is what pays. The
+    curiosity/competence *blend* for richer worlds is the open §5 question.
+    """
+
+    def __init__(self, params: CuriosityParams):
+        self.params = params  # shares the novelty-memory/window parameters
+
+    def id(self) -> str:
+        return "competence"
+
+    def mastery(self, history: Sequence[float]) -> float:
+        p = self.params
+        if len(history) < p.lp_recent_window:
+            return 0.0
+        arr = np.asarray(history, dtype=np.float64)  # history may be a deque: no slicing
+        recent = float(arr[-p.lp_recent_window :].mean())
+        return max(0.0, 1.0 - recent)
+
+    def familiarity(self, observation: np.ndarray, memory: Sequence[np.ndarray]) -> float:
+        if len(memory) == 0:
+            return 0.0  # nothing is familiar yet; competence is silent at cold start
+        stack = np.asarray(memory, dtype=np.float64)
+        dists = np.linalg.norm(stack - observation, axis=1)
+        return max(0.0, 1.0 - float(dists.min() / (np.linalg.norm(observation) + _EPS)))
+
+    def value(self, context: DriveContext) -> float:
+        return self.mastery(context.recent_pred_errors) + self.familiarity(
+            context.observation, context.observation_memory
+        )
+
+
 class WeightedDriveSet:
     """Fixed weighted sum of drives (Doc 05 §2.2): ``Σ w[d.id()]·d.value(ctx)``.
 
@@ -126,6 +172,8 @@ class WeightedDriveSet:
         for name, _ in config.drive_weights:
             if name == "curiosity":
                 drives.append(CuriosityDrive(CuriosityParams.from_config(config)))
+            elif name == "competence":
+                drives.append(CompetenceDrive(CuriosityParams.from_config(config)))
             else:
                 raise ValueError(f"unknown drive '{name}' in drive_weights")
         return cls(tuple(drives), config.drive_weights)

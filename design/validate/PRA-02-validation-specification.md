@@ -182,11 +182,22 @@ chasing the least-familiar predicted observation drives the agent toward
 poorly-modeled regions faster than it can learn them, degrading the experience
 distribution relative to a random walk. This is precisely the failure mode the
 Doc 05 **[O]** tags anticipated (§3.1/§4.2 "expected to be tuned/replaced") and
-the §5 counter-drive mechanism exists for. Open research directions: value
-predicted *learning progress* rather than predicted novelty in the lookahead;
-or configure a competence counter-drive in tension with curiosity. The
-reference-scale PASS above stands; the claim "directedness does not hurt" is
-now known to be scale-dependent.
+the §5 counter-drive mechanism exists for. The reference-scale PASS above
+stands; the claim "directedness does not hurt" is drive- and scale-dependent.
+
+**Resolution (2026-07-08, `AGENCY-DIAGNOSIS.md`, five controlled experiments):**
+the harm is the *content* of the preference, not the directedness — a
+content-free state-coupled control policy is neutral (margin +0.014), while the
+inverted, familiarity-seeking preference **beats random** (+0.067, better in
+6/8 seeds). (Sub-hypotheses refuted along the way with data: tanh saturation,
+fit-gate starvation, action-marginal skew, walk extent.) The shipped
+**competence drive** (Doc 05 §5: mastery + familiarity), selected by pure
+configuration (`drive_weights = {competence: 1.0}`), PASSes T7 at **both**
+scales and beats random in 6/8 seeds at each: scaled margin **+0.064** (bound
+−0.056), reference margin **+0.027** (bound −0.034) — directed exploration is
+now a measured net positive. Honest caveat: this world is uniformly learnable;
+in worlds with unlearnable regions pure familiarity-seeking risks the camping
+degeneracy, and the curiosity/competence blend remains the open [O] question.
 
 ### T-SCALE — Structure growth holds at high dimensionality and scale (the research question)
 **Claim (open; this is what the whole system exists to investigate):** spawn-and-select still finds the right dimensionality when `true_dim` is large and the run processes millions of observations.

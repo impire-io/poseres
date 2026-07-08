@@ -66,7 +66,7 @@ Status: **[V]** validated, **[D]** design, **[O]** open (see Doc 00 legend).
 
 | Parameter | Type | Default | Range / notes | Status |
 |---|---|---|---|---|
-| `drive_weights` | ordered name→weight map | `{curiosity: 1.0}` | non-empty; weights finite ≥ 0; names match the registered drive roster one-to-one; base build has exactly one | [V] |
+| `drive_weights` | ordered name→weight map | `{curiosity: 1.0}` | non-empty; weights finite ≥ 0; names from the registry (`curiosity`, `competence`) matched one-to-one; base build ships curiosity-only. `{competence: 1.0}` is the measured recommendation for uniformly-learnable worlds at scale (AGENCY-DIAGNOSIS: beats random at both scales where novelty-curiosity loses at scale) | [V] |
 | `w_progress` | float | 1.0 | ≥ 0; curiosity learning-progress weight | [O] |
 | `w_novelty` | float | 1.0 | ≥ 0; curiosity novelty weight | [O] |
 | `lp_recent_window` | int | 60 | ≥ 1; steps in the short prediction-error window | [O] |

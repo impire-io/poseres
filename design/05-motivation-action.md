@@ -12,8 +12,22 @@ This is the least mature part of the system. The interfaces and a working defaul
 > baseline. Acceptance: **T7** (PRA-02 §4) — curious vs random, noninferiority —
 > **PASS** at the reference (arms statistically equivalent; directed exploration
 > neither helps nor hurts in the small reference world). The [O] internals (§3.1,
-> §3.2, §4.2) remain open exactly as flagged; whether directedness *helps* in
-> larger worlds is the follow-on research question.
+> §3.2, §4.2) remain open exactly as flagged.
+>
+> **Research update (2026-07-08, `AGENCY-DIAGNOSIS.md`):** at scale
+> (`true_dim=20`) novelty-directed curiosity is *worse* than random (T7 FAIL,
+> margin −0.062), and a five-experiment diagnosis located the cause in the
+> **content** of the preference, not the directedness: a content-free
+> state-coupled policy is neutral (+0.014) and the inverted, familiarity-seeking
+> preference **beats random** (+0.067, better in 6/8 seeds). The §5
+> counter-drive concept is therefore validated in its strongest form: a
+> **competence drive** (mastery + familiarity) is now shipped in the drive
+> registry and is the recommended configuration for uniformly-learnable worlds
+> at scale (`drive_weights = {competence: 1.0}`); the base default remains
+> curiosity-only. The curiosity/competence blend for worlds with unlearnable
+> regions — where pure familiarity-seeking risks the camping degeneracy — is
+> the open §5 tuning question, as is predicted-learning-progress valuation for
+> the lookahead (needs a per-candidate learnability signal; [O]).
 
 ---
 
