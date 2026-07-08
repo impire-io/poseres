@@ -274,6 +274,15 @@ class Engine:
                 obs = world.step(prev_a)
 
         def offline_cycle() -> None:
+            # Anatomy hook (Doc 02 §5, feature 004): tool registrations queued on
+            # a Body take effect here — the C4 safe point, before any aging,
+            # eviction, spawning, or snapshot. Plain worlds lack the attribute:
+            # one getattr, no RNG, no float work — the baseline stays byte-frozen.
+            apply_tools = getattr(world, "apply_pending_tools", None)
+            if apply_tools is not None:
+                changed = apply_tools()
+                if changed is not None:
+                    store.resize(changed[0], changed[1], rng)
             # effective (scale-invariant) protection window — raw at the reference
             store.age_all(cfg.effective_min_age_cycles)
             if store.population_size == 0:

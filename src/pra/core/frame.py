@@ -119,6 +119,54 @@ class FrameGroup:
         self.T2 = np.concatenate([self.T2, T2[None]], axis=0)
         self.tb2 = np.concatenate([self.tb2, np.zeros((1, A, D))], axis=0)
 
+    def resize(self, new_obs_dim: int, new_n_actions: int, scale: float, rng) -> None:
+        """Frame I/O resize (Doc 03 §7, feature 004 research R3).
+
+        Existing weight entries are preserved bit-for-bit. Growth appends
+        trailing slices drawn at the §8.8 effective scale for each tensor's
+        fan-in at the NEW widths (biases zero); shrink discards trailing
+        slices. Draw order within a group is fixed: W1, Dc2 (observation),
+        then T1, T2 (actions) — single tensor draws, row-major.
+        """
+        from pra.config import HIDDEN_REF, OBS_DIM_REF
+
+        F, H = self.size, self.H
+        d_obs = new_obs_dim - self.obs_dim
+        if d_obs > 0:
+            f_obs = float(np.sqrt(OBS_DIM_REF / new_obs_dim))
+            f_hid = float(np.sqrt(HIDDEN_REF / H))
+            self.W1 = np.concatenate(
+                [self.W1, rng.standard_normal((F, H, d_obs)) * (scale * f_obs)], axis=2
+            )
+            self.Dc2 = np.concatenate(
+                [self.Dc2, rng.standard_normal((F, d_obs, H)) * (scale * f_hid)], axis=1
+            )
+            self.dc2 = np.concatenate([self.dc2, np.zeros((F, d_obs))], axis=1)
+        elif d_obs < 0:
+            self.W1 = self.W1[:, :, :new_obs_dim]
+            self.Dc2 = self.Dc2[:, :new_obs_dim, :]
+            self.dc2 = self.dc2[:, :new_obs_dim]
+        self.obs_dim = new_obs_dim
+
+        d_act = new_n_actions - self.A
+        if d_act > 0:
+            f_hid = float(np.sqrt(HIDDEN_REF / H))
+            D = self.dim
+            self.T1 = np.concatenate(
+                [self.T1, rng.standard_normal((F, d_act, H, D)) * scale], axis=1
+            )
+            self.tb1 = np.concatenate([self.tb1, np.zeros((F, d_act, H))], axis=1)
+            self.T2 = np.concatenate(
+                [self.T2, rng.standard_normal((F, d_act, D, H)) * (scale * f_hid)], axis=1
+            )
+            self.tb2 = np.concatenate([self.tb2, np.zeros((F, d_act, D))], axis=1)
+        elif d_act < 0:
+            self.T1 = self.T1[:, :new_n_actions]
+            self.tb1 = self.tb1[:, :new_n_actions]
+            self.T2 = self.T2[:, :new_n_actions]
+            self.tb2 = self.tb2[:, :new_n_actions]
+        self.A = new_n_actions
+
     def remove_rows(self, rows: np.ndarray) -> None:
         keep = np.ones(self.size, dtype=bool)
         keep[rows] = False
@@ -266,6 +314,11 @@ class FrameStore:
         self._clip = float(config.gradient_clip)
         self._decay = float(config.ema_decay)
         self._scale = float(config.init_weight_scale)
+        # Current anatomy dims: equal to config at boot; tool registration
+        # (Doc 02 §5) changes them via resize() at the slow loop. Births and
+        # per-event results always use the current dims.
+        self.obs_dim = int(config.obs_dim)
+        self.n_actions = int(config.n_actions)
 
     # ---- population ----------------------------------------------------------
     @property
@@ -281,7 +334,7 @@ class FrameStore:
     def _group_for(self, dim: int) -> FrameGroup:
         g = self._groups.get(dim)
         if g is None:
-            g = FrameGroup(dim, self.config.obs_dim, self.config.hidden_size, self.config.n_actions)
+            g = FrameGroup(dim, self.obs_dim, self.config.hidden_size, self.n_actions)
             self._groups[dim] = g
         return g
 
@@ -302,6 +355,21 @@ class FrameStore:
                 g.remove_rows(np.nonzero(mask)[0])
                 if g.size == 0:
                     del self._groups[dim]
+
+    def resize(self, new_obs_dim: int, new_n_actions: int, rng) -> None:
+        """Apply an anatomy change to every frame (Doc 03 §7; slow loop only).
+
+        Groups are resized in ascending ``dim`` order (fixed draw order,
+        feature 004 FR-006); the store's current dims and the scale-dependent
+        effective learning rate (PRA-01 §8.8) track the new observation width.
+        """
+        from pra.config import OBS_DIM_REF
+
+        for dim in sorted(self._groups):
+            self._groups[dim].resize(new_obs_dim, new_n_actions, self._scale, rng)
+        self.obs_dim = int(new_obs_dim)
+        self.n_actions = int(new_n_actions)
+        self._lr = float(self.config.learning_rate * (OBS_DIM_REF / new_obs_dim) ** 1.5)
 
     def age_all(self, min_age_cycles: int) -> None:
         for g in self._groups.values():

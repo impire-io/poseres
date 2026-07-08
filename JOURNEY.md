@@ -128,16 +128,38 @@ the curiosity/competence blend for worlds with unlearnable regions (camping
 risk), predicted-learning-progress lookahead. Trail:
 `design/validate/AGENCY-DIAGNOSIS.md`; commits `1953832`, `41cfed2`.
 
+## Chapter 8 — Feature 004: anatomy & body — the design is fully built (2026-07-08)
+
+Doc 02, the last unbuilt design document (its Bus half was already validated in
+feature 001), landed as the body layer: Sensor/Actuator interfaces, a Body
+composing observations by fixed-order concatenation and routing a
+disjoint-union action space, and a ToolRegistry whose registrations defer to
+the slow loop and apply through the Doc 03 §7 **frame I/O resize** — learned
+weights preserved bit-for-bit, fresh trailing slices at the §8.8 effective
+scale, draws from the single generator in a fixed order. The integration
+insight kept it small: the Body implements the existing EventSource seam, so a
+world mounted through it is **byte-identical** to the direct connection (tested,
+SC-001), and the only engine change is an inert duck-typed hook. Mid-run growth
+works: register a sensor + actuator at a consolidation boundary, obs_dim
+10→13 and n_actions 4→6, every frame adapted without forgetting, the run
+completing deterministically. Deferred with loud edges: snapshots of resized
+runs (Doc 06 format-version follow-up), in-process timeouts, tool
+self-invention [O]. Trail: `specs/004-anatomy-body/`; commits `536baee`, and
+the implementation commit following it.
+
 ---
 
-## Where things stand (2026-07-08)
+## Where things stand (2026-07-08, end of day)
 
-Built and validated: the batched sensorimotor core + structural learning
-(Docs 03/04), motivation & action (Doc 05), state persistence (Doc 06), and the
-honest harness (T1–T7, determinism, scale, scan, agency) with parallel seed
-execution. **Unbuilt: Doc 02 (anatomy & bus — real sensors/actuators).** Open
+**Every design document (02–07) is now built and validated** at the reference
+scale: the batched sensorimotor core + structural learning (Docs 03/04), the
+anatomy/body layer with runtime tools (Doc 02), motivation & action with the
+competence drive (Doc 05), state persistence (Doc 06), and the honest harness
+(T1–T7, determinism, scale, scan, agency) with parallel seed execution. Open
 research: the [O] high-dim proposal policy (convergence *rate* at scale), the
-curiosity/competence blend, T3's persistence clause at scale.
+curiosity/competence blend for non-uniformly-learnable worlds, predicted-LP
+lookahead, T3's persistence clause at scale, snapshot support for
+anatomy-resized runs.
 
 ## Recurring principles (what the journey keeps teaching)
 

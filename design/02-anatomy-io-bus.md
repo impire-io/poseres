@@ -2,6 +2,19 @@
 
 This document specifies the body (sensors, actuators, tools) and the communication mechanism (the bus). It defines the data that flows and the interfaces that produce, consume, and deliver it.
 
+> **Build status (2026-07-08, feature `004-anatomy-body`):** implemented and
+> validated. Sensor/Actuator interfaces, fixed-order observation composition,
+> the disjoint-union action space, and the ToolRegistry with slow-loop-deferred
+> registration are built; the Body satisfies the EventSource seam, so a world
+> mounted through it runs **byte-identically** to the direct connection, and
+> the frame I/O resize (Doc 03 §7) preserves learned weights bit-for-bit while
+> initializing new slices at the §8.8 effective scale. The Bus (§6) was built
+> and validated in feature 001. Remaining [O]/deferred, as specified: tool
+> self-invention (§5.2), continuous actions (§2.2), in-process timeout
+> enforcement (§3.2 — a hardware-body concern), and snapshot/restore of
+> anatomy-resized runs (a Doc 06 format-version follow-up; restore's
+> compatibility check fails loudly on the stale dims).
+
 ---
 
 ## 1. Principles
