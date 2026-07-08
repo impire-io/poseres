@@ -171,6 +171,23 @@ The reference behavior these criteria encode is the validated behavior of the ar
 **Reference measurement (2026-07-07, 8 seeds):** mean margin −0.0061 ± 0.036 vs bound −0.0239 → **PASS**; strictly better in 3/8 seeds; mean value signal 0.159, directed-action fraction 78%. Reading: in the reference world random coverage is already near-complete, so directed exploration neither helps nor hurts — the claim this test protects is "does not hurt." Whether directedness *helps* in larger worlds is an open research question for scaled configurations.
 **Scope:** T7 runs via `pra-validate agency`, not in the default suite — the T1–T6 regression gate is byte-identical to the validated build under the pinned random policy.
 
+**Scaled measurement (2026-07-08, investigatory — `true_dim=20`, `obs_dim=60`,
+`hidden=40`, 200 cycles, 8 seeds): T7 criterion FAILS at scale.** Mean margin
+−0.062 ± 0.068 vs bound −0.046; strictly better in 1/8 seeds; directed-action
+fraction 87%. Directed curiosity is *systematically worse* than random
+exploration in the larger world. Mechanism reading: with one-step lookahead the
+learning-progress term is history-shaped and near-constant across candidate
+actions, so the policy is effectively a **novelty maximizer**; at scale,
+chasing the least-familiar predicted observation drives the agent toward
+poorly-modeled regions faster than it can learn them, degrading the experience
+distribution relative to a random walk. This is precisely the failure mode the
+Doc 05 **[O]** tags anticipated (§3.1/§4.2 "expected to be tuned/replaced") and
+the §5 counter-drive mechanism exists for. Open research directions: value
+predicted *learning progress* rather than predicted novelty in the lookahead;
+or configure a competence counter-drive in tension with curiosity. The
+reference-scale PASS above stands; the claim "directedness does not hurt" is
+now known to be scale-dependent.
+
 ### T-SCALE — Structure growth holds at high dimensionality and scale (the research question)
 **Claim (open; this is what the whole system exists to investigate):** spawn-and-select still finds the right dimensionality when `true_dim` is large and the run processes millions of observations.
 **Measure:** run T4 at `true_dim ∈ {20, 35, 50}` (Section 1.3) with run schedules long enough that `observation_steps` reaches the millions, using the batched evaluation required by Document 1, Section 7.2, and (for the large `true_dim` runs) the proposal policy supplied for high dimensionality (Document 1, Section 6.5). Report `best_dim` per seed at each `true_dim`, and report `throughput` and wall-clock.
