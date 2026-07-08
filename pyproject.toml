@@ -14,9 +14,9 @@ authors = [{ name = "Daan Gerits" }]
 dependencies = ["numpy>=2.4"]
 
 [project.urls]
-Homepage = "https://github.com/calmera/pra"
-Source = "https://github.com/calmera/pra"
-"Bug Tracker" = "https://github.com/calmera/pra/issues"
+Homepage = "https://github.com/impire-io/poseres"
+Source = "https://github.com/impire-io/poseres"
+"Bug Tracker" = "https://github.com/impire-io/poseres/issues"
 
 [project.optional-dependencies]
 dev = ["pytest>=8.0", "ruff>=0.6"]

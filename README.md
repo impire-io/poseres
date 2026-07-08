@@ -21,7 +21,7 @@ No Python version juggling, no venv to manage. `uv` fetches Python 3.13 automati
 **From source:**
 
 ```bash
-git clone https://github.com/calmera/pra.git
+git clone https://github.com/impire-io/poseres.git
 cd pra
 python3.13 -m venv .venv
 source .venv/bin/activate          # Windows: .venv\Scripts\activate
