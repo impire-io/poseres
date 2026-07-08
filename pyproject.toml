@@ -3,7 +3,7 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "pra"
+name = "poseres"
 version = "0.1.0"
 description = "Pose Resolution Architecture — validation harness and batched in-memory core"
 readme = "README.md"

@@ -13,7 +13,7 @@ See `specs/001-validation-harness/` for the spec, plan, and contracts, and
 **Fastest — install from PyPI with [`uv`](https://docs.astral.sh/uv/):**
 
 ```bash
-uvx pra-validate suite
+uvx --from poseres pra-validate suite
 ```
 
 No Python version juggling, no venv to manage. `uv` fetches Python 3.13 automatically if you don't have it.
