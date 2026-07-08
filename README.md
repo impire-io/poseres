@@ -10,17 +10,31 @@ See `specs/001-validation-harness/` for the spec, plan, and contracts, and
 
 ## Quickstart
 
+**Fastest — install from PyPI with [`uv`](https://docs.astral.sh/uv/):**
+
 ```bash
-./.venv/bin/python -m pip install -e ".[dev]"   # numpy + pytest + ruff
+uvx pra-validate suite
+```
 
-./.venv/bin/pra-validate suite                  # 8 seeds, true_dim=3, checkpoints 18/30/50
-./.venv/bin/pra-validate suite --json out/report.json
-./.venv/bin/pra-validate determinism --seed 1   # byte-identical re-run check
-./.venv/bin/pra-validate scale --true-dims 20,35,50
-./.venv/bin/pra-validate scan --true-dim 20 --hidden-sizes 12,32,64   # diagnostic dimension scan
-./.venv/bin/pra-validate agency                 # curious vs random (T7) + value-signal telemetry
+No Python version juggling, no venv to manage. `uv` fetches Python 3.13 automatically if you don't have it.
 
-./.venv/bin/ruff format --check . && ./.venv/bin/ruff check . && ./.venv/bin/pytest -q
+**From source:**
+
+```bash
+git clone https://github.com/calmera/pra.git
+cd pra
+python3.13 -m venv .venv
+source .venv/bin/activate          # Windows: .venv\Scripts\activate
+pip install -e ".[dev]"            # numpy + pytest + ruff
+
+pra-validate suite                 # 8 seeds, true_dim=3, checkpoints 18/30/50
+pra-validate suite --json out/report.json
+pra-validate determinism --seed 1  # byte-identical re-run check
+pra-validate scale --true-dims 20,35,50
+pra-validate scan --true-dim 20 --hidden-sizes 12,32,64   # diagnostic dimension scan
+pra-validate agency                # curious vs random (T7) + value-signal telemetry
+
+ruff format --check . && ruff check . && pytest -q
 ```
 
 Independent seeds run in parallel worker processes by default (`--workers`,
