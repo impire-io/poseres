@@ -2,6 +2,18 @@
 
 This document specifies what constitutes the system's state, how it is snapshotted and restored, and the storage layer. Persistence is a core requirement: the system learns continuously, and its accumulated state must survive restarts and failures.
 
+> **Build status (2026-07-08, feature `003-state-persistence`):** implemented and
+> validated. The full Section-2 state (frame population, drive bookkeeping,
+> counters and summary accumulators, RNG state, config in force; tool registry
+> reserved-empty) serializes to a versioned, pickle-free blob through an atomic
+> `SnapshotStore` seam (filesystem default + in-memory substitute). The build
+> exceeds §1's bar: a run resumed from a cycle-boundary snapshot is
+> **byte-identical** to the uninterrupted run, in both random and curiosity
+> policy modes — test-locked. Restore validates format version and body
+> compatibility (§3.4/§5). Persistence is opt-in (`snapshot_every_n_cycles=0`
+> default); every validated mode stays byte-frozen and file-free. The event-log
+> and pose-index seams (§4.2) remain defined, not built.
+
 ---
 
 ## 1. Principles

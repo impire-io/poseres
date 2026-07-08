@@ -16,6 +16,7 @@ mapped events. Prediction error is scored in observation space.
 
 from __future__ import annotations
 
+import time
 from collections import deque
 from collections.abc import Callable
 
@@ -40,6 +41,13 @@ from pra.core.policies import (
 from pra.core.scorer import Scorer, WeightedSumScorer
 from pra.motivation.context import DriveContext
 from pra.motivation.drive import CuriosityDrive, WeightedDriveSet
+from pra.persistence.snapshot import (
+    FORMAT_VERSION,
+    SystemState,
+    decode,
+    encode,
+    validate_body_compatibility,
+)
 from pra.telemetry.recorder import (
     EARLY_LATE_WINDOW,
     MIN_PRED_SAMPLES,
@@ -86,6 +94,7 @@ class Engine:
         bus_factory: Callable[[FrameProcessor], Bus] | None = None,
         policy: Policy | None = None,
         drives: WeightedDriveSet | None = None,
+        snapshot_store=None,
     ):
         self.config = config
         self.scoring_mode = scoring_mode or config.scoring_mode
@@ -94,6 +103,18 @@ class Engine:
         self._proposal = proposal or BiasedProposalPolicy(config)
         self._decay = decay or PopulationScaledDecayPolicy(config)
         self._bus_factory = bus_factory or InMemorySyncBus
+        # persistence (Doc 06): snapshots only when a store is injected AND the
+        # config cadence is > 0; the default writes nothing (feature 003 FR-009)
+        self._snapshot_store = snapshot_store
+        # raw injections, so a resumed run can rebuild default seams from the
+        # snapshot's config-in-force without discarding custom substitutes
+        self._injected = {
+            "scorer": scorer,
+            "proposal": proposal,
+            "decay": decay,
+            "policy": policy,
+            "drives": drives,
+        }
         # Agency (Doc 05): the drive set exists iff the run is in curiosity mode
         # (or a set is injected); the policy default depends on the mode.
         # policy_mode="random" is the pinned validation baseline (FR-008).
@@ -106,22 +127,67 @@ class Engine:
         else:
             self._policy = RandomPolicy()
 
-    def run(self, seed: int, *, do_offline: bool = True) -> PerSeedRunSummary:
-        cfg = self.config
+    def run(
+        self, seed: int, *, do_offline: bool = True, resume_from: bytes | SystemState | None = None
+    ) -> PerSeedRunSummary:
+        resumed: SystemState | None = None
+        if resume_from is not None:
+            resumed = decode(resume_from) if isinstance(resume_from, bytes) else resume_from
+            validate_body_compatibility(resumed.config, self.config)
+            if seed != resumed.seed:
+                raise ValueError(f"resume seed {resumed.seed} does not match requested {seed}")
+            # the configuration in force is part of the snapshot (Doc 06 §2);
+            # default seams are rebuilt from it, custom injections are kept
+            cfg = resumed.config
+            scoring_mode = resumed.scoring_mode
+            curiosity = resumed.policy_mode == "curiosity"
+            inj = self._injected
+            scorer = inj["scorer"] or WeightedSumScorer(cfg)
+            proposal = inj["proposal"] or BiasedProposalPolicy(cfg)
+            decay = inj["decay"] or PopulationScaledDecayPolicy(cfg)
+            drives = inj["drives"] or (WeightedDriveSet.from_config(cfg) if curiosity else None)
+            if inj["policy"] is not None:
+                policy: Policy = inj["policy"]
+            elif curiosity:
+                policy = CuriosityLookaheadPolicy(PolicyParams.from_config(cfg))
+            else:
+                policy = RandomPolicy()
+        else:
+            cfg = self.config
+            scoring_mode = self.scoring_mode
+            scorer = self._scorer
+            proposal = self._proposal
+            decay = self._decay
+            policy = self._policy
+            drives = self._drives
+
         rng = np.random.default_rng(seed)
         world = self._world_factory(cfg, rng)
         store = FrameStore(cfg, rng)
-        scorer = self._scorer
-        proposal = self._proposal
-        decay = self._decay
+        if resumed is not None:
+            # the world's fixed structure is a pure function of the seed prefix
+            # just consumed; overwriting the generator state resumes the exact
+            # stream of the uninterrupted run (research R4)
+            rng.bit_generator.state = resumed.rng_state
+            store.load_state_dict(resumed.frame_store)
         bus = self._bus_factory(store)
-        scoring_mode = self.scoring_mode
+        if resumed is not None:
+            for s in store.frame_states():  # re-register the population (Doc 06 §3.3)
+                bus.register(s.frame_id)
         checkpoints = set(cfg.horizon_checkpoints)
-        policy = self._policy
-        drives = self._drives
 
         state = _RunState()
         agency = _AgencyState(cfg) if drives is not None else None
+        if resumed is not None:
+            state.map_fractions = list(resumed.map_fractions)
+            state.pred_errors = list(resumed.pred_errors)
+            state.lost_after_warm = resumed.lost_after_warm
+            state.obs_after_warm = resumed.obs_after_warm
+            state.warmed = resumed.warmed
+            state.obs_steps = resumed.obs_steps
+            state.pop_sum = resumed.pop_sum
+            if agency is not None and resumed.agency is not None:
+                agency.load(resumed.agency)
 
         def online_episode() -> None:
             obs = world.reset()
@@ -232,17 +298,30 @@ class Engine:
                 new_dim = proposal.propose_dimension(best[1], store.dims_alive(), rng)
                 bus.register(store.birth(new_dim, ema_init=0.9))
 
-        # --- warmup -----------------------------------------------------------
-        for _ in range(cfg.warmup_episodes):
-            online_episode()
-        early = _window_mean(state.pred_errors[:EARLY_LATE_WINDOW], require=MIN_PRED_SAMPLES)
-        state.warmed = True
+        # --- warmup (skipped on resume: the snapshot post-dates it) ------------
+        if resumed is None:
+            for _ in range(cfg.warmup_episodes):
+                online_episode()
+            early = _window_mean(state.pred_errors[:EARLY_LATE_WINDOW], require=MIN_PRED_SAMPLES)
+            state.warmed = True
+            first_cycle = 1
+        else:
+            # `early` was fixed at end of warmup; recomputing after more episodes
+            # would silently change it — it travels in the snapshot (research R2)
+            early = resumed.pred_error_early
+            first_cycle = resumed.cycles_done + 1
 
         # --- consolidation ----------------------------------------------------
         checkpoint_readings: dict[int, CheckpointReading] = {}
         population_by_cycle: list[int] = []
+        if resumed is not None:
+            population_by_cycle = list(resumed.population_by_cycle)
+            checkpoint_readings = {
+                c: CheckpointReading(best_dim=bd, population_size=p)
+                for c, (bd, p) in resumed.checkpoints.items()
+            }
         if do_offline:
-            for c in range(1, cfg.effective_n_cycles + 1):
+            for c in range(first_cycle, cfg.effective_n_cycles + 1):
                 for _ in range(cfg.episodes_per_cycle):
                     online_episode()
                 offline_cycle()
@@ -253,6 +332,26 @@ class Engine:
                     best_dim = best[1] if best is not None else 0
                     checkpoint_readings[c] = CheckpointReading(
                         best_dim=best_dim, population_size=pop
+                    )
+                if (
+                    self._snapshot_store is not None
+                    and cfg.snapshot_every_n_cycles > 0
+                    and c % cfg.snapshot_every_n_cycles == 0
+                ):
+                    # C4 safe point: end of an offline cycle. Capture consumes no
+                    # RNG and mutates nothing (feature 003 FR-002).
+                    self._take_snapshot(
+                        cfg,
+                        seed,
+                        scoring_mode,
+                        store,
+                        state,
+                        agency,
+                        rng,
+                        c,
+                        early,
+                        checkpoint_readings,
+                        population_by_cycle,
                     )
         else:
             # T3 effort-only ablation: equal online experience, no consolidation.
@@ -280,6 +379,51 @@ class Engine:
             still_growing=is_still_growing(population_by_cycle),
             agency=agency.summary() if agency is not None else None,
         )
+
+    def _take_snapshot(
+        self,
+        cfg: Config,
+        seed: int,
+        scoring_mode: str,
+        store: FrameStore,
+        state: _RunState,
+        agency: _AgencyState | None,
+        rng: np.random.Generator,
+        cycle: int,
+        early: float | None,
+        checkpoint_readings: dict,
+        population_by_cycle: list[int],
+    ) -> None:
+        snapshot = SystemState(
+            config=cfg,
+            seed=seed,
+            scoring_mode=scoring_mode,
+            policy_mode="curiosity" if agency is not None else "random",
+            cycles_done=cycle,
+            obs_steps=state.obs_steps,
+            obs_after_warm=state.obs_after_warm,
+            lost_after_warm=state.lost_after_warm,
+            pop_sum=state.pop_sum,
+            warmed=state.warmed,
+            pred_error_early=early,
+            map_fractions=list(state.map_fractions),
+            pred_errors=list(state.pred_errors),
+            population_by_cycle=list(population_by_cycle),
+            checkpoints={
+                c: (r.best_dim, r.population_size) for c, r in checkpoint_readings.items()
+            },
+            frame_store=store.state_dict(),
+            agency=agency.state_dict() if agency is not None else None,
+            rng_state=rng.bit_generator.state,
+        )
+        metadata = {
+            "timestamp": time.time(),
+            "step": state.obs_steps,
+            "cycle": cycle,
+            "population": store.population_size,
+            "format_version": FORMAT_VERSION,
+        }
+        self._snapshot_store.write(encode(snapshot), metadata)
 
 
 class _RunState:
@@ -336,6 +480,27 @@ class _AgencyState:
             if self.total_steps
             else 0.0,
         }
+
+    # ---- persistence (Doc 06 §2: drive bookkeeping is system state) ----------
+    def state_dict(self) -> dict:
+        return {
+            "pred_error_history": list(self.pred_error_history),
+            "observation_memory": [np.array(o, copy=True) for o in self.observation_memory],
+            "values": list(self.values),
+            "lp_terms": list(self.lp_terms),
+            "novelty_terms": list(self.novelty_terms),
+            "directed_steps": self.directed_steps,
+            "total_steps": self.total_steps,
+        }
+
+    def load(self, state: dict) -> None:
+        self.pred_error_history.extend(state["pred_error_history"])
+        self.observation_memory.extend(state["observation_memory"])
+        self.values = list(state["values"])
+        self.lp_terms = list(state["lp_terms"])
+        self.novelty_terms = list(state["novelty_terms"])
+        self.directed_steps = int(state["directed_steps"])
+        self.total_steps = int(state["total_steps"])
 
 
 def _window_mean(values: list[float], *, require: int) -> float | None:

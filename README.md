@@ -55,6 +55,7 @@ src/pra/
   core/                # contracts, bus, scorer, policies, the batched FrameGroup kernel, engine
   motivation/          # Drive seam: curiosity (learning progress + novelty), weighted drive set
   action/              # Policy seam: pinned random baseline + one-step curiosity lookahead
+  persistence/         # snapshot/restore: versioned blob + atomic SnapshotStore (opt-in)
   telemetry/recorder.py# deterministic per-seed summary
   harness/             # acceptance (T1-T7/T-SCALE), runner, report, cli, scale, scan, agency
 tests/                 # unit (incl. batched-vs-reference proof) / contract (5 seams) / integration

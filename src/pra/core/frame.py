@@ -343,6 +343,52 @@ class FrameStore:
             return None
         return best[1], best[2], best[0]
 
+    # ---- persistence (Doc 06 §2: the frame population is system state) -------
+    _GROUP_FIELDS = (
+        "frame_ids",
+        "is_candidate",
+        "age_cycles",
+        "recon_err_ema",
+        "pred_err_ema",
+        "effort_ema",
+        "W1",
+        "b1",
+        "W2",
+        "b2",
+        "Dc1",
+        "dc1",
+        "Dc2",
+        "dc2",
+        "T1",
+        "tb1",
+        "T2",
+        "tb2",
+    )
+
+    def state_dict(self) -> dict:
+        """The full population state: per-dim identity records + weight tensors
+        + the next frame id. Arrays are copies (a snapshot is point-in-time)."""
+        return {
+            "next_id": self._next_id,
+            "groups": {
+                dim: {name: np.array(getattr(g, name), copy=True) for name in self._GROUP_FIELDS}
+                for dim, g in self._groups.items()
+                if g.size > 0
+            },
+        }
+
+    def load_state_dict(self, state: dict) -> None:
+        """Reconstruct the population exactly from :meth:`state_dict` output."""
+        self._groups.clear()
+        self._next_id = int(state["next_id"])
+        for dim, tensors in state["groups"].items():
+            g = FrameGroup(
+                int(dim), self.config.obs_dim, self.config.hidden_size, self.config.n_actions
+            )
+            for name in self._GROUP_FIELDS:
+                setattr(g, name, np.array(tensors[name], copy=True))
+            self._groups[int(dim)] = g
+
     def best_frame_predictor(self, scorer):
         """The current best frame's ``(age_cycles, predict_decoded)`` for the
         policy's one-step lookahead (Doc 05 §4.2): ``predict_decoded(obs, a)``

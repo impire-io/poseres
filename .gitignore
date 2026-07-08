@@ -9,3 +9,6 @@ venv/
 
 # macOS
 .DS_Store
+
+# Snapshots (quickstart example output)
+snapshots/

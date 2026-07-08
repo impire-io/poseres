@@ -90,6 +90,10 @@ class Config:
     exploration_epsilon: float = 0.1
     lookahead_min_age_cycles: int = 2
 
+    # --- Persistence (Doc 06). 0 = off: no snapshots, no files, validated modes
+    # byte-identical to the validated build (feature 003 FR-009). ---
+    snapshot_every_n_cycles: int = 0
+
     # --- Harness-only ---
     horizon_checkpoints: tuple[int, ...] = (18, 30, 50)
 
@@ -176,6 +180,7 @@ class Config:
             "exploration_epsilon must be in [0, 1]",
         )
         require(self.lookahead_min_age_cycles >= 0, "lookahead_min_age_cycles must be >= 0")
+        require(self.snapshot_every_n_cycles >= 0, "snapshot_every_n_cycles must be >= 0")
 
         require(len(self.horizon_checkpoints) >= 1, "horizon_checkpoints must be non-empty")
         require(
