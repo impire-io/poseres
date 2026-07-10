@@ -239,3 +239,15 @@ sharpens the mechanism reading: **wide at td=20** (4–18; ~69 maturation window
 — the climb is a high-variance stochastic search) and **tight at td=50** (8–12;
 ~17 windows — uniformly window-starved). Parallel throughput 229k obs×frame
 evals/s at td=20 (7× sequential); 24 runs in 3.1 h wall.
+
+## Epilogue (2026-07-08)
+
+Successor problem (a) was taken up the next day and produced its own trail:
+`PROPOSAL-DIAGNOSIS.md`. Short version: an upward-only tight-band proposal
+policy does make rung count shrink (~1 rung per maturation window, 2× the
+fixed-budget median) — and, un-throttled, exposed the **seventh scale-variant
+constant**: `survive_threshold_base` is an absolute bar that at scale sits
+below the achievable at-maturity score of every dim past ~12, so the mature
+niche is marginal-to-empty and the spreads above read the *maturation filter*
+(which dims can train under the bar within one protection window), not the
+score surface. The six rules above stand; the seventh is named and open.

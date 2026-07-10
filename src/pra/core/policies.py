@@ -23,6 +23,7 @@ __all__ = [
     "DecayPolicy",
     "BiasedProposalPolicy",
     "HighDimProposalPolicy",
+    "ClimbingProposalPolicy",
     "PopulationScaledDecayPolicy",
 ]
 
@@ -88,6 +89,41 @@ class HighDimProposalPolicy:
         if rng.random() < self.exploit_prob:
             return max(1, best_dim + int(rng.choice([0, 1, 2])))
         return int(rng.integers(best_dim, best_dim + self.explore_offset + self.explore_lift + 1))
+
+
+class ClimbingProposalPolicy:
+    """Upward-only proposals in a tight band (PROPOSAL-DIAGNOSIS, 2026-07-08).
+
+    Every proposal lands in ``(best_dim, best_dim + explore_dim_max_offset]`` —
+    exploit steps ``+{1, 2}`` with prob ``exploit_prob``, else explore uniformly in
+    the band. The jump-size dose–response established that selection at scale is
+    **waste-limited, not reach-limited**: proposals at or below the incumbent
+    re-tread rungs it already owns (a wasted maturation window), while proposals
+    far above die on their training transient. The tight just-above band doubles
+    the fixed-budget median ``best_dim`` and climbs ~1 rung per maturation window.
+
+    **Opt-in, deliberately not the scale default.** Un-throttled climbing exposed
+    that at scale the maturation filter (juvenile score at ``age = patience`` vs
+    the absolute survival bar) governs selection, not the score surface: past
+    dim ~19 at ``obs_dim=60`` nothing matures, ``best`` is read from a rolling
+    conveyor of protected juveniles, and ``best_dim`` ratchets with the proposals
+    themselves (71/74/62/68 at ``true_dim=20``, 2000 cycles). This is the correct
+    policy once the survival-threshold scale rule exists (the diagnosis's named
+    successor problem); until then its scaled ``best_dim`` is not a statement
+    about the world. Draw order matches the other proposal policies (random()
+    first, then the dim draw).
+    """
+
+    def __init__(self, config: Config):
+        self.exploit_prob = float(config.exploit_prob)
+        self.band = int(config.explore_dim_max_offset)
+
+    def propose_dimension(
+        self, best_dim: int, population_dims: Sequence[int], rng: np.random.Generator
+    ) -> int:
+        if rng.random() < self.exploit_prob:
+            return max(1, best_dim + int(rng.choice([1, 2])))
+        return int(rng.integers(best_dim + 1, best_dim + self.band + 1))
 
 
 class PopulationScaledDecayPolicy:

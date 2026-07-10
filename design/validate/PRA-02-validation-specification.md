@@ -233,6 +233,26 @@ This quantifies the open problem the high-dimensionality proposal seam
 dimensionalities rather than inching, so the number of rungs — not the patience
 per rung — is what shrinks.
 
+**Reinterpretation (2026-07-08, PROPOSAL-DIAGNOSIS):** the proposal-seam
+investigation answered the rung-count question (an upward-only tight-band
+policy climbs ~1 rung per maturation window, doubling fixed-budget medians)
+— and, un-throttled, exposed what the spread above actually measures. A
+population census (via the Document 6 persistence seam) shows every scaled
+run carries a standing conveyor of `spawn_per_cycle × patience` protected
+juveniles, plus a mature niche that at scale only dims ≲ 12 can enter (the
+absolute survival bar of Document 1 §6.4 sits below the achievable
+at-maturity score of every higher dim — the open seventh scale rule,
+Document 1 §8.8). The table above therefore reads the **maturation filter**
+(which dims can train under the bar within one protection window), not the
+score surface — which the extended dimension scan proves healthy (score
+minimum at dim 12–16 at `true_dim = 20`; honest prediction error minimal at
+24 and worsening past it). Under the climbing policy the niche is empty and
+`best_dim` ratchets with the proposals themselves (71/74/62/68 at
+`true_dim = 20`, 2000 cycles). T-SCALE's investigatory status is exactly
+right: these numbers are honest measurements of the selection *ecology*, and
+they say the ecology — not the proposal policy — is the binding constraint
+at scale.
+
 ---
 
 ## 5. Harness behavior

@@ -55,6 +55,8 @@ Defaults (Doc 07): `exploit_prob = 0.75`, `explore_dim_max_offset = 4`.
 
 **[O] note:** the proposal policy is the component expected to change for large dimensionality. A near-random proposal cannot cover a large `dim` range fast enough; a high-dimensionality deployment supplies a different policy. The interface **MUST** allow this without touching any other component.
 
+**Measured variant (PROPOSAL-DIAGNOSIS, 2026-07-08):** `ClimbingProposalPolicy` — every proposal in `(best_dim, best_dim + explore_dim_max_offset]` (exploit `+{1,2}`, else explore uniform in the band). Selection at scale is waste-limited, not reach-limited: proposals at or below the incumbent burn a maturation window, far jumps die on their transient; the tight upward band climbs ~1 rung per maturation window (2× the wide-band fixed-budget median). **Opt-in** until the Section 5 threshold scales (see below): under the current absolute bar, un-throttled climbing empties the mature niche and `best_dim` ratchets with the proposals themselves.
+
 ---
 
 ## 5. Survival and eviction — **[V]** mechanism (parameters **[D]**, expected to be tuned)
@@ -74,6 +76,8 @@ threshold = survive_threshold_base / (1 + survive_threshold_pop_coeff · max(0, 
 Defaults in Doc 07. The threshold **falls** as the population grows: since a frame is evicted when its survival score *exceeds* the threshold (lower score = better), a falling threshold **tightens** the tolerated-error bar under crowding, so eviction pressure rises with the population. This is what lets soft eviction pace the one-spawn-per-cycle and makes the population self-limit rather than only being held by the hard cap.
 
 **MUST:** the scaling divides (crowding tightens the bar). A threshold that *rises* with population — `base · (1 + coeff·…)` — makes eviction *vanish* as the population grows (everything falls under the rising bar), so the population grows at the spawn rate until it slams into the hard cap. That direction fails T5's "self-limits, not merely capped" criterion.
+
+**Open scale problem (PROPOSAL-DIAGNOSIS, 2026-07-08):** `survive_threshold_base` is an *absolute* bar validated at the reference scale, where mature scores sit far beneath it. At `obs_dim = 60` the achievable at-maturity score of every dim past ~12 sits **above** the bar, so the mature niche is marginal-to-empty and selection is governed by the maturation filter (score at `age = min_age_cycles` vs the bar), not by the Section 5.1 score surface. A reference-preserving `effective_survive_threshold_base` rule (PRA-01 §8.8 pattern) is the named successor problem; the population census instrument (Doc 06 snapshot of per-frame dim/age/score) is how to verify it.
 
 ### 5.4 Soft eviction
 Remove **every** unprotected frame whose survival score exceeds `threshold`, worst first, but never reduce the population below `min_frames`.

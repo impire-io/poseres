@@ -134,6 +134,13 @@ dimensions (raw `learning_rate` *diverges* at `obs_dim = 60`). Implementations
 (`·(10/obs_dim)^1.5`, per-tensor `·sqrt(fan_in_ref/fan_in)`, `·(10/obs_dim)`
 respectively), and `min_age_cycles` through `·(obs_dim/10)^1.5` (protection must
 grow with convergence time). All factors are exactly 1 at the reference scale.
+**Known open seventh rule:** `survive_threshold_base` — at scale the absolute
+bar sits below the achievable at-maturity score of all but the smallest dims,
+so selection is governed by the maturation filter rather than the score
+surface (PRA-01 §8.8 call-out; evidence in
+`design/validate/PROPOSAL-DIAGNOSIS.md`, which also records the opt-in
+`ClimbingProposalPolicy` — the measured [O]-seam variant reusing
+`exploit_prob`/`explore_dim_max_offset` — blocked on this rule).
 
 The SIMD requirement (Doc 03 §7) is not a parameter — it is mandatory and is what makes raising `max_frames` and `hidden_size` feasible on one machine.
 

@@ -54,7 +54,10 @@ def _run_one_seed(
     ``(mean honest pred error, mean recon error)`` over the frozen eval window."""
     rng = np.random.default_rng(seed)
     world = SensorimotorWorld(cfg, rng)
-    lr, clip = cfg.learning_rate, cfg.gradient_clip
+    # train in the LIVE regime: the effective (scale-invariant) learning rate,
+    # exactly the raw constant at the reference scale (PROPOSAL-DIAGNOSIS —
+    # a raw-lr scan at obs_dim=60 probes the divergent regime, not the system).
+    lr, clip = cfg.effective_learning_rate, cfg.gradient_clip
 
     groups: dict[int, FrameGroup] = {}
     for i, d in enumerate(dims):

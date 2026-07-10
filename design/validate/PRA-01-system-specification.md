@@ -353,6 +353,8 @@ Defaults: `exploit_prob = 0.75`, `explore_dim_max_offset = 4`.
 
 **Requirement:** the proposal policy is pluggable. It is the component expected to change when the system is run at high true dimensionality (the open research question, 1.3): a near-random proposal cannot cover a large dimensionality range fast enough, so a higher-dimensionality run will supply a different proposal policy. The interface **MUST** allow this without touching any other component.
 
+**Measured high-dimensionality variant (PROPOSAL-DIAGNOSIS, 2026-07-08):** the climbing policy — every proposal in `(best_dim, best_dim + explore_dim_max_offset]` (exploit `+{1,2}`, else explore uniform in the band). The jump-size dose–response showed selection at scale is **waste-limited, not reach-limited**: proposals at or below the incumbent burn a maturation window, proposals far above die on their transient; the tight just-above band doubles the fixed-budget median `best_dim` (~1 rung per maturation window). It is **opt-in, not the scale default**: un-throttled climbing exposed the open threshold-scale problem (Section 8.8), under which its scaled `best_dim` ratchets with the proposals rather than tracking the world. Deploy it once the survival bar scales.
+
 ### 6.6 Full run — `run(seed)`
 
 ```
@@ -483,6 +485,18 @@ reference scale, so reference behavior is byte-identical.
 Additionally, scaled runs **MUST** set `hidden_size ≳ 2 × true_dim`: a frame
 cannot resolve dimensionality past its own hidden width (at `hidden_size = 12`
 the dimension scan plateaus at dim ≈ 10–16 regardless of the true value).
+
+**Known open seventh rule (identified, not yet designed — PROPOSAL-DIAGNOSIS,
+2026-07-08):** `survive_threshold_base` is scale-variant in the same family.
+At the reference, mature scores (~0.37) sit far under the population-scaled
+bar (~0.65); at `obs_dim = 60` the achievable juvenile score at maturity
+(~0.42+) sits *above* the bar (~0.36–0.40) for every dim past ~12, so the
+mature niche is marginal-to-empty and selection is governed by the maturation
+filter (score at `age = patience` vs the absolute bar), not by the score
+surface (Section 6.2's, measured healthy at scale). A reference-preserving
+`effective_survive_threshold_base` rule is the natural candidate; until it
+exists, scaled `best_dim` readings describe the juvenile conveyor's
+composition under the proposal policy in force.
 
 ---
 

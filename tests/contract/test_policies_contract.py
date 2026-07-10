@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
+import numpy as np
+
 from pra.config import Config
 from pra.core.contracts import FrameState
 from pra.core.engine import Engine
-from pra.core.policies import PopulationScaledDecayPolicy
+from pra.core.policies import ClimbingProposalPolicy, PopulationScaledDecayPolicy
 from pra.core.scorer import WeightedSumScorer
 
 
@@ -48,6 +50,42 @@ def test_min_frames_floor_is_respected():
         frames, scorer, decay.threshold(1), min_frames=1, max_frames=200, min_age_cycles=2
     )
     assert removed == []  # never drop below min_frames even if over threshold
+
+
+def test_climbing_proposal_stays_in_the_upward_band():
+    # PROPOSAL-DIAGNOSIS: every proposal lands in (best, best + offset] — no mass
+    # at or below the incumbent (re-tread), none beyond the band (overreach).
+    cfg = Config()  # explore_dim_max_offset = 4
+    policy = ClimbingProposalPolicy(cfg)
+    rng = np.random.default_rng(7)
+    for best in (1, 5, 20):
+        draws = {policy.propose_dimension(best, [best], rng) for _ in range(500)}
+        assert min(draws) >= best + 1
+        assert max(draws) <= best + 4
+
+
+def test_climbing_proposal_is_deterministic_per_seed():
+    cfg = Config()
+
+    def draws() -> list[int]:
+        policy = ClimbingProposalPolicy(cfg)
+        rng = np.random.default_rng(3)
+        return [policy.propose_dimension(6, [6], rng) for _ in range(50)]
+
+    assert draws() == draws()
+
+
+def test_climbing_proposal_is_accepted_by_engine():
+    cfg = Config(
+        warmup_episodes=3,
+        n_cycles=3,
+        episodes_per_cycle=1,
+        steps_per_episode=8,
+        horizon_checkpoints=(1, 2, 3),
+    )
+    summary = Engine(cfg, proposal=ClimbingProposalPolicy(cfg)).run(1)
+    assert summary.final_population > 0
+    assert summary.best_dim is not None
 
 
 def test_high_dim_proposal_substitute_is_accepted_by_engine():
