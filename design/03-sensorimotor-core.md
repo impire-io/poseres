@@ -104,6 +104,8 @@ Given `event = (prev_obs, action, obs)`:
 
 **MUST:** the gate decision (map vs not) uses reconstruction error only, and **learning happens only on mapped events** (sparsity by pull, T1). But **survival scoring is coverage-fair**: scoring only the cherry-picked mapped subset lets a low-dimensional frame explain little, very selectively, and still win — which defeats dimensionality selection (Doc 04 §5).
 
+**Fair-judge option (`score_window_steps`, THRESHOLD-DIAGNOSIS).** Coverage-fairness fixes *which* events are scored; a *when* bias remains: a continually-learning frame adapts within the episode to the current context, so an all-step EMA scores tracking rather than structure (its dim surface disagrees with the frozen honest surface at scale). With `score_window_steps = K > 0` the survival EMAs advance only on the first K steps of each episode — scoring transfer to a fresh context; measurement, gating, learning, and telemetry unchanged. Default `K = 0` (every step) is the pinned validated behavior. `K > 0` activates PRA-01 §8.8's conditional seventh rule.
+
 ---
 
 ## 5. Learning — **[V]**

@@ -253,6 +253,32 @@ right: these numbers are honest measurements of the selection *ecology*, and
 they say the ecology — not the proposal policy — is the binding constraint
 at scale.
 
+**Scaled reference result (2026-07-11, supersedes the tables above — the
+fair-judge ecology: `score_window_steps = 5`, the conveyor-corrected
+threshold baseline, climbing proposals — now the `pra-validate scale`
+defaults; 2000-cycle schedules, 8 seeds; full trail in
+`THRESHOLD-DIAGNOSIS.md`):**
+
+| `true_dim` | `best_dim` per seed | median | anchored (census) | population |
+|---|---|---|---|---|
+| 20 | [7, 6, 4, 8, 7, 6, 6, 5] | 6.0 | 8/8, tenures to 2000 | 39–46 |
+| 35 | [6, 9, 9, 8, 12, 7, 8, 6] | 8.0 | 8/8, tenures 1453–1970 | 87–92 |
+| 50 | [6, 9, 10, 9, 9, 8, 7, 8] | 8.5 | 8/8, tenures 1774–1992 | 136–142 |
+
+Reading, with the honest criterion stated plainly: these medians are
+*numerically lower* than the superseded table's (8 / 10.5 / 9.5) and *further*
+from `true_dim` — and they are the first scaled readings that **mean**
+anything: every one of 24 runs is an anchored, self-limiting ecology whose
+`best_dim` is invariant to the cycle budget and to the proposal distribution
+(the superseded numbers were unstable conveyor readings that tracked
+whichever policy stocked the juvenile pipeline). The level (6–8.5, vs the
+frozen-eval score minimum of 12–16) is bounded by the named inter-age
+asymmetry — the incumbent-lifetime advantage in niche entry — which is the
+recorded successor problem, ahead of the deeper scorer question (the honest
+elbow itself sits at 12–16 regardless of the world's 20/35/50 true
+dimensionality at these experience budgets; Doc 03 §6 parsimony vs marginal
+information).
+
 ---
 
 ## 5. Harness behavior

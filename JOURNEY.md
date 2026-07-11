@@ -149,21 +149,26 @@ the implementation commit following it.
 
 ---
 
-## Where things stand (2026-07-08, end of day)
+## Where things stand (2026-07-11)
 
 The project now has a product thesis and a milestone-gated plan — **an OSS
 continuously-learning brain for hobbyists and makers**, `ROADMAP.md`
-(Chapter 10). **Every design document (02–07) is now built and validated** at the reference
-scale: the batched sensorimotor core + structural learning (Docs 03/04), the
-anatomy/body layer with runtime tools (Doc 02), motivation & action with the
-competence drive (Doc 05), state persistence (Doc 06), and the honest harness
-(T1–T7, determinism, scale, scan, agency) with parallel seed execution. The
-proposal-seam question is answered (Chapter 9): climb rate was never the
-bottleneck — the **seventh scale rule** is, `survive_threshold_base` as an
-absolute bar that empties the mature niche at scale. Open research, in
-priority order: the survival-threshold scale rule (then re-ask T-SCALE with
-`ClimbingProposalPolicy` on a functioning ecology), T3's persistence clause
-at scale, the curiosity/competence blend for non-uniformly-learnable worlds,
+(Chapter 10). **Every design document (02–07) is built and validated** at the
+reference scale: the batched sensorimotor core + structural learning (Docs
+03/04), the anatomy/body layer with runtime tools (Doc 02), motivation &
+action with the competence drive (Doc 05), state persistence (Doc 06), and
+the honest harness (T1–T7, determinism, scale, scan, agency) with parallel
+seed execution. **The scaled selection ecology now works** (Chapters 9 and
+11): the fair judge (`score_window_steps`) + the constant-free conveyor
+correction (the seventh scale rule) + climbing proposals are the
+`pra-validate scale` defaults, and the scaled reference is 24/24 anchored
+runs with `best_dim` invariant to budget and proposal policy (medians
+6 / 8 / 8.5 at true_dim 20/35/50). Open research, in priority order: **fair
+inter-age comparison** (niche entry still favors fast-training dims; closes
+the gap to the frozen-eval elbow at 12–16), the scorer-level parsimony-vs-
+marginal-information question (the honest elbow sits at 12–16 regardless of
+the world's true dimensionality at these budgets), T3's persistence clause at
+scale, the curiosity/competence blend for non-uniformly-learnable worlds,
 predicted-LP lookahead, snapshot support for anatomy-resized runs.
 
 ## Recurring principles (what the journey keeps teaching)
@@ -246,6 +251,38 @@ intelligence (trained-then-deployed) on continual learning and online
 restructuring, not with LLMs on language. Remaining non-goals: benchmark
 theater, hosted services, language/knowledge competition.
 Trail: `ROADMAP.md`, `GETTING-STARTED.md`; commit follows.
+
+## Chapter 11 — The threshold diagnosis: the fair judge and the conveyor (2026-07-10 → 07-11)
+
+Took up Chapter 9's successor: make the scaled selection ecology real. The
+first idea — scale the survival bar with a fitted power law — died twice,
+each time to a pre-registered measurement. Raising the bar alone reopened the
+mature niche and handed it to tracking-flattered low dims (best_dim *fell* to
+4–7): the training-stream EMA is the third form of self-graded homework, the
+*when* hole that coverage-fair (which) and observation-space (where) scoring
+left open. The fix is the **fair judge** (`score_window_steps`): survival
+EMAs advance only on episode-start steps, scoring transfer, not tracking. The
+judge alone made things worse (nothing reached the bar; the ratchet ran
+faster than ever) — the two fixes only work as a pair. The paired power law
+(exponent fit at obs 60, confirmed at 105) then failed its extrapolation test
+at obs=150 — and the failure's arithmetic named the true mechanism: the
+population-scaled threshold was counting `spawn_per_cycle × patience`
+**unevictable juveniles**, a conveyor that grows as `(obs/10)^1.5` and
+tightens the bar for the frames that can be evicted. Excluding it —
+`effective_survive_threshold_pop_baseline`, the **seventh scale rule,
+constant-free** — restored the ecology at all three scales with residual
+factor exactly 1.0. The recorded re-ask (2000 cycles, shipped defaults:
+fair judge + conveyor correction + climbing proposals): **24/24 runs
+anchored**, populations self-limited, `best_dim` medians 6 / 8 / 8.5 at
+true_dim 20/35/50 — invariant to budget and to the proposal distribution.
+Honest framing: lower numbers than the superseded conveyor readings, and the
+first that mean anything. Remaining gap to the frozen-eval elbow (12–16) is
+the named successor: fair inter-age comparison (the incumbent-lifetime
+advantage in niche entry), ahead of the scorer-level question the elbow scans
+exposed (the honest optimum sits at 12–16 regardless of the world's true
+dimensionality at these budgets). Trail:
+`design/validate/THRESHOLD-DIAGNOSIS.md`; committed together with this
+chapter.
 
 ---
 

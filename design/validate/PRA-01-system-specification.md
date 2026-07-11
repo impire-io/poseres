@@ -193,6 +193,8 @@ Given `event = (prev_obs, action, obs)`:
 
 **Requirement:** the gate decision uses reconstruction error only, and **learning happens only on mapped events** (sparsity by pull, Document 2 T1). But **survival scoring is coverage-fair** (EMAs updated every event): scoring only the cherry-picked mapped subset lets a low-dimensional frame explain little, very selectively, and still score well, which defeats dimensionality selection (T4).
 
+**The fair-judge option (`score_window_steps`, THRESHOLD-DIAGNOSIS 2026-07-10).** Coverage-fairness fixes *which* events are scored; at scale a *when* bias remains: a continually-learning frame adapts within an episode to the current context, so an all-step EMA scores tracking, not structure, and its surface disagrees with the frozen honest surface (minimum at dim ≈ 8 vs 12–16 at `obs_dim = 60`). With `score_window_steps = K > 0`, the survival EMAs advance **only on the first K steps of each episode** — scoring transfer to a fresh context — while measurement, gating, learning, and telemetry are unchanged on every step. The default `K = 0` (every step) is the pinned validated behavior, byte-identical. `K > 0` also activates the seventh scale rule (Section 8.8).
+
 ### 5.5 Learning placement
 
 Minimize squared reconstruction error `||recon - obs||²` by gradient descent through the decoder and then the encoder, with learning rate `learning_rate` and every gradient element clipped to `[-gradient_clip, +gradient_clip]` before the update. Both encoder and decoder weights are updated. (This is standard single-hidden-layer backpropagation; the clip is mandatory and is what prevents divergence.)
@@ -486,17 +488,26 @@ Additionally, scaled runs **MUST** set `hidden_size ≳ 2 × true_dim`: a frame
 cannot resolve dimensionality past its own hidden width (at `hidden_size = 12`
 the dimension scan plateaus at dim ≈ 10–16 regardless of the true value).
 
-**Known open seventh rule (identified, not yet designed — PROPOSAL-DIAGNOSIS,
-2026-07-08):** `survive_threshold_base` is scale-variant in the same family.
-At the reference, mature scores (~0.37) sit far under the population-scaled
-bar (~0.65); at `obs_dim = 60` the achievable juvenile score at maturity
-(~0.42+) sits *above* the bar (~0.36–0.40) for every dim past ~12, so the
-mature niche is marginal-to-empty and selection is governed by the maturation
-filter (score at `age = patience` vs the absolute bar), not by the score
-surface (Section 6.2's, measured healthy at scale). A reference-preserving
-`effective_survive_threshold_base` rule is the natural candidate; until it
-exists, scaled `best_dim` readings describe the juvenile conveyor's
-composition under the proposal policy in force.
+**The seventh rule (conditional, constant-free — THRESHOLD-DIAGNOSIS,
+2026-07-11): the conveyor correction.** The Section 6.4 threshold's divisor
+`1 + coeff·(population − baseline)` counts the standing conveyor of
+youth-protected juveniles — `spawn_per_cycle × patience` frames that cannot
+be evicted — whose size grows as `(obs_dim/10)^1.5` through the fourth rule.
+At scale the unevictable stock tightens the bar until nothing can mature: the
+mature niche empties and selection is governed by the maturation filter, not
+the score surface. The effective form excludes the conveyor from the
+baseline: `effective_survive_threshold_pop_baseline =
+survive_threshold_pop_baseline + spawn_per_cycle · (effective_min_age_cycles
+− min_age_cycles)` — no fitted constant, exactly the raw baseline at the
+reference. Measured at `true_dim` 20/35/50: 8/8 seeds anchored, populations
+self-limited, medians 7/9/8, with **no residual base factor needed** (a
+fitted base-exponent form was tried first and under-extrapolated at
+`obs_dim = 150`). Unlike the six rules above it is **conditional on the fair
+judge** (`score_window_steps > 0`, Section 5.4): under all-step EMA scoring
+the reopened niche is colonized by tracking-flattered low dims (measured:
+anchors at dims 4–7 vs the fair judge's 6–11). Remaining named successor:
+fair *inter-age* comparison (niche entry order still favors the
+fastest-training dims; anchors hold tenure by lifetime advantage).
 
 ---
 

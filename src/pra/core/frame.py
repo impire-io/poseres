@@ -485,7 +485,13 @@ class FrameStore:
 
     # ---- the batched online step --------------------------------------------
     def online_step(
-        self, obs: np.ndarray, prev_obs: np.ndarray | None, prev_a: int | None, scoring_mode: str
+        self,
+        obs: np.ndarray,
+        prev_obs: np.ndarray | None,
+        prev_a: int | None,
+        scoring_mode: str,
+        *,
+        ema_update: bool = True,
     ) -> StepStats:
         mapped = 0
         alive = 0
@@ -504,11 +510,17 @@ class FrameStore:
                     g.learn_transition(
                         prev_obs, prev_a, obs, scoring_mode, elect, self._lr, self._clip
                     )
-            # coverage-fair recon EMA over every exposure, using the pre-learning fit
-            g.recon_err_ema = decay * g.recon_err_ema + (1.0 - decay) * fit
+            # coverage-fair recon EMA over every exposure, using the pre-learning fit.
+            # ema_update=False (score_window_steps, THRESHOLD-DIAGNOSIS): the step
+            # still learns and reports telemetry, but the survival EMAs advance only
+            # on episode-start steps — the fair judge scores structural transfer,
+            # not within-episode tracking.
+            if ema_update:
+                g.recon_err_ema = decay * g.recon_err_ema + (1.0 - decay) * fit
             if prev_obs is not None:
                 honest = g.honest_pred_err(prev_obs, prev_a, obs)  # post-learning weights
-                g.pred_err_ema = decay * g.pred_err_ema + (1.0 - decay) * honest
+                if ema_update:
+                    g.pred_err_ema = decay * g.pred_err_ema + (1.0 - decay) * honest
                 if elect.any():
                     elect_errs.extend(honest[elect].tolist())
         return StepStats(mapped=mapped, alive=alive, elect_pred_errors=elect_errs)

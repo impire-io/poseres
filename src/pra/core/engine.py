@@ -189,15 +189,26 @@ class Engine:
             if agency is not None and resumed.agency is not None:
                 agency.load(resumed.agency)
 
+        # score_window_steps (THRESHOLD-DIAGNOSIS): 0 = EMAs advance on every
+        # step (the pinned validated default); K > 0 = only the first K steps
+        # of each episode feed the survival EMAs (the fair judge).
+        score_window = cfg.score_window_steps
+
         def online_episode() -> None:
             obs = world.reset()
             prev_obs: np.ndarray | None = None
             prev_a: int | None = None
-            for _ in range(cfg.steps_per_episode):
+            for t in range(cfg.steps_per_episode):
                 if state.warmed:
                     state.obs_after_warm += 1
                 state.obs_steps += 1
-                stats = store.online_step(obs, prev_obs, prev_a, scoring_mode)
+                stats = store.online_step(
+                    obs,
+                    prev_obs,
+                    prev_a,
+                    scoring_mode,
+                    ema_update=score_window == 0 or t < score_window,
+                )
 
                 if stats.mapped == 0:
                     if state.warmed:

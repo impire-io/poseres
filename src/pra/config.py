@@ -69,6 +69,14 @@ class Config:
     min_frames: int = 1
     max_frames: int = 200
 
+    # --- Fair judge (THRESHOLD-DIAGNOSIS). 0 = survival EMAs advance on every
+    # step: the pinned validated default, byte-identical to the validated build.
+    # K > 0 = EMAs advance only on the first K steps of each episode, scoring
+    # structural transfer instead of within-episode tracking; this also
+    # activates the seventh scale rule (the conveyor correction,
+    # effective_survive_threshold_pop_baseline). ---
+    score_window_steps: int = 0
+
     # --- Schedule ---
     warmup_episodes: int = 25
     n_cycles: int = 18
@@ -148,6 +156,7 @@ class Config:
         require(self.min_age_cycles >= 0, "min_age_cycles must be >= 0")
         require(self.min_frames >= 1, "min_frames must be >= 1")
         require(self.max_frames >= self.min_frames, "max_frames must be >= min_frames")
+        require(self.score_window_steps >= 0, "score_window_steps must be >= 0")
 
         require(self.warmup_episodes >= 0, "warmup_episodes must be >= 0")
         require(self.n_cycles >= 0, "n_cycles must be >= 0")
@@ -238,6 +247,35 @@ class Config:
         mean best_dim 4.7/5.7/6.7/10.7 at true_dim=20, one seed reaching 18).
         """
         return int(round(self.min_age_cycles * (self.obs_dim / OBS_DIM_REF) ** 1.5))
+
+    @property
+    def effective_survive_threshold_pop_baseline(self) -> int:
+        """The seventh scale rule (THRESHOLD-DIAGNOSIS) — the conveyor
+        correction, constant-free: ``survive_threshold_pop_baseline +
+        spawn_per_cycle · (effective_min_age_cycles − min_age_cycles)``,
+        **only when the fair judge is on** (``score_window_steps > 0``); the
+        raw baseline otherwise, and exactly the raw baseline at the reference
+        scale either way (effective patience = raw there).
+
+        Why: the population-scaled threshold exists so eviction paces spawn
+        among *evictable* frames, but its divisor counts the standing conveyor
+        of youth-protected juveniles — ``spawn_per_cycle × patience`` frames
+        that cannot be evicted — whose size grows as ``(obs_dim/10)^1.5``.
+        At scale the unevictable stock tightens the bar until nothing can
+        mature (PROPOSAL-DIAGNOSIS census). Excluding the conveyor from the
+        baseline restores the working ecology at every measured scale with
+        **no residual base factor** (f=1.0: 8/8 seeds anchored, populations
+        self-limited, medians 7/9/8 at true_dim 20/35/50); a fitted
+        base-exponent form was tried first and under-extrapolated at
+        obs_dim=150. Why conditional: under all-step EMA scoring the reopened
+        niche is colonized by tracking-flattered low dims (anchors at 4–7 vs
+        the fair judge's 6–11 — measured, K=40 control).
+        """
+        if self.score_window_steps == 0:
+            return self.survive_threshold_pop_baseline
+        return self.survive_threshold_pop_baseline + self.spawn_per_cycle * (
+            self.effective_min_age_cycles - self.min_age_cycles
+        )
 
     def replace(self, **changes: object) -> Config:
         """Return a validated copy with ``changes`` applied."""

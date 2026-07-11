@@ -80,3 +80,42 @@ def test_scorer_uses_effective_parsimony():
     # score difference between dim 20 and dim 2 = w_eff * 18
     diff = float(scaled.combine(0.5, 0.5, 0.0, 20) - scaled.combine(0.5, 0.5, 0.0, 2))
     assert np.isclose(diff, (0.04 * 10 / 60) * 18)
+
+
+def test_conveyor_correction_is_conditional_on_the_fair_judge():
+    # THRESHOLD-DIAGNOSIS: the seventh rule is the conveyor correction — the
+    # youth-protected stock (spawn_per_cycle x patience) does not tighten the
+    # bar. Raw baseline at the reference (either judge: patience is raw there),
+    # raw at scale under all-step scoring (the reopened niche is colonized by
+    # tracking-flattered low dims), corrected only with the fair judge on.
+    assert Config().effective_survive_threshold_pop_baseline == 4
+    assert Config(score_window_steps=5).effective_survive_threshold_pop_baseline == 4
+    scaled_raw = Config(true_dim=20, obs_dim=60, hidden_size=40)
+    assert scaled_raw.effective_survive_threshold_pop_baseline == 4
+    scaled_fair = scaled_raw.replace(score_window_steps=5)
+    # patience 29 at obs=60: baseline 4 + 1*(29 - 2) = 31
+    assert scaled_fair.effective_survive_threshold_pop_baseline == 31
+
+
+def test_score_window_gates_ema_updates_only():
+    # ema_update=False: the step still learns and reports, but survival EMAs
+    # do not advance — the fair judge ignores within-episode tracking.
+    from pra.core.frame import FrameStore
+
+    cfg = Config()
+    rng = np.random.default_rng(3)
+    store = FrameStore(cfg, rng)
+    store.birth(3, ema_init=0.9)
+    obs1 = rng.normal(size=cfg.obs_dim)
+    obs2 = rng.normal(size=cfg.obs_dim)
+
+    store.online_step(obs1, None, None, "predictive", ema_update=False)
+    stats = store.online_step(obs2, obs1, 0, "predictive", ema_update=False)
+    g = next(iter(store._groups.values()))
+    assert float(g.recon_err_ema[0]) == 0.9  # untouched
+    assert float(g.pred_err_ema[0]) == 0.9
+    assert stats.alive == 1  # the step itself ran (telemetry intact)
+
+    store.online_step(obs2, obs1, 0, "predictive", ema_update=True)
+    assert float(g.recon_err_ema[0]) != 0.9  # now they advance
+    assert float(g.pred_err_ema[0]) != 0.9

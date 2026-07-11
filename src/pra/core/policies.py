@@ -132,9 +132,12 @@ class PopulationScaledDecayPolicy:
     Young frames (``age_cycles < min_age_cycles``) are exempt from both."""
 
     def __init__(self, config: Config):
+        # effective baseline: the seventh scale rule (conveyor correction)
+        # activates with the fair judge (score_window_steps > 0); raw — and
+        # byte-identical — otherwise.
         self.base = float(config.survive_threshold_base)
         self.pop_coeff = float(config.survive_threshold_pop_coeff)
-        self.pop_baseline = int(config.survive_threshold_pop_baseline)
+        self.pop_baseline = int(config.effective_survive_threshold_pop_baseline)
 
     def threshold(self, population_size: int) -> float:
         return self.base / (1.0 + self.pop_coeff * max(0, population_size - self.pop_baseline))

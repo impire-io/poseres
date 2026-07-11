@@ -55,8 +55,9 @@ Status: **[V]** validated, **[D]** design, **[O]** open (see Doc 00 legend).
 | `explore_dim_max_offset` | int | 4 | ≥ 1; proposal policy | [D] |
 | `min_age_cycles` | int | 2 | ≥ 0; young-frame protection | [V] |
 | `survive_threshold_base` | float | 0.8 | > 0; **expected to be tuned** | [D] |
+| `score_window_steps` | int | 0 | ≥ 0; 0 = survival EMAs advance every step (pinned validated behavior); K > 0 = only the first K steps of each episode (the fair judge, Doc 03 §4); K > 0 activates the §9 seventh rule | [D] |
 | `survive_threshold_pop_coeff` | float | 0.04 | ≥ 0; **expected to be tuned** | [D] |
-| `survive_threshold_pop_baseline` | int | 4 | ≥ 0 | [D] |
+| `survive_threshold_pop_baseline` | int | 4 | ≥ 0; applied through the conveyor-corrected effective form (§9) when the fair judge is on | [D] |
 | `min_frames` | int | 1 | ≥ 1 | [V] |
 | `max_frames` | int | 200 | ≥ `min_frames`; hard population cap; **scale-dependent, expected to be raised** | [D] |
 
@@ -134,13 +135,19 @@ dimensions (raw `learning_rate` *diverges* at `obs_dim = 60`). Implementations
 (`·(10/obs_dim)^1.5`, per-tensor `·sqrt(fan_in_ref/fan_in)`, `·(10/obs_dim)`
 respectively), and `min_age_cycles` through `·(obs_dim/10)^1.5` (protection must
 grow with convergence time). All factors are exactly 1 at the reference scale.
-**Known open seventh rule:** `survive_threshold_base` — at scale the absolute
-bar sits below the achievable at-maturity score of all but the smallest dims,
-so selection is governed by the maturation filter rather than the score
-surface (PRA-01 §8.8 call-out; evidence in
-`design/validate/PROPOSAL-DIAGNOSIS.md`, which also records the opt-in
-`ClimbingProposalPolicy` — the measured [O]-seam variant reusing
-`exploit_prob`/`explore_dim_max_offset` — blocked on this rule).
+**The seventh rule (conditional, constant-free):** the conveyor correction —
+`survive_threshold_pop_baseline` is applied through
+`effective_survive_threshold_pop_baseline = pop_baseline +
+spawn_per_cycle·(effective_min_age_cycles − min_age_cycles)`, so the
+youth-protected conveyor does not tighten the bar (evidence:
+`design/validate/PROPOSAL-DIAGNOSIS.md` for the emptied mature niche,
+`design/validate/THRESHOLD-DIAGNOSIS.md` for the rule). Applies **only when
+the fair judge is on** (`score_window_steps > 0`) — corrected-but-flattered
+scoring lands the ecology below the honest surface (measured). The
+judge+correction pair is what unblocks `ClimbingProposalPolicy` (the measured
+[O]-seam variant reusing `exploit_prob`/`explore_dim_max_offset`), and
+`pra-validate scale` now defaults to this ecology (`score_window_steps = 5`,
+climbing proposals) for scaled runs.
 
 The SIMD requirement (Doc 03 §7) is not a parameter — it is mandatory and is what makes raising `max_frames` and `hidden_size` feasible on one machine.
 

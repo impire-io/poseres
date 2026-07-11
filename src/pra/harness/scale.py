@@ -20,16 +20,24 @@ from time import perf_counter
 
 from pra.config import Config
 from pra.core.engine import Engine
-from pra.core.policies import HighDimProposalPolicy
+from pra.core.policies import ClimbingProposalPolicy
 from pra.harness.acceptance import ScaleReading
 from pra.telemetry.recorder import PerSeedRunSummary
 
-__all__ = ["run_scale"]
+__all__ = ["run_scale", "SCALE_SCORE_WINDOW"]
+
+# Scaled runs default to the fair-judge ecology (THRESHOLD-DIAGNOSIS): the
+# survival EMAs advance on the first K steps of each episode, which activates
+# the conveyor correction, and proposals climb (PROPOSAL-DIAGNOSIS). Without
+# the pair, scaled best_dim reads the maturation filter or the proposal
+# conveyor, not the world. Override via --config score_window_steps / a
+# custom `proposal` for provenance runs against the old ecology.
+SCALE_SCORE_WINDOW = 5
 
 
 def _run_scale_seed(cfg: Config, seed: int, proposal) -> PerSeedRunSummary:
     """One scaled seed (module-level: picklable for worker processes)."""
-    policy = proposal if proposal is not None else HighDimProposalPolicy(cfg)
+    policy = proposal if proposal is not None else ClimbingProposalPolicy(cfg)
     return Engine(cfg, proposal=policy).run(seed)
 
 
@@ -50,6 +58,11 @@ def run_scale(
             # resolvable dimensionality at the frame's own width
             # (SCALE-DIAGNOSIS §5), so scaled runs use hidden ≳ 2·true_dim.
             hidden_size=max(base.hidden_size, 2 * true_dim),
+            # fair-judge ecology by default (see module docstring); an
+            # explicit base override wins.
+            score_window_steps=(
+                base.score_window_steps if base.score_window_steps > 0 else SCALE_SCORE_WINDOW
+            ),
             seeds=tuple(seeds),
         )
         t0 = perf_counter()
