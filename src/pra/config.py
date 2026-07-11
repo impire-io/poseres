@@ -77,6 +77,16 @@ class Config:
     # effective_survive_threshold_pop_baseline). ---
     score_window_steps: int = 0
 
+    # --- Lifetime stability (LONGEVITY-DIAGNOSIS). 0 = off: the pinned
+    # validated default. c > 0 = at each episode start every weight tensor is
+    # projected back to ||W|| <= c * ||W_init||_expected (per tensor; biases
+    # never). Constant-lr continual training leaves its stable regime after
+    # ~2400-4800 episodes at obs_dim=60 (weight-norm runaway; frozen honest
+    # error roughly doubles); c=1.2 eliminates the rot with no measured
+    # plasticity cost. Constrains magnitude only - adaptation never freezes,
+    # preserving the never-trained-then-frozen premise. ---
+    weight_norm_cap: float = 0.0
+
     # --- Schedule ---
     warmup_episodes: int = 25
     n_cycles: int = 18
@@ -157,6 +167,7 @@ class Config:
         require(self.min_frames >= 1, "min_frames must be >= 1")
         require(self.max_frames >= self.min_frames, "max_frames must be >= min_frames")
         require(self.score_window_steps >= 0, "score_window_steps must be >= 0")
+        require(self.weight_norm_cap >= 0, "weight_norm_cap must be >= 0")
 
         require(self.warmup_episodes >= 0, "warmup_episodes must be >= 0")
         require(self.n_cycles >= 0, "n_cycles must be >= 0")

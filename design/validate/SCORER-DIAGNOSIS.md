@@ -138,3 +138,44 @@ long-run landing is rot-driven selection, not basin-edge settling; and the
    scoring even absent rot (the 2400-episode surface's parsimony arithmetic);
    whether to re-shape parsimony is deferred until a rot-free re-measurement
    exists.
+
+## Epilogue — the rot-free re-ask: nothing marks the truth, and that is the answer (2026-07-11)
+
+With the LONGEVITY cap in force (rot eliminated), the long-experience
+equal-experience surface at td=20 (dims 4–40, 19,200 episodes, frozen honest
+eval, 2 seeds):
+
+| dim | pred (s1/s2) | recon (s1/s2) |
+|---|---|---|
+| 12 | 0.268 / 0.278 | 0.247 / 0.259 |
+| 20 | 0.255 / 0.256 | 0.223 / 0.227 |
+| 28 | 0.218 / 0.231 | 0.179 / 0.195 |
+| 40 | **0.202 / 0.212** | **0.146 / 0.157** |
+
+Both components decrease **monotonically to the capacity ceiling**
+(dim 40 = hidden width), in both seeds, with near-constant marginal gain
+≈ 0.003/dim from 12 to 40. The world's intrinsic dimensionality (20) leaves
+**no signature on either error surface** — plausibly inherent: under the
+nonlinear tanh emission, the latent's image is not a 20-dim linear object,
+so no pose dimensionality "completes" it below capacity. Consequences:
+
+1. **No parsimony shape can recover "best_dim = true_dim"** — there is no
+   feature for any penalty to select. Reshaping (log-dim, elbow-relative) is
+   pointless here and is dropped.
+2. **The linear penalty is a *price*, not a truth-finder.** Selection buys
+   dimensions while the marginal error gain exceeds `w_complexity`
+   (effective 0.0067/dim at obs=60). The measured marginal gain crosses that
+   price at dims ~8–12 — and the capped ecology's landing is median 10:
+   **selection already sits exactly at the operating point the price
+   implies.** The three-legged ecology is faithful to the score's economics.
+3. **T-SCALE's question is answered by retirement.** "Does best_dim track
+   true_dim at scale" assumed a signature the world does not emit. The honest
+   successor question — "does selection land at the price-optimal
+   dimensionality, stably, at every scale and budget" — is what the fixed
+   ecology now demonstrably does. Raising `w_complexity` buys smaller
+   structure; lowering it buys error; the choice is a deployment economy,
+   not a discovery.
+
+(Reference-scale T4 is untouched: at td=3/obs=10 the surface does have a
+knee near 3 — small worlds under mild nonlinearity still mark their
+dimensionality; the scaled worlds do not.)

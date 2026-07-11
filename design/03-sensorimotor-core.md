@@ -143,6 +143,8 @@ Default weights (Doc 07): `w_explain = 0.5`, `w_predict = 0.5`, `w_effort = 0.0`
 
 **Why the parsimony term (`w_complexity·dim`) is mandatory.** With honest, coverage-fair errors, reconstruction and prediction error keep drifting *down* past the true dimensionality via overfit — so "lowest error wins" over-dimensions. A per-dimension penalty places the winner at the **start of the diminishing-returns plateau** (MDL / Occam) — the true dimensionality. Without it, T4 does not hold. Its weight is **[D]** (expected to be tuned): too small and the population over-dimensions; too large and it collapses toward `dim = 1`.
 
+**Scale amendment (SCORER-DIAGNOSIS epilogue, 2026-07-11).** At the reference scale the error surface has a knee near the true dimensionality and the penalty finds it (T4). At scale it measurably does not: under the nonlinear emission, rot-free long-trained honest error decreases **monotonically to the capacity ceiling** with near-constant marginal gain (~0.003/dim at `obs_dim = 60`), so no penalty shape can recover `best_dim = true_dim` — there is no feature to select. The penalty's honest role at scale is a **price**: selection buys dimensions while the marginal error gain exceeds `w_complexity`'s effective value, and the fixed ecology measurably lands at that operating point (marginal gain crosses the 0.0067/dim price at dims ~8–12; the scaled landing is median 10). Choosing `w_complexity` at scale is a deployment economy — structure size vs error — not a discovery.
+
 ---
 
 ## 7. The SIMD / vectorization requirement — **[V]**

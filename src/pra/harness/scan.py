@@ -71,6 +71,12 @@ def _run_one_seed(
         obs = world.reset()
         prev_obs: np.ndarray | None = None
         prev_a: int | None = None
+        # lifetime stability (LONGEVITY-DIAGNOSIS): probe the same regime the
+        # live system runs — project weight norms at episode start when the
+        # cap is configured. Off (0) by default, like the live default.
+        if learn and cfg.weight_norm_cap > 0:
+            for g in groups.values():
+                g.project_norms(cfg.weight_norm_cap, cfg.init_weight_scale)
         for _ in range(cfg.steps_per_episode):
             for d, g in groups.items():
                 if learn:

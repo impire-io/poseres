@@ -279,6 +279,29 @@ elbow itself sits at 12–16 regardless of the world's 20/35/50 true
 dimensionality at these experience budgets; Doc 03 §6 parsimony vs marginal
 information).
 
+**Scaled reference result (2026-07-11, final — adds the third ecology leg,
+lifetime stability `weight_norm_cap = 1.2` (PRA-01 §8.8 eighth rule; the
+table above was measured pre-cap and its landing was rot-selection —
+LONGEVITY-DIAGNOSIS); same protocol otherwise:**
+
+| `true_dim` | `best_dim` per seed | median | anchored (census) | population |
+|---|---|---|---|---|
+| 20 | [11, 12, 7, 10, 10, 10, 9, 10] | **10.0** | 8/8, tenures 1736–1977 | 40–46 |
+| 35 | [7, 11, 10, 13, 13, 6, 8, 7] | 9.0 | 8/8, tenures 1832–1970 | 87–91 |
+| 50 | [10, 9, 9, 11, 7, 9, 7, 9] | 9.0 | 8/8, tenures 1769–1920 | 137–143 |
+
+Reading: the cap's lift is ordered exactly by each scale's rot exposure
+(+4 / +1 / +0.5 median vs pre-cap — the effective learning rate delays rot
+onset past the run length at larger `obs_dim`), and the T-SCALE question
+itself is now **closed by measurement** (SCORER-DIAGNOSIS epilogue): the
+scaled world's error surfaces carry no signature of `true_dim` (rot-free
+honest error falls monotonically to the capacity ceiling), so `best_dim`
+cannot and should not track it. The parsimony weight is a **price**; the
+honest claim — now measured at all three scales — is that selection lands at
+the price-optimal dimensionality (marginal error gain ≈ effective
+`w_complexity`), stably (24/24 anchored), invariant to budget and scale.
+T-SCALE remains investigatory; this is the finding it existed to produce.
+
 ---
 
 ## 5. Harness behavior

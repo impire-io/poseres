@@ -66,3 +66,30 @@ def test_unmapped_frame_is_not_updated():
     g.learn_placement(obs, pose, h, recon, hd, elect, LR, CLIP)
     assert np.any(g.W1[0] != w_before[0])  # frame 0 changed
     assert np.array_equal(g.W1[1], w_before[1])  # frame 1 untouched
+
+
+def test_weight_norm_cap_projects_only_runaway_tensors():
+    # LONGEVITY-DIAGNOSIS: per-tensor max-norm control. Healthy tensors are
+    # untouched (init norms sit at ~1x the expected value, under a 1.2 cap);
+    # an inflated tensor is projected back to exactly the cap; biases never.
+    import numpy as np
+
+    from pra.config import Config
+    from pra.core.frame import FrameGroup
+
+    cfg = Config()
+    rng = np.random.default_rng(5)
+    g = FrameGroup(3, cfg.obs_dim, cfg.hidden_size, cfg.n_actions)
+    g.add_frame(0, ema_init=1.0, scale=cfg.init_weight_scale, rng=rng)
+
+    before = {n: np.array(getattr(g, n), copy=True) for n in ("W1", "T1", "b1")}
+    g.project_norms(1.2, cfg.init_weight_scale)
+    for n, w in before.items():
+        assert np.array_equal(getattr(g, n), w), f"{n} changed while healthy"
+
+    g.W1 = g.W1 * 10.0  # simulate runaway
+    g.b1 = g.b1 + 7.0  # biases are exempt from the cap
+    g.project_norms(1.2, cfg.init_weight_scale)
+    cap = 1.2 * cfg.init_weight_scale * (cfg.hidden_size * 10) ** 0.5
+    assert np.isclose(float(np.linalg.norm(g.W1[0])), cap)
+    assert float(g.b1[0][0]) == 7.0

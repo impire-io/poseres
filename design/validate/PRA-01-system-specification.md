@@ -513,19 +513,24 @@ the *flatness of the score surface's basin* (span ≈ 0.02 across dims 6–16 at
 `obs_dim = 60`), which is the Section 6.2 parsimony-vs-marginal-information
 question.
 
-**Known open eighth rule-class problem (identified, not yet designed —
-SCORER-DIAGNOSIS, 2026-07-11): lifetime stability.** Under constant effective
-learning rate, a frame's training leaves its stable regime after
-≈ 2400–4800 episodes at `obs_dim = 60` (weight-norm runaway following a
-healthy compression phase; frozen honest error roughly doubles), with
-capacity-dependent onset — mid dims rot, the smallest and largest largely do
-not. The long-run scaled ecology therefore selects for **rot-resistance**
-(measured: anchors at dims 4–8), and every scaled `best_dim` reading —
-including the flat-basin landing above — is downstream of this. Candidate
-reference- and premise-preserving fix: per-tensor max-norm control, dormant
-at the reference and in any frame's healthy phase, constraining magnitude
-without freezing adaptation. The Section 6.2 parsimony question is deferred
-until a rot-free re-measurement exists.
+**The eighth rule (opt-in — LONGEVITY-DIAGNOSIS, 2026-07-11): lifetime
+stability.** Under constant effective learning rate, a frame's training
+leaves its stable regime after ≈ 2400–4800 episodes at `obs_dim = 60`
+(weight-norm runaway following a healthy compression phase; frozen honest
+error roughly doubles), with capacity-dependent onset — mid dims rot, the
+smallest and largest largely do not. The long-run scaled ecology therefore
+selects for **rot-resistance** (measured: anchors at dims 4–8). The shipped
+mechanism: `weight_norm_cap = c` projects every weight tensor to
+`‖W‖_F ≤ c · E‖W_init‖_F` at each episode start (closed-form caps, no stored
+state; biases exempt; magnitude only — adaptation never freezes, the
+never-trained-then-frozen premise survives). Measured at `c = 1.2`: rot
+eliminated with no plasticity cost (capped frames end 9600-episode runs at
+their best-ever error), and the td=20 scaled landing rises from median 6 to
+**10 — the fair-judge basin minimum — with the budget-drift gone**
+(intervention-grade confirmation of the rot-selection chain). Opt-in
+(default 0) because reference-scale norm dynamics under the raw learning
+rate are unmeasured; `pra-validate scale` defaults scaled runs to `c = 1.2`.
+The Section 6.2 parsimony question can now be re-asked on rot-free ground.
 
 ---
 

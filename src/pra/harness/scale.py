@@ -24,15 +24,19 @@ from pra.core.policies import ClimbingProposalPolicy
 from pra.harness.acceptance import ScaleReading
 from pra.telemetry.recorder import PerSeedRunSummary
 
-__all__ = ["run_scale", "SCALE_SCORE_WINDOW"]
+__all__ = ["run_scale", "SCALE_SCORE_WINDOW", "SCALE_NORM_CAP"]
 
 # Scaled runs default to the fair-judge ecology (THRESHOLD-DIAGNOSIS): the
 # survival EMAs advance on the first K steps of each episode, which activates
 # the conveyor correction, and proposals climb (PROPOSAL-DIAGNOSIS). Without
 # the pair, scaled best_dim reads the maturation filter or the proposal
-# conveyor, not the world. Override via --config score_window_steps / a
-# custom `proposal` for provenance runs against the old ecology.
+# conveyor, not the world. Long schedules additionally need the lifetime-
+# stability cap (LONGEVITY-DIAGNOSIS): without it, mid-dim frames rot after
+# ~400-800 cycles and long-run selection favors rot-resistance. Override via
+# --config score_window_steps / weight_norm_cap / a custom `proposal` for
+# provenance runs against the old ecology.
 SCALE_SCORE_WINDOW = 5
+SCALE_NORM_CAP = 1.2
 
 
 def _run_scale_seed(cfg: Config, seed: int, proposal) -> PerSeedRunSummary:
@@ -58,11 +62,12 @@ def run_scale(
             # resolvable dimensionality at the frame's own width
             # (SCALE-DIAGNOSIS §5), so scaled runs use hidden ≳ 2·true_dim.
             hidden_size=max(base.hidden_size, 2 * true_dim),
-            # fair-judge ecology by default (see module docstring); an
-            # explicit base override wins.
+            # fair-judge ecology + lifetime stability by default (see module
+            # docstring); explicit base overrides win.
             score_window_steps=(
                 base.score_window_steps if base.score_window_steps > 0 else SCALE_SCORE_WINDOW
             ),
+            weight_norm_cap=(base.weight_norm_cap if base.weight_norm_cap > 0 else SCALE_NORM_CAP),
             seeds=tuple(seeds),
         )
         t0 = perf_counter()

@@ -162,20 +162,21 @@ seed execution. **The scaled selection ecology now works** (Chapters 9 and
 11): the fair judge (`score_window_steps`) + the constant-free conveyor
 correction (the seventh scale rule) + climbing proposals are the
 `pra-validate scale` defaults, and the scaled reference is 24/24 anchored
-runs with `best_dim` invariant to budget and proposal policy (medians
-6 / 8 / 8.5 at true_dim 20/35/50). The inter-age successor dissolved under
-measurement (Chapter 12), and the scorer arc behind it found the real
-frontier (Chapter 13): **constant-lr continual learning is lifetime-bounded**
-— mid-capacity frames rot after ~400–800 cycles via weight-norm runaway, the
-long-run scaled ecology selects for rot-resistance (anchors at dims 4–8),
-and both the flat-basin landing and the downward drift are its shadows. Open
-research, in priority order: **lifetime stability, the eighth-rule-class
-problem** (per-tensor max-norm control is the reference- and
-premise-preserving candidate; then re-measure the basin and the scaled
-landing rot-free), the parsimony question (deferred until a rot-free
-measurement exists), T3's persistence clause at scale, the
-curiosity/competence blend for non-uniformly-learnable worlds, predicted-LP
-lookahead, snapshot support for anatomy-resized runs.
+runs with `best_dim` invariant to budget and proposal policy. The inter-age
+successor dissolved under measurement (Chapter 12); the scorer arc found the
+rot (Chapter 13); and the eighth rule fixed it and closed the T-SCALE
+question (Chapter 14): **the honest scaled ecology stands on three measured
+legs** (fair judge, conveyor correction, lifetime cap `weight_norm_cap` —
+all `pra-validate scale` defaults, with climbing proposals), the capped
+scaled reference is **medians 10 / 9 / 9 at true_dim 20/35/50, 24/24
+anchored**, and the scaled world measurably carries no `true_dim` signature —
+the parsimony weight is a *price*, and selection lands at the price-optimal
+dimensionality, stably, at every scale and budget. Open research, in
+priority order: **T3's persistence clause at scale** (the last unmeasured
+scaled criterion), the curiosity/competence blend for
+non-uniformly-learnable worlds, predicted-LP lookahead, snapshot support for
+anatomy-resized runs, and (design-level, when a deployment demands it)
+whether reference-scale long lifetimes eventually need the cap too.
 
 ## Recurring principles (what the journey keeps teaching)
 
@@ -339,6 +340,39 @@ rule-class problem, lifetime stability, with per-tensor max-norm control as
 the reference- and premise-preserving candidate (no freezing; the system
 stays never-trained-then-frozen). Trail:
 `design/validate/SCORER-DIAGNOSIS.md`; committed together with this chapter.
+
+## Chapter 14 — The eighth rule and the price of a dimension (2026-07-11)
+
+Two arcs closed in one day, each finishing the other. First the rot fix:
+per-tensor max-norm control (`weight_norm_cap`), designed from Chapter 13's
+measured mechanism — stateless closed-form caps at `1.2·E‖W_init‖`, biases
+exempt, projected at episode starts, magnitude only (the never-trained-then-
+frozen premise survives intact). The dose–response was clean (∞ rots, 1.5
+attenuates, 1.2 eliminates — capped frames end 9600-episode runs at their
+best-ever error, and the immune dims are untouched), and the payoff was
+intervention-grade: moving *only* this mechanism lifted the td=20 scaled
+landing from median 6 to 10 — onto the fair-judge basin minimum — with the
+budget-drift gone, and the lift across scales ordered exactly by rot
+exposure (+4 / +1 / +0.5). The capped scaled reference: **medians 10 / 9 / 9
+at true_dim 20/35/50, 24/24 anchored.** The honest scaled ecology now stands
+on three measured legs — fair judge, conveyor correction, lifetime cap —
+each refuted as sufficient alone.
+
+Then the parsimony re-ask on the rot-free ground the cap created, and the
+retirement it forced: the long-trained honest error surface **falls
+monotonically to the capacity ceiling in both components and both seeds** —
+the scaled world's intrinsic dimensionality leaves no signature for any
+penalty shape to find (nonlinear emission: a 20-dim latent's image is not a
+20-dim linear object). "Does best_dim track true_dim at scale" is closed by
+measurement: it cannot, and should not. The parsimony weight is a **price**
+— selection buys dimensions while the marginal error gain exceeds it — and
+the capped ecology already sits exactly at that operating point (measured
+marginal gain crosses the 0.0067/dim price at dims 8–12; the landing is 10).
+What T-SCALE can honestly claim, and now measures at every scale and budget:
+**selection lands at the price-optimal dimensionality, stably.** That is the
+finding the investigatory suite existed to produce. Trails:
+`design/validate/LONGEVITY-DIAGNOSIS.md`, SCORER-DIAGNOSIS epilogue;
+committed together with this chapter.
 
 ---
 

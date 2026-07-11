@@ -119,6 +119,35 @@ class FrameGroup:
         self.T2 = np.concatenate([self.T2, T2[None]], axis=0)
         self.tb2 = np.concatenate([self.tb2, np.zeros((1, A, D))], axis=0)
 
+    def project_norms(self, cap_factor: float, init_scale: float) -> None:
+        """Per-tensor max-norm control (LONGEVITY-DIAGNOSIS, the lifetime-
+        stability mechanism): project each frame's weight tensors back to
+        ``‖W‖_F ≤ cap_factor · E‖W_init‖_F``. The expected init norm has a
+        closed form (Gaussian init: ``s_eff·sqrt(n)``; the §8.8 fan-in factors
+        cancel one dimension), so the cap needs no stored state. Biases (init
+        0) are never projected. Constrains magnitude only — direction and
+        ongoing adaptation stay free."""
+        if self.size == 0:
+            return
+        D, H, Od, A = self.dim, self.H, self.obs_dim, self.A
+        roots = {
+            "W1": (H * OBS_DIM_REF) ** 0.5,
+            "W2": (D * HIDDEN_REF) ** 0.5,
+            "Dc1": (H * D) ** 0.5,
+            "Dc2": (HIDDEN_REF * Od) ** 0.5,
+            "T1": (A * H * D) ** 0.5,
+            "T2": (HIDDEN_REF * A * D) ** 0.5,
+        }
+        for name, root in roots.items():
+            w = getattr(self, name)
+            cap = cap_factor * init_scale * root
+            norms = np.sqrt((w * w).reshape(w.shape[0], -1).sum(axis=1))
+            over = norms > cap
+            if over.any():
+                factors = np.ones_like(norms)
+                factors[over] = cap / norms[over]
+                setattr(self, name, w * factors.reshape((-1,) + (1,) * (w.ndim - 1)))
+
     def resize(self, new_obs_dim: int, new_n_actions: int, scale: float, rng) -> None:
         """Frame I/O resize (Doc 03 §7, feature 004 research R3).
 
@@ -314,6 +343,7 @@ class FrameStore:
         self._clip = float(config.gradient_clip)
         self._decay = float(config.ema_decay)
         self._scale = float(config.init_weight_scale)
+        self._norm_cap = float(config.weight_norm_cap)
         # Current anatomy dims: equal to config at boot; tool registration
         # (Doc 02 §5) changes them via resize() at the slow loop. Births and
         # per-event results always use the current dims.
@@ -497,6 +527,11 @@ class FrameStore:
         alive = 0
         elect_errs: list[float] = []
         decay = self._decay
+        # lifetime stability (weight_norm_cap > 0, opt-in): project weight
+        # norms at each episode start, before any processing of the episode.
+        if prev_obs is None and self._norm_cap > 0.0:
+            for g in self._groups.values():
+                g.project_norms(self._norm_cap, self._scale)
         for g in self._groups.values():
             if g.size == 0:
                 continue

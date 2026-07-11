@@ -28,6 +28,7 @@ Status: **[V]** validated, **[D]** design, **[O]** open (see Doc 00 legend).
 | `learning_rate` | float | 0.03 | > 0 | [V] |
 | `gradient_clip` | float | 1.0 | > 0; per-element clip; mandatory | [V] |
 | `ema_decay` | float | 0.9 | in [0, 1); new-sample weight is `1 − ema_decay` | [V] |
+| `weight_norm_cap` | float | 0.0 | ≥ 0; **0 = off** (pinned validated behavior); c > 0 projects each weight tensor to `‖W‖ ≤ c·E‖W_init‖` at episode starts (lifetime stability, PRA-01 §8.8); measured c = 1.2 eliminates long-horizon rot with no plasticity cost | [D] |
 | `fit_gate` | float | 1.0 | > 0; map iff `fit_quality < fit_gate` | [V] |
 
 ---
@@ -145,9 +146,12 @@ youth-protected conveyor does not tighten the bar (evidence:
 the fair judge is on** (`score_window_steps > 0`) — corrected-but-flattered
 scoring lands the ecology below the honest surface (measured). The
 judge+correction pair is what unblocks `ClimbingProposalPolicy` (the measured
-[O]-seam variant reusing `exploit_prob`/`explore_dim_max_offset`), and
-`pra-validate scale` now defaults to this ecology (`score_window_steps = 5`,
-climbing proposals) for scaled runs.
+[O]-seam variant reusing `exploit_prob`/`explore_dim_max_offset`). The third
+leg is **lifetime stability** (`weight_norm_cap`, LONGEVITY-DIAGNOSIS):
+without it, constant-lr continual training rots mid-capacity frames after
+~400–800 cycles and long-run selection favors rot-resistance over structure
+quality. `pra-validate scale` defaults scaled runs to the full honest ecology
+(`score_window_steps = 5`, `weight_norm_cap = 1.2`, climbing proposals).
 
 The SIMD requirement (Doc 03 §7) is not a parameter — it is mandatory and is what makes raising `max_frames` and `hidden_size` feasible on one machine.
 
