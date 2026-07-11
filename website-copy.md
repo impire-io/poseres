@@ -11,6 +11,8 @@ That's PRA.
 
 The world can be physical or utterly abstract. PRA doesn't know the difference — to it, everything is just signals coming in and actions going out. Meaning is learned, never wired in.
 
+This isn't a thought experiment. PRA is open source and runs today — download it, wire in a world of your own, and see what it learns.
+
 ---
 
 ### No labels. No task. No dataset.
@@ -73,10 +75,12 @@ That gap isn't swept under the rug. It's the headline question the whole project
 
 ### Yours to experiment with
 
-PRA isn't a paper you read. It's a working core you download, install, and point at a world of your own.
+PRA isn't a paper you read. It's a working, open-source core you download, install, and point at a world of your own.
 
 Every piece is built to be swapped. Wire in your own world through one clean connection and PRA starts learning it. Change what "better" means to it, change how it grows, change how ruthlessly it prunes — each is a single part you replace without touching the rest. Configure it, run it, watch what it does.
 
 Putting it in people's hands is the whole bet. The discoveries that matter won't come from us guarding PRA as research — they'll come from people plugging it into worlds we'd never think of. And the open question, *does it hold up as worlds get bigger?*, isn't a disclaimer. It's the invitation.
 
 **[ Get the code ]**  ·  **[ Read the spec ]**  ·  **[ See what it can do ]**
+
+*MIT-licensed · one dependency · runs on a laptop.*

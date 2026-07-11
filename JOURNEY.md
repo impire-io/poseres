@@ -374,6 +374,11 @@ finding the investigatory suite existed to produce. Trails:
 `design/validate/LONGEVITY-DIAGNOSIS.md`, SCORER-DIAGNOSIS epilogue;
 committed together with this chapter.
 
+Roadmap consequence, recorded with the Chapter 10 docs bundle as it ships:
+A1 (the seventh scale rule) is closed by chapters 11–14 and marked done in
+`ROADMAP.md`; **T3's persistence clause at scale enters as the new top
+Phase-A gate (A2)**, with the ladder and the drive blend renumbered A3/A4.
+
 ---
 
 ## Chapter template (append below)

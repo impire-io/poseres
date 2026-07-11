@@ -4,6 +4,11 @@ An in-memory, batched, deterministic core (PRA-01) and the validation harness
 (PRA-02) that runs the acceptance suite **T1–T6** plus the investigatory
 **T-SCALE**, emitting an honest, reproducible PASS/FAIL verdict per test.
 
+New here? **[GETTING-STARTED.md](GETTING-STARTED.md)** walks you from install
+to hooking up your own sensors/actuators and configuring the drive.
+**[ROADMAP.md](ROADMAP.md)** is where the project is going: an OSS
+continuously-learning brain for hobbyists and makers.
+
 See `specs/001-validation-harness/` for the spec, plan, and contracts, and
 `design/` for the architecture documents. The behavioral oracle is
 `design/validate/pra_sim_v4.py`.
