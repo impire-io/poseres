@@ -326,3 +326,12 @@ the dimension scan at effective lr, and pre-registered dose–response grids
 with per-run censuses. Every hypothesis that died, died to data: the pure
 bar-raise (E2), the sharper-window judge (K=2), the fitted power law (E4
 td=50), and the unconditional form (K=40 control).
+
+## Epilogue (2026-07-11, same day)
+
+Successor (4a) was taken up immediately and **dissolved by one experiment**
+(`INTERAGE-DIAGNOSIS.md`): time-to-asymptote is flat in dim, `best_dim`
+churns freely among mature frames, and the landing level is set by the
+flatness of the fair-judge score basin (span ≈ 0.02 across dims 6–16) — the
+scorer question (4b), now with the measurement that makes it concrete, is
+the open frontier.

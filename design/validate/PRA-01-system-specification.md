@@ -505,9 +505,13 @@ fitted base-exponent form was tried first and under-extrapolated at
 `obs_dim = 150`). Unlike the six rules above it is **conditional on the fair
 judge** (`score_window_steps > 0`, Section 5.4): under all-step EMA scoring
 the reopened niche is colonized by tracking-flattered low dims (measured:
-anchors at dims 4–7 vs the fair judge's 6–11). Remaining named successor:
-fair *inter-age* comparison (niche entry order still favors the
-fastest-training dims; anchors hold tenure by lifetime advantage).
+anchors at dims 4–7 vs the fair judge's 6–11). The once-named successor
+"fair inter-age comparison" was **dissolved by measurement**
+(INTERAGE-DIAGNOSIS, 2026-07-11): time-to-asymptote is flat in dim and
+`best_dim` churns freely among mature frames — the landing level is set by
+the *flatness of the score surface's basin* (span ≈ 0.02 across dims 6–16 at
+`obs_dim = 60`), which is the Section 6.2 parsimony-vs-marginal-information
+question, the open frontier.
 
 ---
 
