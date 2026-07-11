@@ -511,7 +511,21 @@ anchors at dims 4–7 vs the fair judge's 6–11). The once-named successor
 `best_dim` churns freely among mature frames — the landing level is set by
 the *flatness of the score surface's basin* (span ≈ 0.02 across dims 6–16 at
 `obs_dim = 60`), which is the Section 6.2 parsimony-vs-marginal-information
-question, the open frontier.
+question.
+
+**Known open eighth rule-class problem (identified, not yet designed —
+SCORER-DIAGNOSIS, 2026-07-11): lifetime stability.** Under constant effective
+learning rate, a frame's training leaves its stable regime after
+≈ 2400–4800 episodes at `obs_dim = 60` (weight-norm runaway following a
+healthy compression phase; frozen honest error roughly doubles), with
+capacity-dependent onset — mid dims rot, the smallest and largest largely do
+not. The long-run scaled ecology therefore selects for **rot-resistance**
+(measured: anchors at dims 4–8), and every scaled `best_dim` reading —
+including the flat-basin landing above — is downstream of this. Candidate
+reference- and premise-preserving fix: per-tensor max-norm control, dormant
+at the reference and in any frame's healthy phase, constraining magnitude
+without freezing adaptation. The Section 6.2 parsimony question is deferred
+until a rot-free re-measurement exists.
 
 ---
 
