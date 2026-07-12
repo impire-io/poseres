@@ -11,7 +11,7 @@ from __future__ import annotations
 import json
 
 from pra.config import Config
-from pra.harness.acceptance import evaluate_t3
+from pra.harness.acceptance import evaluate_t3, evaluate_t3_scaled
 from pra.harness.cli import main
 from pra.harness.report import build_scale_t3_report, render_json, render_text
 from pra.harness.runner import ABLATION_SEED_OFFSET, IDENTITY_SEED_OFFSET, run_suite
@@ -28,7 +28,7 @@ def _base():
     )
 
 
-def test_triad_runs_per_dim_and_joins_by_seed():
+def test_quartet_runs_per_dim_and_joins_by_seed():
     results = run_scale_t3(_base(), true_dims=[6, 9], seeds=[1, 2])
     assert [td for td, _run in results] == [6, 9]
     for td, run in results:
@@ -36,13 +36,17 @@ def test_triad_runs_per_dim_and_joins_by_seed():
         assert run.config.true_dim == td
         assert run.config.obs_dim >= 3 * td
         assert run.config.score_window_steps > 0 and run.config.weight_norm_cap > 0
-        # triad present and keyed by the base seed (offsets stay internal)
+        # quartet present and keyed by the base seed (offsets stay internal)
         assert [s.seed for s in run.predictive] == [1, 2]
         assert set(run.ablation) == {1, 2} and set(run.identity) == {1, 2}
+        assert set(run.matched) == {1, 2}
         assert run.ablation[1].seed == 1 + ABLATION_SEED_OFFSET
         assert run.identity[1].seed == 1 + IDENTITY_SEED_OFFSET
         assert run.ablation[1].scoring_mode == "effort_only"
         assert run.identity[1].scoring_mode == "identity"
+        # the churn-matched arm: predictive training on the identity arm's world
+        assert run.matched[1].seed == 1 + IDENTITY_SEED_OFFSET
+        assert run.matched[1].scoring_mode == "predictive"
 
 
 def test_scaled_t3_uses_the_reference_evaluator():
@@ -50,6 +54,24 @@ def test_scaled_t3_uses_the_reference_evaluator():
     verdict = evaluate_t3(results[0][1])
     assert verdict.id == "T3"
     assert verdict.verdict in {"PASS", "FAIL", "NOT_AVAILABLE"}
+
+
+def test_amended_scaled_evaluator_pairs_matched_vs_identity():
+    results = run_scale_t3(_base(), true_dims=[6], seeds=[1, 2])
+    run = results[0][1]
+    verdict = evaluate_t3_scaled(run)
+    assert verdict.id == "T3"
+    assert verdict.verdict in {"PASS", "FAIL", "NOT_AVAILABLE"}
+    assert "churn-matched" in verdict.measured.note
+    assert "as-written" in verdict.measured.note
+    # the reported measure is the paired margin: matched − identity, per seed
+    expected = [
+        run.matched[s].improvement - run.identity[s].improvement
+        for s in (1, 2)
+        if run.matched[s].improvement is not None and run.identity[s].improvement is not None
+    ]
+    present = [m for m in verdict.measured.per_seed if m is not None]
+    assert present == expected
 
 
 def test_proposal_factory_default_leaves_run_suite_unchanged():
@@ -79,12 +101,15 @@ def test_scale_t3_report_shape_and_rendering():
                 "predictive_improvement",
                 "effort_only_improvement",
                 "identity_improvement",
+                "matched_improvement",
                 "margin_vs_effort",
                 "margin_vs_identity",
+                "margin_matched_vs_identity",
                 "predictive_best_dim",
             }
     text = render_text(report)
-    assert "T3 triad @ true_dim=6" in text
+    assert "T3 quartet @ true_dim=6" in text
+    assert "paired-margin" in text
     obj = render_json(report)
     assert obj["mode"] == "scale-t3"
     assert obj["run_metadata"]["t3_scale_detail"][0]["true_dim"] == 6

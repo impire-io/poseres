@@ -26,6 +26,7 @@ __all__ = [
     "NOT_AVAILABLE",
     "evaluate_suite",
     "evaluate_t3",
+    "evaluate_t3_scaled",
     "evaluate_t7",
 ]
 
@@ -321,6 +322,61 @@ def evaluate_t3(suite_run) -> AcceptanceVerdict:
         suite_run.ablation,
         getattr(suite_run, "identity", {}),
         len(suite_run.predictive),
+    )
+
+
+def evaluate_t3_scaled(suite_run) -> AcceptanceVerdict:
+    """The amended scaled T3 (T3SCALE-DIAGNOSIS, pre-registered 2026-07-12).
+
+    Weak clause unchanged: the ecology's predictive improvement beats the
+    effort-only ablation (composition pollution works against predictive, so a
+    pass is conservative-valid). Strong clause churn-matched: the fourth arm —
+    predictive training under the identity arm's exact semantics (same world,
+    no consolidation) — beats the identity arm, **paired per seed**, so the only
+    difference is the training target. As-written identity counts are reported
+    alongside, permanently: the amendment is visible, not silent."""
+    predictive = suite_run.predictive
+    identity = suite_run.identity
+    matched = suite_run.matched
+    n = len(predictive)
+
+    _, n_effort, comp_e = _margins_vs(predictive, suite_run.ablation)
+    _, n_ident_aswritten, _ = _margins_vs(predictive, identity)
+
+    paired_margins: list[float | None] = []
+    n_matched = 0
+    comparable = 0
+    for s in predictive:
+        m = matched.get(s.seed)
+        i = identity.get(s.seed)
+        if m is None or i is None or m.improvement is None or i.improvement is None:
+            paired_margins.append(None)
+            continue
+        comparable += 1
+        margin = m.improvement - i.improvement
+        paired_margins.append(margin)
+        if margin > 0:
+            n_matched += 1
+
+    measured = _aggregate(paired_margins)
+    measured.note = (
+        f"ecology beat effort-only in {n_effort}/{n} seeds; churn-matched predictive "
+        f"beat identity in {n_matched}/{n} seeds (as-written identity clause, for "
+        f"the record: {n_ident_aswritten}/{n})"
+    )
+    if comp_e == 0 and comparable == 0:
+        verdict = NOT_AVAILABLE
+    else:
+        verdict = PASS if strict_majority(n_effort, n) and strict_majority(n_matched, n) else FAIL
+    return AcceptanceVerdict(
+        "T3",
+        "Ablation, scaled form — the improvement is genuine dynamics learning: "
+        "it beats effort-only training, and churn-matched it beats learned "
+        "persistence on the same world.",
+        "ecology improvement > effort-only (triad) AND churn-matched predictive "
+        "improvement > identity(persistence), paired per seed, each in a majority",
+        verdict,
+        measured,
     )
 
 

@@ -15,6 +15,7 @@ from pra.harness.acceptance import (
     ScaleReading,
     VerdictReport,
     evaluate_t3,
+    evaluate_t3_scaled,
 )
 from pra.harness.runner import DeterminismResult, SuiteRun
 
@@ -132,13 +133,15 @@ def build_scale_t3_report(
     detail: list[dict] = []
     failed = sorted({s for _td, run in results for s in run.failed_seeds})
     for td, run in results:
-        tests.append(dataclasses.replace(evaluate_t3(run), id=f"T3@td={td}"))
+        evaluate = evaluate_t3_scaled if run.matched else evaluate_t3
+        tests.append(dataclasses.replace(evaluate(run), id=f"T3@td={td}"))
         by_seed = {s.seed: s for s in run.predictive}
         detail.append(
             {
                 "true_dim": td,
                 "obs_dim": run.config.obs_dim,
                 "n_cycles": run.config.effective_n_cycles,
+                "matched": bool(run.matched),
                 "per_seed": [
                     {
                         "seed": seed,
@@ -151,11 +154,17 @@ def build_scale_t3_report(
                         "identity_improvement": (
                             run.identity[seed].improvement if seed in run.identity else None
                         ),
+                        "matched_improvement": (
+                            run.matched[seed].improvement if seed in run.matched else None
+                        ),
                         "margin_vs_effort": _improvement_margin(
                             by_seed.get(seed), run.ablation.get(seed)
                         ),
                         "margin_vs_identity": _improvement_margin(
                             by_seed.get(seed), run.identity.get(seed)
+                        ),
+                        "margin_matched_vs_identity": _improvement_margin(
+                            run.matched.get(seed), run.identity.get(seed)
                         ),
                         "predictive_best_dim": (
                             by_seed[seed].best_dim if seed in by_seed else None
@@ -285,25 +294,46 @@ def render_text(report: VerdictReport) -> str:
             def _fmt6(x):
                 return "    n/a" if x is None else f"{x:+.4f}"
 
+            has_matched = block.get(
+                "matched",
+                any(row.get("matched_improvement") is not None for row in block["per_seed"]),
+            )
             lines.append("")
             lines.append(
-                f"  [T3 triad @ true_dim={block['true_dim']}] "
+                f"  [T3 {'quartet' if has_matched else 'triad'} @ "
+                f"true_dim={block['true_dim']}] "
                 f"obs_dim={block['obs_dim']}  cycles={block['n_cycles']}"
             )
-            lines.append(
-                "     seed | predictive | effort-only | identity  | vs-effort | vs-identity"
-                " | best_dim"
-            )
-            for row in block["per_seed"]:
-                bd = row["predictive_best_dim"]
+            if has_matched:
                 lines.append(
-                    f"      {row['seed']:3d} |  {_fmt6(row['predictive_improvement'])}  |"
-                    f"   {_fmt6(row['effort_only_improvement'])}  |"
-                    f" {_fmt6(row['identity_improvement'])}  |"
-                    f"  {_fmt6(row['margin_vs_effort'])} |"
-                    f"   {_fmt6(row['margin_vs_identity'])}"
-                    f" | {'n/a' if bd is None else bd}"
+                    "     seed | predictive | effort-only | identity  | matched   |"
+                    " paired-margin | best_dim"
                 )
+                for row in block["per_seed"]:
+                    bd = row["predictive_best_dim"]
+                    lines.append(
+                        f"      {row['seed']:3d} |  {_fmt6(row['predictive_improvement'])}  |"
+                        f"   {_fmt6(row['effort_only_improvement'])}  |"
+                        f" {_fmt6(row['identity_improvement'])}  |"
+                        f" {_fmt6(row['matched_improvement'])}  |"
+                        f"    {_fmt6(row['margin_matched_vs_identity'])}    "
+                        f"| {'n/a' if bd is None else bd}"
+                    )
+            else:
+                lines.append(
+                    "     seed | predictive | effort-only | identity  | vs-effort | vs-identity"
+                    " | best_dim"
+                )
+                for row in block["per_seed"]:
+                    bd = row["predictive_best_dim"]
+                    lines.append(
+                        f"      {row['seed']:3d} |  {_fmt6(row['predictive_improvement'])}  |"
+                        f"   {_fmt6(row['effort_only_improvement'])}  |"
+                        f" {_fmt6(row['identity_improvement'])}  |"
+                        f"  {_fmt6(row['margin_vs_effort'])} |"
+                        f"   {_fmt6(row['margin_vs_identity'])}"
+                        f" | {'n/a' if bd is None else bd}"
+                    )
 
     if report.determinism_check is not None:
         dc = report.determinism_check

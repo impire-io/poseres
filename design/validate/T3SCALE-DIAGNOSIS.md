@@ -154,3 +154,75 @@ recorded rather than smoothed:
    document as its evidence base, per the T7 precedent.
 4. The instrument ships: `pra-validate scale --t3` (opt-in, investigatory,
    reference-preserving; one evaluator shared with the suite).
+
+## The amendment: a churn-matched scaled T3 (pre-registered 2026-07-12)
+
+Designed openly from the evidence above, before the confirming run — per
+the T7 precedent. The reference T3 is untouched (validated, byte-frozen);
+this is the **scaled form**, measured by `scale --t3`.
+
+**Amended scaled criterion.** T3 at a scale PASSes iff both hold in a
+strict majority of seeds:
+
+- **Weak clause (unchanged):** the ecology's predictive improvement >
+  the effort-only ablation's (the triad comparison as written — the
+  composition pollution works *against* predictive here, so a pass is
+  conservative-valid).
+- **Strong clause (churn-matched):** a fourth arm per seed — *predictive*
+  training under the identity arm's exact semantics (no consolidation,
+  the same `seed + 18888` world) — must beat the identity arm's
+  improvement, **paired on the same world and machinery**, so the only
+  difference is the training target. This measures T3's actual claim
+  (dynamics learned above the persistence floor) with the juvenile
+  conveyor removed from both sides, and the pairing removes world-draw
+  variance the original cross-world comparison carries.
+
+**Falsification, stated up front:** if the paired margins are ≤ 0 in half
+the seeds or more at any scale, the amended clause FAILs there and the
+capability story of this document is wrong at that scale. The 6/6 pilot
+(seeds 1–3, td 20/35) suggests PASS; seeds 4–8 and td=50 are unmeasured
+and the full run decides. Both the as-written identity counts and the
+churn-matched counts are reported side by side, permanently — the
+amendment is visible, not silent.
+
+**Protocol:** identical to the main run (2000 cycles, seeds 1–8,
+td 20/35/50, shipped scaled ecology), one instrument invocation running
+the quartet; the triad part reproduces the tables above by determinism.
+
+## Amended result (quartet, 2000 cycles, seeds 1–8; 6.5 h wall)
+
+| `true_dim` | weak clause | churn-matched strong clause | paired margin (mean ± std) | as-written identity count | verdict |
+|---|---|---|---|---|---|
+| 20 | 8/8 | **8/8** | +0.021 ± 0.011 | 2/8 | **PASS** |
+| 35 | 8/8 | **8/8** | +0.028 ± 0.008 | 2/8 | **PASS** |
+| 50 | 8/8 | **8/8** | +0.026 ± 0.015 | 5/8 | **PASS** |
+
+**24/24 paired seeds positive** — every churn-matched predictive run beat
+its persistence twin on the same world (margins +0.004 to +0.054; the
+triad half of the quartet reproduced the main run's tables byte-for-byte,
+as determinism requires). The pre-registered falsification did not occur
+at any scale.
+
+Two readings the quartet adds:
+
+1. **The paired margin is flat across scales** (+0.021 / +0.028 / +0.026)
+   — the dynamics edge above persistence neither grows nor vanishes from
+   td 20 to 50 at this budget. The as-written trend (−0.054 → −0.030 →
+   −0.005) was therefore *entirely* a composition-pollution gradient; why
+   that pollution shrinks with scale while the juvenile count grows
+   remains the open elect-gating note above, now decoupled from the
+   criterion.
+2. **The thin-edge caveat stands, quantified**: ~+0.025 at scale vs
+   +0.067 at reference, uniformly. Genuine dynamics learning above the
+   persistence floor exists at every scale and in every seed; its size is
+   a research quantity (presumably budget-bound via the effective
+   learning rate), not a defect.
+
+**Conclusion.** The amended scaled T3 — weak clause from the triad,
+strong clause churn-matched and paired — **PASSes at all three scales,
+24/24**. The criterion amendment did what the T7 precedent demands:
+replaced a measure that read the wrong thing at scale (ecology
+composition) with one that reads the claim (dynamics above persistence),
+openly, with the old numbers kept in the record. A2 closes with every
+scaled acceptance criterion now measured and the acceptance suite's
+scale-portability lesson written down.

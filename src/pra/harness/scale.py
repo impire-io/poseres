@@ -79,9 +79,11 @@ def run_scale_t3(
     *,
     workers: int = 1,
 ) -> list[tuple[int, SuiteRun]]:
-    """T3's ablation triad at scale (ROADMAP A2) — per ``true_dim``, the exact
-    reference-suite semantics (predictive + effort-only + identity, seed offsets
-    and all, PRA-02 §2) under the scaled ecology defaults and climbing proposals.
+    """The scaled T3 quartet (ROADMAP A2, T3SCALE-DIAGNOSIS) — per ``true_dim``,
+    the exact reference triad (predictive + effort-only + identity, seed offsets
+    and all, PRA-02 §2) under the scaled ecology defaults and climbing proposals,
+    plus the churn-matched fourth arm of the amended scaled criterion
+    (predictive training on the identity arm's world, no consolidation).
     Investigatory context: the per-scale T3 verdict is data, never a build
     pass/fail."""
     return [
@@ -92,6 +94,7 @@ def run_scale_t3(
                 with_ablation=True,
                 workers=workers,
                 proposal_factory=_climbing,
+                with_matched=True,
             ),
         )
         for true_dim in true_dims

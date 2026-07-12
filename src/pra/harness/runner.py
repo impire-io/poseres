@@ -50,6 +50,9 @@ class SuiteRun:
     predictive: list[PerSeedRunSummary]
     ablation: dict[int, PerSeedRunSummary]
     identity: dict[int, PerSeedRunSummary] = field(default_factory=dict)
+    # churn-matched predictive arm (amended scaled T3, T3SCALE-DIAGNOSIS);
+    # empty in every validated mode.
+    matched: dict[int, PerSeedRunSummary] = field(default_factory=dict)
     failed_seeds: list[int] = field(default_factory=list)
     wall_clock_seconds: float = 0.0
     per_seed_wall: dict[int, float] = field(default_factory=dict)
@@ -68,8 +71,15 @@ class DeterminismResult:
 
 
 def _run_seed_group(
-    config: Config, seed: int, with_ablation: bool, proposal_factory=None
-) -> tuple[int, PerSeedRunSummary, PerSeedRunSummary | None, PerSeedRunSummary | None, float]:
+    config: Config, seed: int, with_ablation: bool, proposal_factory=None, with_matched=False
+) -> tuple[
+    int,
+    PerSeedRunSummary,
+    PerSeedRunSummary | None,
+    PerSeedRunSummary | None,
+    PerSeedRunSummary | None,
+    float,
+]:
     """One seed's predictive run + its two ablations (module-level: picklable).
 
     ``proposal_factory`` (a picklable ``Config -> ProposalPolicy`` callable) lets
@@ -77,7 +87,12 @@ def _run_seed_group(
     policy; ``None`` keeps the validated default. A fresh policy is built per
     engine; the ablation runs never consolidate, so it is inert there — passed
     anyway so all three arms share one construction, differing only in
-    ``scoring_mode`` (PRA-02 §2)."""
+    ``scoring_mode`` (PRA-02 §2).
+
+    ``with_matched`` adds the churn-matched fourth arm of the amended scaled T3
+    (T3SCALE-DIAGNOSIS): *predictive* training under the identity arm's exact
+    semantics — the same ``seed + 18888`` world, no consolidation — so the paired
+    (matched, identity) comparison differs only in the training target."""
     ts = perf_counter()
 
     def _proposal():
@@ -86,7 +101,7 @@ def _run_seed_group(
     summary = Engine(config, scoring_mode="predictive", proposal=_proposal()).run(
         seed, do_offline=True
     )
-    ab = ident = None
+    ab = ident = matched = None
     if with_ablation:
         ab = Engine(config, scoring_mode="effort_only", proposal=_proposal()).run(
             seed + ABLATION_SEED_OFFSET, do_offline=False
@@ -94,15 +109,25 @@ def _run_seed_group(
         ident = Engine(config, scoring_mode="identity", proposal=_proposal()).run(
             seed + IDENTITY_SEED_OFFSET, do_offline=False
         )
-    return seed, summary, ab, ident, perf_counter() - ts
+    if with_matched:
+        matched = Engine(config, scoring_mode="predictive", proposal=_proposal()).run(
+            seed + IDENTITY_SEED_OFFSET, do_offline=False
+        )
+    return seed, summary, ab, ident, matched, perf_counter() - ts
 
 
 def run_suite(
-    config: Config, *, with_ablation: bool = True, workers: int = 1, proposal_factory=None
+    config: Config,
+    *,
+    with_ablation: bool = True,
+    workers: int = 1,
+    proposal_factory=None,
+    with_matched: bool = False,
 ) -> SuiteRun:
     predictive: list[PerSeedRunSummary] = []
     ablation: dict[int, PerSeedRunSummary] = {}
     identity: dict[int, PerSeedRunSummary] = {}
+    matched: dict[int, PerSeedRunSummary] = {}
     failed: list[int] = []
     per_seed_wall: dict[int, float] = {}
     t0 = perf_counter()
@@ -111,7 +136,9 @@ def run_suite(
     if workers > 1 and len(config.seeds) > 1:
         with ProcessPoolExecutor(max_workers=min(workers, len(config.seeds))) as pool:
             futures = {
-                seed: pool.submit(_run_seed_group, config, seed, with_ablation, proposal_factory)
+                seed: pool.submit(
+                    _run_seed_group, config, seed, with_ablation, proposal_factory, with_matched
+                )
                 for seed in config.seeds
             }
             for seed, fut in futures.items():
@@ -122,7 +149,9 @@ def run_suite(
     else:
         for seed in config.seeds:
             try:
-                results[seed] = _run_seed_group(config, seed, with_ablation, proposal_factory)
+                results[seed] = _run_seed_group(
+                    config, seed, with_ablation, proposal_factory, with_matched
+                )
             except Exception:  # noqa: BLE001 — reported, not fatal (FR-008)
                 failed.append(seed)
 
@@ -130,12 +159,14 @@ def run_suite(
     for seed in config.seeds:
         if seed not in results:
             continue
-        _, summary, ab, ident, wall = results[seed]
+        _, summary, ab, ident, match, wall = results[seed]
         predictive.append(summary)
         if ab is not None:
             ablation[seed] = ab
         if ident is not None:
             identity[seed] = ident
+        if match is not None:
+            matched[seed] = match
         per_seed_wall[seed] = wall
 
     return SuiteRun(
@@ -145,6 +176,7 @@ def run_suite(
         predictive=predictive,
         ablation=ablation,
         identity=identity,
+        matched=matched,
         failed_seeds=failed,
         wall_clock_seconds=perf_counter() - t0,
         per_seed_wall=per_seed_wall,

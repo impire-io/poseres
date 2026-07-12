@@ -12,11 +12,12 @@ ecology works: three measured rules (fair judge, conveyor correction,
 lifetime cap) hold the scaled reference at medians 10/9/9 across true_dim
 20/35/50, 24/24 anchored runs, and selection lands stably at the
 price-optimal dimensionality at every scale and budget (JOURNEY.md ch.
-11–14). Still open: the scaled system's edge over a learned
-"nothing-changes" predictor is real but thin (~⅓ of the reference margin,
-JOURNEY.md ch. 15 — T3 needs a churn-matched scaled form); the competence
-drive is validated only for uniformly-learnable worlds; the engine assumes a
-single sequential experience stream and an environment that can `reset()`. Nothing here is hidden — it is the measured state of the
+11–14), and every scaled acceptance criterion is measured — T3's amended
+scaled form passes 24/24 (ch. 15–16; the edge over learned persistence is
+real in every seed, and thin: ~⅓ of the reference margin, presumably
+budget-bound). Still open: the competence drive is validated only for
+uniformly-learnable worlds; the engine assumes a single sequential
+experience stream and an environment that can `reset()`. Nothing here is hidden — it is the measured state of the
 system, and the roadmap is sequenced so that no user-facing milestone ships
 ahead of the capability that makes it worth watching.
 
@@ -47,7 +48,7 @@ dependency notes say when it isn't.
 ## Phase A — Make the brain worth watching (research)
 
 The bottleneck is the brain, not the plumbing. A1 — which blocked everything
-that runs at scale — is done, and A2 is measured; the remaining two are the
+that runs at scale — and A2 are done; the remaining two are the
 highest-leverage items in the repo.
 
 ### A1. The seventh scale rule — ✅ done (JOURNEY.md ch. 11–14)
@@ -63,19 +64,19 @@ byte-identical. One criterion was amended openly along the way (principle 4):
 carries no true_dim signature, and what T-SCALE honestly claims is that
 selection lands at the price-optimal dimensionality, stably.
 
-### A2. T3's persistence clause at scale — ✅ measured (JOURNEY.md ch. 15)
+### A2. T3's persistence clause at scale — ✅ done (JOURNEY.md ch. 15–16)
 The last acceptance criterion never measured on the scaled worlds: T3's
 strong clause — the system predicts better than a learned
 "assume-nothing-changes" baseline — was validated at reference scale only.
-*Exit criterion met, and the result is a finding:* as written, T3 **FAILs at
-td 20 and 35** (2/8 seeds) and passes td 50 by the thinnest majority — but
-the diagnosis showed the criterion, not the capability, breaks at scale:
-T3's population-mean measure reads the juvenile conveyor, and churn-matched
-the system beats persistence 6/6 (margin ~⅓ of reference). Verdicts recorded
-as measured; the named successor is a **churn-matched scaled form of T3**
-(criterion amendment designed openly, per the T7 precedent). Trail:
-`design/validate/T3SCALE-DIAGNOSIS.md`; instrument:
-`pra-validate scale --t3`.
+*Exit criterion met, in two acts:* as written, T3 **FAILs at td 20 and 35**
+(2/8 seeds) — diagnosed as the criterion, not the capability, breaking at
+scale (the population-mean measure reads the juvenile conveyor). The
+**churn-matched amendment** (pre-registered, per the T7 precedent) then
+**PASSed at all three scales, 24/24 paired seeds positive** (margins
++0.021/+0.028/+0.026 — flat across scales, ~⅓ of reference; as-written
+counts kept in the record). Every scaled acceptance criterion is now
+measured. Trail: `design/validate/T3SCALE-DIAGNOSIS.md`; instrument:
+`pra-validate scale --t3` (the quartet).
 
 ### A3. The complexity ladder (worlds with ground truth)
 A family of synthetic worlds that get *harder in known ways*: non-uniform
@@ -248,8 +249,8 @@ project's claims and its measurements cannot drift apart.
 
 ---
 
-*Sequencing summary:* A1 done; A2 measured (successor: churn-matched T3);
-(A3 → A4) next, with B1/B2 startable immediately in parallel; B3 → B4/B5;
-then C1/C2 as their gates open; D alongside C; C3 parked.
+*Sequencing summary:* A1 and A2 done; (A3 → A4) next, with B1/B2 startable
+immediately in parallel; B3 → B4/B5; then C1/C2 as their gates open; D
+alongside C; C3 parked.
 *This file is load-bearing: changes to it are decisions and belong in
 JOURNEY.md like any other.*

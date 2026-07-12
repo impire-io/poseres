@@ -63,11 +63,14 @@ pra-validate scale [--true-dims 20,35,50] [--seeds ...] [--t3] [--config PATH] [
 **INVESTIGATORY**. It MUST NOT report a poor `best_dim` at scale as a build failure;
 there is no PASS/FAIL and `--strict` has no effect here.
 
-With `--t3` (ROADMAP A2), the command instead runs the full T3 ablation triad
-per `true_dim` — predictive + effort-only + identity, the exact reference
-semantics of PRA-02 §2 under the scaled ecology defaults — and emits one T3
-verdict per scale (`T3@td=N`, criterion unchanged, one evaluator shared with
-the suite) plus the per-seed triad improvements and both margins. The context
+With `--t3` (ROADMAP A2), the command instead runs the T3 quartet per
+`true_dim` — the exact reference triad of PRA-02 §2 (predictive + effort-only
++ identity) under the scaled ecology defaults, plus the churn-matched fourth
+arm of the amended scaled criterion (predictive training on the identity
+arm's world, no consolidation) — and emits one T3 verdict per scale
+(`T3@td=N`, the amended criterion: weak clause from the triad, strong clause
+paired churn-matched) with the per-seed quartet improvements, the paired
+margins, and the as-written identity counts kept in the record. The context
 stays investigatory: the per-scale T3 verdict is data; the command's exit code
 never depends on it.
 
