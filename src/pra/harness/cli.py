@@ -21,12 +21,13 @@ from pra.harness.report import (
     build_agency_report,
     build_determinism_report,
     build_scale_report,
+    build_scale_t3_report,
     build_suite_report,
     render_json,
     render_text,
 )
 from pra.harness.runner import auto_workers, check_determinism, run_suite
-from pra.harness.scale import run_scale
+from pra.harness.scale import run_scale, run_scale_t3
 from pra.harness.scan import render_scan_text, run_scan
 
 __all__ = ["main"]
@@ -99,8 +100,12 @@ def _cmd_scale(args: argparse.Namespace) -> int:
     true_dims = list(_int_list(args.true_dims)) if args.true_dims else [20, 35, 50]
     seeds = list(_int_list(args.seeds)) if args.seeds else list(base.seeds)
     t0 = perf_counter()
-    readings = run_scale(base, true_dims, seeds, workers=_resolve_workers(args, len(seeds)))
-    report = build_scale_report(base, seeds, readings, perf_counter() - t0)
+    if args.t3:
+        results = run_scale_t3(base, true_dims, seeds, workers=_resolve_workers(args, len(seeds)))
+        report = build_scale_t3_report(base, seeds, results, perf_counter() - t0)
+    else:
+        readings = run_scale(base, true_dims, seeds, workers=_resolve_workers(args, len(seeds)))
+        report = build_scale_report(base, seeds, readings, perf_counter() - t0)
     sys.stdout.write(render_text(report) + "\n")
     if args.json:
         _write_json(args.json, report)
@@ -198,6 +203,12 @@ def _build_parser() -> argparse.ArgumentParser:
     p_scale = sub.add_parser("scale", help="investigatory T-SCALE run at large true_dim")
     p_scale.add_argument("--true-dims", dest="true_dims")
     p_scale.add_argument("--seeds")
+    p_scale.add_argument(
+        "--t3",
+        action="store_true",
+        help="run the T3 ablation triad per true_dim (predictive vs effort-only vs "
+        "identity) and report the T3 verdict at each scale (investigatory)",
+    )
     p_scale.add_argument("--config")
     p_scale.add_argument("--json")
     p_scale.add_argument(

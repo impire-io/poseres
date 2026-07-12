@@ -68,23 +68,38 @@ class DeterminismResult:
 
 
 def _run_seed_group(
-    config: Config, seed: int, with_ablation: bool
+    config: Config, seed: int, with_ablation: bool, proposal_factory=None
 ) -> tuple[int, PerSeedRunSummary, PerSeedRunSummary | None, PerSeedRunSummary | None, float]:
-    """One seed's predictive run + its two ablations (module-level: picklable)."""
+    """One seed's predictive run + its two ablations (module-level: picklable).
+
+    ``proposal_factory`` (a picklable ``Config -> ProposalPolicy`` callable) lets
+    the scaled T3 measurement run the triad under the scaled ecology's proposal
+    policy; ``None`` keeps the validated default. A fresh policy is built per
+    engine; the ablation runs never consolidate, so it is inert there — passed
+    anyway so all three arms share one construction, differing only in
+    ``scoring_mode`` (PRA-02 §2)."""
     ts = perf_counter()
-    summary = Engine(config, scoring_mode="predictive").run(seed, do_offline=True)
+
+    def _proposal():
+        return proposal_factory(config) if proposal_factory is not None else None
+
+    summary = Engine(config, scoring_mode="predictive", proposal=_proposal()).run(
+        seed, do_offline=True
+    )
     ab = ident = None
     if with_ablation:
-        ab = Engine(config, scoring_mode="effort_only").run(
+        ab = Engine(config, scoring_mode="effort_only", proposal=_proposal()).run(
             seed + ABLATION_SEED_OFFSET, do_offline=False
         )
-        ident = Engine(config, scoring_mode="identity").run(
+        ident = Engine(config, scoring_mode="identity", proposal=_proposal()).run(
             seed + IDENTITY_SEED_OFFSET, do_offline=False
         )
     return seed, summary, ab, ident, perf_counter() - ts
 
 
-def run_suite(config: Config, *, with_ablation: bool = True, workers: int = 1) -> SuiteRun:
+def run_suite(
+    config: Config, *, with_ablation: bool = True, workers: int = 1, proposal_factory=None
+) -> SuiteRun:
     predictive: list[PerSeedRunSummary] = []
     ablation: dict[int, PerSeedRunSummary] = {}
     identity: dict[int, PerSeedRunSummary] = {}
@@ -96,7 +111,7 @@ def run_suite(config: Config, *, with_ablation: bool = True, workers: int = 1) -
     if workers > 1 and len(config.seeds) > 1:
         with ProcessPoolExecutor(max_workers=min(workers, len(config.seeds))) as pool:
             futures = {
-                seed: pool.submit(_run_seed_group, config, seed, with_ablation)
+                seed: pool.submit(_run_seed_group, config, seed, with_ablation, proposal_factory)
                 for seed in config.seeds
             }
             for seed, fut in futures.items():
@@ -107,7 +122,7 @@ def run_suite(config: Config, *, with_ablation: bool = True, workers: int = 1) -
     else:
         for seed in config.seeds:
             try:
-                results[seed] = _run_seed_group(config, seed, with_ablation)
+                results[seed] = _run_seed_group(config, seed, with_ablation, proposal_factory)
             except Exception:  # noqa: BLE001 — reported, not fatal (FR-008)
                 failed.append(seed)
 

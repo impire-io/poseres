@@ -12,10 +12,11 @@ ecology works: three measured rules (fair judge, conveyor correction,
 lifetime cap) hold the scaled reference at medians 10/9/9 across true_dim
 20/35/50, 24/24 anchored runs, and selection lands stably at the
 price-optimal dimensionality at every scale and budget (JOURNEY.md ch.
-11–14). Still open: T3's persistence clause is unmeasured at scale; the
-competence drive is validated only for uniformly-learnable worlds; the
-engine assumes a single sequential experience stream and an environment that
-can `reset()`. Nothing here is hidden — it is the measured state of the
+11–14). Still open: the scaled system's edge over a learned
+"nothing-changes" predictor is real but thin (~⅓ of the reference margin,
+JOURNEY.md ch. 15 — T3 needs a churn-matched scaled form); the competence
+drive is validated only for uniformly-learnable worlds; the engine assumes a
+single sequential experience stream and an environment that can `reset()`. Nothing here is hidden — it is the measured state of the
 system, and the roadmap is sequenced so that no user-facing milestone ships
 ahead of the capability that makes it worth watching.
 
@@ -46,8 +47,8 @@ dependency notes say when it isn't.
 ## Phase A — Make the brain worth watching (research)
 
 The bottleneck is the brain, not the plumbing. A1 — which blocked everything
-that runs at scale — is done; the remaining three are the highest-leverage
-items in the repo.
+that runs at scale — is done, and A2 is measured; the remaining two are the
+highest-leverage items in the repo.
 
 ### A1. The seventh scale rule — ✅ done (JOURNEY.md ch. 11–14)
 Resolved beyond its original scope. The fair judge (`score_window_steps`)
@@ -62,14 +63,19 @@ byte-identical. One criterion was amended openly along the way (principle 4):
 carries no true_dim signature, and what T-SCALE honestly claims is that
 selection lands at the price-optimal dimensionality, stably.
 
-### A2. T3's persistence clause at scale
+### A2. T3's persistence clause at scale — ✅ measured (JOURNEY.md ch. 15)
 The last acceptance criterion never measured on the scaled worlds: T3's
 strong clause — the system predicts better than a learned
-"assume-nothing-changes" baseline — is validated at reference scale only.
-Now that the scaled ecology is stable (A1), measure it there honestly.
-*Exit:* the T3 identity-ablation comparison run at td 20/35/50 with the
-scaled defaults, PASS/FAIL and margins recorded per scale with the spread —
-whatever the result.
+"assume-nothing-changes" baseline — was validated at reference scale only.
+*Exit criterion met, and the result is a finding:* as written, T3 **FAILs at
+td 20 and 35** (2/8 seeds) and passes td 50 by the thinnest majority — but
+the diagnosis showed the criterion, not the capability, breaks at scale:
+T3's population-mean measure reads the juvenile conveyor, and churn-matched
+the system beats persistence 6/6 (margin ~⅓ of reference). Verdicts recorded
+as measured; the named successor is a **churn-matched scaled form of T3**
+(criterion amendment designed openly, per the T7 precedent). Trail:
+`design/validate/T3SCALE-DIAGNOSIS.md`; instrument:
+`pra-validate scale --t3`.
 
 ### A3. The complexity ladder (worlds with ground truth)
 A family of synthetic worlds that get *harder in known ways*: non-uniform
@@ -242,8 +248,8 @@ project's claims and its measurements cannot drift apart.
 
 ---
 
-*Sequencing summary:* A1 done; A2 next, then (A3 → A4), with B1/B2
-startable immediately in parallel; B3 → B4/B5; then C1/C2 as their gates
-open; D alongside C; C3 parked.
+*Sequencing summary:* A1 done; A2 measured (successor: churn-matched T3);
+(A3 → A4) next, with B1/B2 startable immediately in parallel; B3 → B4/B5;
+then C1/C2 as their gates open; D alongside C; C3 parked.
 *This file is load-bearing: changes to it are decisions and belong in
 JOURNEY.md like any other.*

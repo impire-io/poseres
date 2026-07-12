@@ -7,11 +7,14 @@ explain it; T4 is shown as the per-seed spread at every checkpoint, never a mean
 
 from __future__ import annotations
 
+import dataclasses
+
 from pra.harness.acceptance import (
     INVESTIGATORY,
     AcceptanceVerdict,
     ScaleReading,
     VerdictReport,
+    evaluate_t3,
 )
 from pra.harness.runner import DeterminismResult, SuiteRun
 
@@ -19,6 +22,7 @@ __all__ = [
     "build_suite_report",
     "build_determinism_report",
     "build_scale_report",
+    "build_scale_t3_report",
     "build_agency_report",
     "render_text",
     "render_json",
@@ -107,6 +111,76 @@ def _scale_measured(readings: list[ScaleReading]):
     from pra.harness.acceptance import Measured
 
     return Measured(note=f"{len(readings)} dimensionality/dimensionalities measured")
+
+
+def _improvement_margin(a, b) -> float | None:
+    if a is None or b is None or a.improvement is None or b.improvement is None:
+        return None
+    return a.improvement - b.improvement
+
+
+def build_scale_t3_report(
+    base, seeds: list[int], results: list[tuple[int, SuiteRun]], wall_clock_seconds: float
+) -> VerdictReport:
+    """Per-``true_dim`` T3 verdicts from scaled triad runs (ROADMAP A2).
+
+    Investigatory context like T-SCALE — each scale's verdict is data, never a
+    build failure — but the criterion applied per scale is exactly the reference
+    T3 (one evaluator). The full per-seed triad improvements and both margins are
+    carried in the metadata: the honest record is the spread, not the verdict."""
+    tests: list[AcceptanceVerdict] = []
+    detail: list[dict] = []
+    failed = sorted({s for _td, run in results for s in run.failed_seeds})
+    for td, run in results:
+        tests.append(dataclasses.replace(evaluate_t3(run), id=f"T3@td={td}"))
+        by_seed = {s.seed: s for s in run.predictive}
+        detail.append(
+            {
+                "true_dim": td,
+                "obs_dim": run.config.obs_dim,
+                "n_cycles": run.config.effective_n_cycles,
+                "per_seed": [
+                    {
+                        "seed": seed,
+                        "predictive_improvement": (
+                            by_seed[seed].improvement if seed in by_seed else None
+                        ),
+                        "effort_only_improvement": (
+                            run.ablation[seed].improvement if seed in run.ablation else None
+                        ),
+                        "identity_improvement": (
+                            run.identity[seed].improvement if seed in run.identity else None
+                        ),
+                        "margin_vs_effort": _improvement_margin(
+                            by_seed.get(seed), run.ablation.get(seed)
+                        ),
+                        "margin_vs_identity": _improvement_margin(
+                            by_seed.get(seed), run.identity.get(seed)
+                        ),
+                        "predictive_best_dim": (
+                            by_seed[seed].best_dim if seed in by_seed else None
+                        ),
+                    }
+                    for seed in run.seeds
+                ],
+            }
+        )
+    report = VerdictReport(
+        mode="scale-t3",
+        run_metadata={
+            "seeds": list(seeds),
+            "true_dim": results[0][0] if results else base.true_dim,
+            "obs_dim": base.obs_dim,
+            "checkpoints": list(base.horizon_checkpoints),
+            "scoring_mode": "predictive + effort_only + identity (T3 triad)",
+            "wall_clock_seconds": wall_clock_seconds,
+            "failed_seeds": failed,
+        },
+        tests=tests,
+        for_debugging_only=len(seeds) == 1,
+    )
+    report.run_metadata["t3_scale_detail"] = detail
+    return report
 
 
 def build_agency_report(agency_run, t7: AcceptanceVerdict) -> VerdictReport:
@@ -204,6 +278,32 @@ def render_text(report: VerdictReport) -> str:
                 f"      {row['seed']:3d} |       {_fmt(row['curious_improvement'])}       |"
                 f"      {_fmt(row['random_improvement'])}       | {_fmt(row['margin'])}"
             )
+
+    if "t3_scale_detail" in md:
+        for block in md["t3_scale_detail"]:
+
+            def _fmt6(x):
+                return "    n/a" if x is None else f"{x:+.4f}"
+
+            lines.append("")
+            lines.append(
+                f"  [T3 triad @ true_dim={block['true_dim']}] "
+                f"obs_dim={block['obs_dim']}  cycles={block['n_cycles']}"
+            )
+            lines.append(
+                "     seed | predictive | effort-only | identity  | vs-effort | vs-identity"
+                " | best_dim"
+            )
+            for row in block["per_seed"]:
+                bd = row["predictive_best_dim"]
+                lines.append(
+                    f"      {row['seed']:3d} |  {_fmt6(row['predictive_improvement'])}  |"
+                    f"   {_fmt6(row['effort_only_improvement'])}  |"
+                    f" {_fmt6(row['identity_improvement'])}  |"
+                    f"  {_fmt6(row['margin_vs_effort'])} |"
+                    f"   {_fmt6(row['margin_vs_identity'])}"
+                    f" | {'n/a' if bd is None else bd}"
+                )
 
     if report.determinism_check is not None:
         dc = report.determinism_check

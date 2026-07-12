@@ -5,6 +5,8 @@ Runs the same world/engine at large true dimensionality and measures, per
 **investigatory** — never scored as a build pass/fail. Batched evaluation
 (PRA-01 §7.2) is what makes the observation×frame work reach the millions on one
 machine; ``throughput = Σ_seed(observation_steps × mean_population) ÷ wall-clock``.
+``run_scale_t3`` additionally measures T3's ablation triad at each scale
+(ROADMAP A2): the reference criterion applied verbatim to the scaled ecology.
 
 **Parallel execution.** Seeds are independent runs and execute in worker
 processes when ``workers > 1`` (dimensionalities stay sequential so each
@@ -22,9 +24,10 @@ from pra.config import Config
 from pra.core.engine import Engine
 from pra.core.policies import ClimbingProposalPolicy
 from pra.harness.acceptance import ScaleReading
+from pra.harness.runner import SuiteRun, run_suite
 from pra.telemetry.recorder import PerSeedRunSummary
 
-__all__ = ["run_scale", "SCALE_SCORE_WINDOW", "SCALE_NORM_CAP"]
+__all__ = ["run_scale", "run_scale_t3", "scaled_config", "SCALE_SCORE_WINDOW", "SCALE_NORM_CAP"]
 
 # Scaled runs default to the fair-judge ecology (THRESHOLD-DIAGNOSIS): the
 # survival EMAs advance on the first K steps of each episode, which activates
@@ -39,10 +42,60 @@ SCALE_SCORE_WINDOW = 5
 SCALE_NORM_CAP = 1.2
 
 
+def scaled_config(base: Config, true_dim: int, seeds: list[int]) -> Config:
+    """The scaled-run configuration for one ``true_dim`` (see module docstring)."""
+    return base.replace(
+        true_dim=true_dim,
+        obs_dim=max(base.obs_dim, 3 * true_dim),
+        # capacity must scale with the world: hidden < true_dim caps the
+        # resolvable dimensionality at the frame's own width
+        # (SCALE-DIAGNOSIS §5), so scaled runs use hidden ≳ 2·true_dim.
+        hidden_size=max(base.hidden_size, 2 * true_dim),
+        # fair-judge ecology + lifetime stability by default (see module
+        # docstring); explicit base overrides win.
+        score_window_steps=(
+            base.score_window_steps if base.score_window_steps > 0 else SCALE_SCORE_WINDOW
+        ),
+        weight_norm_cap=(base.weight_norm_cap if base.weight_norm_cap > 0 else SCALE_NORM_CAP),
+        seeds=tuple(seeds),
+    )
+
+
 def _run_scale_seed(cfg: Config, seed: int, proposal) -> PerSeedRunSummary:
     """One scaled seed (module-level: picklable for worker processes)."""
     policy = proposal if proposal is not None else ClimbingProposalPolicy(cfg)
     return Engine(cfg, proposal=policy).run(seed)
+
+
+def _climbing(cfg: Config) -> ClimbingProposalPolicy:
+    """Picklable proposal factory for the scaled T3 triad (one policy per engine)."""
+    return ClimbingProposalPolicy(cfg)
+
+
+def run_scale_t3(
+    base: Config,
+    true_dims: list[int],
+    seeds: list[int],
+    *,
+    workers: int = 1,
+) -> list[tuple[int, SuiteRun]]:
+    """T3's ablation triad at scale (ROADMAP A2) — per ``true_dim``, the exact
+    reference-suite semantics (predictive + effort-only + identity, seed offsets
+    and all, PRA-02 §2) under the scaled ecology defaults and climbing proposals.
+    Investigatory context: the per-scale T3 verdict is data, never a build
+    pass/fail."""
+    return [
+        (
+            true_dim,
+            run_suite(
+                scaled_config(base, true_dim, seeds),
+                with_ablation=True,
+                workers=workers,
+                proposal_factory=_climbing,
+            ),
+        )
+        for true_dim in true_dims
+    ]
 
 
 def run_scale(
@@ -55,21 +108,7 @@ def run_scale(
 ) -> list[ScaleReading]:
     readings: list[ScaleReading] = []
     for true_dim in true_dims:
-        cfg = base.replace(
-            true_dim=true_dim,
-            obs_dim=max(base.obs_dim, 3 * true_dim),
-            # capacity must scale with the world: hidden < true_dim caps the
-            # resolvable dimensionality at the frame's own width
-            # (SCALE-DIAGNOSIS §5), so scaled runs use hidden ≳ 2·true_dim.
-            hidden_size=max(base.hidden_size, 2 * true_dim),
-            # fair-judge ecology + lifetime stability by default (see module
-            # docstring); explicit base overrides win.
-            score_window_steps=(
-                base.score_window_steps if base.score_window_steps > 0 else SCALE_SCORE_WINDOW
-            ),
-            weight_norm_cap=(base.weight_norm_cap if base.weight_norm_cap > 0 else SCALE_NORM_CAP),
-            seeds=tuple(seeds),
-        )
+        cfg = scaled_config(base, true_dim, seeds)
         t0 = perf_counter()
         summaries: dict[int, PerSeedRunSummary] = {}
         if workers > 1 and len(seeds) > 1:

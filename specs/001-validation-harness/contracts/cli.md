@@ -55,13 +55,21 @@ hard `FAIL` (Edge Cases: nondeterminism is not averaged away).
 Run the T-SCALE investigation at large true dimensionality (FR-009, SC-006).
 
 ```
-pra-validate scale [--true-dims 20,35,50] [--seeds ...] [--config PATH] [--json OUT.json]
+pra-validate scale [--true-dims 20,35,50] [--seeds ...] [--t3] [--config PATH] [--json OUT.json]
 ```
 
 **Output MUST** emit, per `true_dim`, the per-seed `best_dim` spread, `throughput`
 (observation×frame evaluations / s), and wall-clock, and MUST label the section
 **INVESTIGATORY**. It MUST NOT report a poor `best_dim` at scale as a build failure;
 there is no PASS/FAIL and `--strict` has no effect here.
+
+With `--t3` (ROADMAP A2), the command instead runs the full T3 ablation triad
+per `true_dim` — predictive + effort-only + identity, the exact reference
+semantics of PRA-02 §2 under the scaled ecology defaults — and emits one T3
+verdict per scale (`T3@td=N`, criterion unchanged, one evaluator shared with
+the suite) plus the per-seed triad improvements and both margins. The context
+stays investigatory: the per-scale T3 verdict is data; the command's exit code
+never depends on it.
 
 ## Single-seed debugging
 

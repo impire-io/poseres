@@ -25,6 +25,7 @@ __all__ = [
     "INVESTIGATORY",
     "NOT_AVAILABLE",
     "evaluate_suite",
+    "evaluate_t3",
     "evaluate_t7",
 ]
 
@@ -311,17 +312,27 @@ def evaluate_t7(agency_run) -> AcceptanceVerdict:
     )
 
 
+def evaluate_t3(suite_run) -> AcceptanceVerdict:
+    """T3 from a completed triad run (predictive + both ablations) — used by the
+    reference suite and, per ``true_dim``, by the scaled T3 measurement
+    (ROADMAP A2). One evaluator, one criterion, at every scale."""
+    return _t3(
+        suite_run.predictive,
+        suite_run.ablation,
+        getattr(suite_run, "identity", {}),
+        len(suite_run.predictive),
+    )
+
+
 def evaluate_suite(suite_run) -> list[AcceptanceVerdict]:
     """Evaluate T1-T6 from a completed SuiteRun (predictive + both ablations)."""
     predictive = suite_run.predictive
-    ablation = suite_run.ablation
-    identity = getattr(suite_run, "identity", {})
     n = len(predictive)
     checkpoints = list(suite_run.config.horizon_checkpoints)
     return [
         _t1(predictive, n),
         _t2(predictive, n),
-        _t3(predictive, ablation, identity, n),
+        evaluate_t3(suite_run),
         _t4(predictive, suite_run.true_dim, checkpoints, n),
         _t5(predictive, suite_run.config.max_frames, n),
         _t6(predictive, n),
