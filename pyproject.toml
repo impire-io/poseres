@@ -19,7 +19,10 @@ Source = "https://github.com/impire-io/poseres"
 "Bug Tracker" = "https://github.com/impire-io/poseres/issues"
 
 [project.optional-dependencies]
-dev = ["pytest>=8.0", "ruff>=0.6"]
+# The Gymnasium adapter (feature 007) — optional at runtime, always present in
+# dev so the quality gate exercises its tests (repo rule: none skipped).
+gym = ["gymnasium>=1.0"]
+dev = ["pytest>=8.0", "ruff>=0.6", "gymnasium>=1.0"]
 
 [project.scripts]
 pra-validate = "pra.harness.cli:main"
