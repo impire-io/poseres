@@ -116,7 +116,7 @@ budgets. Trail: `design/validate/BLEND-DIAGNOSIS.md`.
 
 ## Phase B — Make it usable (platform)
 
-B1, B2, and B3 are done; B4 and B5 are
+B1–B4 are done; B5 is
 engine work that everything in Phase C depends on.
 
 ### B1. The watchable world (`examples/` + live viewer) — ✅ done (JOURNEY.md ch. 20)
@@ -165,15 +165,22 @@ latent walk — drifts and saturates when run unbroken (improvement −0.17,
 best_dim → 1, 8/8 seeds): **continuous deployments need recurrent worlds**,
 the stated guidance for C1/C2.
 
-### B4. Multi-stream experience (N worlds, one brain)
+### B4. Multi-stream experience (N worlds, one brain) — ✅ done (JOURNEY.md ch. 22)
 Parallel world instances feeding one brain — the bus seam's moment, and the
 only honest answer to "learning is too slow" (parallelism beats wall-clock
-only in steppable worlds). This changes the learning regime (EMAs, drive
-context, consolidation cadence assume one stream), so it is research *and*
-engineering: design doc first, measured against single-stream baselines.
-*Exit:* K-stream run demonstrably matches or beats the single-stream baseline
-per unit of experience, spread reported; determinism story stated (per-stream
-seeds, merged deterministically).
+only in steppable worlds). Design-first (specs/009 research R1–R8):
+randomness split by ownership (per-stream spawn-key generators for
+exploration; one merge-order brain generator), K worlds of one structure by
+identical construction seeding, episode round-robin merge, consolidation
+cadence in total experience.
+*Exit criterion met — with a protocol lesson recorded:* the pre-registered
+8-seed comparison FAILed on a statistical flaw (its "paired" margins pair
+nothing across generator realizations; underpowered), diagnosed and
+amended openly; at 24 seeds K ∈ {2, 4} **matches the single-stream
+baseline per unit of experience** (margins ≈ −0.004/−0.003, noninferiority
+PASS both). Determinism story as named: per-stream seeds, merged
+deterministically; K=1 byte-identical. K>1 snapshots → B5. Trail:
+`specs/009-multi-stream/reading.md`.
 
 ### B5. Snapshot completeness
 Snapshots of anatomy-resized runs (the deferred Doc 06 format-version
@@ -289,7 +296,7 @@ project's claims and its measurements cannot drift apart.
 ---
 
 *Sequencing summary:* A1–A3 done; A4 measured (its remainder is the
-predicted-LP lookahead design); B1–B3 done; B4/B5 next;
-then C1/C2 as their gates open; D alongside C; C3 parked.
+predicted-LP lookahead design); B1–B4 done; B5 next (three named snapshot
+debts); then C1/C2 as their gates open; D alongside C; C3 parked.
 *This file is load-bearing: changes to it are decisions and belong in
 JOURNEY.md like any other.*

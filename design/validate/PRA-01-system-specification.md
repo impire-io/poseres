@@ -395,6 +395,21 @@ the mode is healthy on bounded worlds, and the reference world — an
 unbounded latent walk — drifts and saturates when run unbroken, which is a
 property of the instrument, not the mode.
 
+**Multi-stream experience (feature 009, opt-in — `n_streams = K`).** K
+world instances of the *same* hidden structure (identical construction
+seeding; per-stream generators assigned afterward from spawn keys — the
+"per-stream seeds, merged deterministically" story), explored
+independently and merged into the one brain by a fixed episode
+round-robin (`episode e → stream e mod K`). Randomness splits by
+ownership: stream generators carry world noise and policy exploration;
+the run's brain generator carries births/proposals/decay, consumed in
+merge order. Consolidation and warmup count **merged** episodes — the
+cadence stays in total experience, so equal schedules mean equal
+experience at every K. Measured (specs/009-multi-stream/reading.md):
+K-stream learning matches the single-stream baseline per unit of
+experience (24-seed noninferiority, K ∈ {2, 4}). K = 1 is this section
+as written, byte-identical; K > 1 snapshots are rejected pending B5.
+
 ---
 
 ## 7. Cross-cutting requirements

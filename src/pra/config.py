@@ -141,6 +141,15 @@ class Config:
     distractor_channels: int = 0
     distractor_mode: DistractorMode = "structured"
 
+    # --- Multi-stream experience (feature 009, ROADMAP B4). 1 = the pinned
+    # validated single-stream path, byte-identical. K > 1 runs K world
+    # instances of the SAME hidden structure (identical construction
+    # seeding), each explored by its own spawn-key-derived generator, merged
+    # into the one brain by a fixed episode round-robin (episode e -> stream
+    # e mod K); consolidation counts merged episodes (cadence in total
+    # experience). K > 1 snapshots are ROADMAP B5's work: rejected here. ---
+    n_streams: int = 1
+
     # --- Continuous operation (feature 008, ROADMAP B3). "episodic" is the
     # pinned validated behavior: the world resets at every episode start.
     # "continuous" boots the world exactly once and segments the unbroken
@@ -286,6 +295,12 @@ class Config:
         require(
             self.episode_mode in ("episodic", "continuous"),
             "episode_mode must be 'episodic' or 'continuous'",
+        )
+        require(self.n_streams >= 1, "n_streams must be >= 1")
+        require(
+            self.n_streams == 1 or self.snapshot_every_n_cycles == 0,
+            "n_streams > 1 does not support snapshots yet (multi-stream "
+            "capture is ROADMAP B5); set snapshot_every_n_cycles = 0",
         )
 
         require(len(self.horizon_checkpoints) >= 1, "horizon_checkpoints must be non-empty")

@@ -161,8 +161,29 @@ class Engine:
             policy = self._policy
             drives = self._drives
 
-        rng = np.random.default_rng(seed)
-        world = self._world_factory(cfg, rng)
+        # Multi-stream (feature 009): K worlds of one hidden structure — each
+        # constructed from an identically seeded generator (same construction
+        # draws), then reseeded to its spawn-key-derived stream so exploration
+        # diverges. The brain generator is separate and merge-order-consumed.
+        # K = 1 is the untouched validated path: one generator for everything.
+        n_streams = cfg.n_streams
+        if n_streams > 1:
+            worlds: list = []
+            stream_rngs: list[np.random.Generator] = []
+            for k in range(n_streams):
+                crng = np.random.default_rng(seed)
+                worlds.append(self._world_factory(cfg, crng))
+                crng.bit_generator.state = np.random.default_rng(
+                    np.random.SeedSequence(entropy=seed, spawn_key=(1000 + k,))
+                ).bit_generator.state
+                stream_rngs.append(crng)
+            rng = np.random.default_rng(np.random.SeedSequence(entropy=seed, spawn_key=(0,)))
+            world = worlds[0]  # surface reads only (identical across streams)
+        else:
+            rng = np.random.default_rng(seed)
+            world = self._world_factory(cfg, rng)
+            worlds = [world]
+            stream_rngs = [rng]
         store = FrameStore(cfg, rng)
         if resumed is not None:
             # the world's fixed structure is a pure function of the seed prefix
@@ -201,10 +222,10 @@ class Engine:
         # warmup accounting) acts at virtual boundaries exactly as at real
         # ones. `pending` is not None iff the world has booted.
         continuous = cfg.episode_mode == "continuous"
-        pending: np.ndarray | None = None
+        pending: list = [None] * n_streams
         if resumed is not None and resumed.world_state is not None:
             world.load_state_dict(resumed.world_state["world"])
-            pending = resumed.world_state["pending"]
+            pending[0] = resumed.world_state["pending"]
         if continuous and self._snapshot_store is not None and cfg.snapshot_every_n_cycles > 0:
             if not (
                 callable(getattr(world, "state_dict", None))
@@ -216,14 +237,22 @@ class Engine:
                     f"capture protocol); {type(world).__name__} does not"
                 )
 
+        # Merged episode counter (feature 009): episode e -> stream e mod K.
+        # At K = 1 this is inert bookkeeping.
+        episode_index = 0
+
         def online_episode() -> None:
-            nonlocal pending
+            nonlocal pending, episode_index
+            k = episode_index % n_streams
+            episode_index += 1
+            w = worlds[k]
+            srng = stream_rngs[k]
             if continuous:
-                if pending is None:
-                    pending = world.reset()  # the single boot (FR-001)
-                obs = pending
+                if pending[k] is None:
+                    pending[k] = w.reset()  # this stream's single boot (FR-001)
+                obs = pending[k]
             else:
-                obs = world.reset()
+                obs = w.reset()
             prev_obs: np.ndarray | None = None
             prev_a: int | None = None
             for t in range(cfg.steps_per_episode):
@@ -263,7 +292,7 @@ class Engine:
                     # context is inert and no drive work happens (research R1).
                     ctx = PolicyContext(
                         observation=obs,
-                        n_actions=world.n_actions,
+                        n_actions=w.n_actions,
                         best_frame_age=None,
                         predict_decoded=_no_prediction,
                         drive_value_of=_zero_value,
@@ -300,22 +329,23 @@ class Engine:
 
                     ctx = PolicyContext(
                         observation=obs,
-                        n_actions=world.n_actions,
+                        n_actions=w.n_actions,
                         best_frame_age=age,
                         predict_decoded=_predict,
                         drive_value_of=_value_of,
                     )
 
                 prev_obs = obs
-                prev_a = policy.select_action(ctx, rng)
+                prev_a = policy.select_action(ctx, srng)
                 if agency is not None:
                     agency.record_step(policy, obs, mean_pred)
-                obs = world.step(prev_a)
+                obs = w.step(prev_a)
             if continuous:
                 # The trailing observation (discarded in episodic mode, where
-                # the next reset supersedes it) becomes the next virtual
-                # episode's first observation: gap-free, duplication-free.
-                pending = obs
+                # the next reset supersedes it) becomes this stream's next
+                # virtual episode's first observation: gap-free,
+                # duplication-free.
+                pending[k] = obs
 
         def offline_cycle() -> None:
             # Anatomy hook (Doc 02 §5, feature 004): tool registrations queued on
@@ -398,7 +428,7 @@ class Engine:
                         # protocol presence was checked at run start (feature 008)
                         world_state = {
                             "world": world.state_dict(),
-                            "pending": np.array(pending, copy=True),
+                            "pending": np.array(pending[0], copy=True),
                         }
                     self._take_snapshot(
                         cfg,

@@ -159,6 +159,12 @@ from the first measurement: continuous operation wants worlds whose state
 stays in bounds (an arena, a game map) — a world that drifts without limit
 stops being learnable by anything (`specs/008-continuous-operation/reading.md`).
 
+Have several copies of your world? `Config(n_streams=K)` runs K instances
+of the same world — K independent explorers, one brain, deterministic
+merge. Learning per unit of experience matches single-stream (measured);
+what K streams buy is world-side parallelism in real deployments, and,
+with `episode_mode="continuous"`, K different vantage points of one world.
+
 ```python
 def body_factory(cfg, rng):
     env = MyEnvironment()               # anything with reset()
