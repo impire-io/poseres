@@ -174,6 +174,43 @@ def test_l3_distractor_channels_carry_no_action_information():
     assert not np.allclose(obs_a[:10], obs_b[:10])  # controllable differs
 
 
+def test_l3_noise_std_scales_the_same_draws_exactly():
+    """distractor_noise_std (CHANNELNOISE-DIAGNOSIS dial): same RNG stream,
+    static channels scaled bit-exactly, core channels untouched — so the
+    default (1.0) IS the original unit-normal behavior."""
+    base = dict(
+        world="distractor",
+        obs_dim=14,
+        distractor_dim=2,
+        distractor_channels=4,
+        distractor_mode="noise",
+    )
+    unit = _stream(DistractorWorld(Config(**base), np.random.default_rng(23)), ACTIONS)
+    half = _stream(
+        DistractorWorld(Config(**base, distractor_noise_std=0.5), np.random.default_rng(23)),
+        ACTIONS,
+    )
+    for u, h in zip(unit, half, strict=True):
+        np.testing.assert_array_equal(u[:10], h[:10])  # core identical
+        np.testing.assert_array_equal(u[10:] * 0.5, h[10:])  # static exactly scaled
+
+
+def test_l3_noise_std_ignored_by_structured_mode():
+    cfg = dict(world="distractor", obs_dim=14, distractor_dim=2, distractor_channels=4)
+    a = _stream(DistractorWorld(Config(**cfg), np.random.default_rng(29)), ACTIONS)
+    b = _stream(
+        DistractorWorld(Config(**cfg, distractor_noise_std=0.2), np.random.default_rng(29)),
+        ACTIONS,
+    )
+    for x, y in zip(a, b, strict=True):
+        np.testing.assert_array_equal(x, y)
+
+
+def test_l3_noise_std_must_be_nonnegative():
+    with pytest.raises(ValueError, match="distractor_noise_std must be >= 0"):
+        Config(distractor_noise_std=-0.1)
+
+
 def test_l3_noise_mode_is_deterministic_per_seed():
     cfg = Config(
         world="distractor",

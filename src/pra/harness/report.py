@@ -230,6 +230,7 @@ def build_ladder_report(
                 "distractor_dim": r.config.distractor_dim,
                 "distractor_channels": r.config.distractor_channels,
                 "distractor_mode": r.config.distractor_mode,
+                "distractor_noise_std": r.config.distractor_noise_std,
             },
             "wall_clock_seconds": r.wall_clock_seconds,
             "failed_seeds": list(r.failed_seeds),

@@ -143,6 +143,11 @@ class Config:
     distractor_dim: int = 0
     distractor_channels: int = 0
     distractor_mode: DistractorMode = "structured"
+    # L3 noise-mode static amplitude (CHANNELNOISE-DIAGNOSIS dose-response
+    # dial). 1.0 = the pinned default: the noise branch has always drawn fresh
+    # UNIT normals, and multiplying by 1.0 is bit-exact, so every recorded L3
+    # result stays byte-reproducible. Structured mode never reads it.
+    distractor_noise_std: float = 1.0
 
     # --- Multi-stream experience (feature 009, ROADMAP B4). 1 = the pinned
     # validated single-stream path, byte-identical. K > 1 runs K world
@@ -296,6 +301,7 @@ class Config:
             self.distractor_mode in ("structured", "noise"),
             "distractor_mode must be 'structured' or 'noise'",
         )
+        require(self.distractor_noise_std >= 0, "distractor_noise_std must be >= 0")
         require(
             self.episode_mode in ("episodic", "continuous"),
             "episode_mode must be 'episodic' or 'continuous'",

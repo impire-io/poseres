@@ -227,8 +227,9 @@ class DistractorWorld(_LadderWorldBase):
     An autonomous latent of size ``distractor_dim`` advances by a fixed
     drift vector every step (``structured`` mode: predictable in principle)
     and emits into ``distractor_channels`` extra channels through its own
-    tanh emission; in ``noise`` mode the extra channels are fresh unit
-    normals. Construction draws happen after all reference draws, in the
+    tanh emission; in ``noise`` mode the extra channels are fresh normals
+    scaled by ``distractor_noise_std`` (default 1.0 — the original unit
+    draw, bit-exact). Construction draws happen after all reference draws, in the
     documented order (start, drift, emission). ``distractor_channels = 0``
     is the degenerate dial: no extra draws, reference-width observation.
     """
@@ -238,6 +239,7 @@ class DistractorWorld(_LadderWorldBase):
         self._d_channels = int(config.distractor_channels)
         self._d_dim = int(config.distractor_dim)
         self._d_mode = str(config.distractor_mode)
+        self._d_noise_std = float(config.distractor_noise_std)
         if self._d_channels > 0:
             self._d_start = rng.standard_normal(self._d_dim)
             self._d_drift = rng.standard_normal(self._d_dim) * config.action_scale
@@ -275,8 +277,10 @@ class DistractorWorld(_LadderWorldBase):
             assert self._d_latent is not None
             clean_d = np.tanh(self._d_emit @ self._d_latent / self._d_norm)
             obs_d = clean_d + self._rng.standard_normal(self._d_channels) * self._noise_std
-        else:  # "noise": fresh unit normals, nothing else
-            obs_d = self._rng.standard_normal(self._d_channels)
+        else:  # "noise": fresh normals scaled by the dose-response dial
+            # (CHANNELNOISE-DIAGNOSIS); the default 1.0 is the original
+            # unit-normal draw, bit-exact — same RNG stream, same bytes.
+            obs_d = self._rng.standard_normal(self._d_channels) * self._d_noise_std
         return np.concatenate([obs_core, obs_d])
 
     def state_dict(self) -> dict:
