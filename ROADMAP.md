@@ -116,7 +116,7 @@ budgets. Trail: `design/validate/BLEND-DIAGNOSIS.md`.
 
 ## Phase B — Make it usable (platform)
 
-B1 and B2 need no Phase A results and can start immediately; B3 and B4 are
+B1 needs no Phase A results (B2 is done); B3 and B4 are
 engine work that everything in Phase C depends on.
 
 ### B1. The watchable world (`examples/` + live viewer)
@@ -127,13 +127,20 @@ getting-started experience.
 *Exit:* a newcomer goes from install to watching learning in under five
 minutes; the example run is byte-reproducible.
 
-### B2. The Gymnasium adapter
-A `GymnasiumBody` (~50 lines, optional dependency) that mounts any Gymnasium
-environment. One adapter unlocks hundreds of worlds users already recognize
-(CartPole is obs_dim 4 / 2 actions — inside the validated range today). Must
-resolve the episode-termination vs fixed-length mismatch explicitly.
-*Exit:* CartPole worked example in `examples/`; adapter has contract tests;
-the termination-semantics decision is documented.
+### B2. The Gymnasium adapter — ✅ done (JOURNEY.md ch. 19)
+A `GymnasiumBody` (optional dependency) mounts any Gymnasium environment
+with a discrete action space and Box observations behind the existing body
+seam. The episode-termination mismatch is resolved explicitly: immediate
+seeded respawn inside the fixed-length PRA episode, terminal observation
+discarded, respawns counted (the boundary is honestly unpredictable —
+and shrinks with competence).
+*Exit criterion met:* CartPole worked example in `examples/` (runs the
+reference schedule in ~3 s/seed, proves its own byte-identity); adapter
+contract tests cover conformance, every rejection path, and the respawn
+mechanics; the termination decision is documented with rejected
+alternatives (specs/007-gymnasium-adapter/research.md R2). Deferred with
+owners: Box actions (future), reward-as-sensor (future), episode
+semantics (B3), external-world snapshots (B5).
 
 ### B3. Continuous operation (no `reset()`)
 Virtual episode boundaries for worlds that cannot restart — the prerequisite
@@ -268,7 +275,7 @@ project's claims and its measurements cannot drift apart.
 ---
 
 *Sequencing summary:* A1–A3 done; A4 measured (its remainder is the
-predicted-LP lookahead design); B1/B2 in progress in parallel; B3 → B4/B5;
+predicted-LP lookahead design); B2 done, B1 in progress; B3 → B4/B5;
 then C1/C2 as their gates open; D alongside C; C3 parked.
 *This file is load-bearing: changes to it are decisions and belong in
 JOURNEY.md like any other.*

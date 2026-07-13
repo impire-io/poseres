@@ -1,3 +1,25 @@
+Metadata-Version: 2.4
+Name: poseres
+Version: 0.1.0
+Summary: Pose Resolution Architecture — validation harness and batched in-memory core
+Author: Daan Gerits
+License: MIT
+Project-URL: Homepage, https://github.com/impire-io/poseres
+Project-URL: Source, https://github.com/impire-io/poseres
+Project-URL: Bug Tracker, https://github.com/impire-io/poseres/issues
+Classifier: License :: OSI Approved :: MIT License
+Requires-Python: >=3.13
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy>=2.4
+Provides-Extra: gym
+Requires-Dist: gymnasium>=1.0; extra == "gym"
+Provides-Extra: dev
+Requires-Dist: pytest>=8.0; extra == "dev"
+Requires-Dist: ruff>=0.6; extra == "dev"
+Requires-Dist: gymnasium>=1.0; extra == "dev"
+Dynamic: license-file
+
 # PRA — Pose Resolution Architecture
 
 An in-memory, batched, deterministic core (PRA-01) and the validation harness
@@ -70,15 +92,14 @@ byte-identical telemetry (single seeded RNG, fixed draw order, single-threaded B
 ```
 src/pra/
   config.py            # every PRA-01 §8 parameter + validation
-  world/               # EventSource seam + SensorimotorWorld + the complexity-ladder worlds
+  world/event_source.py# EventSource seam + SensorimotorWorld (nonlinear, hidden latent)
   core/                # contracts, bus, scorer, policies, the batched FrameGroup kernel, engine
-  motivation/          # Drive seam: curiosity (learning progress + novelty), competence, weighted set
+  motivation/          # Drive seam: curiosity (learning progress + novelty), weighted drive set
   action/              # Policy seam: pinned random baseline + one-step curiosity lookahead
   persistence/         # snapshot/restore: versioned blob + atomic SnapshotStore (opt-in)
-  anatomy/             # body: sensors/actuators, composition, tools + the Gymnasium adapter
+  anatomy/             # body: sensors/actuators, fixed-order composition, runtime tools
   telemetry/recorder.py# deterministic per-seed summary
-  harness/             # acceptance (T1-T7/T-SCALE), runner, report, cli, scale, scan, agency, ladder
-examples/              # worked examples (CartPole through the Gymnasium adapter)
+  harness/             # acceptance (T1-T7/T-SCALE), runner, report, cli, scale, scan, agency
 tests/                 # unit (incl. batched-vs-reference proof) / contract (5 seams) / integration
 ```
 

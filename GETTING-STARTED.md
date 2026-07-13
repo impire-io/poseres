@@ -154,6 +154,30 @@ body.register_sensor(ConstantSensor("bias", [0.5, -0.5]))
 # next slow loop: obs_dim += 2, no forgetting, run stays deterministic
 ```
 
+### Already have a Gymnasium environment?
+
+Skip the protocols entirely: the Gymnasium adapter mounts any environment
+with a discrete action space and a continuous (Box) observation vector —
+CartPole is obs_dim 4 / 2 actions, inside the validated range:
+
+```bash
+pip install "poseres[gym]"
+python examples/cartpole.py     # the worked example — under a minute
+```
+
+```python
+from pra.anatomy.gymnasium_body import GymnasiumBody
+
+cfg = Config(obs_dim=4, n_actions=2)    # must match the env; the factory checks
+Engine(cfg, world_factory=GymnasiumBody.factory("CartPole-v1")).run(seed=1)
+```
+
+Two honest notes: PRA discards the environment's reward (motivation is
+intrinsic — you watch prediction error fall, not return rise), and when the
+environment ends its own episode the world *respawns* inside PRA's
+fixed-length episode (deterministic seeded reset, counted on
+`body.respawns`). Details and scope: `specs/007-gymnasium-adapter/quickstart.md`.
+
 ## 5. Get it to learn *toward* something: drives
 
 By default the policy is random — the pinned validation baseline. Learning
@@ -194,16 +218,19 @@ Engine(cfg, snapshot_store=store).run(seed=1, resume_from=store.read(snapshot_id
 ```
 
 Known edge: snapshots of runs whose body was resized mid-run are not yet
-supported (a format-version follow-up is planned).
+supported (a format-version follow-up is planned). Snapshots of
+Gymnasium-mounted runs are also not yet supported — external environment
+state cannot be re-derived from the seed stream (see the roadmap's B5).
 
 ## 7. What PRA does not do yet
 
 So you calibrate expectations before building on it: no multi-step planning
 (the policy seam has a one-step default), no distributed operation (the bus
 seam has only an in-memory backend), no tool self-invention (the registration
-interface exists; the inventing mechanism is an open problem), and no
-pre-built connectors to cameras/robots/APIs — the Sensor/Actuator protocols
-above are the integration surface.
+interface exists; the inventing mechanism is an open problem), and one
+pre-built connector so far — the Gymnasium adapter (§4); for
+cameras/robots/APIs the Sensor/Actuator protocols above are the
+integration surface.
 
 ## 8. Where to go next
 
