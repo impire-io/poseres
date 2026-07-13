@@ -24,10 +24,17 @@ This is the least mature part of the system. The interfaces and a working defaul
 > **competence drive** (mastery + familiarity) is now shipped in the drive
 > registry and is the recommended configuration for uniformly-learnable worlds
 > at scale (`drive_weights = {competence: 1.0}`); the base default remains
-> curiosity-only. The curiosity/competence blend for worlds with unlearnable
-> regions — where pure familiarity-seeking risks the camping degeneracy — is
-> the open §5 tuning question, as is predicted-learning-progress valuation for
-> the lookahead (needs a per-candidate learnability signal; [O]).
+> curiosity-only. The blend question closed in two acts (JOURNEY ch. 18 + 24):
+> the curiosity/competence pair shares one per-candidate novelty statistic, so
+> no blend surface existed — until the **frontier drive** (`"frontier"`,
+> PREDLP-DIAGNOSIS) supplied the missing per-candidate *learnability* signal:
+> realized local learning progress over the remembered neighborhood of each
+> lookahead candidate. Measured at 24-seed power on the non-uniform ladder
+> worlds: competence and the frontier+competence blend both beat random in a
+> strict majority at every horizon and both noise dials (the A4 exit);
+> frontier neither stares at noise nor camps, and matches — does not beat —
+> competence where avoidance is optimal. Fully *predictive* LP (a
+> per-candidate error model) remains [O], now with a measured baseline.
 
 ---
 

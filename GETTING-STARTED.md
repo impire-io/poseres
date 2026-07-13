@@ -221,7 +221,14 @@ decides *which* experience to seek. Two drives ship today:
   knowing: in a uniformly learnable world, pure novelty-seeking is *worse*
   than random (JOURNEY.md, Chapter 7).
 - **`competence`** — mastery + familiarity (concentrated practice). The first
-  drive measured to beat random exploration, at both tested scales.
+  drive measured to beat random exploration, at both tested scales — and on
+  non-uniform worlds too (Chapter 24): the recommended drive when parts of
+  your world are unlearnable.
+- **`frontier`** — realized local learning progress: seeks where prediction
+  error has been *falling*, so it neither stares at unlearnable noise nor
+  camps on mastered ground. The first drive whose preference is independent
+  of novelty, which makes weighted blends genuinely different from their
+  parts (Chapter 24).
 
 ```python
 cfg = Config(policy_mode="curiosity",

@@ -72,6 +72,55 @@ improvement margin vs same-seed random, occupancy, best_dim.
 3. (mechanism) mean occupancy ordering: competence < frontier < curiosity
    — read from this grid plus BLEND E1's recorded curiosity occupancies.
 
-## E1 — the grid (to be recorded)
+## E1 — the grid (recorded 2026-07-14; 576 runs)
 
-## Outcome (to be recorded)
+Margins vs same-seed random (cross-realization ≈ unpaired; 24 seeds by
+design); occ Δ = mean occupancy minus random's.
+
+| arm | σ | >rand @18/@30/@50 | mean margin @18/@30/@50 | noninf | occ Δ @18/@30/@50 |
+|---|---|---|---|---|---|
+| competence | 0.2 | **14, 17, 15**/24 | +0.030, +0.043, +0.027 | PASS ×3 | −0.047, −0.054, −0.056 |
+| competence | 0.8 | **18, 15, 18**/24 | +0.070, +0.053, +0.041 | PASS ×3 | −0.024, −0.041, −0.048 |
+| frontier | 0.2 | 13, 12, 12/24 | +0.020, +0.015, +0.016 | PASS ×3 | −0.009, −0.021, −0.020 |
+| frontier | 0.8 | 18, 15, 11/24 | +0.046, +0.032, +0.019 | PASS ×3 | +0.018, +0.005, +0.002 |
+| blend | 0.2 | **13, 15, 16**/24 | +0.024, +0.025, +0.032 | PASS ×3 | −0.048, −0.054, −0.053 |
+| blend | 0.8 | **19, 14, 14**/24 | +0.062, +0.051, +0.029 | PASS ×3 | −0.012, −0.030, −0.035 |
+
+Blend vs competence: means −0.018 to +0.005 across the six cells,
+noninferiority PASS in 5/6 (FAIL at σ=0.2 @30, mean −0.018).
+
+## Outcome
+
+1. **The ROADMAP A4 exit criterion is met — by competence, and by the
+   blend.** Both beat random in a strict majority of 24 seeds at every
+   horizon, at both dials. Chapter 18's verdict ("met by no
+   configuration") was recorded at 8 seeds; at proper unpaired power
+   (the feature-009 lesson, applied here by pre-registration) the mild-
+   noise margins are real (+0.027..+0.043, SE ≈ 0.013). A4's measured
+   answer: **directed competence beats random exploration on non-uniform
+   worlds, full stop** — the earlier equivocation was statistical power,
+   not capability.
+2. **H-seek: partially confirmed.** Frontier's margins are positive and
+   noninferior everywhere, but strict-majority only in 3/6 cells — a
+   real, safe signal that is *weaker than competence on this world*,
+   where avoiding the unlearnable half is simply the optimal policy and
+   frontier deliberately doesn't avoid (it values the learnable side of
+   the boundary honestly).
+3. **H-blend: the blend exists and matches competence; it does not beat
+   it here.** The mechanical claim stands — frontier is the first
+   per-candidate term independent of novelty, so the weight simplex
+   finally has a surface (unit tests pin the independence) — but on L1
+   the blend's measured value over pure competence is ≈ 0 (5/6
+   noninferior, one cell below). Recorded without spin. The worlds where
+   frontier should earn its keep are those where camping *costs*
+   something: mastered-then-changing worlds and multi-region learnable
+   worlds (the L2 rung, drive-directed — future research, now properly
+   instrumented).
+4. **H-occupancy: confirmed.** Ordering as registered: competence
+   (−0.02..−0.06) < frontier (−0.02..+0.02) < curiosity (+0.01..+0.02,
+   BLEND E1) — the frontier neither camps nor stares.
+5. **Doc 05's [O] gap is closed**: predicted-LP valuation exists as the
+   frontier drive (realized local progress — a *measured* learnability
+   proxy rather than a predicted one; the fully predictive variant would
+   need a per-candidate error model and remains future work, now with a
+   baseline to beat).

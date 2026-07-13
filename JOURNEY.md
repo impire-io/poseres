@@ -184,7 +184,14 @@ dials byte-identical, criteria pre-registered — first results: selection
 lands *part-sized* on compositional worlds and ignores structured
 distractors (PASS), strong region noise widens the landing
 (dose-dependent), and high-amplitude channel static collapses it (the
-named new open problem: **channel-noise robustness**). **Phase B is
+named new open problem: **channel-noise robustness**). **Phase A closes
+with the frontier drive** (Chapter 24): the per-candidate learnability
+signal predicted-LP demanded exists (realized local progress —
+`"frontier"` in the drive registry), the blend surface is real for the
+first time, and at 24-seed power the A4 exit is met — competence and the
+frontier blend beat random at every horizon, both noise dials; frontier
+matches competence where avoidance is optimal and is the named candidate
+for worlds where camping costs. **Phase B is
 complete** (Chapter 23): snapshots now cover grown bodies,
 capture-required worlds (episodic Gymnasium resume is exact), and
 multi-stream runs, with per-world-class guarantees written down in Doc
@@ -217,13 +224,15 @@ question is measured and dissolved** (Chapter 18): the drive pair shares
 one novelty statistic, so no blend surface exists — competence wins
 where non-uniformity bites (19/24 at strong noise, no structural cost),
 nothing directed beats random at mild noise, and the pre-registered A4
-exit was met by no configuration. Open research, in priority order:
-**the predicted-LP lookahead** (a per-candidate learnability signal —
-the only live path to a genuine blend and A4's remainder),
-channel-noise robustness (a noise-amplitude dose–response is the first
-experiment), the elect-gating question, snapshot support for
-anatomy-resized runs, and (design-level, when a deployment demands it)
-whether reference-scale long lifetimes eventually need the cap too.
+exit was met by no configuration — later met at proper power (Chapter
+24). Open research, in priority order: **channel-noise robustness**
+(diagnosis in progress), frontier-vs-competence on worlds where camping
+costs (mastered-then-changing, multi-region learnable), fully
+*predictive* LP (a per-candidate error model; the frontier's realized
+form is its baseline), the elect-gating question, and (design-level,
+when a deployment demands it) whether reference-scale long lifetimes
+eventually need the cap too. Snapshot support for anatomy-resized runs
+shipped in Chapter 23.
 
 ## Recurring principles (what the journey keeps teaching)
 
@@ -819,6 +828,41 @@ collection: *byte-identity claims are only as strong as the orders they
 preserve* — sorting is a mutation too. Gate: 285 tests green (8 net new).
 Phase B closes: the platform the showcases need — watchable, mountable,
 unbroken, parallel, persistent — exists end to end.
+
+## Chapter 24 — The frontier drive: A4 closes at proper power (2026-07-14)
+
+Chapter 18 ended with a dissolution and a named remainder: no blend
+surface existed because curiosity and competence steer the lookahead
+with one shared novelty statistic, and the only live path was a
+per-candidate *learnability* signal (Doc 05's predicted-LP [O]).
+Pre-registered and built in one arc (PREDLP-DIAGNOSIS, branch 012): the
+**frontier drive** — pair the observation memory with the error recorded
+at each visit, and value a lookahead candidate by whether error near it
+has been *falling* (older-half minus newer-half of its k nearest
+remembered neighbors, clamped at zero). Unlearnable regions read
+flat-high → 0 (the noisy-TV guard, per-candidate for the first time);
+mastered regions flat-low → 0 (no camping); frontiers positive. Pure
+floats, no RNG, opt-in through the drive registry; the random baseline
+untouched by construction; agency snapshots extend additively.
+
+The measurement applied chapter 22's power lesson by pre-registration:
+24 seeds, 4 arms × 2 dials × 3 horizons, 576 runs. Three findings:
+**(1) The A4 exit criterion is met** — competence and the
+frontier+competence blend beat random in a strict majority at every
+horizon, both dials; chapter 18's mild-noise equivocation was
+statistical power, not capability, and the roadmap's Phase A closes
+with it. **(2) Frontier works exactly as designed and loses honestly
+here**: positive and noninferior everywhere, occupancy between the
+poles (competence −0.05 < frontier ≈ 0 < curiosity +0.01, the
+registered ordering), but on a world whose unlearnable half is best
+simply avoided, avoidance wins — frontier matches competence (5/6
+noninferior), beats it nowhere. Recorded without spin; the worlds where
+anti-camping should pay (mastered-then-changing, multi-region
+learnable) are the named next tests, now properly instrumented.
+**(3) The blend is finally real** — the independence of the frontier
+term is unit-pinned, so `drive_weights` blends are no longer degenerate
+relabelings. Gate green throughout; trail:
+`design/validate/PREDLP-DIAGNOSIS.md`.
 
 ## Chapter template (append below)
 

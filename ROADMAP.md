@@ -95,22 +95,24 @@ channel-noise robustness. One criterion clause (occupancy band) was
 amended openly after its distributional assumption was refuted by the
 data. Trail: `design/validate/LADDER-CRITERIA.md`.
 
-### A4. The drive blend for non-uniform worlds — ◐ measured; the question transformed (JOURNEY.md ch. 18)
+### A4. The drive blend for non-uniform worlds — ✅ done (JOURNEY.md ch. 18 + 24)
 The open curiosity/competence blend (camping risk), measured on the A3
-ladder. *Exit as pre-registered:* a drive configuration that beats random
-on non-uniform ladder worlds in the majority of seeds at every checkpoint
-— **not met at mild noise** (at σ=0.2 every arm misses at least one
-horizon; the effect sits inside seed noise), met at strong noise by the
-competence family (19/24 seed-horizon wins, margins ~+0.1, no structural
-cost). The bigger finding **dissolved the blend question**: both drives'
-only per-candidate term is the same novelty statistic, so the weight
-simplex collapses to {curiosity, competence, a degenerate tie corner} —
-there is no blend surface to tune. What remains of A4 is the predicted-LP
-/ per-candidate-learnability lookahead (the Doc 05 [O] design), now the
-only live path to a genuine blend. Interim guidance for showcases:
-`competence` on strongly non-uniform worlds; nothing directed
-demonstrably beats random on mildly non-uniform ones at reference
-budgets. Trail: `design/validate/BLEND-DIAGNOSIS.md`.
+ladder — in two acts. Act one (ch. 18) **dissolved the blend question**:
+both drives steer the lookahead with one shared novelty statistic, so no
+blend surface existed. Act two (ch. 24) built the missing piece — the
+**frontier drive** (realized local learning progress, the first
+per-candidate term independent of novelty — Doc 05's predicted-LP [O]
+gap, closed) — and re-measured at proper power (24 seeds, the B4
+protocol lesson). *Exit criterion met:* **competence and the
+frontier+competence blend both beat random in a strict majority of seeds
+at every horizon, at both noise dials** (ch. 18's mild-noise equivocation
+was statistical power, not capability). Frontier alone is positive and
+noninferior everywhere, occupies between the poles (neither camps nor
+stares), and matches — does not beat — competence on L1, where avoidance
+is simply optimal; the worlds where it should earn its keep
+(mastered-then-changing, multi-region learnable) are named future
+research. Showcase guidance: `competence` on non-uniform worlds, both
+dials. Trails: `BLEND-DIAGNOSIS.md`, `PREDLP-DIAGNOSIS.md`.
 
 ---
 
@@ -302,10 +304,9 @@ project's claims and its measurements cannot drift apart.
 
 ---
 
-*Sequencing summary:* A1–A3 done; A4 measured (its remainder is the
-predicted-LP lookahead design); **Phase B complete (B1–B5)** — C1's gate
-(B3, B5, A4-guidance) and C2's (B3, physical-reset answer) are open;
-C1/C2 next alongside the open research (predicted-LP, channel-noise);
-D alongside C; C3 parked.
+*Sequencing summary:* **Phase A complete (A1–A4)**; **Phase B complete
+(B1–B5)** — C1's gate (B3, B5, A4-guidance) and C2's (B3, physical-reset
+answer) are open; C1/C2 next alongside channel-noise robustness (in
+diagnosis); D alongside C; C3 parked.
 *This file is load-bearing: changes to it are decisions and belong in
 JOURNEY.md like any other.*
