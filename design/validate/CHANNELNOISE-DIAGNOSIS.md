@@ -184,9 +184,9 @@ min still 6 with a flattening basin. Full tables in the run artifact.)
    produce the live dim-1 landing. The mechanism is not in the converged
    surface — it is in the **transient**: at 1.0, corrupted learning
    roughly doubles every dim's error floor and slows convergence, and
-   the live ecology judges frames at age ≈ 2 cycles (12 episodes) with
-   eviction churn — what selection sees is the young-age surface, not
-   this one.
+   the live ecology judges frames young (effective patience at
+   obs_dim = 20 is 6 cycles = 36 exposure episodes) under eviction
+   churn — what selection sees is the young-age surface, not this one.
 4. **Side finding — noise autoencoding.** At σ_d ≥ 0.5 the
    static-restricted *recon* error falls with dim (1.02 → 0.68 across
    1→8 at σ_d = 1.0): extra pose dimensions get spent passing static
@@ -209,6 +209,18 @@ live escape seeds (finals 4 and 6). If instead the 12-episode surface at
 1.0 still has its minimum at 6–8, the remaining suspect is eviction
 churn itself and the diagnosis proceeds to churn instrumentation.
 
+**Corroborating live reading (protocol + prediction stated before
+running):** rerun the E1 endpoint arms (σ_d ∈ {0.04, 1.0}, seeds 1–8 —
+deterministic replays) capturing `best_score`, `mean_population`,
+`final_population`. The error floor puts every EMA near 1, so a mature
+frame's score is ≈ 0.5·recon + 0.5·pred + 0.02·dim ≳ 0.97 + 0.02·dim —
+**above the 0.8 base survival threshold at any population size**.
+Prediction: at σ_d = 1.0 the winner's `best_score` sits ≈ 1.0 (no frame
+can ever clear the bar → the population is pure youth-protected
+conveyor, permanently re-judged at the age where dim 1 wins), while at
+0.04 `best_score` sits well below 0.8 and populations carry mature
+frames.
+
 ## E3 — remedy (conditional; stance pre-registered)
 
 Only if E2 confirms a mechanism **and** a principled, reference-preserving
@@ -222,3 +234,161 @@ feature); scaling the parsimony price with the measured per-dim error
 span. If no principled fix fits the arc, stop after E2 and record the
 mechanism plus named remedy directions — an honest open problem with a
 measured mechanism is a complete deliverable.
+
+## Result: E2b (recorded 2026-07-14)
+
+Weighted all-channel score surface (½·recon + ½·pred + 0.02·dim), score
+minimum and basin depth (score(1) − score(min)) by σ_d × age:
+
+| σ_d | age 12 | age 24 | age 48 |
+|---|---|---|---|
+| 0.04 | min **4**, depth 0.119 | min **4**, depth 0.093 | min **6**, depth 0.136 |
+| 0.5 | min **4**, depth 0.097 | min **3**, depth 0.032 | min **4**, depth 0.080 |
+| 1.0 | min **1**, depth 0.000 | min **1**, depth 0.000 | min 8, full span **0.015** |
+
+**H-transient: confirmed at σ_d = 1.0.** At the ages the live ecology
+judges (the protection window at obs_dim = 20 is
+`effective_min_age_cycles` = 6 cycles = 36 episodes of exposure ≈ 27
+equal-experience episodes at the measured map fractions — bracketed by
+the 24- and 48-episode reads), the score minimum **is dim 1**; by 48
+episodes the surface is not dim-1-dominated but *gradient-free* (full
+span 0.015 ≈ ¾ of one dim's price — selection noise). At 0.04 the elbow
+is healthy at every age. At 0.5 the pre-registered shape ("shallow min
+at 2–3") is amended by the data: the minimum stays at 3–4 but the
+mid-age depth collapses to 0.032 — the landing becomes seed-noise
+dominated, which is exactly E1's instability band (finals [3,4,2,2,1,2,3,1]).
+
+**Corroborating live reading (protocol above), σ_d ∈ {0.04, 1.0}, seeds
+1–8:**
+
+| σ_d | best_score per seed | mean_pop | final_pop |
+|---|---|---|---|
+| 0.04 | 0.13, 0.35, 0.40, 0.12, 0.14, 0.21, 0.20, 0.17 | 17–28 | 16–32 |
+| 1.0 | 0.73, 0.82, 0.74, 0.79, 0.72, 0.83, 0.79, 0.76 | 10–20 | 9–16 |
+
+At σ_d = 1.0 the *best* frame's score (0.72–0.83) sits **above** the
+pop-scaled survival bar (0.8/(1 + 0.04·(pop − 4)) ≈ 0.49–0.65 across the
+measured populations) — soft eviction removes every unprotected frame over the
+bar, so **no frame ever survives its first unprotected judgment**: the
+population is a pure youth conveyor (plus no-map births), permanently
+re-judged at the ages where dim 1 wins. At 0.04 winners sit at 0.12–0.40,
+far under the bar, and populations carry mature anchors. One prediction
+correction, recorded honestly: the winner's score was predicted ≈ 1.0
+and measured 0.72–0.83 — the all-step EMAs are tracking-flattered below
+the frozen floor (the known THRESHOLD-DIAGNOSIS effect); the structural
+claim (nothing matures) is what the population numbers test, and it
+holds.
+
+**The remedy-informing computation (from the same E2b data):** score the
+surfaces on the core channels only — a *perfect* floor-normalization
+proxy (as if an oracle excluded every static channel from the survival
+norm). At σ_d = 0.5 this restores a healthy elbow (min 3–4, depth up to
+0.134). At σ_d = 1.0 it does **not**: judging-age depth 0.022 (min 3 at
+age 12, back to min 1 at age 24) — because H-corrupt's leg is upstream
+of the score: static entering the shared encoder has already flattened
+the core error itself at young ages. **Score-side channel weighting
+alone is provably insufficient at unit amplitude; the encoder input
+path needs the same treatment.**
+
+## Outcome
+
+1. **The mechanism, fully measured — a three-leg compound, not a single
+   cause.** (i) *Floor compression* (E2): irreducible per-channel floors
+   enter both the numerator and denominator of the all-channel honest
+   error norms, compressing the per-dim error span 6.5× at unit
+   amplitude (weighted 1→3 gain 0.240 → 0.037/dim) — real, but at the
+   asymptote still above the 0.02/dim parsimony price, so not sufficient
+   alone. (ii) *Learning corruption* (E2, the pre-registered 1.5×
+   threshold): at σ_d = 1.0 static in the shared encoder and noise-target
+   decoder rows nearly double the core error asymptote (dim-3: 0.886 vs
+   0.549, ratio 1.61) and halve the core gradient; at ≤ 0.5 learning is
+   intact (ratio 1.02). (iii) *The transient is what gets judged* (E2b +
+   corroboration): the floor holds every frame's score (winners
+   0.72–0.83) above the absolute survival bar (≈ 0.49–0.65 pop-scaled),
+   so nothing matures — the ecology is a permanent conveyor judged at
+   ages where compression + corruption leave the surface
+   price-dominated, and the smallest dim wins.
+   Collapse is the ecology faithfully following a score that has lost
+   its gradient.
+2. **Dose–response: an instability band, not a threshold.** Sensor-scale
+   static (σ_d = 0.04, = `sensor_noise_std`) is harmless — PASS with
+   healthy landings. Verdict flicker begins at σ_d = 0.1 (two late dim-1
+   slides; 0.2 passes clean — a two-seed majority-boundary effect);
+   the robust break is between 0.2 and 0.5 (median improvement halves,
+   landings depress); collapse is unambiguous at 1.0 (5/8 dim-1 finals,
+   replicating the recorded L3 finding at a different construction
+   stream). The binary strict-majority criterion is noisy inside the
+   band — the continuous measures (median improvement 0.485 → 0.107,
+   monotone) are the trustworthy dose axis.
+3. **Refuted along the way:** H-gate (election starvation — map
+   fractions stay 0.55–0.92 at every dose); H-compress's asymptotic
+   arithmetic (the frozen score minimum never reaches dim 1 — the
+   compression story is true only jointly with the transient); the
+   "breaking amplitude" as a sharp point (it is a band).
+4. **E3: no remedy shipped — deferral, for a measured reason.** The one
+   mechanism-level fix is an in-system per-channel noise-floor estimator
+   feeding **both** the survival norm and the encoder input path —
+   *learned channel weighting*, hereby named as the successor feature.
+   The cheap half (score-side normalization only) was tested against the
+   E2b data and fails exactly where the problem lives (unit amplitude);
+   a survival bar with a notion of achievable error (relative rather
+   than absolute) is the other named leg, and it interacts with the
+   seventh scale rule (THRESHOLD-DIAGNOSIS) — neither is a small opt-in
+   dial this arc could validate honestly. Per the pre-registered stance,
+   the arc stops at the measured mechanism.
+5. **What ships:** the `distractor_noise_std` dial (inert at 1.0,
+   test-guarded byte-identity — the recorded L3 rung stays reproducible)
+   as the permanent dose–response instrument, and this trail.
+
+## Proposed JOURNEY chapter (staged for merge-time integration; do not apply from this branch)
+
+```markdown
+## Chapter N — Channel noise: the score loses its gradient before the brain loses its structure (2026-07-14)
+
+The ladder's first open problem (L3 noise mode: half the observation
+carrying unit static; best_dim collapses to 1 in 5/8 seeds) got its
+diagnosis. A new inert dial (`distractor_noise_std`, 1.0 = the recorded
+behavior, byte-guarded) made the amplitude sweepable: harmless at
+sensor scale (0.04 — PASS), verdict flicker from 0.1, robust break
+between 0.2 and 0.5, collapse at 1.0 — a widening instability band, not
+a threshold (median improvement falls monotonically 0.485 → 0.107).
+The mechanism is a measured three-leg compound: irreducible channel
+floors compress the per-dim error span 6.5× (real, insufficient alone —
+the frozen score minimum never reaches dim 1); unit static corrupts
+core learning itself through the shared encoder (dim-3 asymptote ratio
+1.61, over the pre-registered 1.5× bar; intact at ≤ 0.5); and the floor
+holds every frame's score above the absolute survival bar (winners
+0.72–0.83 vs bar ≈ 0.49–0.65), so nothing matures — a permanent conveyor
+judged at ages where the transient surface is price-dominated and dim 1
+wins (judging-age basin depth 0.000 at σ=1.0 vs 0.119 at 0.04).
+Refuted: election starvation (map fractions healthy throughout) and the
+one-cause compression story. The remedy is named, not shipped, for a
+measured reason: perfect score-side channel exclusion (computed from
+the probe data) rescues σ=0.5 but not 1.0 — the encoder input path
+needs the same treatment — so the fix is *learned channel weighting*
+(an in-system per-channel floor estimator feeding both the survival
+norm and the encoder), a real feature, not a dial. Trail:
+design/validate/CHANNELNOISE-DIAGNOSIS.md; the dose–response dial ships
+inert with byte-identity tests.
+```
+
+## Docs propagation (staged for merge-time integration; not applied from this branch)
+
+- **PRA-01 §8 / Doc 07 parameter table:** add the row —
+  `distractor_noise_std` | 1.0 | L3 noise-mode static amplitude
+  (CHANNELNOISE-DIAGNOSIS dose–response dial); 1.0 = the original unit
+  draw, bit-exact, recorded L3 results unchanged; structured mode
+  ignores it.
+- **LADDER-CRITERIA.md, L3 result paragraph:** append one sentence —
+  "The channel-noise problem now has its diagnosis:
+  CHANNELNOISE-DIAGNOSIS.md (dose–response band, three-leg mechanism,
+  remedy named *learned channel weighting* and deferred)."
+- **ROADMAP:** wherever the successor list lives, add the named future
+  feature: *learned channel weighting — per-channel noise-floor
+  estimation feeding the survival norm and the encoder input path;
+  motivated and sized by CHANNELNOISE-DIAGNOSIS (score-side-only fix
+  measured insufficient at unit amplitude).*
+- **specs/005-complexity-ladder/contracts/ladder.md / data-model.md:**
+  if the dial tables are regenerated, `distractor_noise_std` belongs in
+  the L3 dial list (harness report already records it under
+  `ladder_detail.dials`).
