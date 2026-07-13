@@ -65,6 +65,23 @@ At the default configuration the world has a **real but shallow** dimensional el
 - **Score honestly and fairly.** `best_dim` is meaningful only when prediction is scored in observation space and the survival EMAs are coverage-fair (Document 1, Sections 5.2 and 5.4). Pose-space prediction or mapped-subset-only scoring removes the elbow and the test becomes noise.
 - **Judge within-one, across horizons** (T4). Exact recovery of `true_dim` on every seed is not expected from this world; the shallow elbow is a property of the *validation world*, not a defect of the agent. Sharpening it (e.g. lowering `sensor_noise_std`, or adding an explicit bottleneck) is an optional future change to this document, not a fix the agent owes.
 
+### 1.5 The complexity ladder (feature 005, ROADMAP A3)
+
+Beyond the reference family, three opt-in worlds each add **one known
+difficulty axis** while keeping this section's instrument panel
+(determinism, seeded reproducibility, ground truth known to the harness
+via `Config`, never exposed through the world surface): `nonuniform`
+(a half-space region of latent space with irreducibly random transitions —
+the drive-research testbed), `compositional` (factored dynamics, each
+action moving one factor group, under the joint emission), and
+`distractor` (appended channels driven by an autonomous drift latent, or
+fresh unit noise). Selection is `Config.world`; each world's degenerate
+dial is **byte-identical** to the reference family (integration-tested),
+so the ladder's ground floor is the validated world above. Their
+acceptance criteria and recorded results — judged per rung, investigatory
+at the build level, failures recorded as findings — live in
+`LADDER-CRITERIA.md`; the instrument is `pra-validate ladder`.
+
 ---
 
 ## 2. The ablation worlds and agents (T3)

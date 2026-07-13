@@ -102,16 +102,22 @@ description: "Task list for the complexity ladder"
 
 ## Phase 7: Polish & first recorded results
 
-- [ ] T018 Run the R9 first-results grid (reference-scale dials, pinned
+- [x] T018 Run the R9 first-results grid (reference-scale dials, pinned
       random policy, 8 seeds: L1 mild/strong, L2 (3,3)/(2,2,2), L3 both
       modes) and fill the result sections of
       `design/validate/LADDER-CRITERIA.md` — verdicts, spreads, occupancy,
-      census, including failures (SC-003)
-- [ ] T019 [P] Propagate: ROADMAP A3 status + JOURNEY.md chapter + "Where
+      census, including failures (SC-003). Done: 3 PASS / 3 FAIL as
+      written; L1 occupancy clause amended openly (drift-dominated
+      occupancy refuted the ≈½ assumption); channel-noise robustness named
+      as the new open problem (L3 noise-mode FAIL)
+- [x] T019 [P] Propagate: ROADMAP A3 status + JOURNEY.md chapter + "Where
       things stand" refresh (required by AGENTS.md); GETTING-STARTED
-      pointer to `pra-validate ladder`; Doc 07 config-reference entries for
-      the new fields
-- [ ] T020 Quality gate: `ruff format --check`, `ruff check`, full
+      pointer to `pra-validate ladder`. Amendment: the ladder dials are
+      world configuration, which Doc 07 does not carry (it is the *system*
+      config reference — the reference world's dials are not there
+      either); they are documented in PRA-02 §1.5 instead, which is the
+      normative home of validation-world configuration
+- [x] T020 Quality gate: `ruff format --check`, `ruff check`, full
       `pytest -q` green, none skipped; baseline byte-frozen test untouched
 
 ## Dependencies

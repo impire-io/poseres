@@ -81,17 +81,100 @@ Per-seed checkpoint trajectories recorded for both modes regardless of
 verdict; the noise mode doubles as the channel-noise reading folded in
 from the spec's non-uniform-rung amendment.
 
-## Result: L1 (to be recorded)
+## Result: L1 (recorded 2026-07-13; one instrument run, 103 s for the full grid)
 
-*(filled by the first instrument run — verdicts, per-seed spreads,
-occupancy; including failures)*
+**As written: FAIL at both dials** — and the diagnosis says a criterion
+clause, not the instrument or the brain, is what broke.
 
-## Result: L2 (to be recorded)
+| dial | best_dim within 1 of twin | improvement ≥ ½·twin | occupancy in band | verdict |
+|---|---|---|---|---|
+| σ=0.2 | 7/8 | 8/8 | **3/8** | FAIL |
+| σ=0.8 | **4/8** | 6/8 | 5/8 | FAIL |
 
-*(filled by the first instrument run — verdicts, paired margins, census,
-best_dim spreads; including failures)*
+Occupancy per seed — σ=0.2: [0.715, 0.861, 0.997, 0.458, 0.963, 0.859,
+0.671, 0.863]; σ=0.8: [0.511, 0.718, 0.857, 0.343, 0.939, 0.653, 0.501,
+0.754]. best_dim (rung | twin) — σ=0.2: [3|4, 3|3, 3|3, 3|2, 2|3, 3|2,
+3|1, 2|1]; σ=0.8: [2|4, 3|3, 5|3, 4|2, 2|3, 3|2, 2|1, 4|1].
 
-## Result: L3 (to be recorded)
+**Diagnosis of the occupancy clause.** The "analytic ≈ ½" behind the
+[0.25, 0.75] per-seed band assumed occupancy concentrates near the region's
+volume share. It does not: each world's four fixed action displacements
+carry a net `latent[0]` drift (mean of four `N(0, action_scale²)` values —
+typical |drift| ≈ 0.16/step ≈ 6 latent units over a 40-step episode,
+dwarfing the ~0.8 start offset), so per-world occupancy is
+**drift-dominated and bimodal**, ½ only in expectation over world draws.
+The instrument read correctly — occupancy varies across seeds exactly as
+the mechanism predicts and *falls* as σ rises (in-region diffusion kicks
+the latent out: pooled 0.80 → 0.66) — the clause tested a wrong
+distributional assumption.
 
-*(filled by the first instrument run — verdicts, checkpoint trajectories
-both modes; including failures)*
+**Amendment (2026-07-13, the T7 precedent — original numbers above stay).**
+Clause 2 becomes: *occupancy is reported per seed, is non-degenerate
+(strictly inside (0, 1) in a strict majority), and is recorded as the
+random-policy baseline for A4* — what the drive study actually needs
+(drive-directed occupancy is compared per seed against this baseline, same
+worlds, paired). Under the amended criterion, derived from the same
+recorded table: **σ=0.2 PASS** (7/8, 8/8, occupancy non-degenerate 8/8),
+**σ=0.8 FAIL** (best_dim within 1 of twin only 4/8 — strong region noise
+genuinely perturbs the landing: spreads widen to 2–5 vs the twin's 1–4).
+That residual FAIL is a brain finding, not an instrument artifact, and it
+is exactly the kind of result the rung exists to produce.
+
+## Result: L2 (recorded 2026-07-13)
+
+**PASS at both factorizations.**
+
+| dial | churn-matched > identity | best_dim in envelope | verdict |
+|---|---|---|---|
+| (3,3) | 7/8 (margins −0.019 to +0.076) | 8/8 in [2, 7] | **PASS** |
+| (2,2,2) | 7/8 (margins −0.031 to +0.090) | 8/8 in [1, 7] | **PASS** |
+
+best_dim spreads: (3,3) → [2, 4, 3, 3, 4, 4, 3, 2]; (2,2,2) →
+[2, 2, 3, 2, 3, 2, 4, 3]. The census (per-seed, dims → frames/mature) is
+in the run artifact; its shape is consistent across seeds: populations
+concentrate at dims 2–5 with mature frames at the part sizes, and **no
+seed lands the monolith** (`Σ d_k = 6` holds at most a stray frame; the
+best frame sits at part scale, 2–4). The pre-stated uncertain question
+answers **parts-sized, price-optimal** at these dials — selection buys a
+part, not the whole — consistent with the parsimony finding
+(SCORER-DIAGNOSIS): dimensions are bought only while marginal error gain
+exceeds the price, and one factor group's worth of structure is what a
+frame's price buys here. Whether richer emissions change that is A4-side
+research on this same rung.
+
+## Result: L3 (recorded 2026-07-13)
+
+**Structured mode PASS; noise mode FAIL — recorded as the finding it is.**
+
+| mode | within 1 of controllable true_dim=3 at @18/@30/@50 | verdict |
+|---|---|---|
+| structured | 8/8, 7/8, 8/8 | **PASS** |
+| noise | 4/8, 3/8, **2/8** | **FAIL** |
+
+Structured finals: [2, 3, 2, 2, 2, 2, 4, 2] — selection tracks the
+controllable structure and never buys the distractor (no seed lands near
+3 + distractor_dim). Noise finals: [1, 4, 1, 1, 1, 3, 1, 6] — with half
+the observation carrying fresh unit static, the landing collapses to
+dim 1 in five of eight seeds and destabilizes in the rest.
+
+**Reading, stated plainly:** a *structured* autonomous nuisance is
+handled by the validated ecology; *unstructured channel static at high
+amplitude* (unit-scale vs the tanh emission's ≤1 range, on 10 of 20
+channels) is not — the honest error every frame is judged on is
+dominated by an irreducible floor, and selection loses its gradient.
+This is the ladder's first new open problem:
+**channel-noise robustness**, now named, with the failing configuration
+recorded as its reproducible testbed. (Note the dial asymmetry: L3
+noise-mode static is *unit*-scale by design — the sensor-noise dial
+`sensor_noise_std = 0.04` is 25× smaller; a noise-amplitude dose–response
+is the natural first diagnosis experiment.)
+
+## Standing summary (first recorded results)
+
+Six dial sets, pre-registered criteria, one instrument invocation:
+**3 PASS / 3 FAIL as written** (4/2 under the openly-amended L1 clause).
+Every FAIL is attributable: one criterion clause tested a wrong
+distributional assumption (amended, numbers kept); strong region noise
+widens the landing spread (real, dose-dependent); high-amplitude channel
+static collapses it (real, named as the channel-noise robustness
+problem). The ladder is doing its job: each failure names its own cause.

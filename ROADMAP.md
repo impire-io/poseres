@@ -48,8 +48,9 @@ dependency notes say when it isn't.
 ## Phase A — Make the brain worth watching (research)
 
 The bottleneck is the brain, not the plumbing. A1 — which blocked everything
-that runs at scale — and A2 are done; the remaining two are the
-highest-leverage items in the repo.
+that runs at scale — A2, and A3 are done; A4 is the highest-leverage open
+item in the repo, and the ladder's first results added a named open
+problem beside it (channel-noise robustness, LADDER-CRITERIA.md L3).
 
 ### A1. The seventh scale rule — ✅ done (JOURNEY.md ch. 11–14)
 Resolved beyond its original scope. The fair judge (`score_window_steps`)
@@ -78,18 +79,28 @@ counts kept in the record). Every scaled acceptance criterion is now
 measured. Trail: `design/validate/T3SCALE-DIAGNOSIS.md`; instrument:
 `pra-validate scale --t3` (the quartet).
 
-### A3. The complexity ladder (worlds with ground truth)
+### A3. The complexity ladder (worlds with ground truth) — ✅ done (JOURNEY.md ch. 17)
 A family of synthetic worlds that get *harder in known ways*: non-uniform
-learnability (learnable + noise regions), compositional latents, distractor
-dimensions. This is the controlled staircase between "curated" and "real" —
-each rung keeps true structure known so results stay measurable.
-*Exit:* the world family ships in-repo with its own acceptance criteria;
-ladder results recorded per rung, including failures.
+learnability (an unlearnable region of latent space), compositional
+latents, distractor dimensions — the controlled staircase between
+"curated" and "real", every rung keeping true structure known.
+*Exit criterion met:* the family ships in-repo (`Config.world`,
+`pra-validate ladder`, degenerate dials byte-identical to the reference),
+criteria pre-registered, and first results recorded **including failures**:
+compositional and structured-distractor rungs PASS (selection lands
+part-sized and never buys the distractor); strong region noise widens the
+landing spread (dose-dependent, real); **high-amplitude channel static
+collapses it** — the ladder's first new open problem, named
+channel-noise robustness. One criterion clause (occupancy band) was
+amended openly after its distributional assumption was refuted by the
+data. Trail: `design/validate/LADDER-CRITERIA.md`.
 
 ### A4. The drive blend for non-uniform worlds
 The open curiosity/competence blend (camping risk), measured on the A3
-ladder. Real worlds are non-uniform; without this, every showcase inherits a
-known-broken exploration story.
+ladder — now unblocked: the L1 rung ships with per-seed random-policy
+occupancy baselines to judge directed policies against (paired, same
+worlds). Real worlds are non-uniform; without this, every showcase
+inherits a known-broken exploration story.
 *Exit:* a drive configuration that beats random exploration on non-uniform
 ladder worlds in the majority of seeds at every checkpoint, with the spread
 reported.
@@ -249,8 +260,8 @@ project's claims and its measurements cannot drift apart.
 
 ---
 
-*Sequencing summary:* A1 and A2 done; (A3 → A4) next, with B1/B2 startable
-immediately in parallel; B3 → B4/B5; then C1/C2 as their gates open; D
-alongside C; C3 parked.
+*Sequencing summary:* A1, A2, and A3 done; A4 next (unblocked by A3's L1
+baselines), with B1/B2 startable immediately in parallel; B3 → B4/B5; then
+C1/C2 as their gates open; D alongside C; C3 parked.
 *This file is load-bearing: changes to it are decisions and belong in
 JOURNEY.md like any other.*

@@ -42,6 +42,8 @@ bit-for-bit. Other commands worth trying:
 pra-validate determinism --seed 1   # byte-identical re-run proof
 pra-validate agency                 # T7: does directed exploration beat random?
 pra-validate scale --true-dims 20,35,50
+pra-validate ladder                 # the complexity ladder: harder worlds,
+                                    # known ground truth, honest verdicts
 ```
 
 ## 2. The mental model (60 seconds)
