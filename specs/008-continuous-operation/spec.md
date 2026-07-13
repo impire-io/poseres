@@ -183,8 +183,15 @@ document, pass or fail nothing.
   seed — byte-identical summaries on re-run, unaffected by worker
   parallelism — and MUST support the existing snapshot/resume guarantee
   (resume from any consolidation-boundary snapshot reproduces the
-  uninterrupted run byte for byte) for worlds whose state is derivable
-  from the seeded stream.
+  uninterrupted run byte for byte) for worlds that support state capture;
+  taking a snapshot in continuous mode on a world that cannot capture its
+  state MUST fail loudly at configuration or capture time, never write a
+  silently unresumable artifact. *(Amended during design, 2026-07-13:
+  the original wording said "worlds whose state is derivable from the
+  seeded stream" — design surfaced that no world's mid-run state is
+  derivable without replaying the run; exact resume requires the world to
+  capture state, which in-repo worlds can do trivially and external
+  worlds cannot — the latter remaining ROADMAP B5's named scope.)*
 - **FR-006**: The design MUST be written before implementation and MUST
   answer, explicitly: what consolidation boundaries mean without resets;
   what the reproducibility story is; what single-boot means for hardware
@@ -229,8 +236,8 @@ document, pass or fail nothing.
   reference values byte-identical after the feature ships (zero
   behavioral drift in every validated mode).
 - **SC-003**: A continuous run resumed from a mid-run snapshot produces a
-  summary byte-identical to the uninterrupted run, on a seed-derivable
-  world.
+  summary byte-identical to the uninterrupted run, on a world that
+  supports state capture.
 - **SC-004**: The written design (committed before implementation)
   answers the four named questions of FR-006, and each episode-keyed
   mechanism's continuous-mode placement is documented and covered by a
