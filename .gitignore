@@ -12,3 +12,4 @@ venv/
 
 # Snapshots (quickstart example output)
 snapshots/
+.claude/worktrees/
