@@ -30,39 +30,44 @@ results are recorded per rung, **including failures**.
 
 ## User Scenarios & Testing *(mandatory)*
 
-### User Story 1 - The non-uniform world: structure next to noise (Priority: P1)
+### User Story 1 - The non-uniform world: a region nothing can learn (Priority: P1)
 
-A researcher configures a world where a known fraction of the observation
-carries the familiar learnable structure and the remaining channels carry
-noise that nothing can ever learn. They run the existing engine on it,
-unchanged, across the standard seeds, and receive an honest reading:
-did the population still find the learnable structure, at what quality
-relative to the all-learnable baseline, and how was the system's experience
-and capacity allocated between the learnable and unlearnable parts of the
-world?
+A researcher configures a world containing a known **region of its hidden
+state space** where the dynamics are unlearnable — inside it, how the world
+responds to an action is freshly random every step — while everywhere else
+the world behaves exactly like the validated reference. The agent's own
+movement carries it into and out of that region, so an action policy can
+seek the region or avoid it. The researcher runs the existing engine on it,
+unchanged, across the standard seeds, and receives an honest reading: did
+the population still find the structure, at what quality relative to a
+paired no-region baseline, how much of the run's experience was spent
+inside the unlearnable region (the occupancy reading), and how did
+prediction quality differ by region?
 
 **Why this priority**: This rung is the named gate for the A4 drive-blend
-research (the noisy-TV / camping testbed) — it unblocks the next roadmap
-item, and it is the smallest step off the validated staircase (one new
-property: learnability is no longer uniform).
+research — the noisy-TV / camping testbed requires unlearnability the
+*policy can choose to seek or avoid* (a curiosity pole stares at the
+region, a competence pole camps outside it), which only a state-dependent
+region provides. It unblocks the next roadmap item with the smallest step
+off the validated staircase (one new property: learnability now depends on
+where you are).
 
 **Independent Test**: Can be fully tested by running the rung across seeds
-with the pinned random policy and reading its per-seed report — structure
-quality on the learnable part, the known noise floor on the unlearnable
-part, and the allocation reading — with no other rung present.
+with the pinned random policy and reading its per-seed report — occupancy,
+region-conditioned prediction quality, and structure quality against the
+paired baseline — with no other rung present.
 
 **Acceptance Scenarios**:
 
-1. **Given** a non-uniform world with a chosen learnable/unlearnable split,
-   **When** the engine runs across the standard seeds, **Then** the harness
-   reports, per seed, a structure-quality reading on the learnable portion
-   that is comparable against the same-size all-learnable baseline world,
-   and the result is recorded whether it passes or fails the rung's
-   pre-registered criterion.
+1. **Given** a non-uniform world with a chosen unlearnable region, **When**
+   the engine runs across the standard seeds, **Then** the harness reports,
+   per seed, structure-quality readings paired against the same-seed
+   no-region baseline world, and the result is recorded whether it passes
+   or fails the rung's pre-registered criterion.
 2. **Given** the same run, **When** the report is produced, **Then** it
-   includes an experience/capacity-allocation reading (how much of what the
-   system modeled sits on learnable vs unlearnable channels) precise enough
-   for the A4 drive study to detect camping and noise-staring.
+   includes the occupancy reading (share of experience spent inside the
+   unlearnable region) per seed — the baseline the A4 drive study compares
+   directed policies against to detect noise-staring and camping.
 3. **Given** two runs with the same seed and configuration, **When** their
    summaries are compared byte-for-byte, **Then** they are identical.
 
@@ -154,14 +159,15 @@ command produces the combined report and a machine-readable artifact.
 
 ### Edge Cases
 
-- A rung configured to be degenerate (zero unlearnable channels, one
-  factor group, zero distractor channels) must reduce to a world
-  behaviorally equivalent to the reference family, so every rung's dial
-  starts from validated ground.
-- Configurations that cannot be honored (more unlearnable channels than
-  observation channels; factor-group sizes that exceed the hidden-state
-  size; distractor sizes exceeding available channels) must be rejected at
-  configuration time with a clear message, never silently adjusted.
+- A rung configured to be degenerate (an empty unlearnable region, one
+  factor group spanning the whole hidden state, zero distractor channels)
+  must reduce to a world behaviorally equivalent to the reference family,
+  so every rung's dial starts from validated ground.
+- Configurations that cannot be honored (region noise on a world with no
+  region defined; factor-group sizes that do not sum to the hidden-state
+  size; distractor sizes exceeding available observation channels) must be
+  rejected at configuration time with a clear message, never silently
+  adjusted.
 - The scale rules key off the *total* observation size. On rungs where
   part of the observation is noise or distractor, the effective rules will
   see a bigger world than the learnable core. The rung reports must carry
@@ -178,20 +184,24 @@ command produces the combined report and a machine-readable artifact.
 
 ### Functional Requirements
 
-- **FR-001**: The system MUST provide a non-uniform-learnability world in
-  which a configurable portion of the observation carries the familiar
-  learnable structure and the remainder carries irreducible noise, with
-  the split known to the measurement harness and never exposed to the
-  learning system.
+- **FR-001**: The system MUST provide a non-uniform-learnability world
+  containing a configurable region of its hidden state space in which the
+  world's response to actions is irreducibly random, while behavior
+  outside the region matches the reference family — with the region's
+  definition and dials known to the measurement harness and never exposed
+  to the learning system, and with the agent's own actions able to move it
+  into and out of the region.
 - **FR-002**: The system MUST provide a compositional world whose hidden
   state consists of a configurable number of independent factor groups of
   configurable sizes, jointly emitted into one observation, with the group
   structure known to the harness and never exposed to the learning system.
 - **FR-003**: The system MUST provide a distractor world in which
-  configurable observation channels carry structured signal that evolves
+  configurable observation channels carry signal that evolves
   independently of the agent's actions alongside the controllable
-  structure, with the controllable/distractor split known to the harness
-  and never exposed to the learning system.
+  structure — with a dial spanning structured (predictable in principle
+  from the distractor's own hidden state) to pure fresh noise — and with
+  the controllable/distractor split known to the harness and never
+  exposed to the learning system.
 - **FR-004**: Every ladder world MUST present exactly the same surface to
   the learning system as the existing world (begin an episode, step under
   an action, expose only observation and action-space sizes), so the
@@ -211,8 +221,8 @@ command produces the combined report and a machine-readable artifact.
   configured seeds and emit per-seed readings sufficient to judge the
   rung's criterion, including: structure-quality relative to the rung's
   stated baseline, discovered-structure sizes against the known ground
-  truth, and (for the non-uniform rung) the allocation of modeling across
-  learnable vs unlearnable channels.
+  truth, and (for the non-uniform rung) the occupancy reading — the share
+  of experience spent inside the unlearnable region.
 - **FR-009**: Rung results MUST be investigatory at the build level: a
   failing rung is recorded and reported with the numbers that show why,
   and MUST NOT fail the build or be smoothed away; the reporting follows
@@ -258,8 +268,8 @@ command produces the combined report and a machine-readable artifact.
   results include at least one full per-rung, per-seed reading for every
   implemented rung — pass or fail.
 - **SC-004**: The non-uniform rung's report gives the A4 drive study a
-  quantitative allocation reading (learnable vs unlearnable modeling
-  share) for every seed of every run, without any additional
+  quantitative occupancy reading (share of experience inside the
+  unlearnable region) for every seed of every run, without any additional
   instrumentation work.
 - **SC-005**: Nothing observable through the learning system's world
   surface distinguishes ground truth: the system-visible surface carries
@@ -280,11 +290,14 @@ command produces the combined report and a machine-readable artifact.
   stated dial positions for their first recorded results (reference-scale
   observation sizes, not the large-scale grid, unless the criterion says
   otherwise).
-- "Unlearnable noise" means signal with no learnable relationship to
-  latent state or action (fresh randomness every step) — the strongest
-  honest form of the noisy-TV property; "structured distractor" means a
-  signal predictable from its own hidden state but uninfluenced by
-  actions.
+- "Unlearnable region" means a region of the hidden state space where the
+  world's response to an action carries fresh randomness every step —
+  irreducible transition noise, the strongest honest form of the noisy-TV
+  property, and state-dependent so that policies can differ in their
+  exposure to it (the property the A4 drive study needs). Channel-level
+  pure noise is covered by the distractor rung's dial at its unstructured
+  extreme; "structured distractor" means a signal predictable from its
+  own hidden state but uninfluenced by actions.
 - The existing per-seed summary and reporting machinery is the vehicle
   for rung readings; rung-specific readings extend the report rather than
   invent a parallel reporting path, and they follow the established
