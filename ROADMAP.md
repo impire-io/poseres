@@ -306,7 +306,8 @@ project's claims and its measurements cannot drift apart.
 
 *Sequencing summary:* **Phase A complete (A1–A4)**; **Phase B complete
 (B1–B5)** — C1's gate (B3, B5, A4-guidance) and C2's (B3, physical-reset
-answer) are open; C1/C2 next alongside channel-noise robustness (in
-diagnosis); D alongside C; C3 parked.
+answer) are open; C1/C2 next alongside the named research successors (learned channel
+weighting; frontier where camping costs; predictive LP); D alongside C;
+C3 parked.
 *This file is load-bearing: changes to it are decisions and belong in
 JOURNEY.md like any other.*

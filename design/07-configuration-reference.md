@@ -74,6 +74,7 @@ Status: **[V]** validated, **[D]** design, **[O]** open (see Doc 00 legend).
 | `lp_recent_window` | int | 60 | ≥ 1; steps in the short prediction-error window | [O] |
 | `lp_baseline_window` | int | 600 | > `lp_recent_window`; steps in the long window | [O] |
 | `novelty_memory_size` | int | 200 | ≥ 1; bounded `recent_observation_memory` for novelty | [O] |
+| `distractor_noise_std` | float | 1.0 | > 0; L3 noise-mode static amplitude (CHANNELNOISE-DIAGNOSIS dose–response dial); 1.0 = the original unit draw, bit-exact — recorded L3 results unchanged; structured mode ignores it | [D] |
 | `frontier_neighbors` | int | 20 | ≥ 1; the frontier drive's k nearest remembered neighbors per lookahead candidate (realized local progress, PREDLP-DIAGNOSIS); silent until 2k finite-error memory entries exist. Registry names for `drive_weights`: `curiosity`, `competence`, `frontier` | [D] |
 
 **MUST:** all drive parameters above are read-only at runtime (Doc 05 §6);

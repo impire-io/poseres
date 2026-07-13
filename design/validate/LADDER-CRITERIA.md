@@ -166,8 +166,10 @@ This is the ladder's first new open problem:
 **channel-noise robustness**, now named, with the failing configuration
 recorded as its reproducible testbed. (Note the dial asymmetry: L3
 noise-mode static is *unit*-scale by design — the sensor-noise dial
-`sensor_noise_std = 0.04` is 25× smaller; a noise-amplitude dose–response
-is the natural first diagnosis experiment.)
+`sensor_noise_std = 0.04` is 25× smaller.) The channel-noise problem now
+has its diagnosis: CHANNELNOISE-DIAGNOSIS.md (dose–response band,
+three-leg mechanism, remedy named *learned channel weighting* and
+deferred).
 
 ## Standing summary (first recorded results)
 
