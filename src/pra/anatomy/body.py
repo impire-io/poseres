@@ -130,6 +130,15 @@ class Body:
             self._add_sensor(s)
         for a in actuators:
             self._add_actuator(a)
+        # World-state capture (feature 008): a body is capturable exactly when
+        # its environment is, so the protocol is exposed per instance — the
+        # engine's capability check stays honest for bodies around
+        # non-capturing environments.
+        if callable(getattr(environment, "state_dict", None)) and callable(
+            getattr(environment, "load_state_dict", None)
+        ):
+            self.state_dict = environment.state_dict
+            self.load_state_dict = environment.load_state_dict
 
     # ---- derived anatomy (Doc 02 §3.3 / §4.2) ---------------------------------
     @property

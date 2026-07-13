@@ -116,6 +116,19 @@ class _LadderWorldBase:
         clean = self._emit_core()
         return clean + self._rng.standard_normal(self._core_obs_dim) * self._noise_std
 
+    # --- world-state capture (feature 008, optional protocol): mutable run
+    # state only; construction is seed-derived. Subclasses extend. -----------
+    def state_dict(self) -> dict:
+        return {
+            "latent": None if self._latent is None else np.array(self._latent, copy=True),
+            "obj": self._obj,
+        }
+
+    def load_state_dict(self, state: dict) -> None:
+        latent = state["latent"]
+        self._latent = None if latent is None else np.array(latent, copy=True)
+        self._obj = None if state["obj"] is None else int(state["obj"])
+
 
 class NonUniformWorld(_LadderWorldBase):
     """L1 — unlearnable dynamics inside the half-space ``latent[0] > 0``.
@@ -144,6 +157,17 @@ class NonUniformWorld(_LadderWorldBase):
                 self._latent + self._rng.standard_normal(self._true_dim) * self._region_noise_std
             )
         return self._emit()
+
+    def state_dict(self) -> dict:
+        state = super().state_dict()
+        state["steps_in_region"] = self._steps_in_region
+        state["steps_total"] = self._steps_total
+        return state
+
+    def load_state_dict(self, state: dict) -> None:
+        super().load_state_dict(state)
+        self._steps_in_region = int(state["steps_in_region"])
+        self._steps_total = int(state["steps_total"])
 
     def ladder_readings(self) -> dict:
         """Harness-only ground truth + occupancy (never on the system surface)."""
@@ -254,6 +278,16 @@ class DistractorWorld(_LadderWorldBase):
         else:  # "noise": fresh unit normals, nothing else
             obs_d = self._rng.standard_normal(self._d_channels)
         return np.concatenate([obs_core, obs_d])
+
+    def state_dict(self) -> dict:
+        state = super().state_dict()
+        state["d_latent"] = None if self._d_latent is None else np.array(self._d_latent, copy=True)
+        return state
+
+    def load_state_dict(self, state: dict) -> None:
+        super().load_state_dict(state)
+        d_latent = state["d_latent"]
+        self._d_latent = None if d_latent is None else np.array(d_latent, copy=True)
 
     def ladder_readings(self) -> dict:
         """Harness-only ground truth (never on the system surface)."""

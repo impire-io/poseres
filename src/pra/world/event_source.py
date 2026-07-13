@@ -105,3 +105,18 @@ class SensorimotorWorld:
         emit = self.__objects[self.__obj][1]
         clean = np.tanh(emit @ self.__latent / self._emit_norm)
         return clean + self._rng.standard_normal(self._obs_dim) * self._noise_std
+
+    # --- world-state capture (feature 008, optional protocol) ---------------
+    # Mutable run state only: constructed arrays are seed-derived and rebuilt
+    # at boot. Used exclusively by continuous-mode snapshots — the learning
+    # system never calls these; behavior of every validated mode is untouched.
+    def state_dict(self) -> dict:
+        return {
+            "latent": None if self.__latent is None else np.array(self.__latent, copy=True),
+            "obj": self.__obj,
+        }
+
+    def load_state_dict(self, state: dict) -> None:
+        latent = state["latent"]
+        self.__latent = None if latent is None else np.array(latent, copy=True)
+        self.__obj = None if state["obj"] is None else int(state["obj"])

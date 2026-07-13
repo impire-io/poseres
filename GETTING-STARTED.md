@@ -150,7 +150,14 @@ class Heater:                           # Actuator protocol
 Rules the body enforces for you: sensor ids must be unique, `read()` must
 return exactly `width()` float64 values, and actuators return nothing — the
 only feedback path from an action is what the sensors see next. Your
-environment object needs one method, `reset()`, called at each episode start.
+environment object needs one method, `reset()`, called at each episode start
+— or exactly **once**, if your world cannot restart: set
+`Config(episode_mode="continuous")` and the engine boots the world a single
+time (a homing routine, a login) and learns from the unbroken stream, with
+the same learning rhythm at *virtual* episode boundaries. One honest note
+from the first measurement: continuous operation wants worlds whose state
+stays in bounds (an arena, a game map) — a world that drifts without limit
+stops being learnable by anything (`specs/008-continuous-operation/reading.md`).
 
 ```python
 def body_factory(cfg, rng):

@@ -18,6 +18,7 @@ __all__ = [
     "PolicyMode",
     "WorldKind",
     "DistractorMode",
+    "EpisodeMode",
     "OBS_DIM_REF",
     "HIDDEN_REF",
     "TRUE_DIM_REF",
@@ -27,6 +28,7 @@ ScoringMode = Literal["predictive", "effort_only", "identity"]
 PolicyMode = Literal["random", "curiosity"]
 WorldKind = Literal["reference", "nonuniform", "compositional", "distractor"]
 DistractorMode = Literal["structured", "noise"]
+EpisodeMode = Literal["episodic", "continuous"]
 
 # The validated reference scale (PRA-02 §1 defaults). Every scale-dependent
 # constant below was validated AT this scale; the effective_* rules hold the
@@ -138,6 +140,15 @@ class Config:
     distractor_dim: int = 0
     distractor_channels: int = 0
     distractor_mode: DistractorMode = "structured"
+
+    # --- Continuous operation (feature 008, ROADMAP B3). "episodic" is the
+    # pinned validated behavior: the world resets at every episode start.
+    # "continuous" boots the world exactly once and segments the unbroken
+    # stream into virtual episodes of steps_per_episode steps; every
+    # episode-keyed mechanism (chain break, fair judge, norm-cap projection,
+    # warmup, consolidation cadence) acts at virtual boundaries exactly as at
+    # real ones. ---
+    episode_mode: EpisodeMode = "episodic"
 
     # --- Harness-only ---
     horizon_checkpoints: tuple[int, ...] = (18, 30, 50)
@@ -271,6 +282,10 @@ class Config:
         require(
             self.distractor_mode in ("structured", "noise"),
             "distractor_mode must be 'structured' or 'noise'",
+        )
+        require(
+            self.episode_mode in ("episodic", "continuous"),
+            "episode_mode must be 'episodic' or 'continuous'",
         )
 
         require(len(self.horizon_checkpoints) >= 1, "horizon_checkpoints must be non-empty")

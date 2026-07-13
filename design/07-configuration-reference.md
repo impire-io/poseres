@@ -101,6 +101,7 @@ of the policy seam (all `n_actions` are evaluated at the base build's sizes).
 | `restore_snapshot_id` | id | newest | used only when `boot_mode = restore` | [D] |
 | `slow_loop_every_n_steps` | int | 240 | ≥ 1; fast-loop steps between slow-loop runs | [D] |
 | `snapshot_every_n_cycles` | int | 0 | ≥ 0; slow-loop cycles between snapshots; **0 = off** (the validation build's default — validated modes write no files and stay byte-identical); requires an injected `SnapshotStore` | [V] |
+| `episode_mode` | enum | `episodic` | `episodic` (pinned validated behavior: the world resets every episode) or `continuous` (feature 008: the world boots **exactly once**; the unbroken stream is segmented into virtual episodes of `steps_per_episode` steps carrying every episode-keyed mechanism — chain break, fair judge, norm-cap projection, warmup, consolidation cadence — at virtual boundaries; continuous snapshots additionally require the world-state capture protocol) | [D] |
 
 (Note: `slow_loop_every_n_steps = 240` with the historical validation schedule corresponds to roughly the prior "6 episodes of 40 steps per cycle"; tune to deployment.)
 

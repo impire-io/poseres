@@ -377,6 +377,24 @@ repeat `n_cycles` times:
 return collected telemetry for this seed
 ```
 
+**Continuous operation (feature 008, opt-in — `episode_mode="continuous"`).**
+The pseudocode above is the pinned validated behavior. In continuous mode
+`run_online_episode`'s opening `reset()` is replaced by carrying the
+previous span's trailing observation (which episodic mode discards), and
+the world is reset **exactly once** — the boot, the engine-enforced single
+preparation (for hardware, a homing routine; for a service, a login).
+Everything else is unchanged: the spans become *virtual episodes* and every
+episode-keyed mechanism (transition-chain break — and with it the §8.8
+`weight_norm_cap` projection — the fair-judge window, warmup accounting,
+consolidation cadence) acts at virtual boundaries exactly as at real ones.
+Continuous snapshots require the world-state capture protocol
+(`state_dict`/`load_state_dict`, optional per world); episodic snapshots
+and all validated modes are byte-identical to this section as written.
+The first measured reading (specs/008-continuous-operation/reading.md):
+the mode is healthy on bounded worlds, and the reference world — an
+unbounded latent walk — drifts and saturates when run unbroken, which is a
+property of the instrument, not the mode.
+
 ---
 
 ## 7. Cross-cutting requirements

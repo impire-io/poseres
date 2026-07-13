@@ -76,6 +76,11 @@ class SystemState:
     rng_state: dict
     # reserved for Doc 06 §2's tool registry (component not yet built)
     tool_registry: list = dataclasses.field(default_factory=list)
+    # continuous mode only (feature 008): the world's captured mutable state
+    # plus the carried observation — {"world": <state_dict>, "pending": array}.
+    # None in every episodic snapshot, and the meta key is written only when
+    # present, so episodic blobs stay bit-identical to the pre-feature format.
+    world_state: dict | None = None
 
 
 def config_from_dict(d: dict) -> Config:
@@ -106,6 +111,20 @@ def encode(state: SystemState) -> bytes:
     arrays["acc__map_fractions"] = np.asarray(state.map_fractions, dtype=np.float64)
     arrays["acc__pred_errors"] = np.asarray(state.pred_errors, dtype=np.float64)
     arrays["acc__population_by_cycle"] = np.asarray(state.population_by_cycle, dtype=np.int64)
+
+    world_meta = None
+    if state.world_state is not None:
+        ws = state.world_state["world"]
+        arrays["world__pending"] = np.asarray(state.world_state["pending"], dtype=np.float64)
+        array_keys = []
+        scalars = {}
+        for key, value in ws.items():
+            if isinstance(value, np.ndarray):
+                arrays[f"world__{key}"] = value
+                array_keys.append(key)
+            else:
+                scalars[key] = value
+        world_meta = {"array_keys": array_keys, "scalars": scalars}
 
     agency_meta = None
     if state.agency is not None:
@@ -142,6 +161,10 @@ def encode(state: SystemState) -> bytes:
         "rng_state": state.rng_state,
         "tool_registry": state.tool_registry,
     }
+    if world_meta is not None:
+        # written only when present: episodic blobs stay bit-identical to the
+        # pre-feature format (feature 008 contract §4).
+        meta["world_state"] = world_meta
     arrays["meta"] = np.array(json.dumps(meta))
 
     buf = io.BytesIO()
@@ -180,6 +203,14 @@ def decode(blob: bytes) -> SystemState:
                 "total_steps": int(meta["agency"]["total_steps"]),
             }
 
+        world_state = None
+        ws_meta = meta.get("world_state")  # absent in episodic and pre-008 blobs
+        if ws_meta is not None:
+            world = dict(ws_meta["scalars"])
+            for key in ws_meta["array_keys"]:
+                world[key] = np.array(archive[f"world__{key}"])
+            world_state = {"world": world, "pending": np.array(archive["world__pending"])}
+
         counters = meta["counters"]
         return SystemState(
             config=config_from_dict(meta["config"]),
@@ -201,4 +232,5 @@ def decode(blob: bytes) -> SystemState:
             agency=agency,
             rng_state=meta["rng_state"],
             tool_registry=list(meta["tool_registry"]),
+            world_state=world_state,
         )

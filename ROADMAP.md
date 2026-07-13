@@ -116,7 +116,7 @@ budgets. Trail: `design/validate/BLEND-DIAGNOSIS.md`.
 
 ## Phase B — Make it usable (platform)
 
-B1 and B2 are done; B3 and B4 are
+B1, B2, and B3 are done; B4 and B5 are
 engine work that everything in Phase C depends on.
 
 ### B1. The watchable world (`examples/` + live viewer) — ✅ done (JOURNEY.md ch. 20)
@@ -148,14 +148,22 @@ alternatives (specs/007-gymnasium-adapter/research.md R2). Deferred with
 owners: Box actions (future), reward-as-sensor (future), episode
 semantics (B3), external-world snapshots (B5).
 
-### B3. Continuous operation (no `reset()`)
+### B3. Continuous operation (no `reset()`) — ✅ done (JOURNEY.md ch. 21)
 Virtual episode boundaries for worlds that cannot restart — the prerequisite
 for MMOs, hardware, and anything persistent. Changes engine semantics, so it
-gets a written design first (spec-kit feature), including what consolidation
-boundaries mean without episode resets and what the byte-identity story
-becomes.
-*Exit:* a reset-less world runs to a deterministic summary in simulated time;
-validated modes untouched.
+got its written design first (specs/008, research R1–R10), including what
+consolidation boundaries mean without resets (nothing — the slow loop was
+always a cadence in experience), the reproducibility story (episodic modes
+byte-frozen; continuous deterministic per seed; resume exact via the new
+optional world-state capture protocol, loud failure without it), and
+single-boot-as-contract for hardware (the C2 answer, guard-world-tested).
+*Exit criterion met:* a world that raises on any second reset runs the full
+schedule to a byte-reproducible summary; validated modes untouched. The
+first reading is recorded with a finding: the mode is healthy on bounded
+worlds (rover: no degradation), while the reference world — an unbounded
+latent walk — drifts and saturates when run unbroken (improvement −0.17,
+best_dim → 1, 8/8 seeds): **continuous deployments need recurrent worlds**,
+the stated guidance for C1/C2.
 
 ### B4. Multi-stream experience (N worlds, one brain)
 Parallel world instances feeding one brain — the bus seam's moment, and the
@@ -281,7 +289,7 @@ project's claims and its measurements cannot drift apart.
 ---
 
 *Sequencing summary:* A1–A3 done; A4 measured (its remainder is the
-predicted-LP lookahead design); B1 and B2 done; B3 → B4/B5;
+predicted-LP lookahead design); B1–B3 done; B4/B5 next;
 then C1/C2 as their gates open; D alongside C; C3 parked.
 *This file is load-bearing: changes to it are decisions and belong in
 JOURNEY.md like any other.*

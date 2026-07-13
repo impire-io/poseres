@@ -194,8 +194,36 @@ class Engine:
         # of each episode feed the survival EMAs (the fair judge).
         score_window = cfg.score_window_steps
 
+        # Continuous operation (feature 008): boot the world exactly once and
+        # carry the trailing observation across virtual episode boundaries.
+        # Everything else in the loop is untouched, so every episode-keyed
+        # mechanism (chain break -> norm-cap projection, fair-judge window,
+        # warmup accounting) acts at virtual boundaries exactly as at real
+        # ones. `pending` is not None iff the world has booted.
+        continuous = cfg.episode_mode == "continuous"
+        pending: np.ndarray | None = None
+        if resumed is not None and resumed.world_state is not None:
+            world.load_state_dict(resumed.world_state["world"])
+            pending = resumed.world_state["pending"]
+        if continuous and self._snapshot_store is not None and cfg.snapshot_every_n_cycles > 0:
+            if not (
+                callable(getattr(world, "state_dict", None))
+                and callable(getattr(world, "load_state_dict", None))
+            ):
+                raise RuntimeError(
+                    "continuous-mode snapshots require the world to implement "
+                    "state_dict()/load_state_dict() (feature 008 world-state "
+                    f"capture protocol); {type(world).__name__} does not"
+                )
+
         def online_episode() -> None:
-            obs = world.reset()
+            nonlocal pending
+            if continuous:
+                if pending is None:
+                    pending = world.reset()  # the single boot (FR-001)
+                obs = pending
+            else:
+                obs = world.reset()
             prev_obs: np.ndarray | None = None
             prev_a: int | None = None
             for t in range(cfg.steps_per_episode):
@@ -283,6 +311,11 @@ class Engine:
                 if agency is not None:
                     agency.record_step(policy, obs, mean_pred)
                 obs = world.step(prev_a)
+            if continuous:
+                # The trailing observation (discarded in episodic mode, where
+                # the next reset supersedes it) becomes the next virtual
+                # episode's first observation: gap-free, duplication-free.
+                pending = obs
 
         def offline_cycle() -> None:
             # Anatomy hook (Doc 02 §5, feature 004): tool registrations queued on
@@ -360,6 +393,13 @@ class Engine:
                 ):
                     # C4 safe point: end of an offline cycle. Capture consumes no
                     # RNG and mutates nothing (feature 003 FR-002).
+                    world_state = None
+                    if continuous:
+                        # protocol presence was checked at run start (feature 008)
+                        world_state = {
+                            "world": world.state_dict(),
+                            "pending": np.array(pending, copy=True),
+                        }
                     self._take_snapshot(
                         cfg,
                         seed,
@@ -372,6 +412,7 @@ class Engine:
                         early,
                         checkpoint_readings,
                         population_by_cycle,
+                        world_state,
                     )
         else:
             # T3 effort-only ablation: equal online experience, no consolidation.
@@ -413,6 +454,7 @@ class Engine:
         early: float | None,
         checkpoint_readings: dict,
         population_by_cycle: list[int],
+        world_state: dict | None = None,
     ) -> None:
         snapshot = SystemState(
             config=cfg,
@@ -435,6 +477,7 @@ class Engine:
             frame_store=store.state_dict(),
             agency=agency.state_dict() if agency is not None else None,
             rng_state=rng.bit_generator.state,
+            world_state=world_state,
         )
         metadata = {
             "timestamp": time.time(),

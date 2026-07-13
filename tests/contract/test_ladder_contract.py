@@ -33,10 +33,21 @@ def test_ladder_world_satisfies_event_source(cfg):
 def test_surface_exposes_no_ground_truth(cfg):
     """The system-visible surface is reset/step/obs_dim/n_actions; ground
     truth (regions, groups, splits, occupancy) lives only behind the
-    harness-only ladder_readings() accessor (SC-005)."""
+    harness-only ladder_readings() accessor (SC-005). state_dict/
+    load_state_dict are the feature-008 capture protocol — persistence
+    plumbing called only at snapshot boundaries, never by the learning
+    system."""
     world = make_world(cfg, np.random.default_rng(1))
     public = {name for name in dir(world) if not name.startswith("_")}
-    assert public == {"reset", "step", "obs_dim", "n_actions", "ladder_readings"}
+    assert public == {
+        "reset",
+        "step",
+        "obs_dim",
+        "n_actions",
+        "ladder_readings",
+        "state_dict",
+        "load_state_dict",
+    }
 
 
 @pytest.mark.parametrize("cfg", LADDER_CONFIGS, ids=IDS)
