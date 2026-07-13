@@ -184,7 +184,11 @@ dials byte-identical, criteria pre-registered — first results: selection
 lands *part-sized* on compositional worlds and ignores structured
 distractors (PASS), strong region noise widens the landing
 (dose-dependent), and high-amplitude channel static collapses it (the
-named new open problem: **channel-noise robustness**). **The first
+named new open problem: **channel-noise robustness**). **The
+getting-started experience exists** (Chapter 20): `pra-rover` — a 2D
+rover body of named parts on the unchanged engine with a stdlib live
+viewer, install to watching in under five minutes, byte-reproducible
+with the viewer on; ROADMAP B1 closed. **The first
 external-world adapter is in** (Chapter 19): any Discrete-action /
 Box-observation Gymnasium environment mounts through the existing body
 seam (`GymnasiumBody`, optional `gym` extra) with explicit
@@ -620,6 +624,58 @@ parallel worktree by a second session alongside chapters 17–18's work.
 Trail: `specs/007-gymnasium-adapter/` (spec, research R1–R7, contracts);
 `src/pra/anatomy/gymnasium_body.py`; `examples/cartpole.py`; commits
 909355d, e8ccbe7, 8b6dff6, b998316.
+
+## Chapter 20 — Feature 006: the watchable rover world — the product is the watching (2026-07-13)
+
+ROADMAP B1, spec-kit flow in one arc (spec → plan → tasks → implement).
+The first artifact whose product is a person standing in front of it: a
+deterministic 2D rover world (arena, five seeded circular obstacles, a
+rover with pose) built as a **body of named parts** — 5-ray rangefinder,
+compass, position beacon, bumper, one drive actuator — composed by the
+Doc 02 anatomy layer into exactly the validated reference widths
+(obs_dim 10 / n_actions 4, where every scale-rule factor is 1, on
+purpose), mounted on the unchanged engine through `world_factory`. One
+command, `pra-rover`, serves a built-in live viewer (stdlib
+`http.server` + one self-contained canvas page, zero new dependencies):
+the rover wanders under the pinned random policy while the brain's own
+quantities move on screen — best-frame prediction-error EMA falling,
+population breathing, best_dim settling. B1 is the anatomy layer's first
+real showcase beyond 1:1 delegation: a newcomer reading the rover source
+reads the integration surface they would use for their own hardware.
+
+The load-bearing design decision was **who is allowed to touch the run**.
+The viewer observes without perturbing: the world records its own pose
+stream (the L1 occupancy-counter precedent — plain value appends, no RNG,
+no float work, no locks on the run path), the tap's `bus_factory` captures
+the live FrameStore reference while returning the **stock** bus unchanged,
+and every derived computation happens in the serving thread on copies,
+with torn-read fallback instead of run-path locks. Pacing (`--fps`,
+default 50 steps/s ≈ 4.3 min for the full reference schedule) lives in
+the *world*, never the viewer — watchability is a property of the demo
+run, not of being watched. Byte-identity is proven three ways in tests:
+re-run ≡ re-run, viewer-on-under-live-HTTP-polling ≡ viewer-off, paced ≡
+unpaced. 223 tests green in the feature worktree (30 new), the
+byte-frozen baseline untouched, nothing outside `pra.examples` edited but
+two inert pyproject lines.
+
+Honest numbers from the shipped instrument (single seeds, labeled as
+such, unthrottled full runs ≈ 4.6 s): seed 1/2/3 pred-error improvement
+0.190/0.280/0.203, best_dim 2/2/2, final populations 15/19/13 — the
+brain genuinely learns the rover's sensor stream, and the parsimony
+finding recurs on a spatial world: the latent is (x, y, θ) ≈ 3–4
+dimensional, and selection again lands at the price-optimal 2, not the
+"true" size (SCORER-DIAGNOSIS, now seen on a world with real geometry).
+Deliberately out of scope, stated in the spec: drive-directed rover
+watching is A4's measured work (the demo claims *predicting*, never
+*navigating*); rover-run snapshot/resume byte-identity is unclaimed and
+untested; the anatomy is fixed at reference widths. What it opened: the
+getting-started experience now exists (`pip install poseres && pra-rover`
+— install to watching in well under five minutes), and the rover is a
+ready-made testbed body for the Gymnasium adapter's comparisons and A4's
+directed policies. Built in a parallel worktree by a second session
+alongside chapters 17–19's work. Trail: `specs/006-rover-world/` (spec,
+research R1–R10, contracts); commits ddeabc2, c1b0468, 1be4d34, ddf70e6,
+0665554.
 
 ## Chapter template (append below)
 

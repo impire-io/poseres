@@ -46,6 +46,21 @@ pra-validate ladder                 # the complexity ladder: harder worlds,
                                     # known ground truth, honest verdicts
 ```
 
+And to *watch* it learn instead of reading numbers:
+
+```bash
+pra-rover        # a browser tab opens: a 2D rover world, live learning telemetry
+```
+
+One command starts a paced run and serves a built-in viewer (stdlib-only,
+nothing to install): the rover wanders its arena under the pinned random
+policy while the brain's own quantities move — prediction error falling,
+the frame population breathing, best_dim settling. `--fps 0` runs
+unthrottled; `--seed N` is a fresh map and run; the run is
+byte-reproducible per seed. The rover does not navigate (the policy is
+random — directed behavior is the drive research's job); what you are
+watching improve is the brain.
+
 ## 2. The mental model (60 seconds)
 
 - **World / environment** — anything that emits observation vectors and
@@ -104,6 +119,11 @@ def body_factory(cfg, rng):
 
 summary = Engine(Config(), world_factory=body_factory).run(seed=1)
 ```
+
+For a full worked example of a multi-part body — four named sensors and an
+actuator around a real environment — read `src/pra/examples/rover/world.py`
+(the `pra-rover` demo): it is the integration surface this section
+describes, in ~340 lines.
 
 ### Writing your own sensor and actuator
 
@@ -239,4 +259,5 @@ first). `JOURNEY.md` tells you how the project got here, including the dead
 ends — the refuted hypotheses are as load-bearing as the shipped code. The
 acceptance suite (`pra-validate suite`, plus `pra-validate agency` for T7) is
 the contract: if you change something and T1–T7 still pass byte-identically,
-you haven't broken the validated core.
+you haven't broken the validated core. `pra-rover` is the watchable proof;
+the acceptance suite is the contract.

@@ -116,16 +116,22 @@ budgets. Trail: `design/validate/BLEND-DIAGNOSIS.md`.
 
 ## Phase B — Make it usable (platform)
 
-B1 needs no Phase A results (B2 is done); B3 and B4 are
+B1 and B2 are done; B3 and B4 are
 engine work that everything in Phase C depends on.
 
-### B1. The watchable world (`examples/` + live viewer)
+### B1. The watchable world (`examples/` + live viewer) — ✅ done (JOURNEY.md ch. 20)
 An in-repo 2D rover world with a built-in web viewer: `pip install poseres`,
 one command, a browser tab opens, you watch frames learn the map. Deterministic,
 resettable, zero extra dependencies. This — not any branded game — is the
 getting-started experience.
-*Exit:* a newcomer goes from install to watching learning in under five
-minutes; the example run is byte-reproducible.
+*Exit criterion met (feature 006):* `pra-rover` — a 2D rover world (5-ray
+rangefinder / compass / gps / bumper anatomy at the validated reference
+widths) through the Body seam on the unchanged engine, with a stdlib live
+viewer. Install → watching in under five minutes (default paced run
+≈ 4.3 min end to end); the example run is byte-reproducible — tested,
+including viewer-on ≡ viewer-off under live polling. The demo claims
+*predicting*, never *navigating* (the policy is the pinned random
+baseline; directed behavior is A4's measured work).
 
 ### B2. The Gymnasium adapter — ✅ done (JOURNEY.md ch. 19)
 A `GymnasiumBody` (optional dependency) mounts any Gymnasium environment
@@ -275,7 +281,7 @@ project's claims and its measurements cannot drift apart.
 ---
 
 *Sequencing summary:* A1–A3 done; A4 measured (its remainder is the
-predicted-LP lookahead design); B2 done, B1 in progress; B3 → B4/B5;
+predicted-LP lookahead design); B1 and B2 done; B3 → B4/B5;
 then C1/C2 as their gates open; D alongside C; C3 parked.
 *This file is load-bearing: changes to it are decisions and belong in
 JOURNEY.md like any other.*

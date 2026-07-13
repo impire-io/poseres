@@ -5,7 +5,9 @@ An in-memory, batched, deterministic core (PRA-01) and the validation harness
 **T-SCALE**, emitting an honest, reproducible PASS/FAIL verdict per test.
 
 New here? **[GETTING-STARTED.md](GETTING-STARTED.md)** walks you from install
-to hooking up your own sensors/actuators and configuring the drive.
+to hooking up your own sensors/actuators and configuring the drive — or just
+run `pra-rover` and watch a PRA brain learn a 2D rover world, live in your
+browser (one command, zero extra dependencies, byte-reproducible).
 **[ROADMAP.md](ROADMAP.md)** is where the project is going: an OSS
 continuously-learning brain for hobbyists and makers.
 
@@ -76,6 +78,7 @@ src/pra/
   action/              # Policy seam: pinned random baseline + one-step curiosity lookahead
   persistence/         # snapshot/restore: versioned blob + atomic SnapshotStore (opt-in)
   anatomy/             # body: sensors/actuators, composition, tools + the Gymnasium adapter
+  examples/rover/      # the pra-rover demo: 2D rover body + stdlib live viewer
   telemetry/recorder.py# deterministic per-seed summary
   harness/             # acceptance (T1-T7/T-SCALE), runner, report, cli, scale, scan, agency, ladder
 examples/              # worked examples (CartPole through the Gymnasium adapter)
