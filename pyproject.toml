@@ -26,9 +26,13 @@ dev = ["pytest>=8.0", "ruff>=0.6", "gymnasium>=1.0"]
 
 [project.scripts]
 pra-validate = "pra.harness.cli:main"
+pra-rover = "pra.examples.rover.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+"pra.examples.rover" = ["*.html"]
 
 [tool.ruff]
 line-length = 100

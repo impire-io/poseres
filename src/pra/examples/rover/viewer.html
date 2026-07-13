@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>PRA rover — watch frames learn</title>
+<style>
+  :root {
+    --bg: #101418; --panel: #171d24; --line: #263140;
+    --text: #d7e0ea; --dim: #8494a6; --accent: #5cc8ff; --good: #7ee2a8;
+    --warn: #ffb35c; --rover: #ffd75c;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg); color: var(--text);
+    font: 14px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    padding: 16px; display: flex; flex-direction: column; gap: 12px;
+    min-height: 100vh;
+  }
+  header { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  header h1 { font-size: 16px; font-weight: 600; }
+  header .status { color: var(--dim); }
+  header .status b { color: var(--text); font-weight: 600; }
+  #banner {
+    display: none; padding: 6px 10px; border: 1px solid var(--good);
+    border-radius: 6px; color: var(--good);
+  }
+  main { display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-start; }
+  .panel {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: 8px; padding: 10px;
+  }
+  .panel h2 {
+    font-size: 12px; font-weight: 600; color: var(--dim);
+    text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px;
+  }
+  #arena { display: block; background: #0b0f13; border-radius: 4px; }
+  #side { display: flex; flex-direction: column; gap: 12px; flex: 1; min-width: 320px; }
+  .readouts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .readout { text-align: center; }
+  .readout .value { font-size: 22px; color: var(--accent); }
+  .readout .label { font-size: 11px; color: var(--dim); }
+  canvas.chart { display: block; width: 100%; height: 110px; background: #0b0f13; border-radius: 4px; }
+  #dims { display: flex; gap: 6px; align-items: flex-end; height: 72px; padding-top: 4px; }
+  .dimbar { display: flex; flex-direction: column; justify-content: flex-end; align-items: center; flex: 1; height: 100%; }
+  .dimbar .bar { width: 100%; background: #33465c; border-radius: 2px 2px 0 0; min-height: 2px; }
+  .dimbar.best .bar { background: var(--accent); }
+  .dimbar .tick { font-size: 10px; color: var(--dim); margin-top: 2px; }
+  footer { color: var(--dim); font-size: 12px; max-width: 900px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>PRA rover</h1>
+  <span class="status">
+    step <b id="step">0</b> · episode <b id="episode">0</b> · <b id="rate">–</b> steps/s
+  </span>
+  <span id="banner">run complete — final summary below is byte-reproducible for this seed</span>
+</header>
+<main>
+  <div class="panel">
+    <h2>The world (ground truth the brain never sees)</h2>
+    <canvas id="arena" width="520" height="520"></canvas>
+  </div>
+  <div id="side">
+    <div class="panel">
+      <h2>Learning telemetry (the system&rsquo;s own quantities)</h2>
+      <div class="readouts">
+        <div class="readout"><div class="value" id="pred">–</div><div class="label">best-frame prediction-error EMA</div></div>
+        <div class="readout"><div class="value" id="pop">–</div><div class="label">frame population</div></div>
+        <div class="readout"><div class="value" id="bestdim">–</div><div class="label">best_dim (selected structure)</div></div>
+      </div>
+    </div>
+    <div class="panel">
+      <h2>Prediction error — best frame EMA (lower is better)</h2>
+      <canvas id="predchart" class="chart" width="600" height="110"></canvas>
+    </div>
+    <div class="panel">
+      <h2>Population size</h2>
+      <canvas id="popchart" class="chart" width="600" height="110"></canvas>
+    </div>
+    <div class="panel">
+      <h2>Population by dimension</h2>
+      <div id="dims"></div>
+    </div>
+  </div>
+</main>
+<footer>
+  Honesty note: the rover&rsquo;s policy is the pinned <em>random</em> baseline — it wanders, it does
+  not navigate. What you are watching improve is the brain: frames competing to predict the
+  rover&rsquo;s ten sensor channels restructure themselves online. Every number shown is an existing
+  quantity of the system (survival-EMA inputs, the real selection score, population, best_dim) —
+  nothing is invented or smoothed for effect. A single seed is a demo, not a validated claim.
+</footer>
+<script>
+"use strict";
+const $ = (id) => document.getElementById(id);
+const arena = $("arena"), actx = arena.getContext("2d");
+const predchart = $("predchart"), popchart = $("popchart");
+let layout = null;
+const predSeries = [], popSeries = [];  // [step, value]
+let lastStep = 0, lastTime = null, rate = 0;
+
+function world2px(x, y) {
+  const half = layout.arena_half, pad = 10;
+  const s = (arena.width - 2 * pad) / (2 * half);
+  return [pad + (x + half) * s, arena.height - pad - (y + half) * s];
+}
+function scale() {
+  const half = layout.arena_half, pad = 10;
+  return (arena.width - 2 * pad) / (2 * half);
+}
+
+function drawArena(state) {
+  const css = getComputedStyle(document.documentElement);
+  actx.clearRect(0, 0, arena.width, arena.height);
+  if (!layout) return;
+  const s = scale();
+  // walls
+  const [x0, y0] = world2px(-layout.arena_half, layout.arena_half);
+  actx.strokeStyle = css.getPropertyValue("--line");
+  actx.lineWidth = 2;
+  actx.strokeRect(x0, y0, 2 * layout.arena_half * s, 2 * layout.arena_half * s);
+  // obstacles
+  actx.fillStyle = "#2b3a4d";
+  for (const [cx, cy, r] of layout.obstacles) {
+    const [px, py] = world2px(cx, cy);
+    actx.beginPath(); actx.arc(px, py, r * s, 0, 2 * Math.PI); actx.fill();
+  }
+  if (!state) return;
+  // trail (current episode)
+  if (state.trail && state.trail.length > 1) {
+    actx.strokeStyle = css.getPropertyValue("--accent");
+    actx.globalAlpha = 0.6; actx.lineWidth = 1.5;
+    actx.beginPath();
+    state.trail.forEach(([tx, ty], i) => {
+      const [px, py] = world2px(tx, ty);
+      if (i === 0) actx.moveTo(px, py); else actx.lineTo(px, py);
+    });
+    actx.stroke(); actx.globalAlpha = 1.0;
+  }
+  // rover
+  if (state.pose) {
+    const [rx, ry, th] = state.pose;
+    const [px, py] = world2px(rx, ry);
+    const rr = Math.max(4, layout.rover_radius * s);
+    actx.fillStyle = state.bump ? css.getPropertyValue("--warn")
+                                : css.getPropertyValue("--rover");
+    actx.beginPath(); actx.arc(px, py, rr, 0, 2 * Math.PI); actx.fill();
+    actx.strokeStyle = "#101418"; actx.lineWidth = 2;
+    actx.beginPath(); actx.moveTo(px, py);
+    actx.lineTo(px + Math.cos(th) * rr * 1.8, py - Math.sin(th) * rr * 1.8);
+    actx.stroke();
+  }
+}
+
+function drawSeries(canvas, series, color) {
+  const c = canvas.getContext("2d");
+  c.clearRect(0, 0, canvas.width, canvas.height);
+  if (series.length < 2) return;
+  let lo = Infinity, hi = -Infinity;
+  for (const [, v] of series) { if (v < lo) lo = v; if (v > hi) hi = v; }
+  if (hi - lo < 1e-9) { hi = lo + 1e-9; }
+  const x0 = series[0][0], x1 = series[series.length - 1][0];
+  const sx = (canvas.width - 8) / Math.max(1, x1 - x0);
+  const sy = (canvas.height - 14) / (hi - lo);
+  c.strokeStyle = color; c.lineWidth = 1.5; c.beginPath();
+  series.forEach(([st, v], i) => {
+    const px = 4 + (st - x0) * sx;
+    const py = canvas.height - 7 - (v - lo) * sy;
+    if (i === 0) c.moveTo(px, py); else c.lineTo(px, py);
+  });
+  c.stroke();
+  c.fillStyle = "#8494a6"; c.font = "10px ui-monospace, monospace";
+  c.fillText(hi.toPrecision(3), 4, 10);
+  c.fillText(lo.toPrecision(3), 4, canvas.height - 1);
+}
+
+function drawDims(learning) {
+  const box = $("dims");
+  box.innerHTML = "";
+  if (!learning || !learning.dims) return;
+  const entries = Object.entries(learning.dims);
+  const max = Math.max(...entries.map(([, n]) => n), 1);
+  for (const [dim, n] of entries) {
+    const holder = document.createElement("div");
+    holder.className = "dimbar" + (Number(dim) === learning.best_dim ? " best" : "");
+    const bar = document.createElement("div");
+    bar.className = "bar";
+    bar.style.height = (100 * n / max) + "%";
+    const tick = document.createElement("div");
+    tick.className = "tick";
+    tick.textContent = dim + "×" + n;
+    holder.appendChild(bar); holder.appendChild(tick);
+    box.appendChild(holder);
+  }
+}
+
+function update(state) {
+  $("step").textContent = state.step;
+  $("episode").textContent = state.episode;
+  const now = performance.now();
+  if (lastTime !== null && state.step > lastStep) {
+    const inst = (state.step - lastStep) / ((now - lastTime) / 1000);
+    rate = rate === 0 ? inst : 0.7 * rate + 0.3 * inst;
+    $("rate").textContent = rate.toFixed(0);
+  }
+  lastStep = state.step; lastTime = now;
+  const learning = state.learning;
+  if (learning) {
+    $("pred").textContent = learning.pred_err_ema.toFixed(4);
+    $("pop").textContent = learning.population;
+    $("bestdim").textContent = learning.best_dim;
+    if (predSeries.length === 0 || state.step > predSeries[predSeries.length - 1][0]) {
+      predSeries.push([state.step, learning.pred_err_ema]);
+      popSeries.push([state.step, learning.population]);
+      if (predSeries.length > 2000) { predSeries.shift(); popSeries.shift(); }
+    }
+  }
+  drawArena(state);
+  drawSeries(predchart, predSeries, "#7ee2a8");
+  drawSeries(popchart, popSeries, "#5cc8ff");
+  drawDims(learning);
+  if (state.done) {
+    $("banner").style.display = "inline-block";
+    if (state.final) {
+      const f = state.final;
+      $("banner").textContent = "run complete — pred_error "
+        + (f.pred_error_early === null ? "n/a" : f.pred_error_early.toFixed(4))
+        + " → " + (f.pred_error_late === null ? "n/a" : f.pred_error_late.toFixed(4))
+        + ", best_dim " + f.best_dim + ", population " + f.final_population
+        + " (byte-reproducible for this seed)";
+    }
+  }
+}
+
+async function poll() {
+  try {
+    if (!layout) {
+      const r = await fetch("/layout");
+      const obj = await r.json();
+      if (obj && obj.arena_half) layout = obj;
+    }
+    const r = await fetch("/state");
+    update(await r.json());
+  } catch (err) { /* server gone or not ready — keep trying */ }
+}
+setInterval(poll, 250);
+poll();
+</script>
+</body>
+</html>
