@@ -133,12 +133,14 @@ class Body:
         # World-state capture (feature 008): a body is capturable exactly when
         # its environment is, so the protocol is exposed per instance — the
         # engine's capability check stays honest for bodies around
-        # non-capturing environments.
+        # non-capturing environments. The capture-required marker (feature 010)
+        # forwards the same way.
         if callable(getattr(environment, "state_dict", None)) and callable(
             getattr(environment, "load_state_dict", None)
         ):
             self.state_dict = environment.state_dict
             self.load_state_dict = environment.load_state_dict
+        self.snapshot_needs_state = bool(getattr(environment, "snapshot_needs_state", False))
 
     # ---- derived anatomy (Doc 02 §3.3 / §4.2) ---------------------------------
     @property

@@ -250,10 +250,14 @@ snapshot_id, _ = store.list()[0]
 Engine(cfg, snapshot_store=store).run(seed=1, resume_from=store.read(snapshot_id))
 ```
 
-Known edge: snapshots of runs whose body was resized mid-run are not yet
-supported (a format-version follow-up is planned). Snapshots of
-Gymnasium-mounted runs are also not yet supported — external environment
-state cannot be re-derived from the seed stream (see the roadmap's B5).
+Grown bodies snapshot too: resume with a factory that builds the grown
+anatomy (the snapshot records and verifies the dimensions — tools are
+code, so code comes from your factory). Gymnasium-mounted runs snapshot
+and resume exactly in episodic mode (the adapter carries its reset
+counter), conditional on the environment's own seeded determinism. What
+is and is not guaranteed, per world class, is written down in
+`design/06-state-persistence.md` §5b — live services and hardware get no
+world-state guarantee, by honest design.
 
 ## 7. What PRA does not do yet
 

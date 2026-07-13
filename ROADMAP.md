@@ -116,7 +116,7 @@ budgets. Trail: `design/validate/BLEND-DIAGNOSIS.md`.
 
 ## Phase B — Make it usable (platform)
 
-B1–B4 are done; B5 is
+Phase B is complete (B1–B5); B3/B4 were
 engine work that everything in Phase C depends on.
 
 ### B1. The watchable world (`examples/` + live viewer) — ✅ done (JOURNEY.md ch. 20)
@@ -182,12 +182,19 @@ PASS both). Determinism story as named: per-stream seeds, merged
 deterministically; K=1 byte-identical. K>1 snapshots → B5. Trail:
 `specs/009-multi-stream/reading.md`.
 
-### B5. Snapshot completeness
+### B5. Snapshot completeness — ✅ done (JOURNEY.md ch. 23)
 Snapshots of anatomy-resized runs (the deferred Doc 06 format-version
-follow-up), and a stated persistence story for external worlds that cannot be
-re-derived from a seed (depends on B3's design).
-*Exit:* resize → snapshot → resume is byte-identical; external-world snapshot
-semantics documented, including what is *not* guaranteed.
+follow-up), a stated persistence story for external worlds, and the
+multi-stream capture debt from B4 — all paid under one principle: code
+from the caller, state from the blob.
+*Exit criterion met:* resize → snapshot → resume is byte-identical (grown
+dims recorded and verified; wrong anatomy fails loudly); the per-world-class
+guarantees — including what is **not** guaranteed (live services, hardware)
+— are written down in Doc 06 §5b; Gymnasium runs resume exactly in episodic
+mode via the capture-required marker; multi-stream runs snapshot all stream
+positions. Bonus repair: a pre-existing one-ULP resume-exactness bug
+(frame-group order lost to sorting in the blob) found by this feature's
+tests and fixed — group order now travels as lived.
 
 ---
 
@@ -296,7 +303,9 @@ project's claims and its measurements cannot drift apart.
 ---
 
 *Sequencing summary:* A1–A3 done; A4 measured (its remainder is the
-predicted-LP lookahead design); B1–B4 done; B5 next (three named snapshot
-debts); then C1/C2 as their gates open; D alongside C; C3 parked.
+predicted-LP lookahead design); **Phase B complete (B1–B5)** — C1's gate
+(B3, B5, A4-guidance) and C2's (B3, physical-reset answer) are open;
+C1/C2 next alongside the open research (predicted-LP, channel-noise);
+D alongside C; C3 parked.
 *This file is load-bearing: changes to it are decisions and belong in
 JOURNEY.md like any other.*

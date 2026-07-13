@@ -88,6 +88,44 @@ These three are **separate concerns** and **MUST NOT** be collapsed into one: a 
 
 ---
 
+## 5b. What snapshots guarantee, per world class (feature 010, ROADMAP B5)
+
+The brain's state always snapshots exactly. The *world's* continuity
+depends on what the world can promise — stated here per class, including
+what is **not** guaranteed:
+
+1. **Seed-derivable worlds** (the reference family, the ladder worlds, the
+   rover): exact byte-identical resume in both episode modes. Episodic
+   runs re-derive the world from the seeded stream; continuous runs carry
+   the world's mutable state via the capture protocol
+   (`state_dict`/`load_state_dict`, feature 008).
+2. **Capture-supporting worlds** (anything implementing the protocol,
+   including grown bodies — the anatomy's *current* dimensions are
+   recorded and verified at resume; the resuming factory supplies the
+   grown parts, since tools are code and code comes from the caller):
+   exact resume; continuous mode requires the protocol.
+3. **Capture-required worlds** (the Gymnasium adapter: its reset counter
+   is history, not seed): they declare `snapshot_needs_state`, their
+   state travels in every snapshot, and resume is exact — **conditional
+   on the environment's own `reset(seed)` determinism**, which is the
+   environment's promise, not ours. Declaring the marker without
+   providing capture fails loudly at run start.
+4. **Non-capturable worlds** (live services, hardware): **no snapshot
+   guarantee.** Persistence for such deployments means the brain's state;
+   the world re-attaches at boot (the feature-008 single-boot contract).
+   Nothing is written that would silently diverge on resume.
+
+Multi-stream runs snapshot all stream positions (per-stream generators,
+world state where the class requires it, carried observations, and the
+merge position) and resume exactly under the same per-class rules.
+
+One recorded repair (feature 010): group *insertion order* now travels in
+the blob — restoring frame groups in sorted rather than lived order
+changed float-accumulation order and made resumed runs drift by one ULP.
+Old blobs decode unchanged; their lived order was lost at write time.
+
+---
+
 ## 6. Definition of done (this document)
 1. The full state of Section 2 is serializable and restorable; no behavior-affecting state is omitted.
 2. Snapshots are taken only at consistent points (slow loop, clean stop), are atomic, and carry a format version.

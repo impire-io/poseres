@@ -147,7 +147,7 @@ class Config:
     # seeding), each explored by its own spawn-key-derived generator, merged
     # into the one brain by a fixed episode round-robin (episode e -> stream
     # e mod K); consolidation counts merged episodes (cadence in total
-    # experience). K > 1 snapshots are ROADMAP B5's work: rejected here. ---
+    # experience). K > 1 snapshots capture per-stream records (feature 010). ---
     n_streams: int = 1
 
     # --- Continuous operation (feature 008, ROADMAP B3). "episodic" is the
@@ -297,11 +297,6 @@ class Config:
             "episode_mode must be 'episodic' or 'continuous'",
         )
         require(self.n_streams >= 1, "n_streams must be >= 1")
-        require(
-            self.n_streams == 1 or self.snapshot_every_n_cycles == 0,
-            "n_streams > 1 does not support snapshots yet (multi-stream "
-            "capture is ROADMAP B5); set snapshot_every_n_cycles = 0",
-        )
 
         require(len(self.horizon_checkpoints) >= 1, "horizon_checkpoints must be non-empty")
         require(

@@ -14,9 +14,10 @@ def test_n_streams_is_validated():
     assert Config().n_streams == 1  # the pinned validated default
 
 
-def test_multistream_snapshots_are_rejected_naming_b5():
-    with pytest.raises(ValueError, match="ROADMAP B5"):
-        Config(n_streams=2, snapshot_every_n_cycles=2)
+def test_multistream_snapshots_are_accepted_since_feature_010():
+    # feature 009 rejected this pending B5; feature 010 pays the debt
+    cfg = Config(n_streams=2, snapshot_every_n_cycles=2)
+    assert cfg.n_streams == 2
 
 
 def test_spawn_key_streams_are_distinct_and_deterministic():

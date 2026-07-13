@@ -76,11 +76,16 @@ class SystemState:
     rng_state: dict
     # reserved for Doc 06 §2's tool registry (component not yet built)
     tool_registry: list = dataclasses.field(default_factory=list)
-    # continuous mode only (feature 008): the world's captured mutable state
-    # plus the carried observation — {"world": <state_dict>, "pending": array}.
-    # None in every episodic snapshot, and the meta key is written only when
-    # present, so episodic blobs stay bit-identical to the pre-feature format.
+    # world-state capture (features 008/010): the world's captured mutable
+    # state plus the carried observation — {"world": <state_dict>, "pending":
+    # array | None}. Captured in continuous mode and for capture-required
+    # worlds; None otherwise, and the meta key is written only when present,
+    # so derivable-world episodic blobs stay bit-identical.
     world_state: dict | None = None
+    # multi-stream runs only (feature 010): the merge position and per-stream
+    # generator/world/pending records; None at n_streams == 1, key written
+    # only when present — K=1 blobs stay bit-identical.
+    streams: dict | None = None
 
 
 def config_from_dict(d: dict) -> Config:
@@ -112,19 +117,45 @@ def encode(state: SystemState) -> bytes:
     arrays["acc__pred_errors"] = np.asarray(state.pred_errors, dtype=np.float64)
     arrays["acc__population_by_cycle"] = np.asarray(state.population_by_cycle, dtype=np.int64)
 
-    world_meta = None
-    if state.world_state is not None:
-        ws = state.world_state["world"]
-        arrays["world__pending"] = np.asarray(state.world_state["pending"], dtype=np.float64)
+    def _pack_world(ws: dict, prefix: str, pending) -> dict:
+        """Split one world state into arrays (stored under ``prefix``) and
+        json-safe scalars; ``pending`` is optional (episodic capture has none)."""
         array_keys = []
         scalars = {}
         for key, value in ws.items():
             if isinstance(value, np.ndarray):
-                arrays[f"world__{key}"] = value
+                arrays[f"{prefix}__{key}"] = value
                 array_keys.append(key)
             else:
                 scalars[key] = value
-        world_meta = {"array_keys": array_keys, "scalars": scalars}
+        if pending is not None:
+            arrays[f"{prefix}__pending"] = np.asarray(pending, dtype=np.float64)
+        return {
+            "array_keys": array_keys,
+            "scalars": scalars,
+            "has_pending": pending is not None,
+        }
+
+    world_meta = None
+    if state.world_state is not None:
+        world_meta = _pack_world(state.world_state["world"], "world", state.world_state["pending"])
+
+    streams_meta = None
+    if state.streams is not None:
+        streams_meta = {
+            "episode_index": int(state.streams["episode_index"]),
+            "per_stream": [
+                {
+                    "rng_state": s["rng_state"],
+                    "world": (
+                        _pack_world(s["world"], f"stream{k}", s["pending"])
+                        if s["world"] is not None
+                        else None
+                    ),
+                }
+                for k, s in enumerate(state.streams["per_stream"])
+            ],
+        }
 
     agency_meta = None
     if state.agency is not None:
@@ -155,16 +186,30 @@ def encode(state: SystemState) -> bytes:
             "pred_error_early": state.pred_error_early,
         },
         "checkpoints": {str(c): list(v) for c, v in state.checkpoints.items()},
-        "group_dims": sorted(int(d) for d in state.frame_store["groups"]),
+        # Live insertion order, NOT sorted (feature 010 bug fix): group
+        # iteration order feeds per-step float accumulation, so restoring
+        # groups in a different order than the live store held them made
+        # resumed runs drift by one ULP. Old blobs (sorted order) still decode;
+        # their order was lost at write time and cannot be recovered.
+        "group_dims": [int(d) for d in state.frame_store["groups"]],
         "next_frame_id": state.frame_store["next_id"],
         "agency": agency_meta,
         "rng_state": state.rng_state,
         "tool_registry": state.tool_registry,
     }
     if world_meta is not None:
-        # written only when present: episodic blobs stay bit-identical to the
-        # pre-feature format (feature 008 contract §4).
+        # written only when present: derivable-world episodic blobs stay
+        # bit-identical to the pre-feature format (feature 008 contract §4).
         meta["world_state"] = world_meta
+    if streams_meta is not None:
+        # written only for n_streams > 1 (feature 010): K=1 blobs unchanged.
+        meta["streams"] = streams_meta
+    # current anatomy dims (feature 010): written only when a mid-run resize
+    # moved them off the boot config — unresized blobs stay bit-identical.
+    fs_dims = (state.frame_store.get("obs_dim"), state.frame_store.get("n_actions"))
+    cfg_dims = (state.config.obs_dim, state.config.n_actions)
+    if None not in fs_dims and tuple(fs_dims) != cfg_dims:
+        meta["current_dims"] = [int(fs_dims[0]), int(fs_dims[1])]
     arrays["meta"] = np.array(json.dumps(meta))
 
     buf = io.BytesIO()
@@ -203,17 +248,46 @@ def decode(blob: bytes) -> SystemState:
                 "total_steps": int(meta["agency"]["total_steps"]),
             }
 
-        world_state = None
-        ws_meta = meta.get("world_state")  # absent in episodic and pre-008 blobs
-        if ws_meta is not None:
+        def _unpack_world(ws_meta: dict, prefix: str) -> dict:
             world = dict(ws_meta["scalars"])
             for key in ws_meta["array_keys"]:
-                world[key] = np.array(archive[f"world__{key}"])
-            world_state = {"world": world, "pending": np.array(archive["world__pending"])}
+                world[key] = np.array(archive[f"{prefix}__{key}"])
+            pending = (
+                np.array(archive[f"{prefix}__pending"])
+                # pre-010 blobs predate has_pending and always carried one
+                if ws_meta.get("has_pending", True)
+                else None
+            )
+            return {"world": world, "pending": pending}
+
+        world_state = None
+        ws_meta = meta.get("world_state")  # absent in derivable episodic blobs
+        if ws_meta is not None:
+            world_state = _unpack_world(ws_meta, "world")
+
+        streams = None
+        st_meta = meta.get("streams")  # absent at n_streams == 1
+        if st_meta is not None:
+            per_stream = []
+            for k, s in enumerate(st_meta["per_stream"]):
+                packed = _unpack_world(s["world"], f"stream{k}") if s["world"] is not None else None
+                per_stream.append(
+                    {
+                        "rng_state": s["rng_state"],
+                        "world": packed["world"] if packed else None,
+                        "pending": packed["pending"] if packed else None,
+                    }
+                )
+            streams = {"episode_index": int(st_meta["episode_index"]), "per_stream": per_stream}
+
+        # current anatomy dims (feature 010): recorded only for resized runs;
+        # boot-config dims otherwise, so frame_store round-trips exactly.
+        config = config_from_dict(meta["config"])
+        cur = meta.get("current_dims", [config.obs_dim, config.n_actions])
 
         counters = meta["counters"]
         return SystemState(
-            config=config_from_dict(meta["config"]),
+            config=config,
             seed=int(meta["seed"]),
             scoring_mode=meta["scoring_mode"],
             policy_mode=meta["policy_mode"],
@@ -228,9 +302,15 @@ def decode(blob: bytes) -> SystemState:
             pred_errors=archive["acc__pred_errors"].tolist(),
             population_by_cycle=archive["acc__population_by_cycle"].tolist(),
             checkpoints={int(c): (int(v[0]), int(v[1])) for c, v in meta["checkpoints"].items()},
-            frame_store={"next_id": int(meta["next_frame_id"]), "groups": groups},
+            frame_store={
+                "next_id": int(meta["next_frame_id"]),
+                "obs_dim": int(cur[0]),
+                "n_actions": int(cur[1]),
+                "groups": groups,
+            },
             agency=agency,
             rng_state=meta["rng_state"],
             tool_registry=list(meta["tool_registry"]),
             world_state=world_state,
+            streams=streams,
         )

@@ -465,9 +465,13 @@ class FrameStore:
 
     def state_dict(self) -> dict:
         """The full population state: per-dim identity records + weight tensors
-        + the next frame id. Arrays are copies (a snapshot is point-in-time)."""
+        + the next frame id, plus the current anatomy dims (feature 010 —
+        differ from the boot config after a mid-run resize). Arrays are copies
+        (a snapshot is point-in-time)."""
         return {
             "next_id": self._next_id,
+            "obs_dim": self.obs_dim,
+            "n_actions": self.n_actions,
             "groups": {
                 dim: {name: np.array(getattr(g, name), copy=True) for name in self._GROUP_FIELDS}
                 for dim, g in self._groups.items()
@@ -476,13 +480,22 @@ class FrameStore:
         }
 
     def load_state_dict(self, state: dict) -> None:
-        """Reconstruct the population exactly from :meth:`state_dict` output."""
+        """Reconstruct the population exactly from :meth:`state_dict` output.
+
+        Anatomy-resized runs (feature 010): the state carries the *current*
+        dims when the run grew mid-run; groups rebuild at those dims and the
+        store's current dims + effective learning rate are restored (the
+        feature-004 resize bookkeeping). Pre-010 blobs carry no dims and fall
+        back to the boot config — exactly what they were written with."""
+        from pra.config import OBS_DIM_REF
+
         self._groups.clear()
         self._next_id = int(state["next_id"])
+        self.obs_dim = int(state.get("obs_dim", self.config.obs_dim))
+        self.n_actions = int(state.get("n_actions", self.config.n_actions))
+        self._lr = float(self.config.learning_rate * (OBS_DIM_REF / self.obs_dim) ** 1.5)
         for dim, tensors in state["groups"].items():
-            g = FrameGroup(
-                int(dim), self.config.obs_dim, self.config.hidden_size, self.config.n_actions
-            )
+            g = FrameGroup(int(dim), self.obs_dim, self.config.hidden_size, self.n_actions)
             for name in self._GROUP_FIELDS:
                 setattr(g, name, np.array(tensors[name], copy=True))
             self._groups[int(dim)] = g

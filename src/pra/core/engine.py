@@ -43,6 +43,7 @@ from pra.motivation.context import DriveContext
 from pra.motivation.drive import CuriosityDrive, WeightedDriveSet
 from pra.persistence.snapshot import (
     FORMAT_VERSION,
+    SnapshotCompatibilityError,
     SystemState,
     decode,
     encode,
@@ -223,23 +224,56 @@ class Engine:
         # ones. `pending` is not None iff the world has booted.
         continuous = cfg.episode_mode == "continuous"
         pending: list = [None] * n_streams
-        if resumed is not None and resumed.world_state is not None:
-            world.load_state_dict(resumed.world_state["world"])
-            pending[0] = resumed.world_state["pending"]
-        if continuous and self._snapshot_store is not None and cfg.snapshot_every_n_cycles > 0:
-            if not (
-                callable(getattr(world, "state_dict", None))
-                and callable(getattr(world, "load_state_dict", None))
-            ):
-                raise RuntimeError(
-                    "continuous-mode snapshots require the world to implement "
-                    "state_dict()/load_state_dict() (feature 008 world-state "
-                    f"capture protocol); {type(world).__name__} does not"
-                )
-
+        # World state travels in snapshots when the mode is continuous (008)
+        # or the world declares its state non-derivable from the seed (010,
+        # e.g. the Gymnasium adapter's reset counter).
+        needs_world_state = continuous or bool(getattr(world, "snapshot_needs_state", False))
         # Merged episode counter (feature 009): episode e -> stream e mod K.
         # At K = 1 this is inert bookkeeping.
         episode_index = 0
+        if resumed is not None:
+            if resumed.world_state is not None:
+                world.load_state_dict(resumed.world_state["world"])
+                pending[0] = resumed.world_state["pending"]
+            elif needs_world_state and not continuous:
+                raise SnapshotCompatibilityError(
+                    f"{type(world).__name__} declares its state non-derivable "
+                    "from the seed, but this snapshot carries no world state — "
+                    "resuming it would silently diverge (feature 010)"
+                )
+            if resumed.streams is not None:
+                episode_index = int(resumed.streams["episode_index"])
+                for k, srec in enumerate(resumed.streams["per_stream"]):
+                    stream_rngs[k].bit_generator.state = srec["rng_state"]
+                    if srec["world"] is not None:
+                        worlds[k].load_state_dict(srec["world"])
+                        pending[k] = srec["pending"]
+            # Anatomy check (feature 010): the booted world must present the
+            # population's recorded current dims (grown bodies are code — the
+            # resuming factory supplies them; the blob verifies).
+            if store.obs_dim != world.obs_dim or store.n_actions != world.n_actions:
+                raise SnapshotCompatibilityError(
+                    f"snapshot anatomy obs_dim={store.obs_dim}/"
+                    f"n_actions={store.n_actions} does not match the booted "
+                    f"world obs_dim={world.obs_dim}/n_actions={world.n_actions} "
+                    "— resume with the grown anatomy (feature 010)"
+                )
+        if (
+            self._snapshot_store is not None
+            and cfg.snapshot_every_n_cycles > 0
+            and needs_world_state
+        ):
+            for w in worlds:
+                if not (
+                    callable(getattr(w, "state_dict", None))
+                    and callable(getattr(w, "load_state_dict", None))
+                ):
+                    raise RuntimeError(
+                        "snapshots of this run require the world to implement "
+                        "state_dict()/load_state_dict() (world-state capture, "
+                        "features 008/010: continuous mode or a capture-required "
+                        f"world); {type(w).__name__} does not"
+                    )
 
         def online_episode() -> None:
             nonlocal pending, episode_index
@@ -423,12 +457,31 @@ class Engine:
                 ):
                     # C4 safe point: end of an offline cycle. Capture consumes no
                     # RNG and mutates nothing (feature 003 FR-002).
+                    # Protocol presence was checked at run start (008/010).
+                    def _pending_copy(k: int):
+                        return None if pending[k] is None else np.array(pending[k], copy=True)
+
                     world_state = None
-                    if continuous:
-                        # protocol presence was checked at run start (feature 008)
-                        world_state = {
-                            "world": world.state_dict(),
-                            "pending": np.array(pending[0], copy=True),
+                    streams_state = None
+                    if n_streams == 1:
+                        if needs_world_state:
+                            world_state = {
+                                "world": world.state_dict(),
+                                "pending": _pending_copy(0),
+                            }
+                    else:
+                        streams_state = {
+                            "episode_index": episode_index,
+                            "per_stream": [
+                                {
+                                    "rng_state": stream_rngs[k].bit_generator.state,
+                                    "world": (
+                                        worlds[k].state_dict() if needs_world_state else None
+                                    ),
+                                    "pending": (_pending_copy(k) if needs_world_state else None),
+                                }
+                                for k in range(n_streams)
+                            ],
                         }
                     self._take_snapshot(
                         cfg,
@@ -443,6 +496,7 @@ class Engine:
                         checkpoint_readings,
                         population_by_cycle,
                         world_state,
+                        streams_state,
                     )
         else:
             # T3 effort-only ablation: equal online experience, no consolidation.
@@ -485,6 +539,7 @@ class Engine:
         checkpoint_readings: dict,
         population_by_cycle: list[int],
         world_state: dict | None = None,
+        streams_state: dict | None = None,
     ) -> None:
         snapshot = SystemState(
             config=cfg,
@@ -508,6 +563,7 @@ class Engine:
             agency=agency.state_dict() if agency is not None else None,
             rng_state=rng.bit_generator.state,
             world_state=world_state,
+            streams=streams_state,
         )
         metadata = {
             "timestamp": time.time(),

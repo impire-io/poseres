@@ -151,6 +151,26 @@ class GymnasiumWorld:
     def close(self) -> None:
         self._env.close()
 
+    # ---- world-state capture (feature 010) ---------------------------------------
+    # The adapter's state is NOT derivable from the run seed (the reset counter
+    # advances with history), so it declares capture-required. At C4 safe
+    # points (episode boundaries) the counter fully determines every future
+    # reseed, so episodic resume is exact — conditional on the environment's
+    # own reset(seed) determinism (Doc 06 guarantees section).
+    snapshot_needs_state = True
+
+    def state_dict(self) -> dict:
+        return {
+            "reset_index": self._reset_index,
+            "respawns": self._respawns,
+            "started": self._started,
+        }
+
+    def load_state_dict(self, state: dict) -> None:
+        self._reset_index = int(state["reset_index"])
+        self._respawns = int(state["respawns"])
+        self._started = bool(state["started"])
+
     # ---- internals ---------------------------------------------------------------
     def _next_seed(self) -> int:
         """Reset ``k`` is seeded from ``SeedSequence(E, spawn_key=(k,))`` (R3)."""
