@@ -339,6 +339,7 @@ class Engine:
                         recent_pred_errors=agency.pred_error_history,
                         observation_memory=agency.observation_memory,
                         step_index=state.obs_steps,
+                        observation_memory_errors=agency.observation_memory_errors,
                     )
                     agency.record_value(drives, drive_ctx, obs)
                     age, predictor = store.best_frame_predictor(scorer)
@@ -348,6 +349,7 @@ class Engine:
                         _hist=agency.pred_error_history,
                         _mem=agency.observation_memory,
                         _step=state.obs_steps,
+                        _errs=agency.observation_memory_errors,
                     ) -> float:
                         return drives.value(
                             DriveContext(
@@ -355,6 +357,7 @@ class Engine:
                                 recent_pred_errors=_hist,
                                 observation_memory=_mem,
                                 step_index=_step,
+                                observation_memory_errors=_errs,
                             )
                         )
 
@@ -596,6 +599,9 @@ class _AgencyState:
     def __init__(self, config: Config) -> None:
         self.pred_error_history: deque[float] = deque(maxlen=config.lp_baseline_window)
         self.observation_memory: deque[np.ndarray] = deque(maxlen=config.novelty_memory_size)
+        # err-at-visit, lockstep with observation_memory (PREDLP-DIAGNOSIS):
+        # NaN where the step recorded no mean prediction error.
+        self.observation_memory_errors: deque[float] = deque(maxlen=config.novelty_memory_size)
         self.values: list[float] = []
         self.lp_terms: list[float] = []
         self.novelty_terms: list[float] = []
@@ -618,6 +624,7 @@ class _AgencyState:
         if mean_pred is not None:
             self.pred_error_history.append(mean_pred)
         self.observation_memory.append(np.array(obs, copy=True))
+        self.observation_memory_errors.append(float("nan") if mean_pred is None else mean_pred)
 
     def summary(self) -> dict:
         return {
@@ -635,6 +642,7 @@ class _AgencyState:
         return {
             "pred_error_history": list(self.pred_error_history),
             "observation_memory": [np.array(o, copy=True) for o in self.observation_memory],
+            "observation_memory_errors": list(self.observation_memory_errors),
             "values": list(self.values),
             "lp_terms": list(self.lp_terms),
             "novelty_terms": list(self.novelty_terms),
@@ -645,6 +653,13 @@ class _AgencyState:
     def load(self, state: dict) -> None:
         self.pred_error_history.extend(state["pred_error_history"])
         self.observation_memory.extend(state["observation_memory"])
+        # pre-frontier blobs lack the err-at-visit trace: NaN-fill so lengths
+        # stay lockstep and the frontier signal degrades to 0 until refilled
+        self.observation_memory_errors.extend(
+            state.get(
+                "observation_memory_errors", [float("nan")] * len(state["observation_memory"])
+            )
+        )
         self.values = list(state["values"])
         self.lp_terms = list(state["lp_terms"])
         self.novelty_terms = list(state["novelty_terms"])

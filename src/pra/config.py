@@ -114,6 +114,9 @@ class Config:
     lp_recent_window: int = 60
     lp_baseline_window: int = 600
     novelty_memory_size: int = 200
+    # Frontier drive (PREDLP-DIAGNOSIS): k nearest remembered neighbors per
+    # candidate; the signal is silent until 2k finite-error entries exist.
+    frontier_neighbors: int = 20
 
     # --- Policy (Doc 05 §4). "random" is the pinned validation baseline: every
     # existing mode keeps it and stays byte-identical to the validated build. ---
@@ -237,6 +240,7 @@ class Config:
             "lp_baseline_window must be > lp_recent_window",
         )
         require(self.novelty_memory_size >= 1, "novelty_memory_size must be >= 1")
+        require(self.frontier_neighbors >= 1, "frontier_neighbors must be >= 1")
 
         require(
             self.policy_mode in ("random", "curiosity"),

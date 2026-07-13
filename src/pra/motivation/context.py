@@ -24,3 +24,8 @@ class DriveContext:
     recent_pred_errors: Sequence[float]  # newest last; the engine's per-step statistic
     observation_memory: Sequence[np.ndarray]  # bounded FIFO, newest last
     step_index: int
+    # err-at-visit, lockstep with observation_memory (PREDLP-DIAGNOSIS): the
+    # per-step mean prediction error recorded when each remembered observation
+    # was visited (NaN where none was recorded). Consumed only by the frontier
+    # drive; inert default keeps every existing construction valid.
+    observation_memory_errors: Sequence[float] = ()

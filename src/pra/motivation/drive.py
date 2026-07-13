@@ -19,7 +19,14 @@ import numpy as np
 from pra.config import Config
 from pra.motivation.context import DriveContext
 
-__all__ = ["Drive", "CuriosityDrive", "CuriosityParams", "CompetenceDrive", "WeightedDriveSet"]
+__all__ = [
+    "Drive",
+    "CuriosityDrive",
+    "CuriosityParams",
+    "CompetenceDrive",
+    "FrontierDrive",
+    "WeightedDriveSet",
+]
 
 _EPS = 1e-6
 
@@ -145,6 +152,63 @@ class CompetenceDrive:
         )
 
 
+class FrontierDrive:
+    """Frontier = realized local learning progress (PREDLP-DIAGNOSIS).
+
+    The per-candidate *learnability* signal the curiosity/competence pair
+    lacks (BLEND-DIAGNOSIS: their only per-candidate term is one shared
+    novelty statistic). For an observation ô, take the ``k`` nearest
+    remembered observations and compare the prediction error recorded when
+    they were visited, older half vs newer half:
+
+        frontier(ô) = max(0, mean(err@visit, older) − mean(err@visit, newer))
+
+    — *has error near ô been falling within the memory horizon?* Unlearnable
+    regions are flat-high (≈ 0, the noisy-TV guard, now per-candidate);
+    mastered regions are flat-low (≈ 0, no camping); learning frontiers are
+    positive and sought. Pure floats, no RNG; independent of novelty, so
+    weighted blends with the other drives have a real surface.
+
+    Silent (0) until the memory holds at least ``2·k`` finite-error entries —
+    cold starts and resumed-from-pre-frontier snapshots degrade gracefully.
+    """
+
+    def __init__(self, params: CuriosityParams, neighbors: int):
+        self.params = params
+        self.neighbors = int(neighbors)
+
+    def id(self) -> str:
+        return "frontier"
+
+    def local_progress(
+        self,
+        observation: np.ndarray,
+        memory: Sequence[np.ndarray],
+        errors: Sequence[float],
+    ) -> float:
+        k = self.neighbors
+        if len(memory) < 2 * k or len(errors) != len(memory):
+            return 0.0
+        errs = np.asarray(errors, dtype=np.float64)
+        finite = np.isfinite(errs)
+        if int(finite.sum()) < 2 * k:
+            return 0.0
+        stack = np.asarray(memory, dtype=np.float64)[finite]
+        errs = errs[finite]
+        order = np.argsort(np.linalg.norm(stack - observation, axis=1), kind="stable")[: 2 * k]
+        # memory is newest-last: positional index IS recency
+        by_recency = np.sort(order)
+        older, newer = by_recency[:k], by_recency[k:]
+        return max(0.0, float(errs[older].mean() - errs[newer].mean()))
+
+    def value(self, context: DriveContext) -> float:
+        return self.local_progress(
+            context.observation,
+            context.observation_memory,
+            context.observation_memory_errors,
+        )
+
+
 class WeightedDriveSet:
     """Fixed weighted sum of drives (Doc 05 §2.2): ``Σ w[d.id()]·d.value(ctx)``.
 
@@ -174,6 +238,10 @@ class WeightedDriveSet:
                 drives.append(CuriosityDrive(CuriosityParams.from_config(config)))
             elif name == "competence":
                 drives.append(CompetenceDrive(CuriosityParams.from_config(config)))
+            elif name == "frontier":
+                drives.append(
+                    FrontierDrive(CuriosityParams.from_config(config), config.frontier_neighbors)
+                )
             else:
                 raise ValueError(f"unknown drive '{name}' in drive_weights")
         return cls(tuple(drives), config.drive_weights)

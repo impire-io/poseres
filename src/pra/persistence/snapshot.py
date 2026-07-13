@@ -168,6 +168,12 @@ def encode(state: SystemState) -> bytes:
         arrays["agency__values"] = np.asarray(a["values"], dtype=np.float64)
         arrays["agency__lp_terms"] = np.asarray(a["lp_terms"], dtype=np.float64)
         arrays["agency__novelty_terms"] = np.asarray(a["novelty_terms"], dtype=np.float64)
+        # err-at-visit (PREDLP): written only when present so pre-frontier
+        # curiosity blobs stay bit-identical; NaN marks no-error steps.
+        if "observation_memory_errors" in a:
+            arrays["agency__observation_memory_errors"] = np.asarray(
+                a["observation_memory_errors"], dtype=np.float64
+            )
         agency_meta = {"directed_steps": a["directed_steps"], "total_steps": a["total_steps"]}
 
     meta = {
@@ -241,6 +247,15 @@ def decode(blob: bytes) -> SystemState:
                 "observation_memory": [
                     np.array(row) for row in archive["agency__observation_memory"]
                 ],
+                **(
+                    {
+                        "observation_memory_errors": archive[
+                            "agency__observation_memory_errors"
+                        ].tolist()
+                    }
+                    if "agency__observation_memory_errors" in archive.files
+                    else {}
+                ),
                 "values": archive["agency__values"].tolist(),
                 "lp_terms": archive["agency__lp_terms"].tolist(),
                 "novelty_terms": archive["agency__novelty_terms"].tolist(),
