@@ -17,9 +17,11 @@ from time import perf_counter
 from pra.config import Config
 from pra.harness.acceptance import FAIL, evaluate_suite, evaluate_t7
 from pra.harness.agency import run_agency
+from pra.harness.ladder import RUNGS, run_ladder
 from pra.harness.report import (
     build_agency_report,
     build_determinism_report,
+    build_ladder_report,
     build_scale_report,
     build_scale_t3_report,
     build_suite_report,
@@ -110,6 +112,24 @@ def _cmd_scale(args: argparse.Namespace) -> int:
     if args.json:
         _write_json(args.json, report)
     # T-SCALE is investigatory: a poor dimensionality result is never a build failure.
+    return 0
+
+
+def _cmd_ladder(args: argparse.Namespace) -> int:
+    base = _build_config(args)
+    rungs = (
+        tuple(r.strip().lower() for r in args.rungs.split(",") if r.strip())
+        if args.rungs
+        else RUNGS
+    )
+    seeds = list(_int_list(args.seeds)) if args.seeds else list(base.seeds)
+    t0 = perf_counter()
+    results = run_ladder(base, rungs, seeds, workers=_resolve_workers(args, len(seeds)))
+    report = build_ladder_report(base, seeds, results, perf_counter() - t0)
+    sys.stdout.write(render_text(report) + "\n")
+    if args.json:
+        _write_json(args.json, report)
+    # The ladder is investigatory: a rung FAIL is a finding, never a build failure.
     return 0
 
 
@@ -231,6 +251,21 @@ def _build_parser() -> argparse.ArgumentParser:
     p_scan.add_argument("--config")
     p_scan.add_argument("--json")
     p_scan.set_defaults(func=_cmd_scan)
+
+    p_ladder = sub.add_parser(
+        "ladder", help="complexity-ladder rungs vs pre-registered criteria (investigatory)"
+    )
+    p_ladder.add_argument("--rungs", help="comma list from l1,l2,l3 (default: all)")
+    p_ladder.add_argument("--seeds")
+    p_ladder.add_argument("--config")
+    p_ladder.add_argument("--json")
+    p_ladder.add_argument(
+        "--workers",
+        type=int,
+        default=0,
+        help="parallel seed processes (0 = one per seed up to CPU count); never changes results",
+    )
+    p_ladder.set_defaults(func=_cmd_ladder)
 
     p_agency = sub.add_parser("agency", help="curious vs random comparison (T7) + agency telemetry")
     p_agency.add_argument("--seeds")

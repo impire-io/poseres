@@ -24,6 +24,7 @@ __all__ = [
     "build_determinism_report",
     "build_scale_report",
     "build_scale_t3_report",
+    "build_ladder_report",
     "build_agency_report",
     "render_text",
     "render_json",
@@ -192,6 +193,53 @@ def build_scale_t3_report(
     return report
 
 
+def build_ladder_report(
+    base, seeds: list[int], results, wall_clock_seconds: float
+) -> VerdictReport:
+    """Per-rung, per-dial-set verdicts from ladder runs (feature 005).
+
+    Investigatory context: rung verdicts are data judged against the
+    pre-registered LADDER-CRITERIA.md, never a build failure. The full
+    per-seed reading tables ride in the metadata — the honest record is the
+    spread, not the verdict."""
+    failed = sorted({s for r in results for s in r.failed_seeds})
+    report = VerdictReport(
+        mode="ladder",
+        run_metadata={
+            "seeds": list(seeds),
+            "true_dim": base.true_dim,
+            "obs_dim": base.obs_dim,
+            "checkpoints": list(base.horizon_checkpoints),
+            "scoring_mode": "predictive (+ quartet arms on L2)",
+            "wall_clock_seconds": wall_clock_seconds,
+            "failed_seeds": failed,
+        },
+        tests=[r.verdict for r in results],
+        for_debugging_only=len(seeds) == 1,
+    )
+    report.run_metadata["ladder_detail"] = [
+        {
+            "rung": r.rung,
+            "label": r.label,
+            "world": r.config.world,
+            "true_dim": r.config.true_dim,
+            "obs_dim": r.config.obs_dim,
+            "dials": {
+                "region_noise_std": r.config.region_noise_std,
+                "factor_dims": list(r.config.factor_dims),
+                "distractor_dim": r.config.distractor_dim,
+                "distractor_channels": r.config.distractor_channels,
+                "distractor_mode": r.config.distractor_mode,
+            },
+            "wall_clock_seconds": r.wall_clock_seconds,
+            "failed_seeds": list(r.failed_seeds),
+            "per_seed": r.rows,
+        }
+        for r in results
+    ]
+    return report
+
+
 def build_agency_report(agency_run, t7: AcceptanceVerdict) -> VerdictReport:
     """T7 verdict + curious-arm telemetry (contracts/cli.md of 002)."""
     cfg = agency_run.config
@@ -334,6 +382,50 @@ def render_text(report: VerdictReport) -> str:
                         f"   {_fmt6(row['margin_vs_identity'])}"
                         f" | {'n/a' if bd is None else bd}"
                     )
+
+    if "ladder_detail" in md:
+        for block in md["ladder_detail"]:
+
+            def _fmt4(x):
+                return "   n/a" if x is None else f"{x:+.4f}"
+
+            def _fmtd(x):
+                return "n/a" if x is None else str(x)
+
+            lines.append("")
+            lines.append(
+                f"  [{block['label']}] world={block['world']}  "
+                f"true_dim={block['true_dim']}  obs_dim={block['obs_dim']}  "
+                f"wall={block['wall_clock_seconds']:.1f}s"
+            )
+            if block["failed_seeds"]:
+                lines.append(f"     !! seeds {block['failed_seeds']} errored")
+            if block["rung"] == "l1":
+                lines.append("     seed | best_dim | twin | improvement | twin-impr | occupancy")
+                for row in block["per_seed"]:
+                    occ = row["occupancy"]
+                    lines.append(
+                        f"      {row['seed']:3d} |    {_fmtd(row['best_dim']):<4} |"
+                        f"  {_fmtd(row['twin_best_dim']):<3} |"
+                        f"   {_fmt4(row['improvement'])}   |"
+                        f"  {_fmt4(row['twin_improvement'])}  |"
+                        f"   {'n/a' if occ is None else f'{occ:.3f}'}"
+                    )
+            elif block["rung"] == "l2":
+                lines.append("     seed | best_dim | paired-margin | census (dim: frames/mature)")
+                for row in block["per_seed"]:
+                    census = ", ".join(
+                        f"{d}: {v['frames']}/{v['mature']}" for d, v in row["census"].items()
+                    )
+                    lines.append(
+                        f"      {row['seed']:3d} |    {_fmtd(row['best_dim']):<4} |"
+                        f"    {_fmt4(row['paired_margin'])}    | {census}"
+                    )
+            else:
+                lines.append("     seed | best_dim | best_dim at checkpoints")
+                for row in block["per_seed"]:
+                    cps = ", ".join(f"@{c}: {bd}" for c, bd in row["checkpoints"].items())
+                    lines.append(f"      {row['seed']:3d} |    {_fmtd(row['best_dim']):<4} | {cps}")
 
     if report.determinism_check is not None:
         dc = report.determinism_check

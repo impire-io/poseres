@@ -23,10 +23,11 @@ EOF
 {"world": "compositional", "true_dim": 6, "obs_dim": 18, "factor_dims": [2, 2, 2]}
 EOF
 
-# L3 — structured distractor: 3 hidden dims over 10 extra channels
+# L3 — structured distractor: 3 hidden dims over 10 of 20 total channels
+# (obs_dim is the total, system-visible width; controllable core = 10)
 ./.venv/bin/pra-validate ladder --rungs l3 --config - <<'EOF'
-{"world": "distractor", "distractor_dim": 3, "distractor_channels": 10,
- "distractor_mode": "structured"}
+{"world": "distractor", "obs_dim": 20, "distractor_dim": 3,
+ "distractor_channels": 10, "distractor_mode": "structured"}
 EOF
 ```
 

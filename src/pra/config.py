@@ -12,10 +12,21 @@ import dataclasses
 from dataclasses import dataclass
 from typing import Literal
 
-__all__ = ["Config", "ScoringMode", "PolicyMode", "OBS_DIM_REF", "HIDDEN_REF", "TRUE_DIM_REF"]
+__all__ = [
+    "Config",
+    "ScoringMode",
+    "PolicyMode",
+    "WorldKind",
+    "DistractorMode",
+    "OBS_DIM_REF",
+    "HIDDEN_REF",
+    "TRUE_DIM_REF",
+]
 
 ScoringMode = Literal["predictive", "effort_only", "identity"]
 PolicyMode = Literal["random", "curiosity"]
+WorldKind = Literal["reference", "nonuniform", "compositional", "distractor"]
+DistractorMode = Literal["structured", "noise"]
 
 # The validated reference scale (PRA-02 §1 defaults). Every scale-dependent
 # constant below was validated AT this scale; the effective_* rules hold the
@@ -112,6 +123,22 @@ class Config:
     # byte-identical to the validated build (feature 003 FR-009). ---
     snapshot_every_n_cycles: int = 0
 
+    # --- Ladder worlds (feature 005, ROADMAP A3). "reference" with all dials
+    # at zero is the pinned validated default: byte-identical to the validated
+    # build. Each rung's degenerate dial reduces to the reference world in
+    # bytes (integration-tested). Ground truth (region, groups, splits) is
+    # known to the harness through these fields and NEVER exposed to the
+    # system through the EventSource surface. ---
+    world: WorldKind = "reference"
+    # L1 nonuniform: transition-noise std inside the half-space latent[0] > 0.
+    region_noise_std: float = 0.0
+    # L2 compositional: factor-group sizes; () = single group (degenerate).
+    factor_dims: tuple[int, ...] = ()
+    # L3 distractor: autonomous latent size, appended channel count, and mode.
+    distractor_dim: int = 0
+    distractor_channels: int = 0
+    distractor_mode: DistractorMode = "structured"
+
     # --- Harness-only ---
     horizon_checkpoints: tuple[int, ...] = (18, 30, 50)
 
@@ -201,6 +228,50 @@ class Config:
         )
         require(self.lookahead_min_age_cycles >= 0, "lookahead_min_age_cycles must be >= 0")
         require(self.snapshot_every_n_cycles >= 0, "snapshot_every_n_cycles must be >= 0")
+
+        require(
+            self.world in ("reference", "nonuniform", "compositional", "distractor"),
+            "world must be 'reference', 'nonuniform', 'compositional', or 'distractor'",
+        )
+        require(self.region_noise_std >= 0, "region_noise_std must be >= 0")
+        require(
+            self.region_noise_std == 0 or self.world == "nonuniform",
+            "region_noise_std > 0 requires world='nonuniform'",
+        )
+        if self.factor_dims:
+            require(
+                self.world == "compositional",
+                "factor_dims requires world='compositional'",
+            )
+            require(
+                all(d >= 1 for d in self.factor_dims),
+                "every factor_dims entry must be >= 1",
+            )
+            require(
+                sum(self.factor_dims) == self.true_dim,
+                f"factor_dims must sum to true_dim ({self.true_dim})",
+            )
+        require(self.distractor_dim >= 0, "distractor_dim must be >= 0")
+        require(self.distractor_channels >= 0, "distractor_channels must be >= 0")
+        if self.distractor_channels > 0:
+            require(
+                self.world == "distractor",
+                "distractor_channels > 0 requires world='distractor'",
+            )
+            require(
+                self.distractor_dim >= 1,
+                "distractor_channels > 0 requires distractor_dim >= 1",
+            )
+            require(
+                self.distractor_channels < self.obs_dim,
+                "distractor_channels must leave at least one controllable "
+                f"observation channel (obs_dim = {self.obs_dim} is the total, "
+                "system-visible width)",
+            )
+        require(
+            self.distractor_mode in ("structured", "noise"),
+            "distractor_mode must be 'structured' or 'noise'",
+        )
 
         require(len(self.horizon_checkpoints) >= 1, "horizon_checkpoints must be non-empty")
         require(

@@ -36,7 +36,7 @@ FORMAT_VERSION = "1"
 
 # Config fields that are tuples in the frozen dataclass (JSON round-trips them
 # as lists); drive_weights is a tuple of (name, weight) pairs.
-_TUPLE_FIELDS = ("seeds", "horizon_checkpoints")
+_TUPLE_FIELDS = ("seeds", "horizon_checkpoints", "factor_dims")
 
 
 class SnapshotVersionError(ValueError):

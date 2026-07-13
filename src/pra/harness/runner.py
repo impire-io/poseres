@@ -71,7 +71,12 @@ class DeterminismResult:
 
 
 def _run_seed_group(
-    config: Config, seed: int, with_ablation: bool, proposal_factory=None, with_matched=False
+    config: Config,
+    seed: int,
+    with_ablation: bool,
+    proposal_factory=None,
+    with_matched=False,
+    world_factory=None,
 ) -> tuple[
     int,
     PerSeedRunSummary,
@@ -92,27 +97,31 @@ def _run_seed_group(
     ``with_matched`` adds the churn-matched fourth arm of the amended scaled T3
     (T3SCALE-DIAGNOSIS): *predictive* training under the identity arm's exact
     semantics — the same ``seed + 18888`` world, no consolidation — so the paired
-    (matched, identity) comparison differs only in the training target."""
+    (matched, identity) comparison differs only in the training target.
+
+    ``world_factory`` (picklable, ``(Config, rng) -> EventSource``) runs the
+    whole group on a substitute world — the ladder rungs' baseline machinery
+    (feature 005); ``None`` keeps the validated default world."""
     ts = perf_counter()
 
     def _proposal():
         return proposal_factory(config) if proposal_factory is not None else None
 
-    summary = Engine(config, scoring_mode="predictive", proposal=_proposal()).run(
-        seed, do_offline=True
-    )
+    def _engine(scoring_mode: str) -> Engine:
+        return Engine(
+            config,
+            scoring_mode=scoring_mode,
+            proposal=_proposal(),
+            world_factory=world_factory,
+        )
+
+    summary = _engine("predictive").run(seed, do_offline=True)
     ab = ident = matched = None
     if with_ablation:
-        ab = Engine(config, scoring_mode="effort_only", proposal=_proposal()).run(
-            seed + ABLATION_SEED_OFFSET, do_offline=False
-        )
-        ident = Engine(config, scoring_mode="identity", proposal=_proposal()).run(
-            seed + IDENTITY_SEED_OFFSET, do_offline=False
-        )
+        ab = _engine("effort_only").run(seed + ABLATION_SEED_OFFSET, do_offline=False)
+        ident = _engine("identity").run(seed + IDENTITY_SEED_OFFSET, do_offline=False)
     if with_matched:
-        matched = Engine(config, scoring_mode="predictive", proposal=_proposal()).run(
-            seed + IDENTITY_SEED_OFFSET, do_offline=False
-        )
+        matched = _engine("predictive").run(seed + IDENTITY_SEED_OFFSET, do_offline=False)
     return seed, summary, ab, ident, matched, perf_counter() - ts
 
 
@@ -123,6 +132,7 @@ def run_suite(
     workers: int = 1,
     proposal_factory=None,
     with_matched: bool = False,
+    world_factory=None,
 ) -> SuiteRun:
     predictive: list[PerSeedRunSummary] = []
     ablation: dict[int, PerSeedRunSummary] = {}
@@ -137,7 +147,13 @@ def run_suite(
         with ProcessPoolExecutor(max_workers=min(workers, len(config.seeds))) as pool:
             futures = {
                 seed: pool.submit(
-                    _run_seed_group, config, seed, with_ablation, proposal_factory, with_matched
+                    _run_seed_group,
+                    config,
+                    seed,
+                    with_ablation,
+                    proposal_factory,
+                    with_matched,
+                    world_factory,
                 )
                 for seed in config.seeds
             }
@@ -150,7 +166,7 @@ def run_suite(
         for seed in config.seeds:
             try:
                 results[seed] = _run_seed_group(
-                    config, seed, with_ablation, proposal_factory, with_matched
+                    config, seed, with_ablation, proposal_factory, with_matched, world_factory
                 )
             except Exception:  # noqa: BLE001 — reported, not fatal (FR-008)
                 failed.append(seed)

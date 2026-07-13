@@ -13,14 +13,15 @@ Phase 1 of `plan.md`. Entities, dials, validation, and readings.
 | `distractor_channels` | `int = 0` | L3: extra observation channels the distractor emits into (0 = degenerate) | `>= 0`; `> 0` requires `distractor_dim > 0` and `world="distractor"` |
 | `distractor_mode` | `str = "structured"` | L3: `structured` (drift dynamics) \| `noise` (fresh noise channels) | one of the two |
 
-Notes: on L3 the world's total observation width is
-`obs_dim + distractor_channels` — `obs_dim` keeps meaning the controllable
-emission width so the degenerate dial is trivially reference-identical;
-the *engine-visible* width is what the world's `obs_dim` property reports
-(total). The harness reports both (spec edge case: scale rules key off
-total). New fields ride in snapshots via the existing config-in-force
-mechanism; defaults make old snapshots semantically unchanged (the
-deferred Doc 06 format-version follow-up is unaffected).
+Notes: `Config.obs_dim` **always means the system-visible width** (the
+anatomy precedent — the engine sizes frames by it and the scale rules key
+off it). On L3 the controllable emission width is therefore
+`obs_dim − distractor_channels` (validation requires at least one
+controllable channel); at the degenerate dial the two coincide. The
+harness reports both widths (spec edge case). New fields ride in
+snapshots via the existing config-in-force mechanism; defaults make old
+snapshots semantically unchanged (the deferred Doc 06 format-version
+follow-up is unaffected).
 
 ## World entities
 

@@ -39,12 +39,13 @@ Every ladder world:
   byte-equal to reference (mask applied after the draw); emission is the
   reference emission (FR-002).
 - **L3 `DistractorWorld`**: with `distractor_channels = m > 0`, the
-  system-visible observation is the reference observation with `m`
+  system-visible observation is a reference-form observation (same
+  dynamics and emission math over the controllable latent) with `m`
   appended channels that carry zero action information: in `structured`
   mode a fixed-drift latent through its own tanh emission (+ sensor
-  noise), in `noise` mode fresh unit-normal draws. The controllable
-  emission is bit-equal to reference on the first `obs_dim` channels
-  (FR-003).
+  noise), in `noise` mode fresh unit-normal draws. Bit-equality with the
+  reference world holds at the degenerate dial (`m = 0`); non-degenerate
+  runs consume extra draws from the shared stream by design (FR-003).
 
 ## 3. Harness contract
 
