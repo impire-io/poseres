@@ -95,15 +95,22 @@ channel-noise robustness. One criterion clause (occupancy band) was
 amended openly after its distributional assumption was refuted by the
 data. Trail: `design/validate/LADDER-CRITERIA.md`.
 
-### A4. The drive blend for non-uniform worlds
+### A4. The drive blend for non-uniform worlds — ◐ measured; the question transformed (JOURNEY.md ch. 18)
 The open curiosity/competence blend (camping risk), measured on the A3
-ladder — now unblocked: the L1 rung ships with per-seed random-policy
-occupancy baselines to judge directed policies against (paired, same
-worlds). Real worlds are non-uniform; without this, every showcase
-inherits a known-broken exploration story.
-*Exit:* a drive configuration that beats random exploration on non-uniform
-ladder worlds in the majority of seeds at every checkpoint, with the spread
-reported.
+ladder. *Exit as pre-registered:* a drive configuration that beats random
+on non-uniform ladder worlds in the majority of seeds at every checkpoint
+— **not met at mild noise** (at σ=0.2 every arm misses at least one
+horizon; the effect sits inside seed noise), met at strong noise by the
+competence family (19/24 seed-horizon wins, margins ~+0.1, no structural
+cost). The bigger finding **dissolved the blend question**: both drives'
+only per-candidate term is the same novelty statistic, so the weight
+simplex collapses to {curiosity, competence, a degenerate tie corner} —
+there is no blend surface to tune. What remains of A4 is the predicted-LP
+/ per-candidate-learnability lookahead (the Doc 05 [O] design), now the
+only live path to a genuine blend. Interim guidance for showcases:
+`competence` on strongly non-uniform worlds; nothing directed
+demonstrably beats random on mildly non-uniform ones at reference
+budgets. Trail: `design/validate/BLEND-DIAGNOSIS.md`.
 
 ---
 
@@ -260,8 +267,8 @@ project's claims and its measurements cannot drift apart.
 
 ---
 
-*Sequencing summary:* A1, A2, and A3 done; A4 next (unblocked by A3's L1
-baselines), with B1/B2 startable immediately in parallel; B3 → B4/B5; then
-C1/C2 as their gates open; D alongside C; C3 parked.
+*Sequencing summary:* A1–A3 done; A4 measured (its remainder is the
+predicted-LP lookahead design); B1/B2 in progress in parallel; B3 → B4/B5;
+then C1/C2 as their gates open; D alongside C; C3 parked.
 *This file is load-bearing: changes to it are decisions and belong in
 JOURNEY.md like any other.*
