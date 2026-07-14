@@ -110,10 +110,12 @@ what is **not** guaranteed:
    on the environment's own `reset(seed)` determinism**, which is the
    environment's promise, not ours. Declaring the marker without
    providing capture fails loudly at run start.
-4. **Non-capturable worlds** (live services, hardware): **no snapshot
-   guarantee.** Persistence for such deployments means the brain's state;
-   the world re-attaches at boot (the feature-008 single-boot contract).
-   Nothing is written that would silently diverge on resume.
+4. **Non-capturable worlds** (live services, hardware — the ROS2 adapter,
+   feature 013, is this class): **no snapshot guarantee.** Persistence for
+   such deployments means the brain's state; the world re-attaches at boot
+   (the feature-008 single-boot contract). Nothing is written that would
+   silently diverge on resume; a continuous-mode run with snapshotting
+   enabled fails loudly at run start rather than pretending.
 
 Multi-stream runs snapshot all stream positions (per-stream generators,
 world state where the class requires it, carried observations, and the

@@ -211,6 +211,22 @@ environment ends its own episode the world *respawns* inside PRA's
 fixed-length episode (deterministic seeded reset, counted on
 `body.respawns`). Details and scope: `specs/007-gymnasium-adapter/quickstart.md`.
 
+### A robot or a robotics simulator? The ROS2 adapter
+
+For anything that speaks ROS2 topics — Gazebo, Webots, real hardware — the
+anatomy is declaration, not code: each sensor names a topic and a width,
+each actuator maps discrete actions to preset commands, and one engine step
+means *publish → advance one control tick → sample every sensor's latest
+message* (slow sensors hold their last value, counted, never invented).
+rclpy ships with a ROS2 distribution, not from pip, so the adapter is fully
+testable on any machine through its in-package `FakeTransport`, and the
+real-stack proof is a one-command Docker example (`examples/ros2/`) — a
+Gazebo rover in stepped simulation, continuous mode, single boot. Start at
+`specs/013-ros2-adapter/quickstart.md`. Honest scope: free-running (real
+hardware) runs are PRA's first openly non-reproducible mode (Doc 06 §5b),
+and live worlds get no world-state snapshot guarantee — the brain's
+snapshot is the artifact; the world re-attaches at boot.
+
 ## 5. Get it to learn *toward* something: drives
 
 By default the policy is random — the pinned validation baseline. Learning
@@ -271,10 +287,11 @@ world-state guarantee, by honest design.
 So you calibrate expectations before building on it: no multi-step planning
 (the policy seam has a one-step default), no distributed operation (the bus
 seam has only an in-memory backend), no tool self-invention (the registration
-interface exists; the inventing mechanism is an open problem), and one
-pre-built connector so far — the Gymnasium adapter (§4); for
-cameras/robots/APIs the Sensor/Actuator protocols above are the
-integration surface.
+interface exists; the inventing mechanism is an open problem), and two
+pre-built connectors so far — the Gymnasium adapter and the ROS2 adapter
+(§4); for cameras and APIs the Sensor/Actuator protocols above are the
+integration surface. Vision-scale observations remain out of validated
+range regardless of connector.
 
 ## 8. Where to go next
 

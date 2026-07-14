@@ -222,6 +222,17 @@ improvised.
 is non-uniform).
 *Exit:* a reproducible build guide a maker can follow, plus a video of
 mid-run body growth.
+*Platform landed (feature 013, JOURNEY ch. 26):* the **ROS2 adapter**
+generalizes this slot — topic sensors/actuators as first-class body tools,
+the control-tick step semantics, an explicit staleness policy, continuous
+single-boot operation, and a Gazebo worked example in Docker (stepped, so
+the instrument panel survives). The written answer to physical reset is
+recorded: continuous mode is the hardware mode; a homing routine is an
+owner-supplied reset mechanism. Free-running operation is the project's
+first openly non-reproducible mode (Doc 06 §5b class 4, stated). What
+remains of C2 is the *showcase* itself — a physical build, its guide, and
+the mid-run growth video — on whichever body (ROS2 or Pybricks-direct) the
+build uses.
 
 ### C3. Embedded steppable game server (parked)
 The Minecraft-like single binary — viable *only* as a tick-steppable fork
@@ -306,7 +317,9 @@ project's claims and its measurements cannot drift apart.
 
 *Sequencing summary:* **Phase A complete (A1–A4)**; **Phase B complete
 (B1–B5)** — C1's gate (B3, B5, A4-guidance) and C2's (B3, physical-reset
-answer) are open; C1/C2 next alongside the named research successors (learned channel
+answer) are open; **C2's platform half landed** (the ROS2 adapter, feature
+013 — hardware and simulators through one seam; the showcase build/video
+remains); C1 next alongside the named research successors (learned channel
 weighting; frontier where camping costs; predictive LP); D alongside C;
 C3 parked.
 *This file is load-bearing: changes to it are decisions and belong in

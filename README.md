@@ -77,11 +77,11 @@ src/pra/
   motivation/          # Drive seam: curiosity (learning progress + novelty), competence, weighted set
   action/              # Policy seam: pinned random baseline + one-step curiosity lookahead
   persistence/         # snapshot/restore: versioned blob + atomic SnapshotStore (opt-in)
-  anatomy/             # body: sensors/actuators, composition, tools + the Gymnasium adapter
+  anatomy/             # body: sensors/actuators, composition, tools + the Gymnasium and ROS2 adapters
   examples/rover/      # the pra-rover demo: 2D rover body + stdlib live viewer
   telemetry/recorder.py# deterministic per-seed summary
   harness/             # acceptance (T1-T7/T-SCALE), runner, report, cli, scale, scan, agency, ladder
-examples/              # worked examples (CartPole through the Gymnasium adapter)
+examples/              # worked examples (CartPole via Gymnasium; a Gazebo rover via ROS2, in Docker)
 tests/                 # unit (incl. batched-vs-reference proof) / contract (5 seams) / integration
 ```
 
