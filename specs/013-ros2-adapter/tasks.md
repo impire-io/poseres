@@ -11,7 +11,7 @@ runs on the fake transport, no ROS2 anywhere).
 
 ## Phase 1: Setup
 
-- [ ] T001 Subpackage skeleton + declaration layer: `src/pra/anatomy/ros2/`
+- [x] T001 Subpackage skeleton + declaration layer: `src/pra/anatomy/ros2/`
       (`__init__.py` public surface), `specs.py` — `SensorSpec` /
       `ActuatorSpec` validation, `extract_vector` (dotted paths, geometry
       compounds, C-order float64, loud width/type failures),
@@ -20,7 +20,7 @@ runs on the fake transport, no ROS2 anywhere).
 
 ## Phase 2: Foundational
 
-- [ ] T002 Transport seam: `Transport` protocol in
+- [x] T002 Transport seam: `Transport` protocol in
       `src/pra/anatomy/ros2/transport.py` and `FakeTransport` in
       `src/pra/anatomy/ros2/fake.py` — tick-indexed script, ordered
       event journal, `boot_once` guard, optional reset mechanism
@@ -30,19 +30,19 @@ runs on the fake transport, no ROS2 anywhere).
 
 ## Phase 3: US1 — mount a ROS2 world and run the engine on it (P1) 🎯 MVP
 
-- [ ] T003 [US1] `src/pra/anatomy/ros2/body.py`: `TopicSensor` (cache,
+- [x] T003 [US1] `src/pra/anatomy/ros2/body.py`: `TopicSensor` (cache,
       loud width check at delivery, read-before-first raises),
       `CommandActuator` (publish preset *i*, `published` counter),
       `Ros2Body(Body)` — `reset()` boot path, `step()` =
       route → publish → one `transport.tick()` → compose,
       `telemetry()`; `Ros2Body.factory(sensors, actuators, transport=)`
       with mount-time size validation (contracts C2.1/C2.2/C2.6, C3.1)
-- [ ] T004 [P] [US1] Contract tests in
+- [x] T004 [P] [US1] Contract tests in
       `tests/contract/test_ros2_contract.py`: EventSource/Body
       conformance over `FakeTransport`, float64 widths, preset routing
       (exactly one publish per step), delivery width violation loud,
       config-mismatch rejection naming both numbers
-- [ ] T005 [P] [US1] Integration tests in
+- [x] T005 [P] [US1] Integration tests in
       `tests/integration/test_ros2_fake_run.py`: full engine run on a
       scripted stream to a normal summary; byte-identity on re-run;
       different scripts → different summaries; engine-rng
@@ -50,14 +50,14 @@ runs on the fake transport, no ROS2 anywhere).
 
 ## Phase 4: US2 — the tick-and-staleness semantics, explicit and tested (P2)
 
-- [ ] T006 [US2] Staleness policy + startup gate in
+- [x] T006 [US2] Staleness policy + startup gate in
       `src/pra/anatomy/ros2/body.py`: delivery sequence vs sampled
       sequence, `staleness_total`/`staleness_streak`/`overwritten`
       counters, streak bound (`stale_limit_ticks`) loud with topic and
       streak, gate ticks without publishing bounded by
       `startup_timeout_ticks` naming silent topics on expiry
       (data-model; research R3)
-- [ ] T007 [US2] Tick/staleness contract tests in
+- [x] T007 [US2] Tick/staleness contract tests in
       `tests/contract/test_ros2_contract.py`: journal shows
       publish-before-tick, sample-after; exactly one tick per step even
       with an extra registered actuator; latest-wins + `overwritten`;
@@ -67,7 +67,7 @@ runs on the fake transport, no ROS2 anywhere).
 
 ## Phase 5: US3 — continuous operation for worlds that boot once (P3)
 
-- [ ] T008 [US3] Episode-mode wiring + tests: factory rejects
+- [x] T008 [US3] Episode-mode wiring + tests: factory rejects
       `episodic` × `can_reset=False` naming the capability and pointing
       at continuous (in `body.py`); episodic `reset()` calls
       `reset_world()` + fresh gate, loud on scripted reset failure;
@@ -79,14 +79,14 @@ runs on the fake transport, no ROS2 anywhere).
 
 ## Phase 6: US4 — the real stack: RclpyTransport + the Gazebo example (P4)
 
-- [ ] T009 [US4] `RclpyTransport` in `src/pra/anatomy/ros2/transport.py`:
+- [x] T009 [US4] `RclpyTransport` in `src/pra/anatomy/ros2/transport.py`:
       one lazy import helper (the monkeypatch point), free-running mode
       (monotonic tick period, `overruns`), stepped mode (step-service
       client, sim-steps-per-tick), typed-message build/extract wiring
       over the R5 helpers; contract test for the missing-rclpy
       ImportError message (distro explanation + pointer to the example)
       via monkeypatched import handle (contracts C6)
-- [ ] T010 [US4] `examples/ros2/`: `Dockerfile` (pinned ROS2 LTS —
+- [x] T010 [US4] `examples/ros2/`: `Dockerfile` (pinned ROS2 LTS —
       resolve R8 probe 1: distro/Python pairing, with the in-container
       quality-gate run recorded if `requires-python` is relaxed),
       `world.sdf` (minimal diff-drive robot: 5-beam lidar + odometry +
@@ -98,11 +98,11 @@ runs on the fake transport, no ROS2 anywhere).
 
 ## Phase 7: Polish
 
-- [ ] T011 [P] Propagate: GETTING-STARTED pointer to the ROS2
+- [x] T011 [P] Propagate: GETTING-STARTED pointer to the ROS2
       quickstart; README worlds/examples mention; ROADMAP C2 updated
       (generalized by the ROS2 adapter — hardware gate story);
       JOURNEY.md chapter + "Where things stand" refresh; memory update
-- [ ] T012 Quality gate (`./.venv/bin/ruff format --check . &&
+- [x] T012 Quality gate (`./.venv/bin/ruff format --check . &&
       ./.venv/bin/ruff check . && ./.venv/bin/pytest -q`, none
       skipped; `test_baseline_unchanged` byte-identical) → merge to
       `main` → push

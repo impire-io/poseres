@@ -7,7 +7,10 @@ name = "poseres"
 version = "0.1.0"
 description = "Pose Resolution Architecture — validation harness and batched in-memory core"
 readme = "README.md"
-requires-python = ">=3.13"
+# >=3.12 since feature 013: ROS 2 LTS containers bind rclpy to Ubuntu 24.04's
+# CPython 3.12, and the full quality-gate suite (incl. the byte-frozen baseline
+# values) was run green on 3.12.8 before this was relaxed — measured, not hoped.
+requires-python = ">=3.12"
 license = { text = "MIT" }
 classifiers = ["License :: OSI Approved :: MIT License"]
 authors = [{ name = "Daan Gerits" }]
@@ -36,7 +39,7 @@ where = ["src"]
 
 [tool.ruff]
 line-length = 100
-target-version = "py313"
+target-version = "py312"
 extend-exclude = ["design", "archive", ".venv"]
 
 [tool.ruff.lint]

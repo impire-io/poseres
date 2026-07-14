@@ -8,12 +8,13 @@ example (Linux + Docker).
 ## 1. Any machine: mount a scripted robot on the fake transport
 
 ```python
+from types import SimpleNamespace as NS
+
 import numpy as np
+
+from pra.anatomy.ros2 import ActuatorSpec, FakeTransport, Ros2Body, SensorSpec
 from pra.config import Config
 from pra.core.engine import Engine
-from pra.anatomy.ros2 import (
-    SensorSpec, ActuatorSpec, Ros2Body, FakeTransport,
-)
 
 # The robot's anatomy, as data. A 5-beam lidar and a heading channel
 # (obs 6), and four velocity presets (actions 4).
@@ -26,23 +27,40 @@ sensors = [
 actuators = [
     ActuatorSpec(id="drive", topic="/cmd_vel",
                  msg_type="geometry_msgs/msg/Twist",
-                 presets=[{"linear.x": 0.2},              # forward
+                 presets=({"linear.x": 0.2},              # forward
                           {"angular.z": 0.6},             # left
                           {"angular.z": -0.6},            # right
-                          {}]),                           # stop
+                          {})),                           # stop
 ]
 
-# A scripted world: payloads per topic per tick. (Your tests will look
-# like this too — the fake transport is the adapter's instrument.)
+# A scripted world: message-shaped payloads per topic per tick — the same
+# extraction path runs as on a real robot. (Your tests will look like this
+# too; the fake transport is the adapter's instrument.) Size the script to
+# cover the run: the default schedule consumes 13,001 ticks (325 episodes
+# of 40 steps — the run stretches to its last horizon checkpoint — plus one
+# startup-gate tick), and a topic that runs dry past the staleness bound
+# fails the run loudly — by design.
+TICKS = 14000
 transport = FakeTransport(script={
-    "/scan":    {k: [np.full(5, 1.0 + 0.01 * k)] for k in range(5000)},
-    "/heading": {k: [np.array([0.1 * (k % 63)])] for k in range(0, 5000, 3)},
+    "/scan":    {k: [NS(ranges=np.full(5, 1.0 + 0.01 * k))] for k in range(TICKS)},
+    "/heading": {k: [NS(data=0.1 * (k % 63))] for k in range(0, TICKS, 3)},
 })  # heading publishes every 3rd tick -> watch its staleness counters
 
+# Keep a handle on the mounted body to read its telemetry afterwards.
+mounted = []
+inner = Ros2Body.factory(sensors, actuators, transport=transport)
+
+
+def factory(cfg, rng):
+    body = inner(cfg, rng)
+    mounted.append(body)
+    return body
+
+
 cfg = Config(obs_dim=6, n_actions=4, episode_mode="continuous")
-engine = Engine(world_factory=Ros2Body.factory(sensors, actuators,
-                                               transport=transport))
-summary = engine.run(cfg, seed=1)
+summary = Engine(cfg, world_factory=factory).run(seed=1)
+print(summary.pred_error_early, "->", summary.pred_error_late)
+print(mounted[0].telemetry())
 ```
 
 What to look at afterwards: the run summary (the same honest numbers as
@@ -111,3 +129,8 @@ service (see the example's entrypoint for the Gazebo wiring).
   Sensors slower than the tick rate repeat their last value (counted);
   faster ones are subsampled (counted). The tick rate is part of your
   experiment's meaning — declare it, don't inherit it.
+- **Non-finite values are rejected loudly at delivery.** Real sensors
+  emit them (a lidar's no-hit beams are +inf, below-min-range beams
+  −inf, invalid returns NaN) and the learning surface has no
+  missing-data semantics. Sanitize in a callable `extract=` — see the
+  worked example's lidar clamp — so the choice is declared, not silent.

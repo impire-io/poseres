@@ -197,6 +197,16 @@ via `types.SimpleNamespace` fakes. Field-default presets mean an
 anatomy declaration reads as data (`{"linear.x": 0.22}`) and carries no
 ROS2 import.
 
+**Amendment (integration-run finding).** Non-finite values (NaN/±inf)
+are a loud delivery error, added after the Gazebo worked example's first
+end-to-end run: real lidars emit +inf for no-hit beams, −inf below the
+minimum range, and NaN for invalid returns, and passing them through
+silently NaN-poisoned the entire prediction-error surface (the frames
+have no missing-data semantics — the same reason R3 rejected NaN-fill).
+The error names the fix: sanitize in a callable `extract`, where the
+choice is declared and visible (the example clamps to the sensor's own
+range bounds).
+
 **Alternatives considered.** (a) Per-message-type converter classes —
 rejected: N classes for one `getattr` chain; the compound table is the
 whole irregularity. (b) User-supplied converter callables — kept

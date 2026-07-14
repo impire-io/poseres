@@ -16,8 +16,11 @@ message names the offending thing.
 - C1.2 `extract_vector(msg, spec)` resolves the dotted path against any
   duck-typed object, flattens C-order to float64, expands the geometry
   compounds (Vector3/Point → x,y,z; Quaternion → x,y,z,w) recursively,
-  and fails loudly when the result is not the declared width or not
-  numeric.
+  and fails loudly when the result is not the declared width, not
+  numeric, or **not finite** (NaN/±inf — the fix, a sanitizing callable
+  `extract`, is named in the error; amendment recorded after the Gazebo
+  integration run surfaced non-finite lidar beams poisoning the error
+  surface, JOURNEY ch. 26).
 - C1.3 Declaration never imports ROS2 — the module imports cleanly on a
   machine with no ROS2 anywhere.
 
