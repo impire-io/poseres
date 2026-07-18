@@ -118,11 +118,12 @@ dials. Trails: `BLEND-DIAGNOSIS.md`, `PREDLP-DIAGNOSIS.md`.
 
 ## Phase B — Make it usable (platform)
 
-B1–B5 are complete; B3/B4 were engine work that everything in Phase C
-depends on. Two platform successors were added 2026-07-18 (JOURNEY.md
-ch. 27): **B6**, the external bus backend the distributed-operation chain
-always named as the step after B4, and **B7**, the dashboard that consumes
-it. They are sequenced strictly B6 → B7 — one transport, built once.
+B1–B6 are complete; B3/B4 were engine work that everything in Phase C
+depends on. The platform successors added 2026-07-18 (JOURNEY.md ch. 27)
+are sequenced strictly B6 → B7 — one transport, built once: **B6**, the
+external bus backend the distributed-operation chain always named as the
+step after B4, landed the same day (ch. 28); **B7**, the dashboard that
+consumes its subjects, is now unblocked.
 
 ### B1. The watchable world (`examples/` + live viewer) — ✅ done (JOURNEY.md ch. 20)
 An in-repo 2D rover world with a built-in web viewer: `pip install poseres`,
@@ -201,15 +202,14 @@ positions. Bonus repair: a pre-existing one-ULP resume-exactness bug
 (frame-group order lost to sorting in the blob) found by this feature's
 tests and fixed — group order now travels as lived.
 
-### B6. External bus backend (NATS/JetStream) — open
+### B6. External bus backend (NATS/JetStream) — ✅ done (JOURNEY.md ch. 28)
 The next link in the distributed-operation chain (A1 → B4 → **this** →
-multi-machine), now a scheduled item rather than a horizon note. The
-framing that was considered and rejected (JOURNEY.md ch. 27): NATS
-*underneath* the engine. The fast loop is a batched in-process kernel
-whose validation story is byte-identity; a network hop inside it breaks
-both throughput and the T1–T7 gate. NATS enters **at the seams**, opt-in,
-with the reference paths byte-frozen — the same pattern as every feature
-since 001:
+multi-machine). The framing that was considered and rejected (JOURNEY.md
+ch. 27): NATS *underneath* the engine. The fast loop is a batched
+in-process kernel whose validation story is byte-identity; a network hop
+inside it breaks both throughput and the T1–T7 gate. NATS enters **at
+the seams**, opt-in, with the reference paths byte-frozen — the same
+pattern as every feature since 001:
 
 - **Bus backend** (Doc 02's stated purpose): run telemetry fanned out as
   subjects, so any external process can tap a live brain without touching
@@ -230,13 +230,26 @@ class-4 mode (openly non-reproducible), stated up front, never
 discovered.
 *Gate:* B4 (done). Design-first: spec-kit feature with the seam
 inventory and the determinism boundary written before code.
-*Exit:* reference suite byte-identical with the backend absent, and with
-it attached as observer; a live run's telemetry consumed from NATS
-subjects by a separate process; snapshot round-trip through JetStream
-verified; the reproducibility classes of every NATS-touching mode
-recorded in Doc 06 §5b.
+*Exit criteria met (feature 014):* `pra.nats` — one tap binding three
+existing injection seams (a delegating world wrapper with the pause
+gate, the B1 viewer's `bus_factory` capture, a snapshot-store wrapper at
+the C4 write site), a versioned run-scoped subject scheme (`pra.v1.…`),
+a JetStream object-store `SnapshotStore` backend, and a three-command
+control plane with honest deferred snapshot fulfillment. Reference suite
+byte-identical with the backend absent *and* attached (same-seed
+two-run tests, incl. multi-stream continuous); the run never waits on
+the network (bounded buffer, derived drop counts, outage tests); a
+paused-and-resumed run completes byte-identical to a never-paused one;
+snapshot round-trip and cross-store resume equivalence proven at
+reference and scaled-blob sizes; every gate test runs on the in-repo
+fake transport — no NATS library or server, zero skips. The real stack
+measured, not hoped: `examples/nats/demo.py` ran green end-to-end
+(discovery, live telemetry off-process, pause frozen + verified,
+snapshot fulfilled at the C4 boundary and pulled back from JetStream,
+decoded, all proofs pass) against nats-server with `nats-py` 2.15.
+Doc 06 §5b records the class of every NATS-touching mode.
 
-### B7. Web dashboard / monitor — open, gated on B6
+### B7. Web dashboard / monitor — open (gate met: B6 done)
 The B1 viewer generalized: one dashboard for any PRA brain, consuming the
 B6 telemetry subjects and control plane — never a second transport. Two
 modes: **simple** (what the brain is doing, for a person standing in
@@ -347,8 +360,11 @@ even though none is a schedulable milestone.
   across machines is how the architecture is meant to grow. Sequenced, not
   skipped: A1 (done — a functioning ecology at scale) → B4 (done — multi-stream
   experience on one machine proves the merged-experience science) → the external
-  bus backend (**now scheduled as B6**) → multi-machine. Distributing a brain whose
-  scale rules are still breaking would distribute the failure.
+  bus backend (**done — B6**, feature 014: telemetry, snapshots, and control
+  over NATS, the fast loop untouched) → multi-machine. The remaining link is
+  the researched one: distributing the *brain itself* — inter-brain and
+  cross-machine delivery semantics — which B6 deliberately excluded as
+  research, not plumbing.
 - **Tool self-invention.** Tagged [O] since the design docs: the registration
   interface exists (Doc 02), the inventing mechanism is unsolved research.
   On the roadmap as a named open problem — the honest form of including it —
@@ -377,9 +393,9 @@ project's claims and its measurements cannot drift apart.
 
 ---
 
-*Sequencing summary:* **Phase A complete (A1–A4)**; **B1–B5 complete**,
-with the platform successors **B6 (NATS at the seams) → B7 (dashboard)**
-scheduled (2026-07-18) — C1's gate (B3, B5, A4-guidance) and C2's (B3,
+*Sequencing summary:* **Phase A complete (A1–A4)**; **B1–B6 complete**
+(B6, NATS at the seams, landed 2026-07-18 as feature 014), **B7
+(dashboard) unblocked** — C1's gate (B3, B5, A4-guidance) and C2's (B3,
 physical-reset answer) are open; **C2's platform half landed** (the ROS2
 adapter, feature 013 — hardware and simulators through one seam; the
 showcase build/video remains, with **learned channel weighting** its

@@ -126,6 +126,30 @@ the blob — restoring frame groups in sorted rather than lived order
 changed float-accumulation order and made resumed runs drift by one ULP.
 Old blobs decode unchanged; their lived order was lost at write time.
 
+The NATS bus backend (feature 014, ROADMAP B6) adds **transport, not
+semantics** — the reproducibility class of every NATS-touching mode,
+recorded:
+
+- **Telemetry out** (the `pra.nats` tap attached): observer-safe. The
+  run's RNG stream, behavior, and serialized summary are byte-identical
+  with the backend absent or attached — proven by same-seed two-run
+  tests (the B1 viewer discipline, off-process). The run never waits on
+  the network: undeliverable telemetry is dropped and counted, never
+  blocked on.
+- **Pause/resume** (control plane): schedule-relative and
+  class-preserving. A steppable world's paused-then-resumed run
+  completes byte-identical to a never-paused one; a free-running world
+  (class 4, the ROS2 adapter's real-time mode) keeps moving while the
+  schedule holds — stated, and its class is unchanged.
+- **Store-backed snapshots** (JetStream object store behind the §3.1
+  store seam): the transport carries the blob unmodified, so every
+  per-class guarantee above applies to a NATS-stored snapshot exactly
+  as to a file-stored one. The engine blocks at the C4 write for the
+  duration of the network put — the user's explicit backend choice.
+- **Experience in over a network** (remote sensors feeding the brain):
+  class 4 — openly non-reproducible — and **not built**. Named here so
+  it is stated before anyone builds it, never discovered after.
+
 ---
 
 ## 6. Definition of done (this document)

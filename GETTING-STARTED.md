@@ -282,18 +282,54 @@ is and is not guaranteed, per world class, is written down in
 `design/06-state-persistence.md` §5b — live services and hardware get no
 world-state guarantee, by honest design.
 
-## 7. What PRA does not do yet
+## 7. Watch and manage it live from anywhere: NATS at the seams
+
+Everything above runs in one process. Opt in to the bus backend and a
+live run gets an off-process presence — telemetry fanned out as NATS
+subjects, snapshots in a JetStream object store (push a brain from one
+machine, resume it on another), and a request/reply control plane
+(inspect, pause/resume, snapshot-on-request). The run itself never
+notices: byte-identity with the backend attached is part of the test
+suite, and the run never waits on the network — a dead server costs a
+counted drop, never a stalled step.
+
+```python
+from pra.nats import NatsSnapshotStore, NatsTap, NatsTransport  # pip install "poseres[nats]"
+
+transport = NatsTransport("nats://127.0.0.1:4222")
+tap = NatsTap(transport, run_id="rover-1")
+store = NatsSnapshotStore(transport)
+engine = Engine(
+    cfg,
+    world_factory=tap.world_factory(),
+    bus_factory=tap.bus_factory,
+    snapshot_store=tap.wrap_store(store),
+)
+tap.start()
+summary = engine.run(seed=1)
+tap.finish(summary)
+```
+
+Any NATS client can now watch (`nats sub 'pra.v1.run.rover-1.tele.>'`)
+or manage (`nats req 'pra.v1.run.rover-1.ctrl' '{"cmd":"pause"}'`) the
+run. `python examples/nats/demo.py` is the whole proof in one command;
+the test suite needs no NATS at all (the in-repo fake transport carries
+the contract).
+
+## 8. What PRA does not do yet
 
 So you calibrate expectations before building on it: no multi-step planning
-(the policy seam has a one-step default), no distributed operation (the bus
-seam has only an in-memory backend), no tool self-invention (the registration
+(the policy seam has a one-step default), no distributed *brain* (a live run
+is now watchable, manageable, and shareable over NATS — §7 — but the fast
+loop itself stays in one process; inter-brain communication is named
+research), no tool self-invention (the registration
 interface exists; the inventing mechanism is an open problem), and two
 pre-built connectors so far — the Gymnasium adapter and the ROS2 adapter
 (§4); for cameras and APIs the Sensor/Actuator protocols above are the
 integration surface. Vision-scale observations remain out of validated
 range regardless of connector.
 
-## 8. Where to go next
+## 9. Where to go next
 
 `design/00-README-index.md` is the map of the seven design documents (read 01
 first). `JOURNEY.md` tells you how the project got here, including the dead
