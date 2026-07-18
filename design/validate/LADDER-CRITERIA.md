@@ -171,6 +171,20 @@ has its diagnosis: CHANNELNOISE-DIAGNOSIS.md (dose–response band,
 three-leg mechanism, remedy named *learned channel weighting* and
 deferred).
 
+**Addendum (2026-07-18, arc 016 — the default-config result above stands
+as the recorded reference behavior).** With learned channel weighting ON
+(opt-in: `channel_weight_floor = 0.2`, `channel_stats_decay = 0.995`;
+CHANNELWEIGHT-DIAGNOSIS), noise mode at σ_d = 1.0 **PASSES the unchanged
+criterion at 24-seed power**: within-one counts 21/24, 18/24, 20/24 at
+@18/@30/@50; confirmatory finals
+[3,4,4,3,2,3,2,3,1,3,3,3,3,3,3,1,3,1,2,2,1,3,4,4]; every dose in
+{0.04, 0.1, 0.2, 0.5, 1.0} PASSES at 8 seeds; structured mode is
+retained (7/8 at every checkpoint) and the OFF arm reproduces the FAIL
+above exactly. One new default-config reading from the same runs:
+σ_d = 0.5 OFF is a full FAIL at these rung dials (@18 [2,2,1,1,2,2,1,2])
+— the instability band is deeper at the rung's construction stream than
+the parent arc's `distractor_dim = 1` replicate showed.
+
 ## Standing summary (first recorded results)
 
 Six dial sets, pre-registered criteria, one instrument invocation:
@@ -179,4 +193,7 @@ Every FAIL is attributable: one criterion clause tested a wrong
 distributional assumption (amended, numbers kept); strong region noise
 widens the landing spread (real, dose-dependent); high-amplitude channel
 static collapses it (real, named as the channel-noise robustness
-problem). The ladder is doing its job: each failure names its own cause.
+problem — closed opt-in by arc 016: L3 noise PASSES at 24 seeds with
+learned channel weighting ON; the default-config FAIL stands as the
+recorded reference). The ladder is doing its job: each failure names its
+own cause.

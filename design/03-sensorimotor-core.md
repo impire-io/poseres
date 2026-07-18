@@ -106,6 +106,8 @@ Given `event = (prev_obs, action, obs)`:
 
 **Fair-judge option (`score_window_steps`, THRESHOLD-DIAGNOSIS).** Coverage-fairness fixes *which* events are scored; a *when* bias remains: a continually-learning frame adapts within the episode to the current context, so an all-step EMA scores tracking rather than structure (its dim surface disagrees with the frozen honest surface at scale). With `score_window_steps = K > 0` the survival EMAs advance only on the first K steps of each episode — scoring transfer to a fresh context; measurement, gating, learning, and telemetry unchanged. Default `K = 0` (every step) is the pinned validated behavior. `K > 0` activates PRA-01 §8.8's conditional seventh rule.
 
+**Learned channel weighting (`channel_weight_floor`, CHANNELWEIGHT-DIAGNOSIS, feature 016).** Opt-in (`0 = off`, the pinned validated behavior, byte-identical). When on, the frame store maintains a per-channel whiteness estimate (lag-1 autocorrelation of the observation stream — learning-free, amplitude-invariant, un-gameable) and derives one weight vector `w ∈ [floor, 1]` at episode starts. The same `w` applies to **both legs**: the survival norms become `||(recon − obs)⊙w|| / (||obs⊙w|| + 1e-6)` (numerator AND denominator; same form for `prediction_error`), and the learning path consumes `w⊙obs` at the encoder with the placement error weighted `(recon − obs)⊙w` — judging and learning never disagree about a channel's worth. Telemetry norms stay unweighted. Measured result: channels carrying irreducible static stop drowning the score gradient and stop corrupting the shared encoder (the L3-noise rescue); the floor is load-bearing — full exclusion is measured worse.
+
 ---
 
 ## 5. Learning — **[V]**

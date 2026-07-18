@@ -412,9 +412,12 @@ project's claims and its measurements cannot drift apart.
 feature 015) both landed 2026-07-18 — C1's gate (B3, B5, A4-guidance) and C2's (B3,
 physical-reset answer) are open; **C2's platform half landed** (the ROS2
 adapter, feature 013 — hardware and simulators through one seam; the
-showcase build/video remains, with **learned channel weighting** its
-named de facto research gate); C1 next alongside the named research
-successors (learned channel weighting; frontier where camping costs;
-predictive LP); D alongside C; C3 parked.
+showcase build/video remains) and **its research gate is cleared**:
+learned channel weighting landed 2026-07-18 (feature 016,
+CHANNELWEIGHT-DIAGNOSIS — L3 noise PASSES at unit amplitude at 24 seeds,
+opt-in; the recorded default-config FAIL stands as the reference); C1
+next alongside the remaining named research successors (frontier where
+camping costs; predictive LP; the relative survival bar stays a named
+conditional deferral); D alongside C; C3 parked.
 *This file is load-bearing: changes to it are decisions and belong in
 JOURNEY.md like any other.*

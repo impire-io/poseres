@@ -328,7 +328,9 @@ path needs the same treatment.**
 4. **E3: no remedy shipped — deferral, for a measured reason.** The one
    mechanism-level fix is an in-system per-channel noise-floor estimator
    feeding **both** the survival norm and the encoder input path —
-   *learned channel weighting*, hereby named as the successor feature.
+   *learned channel weighting*, hereby named as the successor feature
+   (delivered: CHANNELWEIGHT-DIAGNOSIS.md, arc 016 — L3 noise PASSES at
+   σ_d = 1.0, 24 seeds, opt-in).
    The cheap half (score-side normalization only) was tested against the
    E2b data and fails exactly where the problem lives (unit amplitude);
    a survival bar with a notion of achievable error (relative rather
