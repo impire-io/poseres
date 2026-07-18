@@ -420,8 +420,12 @@ opt-in; the recorded default-config FAIL stands as the reference); the
 2026-07-18): camping does cost — the camper recovers worst when the
 world shifts — but realized LP does not collect the prize (post-shift
 edge equals random's; multi-region steering pays a cost), so competence
-guidance stands and the successor sharpens to **fully predictive LP**
-with the two new worlds as its testbed; C1 next alongside predictive LP
+guidance stands; the predictive-LP form was then gated before code
+(arc 018, SCOUT-DIAGNOSIS, 2026-07-18) and **stopped at its gate**: no
+half-comparison over the current 200-entry err@visit FIFO can detect a
+regime change (the baseline is forgotten in ~5 episodes), so the
+successor is a representation feature — **place-indexed long-horizon
+error memory** — before any predictive-LP drive; C1 next alongside it
 (the relative survival bar stays a named conditional deferral); D
 alongside C; C3 parked.
 *This file is load-bearing: changes to it are decisions and belong in
