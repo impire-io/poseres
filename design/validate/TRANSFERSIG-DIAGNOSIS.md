@@ -52,3 +52,37 @@ transfer steps, replay the grid. Accept: one setting clears every bar.
   be frozen in this document before any live run, mirroring arc 021's).
 
 Results are appended as they land; the Outcome section closes the arc.
+
+## Result: P1 (recorded 2026-07-18; 7 traces, full grid)
+
+**FAIL at every setting — X0 by the letter — and the first gate in the
+program to find the vein.** Best setting (ctx2, W = 16): dynamics pre →
+post 0.028 → 0.072 / 0.007 → 0.051 / 0.008 → 0.028 (ratios 2.5×, 7.2×,
+3.7×); emission 0.020 → 0.056 / 0.019 → 0.062 / 0.017 → 0.026 (2.8×,
+3.3×, 1.5×); benign floor 0.027. For the first time the signal moves the
+right way in ALL SIX shift cells on BOTH modes — the tracking stream
+never managed direction on dynamics at all — but two seeds sit at ~1.5×
+and the benign floor is not 4×-cleared, so no setting passes the frozen
+bars. The grid's own trend is part of the record: deeper context and
+longer windows improve every number monotonically (benign 0.163 → 0.027
+across the grid) and the frozen grid ends where the trend is still
+improving.
+
+## Outcome (recorded 2026-07-18)
+
+1. **The signal-level diagnosis is confirmed in the right direction:
+   transfer errors carry the staleness information that tracking errors
+   drown.** Direction universal on both world-change modes, best ratios
+   3–7× against the tracking stream's ~1× ceiling. The fair-judge
+   lesson transfers to the drive level.
+2. **The arc still closes at its gate** — the fourth zero-src gate-stop
+   — because the frozen bars are not met and extending the grid post
+   hoc would be exactly the tuning the discipline forbids. The
+   successor probe is named from the measured trend, to be
+   pre-registered fresh: richer context cells and longer windows ON the
+   transfer stream (the direction the grid was still improving when it
+   ended), with per-frame transfer error as the fallback space.
+3. **What ships: nothing but knowledge** — and the program's map is now
+   clean: the signal is right (transfer), the statistics direction is
+   known (slower, higher-resolution cells), the bracket and testbeds
+   stand ready. Doc 05 guidance unchanged: competence stands.
