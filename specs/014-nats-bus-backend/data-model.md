@@ -130,9 +130,10 @@ are explicit operations).
   the object description; parsed back verbatim on `list`/`read`.
 - **`list()`**: newest-first by metadata `timestamp` (the
   `FileSnapshotStore` contract, matched exactly).
-- **Bucket**: configurable name, default `pra-snapshots`; missing
-  bucket on read/list/delete → loud `RuntimeError` naming store, op,
-  id; `write` creates the bucket if absent.
-- **Failures**: any transport/server error surfaces as `RuntimeError`
-  naming store, operation, and id — never a hang (bounded timeout),
-  never a silent success.
+- **Bucket**: configurable name, default `pra-snapshots`; `write`
+  creates it if absent; a store with no bucket yet lists `[]` (an
+  empty store, like a fresh directory) and `delete` is idempotent.
+- **Failures**: a missing snapshot id on `read` raises `KeyError` (the
+  file store's grammar, matched); any transport/server error surfaces
+  as `RuntimeError` naming store, operation, and id — never a hang
+  (bounded timeout), never a silent success.

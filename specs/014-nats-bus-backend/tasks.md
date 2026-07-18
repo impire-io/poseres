@@ -11,7 +11,7 @@ runs on the fake transport, no NATS library, no server).
 
 ## Phase 1: Setup
 
-- [ ] T001 Subpackage skeleton + the scheme: `src/pra/nats/`
+- [x] T001 Subpackage skeleton + the scheme: `src/pra/nats/`
       (`__init__.py` public surface), `subjects.py` — subject builders
       for every family in data-model §2, `run_id` validation (token
       rules, uuid4 default off the engine's stream), canonical-JSON
@@ -24,7 +24,7 @@ runs on the fake transport, no NATS library, no server).
 
 ## Phase 2: Foundational
 
-- [ ] T002 Transport seam: `BusTransport` protocol in
+- [x] T002 Transport seam: `BusTransport` protocol in
       `src/pra/nats/transport.py` (publish / subscribe /
       serve_requests / request / object_put / object_get /
       object_list / object_delete / healthy / counters / close) and
@@ -39,7 +39,7 @@ runs on the fake transport, no NATS library, no server).
 
 ## Phase 3: US1 — watch a live brain from another process (P1) 🎯 MVP
 
-- [ ] T003 [US1] The tap in `src/pra/nats/tap.py`: `NatsTap`
+- [x] T003 [US1] The tap in `src/pra/nats/tap.py`: `NatsTap`
       (run identity, counters, bounded mirror deque + tap-wide
       sequence), `world_factory()` returning delegating `_TapWorld`
       wrappers (per-step mirror of action/obs copies, episode/boot
@@ -53,14 +53,14 @@ runs on the fake transport, no NATS library, no server).
       fallback), `start()` (status `started` with anatomy numbers)
       and `finish(summary)` (status `completed` with the canonical
       summary) (research R1–R3; data-model §3, §5, §6)
-- [ ] T004 [P] [US1] Contract tests in
+- [x] T004 [P] [US1] Contract tests in
       `tests/contract/test_nats_contract.py`: mirror fidelity (journal
       reproduces exact stream/episode/step/action sequence with obs
       values matching the world's), payload byte-determinism across
       identical runs, census derived only off-path with torn-read
       fallback, status lifecycle, counters present and outside the
       learning surface (contracts §2.3, §2.5–§2.7)
-- [ ] T005 [P] [US1] Integration tests in
+- [x] T005 [P] [US1] Integration tests in
       `tests/integration/test_nats_fake_run.py`: byte-identity
       attached vs absent (reference world; multi-stream continuous
       run), engine-rng bit-state non-perturbation, no-backpressure —
@@ -70,14 +70,14 @@ runs on the fake transport, no NATS library, no server).
 
 ## Phase 4: US2 — snapshots through the object store (P2)
 
-- [ ] T006 [US2] `NatsSnapshotStore` in `src/pra/nats/store.py`:
+- [x] T006 [US2] `NatsSnapshotStore` in `src/pra/nats/store.py`:
       four-method `SnapshotStore` protocol over the transport's
       object-store ops — ids via existing `snapshot_id_for`, canonical
       metadata in the object description, `list()` newest-first,
       bucket default `pra-snapshots` (write creates, read/list/delete
       loud on absence), every failure a `RuntimeError` naming store /
       operation / id, bounded timeout (research R6; data-model §8)
-- [ ] T007 [US2] [P] Store contract + integration tests: the existing
+- [x] T007 [US2] [P] Store contract + integration tests: the existing
       store-contract expectations run against a fake-backed
       `NatsSnapshotStore` (write/read/list/delete, metadata round-trip,
       newest-first) in `tests/contract/test_nats_contract.py`;
@@ -88,7 +88,7 @@ runs on the fake transport, no NATS library, no server).
 
 ## Phase 5: US3 — the control plane (P3)
 
-- [ ] T008 [US3] Control plane in `src/pra/nats/control.py` + the gate
+- [x] T008 [US3] Control plane in `src/pra/nats/control.py` + the gate
       in `tap.py`: pause `threading.Event` checked at wrapped
       `step()`/`reset()` entry; `serve_requests` listener answering
       `inspect` (read-only, answers in every state), `pause`/`resume`
@@ -99,7 +99,7 @@ runs on the fake transport, no NATS library, no server).
       missing store/cadence; error on completion-first), discover
       replies, error replies for non-JSON / non-object / unknown cmd
       (research R2/R5; data-model §4, §7)
-- [ ] T009 [US3] [P] Control tests: contract —
+- [x] T009 [US3] [P] Control tests: contract —
       pause quiescence in the journal, idempotence, every enumerated
       error reply, deferred snapshot fulfillment and both error paths,
       discover reply shape (in `tests/contract/test_nats_contract.py`);
@@ -110,7 +110,7 @@ runs on the fake transport, no NATS library, no server).
 
 ## Phase 6: US4 — the real binding and the worked example (P4)
 
-- [ ] T010 [US4] `NatsTransport` in `src/pra/nats/transport.py`: one
+- [x] T010 [US4] `NatsTransport` in `src/pra/nats/transport.py`: one
       lazy import helper (the monkeypatch point) raising the
       `pip install "poseres[nats]"` error; one asyncio loop on a
       daemon thread — `publish` via `call_soon_threadsafe`
@@ -120,7 +120,7 @@ runs on the fake transport, no NATS library, no server).
       state, reconnect counting, idempotent `close()`; contract test
       for the missing-library error via monkeypatched import handle
       (contracts §5.1; research R7)
-- [ ] T011 [US4] `examples/nats/`: `brain.py` (seeded run, tap + fake
+- [x] T011 [US4] `examples/nats/`: `brain.py` (seeded run, tap + fake
       cadence-sized `NatsSnapshotStore` via `wrap_store`, finish
       publishing the summary), `watch.py` (subscribe `tele.>`, print
       live telemetry; inspect → pause → resume → snapshot with
@@ -132,7 +132,7 @@ runs on the fake transport, no NATS library, no server).
 
 ## Phase 7: Polish
 
-- [ ] T012 Docs propagation + close-out: Doc 06 §5b feature-014
+- [x] T012 Docs propagation + close-out: Doc 06 §5b feature-014
       paragraph (telemetry-out observer-safe; pause class-preserving
       with the free-running caveat; store-backed snapshots inherit
       their world's class; experience-in named class 4, out of scope)

@@ -99,9 +99,12 @@ the fake transport (`fake.py`) is the instrument for all of them
 3. **Resume equivalence** (SC-004): an engine resumed from a blob
    fetched through the object store produces a summary byte-identical
    to one resumed from the same snapshot in a `FileSnapshotStore`.
-4. **Loud failures** (FR-005): unreachable transport, missing bucket
-   (read path), missing id → `RuntimeError` naming store, operation,
-   and id; bounded timeout — no hang.
+4. **Loud failures** (FR-005): a missing snapshot id raises `KeyError`
+   (the protocol's own contract — the file store's grammar, matched);
+   transport trouble raises `RuntimeError` naming store, operation, and
+   id; bounded timeout — no hang. A store with no bucket yet lists `[]`
+   (an empty store, exactly like a fresh directory), and `delete` is
+   idempotent.
 5. **Engine-side blocking is stated**: a store-backed run blocks at C4
    for the write's duration — the user's explicit backend choice,
    documented in quickstart and §5b.

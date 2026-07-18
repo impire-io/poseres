@@ -25,6 +25,10 @@ Source = "https://github.com/impire-io/poseres"
 # The Gymnasium adapter (feature 007) — optional at runtime, always present in
 # dev so the quality gate exercises its tests (repo rule: none skipped).
 gym = ["gymnasium>=1.0"]
+# The NATS bus backend (feature 014) — pip-installable, so the extra honestly
+# exists; the quality gate never imports it (the fake transport carries the
+# contract; the worked example carries the integration proof).
+nats = ["nats-py>=2.9"]
 dev = ["pytest>=8.0", "ruff>=0.6", "gymnasium>=1.0"]
 
 [project.scripts]
