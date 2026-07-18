@@ -193,6 +193,91 @@ population in ≥ 5/8 seeds, AND the per-seed winner `best_score` below that
 seed's pop-scaled survival bar in ≥ 5/8 [anchors: winners 0.72–0.83 vs bar
 0.49–0.65; today zero mature frames in every seed].
 
+## Result: E1a (recorded 2026-07-18; 12 arms × 3 ages × 3 seeds, one instrument invocation)
+
+**Instrument fidelity, stated first.** The probe is a rebuild (the parent
+instrument was scratchpad-only, per the house rule): a `FrameGroup`
+subclass inheriting the exact init draws and unweighted paths, overriding
+only the four weighted operations; ages run as separate fresh runs
+(train N, freeze, eval 10). Judging-age anchors replicate the recorded
+E2b: unweighted σ_d = 1.0 at age 12 → min **1**, depth **0.000** (exact);
+0.04 at age 12 → min 4, depth 0.143 (recorded 0.119). Later-age depths
+run systematically larger than recorded (e.g. 0.372 vs 0.093 at
+0.04/age 24) — an instrument-alignment difference; every E1a comparison
+below is therefore **within-instrument**, including fresh unweighted
+anchor arms at all four doses.
+
+**One clause amended, openly.** The registered σ_d = 0.5 bar ("min ∈
+{3, 4} at all three ages") demanded of the remedy what the healthy
+anchors themselves do not do: the **recorded** 0.04 anchor has min **6**
+at age 48, and this instrument's unweighted 0.04 and 0.2 arms land min 6
+at age 48 too — the known long-age overfit drift, present at every
+healthy dose. The clause is amended to mirror the σ_d = 1.0 form (min ∈
+{3, 4} at ages 12 AND 24 with depth ≥ 0.06; age-48 full span > 0.06);
+raw age-48 minima are recorded regardless.
+
+Mean surfaces (3 seeds), min dim / basin depth by age:
+
+| arm | age 12 | age 24 | age 48 (raw min) | verdict |
+|---|---|---|---|---|
+| unw 0.04 | 4 / 0.143 | 4 / 0.372 | 6 / 0.418 | healthy anchor |
+| unw 0.2  | 4 / 0.117 | 4 / 0.305 | 6 / 0.341 | healthy anchor |
+| unw 0.5  | 4 / 0.058 | 4 / 0.194 | 4 / 0.247 | band anchor |
+| unw 1.0  | **1 / 0.000** | 4 / 0.035 | 6 / 0.077 | collapse anchor |
+| w f=0   (both σ) | 4 / 0.155 | **8** / 0.317 | 6 / 0.435 | **FAIL** |
+| w f=0.1, σ=1.0 | 4 / 0.150 | 4 / 0.304 | 6 / 0.407 | PASS |
+| w f=0.2, σ=1.0 | 4 / 0.131 | 4 / 0.354 | 6 / 0.355 | PASS |
+| w f=0.3, σ=1.0 | 4 / 0.109 | 4 / 0.311 | 6 / 0.370 | PASS |
+| w f=0.2, σ=0.5 | 4 / 0.148 | 4 / 0.376 | 6 / 0.410 | PASS (amended clause) |
+
+(f ∈ {0.1, 0.3} at σ = 0.5 likewise PASS: depths 0.154/0.326 and
+0.138/0.338.)
+
+- **Corruption heal: PASS everywhere.** Weighted core-restricted dim-3
+  pred error at f = 0.2, σ_d = 1.0: 0.819 at age 12 (**0.98×** the
+  unweighted 0.04 baseline 0.838 — below it), 0.700 at age 24 (1.02× of
+  0.687); bar was ≤ 1.2×. Static in the encoder is not corrupting core
+  learning once it arrives at floor amplitude.
+- **The transport prediction: confirmed sharply.** f = 0.2 @ σ_d = 1.0 vs
+  unweighted σ_d = 0.2 — same min location at every age (4 / 4 / 6),
+  depth ratios 1.12 / 1.16 / 1.04 (bar: within 2×).
+- **f = 0 (full exclusion) is a finding, not a control.** The f = 0 arms
+  are bit-identically dose-invariant (static is annihilated in every
+  computation — a plumbing consistency check, passed), and they **fail**:
+  min 8 at age 24 at both doses. With static fully silenced, spare
+  capacity is free and the 0.02/dim price alone cannot hold the elbow;
+  the floor keeps a residual price on wasted width. The floor is
+  load-bearing, not a safety margin — full exclusion is the wrong
+  operating point even with oracle knowledge.
+
+**Gate: OPEN at f ∈ {0.1, 0.2, 0.3}; f = 0.2 confirmed as the shipping
+recommendation (the transport-anchored value).**
+
+## Result: E1b (recorded 2026-07-18; seeds 1–8, recorded rung dials, f = 0.2)
+
+**PASS, 8/8 on both bars** (bar was ≥ 5/8 on each).
+`effective_min_age_cycles` = 6.
+
+| seed | best_dim | best_score | pop-scaled bar | below? | mature frames | mean/final pop |
+|---|---|---|---|---|---|---|
+| 1 | 2 | 0.171 | 0.303 | yes | 39 | 31.6 / 45 |
+| 2 | 3 | 0.114 | 0.500 | yes | 13 | 14.3 / 19 |
+| 3 | 4 | 0.186 | 0.377 | yes | 26 | 17.9 / 32 |
+| 4 | 4 | 0.178 | 0.417 | yes | 21 | 22.3 / 27 |
+| 5 | 3 | 0.157 | 0.455 | yes | 17 | 15.2 / 23 |
+| 6 | 5 | 0.179 | 0.455 | yes | 17 | 14.9 / 23 |
+| 7 | 4 | 0.283 | 0.513 | yes | 11 | 23.5 / 18 |
+| 8 | 6 | 0.255 | 0.426 | yes | 18 | 20.5 / 26 |
+
+Winners sit at 0.114–0.283 against bars 0.303–0.513 — the recorded
+unweighted state was 0.72–0.83 against 0.49–0.65 with **zero** mature
+frames in every seed. The conveyor is broken by the oracle; populations
+carry mature anchors again. (Reading note: with the monkeypatch, the
+telemetry pred-error norms are weighted too — the shipped feature keeps
+them unweighted (C2); E1b's bars read maturation and score-vs-bar only.)
+
+**H-transport: confirmed. The arc proceeds to the shipping stage.**
+
 ## The shipping shape (after the E1 gate, before E2)
 
 The mechanism lands opt-in in `src/pra` with the full test set in the same
