@@ -120,3 +120,98 @@ per-region occupancy fractions per seed.
 
 Results are appended as they land; the Outcome section closes the arc.
 Scratchpad instruments stay out of git; protocols and tables live here.
+
+## Result: E0 (recorded 2026-07-18)
+
+Both worlds shipped opt-in: degenerate streams byte-identical to the
+reference (unit-tested), shift semantics and per-region draws verified,
+state capture across the shift, dial↔world validation coupling, old-blob
+config decode tolerant of the new tuple field. Full gate green, baseline
+untouched.
+
+## Result: E1 + E2 (recorded 2026-07-18; 576 runs — 2 worlds × 4 arms × 3 horizons × 24 seeds, one instrument invocation)
+
+**X4 fired first, and its diagnosis is already in the record.** H-sanity
+(every directed arm beats random, A4 form) fails on both worlds: on W1
+the vs-random majorities hover at 11–14/24 with mean margins ≈ 0.000; on
+W2 competence holds 17/24 at every horizon but frontier reads 13/13/11.
+Diagnosis, per X4's stop-first rule: this is the world-family regime the
+BLEND arc already measured — *directedness pays in proportion to how
+much the world punishes indiscriminate experience*, and these
+all-learnable, mild-noise worlds barely punish it (W2's competence
+17/24 shows the instrument resolves real effects; W1's whole-run margin
+pools pre- and post-shift regimes). The sanity clause imported an
+expectation from the L1 family; recorded as a calibration note, and the
+E1/E2 readings below stand as findings *about these worlds*.
+
+**E1 — the shifting world.**
+
+- Pre-shift (h18/h30, shift never fires): frontier and blend are
+  noninferior to competence at every read (T7 PASS ×4) — the edge is not
+  bought pre-shift.
+- **Primary, post-shift at h50 — letter-PASS, substance qualified by the
+  pre-registered context row.** Frontier > competence 14/24, mean margin
+  +0.027 (spread [−0.071, +0.147]); blend 14/24, +0.003. But **random >
+  competence 17/24, mean +0.027** — the same edge. Post-shift
+  improvement medians: random **+0.070**, frontier +0.061, blend +0.058,
+  competence **+0.038**.
+- **The clean new fact: camping measurably costs.** The camper has the
+  worst recovery of all four arms when the world moves — the
+  mastered-then-changing world does exactly the job it was built for.
+  What it does *not* show is a frontier niche: the realized-LP arm
+  re-engages no better than undirected exploration. H-shift's majority
+  clause is met; its *interpretation* (frontier as change detector) is
+  refuted by the random context.
+
+**E2 — the multi-region world (K=2, (0.0, 0.3)).**
+
+- **Occupancy clause: holds for frontier** — harder-region occupancy
+  above competence's, paired, 14/15/14 of 24 at h18/h30/h50 (median
+  hard-occ 0.644 vs competence 0.582 at h50). Blend does not steer
+  (12/11/10).
+- **Noninferiority: FAILS for frontier at h30/h50** (mean margins −0.033
+  and −0.023 vs competence, well outside −1.9·SE) → the conjunctive
+  primary FAILS → **X2: steering with a cost.** Frontier genuinely
+  visits the harder-but-learnable region more and pays ~0.02–0.03
+  improvement for the visits at reference budgets. The modest win clause
+  is met only by blend at h18 (13/24, mean +0.001 — noise-thin).
+- Competence remains the strongest arm on W2 (17/24 over random at every
+  horizon, means +0.020…+0.028).
+
+**E3 (conditional dose check): not run, per its own clause** — the
+deciding reads are not dial-fragile (W2 noninferiority failures sit at
+2–3× their SE; W1's primary is qualified by the random context, which no
+dose change addresses).
+
+## Outcome (recorded 2026-07-18)
+
+1. **The testbeds ship and do their jobs.** Two opt-in worlds behind the
+   existing seam, byte-identical when off, snapshot-safe across the
+   shift, per-region occupancy instrumented. The ladder now has worlds
+   where camping costs — and the cost is measured, not assumed:
+   post-shift, the camper recovers worst of all arms (median +0.038 vs
+   random's +0.070).
+2. **The frontier drive does not earn its named niche at reference
+   budgets — recorded as the finding it is.** On the world built for
+   change detection, its post-shift edge over competence (+0.027,
+   14/24) is indistinguishable from random's (+0.027, 17/24); on the
+   multi-region world it steers exactly as designed (occupancy clause
+   holds at every horizon) but pays for the steering (noninferiority
+   FAIL, X2). The realized-LP form — progress already *banked* near a
+   candidate — is a lagging indicator: by the time errors-at-visit
+   have fallen, the frontier has moved on. The named successor stands
+   and sharpens: **fully predictive LP** (a per-candidate error model
+   that anticipates progress instead of remembering it), with these two
+   worlds as its ready-made testbed and these numbers as its baseline.
+3. **Doc 05 guidance is unchanged by measurement**: competence remains
+   the recommended drive — strongest on W2 at every horizon, noninferior
+   pre-shift on W1; its one measured weakness (worst post-shift
+   recovery) is not yet exploitable by any drive in the registry.
+4. **Clause calibration recorded**: the A4-form vs-random sanity bar
+   does not transfer to worlds that tolerate indiscriminate experience
+   (the BLEND regime finding, reconfirmed); future arcs on mild worlds
+   should register competence-relative bars, not random-relative ones.
+5. **What ships**: `world="shifting"` / `world="multiregion"` with their
+   dials (inert by default, byte-identical — test-guarded), the
+   state-capture and config plumbing, this trail, and the recorded
+   baselines for the predictive-LP successor.
