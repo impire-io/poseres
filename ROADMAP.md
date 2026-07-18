@@ -415,9 +415,14 @@ adapter, feature 013 — hardware and simulators through one seam; the
 showcase build/video remains) and **its research gate is cleared**:
 learned channel weighting landed 2026-07-18 (feature 016,
 CHANNELWEIGHT-DIAGNOSIS — L3 noise PASSES at unit amplitude at 24 seeds,
-opt-in; the recorded default-config FAIL stands as the reference); C1
-next alongside the remaining named research successors (frontier where
-camping costs; predictive LP; the relative survival bar stays a named
-conditional deferral); D alongside C; C3 parked.
+opt-in; the recorded default-config FAIL stands as the reference); the
+**camping-costs question is measured** (feature 017, CAMPING-DIAGNOSIS,
+2026-07-18): camping does cost — the camper recovers worst when the
+world shifts — but realized LP does not collect the prize (post-shift
+edge equals random's; multi-region steering pays a cost), so competence
+guidance stands and the successor sharpens to **fully predictive LP**
+with the two new worlds as its testbed; C1 next alongside predictive LP
+(the relative survival bar stays a named conditional deferral); D
+alongside C; C3 parked.
 *This file is load-bearing: changes to it are decisions and belong in
 JOURNEY.md like any other.*

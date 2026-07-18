@@ -33,8 +33,17 @@ This is the least mature part of the system. The interfaces and a working defaul
 > worlds: competence and the frontier+competence blend both beat random in a
 > strict majority at every horizon and both noise dials (the A4 exit);
 > frontier neither stares at noise nor camps, and matches — does not beat —
-> competence where avoidance is optimal. Fully *predictive* LP (a
-> per-candidate error model) remains [O], now with a measured baseline.
+> competence where avoidance is optimal. The camping-costs worlds
+> (feature 017, CAMPING-DIAGNOSIS) then measured the drive on its own
+> turf: **camping does cost** (post-shift, competence recovers worst of
+> all arms — even random beats it), but realized LP does not collect the
+> prize — its post-shift edge over competence equals random's, and on
+> multi-region worlds it steers to the harder region exactly as designed
+> while *paying* for the visits (noninferiority FAIL). Guidance stands:
+> **competence** is the recommended drive. Realized LP is a lagging
+> indicator — progress already banked is not progress still available —
+> so fully *predictive* LP (a per-candidate error model) remains [O],
+> sharpened, with two ready-made testbeds and recorded baselines.
 
 ---
 
