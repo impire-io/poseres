@@ -125,6 +125,38 @@ channel below 0.9, switch to plain clip. Post-convergence drift read:
 max per-episode Δw after warmup, recorded (informative; large drift is a
 design smell to record, not a bar).
 
+## Result: P1 (recorded 2026-07-18; 3 seeds × 3 β × 2 shapings × 6 worlds, one instrument invocation)
+
+**β = 0.995 with max-normalized shaping — the unique passing combination;
+both pins adopted.** `channel_stats_decay = 0.995` (ready threshold 200
+steps = 5 episodes, well inside the 25-episode warmup).
+
+- **Separation (bar: margin ≥ 0.5 by episode 10, every dose ≥ 0.1):** min
+  across seeds of (min core ρ̂ − max static ρ̂) at episode 10 — 0.568 at
+  β = 0.98, 0.760 at 0.99, **0.809 at 0.995**; static induced weights sit
+  at the floor by episode 60 in every arm. The margins are *identical
+  across all four doses* — expected on reflection, recorded as a design
+  property: lag-1 autocorrelation is amplitude-invariant (white static has
+  ρ̂ ≈ 0 at any σ_d, and the core channels' construction stream is dose-
+  independent), so the estimator's separation cannot degrade with dose —
+  the failure mode the residual-ratio alternative had (contrast collapsing
+  exactly at high amplitude) is structurally absent.
+- **No suppression (bar: min induced core weight ≥ 0.9 on structured mode
+  and the reference world, every post-ready read):** overall minima across
+  all seeds/reads, max-normalized shaping — 0.70–0.72 at β = 0.98 (FAIL),
+  0.86–0.87 at 0.99 (FAIL, marginal), **0.910 structured / 0.926
+  reference at 0.995 (PASS)**. Plain-clip shaping is uniformly slightly
+  lower (as designed) and also passes only at 0.995; max-normalized is
+  kept as registered.
+- **Drift (informative):** post-warmup max per-episode Δw at σ_d = 1.0 —
+  0.17–0.34 (β = 0.98), 0.12–0.20 (0.99), **0.048–0.052 (0.995)**: the
+  passing β is also the most stable within-life norm.
+
+The pre-registered "prefer the smallest passing β" clause is vacuous —
+exactly one candidate passes. Both E2 weight-scale clauses are hereby
+frozen at the registered 0.9/floor values with β = 0.995, before any E2
+run, per the Stage-0 note.
+
 ## E1a — oracle both-legs gate (scratchpad; BEFORE any estimator code)
 
 The parent arc's E2b frozen-surface instrument (equal-experience frames,
