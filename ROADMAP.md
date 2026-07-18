@@ -118,12 +118,11 @@ dials. Trails: `BLEND-DIAGNOSIS.md`, `PREDLP-DIAGNOSIS.md`.
 
 ## Phase B — Make it usable (platform)
 
-B1–B6 are complete; B3/B4 were engine work that everything in Phase C
-depends on. The platform successors added 2026-07-18 (JOURNEY.md ch. 27)
-are sequenced strictly B6 → B7 — one transport, built once: **B6**, the
-external bus backend the distributed-operation chain always named as the
-step after B4, landed the same day (ch. 28); **B7**, the dashboard that
-consumes its subjects, is now unblocked.
+Phase B is complete (B1–B7); B3/B4 were engine work that everything in
+Phase C depends on. The platform successors added 2026-07-18 (JOURNEY.md
+ch. 27) were sequenced strictly B6 → B7 — one transport, built once —
+and both landed the same day: **B6**, the external bus backend (ch. 28),
+and **B7**, the dashboard that consumes its subjects (ch. 29).
 
 ### B1. The watchable world (`examples/` + live viewer) — ✅ done (JOURNEY.md ch. 20)
 An in-repo 2D rover world with a built-in web viewer: `pip install poseres`,
@@ -249,7 +248,7 @@ snapshot fulfilled at the C4 boundary and pulled back from JetStream,
 decoded, all proofs pass) against nats-server with `nats-py` 2.15.
 Doc 06 §5b records the class of every NATS-touching mode.
 
-### B7. Web dashboard / monitor — open (gate met: B6 done)
+### B7. Web dashboard / monitor — ✅ done (JOURNEY.md ch. 29)
 The B1 viewer generalized: one dashboard for any PRA brain, consuming the
 B6 telemetry subjects and control plane — never a second transport. Two
 modes: **simple** (what the brain is doing, for a person standing in
@@ -259,11 +258,26 @@ Honest split of its two purposes: the *monitor* half is an instrument
 and ships here; the *"show what makes PRA unique"* half is a showcase
 spend and obeys principle 1 — published demo material inherits C1/C2's
 gates.
-*Gate:* B6.
-*Exit:* the dashboard attaches to a live run over NATS without
-perturbing it (byte-identity with dashboard attached — the B1
-discipline, now off-process); both modes render the rover world and one
-scaled run; zero engine edits.
+*Gate:* B6 (met).
+*Exit criteria met (feature 015):* `pra.dash` + `pra-dash` — a pure
+consumer of the documented B6 surface (subjects, three control commands,
+discovery; structurally nothing else), serving one self-contained page
+with simple and advanced modes. The named gap closed additively on the
+tap: a world-view telemetry family (`tele.view.static`/`.live`) whose
+adapter speaks the rover's existing three-call telemetry surface, so the
+rover mounted unchanged. Observer safety re-proven at this layer:
+byte-identity with the dashboard attached and hammered by a polling
+thread (reference world, rover-with-view, multi-stream continuous,
+attach/detach mid-run), pause-through-the-dashboard byte-identical to
+never-paused, every control error reply surfaced verbatim. The real
+stack measured: `dashboard_demo.py` green end-to-end (world view
+consumed and served, pause frozen at step 145, snapshot fulfilled
+through the dashboard's own endpoint), and both modes verified rendering
+in an actual browser — arena, obstacles, pose, live trail, census
+history, histogram, counters. One instrument bug caught by that browser
+session and fixed with a regression test: per-subject seq-gap counting
+misread the shared mirror family as drops. Zero engine edits; gate
+NATS-free, server-free, browser-free, zero skips.
 
 ---
 
@@ -393,9 +407,9 @@ project's claims and its measurements cannot drift apart.
 
 ---
 
-*Sequencing summary:* **Phase A complete (A1–A4)**; **B1–B6 complete**
-(B6, NATS at the seams, landed 2026-07-18 as feature 014), **B7
-(dashboard) unblocked** — C1's gate (B3, B5, A4-guidance) and C2's (B3,
+*Sequencing summary:* **Phase A complete (A1–A4)**; **Phase B complete
+(B1–B7)** — B6 (NATS at the seams, feature 014) and B7 (the dashboard,
+feature 015) both landed 2026-07-18 — C1's gate (B3, B5, A4-guidance) and C2's (B3,
 physical-reset answer) are open; **C2's platform half landed** (the ROS2
 adapter, feature 013 — hardware and simulators through one seam; the
 showcase build/video remains, with **learned channel weighting** its

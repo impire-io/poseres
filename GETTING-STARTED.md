@@ -316,6 +316,32 @@ run. `python examples/nats/demo.py` is the whole proof in one command;
 the test suite needs no NATS at all (the in-repo fake transport carries
 the contract).
 
+And there is a face for all of it: **`pra-dash`** serves a local web
+page that discovers every live run on a server and renders it — simple
+mode for a person standing in front of the brain (state, liveness, the
+census in plain terms, and the world's own view when it offers one),
+advanced mode for the researcher (census history, best_dim trajectory,
+per-dim histogram, the honesty counters, and the four control buttons
+with replies shown verbatim). A world shows itself by speaking the same
+three-call telemetry surface the rover always had — mounted on the bus
+with one line:
+
+```python
+view = tap.world_view("rover")
+engine = Engine(
+    cfg,
+    world_factory=tap.world_factory(inner=lambda c, r: make_rover_body(c, r, telemetry=view)),
+    bus_factory=tap.bus_factory,
+)
+# then, from anywhere:  pra-dash --url nats://127.0.0.1:4222
+```
+
+`python examples/nats/dashboard_demo.py` is the dashboard's one-command
+proof (headless checks decide the exit code; the browser URL is the
+reward). The dashboard perturbs nothing — byte-identity with it
+attached and actively polling is part of the test suite, like every
+observer before it.
+
 ## 8. What PRA does not do yet
 
 So you calibrate expectations before building on it: no multi-step planning
