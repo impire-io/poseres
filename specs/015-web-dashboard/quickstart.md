@@ -30,7 +30,9 @@ tap = NatsTap(NatsTransport("nats://127.0.0.1:4222"), run_id="rover-1")
 view = tap.world_view("rover")
 engine = Engine(
     cfg,
-    world_factory=lambda c, r: make_rover_body(c, r, telemetry=view),
+    # the tap's wrapper carries the step mirror and the pause gate; the view
+    # adapter carries the world's self-portrait — both, always
+    world_factory=tap.world_factory(inner=lambda c, r: make_rover_body(c, r, telemetry=view)),
     bus_factory=tap.bus_factory,
 )
 tap.start(); summary = engine.run(seed=1); tap.finish(summary)

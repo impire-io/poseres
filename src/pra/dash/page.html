@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>PRA dashboard</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin: 0; font: 14px/1.5 -apple-system, system-ui, sans-serif;
+         background: #101418; color: #d8dee5; }
+  header { display: flex; align-items: baseline; gap: 1rem; padding: .7rem 1.2rem;
+           background: #161c23; border-bottom: 1px solid #232b34; }
+  header h1 { font-size: 1rem; margin: 0; letter-spacing: .04em; color: #8fb6dd; }
+  header .hint { color: #5c6773; font-size: .85rem; }
+  main { display: grid; grid-template-columns: 220px 1fr; gap: 0; min-height: calc(100vh - 3rem); }
+  nav { border-right: 1px solid #232b34; background: #12171d; padding: .6rem; }
+  nav h2 { font-size: .75rem; text-transform: uppercase; color: #5c6773; margin: .3rem .4rem; }
+  .runrow { display: block; width: 100%; text-align: left; padding: .45rem .6rem; margin: .15rem 0;
+            background: none; border: 1px solid transparent; border-radius: 6px; color: inherit;
+            cursor: pointer; font: inherit; }
+  .runrow:hover { background: #1a222b; }
+  .runrow.sel { border-color: #2d5c8a; background: #17222d; }
+  .runrow .st { font-size: .75rem; color: #5c6773; }
+  .st.running { color: #6fc27a; } .st.paused { color: #d8b453; }
+  .st.completed { color: #7f8ea0; } .st.stale { color: #c96a5a; }
+  section { padding: 1rem 1.4rem; }
+  .tabs { margin-bottom: .8rem; }
+  .tabs button { font: inherit; padding: .35rem .9rem; margin-right: .4rem; cursor: pointer;
+                 background: #1a222b; color: #aab6c2; border: 1px solid #232b34; border-radius: 6px; }
+  .tabs button.sel { background: #21497010; border-color: #2d5c8a; color: #cfe3f5; }
+  .cards { display: flex; flex-wrap: wrap; gap: .8rem; }
+  .card { background: #161c23; border: 1px solid #232b34; border-radius: 8px; padding: .7rem .9rem;
+          min-width: 130px; }
+  .card .k { font-size: .72rem; text-transform: uppercase; color: #5c6773; }
+  .card .v { font-size: 1.25rem; margin-top: .15rem; }
+  .wide { width: 100%; box-sizing: border-box; }
+  svg.world { background: #0c1013; border: 1px solid #232b34; border-radius: 8px; display: block; }
+  svg.chart { background: #0c1013; border: 1px solid #232b34; border-radius: 8px; }
+  .note { color: #5c6773; font-size: .85rem; }
+  .ctrl button { font: inherit; padding: .35rem .8rem; margin-right: .4rem; cursor: pointer;
+                 background: #1d2833; color: #cfe3f5; border: 1px solid #2d5c8a; border-radius: 6px; }
+  .ctrl button:disabled { opacity: .4; cursor: default; }
+  pre.reply { background: #0c1013; border: 1px solid #232b34; border-radius: 6px; padding: .5rem .7rem;
+              white-space: pre-wrap; word-break: break-all; font-size: .8rem; max-height: 9rem; overflow: auto; }
+  table.counters { border-collapse: collapse; font-size: .85rem; }
+  table.counters td { border: 1px solid #232b34; padding: .25rem .6rem; }
+  table.counters td:first-child { color: #5c6773; }
+  h3 { font-size: .8rem; text-transform: uppercase; color: #5c6773; margin: 1.1rem 0 .4rem; }
+</style>
+</head>
+<body>
+<header>
+  <h1>PRA · live brains</h1>
+  <span class="hint" id="hint">discovering…</span>
+</header>
+<main>
+  <nav><h2>Runs</h2><div id="runs"></div></nav>
+  <section id="panel"><p class="note">Select a run.</p></section>
+</main>
+<script>
+"use strict";
+let selected = null, mode = "simple", trail = [], trailRun = null, lastReply = null;
+const TRAIL_MAX = 4000;
+
+async function jget(u) { const r = await fetch(u); return r.json(); }
+
+function stClass(row) {
+  if (row.state === "running" && row.age_seconds !== null && row.age_seconds > 5) return "stale";
+  return row.state;
+}
+function stLabel(row) {
+  const age = row.age_seconds === null ? "never seen" : row.age_seconds.toFixed(1) + "s ago";
+  return `${row.state} · ${age}`;
+}
+
+async function refreshRuns() {
+  try {
+    const data = await jget("/runs");
+    const el = document.getElementById("runs");
+    el.innerHTML = "";
+    document.getElementById("hint").textContent =
+      data.runs.length ? `${data.runs.length} run(s)` : "no runs yet — discovering";
+    for (const row of data.runs) {
+      const b = document.createElement("button");
+      b.className = "runrow" + (row.run === selected ? " sel" : "");
+      b.innerHTML = `<div>${row.run}${row.has_view ? " 🗺" : ""}</div>` +
+                    `<div class="st ${stClass(row)}">${stLabel(row)}</div>`;
+      b.onclick = () => { selected = row.run; refreshRuns(); refreshPanel(); };
+      el.appendChild(b);
+    }
+  } catch (e) { document.getElementById("hint").textContent = "dashboard unreachable"; }
+}
+
+function card(k, v) { return `<div class="card"><div class="k">${k}</div><div class="v">${v}</div></div>`; }
+
+function worldSvg(view) {
+  if (!view) return "";
+  if (view.kind !== "rover")
+    return `<p class="note">world view present, kind “${view.kind}” — no renderer for it yet</p>`;
+  const s = view.static, l = view.live;
+  if (!s) return `<p class="note">world view: waiting for the layout…</p>`;
+  const H = s.arena_half, sc = 220 / H;
+  const X = x => 230 + x * sc, Y = y => 230 - y * sc;
+  let parts = [`<rect x="10" y="10" width="440" height="440" fill="none" stroke="#2d3a46"/>`];
+  for (const o of s.obstacles)
+    parts.push(`<circle cx="${X(o[0])}" cy="${Y(o[1])}" r="${o[2]*sc}" fill="#22303c"/>`);
+  if (trail.length > 1)
+    parts.push(`<polyline points="${trail.map(p => X(p[0]) + "," + Y(p[1])).join(" ")}"` +
+               ` fill="none" stroke="#3c6f9c" stroke-width="1" opacity="0.8"/>`);
+  if (l && typeof l.x === "number") {
+    const r = (s.rover_radius || 0.05) * sc;
+    parts.push(`<circle cx="${X(l.x)}" cy="${Y(l.y)}" r="${r}" fill="${l.bump ? "#c96a5a" : "#6fc27a"}"/>`);
+    parts.push(`<line x1="${X(l.x)}" y1="${Y(l.y)}" x2="${X(l.x + Math.cos(l.theta) * 3 * (s.rover_radius || .05))}"` +
+               ` y2="${Y(l.y + Math.sin(l.theta) * 3 * (s.rover_radius || .05))}" stroke="#d8dee5"/>`);
+  }
+  return `<svg class="world" viewBox="0 0 460 460" width="460" height="460">${parts.join("")}</svg>`;
+}
+
+function historySvg(hist) {
+  if (!hist.length) return `<p class="note">no census yet</p>`;
+  const W = 640, Hh = 160, n = hist.length;
+  const maxPop = Math.max(...hist.map(h => h.population || 0), 1);
+  const maxDim = Math.max(...hist.map(h => h.best_dim || 0), 1);
+  const px = i => 30 + (W - 40) * (n === 1 ? 0 : i / (n - 1));
+  const pop = hist.map((h, i) => `${px(i)},${Hh - 15 - (Hh - 30) * (h.population / maxPop)}`).join(" ");
+  const dim = hist.map((h, i) => `${px(i)},${Hh - 15 - (Hh - 30) * ((h.best_dim || 0) / maxDim)}`).join(" ");
+  return `<svg class="chart" viewBox="0 0 ${W} ${Hh}" width="${W}" height="${Hh}">
+    <polyline points="${pop}" fill="none" stroke="#6fc27a" stroke-width="1.5"/>
+    <polyline points="${dim}" fill="none" stroke="#8fb6dd" stroke-width="1.5"/>
+    <text x="34" y="14" fill="#6fc27a" font-size="10">population (max ${maxPop})</text>
+    <text x="200" y="14" fill="#8fb6dd" font-size="10">best_dim (max ${maxDim})</text>
+  </svg>`;
+}
+
+function histogramSvg(dims) {
+  if (!dims) return "";
+  const keys = Object.keys(dims).map(Number).sort((a, b) => a - b);
+  const maxC = Math.max(...keys.map(k => dims[k]), 1);
+  const bw = 34, W = 30 + keys.length * bw, Hh = 120;
+  const bars = keys.map((k, i) => {
+    const h = (Hh - 35) * dims[k] / maxC;
+    return `<rect x="${15 + i * bw}" y="${Hh - 20 - h}" width="${bw - 8}" height="${h}" fill="#3c6f9c"/>` +
+           `<text x="${15 + i * bw + (bw - 8) / 2}" y="${Hh - 6}" fill="#5c6773" font-size="10" text-anchor="middle">${k}</text>`;
+  });
+  return `<svg class="chart" viewBox="0 0 ${W} ${Hh}" width="${W}" height="${Hh}">${bars.join("")}</svg>`;
+}
+
+async function ctrl(cmd) {
+  lastReply = { pending: cmd };
+  refreshPanel();
+  try {
+    const r = await fetch(`/run/${selected}/ctrl`, { method: "POST", body: JSON.stringify({ cmd }) });
+    lastReply = await r.json();
+  } catch (e) { lastReply = { ok: false, error: String(e) }; }
+  refreshPanel();
+}
+window.ctrl = ctrl;
+window.setMode = m => { mode = m; refreshPanel(); };
+
+async function refreshPanel() {
+  const panel = document.getElementById("panel");
+  if (!selected) return;
+  let st;
+  try { st = await jget(`/run/${selected}/state`); }
+  catch (e) { panel.innerHTML = `<p class="note">dashboard unreachable</p>`; return; }
+  if (st.error) { panel.innerHTML = `<p class="note">${st.error}</p>`; return; }
+
+  if (st.view && st.view.live && typeof st.view.live.x === "number") {
+    if (trailRun !== selected) { trail = []; trailRun = selected; }
+    const last = trail[trail.length - 1];
+    if (!last || last[0] !== st.view.live.x || last[1] !== st.view.live.y) {
+      trail.push([st.view.live.x, st.view.live.y]);
+      if (trail.length > TRAIL_MAX) trail.shift();
+    }
+  }
+
+  const age = st.age_seconds === null ? "—" : st.age_seconds.toFixed(1) + " s";
+  const census = st.census || {};
+  let html = `<div class="tabs">
+      <button class="${mode === "simple" ? "sel" : ""}" onclick="setMode('simple')">Simple</button>
+      <button class="${mode === "advanced" ? "sel" : ""}" onclick="setMode('advanced')">Advanced</button>
+    </div>`;
+
+  if (mode === "simple") {
+    html += `<div class="cards">`
+      + card("run", st.run) + card("state", st.state) + card("last message", age)
+      + card("population", census.population ?? "—") + card("best dim", census.best_dim ?? "—")
+      + card("steps", census.steps ?? st.last_step) + `</div>`;
+    html += `<h3>World</h3>` + (st.view ? worldSvg(st.view)
+      : `<p class="note">this world offers no view — the numbers above are the brain's pulse</p>`);
+    if (st.completed_summary)
+      html += `<h3>Final summary</h3><pre class="reply">${JSON.stringify(st.completed_summary, null, 1)}</pre>`;
+  } else {
+    html += `<div class="cards">`
+      + card("state", st.state) + card("last message", age)
+      + card("seq gaps", st.seq_gaps) + card("wire errors", st.wire_errors) + `</div>`;
+    html += `<h3>Census history</h3>` + historySvg(st.census_history);
+    html += `<h3>Population by dim</h3>` + histogramSvg(census.dims);
+    html += `<h3>Controls</h3><div class="ctrl">
+        <button onclick="ctrl('inspect')">inspect</button>
+        <button onclick="ctrl('pause')">pause</button>
+        <button onclick="ctrl('resume')">resume</button>
+        <button onclick="ctrl('snapshot')">snapshot</button></div>`;
+    if (lastReply) html += `<pre class="reply">${JSON.stringify(lastReply, null, 1)}</pre>`;
+    if (st.counters) {
+      html += `<h3>Honesty counters</h3><table class="counters">` +
+        Object.entries(st.counters).map(([k, v]) => `<tr><td>${k}</td><td>${v}</td></tr>`).join("") +
+        `</table>`;
+    }
+    if (st.snapshots && st.snapshots.length) {
+      html += `<h3>Snapshots</h3><pre class="reply">` +
+        st.snapshots.map(s => `${s.snapshot_id}  step ${s.step}  cycle ${s.cycle}`).join("\n") + `</pre>`;
+    }
+    if (st.anatomy)
+      html += `<h3>Anatomy</h3><pre class="reply">${JSON.stringify(st.anatomy)}</pre>`;
+  }
+  panel.innerHTML = html;
+}
+
+refreshRuns();
+setInterval(refreshRuns, 2000);
+setInterval(() => { if (selected) refreshPanel(); }, 250);
+</script>
+</body>
+</html>

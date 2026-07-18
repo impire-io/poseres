@@ -23,6 +23,7 @@ path) are the honesty meter when a consumer can't keep up.
 
 from __future__ import annotations
 
+import copy
 import threading
 import time
 from collections import deque
@@ -79,6 +80,41 @@ class _TapWorld:
         return getattr(self._inner, name)
 
 
+class _WorldViewAdapter:
+    """The world's narration channel (feature 015, contracts §1): exactly the
+    call surface `RoverTelemetry` defined, so a world built for the in-process
+    viewer mounts on the bus unchanged. Run-path work is the tap's usual
+    budget: plain copies into the bounded buffer, nothing else."""
+
+    # kind → (reset field names, step field names); unknown kinds carry "args"
+    _FIELDS = {"rover": (("x", "y", "theta"), ("x", "y", "theta", "bump"))}
+
+    def __init__(self, tap: NatsTap, kind: str):
+        self._tap = tap
+        self.kind = kind
+        self._episode = 0
+
+    def attach_layout(self, layout) -> None:
+        self._tap._view_attach(self.kind, layout)
+
+    def record_reset(self, *args) -> None:
+        self._episode += 1
+        self._tap._view_record(self.kind, self._payload("reset", 0, args))
+
+    def record_step(self, *args) -> None:
+        self._tap._view_record(self.kind, self._payload("step", 1, args))
+
+    def _payload(self, event: str, which: int, args: tuple) -> dict:
+        payload: dict = {"event": event, "episode": self._episode}
+        names = self._FIELDS.get(self.kind)
+        if names is not None and len(names[which]) == len(args):
+            for name, value in zip(names[which], args, strict=True):
+                payload[name] = float(value) if isinstance(value, float) else value
+        else:
+            payload["args"] = list(args)
+        return payload
+
+
 class _TapStore:
     """Delegating SnapshotStore: forwards the four-method protocol unchanged
     and lets the tap observe each C4 write (engine.py's only store call)."""
@@ -113,6 +149,7 @@ class NatsTap:
         buffer_size: int = 4096,
         drain_interval: float = 0.05,
         census_interval: float = 0.5,
+        view_heartbeat: float = 5.0,
     ):
         self.run_id = (
             subjects.validate_run_id(run_id) if run_id is not None else subjects.default_run_id()
@@ -121,6 +158,8 @@ class NatsTap:
         self._buffer: deque = deque(maxlen=int(buffer_size))
         self._drain_interval = float(drain_interval)
         self._census_interval = float(census_interval)
+        self._view_heartbeat = float(view_heartbeat)
+        self._view_static_latest: tuple[str, dict] | None = None
 
         # run-thread state (no locks by design — single writer)
         self._seq = 0
@@ -184,6 +223,13 @@ class NatsTap:
         """Wrap an injected SnapshotStore so C4 writes are observed."""
         self._store_wrapped = True
         return _TapStore(inner, self)
+
+    def world_view(self, kind: str):
+        """A world-view adapter (feature 015): exposes the RoverTelemetry call
+        surface (``attach_layout``/``record_reset``/``record_step``) and
+        mirrors it onto the ``tele.view.*`` subjects through the existing
+        buffer, pump, and drop machinery — absent unless a world speaks it."""
+        return _WorldViewAdapter(self, str(kind))
 
     # -- lifecycle -------------------------------------------------------------
     def start(self) -> None:
@@ -268,6 +314,19 @@ class NatsTap:
         self.events_mirrored += 1
         self._buffer.append(("episode", self._seq, stream, episode, kind))
 
+    def _view_attach(self, kind: str, layout) -> None:
+        # run thread (world construction): one deep copy, then heartbeat reuse
+        static = copy.deepcopy(layout)
+        self._view_static_latest = (kind, static)
+        self._seq += 1
+        self.events_mirrored += 1
+        self._buffer.append(("view_static", self._seq, kind, static))
+
+    def _view_record(self, kind: str, payload: dict) -> None:
+        self._seq += 1
+        self.events_mirrored += 1
+        self._buffer.append(("view_live", self._seq, kind, payload))
+
     def _on_snapshot_written(self, snapshot_id: str, metadata: dict) -> None:
         # engine thread, C4: plain copies + the pending-request handoff
         self._seq += 1
@@ -287,12 +346,28 @@ class NatsTap:
     # -- publisher thread ------------------------------------------------------
     def _pump(self) -> None:
         next_census = time.monotonic() + self._census_interval
+        next_view = time.monotonic() + self._view_heartbeat
         while not self._stop.wait(self._drain_interval):
             self._drain()
             if time.monotonic() >= next_census:
                 self._publish_census()
                 next_census = time.monotonic() + self._census_interval
+            if time.monotonic() >= next_view:
+                self._republish_view_static()
+                next_view = time.monotonic() + self._view_heartbeat
         self._drain()  # final: everything still buffered goes out
+
+    def _republish_view_static(self) -> None:
+        # heartbeat so late-attaching dashboards catch the layout (015 R2);
+        # publisher-side reading, census-style seq snapshot
+        latest = self._view_static_latest
+        if latest is None:
+            return
+        kind, static = latest
+        payload = {"run": self.run_id, "seq": self._seq, "kind": kind, "static": static}
+        self.transport.publish(
+            subjects.view_static_subject(self.run_id), subjects.to_bytes(payload)
+        )
 
     def _drain(self) -> None:
         run = self.run_id
@@ -332,6 +407,14 @@ class NatsTap:
                 _, _, snapshot_id, meta = item
                 payload = {"run": run, "seq": seq, "snapshot_id": snapshot_id, **meta}
                 subject = subjects.snapshot_subject(run)
+            elif kind == "view_static":
+                _, _, view_kind, static = item
+                payload = {"run": run, "seq": seq, "kind": view_kind, "static": static}
+                subject = subjects.view_static_subject(run)
+            elif kind == "view_live":
+                _, _, view_kind, live = item
+                payload = {"run": run, "seq": seq, "kind": view_kind, **live}
+                subject = subjects.view_live_subject(run)
             else:  # "started"
                 _, _, obs_dim, n_actions = item
                 cfg = self._config

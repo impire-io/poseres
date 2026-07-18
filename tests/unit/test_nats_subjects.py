@@ -22,6 +22,8 @@ def test_subject_scheme_names_are_versioned_and_run_scoped():
         "episode": "pra.v1.run.r1.tele.episode",
         "census": "pra.v1.run.r1.tele.census",
         "snapshot": "pra.v1.run.r1.tele.snapshot",
+        "view_static": "pra.v1.run.r1.tele.view.static",
+        "view_live": "pra.v1.run.r1.tele.view.live",
         "ctrl": "pra.v1.run.r1.ctrl",
     }
     assert subjects.DISCOVER_SUBJECT == "pra.v1.discover"

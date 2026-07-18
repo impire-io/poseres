@@ -67,3 +67,28 @@ Kill the server mid-run if you like: the brain finishes at full stride with
 its drop counters raised and a byte-identical summary — the run never waits
 on the network. That claim is not this example's; it is proven by the test
 suite on the fake transport (`tests/integration/test_nats_fake_run.py`).
+
+## The dashboard (feature 015, ROADMAP B7)
+
+One face for any brain: the same subjects, rendered.
+
+```bash
+pip install "poseres[nats]"
+python examples/nats/dashboard_demo.py
+```
+
+A rover brain comes up with its world-view channel on, the dashboard
+starts, and the printed URL opens to the live page: **Simple** shows the
+rover driving its arena (pose, trail, obstacles — the B1 viewer, now from
+any machine); **Advanced** shows the census history, best_dim trajectory,
+per-dim histogram, the honesty counters, and the four control buttons with
+replies shown verbatim. The demo verifies its proofs headlessly (telemetry
+consumed, world view served, pause → frozen → resume → snapshot through
+the dashboard's own endpoint) and exits zero only when they pass — the
+browser is the reward, not the requirement.
+
+Point the dashboard at anything:
+
+```bash
+pra-dash --url nats://127.0.0.1:4222   # every tap-attached run appears
+```

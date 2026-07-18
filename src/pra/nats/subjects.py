@@ -30,6 +30,8 @@ __all__ = [
     "step_subject",
     "to_bytes",
     "validate_run_id",
+    "view_live_subject",
+    "view_static_subject",
 ]
 
 SCHEME_VERSION = "v1"
@@ -77,6 +79,16 @@ def snapshot_subject(run_id: str) -> str:
     return f"{_ROOT}.run.{validate_run_id(run_id)}.tele.snapshot"
 
 
+def view_static_subject(run_id: str) -> str:
+    """World-view static part (feature 015): the layout, once + heartbeat."""
+    return f"{_ROOT}.run.{validate_run_id(run_id)}.tele.view.static"
+
+
+def view_live_subject(run_id: str) -> str:
+    """World-view live part (feature 015): pose-grade facts, per record."""
+    return f"{_ROOT}.run.{validate_run_id(run_id)}.tele.view.live"
+
+
 def control_subject(run_id: str) -> str:
     return f"{_ROOT}.run.{validate_run_id(run_id)}.ctrl"
 
@@ -89,6 +101,8 @@ def run_subjects(run_id: str) -> dict[str, str]:
         "episode": episode_subject(run_id),
         "census": census_subject(run_id),
         "snapshot": snapshot_subject(run_id),
+        "view_static": view_static_subject(run_id),
+        "view_live": view_live_subject(run_id),
         "ctrl": control_subject(run_id),
     }
 
