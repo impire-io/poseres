@@ -135,7 +135,7 @@ def test_emission_mode_swaps_appearance_not_dynamics():
     cfg = Config(world="shifting", shift_after_steps=5, shift_mode="emission")
     w = ShiftingWorld(cfg, np.random.default_rng(3))
     w.reset()
-    for k in range(10):
+    for _ in range(10):
         before = w._latent.copy()
         w.step(1)
         # dynamics never change: displacement is always the reference set's

@@ -78,7 +78,8 @@ Status: **[V]** validated, **[D]** design, **[O]** open (see Doc 00 legend).
 | `novelty_memory_size` | int | 200 | ≥ 1; bounded `recent_observation_memory` for novelty | [O] |
 | `distractor_noise_std` | float | 1.0 | > 0; L3 noise-mode static amplitude (CHANNELNOISE-DIAGNOSIS dose–response dial); 1.0 = the original unit draw, bit-exact — recorded L3 results unchanged; structured mode ignores it | [D] |
 | `frontier_neighbors` | int | 20 | ≥ 1; the frontier drive's k nearest remembered neighbors per lookahead candidate (realized local progress, PREDLP-DIAGNOSIS); silent until 2k finite-error memory entries exist. Registry names for `drive_weights`: `curiosity`, `competence`, `frontier` | [D] |
-| `shift_after_steps` | int | 0 | ≥ 0; **0 = off** (byte-identical); S > 0 with `world="shifting"`: after S emitted step observations the action-displacement set swaps to a second set drawn at construction — emission unchanged, no RNG at shift time (CAMPING-DIAGNOSIS W1) | [D] |
+| `shift_after_steps` | int | 0 | ≥ 0; **0 = off** (byte-identical); S > 0 with `world="shifting"`: after S emitted step observations the configured swap fires — no RNG at shift time (CAMPING-DIAGNOSIS W1) | [D] |
+| `shift_mode` | `"dynamics"` \| `"emission"` | `"dynamics"` | what swaps at the boundary: `"dynamics"` = displacement set (the recorded 017 behavior, byte-identical); `"emission"` = per-object emission matrices (appearance moves, territory does not — EMSHIFT-DIAGNOSIS); read only when a boundary is configured; emission mode without one is rejected | [D] |
 | `region_noise_levels` | tuple[float, ...] | `()` | empty = off (byte-identical); 2 or 4 entries ≥ 0 with `world="multiregion"`: per-region transition-noise levels over the sign-defined regions of `latent[0]` / `(latent[0], latent[1])`; a 0.0 entry draws nothing in its region (CAMPING-DIAGNOSIS W2) | [D] |
 
 **MUST:** all drive parameters above are read-only at runtime (Doc 05 §6);

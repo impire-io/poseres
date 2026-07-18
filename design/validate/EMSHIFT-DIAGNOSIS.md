@@ -31,9 +31,28 @@ baseline the shift-invariant-memory research is judged against.
 
 ## Result: P1 (recorded 2026-07-18)
 
-| seed | pre-shift median | post-shift median | vs 4× pre | vs 4× benign (0.440) |
-|---|---|---|---|---|
-| (recorded below after the run) | | | | |
+**Correction, stated first:** the replay actually run carries the ch. 33
+arc's recorded revision 1 (double smoothing: staleness = smooth − best),
+not the as-registered single-EMA form the protocol paragraph above named
+— recorded as run; the revision was already part of the ch. 33 record
+and the bars are unchanged.
+
+| seed | pre-shift median | post-shift median | bar (> 4× pre and > 4× benign 0.108) |
+|---|---|---|---|
+| 1 | 0.108 | **0.172** | FAIL (1.6×) |
+| 2 | 0.119 | **0.178** | FAIL (1.5×) |
+| 3 | 0.121 | 0.120 | FAIL (1.0×) |
+
+**Reading: mechanism (b) is real but weak — and directionally opposite
+to the dynamics shift.** On the emission shift, post-shift staleness
+*rises* in 2/3 seeds (the dynamics shift read *lower* post than pre in
+3/3): every post-shift observation still lands on *some* anchor whose
+mastered `best` is then exceeded, so raw-observation places weakly
+*sense* a repaint even though they cannot detect it (~1.5× background
+vs the 4× bar) and cannot sense a territory move at all (< 1×). The
+testbed pair now brackets the design space with recorded numbers: a
+shift-invariant memory must clear 4× on BOTH modes, from measured
+starting points of ~1.5× (emission) and < 1× (dynamics).
 
 ## Failure exits
 

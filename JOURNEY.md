@@ -245,10 +245,13 @@ then stopped at its own pre-registered gate (Chapter 32): no trend
 statistic over the current 5-episode error memory can see a regime
 change. The observation-space place memory
 then failed its own offline gate too (Chapter 33): raw-observation
-anchors are not shift-invariant. Open research, in priority order:
+anchors are not shift-invariant. The emission-shift world then
+completed the testbed pair and bracketed the problem with numbers
+(Chapter 34: raw-obs places read ~1.5× background on a repaint, < 1× on
+a territory move, vs the 4× bar). Open research, in priority order:
 **error memory in a shift-invariant space** (pose/encoding anchors,
-spike-robust cell statistics; an emission-shift ladder world as the
-unconfounded testbed), the
+spike-robust cell statistics, judged against the chapter-34 bracket on
+both shift modes), the
 elect-gating question, and (design-level,
 when a deployment demands it) whether reference-scale long lifetimes
 eventually need the cap too. Snapshot support for anatomy-resized runs
@@ -1324,6 +1327,34 @@ world (dynamics fixed, appearance changed) belongs on the ladder before
 the next detector design. Doc 05 guidance unchanged: competence stands.
 Trail: `design/validate/PLACEMEM-DIAGNOSIS.md`;
 `specs/019-place-memory/spec.md`; commit `f79ee57` and this close.
+
+## Chapter 34 — The repainted world: the testbed pair closes, and brackets the problem (2026-07-18)
+
+Chapter 33's debt was a world, and it cost one dial: `shift_mode` on the
+shifting world. `"dynamics"` stays the recorded 017 behavior
+byte-identically; `"emission"` swaps the per-object emission matrices at
+the boundary (drawn at construction after all other draws, zero RNG at
+shift time) while displacements never change — appearance moves,
+territory does not. Swap semantics, dynamics invariance, and state
+capture across the shift are unit-tested; the whole gate stays green.
+
+The arc's pre-registered first read completed the picture with a
+baseline the next design must beat, and its prediction was honestly
+left open between two mechanisms — both turned out true in parts. The
+raw-observation place memory (the ch. 33 replay, revision-1 arithmetic,
+recorded as such) reads the emission shift *directionally* — post-shift
+staleness rises in 2/3 seeds (0.172/0.178 vs ~0.11 background), the
+opposite sign from the dynamics shift's 3/3 post-below-pre — because a
+repaint leaves every post-shift observation landing on *some* mastered
+anchor, while a territory move leaves mastered anchors unvisited. But
+sensing is not detecting: ~1.5× background against the 4× bar, one seed
+flat. **The testbed pair now brackets the design space with numbers**:
+a shift-invariant error memory must clear 4× separation on both modes,
+from measured starting points of ~1.5× (emission) and < 1× (dynamics).
+That — pose/encoding anchors with spike-robust per-cell statistics,
+judged against this bracket — is the successor arc, unchanged in name,
+now fully instrumented. Trail: `design/validate/EMSHIFT-DIAGNOSIS.md`;
+`specs/020-emission-shift/spec.md`; commit `3500576` and this close.
 
 ## Chapter template (append below)
 
