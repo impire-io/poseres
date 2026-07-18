@@ -36,7 +36,7 @@ FORMAT_VERSION = "1"
 
 # Config fields that are tuples in the frozen dataclass (JSON round-trips them
 # as lists); drive_weights is a tuple of (name, weight) pairs.
-_TUPLE_FIELDS = ("seeds", "horizon_checkpoints", "factor_dims")
+_TUPLE_FIELDS = ("seeds", "horizon_checkpoints", "factor_dims", "region_noise_levels")
 
 
 class SnapshotVersionError(ValueError):
@@ -92,7 +92,9 @@ def config_from_dict(d: dict) -> Config:
     """Rebuild the frozen Config from its JSON round-trip."""
     kwargs = dict(d)
     for name in _TUPLE_FIELDS:
-        kwargs[name] = tuple(kwargs[name])
+        # absent in blobs written before the field existed → dataclass default
+        if name in kwargs:
+            kwargs[name] = tuple(kwargs[name])
     kwargs["drive_weights"] = tuple((str(n), float(w)) for n, w in kwargs["drive_weights"])
     return Config(**kwargs)
 

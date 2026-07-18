@@ -26,7 +26,9 @@ __all__ = [
 
 ScoringMode = Literal["predictive", "effort_only", "identity"]
 PolicyMode = Literal["random", "curiosity"]
-WorldKind = Literal["reference", "nonuniform", "compositional", "distractor"]
+WorldKind = Literal[
+    "reference", "nonuniform", "compositional", "distractor", "shifting", "multiregion"
+]
 DistractorMode = Literal["structured", "noise"]
 EpisodeMode = Literal["episodic", "continuous"]
 
@@ -164,6 +166,19 @@ class Config:
     # UNIT normals, and multiplying by 1.0 is bit-exact, so every recorded L3
     # result stays byte-reproducible. Structured mode never reads it.
     distractor_noise_std: float = 1.0
+    # Camping-costs worlds (feature 017, CAMPING-DIAGNOSIS). Both dials are
+    # 0/empty by default: no extra construction draws, byte-identical to the
+    # reference world.
+    # W1 "shifting": after S emitted step observations the action-displacement
+    # set swaps to a second set drawn at construction (after all reference
+    # draws) — the emission map is unchanged, what actions DO changes, and no
+    # RNG is consumed at shift time.
+    shift_after_steps: int = 0
+    # W2 "multiregion": per-region transition-noise levels for the sign-defined
+    # regions of latent[0] (2 entries) or (latent[0], latent[1]) (4 entries) —
+    # the NonUniformWorld mechanism, generalized; a 0.0 entry draws nothing
+    # inside its region.
+    region_noise_levels: tuple[float, ...] = ()
 
     # --- Multi-stream experience (feature 009, ROADMAP B4). 1 = the pinned
     # validated single-stream path, byte-identical. K > 1 runs K world
@@ -283,9 +298,36 @@ class Config:
         require(self.snapshot_every_n_cycles >= 0, "snapshot_every_n_cycles must be >= 0")
 
         require(
-            self.world in ("reference", "nonuniform", "compositional", "distractor"),
-            "world must be 'reference', 'nonuniform', 'compositional', or 'distractor'",
+            self.world
+            in (
+                "reference",
+                "nonuniform",
+                "compositional",
+                "distractor",
+                "shifting",
+                "multiregion",
+            ),
+            "world must be one of 'reference', 'nonuniform', 'compositional', "
+            "'distractor', 'shifting', 'multiregion'",
         )
+        require(self.shift_after_steps >= 0, "shift_after_steps must be >= 0")
+        require(
+            self.shift_after_steps == 0 or self.world == "shifting",
+            "shift_after_steps > 0 requires world='shifting'",
+        )
+        if self.region_noise_levels:
+            require(
+                self.world == "multiregion",
+                "region_noise_levels requires world='multiregion'",
+            )
+            require(
+                len(self.region_noise_levels) in (2, 4),
+                "region_noise_levels must have 2 or 4 entries (sign-defined regions)",
+            )
+            require(
+                all(s >= 0 for s in self.region_noise_levels),
+                "every region_noise_levels entry must be >= 0",
+            )
         require(self.region_noise_std >= 0, "region_noise_std must be >= 0")
         require(
             self.region_noise_std == 0 or self.world == "nonuniform",

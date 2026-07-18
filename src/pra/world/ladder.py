@@ -51,6 +51,8 @@ __all__ = [
     "NonUniformWorld",
     "CompositionalWorld",
     "DistractorWorld",
+    "ShiftingWorld",
+    "MultiRegionWorld",
     "make_world",
 ]
 
@@ -304,6 +306,109 @@ class DistractorWorld(_LadderWorldBase):
         }
 
 
+class ShiftingWorld(_LadderWorldBase):
+    """W1 — mastered-then-changing (feature 017, CAMPING-DIAGNOSIS).
+
+    The reference world until ``shift_after_steps`` step observations have
+    been emitted; from the next step on, the action-displacement set swaps
+    to a second set drawn at construction (immediately after all reference
+    draws, in action order) — the emission map is unchanged, what actions
+    DO changes, and no RNG is consumed at shift time. ``shift_after_steps
+    = 0`` is the degenerate dial: no extra draws, byte-identical behavior.
+    """
+
+    def __init__(self, config: Config, rng: np.random.Generator):
+        super().__init__(config, rng)
+        self._shift_after = int(config.shift_after_steps)
+        if self._shift_after > 0:
+            self._post_actions: list[np.ndarray] = [
+                rng.standard_normal(self._true_dim) * config.action_scale
+                for _ in range(self._n_actions)
+            ]
+        self._steps_emitted = 0
+
+    def step(self, action: int) -> np.ndarray:
+        latent = self._require_latent()
+        shifted = self._shift_after > 0 and self._steps_emitted >= self._shift_after
+        disp = self._post_actions[action] if shifted else self._actions[action]
+        self._latent = latent + disp
+        self._steps_emitted += 1
+        return self._emit()
+
+    def state_dict(self) -> dict:
+        state = super().state_dict()
+        state["steps_emitted"] = self._steps_emitted
+        return state
+
+    def load_state_dict(self, state: dict) -> None:
+        super().load_state_dict(state)
+        self._steps_emitted = int(state["steps_emitted"])
+
+    def ladder_readings(self) -> dict:
+        """Harness-only ground truth (never on the system surface)."""
+        return {
+            "rung": "shifting",
+            "shift_after_steps": self._shift_after,
+            "steps_emitted": self._steps_emitted,
+            "shifted": bool(self._shift_after > 0 and self._steps_emitted >= self._shift_after),
+        }
+
+
+class MultiRegionWorld(_LadderWorldBase):
+    """W2 — multi-region learnable (feature 017, CAMPING-DIAGNOSIS).
+
+    The NonUniformWorld mechanism generalized: the sign-defined regions of
+    ``latent[0]`` (2 levels) or ``(latent[0], latent[1])`` (4 levels) each
+    carry their own transition-noise level; a 0.0 entry draws nothing inside
+    its region (exactly the L1 degenerate branch). All levels are meant to
+    stay inside the learnable band — difficulty, not noise traps.
+    ``region_noise_levels = ()`` is the degenerate dial: no counters, no
+    extra draws, byte-identical behavior.
+    """
+
+    def __init__(self, config: Config, rng: np.random.Generator):
+        super().__init__(config, rng)
+        self._levels = tuple(float(s) for s in config.region_noise_levels)
+        self._steps_by_region = [0] * len(self._levels)
+
+    def _region(self, latent: np.ndarray) -> int:
+        if len(self._levels) == 2:
+            return 1 if latent[0] > 0 else 0
+        return (2 if latent[0] > 0 else 0) + (1 if latent[1] > 0 else 0)
+
+    def step(self, action: int) -> np.ndarray:
+        latent = self._require_latent()
+        if self._levels:
+            region = self._region(latent)
+            self._steps_by_region[region] += 1
+        self._latent = latent + self._actions[action]
+        if self._levels and self._levels[region] > 0:
+            self._latent = (
+                self._latent + self._rng.standard_normal(self._true_dim) * self._levels[region]
+            )
+        return self._emit()
+
+    def state_dict(self) -> dict:
+        state = super().state_dict()
+        state["steps_by_region"] = list(self._steps_by_region)
+        return state
+
+    def load_state_dict(self, state: dict) -> None:
+        super().load_state_dict(state)
+        self._steps_by_region = [int(x) for x in state["steps_by_region"]]
+
+    def ladder_readings(self) -> dict:
+        """Harness-only ground truth + per-region occupancy (never on the
+        system surface)."""
+        total = sum(self._steps_by_region)
+        return {
+            "rung": "multiregion",
+            "region_noise_levels": list(self._levels),
+            "steps_by_region": list(self._steps_by_region),
+            "occupancy_by_region": ([s / total for s in self._steps_by_region] if total else None),
+        }
+
+
 def make_world(config: Config, rng: np.random.Generator) -> EventSource:
     """World factory keyed on ``Config.world`` — pass as the Engine's
     ``world_factory``. ``"reference"`` (the default) builds the untouched
@@ -314,4 +419,8 @@ def make_world(config: Config, rng: np.random.Generator) -> EventSource:
         return CompositionalWorld(config, rng)
     if config.world == "distractor":
         return DistractorWorld(config, rng)
+    if config.world == "shifting":
+        return ShiftingWorld(config, rng)
+    if config.world == "multiregion":
+        return MultiRegionWorld(config, rng)
     return SensorimotorWorld(config, rng)
