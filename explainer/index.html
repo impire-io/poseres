@@ -1,0 +1,1708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How PRA works — an interactive tour</title>
+<style>
+  :root {
+    --bg: #0e1116;
+    --panel: #161b23;
+    --panel-2: #1c2330;
+    --ink: #dde3ec;
+    --ink-dim: #8a94a6;
+    --accent: #5eb1ff;
+    --good: #4ade80;
+    --bad: #f87171;
+    --warn: #fbbf24;
+    --violet: #a78bfa;
+    --line: #2a3342;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  header.hero {
+    max-width: 900px; margin: 0 auto; padding: 64px 24px 24px;
+  }
+  header.hero h1 { font-size: 2.2rem; margin: 0 0 8px; letter-spacing: -0.02em; }
+  header.hero p.sub { color: var(--ink-dim); max-width: 640px; margin: 0; }
+  nav.toc {
+    max-width: 900px; margin: 24px auto 0; padding: 0 24px;
+    display: flex; flex-wrap: wrap; gap: 8px;
+  }
+  nav.toc a {
+    color: var(--accent); text-decoration: none; font-size: 0.85rem;
+    border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px;
+    background: var(--panel);
+  }
+  nav.toc a:hover { border-color: var(--accent); }
+  main { max-width: 900px; margin: 0 auto; padding: 24px; }
+  section.mech {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
+    padding: 28px; margin: 28px 0;
+  }
+  section.mech h2 { margin: 0 0 2px; font-size: 1.45rem; letter-spacing: -0.01em; }
+  section.mech h2 .tag {
+    font: 700 0.65rem var(--mono); vertical-align: middle; margin-left: 8px;
+    padding: 2px 7px; border-radius: 4px;
+  }
+  .tag.v { background: #113a24; color: var(--good); }
+  .tag.d { background: #3a2f11; color: var(--warn); }
+  .tag.o { background: #2c1f4a; color: var(--violet); }
+  section.mech p.kicker { color: var(--ink-dim); font-style: italic; margin: 0 0 14px; }
+  .simbox {
+    background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px;
+    padding: 16px; margin: 16px 0;
+  }
+  .controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 12px; }
+  .controls .spacer { flex: 1; }
+  button {
+    background: var(--panel); color: var(--ink); border: 1px solid var(--line);
+    border-radius: 8px; padding: 6px 14px; font-size: 0.85rem; cursor: pointer;
+  }
+  button:hover { border-color: var(--accent); }
+  button.primary { background: var(--accent); color: #08111d; border-color: var(--accent); font-weight: 600; }
+  button.toggled { background: var(--accent); color: #08111d; border-color: var(--accent); }
+  label.ctl { font-size: 0.8rem; color: var(--ink-dim); display: flex; align-items: center; gap: 6px; }
+  input[type=range] { accent-color: var(--accent); width: 120px; }
+  canvas { display: block; width: 100%; border-radius: 6px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: 0.75rem; color: var(--ink-dim); margin-top: 8px; }
+  .legend .sw { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; }
+  details.math {
+    margin: 14px 0 0; border: 1px dashed var(--line); border-radius: 8px; padding: 10px 14px;
+    font-size: 0.85rem;
+  }
+  details.math summary { cursor: pointer; color: var(--accent); font-weight: 600; }
+  details.math code, .mono { font-family: var(--mono); font-size: 0.82em; color: var(--warn); }
+  details.math pre { background: var(--bg); padding: 10px; border-radius: 6px; overflow-x: auto; color: var(--ink); }
+  .note { font-size: 0.78rem; color: var(--ink-dim); margin-top: 10px; }
+  .note b { color: var(--ink); }
+  .statrow { display: flex; flex-wrap: wrap; gap: 16px; font: 0.8rem var(--mono); margin-top: 10px; }
+  .statrow .stat b { color: var(--accent); }
+  .framegrid { display: flex; flex-wrap: wrap; gap: 8px; min-height: 96px; }
+  .fcard {
+    width: 96px; border: 1px solid var(--line); border-radius: 8px; padding: 8px;
+    font: 0.7rem var(--mono); background: var(--panel); transition: all .3s;
+  }
+  .fcard.born { border-color: var(--good); box-shadow: 0 0 12px #4ade8055; }
+  .fcard.dying { border-color: var(--bad); opacity: 0.25; transform: scale(0.9); }
+  .fcard.best { border-color: var(--accent); }
+  .fcard .dim { font-size: 1.15rem; font-weight: 700; color: var(--ink); }
+  .fcard .badge { font-size: 0.6rem; padding: 1px 5px; border-radius: 3px; }
+  .badge.cand { background: #3a2f11; color: var(--warn); }
+  .badge.mat { background: #113a24; color: var(--good); }
+  .fcard .scorebar { height: 5px; background: var(--line); border-radius: 3px; margin-top: 6px; overflow: hidden; }
+  .fcard .scorebar i { display: block; height: 100%; background: var(--bad); }
+  .tripletlog { display: flex; flex-direction: column; gap: 6px; }
+  .trip { display: flex; align-items: center; gap: 10px; font: 0.75rem var(--mono); }
+  .trip .arrow { color: var(--accent); font-weight: 700; width: 60px; text-align: center; }
+  .obsstrip { display: flex; gap: 1px; }
+  .obsstrip i { width: 9px; height: 16px; border-radius: 1px; display: block; }
+  footer { max-width: 900px; margin: 0 auto; padding: 24px 24px 80px; color: var(--ink-dim); font-size: 0.85rem; }
+  footer h3 { color: var(--ink); }
+  .taglegend span { margin-right: 16px; }
+  @media (max-width: 640px) { section.mech { padding: 18px; } }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>How PRA works</h1>
+  <p class="sub">
+    Most machine brains study, then freeze. PRA — the Pose Resolution Architecture — never
+    freezes: it keeps a head full of rival guessers that grow, compete, and get pruned for as
+    long as it runs. This page walks through each core mechanism with a <b>live simulation
+    running the real update rules</b> — smaller nets and faster clocks than the shipping
+    system, but the same math. Scroll, poke, break things.
+  </p>
+</header>
+
+<nav class="toc">
+  <a href="#loop">The loop</a>
+  <a href="#triplet">The triplet</a>
+  <a href="#frames">Frames</a>
+  <a href="#scoring">Fair scoring</a>
+  <a href="#price">Price of a dimension</a>
+  <a href="#ecology">Spawn &amp; select</a>
+  <a href="#drives">Wanting things</a>
+  <a href="#chanw">Channel weighting</a>
+  <a href="#persist">Pausing, not remembering</a>
+</nav>
+
+<main>
+
+<!-- ============ 1. THE LOOP ============ -->
+<section class="mech" id="loop">
+  <h2>The whole loop at a glance</h2>
+  <p class="kicker">Everything else on this page is a close-up of one station on this ring.</p>
+  <p>
+    A body senses the world. The sense becomes an <b>observation</b>. Paired with what was
+    sensed before and what was done in between, it forms a <b>triplet</b> — the only record of
+    cause and effect a body ever gets. A population of small world-models (<b>frames</b>) each
+    try to place the observation in their own coordinate space; the ones that succeed
+    contribute to the <b>global pose</b>, the system's reading of the moment. An external
+    <b>scorer</b> judges every frame on everything it saw. A fixed <b>drive</b> turns the moment
+    into a value signal, the <b>action policy</b> picks the move expected to raise it, the body
+    acts — and the world answers with the next observation.
+  </p>
+  <div class="simbox">
+    <div class="controls">
+      <button id="loop-play" class="primary">▶ Play</button>
+      <button id="loop-step">Step</button>
+      <label class="ctl">speed <input type="range" id="loop-speed" min="1" max="10" value="4"></label>
+    </div>
+    <canvas id="loop-canvas" width="852" height="330"></canvas>
+  </div>
+</section>
+
+<!-- ============ 2. THE TRIPLET ============ -->
+<section class="mech" id="triplet">
+  <h2>Before, action, after <span class="tag v">VALIDATED</span></h2>
+  <p class="kicker">A brain that reads every book about swimming still can't swim.</p>
+  <p>
+    Everything PRA learns arrives in one shape: <span class="mono">(previous_observation,
+    action, observation)</span> — what I sensed, what I did, what I sensed next. No labels, no
+    dataset, no replay buffer. Drive the little rover below and watch its entire education
+    stream past: each row is one triplet, each colored strip one observation (the rover's
+    12 distance-ish sensor channels).
+  </p>
+  <div class="simbox">
+    <div class="controls">
+      <button id="trip-left">← Left</button>
+      <button id="trip-right">Right →</button>
+      <button id="trip-auto">Auto-wander</button>
+    </div>
+    <canvas id="trip-world" width="852" height="60"></canvas>
+    <div style="height:12px"></div>
+    <div class="tripletlog" id="trip-log"></div>
+  </div>
+  <details class="math">
+    <summary>Why triplets and not text</summary>
+    <p>Prediction is the test of understanding: a model understands a world exactly as far as
+    it can say what happens next, <i>given what it does</i>. That requires acting. Language
+    describes the world secondhand; the triplet is the world answering you directly.</p>
+  </details>
+</section>
+
+<!-- ============ 3. FRAMES ============ -->
+<section class="mech" id="frames">
+  <h2>The reference frame <span class="tag v">VALIDATED</span></h2>
+  <p class="kicker">One small world-model betting the world has a particular number of knobs.</p>
+  <p>
+    A frame is a learnable coordinate space with a chosen dimensionality <span class="mono">dim</span>.
+    It does two jobs: <b>place</b> (turn an observation into a coordinate — its <i>pose</i>)
+    and <b>predict</b> (given pose + action, say where the pose goes next). Below, four rival
+    frames — betting 1, 2, 3, and 5 knobs — learn the same world live. The world secretly has
+    <b>3</b> hidden knobs. Watch the reconstruction error: too few dimensions can't explain the
+    world; enough dimensions can; extra dimensions… also can. That ambiguity is a problem we
+    solve two sections down. (Give it a few hundred steps — real learning takes real time.)
+  </p>
+  <div class="simbox">
+    <div class="controls">
+      <button id="fr-play" class="primary">▶ Play</button>
+      <button id="fr-reset">Reset</button>
+      <span class="spacer"></span>
+      <span class="statrow"><span class="stat">step <b id="fr-step">0</b></span></span>
+    </div>
+    <canvas id="fr-chart" width="852" height="220"></canvas>
+    <div class="legend" id="fr-legend"></div>
+    <div style="height:14px"></div>
+    <canvas id="fr-recon" width="852" height="120"></canvas>
+    <div class="legend">
+      <span><span class="sw" style="background:var(--ink-dim)"></span>observation (10 channels)</span>
+      <span><span class="sw" style="background:var(--accent)"></span>dim-3 frame's reconstruction</span>
+    </div>
+  </div>
+  <details class="math">
+    <summary>The actual math (running live above)</summary>
+    <pre>encoder:     h  = tanh(W1·obs + b1);   pose = W2·h + b2
+decoder:     hd = tanh(D1·pose + d1); recon = D2·hd + d2
+transition:  th = tanh(T1[a]·pose + tb1[a]); pred_pose = T2[a]·th + tb2[a]   (one net per action)
+
+fit_quality      = ‖recon − obs‖ / (‖obs‖ + 1e-6)
+prediction_error = ‖decode(pred_pose) − next_obs‖ / (‖next_obs‖ + 1e-6)   ← observation space!
+effort           = ‖pred_pose − pose‖
+
+learning: plain gradient descent, every gradient element clipped to ±gradient_clip.</pre>
+    <p><b>The load-bearing rule:</b> prediction error is measured in <i>observation</i> space —
+    the predicted pose is decoded back into a claimed observation and compared with reality. A
+    collapsed frame can make its own pose trivially predictable; it cannot fake predicting the
+    world. Never let a frame invent the ruler it is measured with.</p>
+  </details>
+</section>
+
+<!-- ============ 4. COVERAGE-FAIR SCORING ============ -->
+<section class="mech" id="scoring">
+  <h2>Never grade your own homework <span class="tag v">VALIDATED</span></h2>
+  <p class="kicker">Frames choose what they learn from. They never choose what they're judged on.</p>
+  <p>
+    Each event, a frame measures its fit. If the fit beats the <span class="mono">fit_gate</span>,
+    the frame <b>maps</b>: it contributes its pose and gets to learn. If not, it drops the
+    event — no learning. But here is the trick that keeps the whole ecology honest: the
+    survival EMAs update on <b>every event the frame is exposed to</b>, mapped or not. Learning
+    is sparse and self-selected; judgment is total. Flip the cheat switch below to see what
+    happens if a frame were scored only on the events it deigned to map.
+  </p>
+  <div class="simbox">
+    <div class="controls">
+      <button id="sc-play" class="primary">▶ Play</button>
+      <button id="sc-reset">Reset</button>
+      <label class="ctl">fit_gate <input type="range" id="sc-gate" min="5" max="80" value="35"> <span id="sc-gate-val" class="mono">0.35</span></label>
+      <label class="ctl"><input type="checkbox" id="sc-cheat"> cheat: score only mapped events</label>
+    </div>
+    <canvas id="sc-chart" width="852" height="200"></canvas>
+    <div class="legend">
+      <span><span class="sw" style="background:var(--good)"></span>mapped event (frame learns)</span>
+      <span><span class="sw" style="background:#3a4356"></span>exposed, not mapped (no learning — still judged)</span>
+      <span><span class="sw" style="background:var(--accent)"></span>survival EMA (what the scorer sees)</span>
+      <span><span class="sw" style="background:var(--bad)"></span>true error over all events</span>
+    </div>
+    <p class="note" id="sc-verdict"></p>
+  </div>
+  <details class="math">
+    <summary>The update, exactly</summary>
+    <pre>fit = ‖recon − obs‖ / (‖obs‖ + 1e-6)
+recon_err_ema ← ema_decay·recon_err_ema + (1 − ema_decay)·fit     ← on EVERY exposed event
+if fit &lt; fit_gate:  frame maps → contributes pose, learns          ← "sparsity by pull"</pre>
+    <p>This split — sparse learning, total judgment — is the entire reason dimensionality
+    selection works. A cheating frame narrows its gate, learns a tiny comfortable niche, and
+    reports a beautiful score while explaining almost nothing. The coverage-fair EMA makes that
+    strategy fatal instead of dominant.</p>
+  </details>
+</section>
+
+<!-- ============ 5. PRICE OF A DIMENSION ============ -->
+<section class="mech" id="price">
+  <h2>The price of a dimension <span class="tag v">VALIDATED</span></h2>
+  <p class="kicker">Parsimony is not a truth the system discovers. It's a price it pays.</p>
+  <p>
+    Honest error keeps creeping down as you add dimensions — past the world's true size and
+    onward, forever, via overfit. "Lowest error wins" would over-dimension without limit. So
+    the scorer charges rent: <span class="mono">w_complexity · dim</span>. The winner is the
+    frame at the start of the diminishing-returns plateau — the point where one more dimension
+    stops paying for itself. The error bars below are <b>real</b>, from frames of every size
+    trained live on a world with 4 hidden knobs. Drag the price and watch the winner move: at
+    zero the raw-error minimum wanders into the overfit plateau; too dear collapses everything
+    toward one knob. And notice the winner usually settles at <b>3</b>, not 4 — the fourth
+    knob doesn't pay its rent at this budget. The real system does the same at scale (it lands
+    at median dim 9–10 on worlds of "true" size 20–50): the price doesn't discover truth, it
+    buys value.
+  </p>
+  <div class="simbox">
+    <div class="controls">
+      <button id="pr-play" class="primary">▶ Train</button>
+      <button id="pr-reset">Reset</button>
+      <label class="ctl">w_complexity <input type="range" id="pr-w" min="0" max="300" value="18"> <span id="pr-w-val" class="mono">0.018</span></label>
+      <span class="spacer"></span>
+      <span class="statrow"><span class="stat">step <b id="pr-step">0</b></span> <span class="stat">winner <b id="pr-winner">–</b></span></span>
+    </div>
+    <canvas id="pr-chart" width="852" height="240"></canvas>
+    <div class="legend">
+      <span><span class="sw" style="background:var(--accent)"></span>measured error EMA (live)</span>
+      <span><span class="sw" style="background:var(--warn)"></span>+ dimension rent</span>
+      <span><span class="sw" style="background:var(--good)"></span>lowest total = survivor</span>
+    </div>
+  </div>
+  <details class="math">
+    <summary>The survival score</summary>
+    <pre>survival_score = w_explain·recon_err_ema + w_predict·pred_err_ema
+               + w_effort·effort_ema + w_complexity·dim        (lower = better)</pre>
+    <p>At scale the error curve has no knee at all — it just keeps falling to the capacity
+    ceiling. So the penalty isn't detecting the world's true size; selection simply keeps
+    buying dimensions while the marginal error-gain exceeds the price, and stops there. The
+    ecology lands at the price-optimal operating point — stably, at every scale measured.</p>
+  </details>
+</section>
+
+<!-- ============ 6. SPAWN AND SELECT ============ -->
+<section class="mech" id="ecology">
+  <h2>A head full of rival guessers <span class="tag v">VALIDATED</span></h2>
+  <p class="kicker">Evolution inside one head, on a timescale of minutes.</p>
+  <p>
+    Nobody tells PRA how many dimensions its frames should have. Instead: if no frame can map
+    an observation, a new frame is <b>born on demand</b>. Every consolidation cycle, new
+    candidates <b>spawn</b> near the best frame's dimensionality (copy, never mutate — a bad
+    idea just fails to earn its place). The young get a <b>protection window</b>; the mature
+    face a survival bar that <b>tightens as the population grows</b> — crowding raises the
+    pressure, so the head stays lean without a hand on the dial. Below, a real population of
+    real frames learning a true-dim-3 world, from empty.
+  </p>
+  <div class="simbox">
+    <div class="controls">
+      <button id="ec-play" class="primary">▶ Play</button>
+      <button id="ec-reset">Reset</button>
+      <label class="ctl">speed <input type="range" id="ec-speed" min="1" max="8" value="3"></label>
+      <span class="spacer"></span>
+      <span class="statrow">
+        <span class="stat">cycle <b id="ec-cycle">0</b></span>
+        <span class="stat">pop <b id="ec-pop">0</b></span>
+        <span class="stat">best dim <b id="ec-best">–</b></span>
+        <span class="stat">births <b id="ec-births">0</b></span>
+        <span class="stat">evictions <b id="ec-deaths">0</b></span>
+      </span>
+    </div>
+    <div class="framegrid" id="ec-grid"></div>
+    <div style="height:14px"></div>
+    <canvas id="ec-chart" width="852" height="150"></canvas>
+    <div class="legend">
+      <span><span class="sw" style="background:var(--accent)"></span>best dim</span>
+      <span><span class="sw" style="background:var(--violet)"></span>population</span>
+      <span><span class="sw" style="background:var(--bad)"></span>survival threshold (falls as pop grows)</span>
+    </div>
+  </div>
+  <details class="math">
+    <summary>The slow loop, in order</summary>
+    <pre>each consolidation cycle:
+  1. age everyone; candidates mature at age ≥ min_age_cycles
+  2. apply pending anatomy changes
+  3. evict: threshold = base / (1 + coeff · max(0, pop − baseline))   ← falls with crowding
+     remove unprotected frames scoring above it, worst first (never below min_frames)
+     hard cap: still too many → cull worst to max_frames
+  4. spawn candidates: dim = best_dim ± 1 (mostly), sometimes explore
+  5. snapshot</pre>
+    <p>Note the division: crowding <i>tightens</i> the tolerated-error bar. A bar that loosened
+    instead would let eviction vanish and the population slam into the hard cap. And this is
+    the system's whole memory story — it keeps <b>running structure</b>, not stored episodes.
+    No scrapbook required.</p>
+  </details>
+</section>
+
+<!-- ============ 7. DRIVES ============ -->
+<section class="mech" id="drives">
+  <h2>Wanting things <span class="tag d">DESIGNED</span><span class="tag o">OPEN EDGES</span></h2>
+  <p class="kicker">The one thing the system can never rewrite is its own wanting.</p>
+  <p>
+    Action needs a direction, and direction needs a fixed notion of "better": the innate
+    <b>drive</b>, a pure function from recent experience to a scalar value signal. The corridor
+    below has three territories: a <b>mastered</b> zone (nothing left to learn), a
+    <b>learnable</b> zone (structure the agent can still crack), and a <b>noisy TV</b> (pure
+    static — unlearnable, forever novel). The agent picks actions by one-step lookahead on its
+    drive. Switch drives and watch where it spends its life. Novelty alone walks straight into
+    the TV and stays there; learning-progress ignores what it has mastered <i>and</i> what it
+    can never master.
+  </p>
+  <div class="simbox">
+    <div class="controls">
+      <button id="dr-play" class="primary">▶ Play</button>
+      <button id="dr-reset">Reset</button>
+      <label class="ctl">drive:</label>
+      <button id="dr-random" class="drbtn">random</button>
+      <button id="dr-novelty" class="drbtn">novelty only</button>
+      <button id="dr-curiosity" class="drbtn toggled">curiosity (LP + novelty)</button>
+      <button id="dr-competence" class="drbtn">competence</button>
+    </div>
+    <canvas id="dr-world" width="852" height="90"></canvas>
+    <div style="height:10px"></div>
+    <canvas id="dr-chart" width="852" height="160"></canvas>
+    <div class="legend">
+      <span><span class="sw" style="background:var(--good)"></span>time spent (occupancy)</span>
+      <span><span class="sw" style="background:var(--bad)"></span>current prediction error per cell</span>
+    </div>
+    <p class="note" id="dr-note"></p>
+  </div>
+  <details class="math">
+    <summary>The drives, exactly</summary>
+    <pre>curiosity  = w_progress·LP + w_novelty·novelty
+  LP        = max(0, mean(older errors) − mean(recent errors))   ← rewards error going DOWN
+  novelty   = unfamiliarity vs a bounded memory of recent observations
+competence = mastery + familiarity
+  mastery   = max(0, 1 − mean(recent prediction error))
+  familiarity = 1 − novelty</pre>
+    <p>The anti-noise-trap property: on static, error is high but <i>flat</i>, so LP ≈ 0. On
+    mastered ground, error is low and flat — LP ≈ 0 again. Only a live learning frontier
+    scores. Honesty note from the measurements: at scale, novelty-directed curiosity performed
+    <i>worse than random</i> (−0.062); the inverted preference — competence — is what beat it
+    (+0.067). The perfect drive is still an open problem, and PRA says so out loud.</p>
+  </details>
+</section>
+
+<!-- ============ 8. CHANNEL WEIGHTING ============ -->
+<section class="mech" id="chanw">
+  <h2>Turning down the static <span class="tag d">OPT-IN</span></h2>
+  <p class="kicker">Real sensors lie. Some channels carry the world; some carry snow.</p>
+  <p>
+    Feed half the sensors pure static and structure-finding collapses: the noise floor drowns
+    the score's gradient, static corrupts the shared encoder, and no frame ever clears the
+    survival bar. The fix is a <b>learning-free whiteness estimator</b>: static is white — a
+    fresh draw every step — while real channels carry the world's temporally-correlated
+    dynamics. Per channel, track the lag-1 autocorrelation ρ̂; weight channels by it; apply the
+    <b>same weights to judging and learning</b> (the judge and the learner must never
+    disagree). Channels never go fully silent — the floor keeps every channel minimally
+    audible, in case it starts carrying the world tomorrow.
+  </p>
+  <div class="simbox">
+    <div class="controls">
+      <button id="cw-play" class="primary">▶ Play</button>
+      <button id="cw-reset">Reset</button>
+      <label class="ctl">static amplitude <input type="range" id="cw-amp" min="0" max="20" value="10"> <span id="cw-amp-val" class="mono">1.0</span></label>
+      <label class="ctl">weight floor <input type="range" id="cw-floor" min="0" max="50" value="20"> <span id="cw-floor-val" class="mono">0.20</span></label>
+    </div>
+    <canvas id="cw-bars" width="852" height="170"></canvas>
+    <div class="legend">
+      <span><span class="sw" style="background:var(--accent)"></span>ρ̂ (lag-1 autocorrelation)</span>
+      <span><span class="sw" style="background:var(--good)"></span>weight w</span>
+      <span>channels 1–6 carry the world · channels 7–8 are static</span>
+    </div>
+    <div style="height:14px"></div>
+    <canvas id="cw-chart" width="852" height="170"></canvas>
+    <div class="legend">
+      <span><span class="sw" style="background:var(--bad)"></span>frame judged without weighting — the noise floor holds it above the bar</span>
+      <span><span class="sw" style="background:var(--good)"></span>identical frame with weighting — clears the bar and can mature</span>
+    </div>
+  </div>
+  <details class="math">
+    <summary>The estimator (five arrays, zero learning)</summary>
+    <pre>per step:  m ← β·m + (1−β)·obs;  d = obs − m
+           v ← β·v + (1−β)·d²
+           cov ← β·cov + (1−β)·d·(prev_obs − m)
+recompute: ρ̂ = clip(cov/(v+1e-6), 0, 1)
+           w  = clip(ρ̂ / max(ρ̂), floor, 1)      (unready channels stay at 1)
+apply:     judging  → ‖(recon − obs)⊙w‖ / (‖obs⊙w‖ + 1e-6)
+           learning → encoder sees w⊙obs; placement backprops (recon − obs)⊙w</pre>
+    <p><b>The transport argument:</b> weighting unit static at 0.2 makes every computation
+    operation-for-operation equivalent to running at static amplitude 0.2 — an operating point
+    already measured as a clean PASS. The remedy doesn't hope; it transports the system into a
+    regime known to work. Off means off: floor = 0 → byte-identical pinned behavior, zero
+    extra float work. (Demo uses a faster β than the shipping 0.995 so you don't wait 200
+    steps.)</p>
+  </details>
+</section>
+
+<!-- ============ 9. PERSISTENCE ============ -->
+<section class="mech" id="persist">
+  <h2>Pausing, not remembering <span class="tag v">VALIDATED</span></h2>
+  <p class="kicker">A brain you can switch off is only trustworthy if switching it back on changes nothing.</p>
+  <p>
+    The entire evolving state — every frame's tensors, drive bookkeeping, counters, the random
+    number generator itself — serializes to a versioned blob. The guarantee is
+    <b>byte-identical resume</b>: a run resumed from any snapshot is bit-for-bit the same as
+    the run that never stopped. Not "approximately the same brain." The same brain. Prove it
+    to yourself:
+  </p>
+  <div class="simbox">
+    <div class="controls">
+      <button id="ps-run" class="primary">Run the experiment</button>
+      <span class="spacer"></span>
+      <span class="statrow"><span class="stat" id="ps-status">idle</span></span>
+    </div>
+    <canvas id="ps-chart" width="852" height="150"></canvas>
+    <p class="note" id="ps-verdict">This runs a live ecology for 300 steps, snapshots at step 150,
+    runs to the end, then restores the snapshot and re-runs the second half. The two traces are
+    hashed and compared.</p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <h3>What the tags mean</h3>
+  <p class="taglegend">
+    <span><span class="tag v">VALIDATED</span> measured and byte-frozen in the reference</span>
+    <span><span class="tag d">DESIGNED / OPT-IN</span> built, ships behind a switch</span>
+    <span><span class="tag o">OPEN</span> honest research frontier</span>
+  </p>
+  <p>
+    Everything above simplifies scale, never rules: the simulations run the actual update
+    equations from <span class="mono">design/03</span>–<span class="mono">06</span> with smaller
+    nets, faster EMA clocks, and friendlier consolidation periods. The shipping system adds the
+    parts that don't demo well on a web page: the SIMD-batched kernel (~40× the reference
+    oracle), the event bus with preemption, the eight scale rules, and the acceptance harness
+    that keeps all of it honest. For the full story: <span class="mono">design/01-system-overview.md</span>
+    for the map, <span class="mono">JOURNEY.md</span> for how it got here — including the parts
+    that failed.
+  </p>
+</footer>
+
+<script>
+"use strict";
+/* ================= shared: seeded RNG + tiny linear algebra ================= */
+function mulberry32(seed) {
+  let a = seed >>> 0;
+  const f = function() {
+    a |= 0; a = (a + 0x6D2B79F5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+  f.state = () => a;
+  f.setState = (s) => { a = s >>> 0; };
+  return f;
+}
+function gauss(rng) {
+  let u = 0, v = 0;
+  while (u === 0) u = rng();
+  while (v === 0) v = rng();
+  return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+}
+function zeros(n) { return new Float64Array(n); }
+function randMat(rows, cols, scale, rng) {
+  const m = [];
+  for (let i = 0; i < rows; i++) {
+    const r = new Float64Array(cols);
+    for (let j = 0; j < cols; j++) r[j] = (rng() * 2 - 1) * scale;
+    m.push(r);
+  }
+  return m;
+}
+function matvec(M, x, out) {
+  for (let i = 0; i < M.length; i++) {
+    let s = 0; const row = M[i];
+    for (let j = 0; j < row.length; j++) s += row[j] * x[j];
+    out[i] = s;
+  }
+  return out;
+}
+function matTvec(M, x, out) {
+  out.fill(0);
+  for (let i = 0; i < M.length; i++) {
+    const row = M[i], xi = x[i];
+    for (let j = 0; j < row.length; j++) out[j] += row[j] * xi;
+  }
+  return out;
+}
+function norm(x) { let s = 0; for (let i = 0; i < x.length; i++) s += x[i] * x[i]; return Math.sqrt(s); }
+function clipv(g, c) { return g > c ? c : (g < -c ? -c : g); }
+function tanhv(x) { for (let i = 0; i < x.length; i++) x[i] = Math.tanh(x[i]); return x; }
+
+/* ================= shared: the Frame (design/03 math, exactly) ================= */
+class Frame {
+  constructor(obsDim, dim, hidden, nActions, lr, clip, rng) {
+    this.obsDim = obsDim; this.dim = dim; this.H = hidden;
+    this.nActions = nActions; this.lr = lr; this.clip = clip;
+    const s = 0.5 / Math.sqrt(obsDim);
+    this.W1 = randMat(hidden, obsDim, s, rng); this.b1 = zeros(hidden);
+    this.W2 = randMat(dim, hidden, 0.5 / Math.sqrt(hidden), rng); this.b2 = zeros(dim);
+    this.D1 = randMat(hidden, dim, 0.5 / Math.sqrt(dim), rng); this.d1 = zeros(hidden);
+    this.D2 = randMat(obsDim, hidden, 0.5 / Math.sqrt(hidden), rng); this.d2 = zeros(obsDim);
+    this.T1 = []; this.tb1 = []; this.T2 = []; this.tb2 = [];
+    for (let a = 0; a < nActions; a++) {
+      this.T1.push(randMat(hidden, dim, 0.5 / Math.sqrt(dim), rng)); this.tb1.push(zeros(hidden));
+      this.T2.push(randMat(dim, hidden, 0.5 / Math.sqrt(hidden), rng)); this.tb2.push(zeros(dim));
+    }
+    // survival EMAs
+    this.reconEma = 1.0; this.predEma = 1.0; this.effortEma = 0.0;
+    // scratch
+    this._h = zeros(hidden); this._pose = zeros(dim);
+    this._hd = zeros(hidden); this._recon = zeros(obsDim);
+    this._th = zeros(hidden); this._pp = zeros(dim);
+    this.ageCycles = 0;
+  }
+  encode(obs) {
+    matvec(this.W1, obs, this._h);
+    for (let i = 0; i < this.H; i++) this._h[i] = Math.tanh(this._h[i] + this.b1[i]);
+    matvec(this.W2, this._h, this._pose);
+    for (let i = 0; i < this.dim; i++) this._pose[i] += this.b2[i];
+    return this._pose;
+  }
+  decode(pose, outRecon, outHd) {
+    const hd = outHd || this._hd, rec = outRecon || this._recon;
+    matvec(this.D1, pose, hd);
+    for (let i = 0; i < this.H; i++) hd[i] = Math.tanh(hd[i] + this.d1[i]);
+    matvec(this.D2, hd, rec);
+    for (let i = 0; i < this.obsDim; i++) rec[i] += this.d2[i];
+    return rec;
+  }
+  predictPose(pose, a) {
+    matvec(this.T1[a], pose, this._th);
+    for (let i = 0; i < this.H; i++) this._th[i] = Math.tanh(this._th[i] + this.tb1[a][i]);
+    matvec(this.T2[a], this._th, this._pp);
+    for (let i = 0; i < this.dim; i++) this._pp[i] += this.tb2[a][i];
+    return this._pp;
+  }
+  fitQuality(obs, w, xIn) {
+    this.encode(xIn || obs); this.decode(this._pose);
+    let num = 0, den = 0;
+    for (let i = 0; i < this.obsDim; i++) {
+      const wi = w ? w[i] : 1;
+      const e = (this._recon[i] - obs[i]) * wi;
+      num += e * e; den += (obs[i] * wi) * (obs[i] * wi);
+    }
+    return Math.sqrt(num) / (Math.sqrt(den) + 1e-6);
+  }
+  // placement learning: minimize ||(recon - obs)⊙w||² through decoder+encoder
+  learnPlace(obs, w, xIn) {
+    const x = xIn || obs; // 016: encoder consumes w⊙obs when weighting is on
+    this.encode(x); this.decode(this._pose);
+    const O = this.obsDim, H = this.H, D = this.dim, lr = this.lr, c = this.clip;
+    const e = zeros(O);
+    for (let i = 0; i < O; i++) e[i] = (this._recon[i] - obs[i]) * (w ? w[i] : 1);
+    // decoder second layer
+    const dHd = zeros(H);
+    matTvec(this.D2, e, dHd);
+    for (let i = 0; i < O; i++) {
+      const row = this.D2[i], ei = e[i];
+      for (let j = 0; j < H; j++) row[j] -= lr * clipv(ei * this._hd[j], c);
+      this.d2[i] -= lr * clipv(ei, c);
+    }
+    for (let i = 0; i < H; i++) dHd[i] *= (1 - this._hd[i] * this._hd[i]);
+    // decoder first layer
+    const dPose = zeros(D);
+    matTvec(this.D1, dHd, dPose);
+    for (let i = 0; i < H; i++) {
+      const row = this.D1[i], gi = dHd[i];
+      for (let j = 0; j < D; j++) row[j] -= lr * clipv(gi * this._pose[j], c);
+      this.d1[i] -= lr * clipv(gi, c);
+    }
+    // encoder second layer
+    const dH = zeros(H);
+    matTvec(this.W2, dPose, dH);
+    for (let i = 0; i < D; i++) {
+      const row = this.W2[i], gi = dPose[i];
+      for (let j = 0; j < H; j++) row[j] -= lr * clipv(gi * this._h[j], c);
+      this.b2[i] -= lr * clipv(gi, c);
+    }
+    for (let i = 0; i < H; i++) dH[i] *= (1 - this._h[i] * this._h[i]);
+    // encoder first layer
+    for (let i = 0; i < H; i++) {
+      const row = this.W1[i], gi = dH[i];
+      for (let j = 0; j < O; j++) row[j] -= lr * clipv(gi * x[j], c);
+      this.b1[i] -= lr * clipv(gi, c);
+    }
+  }
+  // transition learning: minimize ||pred_pose − encode(next_obs)||², encoder frozen
+  learnTransition(prevObs, a, nextObs) {
+    const pose = zeros(this.dim); this.encode(prevObs); pose.set(this._pose);
+    const target = zeros(this.dim); this.encode(nextObs); target.set(this._pose);
+    matvec(this.T1[a], pose, this._th);
+    for (let i = 0; i < this.H; i++) this._th[i] = Math.tanh(this._th[i] + this.tb1[a][i]);
+    matvec(this.T2[a], this._th, this._pp);
+    const D = this.dim, H = this.H, lr = this.lr, c = this.clip;
+    const e = zeros(D);
+    for (let i = 0; i < D; i++) { this._pp[i] += this.tb2[a][i]; e[i] = this._pp[i] - target[i]; }
+    const dTh = zeros(H);
+    matTvec(this.T2[a], e, dTh);
+    for (let i = 0; i < D; i++) {
+      const row = this.T2[a][i], ei = e[i];
+      for (let j = 0; j < H; j++) row[j] -= lr * clipv(ei * this._th[j], c);
+      this.tb2[a][i] -= lr * clipv(ei, c);
+    }
+    for (let i = 0; i < H; i++) dTh[i] *= (1 - this._th[i] * this._th[i]);
+    for (let i = 0; i < H; i++) {
+      const row = this.T1[a][i], gi = dTh[i];
+      for (let j = 0; j < D; j++) row[j] -= lr * clipv(gi * pose[j], c);
+      this.tb1[a][i] -= lr * clipv(gi, c);
+    }
+    return e;
+  }
+  // prediction error measured in OBSERVATION space (the load-bearing rule)
+  predictionError(prevObs, a, nextObs, w) {
+    this.encode(prevObs);
+    const pp = this.predictPose(this._pose, a);
+    const rec = zeros(this.obsDim), hd = zeros(this.H);
+    this.decode(pp, rec, hd);
+    let num = 0, den = 0;
+    for (let i = 0; i < this.obsDim; i++) {
+      const wi = w ? w[i] : 1;
+      const e = (rec[i] - nextObs[i]) * wi;
+      num += e * e; den += (nextObs[i] * wi) * (nextObs[i] * wi);
+    }
+    return Math.sqrt(num) / (Math.sqrt(den) + 1e-6);
+  }
+  updateEmas(fit, pred, effort, decay) {
+    this.reconEma = decay * this.reconEma + (1 - decay) * fit;
+    if (pred !== null) this.predEma = decay * this.predEma + (1 - decay) * pred;
+    if (effort !== null) this.effortEma = decay * this.effortEma + (1 - decay) * effort;
+  }
+  survivalScore(wExplain, wPredict, wEffort, wComplexity) {
+    return wExplain * this.reconEma + wPredict * this.predEma
+         + wEffort * this.effortEma + wComplexity * this.dim;
+  }
+}
+
+/* ================= shared: latent-walk world (true dim k, obs dim n) ================= */
+class LatentWorld {
+  // latent z does a bounded random walk in [-1,1]^k nudged by actions; obs = tanh(A z)
+  constructor(trueDim, obsDim, nActions, rng, noiseSigma) {
+    this.k = trueDim; this.n = obsDim; this.nActions = nActions;
+    this.rng = rng; this.noise = noiseSigma || 0;
+    this.A = randMat(obsDim, trueDim, 0.8, rng);
+    this.z = zeros(trueDim);
+    for (let i = 0; i < trueDim; i++) this.z[i] = rng() * 2 - 1;
+    // each action pushes a fixed random direction in latent space
+    this.push = randMat(nActions, trueDim, 0.35, rng);
+    this._obs = zeros(obsDim);
+  }
+  step(a) {
+    for (let i = 0; i < this.k; i++) {
+      this.z[i] += this.push[a][i] + gauss(this.rng) * 0.25;
+      // reflecting boundaries: keeps the walk lively without corner-camping
+      if (this.z[i] > 1) this.z[i] = 2 - this.z[i];
+      if (this.z[i] < -1) this.z[i] = -2 - this.z[i];
+    }
+    return this.observe();
+  }
+  observe() {
+    matvec(this.A, this.z, this._obs);
+    for (let i = 0; i < this.n; i++) {
+      this._obs[i] = Math.tanh(this._obs[i]);
+      if (this.noise > 0) this._obs[i] += gauss(this.rng) * this.noise;
+    }
+    return this._obs;
+  }
+}
+
+/* ================= shared: canvas helpers ================= */
+function ctx2d(id) {
+  const c = document.getElementById(id);
+  const ctx = c.getContext("2d");
+  return { c, ctx, w: c.width, h: c.height };
+}
+function clearCanvas(g, bg) {
+  g.ctx.fillStyle = bg || "#12161e";
+  g.ctx.fillRect(0, 0, g.w, g.h);
+}
+function drawSeries(g, data, color, yMin, yMax, x0, x1, lw) {
+  const ctx = g.ctx;
+  if (data.length < 2) return;
+  ctx.strokeStyle = color; ctx.lineWidth = lw || 1.6; ctx.beginPath();
+  const X0 = x0 === undefined ? 0 : x0, X1 = x1 === undefined ? g.w : x1;
+  for (let i = 0; i < data.length; i++) {
+    const x = X0 + (X1 - X0) * i / (data.length - 1);
+    const t = (data[i] - yMin) / (yMax - yMin);
+    const y = g.h - 6 - (g.h - 16) * Math.max(0, Math.min(1, t));
+    if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+  }
+  ctx.stroke();
+}
+function css(name) { return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+const COL = {
+  accent: "#5eb1ff", good: "#4ade80", bad: "#f87171", warn: "#fbbf24",
+  violet: "#a78bfa", dim: "#8a94a6", line: "#2a3342"
+};
+// run a section's loop only while visible
+function visibilityLoop(sectionId, tick) {
+  let visible = false, raf = null;
+  const el = document.getElementById(sectionId);
+  const io = new IntersectionObserver((es) => {
+    visible = es[0].isIntersecting;
+    if (visible && raf === null) frame();
+  }, { threshold: 0.05 });
+  io.observe(el);
+  function frame() {
+    if (!visible) { raf = null; return; }
+    tick();
+    raf = requestAnimationFrame(frame);
+  }
+  return () => visible;
+}
+
+/* ================= 1. THE LOOP ================= */
+(function loopSection() {
+  const g = ctx2d("loop-canvas");
+  const stations = [
+    { name: "World", cap: "The world is in some state. The body is embedded in it." },
+    { name: "Observation", cap: "Sensors fire: the state becomes an observation — a vector of numbers." },
+    { name: "Triplet", cap: "Paired with the previous observation and the action between them: (before, action, after)." },
+    { name: "Frames", cap: "Every frame tries to place the observation in its own coordinate space. Some succeed (map), some drop it." },
+    { name: "Global pose", cap: "The mapping frames' coordinates together: the system's whole interpretation of the moment." },
+    { name: "Scorer", cap: "An external judge updates every frame's survival score — on every event it saw, mapped or not." },
+    { name: "Drive", cap: "A fixed, unmodifiable drive turns recent experience into one number: the value signal." },
+    { name: "Action", cap: "One-step lookahead: which action do the frames predict will raise the value signal? Do that." },
+  ];
+  let stage = 0, playing = false, phase = 0;
+  const speedEl = document.getElementById("loop-speed");
+  function pos(i) {
+    const cx = g.w / 2, cy = 152, rx = 320, ry = 108;
+    const ang = -Math.PI / 2 + (i / stations.length) * 2 * Math.PI;
+    return [cx + rx * Math.cos(ang), cy + ry * Math.sin(ang)];
+  }
+  function draw() {
+    clearCanvas(g);
+    const ctx = g.ctx;
+    // edges
+    ctx.strokeStyle = COL.line; ctx.lineWidth = 1.5;
+    for (let i = 0; i < stations.length; i++) {
+      const [x1, y1] = pos(i), [x2, y2] = pos((i + 1) % stations.length);
+      ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+    }
+    // pulse traveling on current edge
+    const [ax, ay] = pos(stage), [bx, by] = pos((stage + 1) % stations.length);
+    const px = ax + (bx - ax) * phase, py = ay + (by - ay) * phase;
+    ctx.fillStyle = COL.warn;
+    ctx.beginPath(); ctx.arc(px, py, 5, 0, 7); ctx.fill();
+    // nodes
+    ctx.font = "600 12px -apple-system, sans-serif"; ctx.textAlign = "center";
+    for (let i = 0; i < stations.length; i++) {
+      const [x, y] = pos(i);
+      const active = i === stage;
+      ctx.fillStyle = active ? COL.accent : "#1c2330";
+      ctx.strokeStyle = active ? COL.accent : COL.line;
+      ctx.lineWidth = 1.5;
+      const wBox = 92, hBox = 28;
+      ctx.beginPath();
+      ctx.roundRect(x - wBox / 2, y - hBox / 2, wBox, hBox, 8);
+      ctx.fill(); ctx.stroke();
+      ctx.fillStyle = active ? "#08111d" : "#dde3ec";
+      ctx.fillText(stations[i].name, x, y + 4);
+    }
+    // caption
+    ctx.fillStyle = COL.dim; ctx.font = "13px -apple-system, sans-serif";
+    ctx.textAlign = "center";
+    wrapText(ctx, stations[stage].cap, g.w / 2, 148, 330, 17);
+  }
+  function wrapText(ctx, text, x, y, maxW, lh) {
+    const words = text.split(" ");
+    let line = "", yy = y;
+    for (const w of words) {
+      const t = line + w + " ";
+      if (ctx.measureText(t).width > maxW && line) { ctx.fillText(line, x, yy); line = w + " "; yy += lh; }
+      else line = t;
+    }
+    ctx.fillText(line, x, yy);
+  }
+  function advance() { stage = (stage + 1) % stations.length; phase = 0; }
+  document.getElementById("loop-step").onclick = () => { advance(); draw(); };
+  const playBtn = document.getElementById("loop-play");
+  playBtn.onclick = () => { playing = !playing; playBtn.textContent = playing ? "⏸ Pause" : "▶ Play"; };
+  visibilityLoop("loop", () => {
+    if (playing) {
+      phase += 0.004 * +speedEl.value;
+      if (phase >= 1) advance();
+    }
+    draw();
+  });
+  draw();
+})();
+
+/* ================= 2. THE TRIPLET ================= */
+(function tripletSection() {
+  const g = ctx2d("trip-world");
+  const N = 12;
+  const rng = mulberry32(7);
+  let posx = 5, auto = false, autoTimer = 0;
+  let prevObs = null, lastAction = null;
+  const log = [];
+  function observe() {
+    const o = zeros(N);
+    for (let i = 0; i < N; i++) {
+      const d = i - posx;
+      o[i] = Math.exp(-d * d / 3.2) + (rng() - 0.5) * 0.06;
+      if (o[i] < 0) o[i] = 0; if (o[i] > 1) o[i] = 1;
+    }
+    return o;
+  }
+  function strip(obs) {
+    const div = document.createElement("span");
+    div.className = "obsstrip";
+    for (let i = 0; i < N; i++) {
+      const cell = document.createElement("i");
+      const v = Math.max(0, Math.min(1, obs[i]));
+      cell.style.background = `rgba(94,177,255,${(0.08 + 0.92 * v).toFixed(2)})`;
+      div.appendChild(cell);
+    }
+    return div;
+  }
+  function move(a) { // a: -1 left, +1 right
+    const before = observe();
+    posx = Math.max(0, Math.min(N - 1, posx + a));
+    const after = observe();
+    prevObs = before; lastAction = a;
+    log.unshift({ before, a, after });
+    if (log.length > 7) log.pop();
+    renderLog(); drawWorld();
+  }
+  function renderLog() {
+    const el = document.getElementById("trip-log");
+    el.innerHTML = "";
+    log.forEach((t, i) => {
+      const row = document.createElement("div");
+      row.className = "trip";
+      row.style.opacity = (1 - i * 0.12).toFixed(2);
+      row.appendChild(strip(t.before));
+      const ar = document.createElement("span");
+      ar.className = "arrow";
+      ar.textContent = t.a < 0 ? "← left" : "right →";
+      row.appendChild(ar);
+      row.appendChild(strip(t.after));
+      if (i === 0) {
+        const lbl = document.createElement("span");
+        lbl.style.color = "var(--ink-dim)";
+        lbl.textContent = "  ← newest triplet";
+        row.appendChild(lbl);
+      }
+      el.appendChild(row);
+    });
+  }
+  function drawWorld() {
+    clearCanvas(g);
+    const ctx = g.ctx, cw = g.w / N;
+    for (let i = 0; i < N; i++) {
+      ctx.strokeStyle = COL.line;
+      ctx.strokeRect(i * cw + 2, 8, cw - 4, 44);
+    }
+    // rover
+    const x = posx * cw + cw / 2;
+    ctx.fillStyle = COL.accent;
+    ctx.beginPath(); ctx.arc(x, 30, 12, 0, 7); ctx.fill();
+    ctx.fillStyle = "#08111d"; ctx.font = "bold 10px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText("PRA", x, 33);
+  }
+  document.getElementById("trip-left").onclick = () => move(-1);
+  document.getElementById("trip-right").onclick = () => move(1);
+  const autoBtn = document.getElementById("trip-auto");
+  autoBtn.onclick = () => { auto = !auto; autoBtn.classList.toggle("toggled", auto); };
+  visibilityLoop("triplet", () => {
+    if (auto && ++autoTimer % 40 === 0) move(rng() < 0.5 ? -1 : 1);
+  });
+  drawWorld(); move(1); move(-1);
+})();
+
+/* ================= 3. FRAMES: the dimensionality race ================= */
+(function framesSection() {
+  const chart = ctx2d("fr-chart"), reconG = ctx2d("fr-recon");
+  const OBS = 10, TRUE = 3, ACTIONS = 3, DIMS = [1, 2, 3, 5];
+  const COLORS = { 1: COL.bad, 2: COL.warn, 3: COL.good, 5: COL.violet };
+  let rng, world, frames, hist, step, playing = false, prevObs = null, lastA = null;
+  function reset() {
+    rng = mulberry32(42);
+    world = new LatentWorld(TRUE, OBS, ACTIONS, rng, 0.02);
+    frames = DIMS.map(d => new Frame(OBS, d, 16, ACTIONS, 0.03, 1.0, rng));
+    hist = DIMS.map(() => []);
+    step = 0; prevObs = null; lastA = null;
+    document.getElementById("fr-step").textContent = "0";
+    draw();
+  }
+  function tick() {
+    for (let it = 0; it < 6; it++) {
+      const a = Math.floor(rng() * ACTIONS);
+      const obs = new Float64Array(world.step(a));
+      frames.forEach((f, i) => {
+        const fit = f.fitQuality(obs);
+        let pred = null;
+        if (prevObs) pred = f.predictionError(prevObs, a, obs);
+        f.updateEmas(fit, pred, null, 0.985);
+        f.learnPlace(obs);
+        if (prevObs) f.learnTransition(prevObs, a, obs);
+      });
+      prevObs = obs; lastA = a; step++;
+    }
+    frames.forEach((f, i) => {
+      hist[i].push(f.reconEma);
+      if (hist[i].length > 360) hist[i].shift();
+    });
+    document.getElementById("fr-step").textContent = step;
+  }
+  function draw() {
+    clearCanvas(chart);
+    const ctx = chart.ctx;
+    // gridlines
+    ctx.strokeStyle = COL.line; ctx.lineWidth = 0.5;
+    ctx.font = "10px monospace"; ctx.fillStyle = COL.dim; ctx.textAlign = "left";
+    [0.25, 0.5, 0.75].forEach(v => {
+      const y = chart.h - 6 - (chart.h - 16) * v;
+      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(chart.w, y); ctx.stroke();
+      ctx.fillText(v.toFixed(2), 4, y - 3);
+    });
+    DIMS.forEach((d, i) => drawSeries(chart, hist[i], COLORS[d], 0, 1));
+    ctx.fillStyle = COL.dim; ctx.textAlign = "right";
+    ctx.fillText("reconstruction error EMA →", chart.w - 8, 12);
+    // recon bars
+    clearCanvas(reconG);
+    if (prevObs) {
+      const f3 = frames[2];
+      f3.encode(prevObs); f3.decode(f3._pose);
+      const bw = reconG.w / OBS;
+      for (let i = 0; i < OBS; i++) {
+        const v = (prevObs[i] + 1) / 2, r = (f3._recon[i] + 1) / 2;
+        reconG.ctx.fillStyle = "#3a4356";
+        reconG.ctx.fillRect(i * bw + 6, reconG.h - v * (reconG.h - 12) - 6, bw / 2 - 8, v * (reconG.h - 12));
+        reconG.ctx.fillStyle = COL.accent;
+        reconG.ctx.fillRect(i * bw + bw / 2, reconG.h - r * (reconG.h - 12) - 6, bw / 2 - 8, r * (reconG.h - 12));
+      }
+    }
+  }
+  const legend = document.getElementById("fr-legend");
+  DIMS.forEach(d => {
+    const s = document.createElement("span");
+    s.innerHTML = `<span class="sw" style="background:${COLORS[d]}"></span>dim ${d}${d === TRUE ? " (the world's true size)" : ""}`;
+    legend.appendChild(s);
+  });
+  const playBtn = document.getElementById("fr-play");
+  playBtn.onclick = () => { playing = !playing; playBtn.textContent = playing ? "⏸ Pause" : "▶ Play"; };
+  document.getElementById("fr-reset").onclick = reset;
+  visibilityLoop("frames", () => { if (playing) { tick(); draw(); } });
+  reset();
+})();
+
+/* ================= 4. COVERAGE-FAIR SCORING ================= */
+(function scoringSection() {
+  const g = ctx2d("sc-chart");
+  const OBS = 8, ACTIONS = 2;
+  let rng, worldA, worldB, frame, honestEma, cheatEma, allFits, events, step, playing = false;
+  const gateEl = document.getElementById("sc-gate"), gateVal = document.getElementById("sc-gate-val");
+  const cheatEl = document.getElementById("sc-cheat");
+  function reset() {
+    rng = mulberry32(11);
+    worldA = new LatentWorld(2, OBS, ACTIONS, rng, 0.02);
+    worldB = new LatentWorld(2, OBS, ACTIONS, rng, 0.02); // a second territory
+    frame = new Frame(OBS, 2, 14, ACTIONS, 0.03, 1.0, rng);
+    honestEma = 1.0; cheatEma = 1.0;
+    allFits = []; events = []; step = 0;
+    draw();
+  }
+  function tick() {
+    const gate = +gateEl.value / 100;
+    gateVal.textContent = gate.toFixed(2);
+    for (let it = 0; it < 4; it++) {
+      // spend most time in territory A; visit B every 80 steps for 20
+      const inB = (step % 100) >= 80;
+      const w = inB ? worldB : worldA;
+      const a = Math.floor(rng() * ACTIONS);
+      const obs = new Float64Array(w.step(a));
+      const fit = frame.fitQuality(obs);
+      // young-frame bootstrap: a newborn maps everything until it has taken shape
+      // (in the real system this is the candidate protection window)
+      const mapped = step < 250 || fit < gate;
+      // honest: judged on EVERY exposed event
+      honestEma = 0.985 * honestEma + 0.015 * fit;
+      // cheat: judged only on events the frame chose to map
+      if (mapped) cheatEma = 0.985 * cheatEma + 0.015 * fit;
+      // learning only on mapped events (sparsity by pull) — same in both modes
+      if (mapped) frame.learnPlace(obs);
+      allFits.push(fit); if (allFits.length > 200) allFits.shift();
+      events.push({ fit, mapped }); if (events.length > 110) events.shift();
+      step++;
+    }
+  }
+  let honestHist = [], cheatHist = [], trueHist = [];
+  function draw() {
+    const cheat = cheatEl.checked;
+    honestHist.push(honestEma); cheatHist.push(cheatEma);
+    trueHist.push(allFits.length ? allFits.reduce((s, v) => s + v, 0) / allFits.length : 1);
+    if (honestHist.length > 360) { honestHist.shift(); cheatHist.shift(); trueHist.shift(); }
+    clearCanvas(g);
+    const ctx = g.ctx;
+    drawSeries(g, trueHist, COL.bad, 0, 1.5);
+    drawSeries(g, cheat ? cheatHist : honestHist, COL.accent, 0, 1.5, 0, g.w, 2.2);
+    // event dots
+    events.forEach((e, i) => {
+      ctx.fillStyle = e.mapped ? COL.good : "#3a4356";
+      ctx.fillRect(8 + i * 7.6, g.h - 10, 5, 5);
+    });
+    const shown = cheat ? cheatEma : honestEma;
+    const truth = trueHist[trueHist.length - 1] || 1;
+    const gap = truth - shown;
+    document.getElementById("sc-verdict").innerHTML = cheat
+      ? `<b>Cheat mode:</b> the frame reports ${shown.toFixed(2)} while its true error over everything it saw is ${truth.toFixed(2)} — it is hiding ${Math.max(0, gap).toFixed(2)} of error by only counting the events it liked. In a real ecology this frame would out-survive better frames while explaining less. This is why the rule exists.`
+      : `<b>Coverage-fair:</b> reported EMA ${shown.toFixed(2)} tracks true error ${truth.toFixed(2)}. The frame still learns only where it maps (green dots) — but it answers for every event, including the unfamiliar territory it keeps dropping.`;
+  }
+  const playBtn = document.getElementById("sc-play");
+  playBtn.onclick = () => { playing = !playing; playBtn.textContent = playing ? "⏸ Pause" : "▶ Play"; };
+  document.getElementById("sc-reset").onclick = () => { honestHist = []; cheatHist = []; trueHist = []; reset(); };
+  visibilityLoop("scoring", () => { if (playing) { tick(); draw(); } });
+  reset();
+})();
+
+/* ================= 5. PRICE OF A DIMENSION ================= */
+(function priceSection() {
+  const g = ctx2d("pr-chart");
+  const OBS = 12, TRUE = 4, ACTIONS = 2, DIMS = [1, 2, 3, 4, 5, 6, 7, 8];
+  let rng, world, frames, step, playing = false;
+  const wEl = document.getElementById("pr-w"), wVal = document.getElementById("pr-w-val");
+  function reset() {
+    rng = mulberry32(4242);
+    world = new LatentWorld(TRUE, OBS, ACTIONS, rng, 0.02);
+    frames = DIMS.map(d => new Frame(OBS, d, 16, ACTIONS, 0.03, 1.0, rng));
+    step = 0;
+    document.getElementById("pr-step").textContent = "0";
+    draw();
+  }
+  function tick() {
+    for (let it = 0; it < 8; it++) {
+      const a = Math.floor(rng() * ACTIONS);
+      const obs = new Float64Array(world.step(a));
+      frames.forEach(f => {
+        const fit = f.fitQuality(obs);
+        f.updateEmas(fit, null, null, 0.99);
+        f.learnPlace(obs);
+      });
+      step++;
+    }
+    document.getElementById("pr-step").textContent = step;
+  }
+  function draw() {
+    const wc = +wEl.value / 1000;
+    wVal.textContent = wc.toFixed(3);
+    clearCanvas(g);
+    const ctx = g.ctx;
+    const totals = frames.map(f => f.reconEma + wc * f.dim);
+    const winner = totals.indexOf(Math.min(...totals));
+    const yMax = Math.max(1, Math.max(...totals) * 1.1), bw = g.w / DIMS.length;
+    ctx.font = "11px monospace"; ctx.textAlign = "center";
+    frames.forEach((f, i) => {
+      const x = i * bw + bw * 0.18, W = bw * 0.64;
+      const hErr = (f.reconEma / yMax) * (g.h - 50);
+      const hRent = (wc * f.dim / yMax) * (g.h - 50);
+      const base = g.h - 26;
+      ctx.fillStyle = COL.accent;
+      ctx.fillRect(x, base - hErr, W, hErr);
+      ctx.fillStyle = COL.warn;
+      ctx.fillRect(x, base - hErr - hRent, W, hRent);
+      if (i === winner) {
+        ctx.strokeStyle = COL.good; ctx.lineWidth = 2.5;
+        ctx.strokeRect(x - 3, base - hErr - hRent - 3, W + 6, hErr + hRent + 6);
+      }
+      ctx.fillStyle = i === winner ? COL.good : COL.dim;
+      ctx.fillText("dim " + f.dim, x + W / 2, g.h - 8);
+      ctx.fillStyle = COL.dim;
+      ctx.fillText(totals[i].toFixed(2), x + W / 2, base - hErr - hRent - 8);
+    });
+    document.getElementById("pr-winner").textContent =
+      "dim " + DIMS[winner] + (DIMS[winner] === TRUE ? " ✓ (true size)" : "");
+  }
+  const playBtn = document.getElementById("pr-play");
+  playBtn.onclick = () => { playing = !playing; playBtn.textContent = playing ? "⏸ Pause" : "▶ Train"; };
+  document.getElementById("pr-reset").onclick = reset;
+  wEl.oninput = draw;
+  visibilityLoop("price", () => { if (playing) { tick(); draw(); } });
+  reset();
+})();
+
+/* ================= 6. SPAWN AND SELECT ================= */
+(function ecologySection() {
+  const chart = ctx2d("ec-chart");
+  const OBS = 10, TRUE = 3, ACTIONS = 3, HID = 12;
+  const FIT_GATE = 1.05, EMA = 0.98, MIN_AGE = 6, CONSOLIDATE_EVERY = 150;
+  const THR_BASE = 1.0, THR_COEFF = 0.06, POP_BASELINE = 3;
+  const MIN_FRAMES = 2, MAX_FRAMES = 10, SPAWN_PER_CYCLE = 1;
+  const W_EXPLAIN = 0.65, W_PREDICT = 0.35, W_COMPLEX = 0.04;
+  let rng, world, pop, step, cycle, births, deaths, prevObs = null;
+  let playing = false, nextId = 0, ghosts = [], hist = { best: [], pop: [], thr: [] };
+  const speedEl = document.getElementById("ec-speed");
+  function newFrame(dim) {
+    const f = new Frame(OBS, Math.max(1, dim), HID, ACTIONS, 0.03, 1.0, rng);
+    f.id = ++nextId; f.bornStep = step;
+    births++;
+    return f;
+  }
+  function bestFrame() {
+    let best = null, bs = Infinity;
+    for (const f of pop) {
+      const s = f.survivalScore(W_EXPLAIN, W_PREDICT, 0, W_COMPLEX);
+      if (s < bs) { bs = s; best = f; }
+    }
+    return best;
+  }
+  function threshold() {
+    return THR_BASE / (1 + THR_COEFF * Math.max(0, pop.length - POP_BASELINE));
+  }
+  function reset() {
+    rng = mulberry32(2026);
+    world = new LatentWorld(TRUE, OBS, ACTIONS, rng, 0.02);
+    pop = []; step = 0; cycle = 0; births = 0; deaths = 0;
+    prevObs = null; ghosts = []; nextId = 0;
+    hist = { best: [], pop: [], thr: [] };
+    stats(); renderGrid(); drawChart();
+  }
+  function tick(steps) {
+    for (let it = 0; it < steps; it++) {
+      const a = Math.floor(rng() * ACTIONS);
+      const obs = new Float64Array(world.step(a));
+      let anyMapped = false;
+      for (const f of pop) {
+        const fit = f.fitQuality(obs);
+        let pred = null;
+        if (prevObs) pred = f.predictionError(prevObs, a, obs);
+        f.updateEmas(fit, pred, null, EMA);          // every exposed event
+        if (fit < FIT_GATE) {                         // sparsity by pull
+          anyMapped = true;
+          f.learnPlace(obs);
+          if (prevObs) f.learnTransition(prevObs, a, obs);
+        }
+      }
+      if (!anyMapped) {                               // birth-on-demand
+        let dim;
+        if (pop.length === 0) dim = 1 + Math.floor(rng() * 5);
+        else {
+          const b = bestFrame();
+          dim = b.dim + [ -1, 0, 1 ][Math.floor(rng() * 3)];
+        }
+        if (pop.length < MAX_FRAMES) pop.push(newFrame(dim));
+      }
+      prevObs = obs; step++;
+      if (step % CONSOLIDATE_EVERY === 0) consolidate();
+    }
+  }
+  function consolidate() {
+    cycle++;
+    // 1. age
+    for (const f of pop) f.ageCycles++;
+    // 3. eviction: soft (population-scaled falling threshold), then hard cap
+    const thr = threshold();
+    const unprotected = pop.filter(f => f.ageCycles >= MIN_AGE);
+    unprotected.sort((a, b) =>
+      b.survivalScore(W_EXPLAIN, W_PREDICT, 0, W_COMPLEX) - a.survivalScore(W_EXPLAIN, W_PREDICT, 0, W_COMPLEX));
+    for (const f of unprotected) {
+      if (pop.length <= MIN_FRAMES) break;
+      if (f.survivalScore(W_EXPLAIN, W_PREDICT, 0, W_COMPLEX) > thr) evict(f);
+    }
+    while (pop.length > MAX_FRAMES) {
+      const u = pop.filter(f => f.ageCycles >= MIN_AGE);
+      if (!u.length) break;
+      u.sort((a, b) =>
+        b.survivalScore(W_EXPLAIN, W_PREDICT, 0, W_COMPLEX) - a.survivalScore(W_EXPLAIN, W_PREDICT, 0, W_COMPLEX));
+      evict(u[0]);
+    }
+    // 4. spawn candidates near the best (copy, don't mutate)
+    const b = bestFrame();
+    if (b && pop.length < MAX_FRAMES) {
+      for (let s = 0; s < SPAWN_PER_CYCLE; s++) {
+        let dim;
+        if (rng() < 0.75) dim = b.dim + [ -1, 1 ][Math.floor(rng() * 2)];
+        else dim = 1 + Math.floor(rng() * (b.dim + 4));
+        pop.push(newFrame(dim));
+      }
+    }
+    // history
+    hist.best.push(b ? b.dim : 0);
+    hist.pop.push(pop.length);
+    hist.thr.push(threshold());
+    if (hist.best.length > 300) { hist.best.shift(); hist.pop.shift(); hist.thr.shift(); }
+  }
+  function evict(f) {
+    pop = pop.filter(x => x !== f);
+    deaths++;
+    ghosts.push({ f, until: performance.now() + 900 });
+  }
+  function stats() {
+    document.getElementById("ec-cycle").textContent = cycle;
+    document.getElementById("ec-pop").textContent = pop.length;
+    const b = bestFrame();
+    document.getElementById("ec-best").textContent = b ? b.dim : "–";
+    document.getElementById("ec-births").textContent = births;
+    document.getElementById("ec-deaths").textContent = deaths;
+  }
+  function renderGrid() {
+    const grid = document.getElementById("ec-grid");
+    grid.innerHTML = "";
+    const b = bestFrame(), thr = threshold(), now = performance.now();
+    ghosts = ghosts.filter(g => g.until > now);
+    const items = [...pop.map(f => ({ f, ghost: false })), ...ghosts.map(g => ({ f: g.f, ghost: true }))];
+    for (const { f, ghost } of items) {
+      const card = document.createElement("div");
+      card.className = "fcard" + (ghost ? " dying" : "") +
+        (!ghost && f === b ? " best" : "") +
+        (!ghost && step - f.bornStep < 80 ? " born" : "");
+      const mature = f.ageCycles >= MIN_AGE;
+      const score = f.survivalScore(W_EXPLAIN, W_PREDICT, 0, W_COMPLEX);
+      card.innerHTML =
+        `<div class="dim">dim ${f.dim}</div>` +
+        `<span class="badge ${mature ? "mat" : "cand"}">${mature ? "mature" : "🛡 cand"}</span>` +
+        `<div style="margin-top:4px;color:var(--ink-dim)">age ${f.ageCycles} · s ${score.toFixed(2)}</div>` +
+        `<div class="scorebar"><i style="width:${Math.min(100, score / thr * 100).toFixed(0)}%;` +
+        `background:${score > thr ? "var(--bad)" : "var(--good)"}"></i></div>`;
+      grid.appendChild(card);
+    }
+    if (!items.length) grid.innerHTML = '<span class="note">Empty head. Press play — the first observation nobody can map will summon the first frame.</span>';
+  }
+  function drawChart() {
+    clearCanvas(chart);
+    const ctx = chart.ctx;
+    ctx.font = "10px monospace"; ctx.fillStyle = COL.dim; ctx.textAlign = "left";
+    ctx.fillText("best dim & pop (÷10) & threshold →", 6, 12);
+    drawSeries(chart, hist.best.map(v => v / 10), COL.accent, 0, 1, 0, chart.w, 2);
+    drawSeries(chart, hist.pop.map(v => v / 10), COL.violet, 0, 1);
+    drawSeries(chart, hist.thr, COL.bad, 0, 1);
+  }
+  const playBtn = document.getElementById("ec-play");
+  playBtn.onclick = () => { playing = !playing; playBtn.textContent = playing ? "⏸ Pause" : "▶ Play"; };
+  document.getElementById("ec-reset").onclick = reset;
+  let frameCount = 0;
+  visibilityLoop("ecology", () => {
+    if (playing) {
+      tick(+speedEl.value * 3);
+      if (++frameCount % 4 === 0) { stats(); renderGrid(); drawChart(); }
+    }
+  });
+  reset();
+})();
+
+/* ================= 7. DRIVES ================= */
+(function drivesSection() {
+  const worldG = ctx2d("dr-world"), chartG = ctx2d("dr-chart");
+  const CELLS = 8, OBSD = 6, PHASES = 8;
+  // zones: 0-2 mastered (one pattern per cell), 3-5 learnable (pattern per cell × phase), 6-8 noisy TV
+  let rng, patterns, pred, errHist, occupancy, memory, novEma, posn, phase, stepN, playing = false;
+  let drive = "curiosity";
+  function zone(c) { return c < 3 ? 0 : c < 6 ? 1 : 2; }
+  function reset() {
+    rng = mulberry32(99);
+    patterns = [];
+    for (let c = 0; c < CELLS; c++) {
+      patterns.push([]);
+      for (let p = 0; p < PHASES; p++) {
+        const v = zeros(OBSD);
+        for (let i = 0; i < OBSD; i++) v[i] = rng() * 2 - 1;
+        patterns[c].push(v);
+      }
+    }
+    pred = [];   // running-average predictor per (cell, phase)
+    for (let c = 0; c < CELLS; c++) {
+      pred.push([]);
+      for (let p = 0; p < PHASES; p++) pred[c].push({ v: zeros(OBSD), n: 0 });
+    }
+    errHist = Array.from({ length: CELLS }, () => []);
+    occupancy = zeros(CELLS);
+    memory = [];
+    novEma = new Float64Array(CELLS).fill(1);   // measured novelty per cell (optimistic start)
+    posn = 4; phase = 0; stepN = 0;
+    draw();
+  }
+  function observe(c) {
+    const o = zeros(OBSD);
+    if (zone(c) === 2) { for (let i = 0; i < OBSD; i++) o[i] = rng() * 2 - 1; return o; } // pure static
+    const key = zone(c) === 0 ? 0 : phase; // mastered ignores phase (easy); learnable cycles (slow to crack)
+    const base = patterns[c][key];
+    for (let i = 0; i < OBSD; i++) o[i] = base[i] + gauss(rng) * 0.03;
+    return o;
+  }
+  function dist(a, b) { let s = 0; for (let i = 0; i < OBSD; i++) { const d = a[i] - b[i]; s += d * d; } return Math.sqrt(s); }
+  function noveltyOf(obs) {
+    if (!memory.length) return 1;
+    let m = Infinity;
+    for (const o of memory) m = Math.min(m, dist(obs, o));
+    return Math.min(1, m / 1.0);
+  }
+  function lpOf(c) {
+    const h = errHist[c];
+    if (h.length < 16) return 0.5;                   // unexplored: assume promise
+    const half = Math.floor(h.length / 2);
+    const older = h.slice(0, half), recent = h.slice(half);
+    const mo = older.reduce((s, v) => s + v, 0) / older.length;
+    const mr = recent.reduce((s, v) => s + v, 0) / recent.length;
+    return Math.max(0, mo - mr);
+  }
+  function recentErr(c) {
+    const h = errHist[c];
+    if (!h.length) return 1;
+    const tail = h.slice(-6);
+    return tail.reduce((s, v) => s + v, 0) / tail.length;
+  }
+  function valueOf(c) {
+    const nov = novEma[c];                            // novelty as measured on past arrivals
+    const lp = Math.min(1, lpOf(c) * 3);
+    if (drive === "novelty") return nov;
+    if (drive === "curiosity") return 0.7 * lp + 0.3 * nov;
+    if (drive === "competence") return Math.max(0, 1 - recentErr(c)) + (1 - nov);
+    return 0;
+  }
+  function stepSim() {
+    // a living world: the learnable zone renews its structure periodically,
+    // so there is always a frontier to find (or to miss)
+    if (stepN > 0 && stepN % 1000 === 0) {
+      for (let c = 3; c < 6; c++) {
+        for (let p = 0; p < PHASES; p++)
+          for (let i = 0; i < OBSD; i++) patterns[c][p][i] = rng() * 2 - 1;
+        errHist[c].length = 0;
+      }
+    }
+    // one-step lookahead over {left, stay, right}
+    const cands = [Math.max(0, posn - 1), posn, Math.min(CELLS - 1, posn + 1)];
+    let next;
+    if (drive === "random" || rng() < 0.1) next = cands[Math.floor(rng() * 3)];
+    else {
+      let bv = -Infinity; next = posn;
+      for (const c of cands) { const v = valueOf(c); if (v > bv) { bv = v; next = c; } }
+    }
+    posn = next; phase = (phase + 1) % PHASES;
+    const obs = observe(posn);
+    const key = zone(posn) === 0 ? 0 : phase;
+    const p = pred[posn][key];
+    const err = Math.min(1, dist(obs, p.n ? p.v : zeros(OBSD)) / 2);
+    // learn: running average toward what was seen
+    for (let i = 0; i < OBSD; i++) p.v[i] += 0.25 * (obs[i] - p.v[i]);
+    p.n++;
+    novEma[posn] = 0.8 * novEma[posn] + 0.2 * noveltyOf(obs);   // measure novelty BEFORE remembering
+    errHist[posn].push(err); if (errHist[posn].length > 40) errHist[posn].shift();
+    memory.push(obs); if (memory.length > 30) memory.shift();
+    occupancy[posn]++;
+    stepN++;
+  }
+  function draw() {
+    // world strip
+    clearCanvas(worldG);
+    const ctx = worldG.ctx, cw = worldG.w / CELLS;
+    const zoneCol = ["#14321f", "#33290f", "#3a1717"];
+    const zoneName = ["mastered", "learnable", "noisy TV"];
+    for (let c = 0; c < CELLS; c++) {
+      ctx.fillStyle = zoneCol[zone(c)];
+      ctx.fillRect(c * cw + 2, 6, cw - 4, 56);
+      if (zone(c) === 2) { // static flicker
+        for (let s = 0; s < 26; s++) {
+          ctx.fillStyle = `rgba(255,255,255,${(Math.random() * 0.16).toFixed(2)})`;
+          ctx.fillRect(c * cw + 4 + Math.random() * (cw - 12), 8 + Math.random() * 50, 3, 3);
+        }
+      }
+    }
+    ctx.font = "10px monospace"; ctx.textAlign = "center";
+    [1, 4, 6.5].forEach((c, i) => {
+      ctx.fillStyle = [COL.good, COL.warn, COL.bad][i];
+      ctx.fillText(zoneName[i], c * cw + cw / 2, 78);
+    });
+    const x = posn * cw + cw / 2;
+    ctx.fillStyle = COL.accent;
+    ctx.beginPath(); ctx.arc(x, 34, 11, 0, 7); ctx.fill();
+    // chart: occupancy + error
+    clearCanvas(chartG);
+    const c2 = chartG.ctx, bw = chartG.w / CELLS;
+    const maxOcc = Math.max(1, ...occupancy);
+    for (let c = 0; c < CELLS; c++) {
+      const h = (occupancy[c] / maxOcc) * (chartG.h - 40);
+      c2.fillStyle = COL.good;
+      c2.fillRect(c * bw + bw * 0.2, chartG.h - 20 - h, bw * 0.6, h);
+      c2.fillStyle = COL.bad;
+      const e = recentErr(c);
+      c2.beginPath(); c2.arc(c * bw + bw / 2, chartG.h - 24 - e * (chartG.h - 44), 4, 0, 7); c2.fill();
+    }
+    const notes = {
+      random: "Baseline: a coin-flip life. Occupancy spreads evenly; nothing is pursued.",
+      novelty: "The trap, undiluted: static is forever unfamiliar, so novelty pins the agent to the TV — where it can learn exactly nothing.",
+      curiosity: "Better — LP anchors it to the learnable middle while error is falling there — but watch long enough and the leftover novelty term still seduces it toward the TV. This is honest: in the scaled measurements this drive really did end up worse than random (−0.062), and realized-LP's sluggishness (it banks progress made, not progress available) is a named open problem.",
+      competence: "The inverted preference that actually won at scale (+0.067): seek what you almost know. The agent practices near-mastered ground and shuns the TV entirely."
+    };
+    document.getElementById("dr-note").innerHTML = "<b>" + drive + ":</b> " + notes[drive];
+  }
+  ["random", "novelty", "curiosity", "competence"].forEach(d => {
+    document.getElementById("dr-" + d).onclick = () => {
+      drive = d;
+      document.querySelectorAll(".drbtn").forEach(b => b.classList.remove("toggled"));
+      document.getElementById("dr-" + d).classList.add("toggled");
+      occupancy = zeros(CELLS); // restart the occupancy tally so the comparison is clean
+      draw();
+    };
+  });
+  const playBtn = document.getElementById("dr-play");
+  playBtn.onclick = () => { playing = !playing; playBtn.textContent = playing ? "⏸ Pause" : "▶ Play"; };
+  document.getElementById("dr-reset").onclick = reset;
+  let fc = 0;
+  visibilityLoop("drives", () => {
+    if (playing) { stepSim(); stepSim(); if (++fc % 3 === 0) draw(); }
+  });
+  reset();
+})();
+
+/* ================= 8. CHANNEL WEIGHTING ================= */
+(function chanwSection() {
+  const barsG = ctx2d("cw-bars"), chartG = ctx2d("cw-chart");
+  const NCH = 8, NWORLD = 6, ACTIONS = 2, BETA = 0.99, BAR = 0.35;
+  let rng, world, m, v, cov, nCount, w, frameOff, frameOn, prevObs = null;
+  let histOff = [], histOn = [], step = 0, playing = false;
+  const ampEl = document.getElementById("cw-amp"), ampVal = document.getElementById("cw-amp-val");
+  const floorEl = document.getElementById("cw-floor"), floorVal = document.getElementById("cw-floor-val");
+  function reset() {
+    rng = mulberry32(16);
+    world = new LatentWorld(2, NWORLD, ACTIONS, rng, 0.01);
+    m = zeros(NCH); v = zeros(NCH); cov = zeros(NCH); nCount = zeros(NCH);
+    w = new Float64Array(NCH).fill(1);
+    frameOff = new Frame(NCH, 2, 12, ACTIONS, 0.03, 1.0, rng);
+    frameOn = new Frame(NCH, 2, 12, ACTIONS, 0.03, 1.0, rng);
+    histOff = []; histOn = []; step = 0; prevObs = null;
+    draw();
+  }
+  function fullObs() {
+    const amp = +ampEl.value / 10;
+    const a = Math.floor(rng() * ACTIONS);
+    const wo = world.step(a);
+    const o = zeros(NCH);
+    for (let i = 0; i < NWORLD; i++) o[i] = wo[i];
+    for (let i = NWORLD; i < NCH; i++) o[i] = gauss(rng) * amp;   // pure static: fresh draw each step
+    return o;
+  }
+  function updateEstimator(obs) {
+    // the exact five-array update from 016
+    for (let i = 0; i < NCH; i++) {
+      m[i] = BETA * m[i] + (1 - BETA) * obs[i];
+      const d = obs[i] - m[i];
+      v[i] = BETA * v[i] + (1 - BETA) * d * d;
+      if (prevObs) cov[i] = BETA * cov[i] + (1 - BETA) * d * (prevObs[i] - m[i]);
+      nCount[i]++;
+    }
+  }
+  function recompute() {
+    const floor = +floorEl.value / 100;
+    const ready = Math.ceil(1 / (1 - BETA));
+    const rho = zeros(NCH);
+    let maxRho = 0;
+    for (let i = 0; i < NCH; i++) {
+      rho[i] = Math.max(0, Math.min(1, cov[i] / (v[i] + 1e-6)));
+      if (nCount[i] >= ready && rho[i] > maxRho) maxRho = rho[i];
+    }
+    for (let i = 0; i < NCH; i++) {
+      if (nCount[i] >= ready) w[i] = Math.max(floor, Math.min(1, rho[i] / (maxRho + 1e-6)));
+      else w[i] = 1;                                   // unready channels stay fully audible
+    }
+    return rho;
+  }
+  let lastRho = zeros(NCH), emaOff = 1, emaOn = 1;
+  function mulw(obs) {
+    const x = zeros(NCH);
+    for (let i = 0; i < NCH; i++) x[i] = obs[i] * w[i];
+    return x;
+  }
+  function tick() {
+    for (let it = 0; it < 5; it++) {
+      const obs = fullObs();
+      updateEstimator(obs);
+      if (step % 50 === 0 && step > 0) lastRho = recompute();  // (episode boundary, demo-paced)
+      const xw = mulw(obs);
+      // the judge leg: survival fit, unweighted vs weighted (numerator AND denominator)
+      const fitOff = frameOff.fitQuality(obs);
+      const fitOn = frameOn.fitQuality(obs, w, xw);
+      emaOff = 0.99 * emaOff + 0.01 * fitOff;
+      emaOn = 0.99 * emaOn + 0.01 * fitOn;
+      // the learner leg: same weights — encoder sees w⊙obs, error is (recon−obs)⊙w
+      frameOff.learnPlace(obs);
+      frameOn.learnPlace(obs, w, xw);
+      if (step % 3 === 0) {
+        histOff.push(emaOff);
+        histOn.push(emaOn);
+        if (histOff.length > 360) { histOff.shift(); histOn.shift(); }
+      }
+      prevObs = obs; step++;
+    }
+  }
+  function draw() {
+    ampVal.textContent = (+ampEl.value / 10).toFixed(1);
+    floorVal.textContent = (+floorEl.value / 100).toFixed(2);
+    clearCanvas(barsG);
+    const ctx = barsG.ctx, bw = barsG.w / NCH;
+    ctx.font = "10px monospace"; ctx.textAlign = "center";
+    for (let i = 0; i < NCH; i++) {
+      const x = i * bw + bw * 0.15, W = bw * 0.3;
+      const hR = lastRho[i] * (barsG.h - 44), hW = w[i] * (barsG.h - 44);
+      ctx.fillStyle = COL.accent;
+      ctx.fillRect(x, barsG.h - 24 - hR, W, hR);
+      ctx.fillStyle = COL.good;
+      ctx.fillRect(x + W + 4, barsG.h - 24 - hW, W, hW);
+      ctx.fillStyle = i < NWORLD ? COL.dim : COL.bad;
+      ctx.fillText("ch" + (i + 1) + (i < NWORLD ? "" : "·static"), i * bw + bw / 2, barsG.h - 8);
+    }
+    clearCanvas(chartG);
+    // the survival bar: score above it → never matures, conveyor-belt eviction forever
+    const by = chartG.h - 6 - (chartG.h - 16) * (BAR / 1.2);
+    chartG.ctx.strokeStyle = COL.warn; chartG.ctx.setLineDash([6, 5]);
+    chartG.ctx.beginPath(); chartG.ctx.moveTo(0, by); chartG.ctx.lineTo(chartG.w, by); chartG.ctx.stroke();
+    chartG.ctx.setLineDash([]);
+    drawSeries(chartG, histOff, COL.bad, 0, 1.2);
+    drawSeries(chartG, histOn, COL.good, 0, 1.2);
+    chartG.ctx.font = "10px monospace"; chartG.ctx.fillStyle = COL.dim; chartG.ctx.textAlign = "left";
+    chartG.ctx.fillText("survival fit EMA (the judge's measure) →", 6, 12);
+    chartG.ctx.fillStyle = COL.warn;
+    chartG.ctx.fillText("survival bar — stay above it and you never mature", 6, by - 5);
+  }
+  const playBtn = document.getElementById("cw-play");
+  playBtn.onclick = () => { playing = !playing; playBtn.textContent = playing ? "⏸ Pause" : "▶ Play"; };
+  document.getElementById("cw-reset").onclick = reset;
+  visibilityLoop("chanw", () => { if (playing) { tick(); draw(); } });
+  reset();
+})();
+
+/* ================= 9. PERSISTENCE ================= */
+(function persistSection() {
+  const g = ctx2d("ps-chart");
+  const OBS = 8, ACTIONS = 2;
+  function makeSim(seed) {
+    const rng = mulberry32(seed);
+    const world = new LatentWorld(2, OBS, ACTIONS, rng, 0.02);
+    const frames = [2, 3].map(d => new Frame(OBS, d, 12, ACTIONS, 0.03, 1.0, rng));
+    return { rng, world, frames, prevObs: null };
+  }
+  function runSteps(sim, n, trace) {
+    for (let i = 0; i < n; i++) {
+      const a = Math.floor(sim.rng() * ACTIONS);
+      const obs = new Float64Array(sim.world.step(a));
+      for (const f of sim.frames) {
+        const fit = f.fitQuality(obs);
+        f.updateEmas(fit, null, null, 0.98);
+        f.learnPlace(obs);
+        if (sim.prevObs) f.learnTransition(sim.prevObs, a, obs);
+      }
+      sim.prevObs = obs;
+      if (trace) trace.push(sim.frames[0].reconEma);
+    }
+  }
+  // real serialization: state → JSON string blob → restored copies
+  function snapshot(sim) {
+    const packM = (M) => M.map(r => Array.from(r));
+    const packF = (f) => ({
+      dim: f.dim,
+      W1: packM(f.W1), b1: Array.from(f.b1), W2: packM(f.W2), b2: Array.from(f.b2),
+      D1: packM(f.D1), d1: Array.from(f.d1), D2: packM(f.D2), d2: Array.from(f.d2),
+      T1: f.T1.map(packM), tb1: f.tb1.map(a => Array.from(a)),
+      T2: f.T2.map(packM), tb2: f.tb2.map(a => Array.from(a)),
+      reconEma: f.reconEma, predEma: f.predEma, effortEma: f.effortEma
+    });
+    return JSON.stringify({
+      rng: sim.rng.state(),
+      z: Array.from(sim.world.z),
+      prevObs: sim.prevObs ? Array.from(sim.prevObs) : null,
+      frames: sim.frames.map(packF)
+    });
+  }
+  function restore(sim, blob) {
+    const s = JSON.parse(blob);
+    sim.rng.setState(s.rng);
+    sim.world.z.set(s.z);
+    sim.prevObs = s.prevObs ? new Float64Array(s.prevObs) : null;
+    const unpackM = (M, dst) => M.forEach((r, i) => dst[i].set(r));
+    sim.frames.forEach((f, fi) => {
+      const p = s.frames[fi];
+      unpackM(p.W1, f.W1); f.b1.set(p.b1); unpackM(p.W2, f.W2); f.b2.set(p.b2);
+      unpackM(p.D1, f.D1); f.d1.set(p.d1); unpackM(p.D2, f.D2); f.d2.set(p.d2);
+      p.T1.forEach((M, a) => unpackM(M, f.T1[a])); p.tb1.forEach((r, a) => f.tb1[a].set(r));
+      p.T2.forEach((M, a) => unpackM(M, f.T2[a])); p.tb2.forEach((r, a) => f.tb2[a].set(r));
+      f.reconEma = p.reconEma; f.predEma = p.predEma; f.effortEma = p.effortEma;
+    });
+  }
+  function fnv(str) {
+    let h = 0x811c9dc5;
+    for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 0x01000193); }
+    return (h >>> 0).toString(16).padStart(8, "0");
+  }
+  document.getElementById("ps-run").onclick = () => {
+    const status = document.getElementById("ps-status");
+    status.textContent = "running…";
+    setTimeout(() => {
+      const sim = makeSim(77);
+      const first = [];
+      runSteps(sim, 150, first);
+      const blob = snapshot(sim);
+      const contA = [];
+      runSteps(sim, 150, contA);
+      restore(sim, blob);
+      const contB = [];
+      runSteps(sim, 150, contB);
+      const hA = fnv(contA.map(x => x.toString()).join(","));
+      const hB = fnv(contB.map(x => x.toString()).join(","));
+      const identical = hA === hB && contA.every((v, i) => v === contB[i]);
+      clearCanvas(g);
+      drawSeries(g, first.concat(contA), COL.accent, 0, 1);
+      // replay drawn over the second half, dashed
+      g.ctx.setLineDash([5, 5]);
+      drawSeries(g, contB, COL.good, 0, 1, g.w / 2, g.w, 2.2);
+      g.ctx.setLineDash([]);
+      g.ctx.font = "10px monospace"; g.ctx.fillStyle = COL.dim; g.ctx.textAlign = "left";
+      g.ctx.fillText("uninterrupted run", 8, 14);
+      g.ctx.fillStyle = COL.good;
+      g.ctx.fillText("resumed-from-snapshot (dashed, drawn on top)", g.w / 2 + 8, 14);
+      status.textContent = identical ? "✓ bit-identical" : "✗ diverged (bug!)";
+      document.getElementById("ps-verdict").innerHTML =
+        `Snapshot at step 150 → serialized to a ${(blob.length / 1024).toFixed(1)} KB blob → restored → ` +
+        `second half re-run. Trace hashes: <span class="mono">${hA}</span> vs <span class="mono">${hB}</span> — ` +
+        (identical
+          ? `<b style="color:var(--good)">every one of the 150 resumed values is bit-for-bit equal.</b> The dashed line isn't close to the solid one; it is the solid one. Pausing, not remembering.`
+          : `<b style="color:var(--bad)">diverged — which would be a failed acceptance gate in the real system.</b>`);
+    }, 30);
+  };
+  clearCanvas(g);
+})();
+
+/*SECTIONS*/
+/*END*/
+</script>
+</body>
+</html>
