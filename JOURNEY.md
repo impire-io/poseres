@@ -248,10 +248,14 @@ then failed its own offline gate too (Chapter 33): raw-observation
 anchors are not shift-invariant. The emission-shift world then
 completed the testbed pair and bracketed the problem with numbers
 (Chapter 34: raw-obs places read ~1.5× background on a repaint, < 1× on
-a territory move, vs the 4× bar). Open research, in priority order:
-**error memory in a shift-invariant space** (pose/encoding anchors,
-spike-robust cell statistics, judged against the chapter-34 bracket on
-both shift modes), the
+a territory move, vs the 4× bar). Action-context anchors then failed the same
+gate (Chapter 35) — three spaces, one ~1–2× ceiling — and the diagnosis
+moved down a level: the per-step errors-at-visit stream is a *tracking*
+signal, and staleness detection needs a *transfer* signal (the
+fair-judge lesson, applied to drives). Open research, in priority
+order: **a transfer-error stream for the agency layer**
+(episode-start prediction errors as the staleness input; the three
+eliminated spaces retry on top of it), the
 elect-gating question, and (design-level,
 when a deployment demands it) whether reference-scale long lifetimes
 eventually need the cap too. Snapshot support for anatomy-resized runs
@@ -1355,6 +1359,41 @@ That — pose/encoding anchors with spike-robust per-cell statistics,
 judged against this bracket — is the successor arc, unchanged in name,
 now fully instrumented. Trail: `design/validate/EMSHIFT-DIAGNOSIS.md`;
 `specs/020-emission-shift/spec.md`; commit `3500576` and this close.
+
+## Chapter 35 — Three spaces, one ceiling: the signal was the problem all along (2026-07-18)
+
+The third anchor space for staleness detection was the most elegant and
+the cheapest to test: index error memory by the brain's own last-m
+actions — a space the world cannot move by construction, with
+spike-robust cells (windowed medians, running best-median) replacing
+the arithmetic that had painted phantom staleness. The offline gate ran
+the frozen (m, W) grid over captured traces from BOTH shift modes plus
+the benign floor, against the chapter-34 bracket.
+
+Every grid point failed. Emission mode separates directionally but
+weakly (~1.5–2×, never 4×); dynamics mode stays blind (~1×); the benign
+floor never approaches zero. And with that, three consecutive
+eliminations — sliding FIFOs (ch. 32), observation places (ch. 33),
+action contexts (ch. 35) — share one ceiling, which is the tell: **the
+anchor space was never the problem. The signal is.** Per-step
+errors-at-visit are a *tracking* error: they move with ecology churn,
+election composition, and ongoing learning everywhere, and that
+within-life nonstationarity is background no indexing scheme can
+cancel. The project learned exactly this lesson once before, one level
+down — all-step EMAs score tracking, not structure, and the remedy was
+the fair judge scoring episode-start transfer. The staleness program
+needs the same move at the drive level: a **transfer-error stream**
+(episode-start prediction errors, read before within-episode adaptation
+masks the damage) as the input to any staleness memory, with all three
+eliminated spaces available for retry once the signal is right.
+
+Third gate-stop in a row, each cheaper than the last (this one reused
+every instrument and wrote no src), and jointly they bought what a
+lucky pass never could: measured brackets on both world modes, three
+eliminated representations, and a signal-level diagnosis with an
+in-house precedent for the fix. Doc 05 guidance unchanged — competence
+stands. Trail: `design/validate/CONTEXTMEM-DIAGNOSIS.md`;
+`specs/021-context-memory/spec.md`; commit `bba601a` and this close.
 
 ## Chapter template (append below)
 

@@ -82,3 +82,43 @@ the frozen four; staleness traces.
   byte-identity break: a bug, fixed first.
 
 Results are appended as they land; the Outcome section closes the arc.
+
+## Result: P1 (recorded 2026-07-18; 7 captured traces, full (m, W) grid)
+
+**FAIL at every grid point — X0, the third gate-stop.** Representative
+medians (pre → post), best cells: emission mode separates directionally
+but weakly at every setting (e.g. m=3, W=32: 0.035 → 0.066; m=2, W=16:
+0.088 → 0.135 — ~1.5–2×, never 4×); dynamics mode stays blind (post ≈
+pre or lower; s1 post < pre at all six settings); the benign floor never
+approaches zero (0.022–0.068 across the grid — windowed medians still
+ride the within-life drift). Full table in the run log; no (m, W)
+clears any mode at 4×.
+
+## Outcome (recorded 2026-07-18)
+
+1. **Three anchor spaces, one ceiling — the space was never the
+   problem.** Sliding FIFOs (ch. 32), observation places (ch. 33), and
+   action contexts (this arc) all top out at ~1–2× separation with a
+   persistent benign floor. The common factor is the **signal**: the
+   per-step errors-at-visit stream is a *tracking* error — it moves
+   with ecology churn, election composition, and ongoing learning
+   everywhere, and that nonstationarity is the background no indexing
+   scheme can cancel.
+2. **The project has already learned this lesson once, one level
+   down.** THRESHOLD-DIAGNOSIS found that all-step EMAs score
+   within-episode tracking rather than structure, and the remedy was
+   the fair judge: score the first K steps of an episode — transfer to
+   a fresh context, not tracking of the current one. The staleness
+   question needs the same move at the drive level: a **transfer-error
+   stream** (episode-start prediction errors, before within-episode
+   adaptation masks the damage) as the input to any staleness memory —
+   named here as the successor's signal, with all three failed spaces
+   available for retry on top of it once the signal is right.
+3. **The arc closes at its gate with zero src changes** — the third
+   consecutive gate-stop, each cheaper than the last (this one reused
+   every instrument), and jointly worth more than any of them alone:
+   the staleness-detection program now has measured brackets on both
+   world modes, three eliminated spaces, and a named signal-level
+   diagnosis with an in-house precedent for the fix.
+4. **What ships: nothing but knowledge.** Doc 05 guidance unchanged —
+   competence stands. The testbed pair and the frozen grids wait.
