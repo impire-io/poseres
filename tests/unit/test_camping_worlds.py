@@ -126,3 +126,57 @@ def test_dials_require_their_world():
         Config(region_noise_levels=(0.0, 0.3))
     with pytest.raises(ValueError, match="2 or 4"):
         Config(world="multiregion", region_noise_levels=(0.0, 0.3, 0.3))
+
+
+# --- feature 020: emission-shift mode (EMSHIFT-DIAGNOSIS) --------------------
+
+
+def test_emission_mode_swaps_appearance_not_dynamics():
+    cfg = Config(world="shifting", shift_after_steps=5, shift_mode="emission")
+    w = ShiftingWorld(cfg, np.random.default_rng(3))
+    w.reset()
+    for k in range(10):
+        before = w._latent.copy()
+        w.step(1)
+        # dynamics never change: displacement is always the reference set's
+        np.testing.assert_allclose(w._latent - before, w._actions[1], rtol=0, atol=1e-12)
+    # appearance swapped: the clean emission now uses the post-shift matrix
+    w._latent = np.ones(cfg.true_dim)
+    obj = w._obj
+    import numpy as _np
+
+    expected_post = _np.tanh(w._post_emits[obj] @ w._latent / w._emit_norm)
+    np.testing.assert_array_equal(w._emit_core(), expected_post)
+    assert w.ladder_readings()["shift_mode"] == "emission"
+    assert w.ladder_readings()["shifted"] is True
+
+
+def test_emission_mode_pre_shift_uses_reference_emission():
+    cfg = Config(world="shifting", shift_after_steps=50, shift_mode="emission")
+    w = ShiftingWorld(cfg, np.random.default_rng(3))
+    w.reset()
+    w._latent = np.ones(cfg.true_dim)
+    expected_pre = np.tanh(w._objects[w._obj][1] @ w._latent / w._emit_norm)
+    np.testing.assert_array_equal(w._emit_core(), expected_pre)
+
+
+def test_emission_shift_state_capture_resumes_across_the_shift():
+    cfg = Config(world="shifting", shift_after_steps=4, shift_mode="emission")
+    w1 = ShiftingWorld(cfg, np.random.default_rng(5))
+    w1.reset()
+    for a in ACTIONS[:3]:
+        w1.step(a)
+    state = w1.state_dict()
+    w2 = ShiftingWorld(cfg, np.random.default_rng(5))
+    w2.reset()
+    for a in ACTIONS[:3]:
+        w2.step(a)
+    w2.load_state_dict(state)
+    for a in ACTIONS[3:10]:
+        np.testing.assert_array_equal(w1.step(a), w2.step(a))
+    assert w1.ladder_readings()["shifted"] is True
+
+
+def test_emission_mode_requires_a_shift_boundary():
+    with pytest.raises(ValueError, match="shift_mode"):
+        Config(world="shifting", shift_mode="emission")

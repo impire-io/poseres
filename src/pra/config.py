@@ -18,6 +18,7 @@ __all__ = [
     "PolicyMode",
     "WorldKind",
     "DistractorMode",
+    "ShiftMode",
     "EpisodeMode",
     "OBS_DIM_REF",
     "HIDDEN_REF",
@@ -30,6 +31,7 @@ WorldKind = Literal[
     "reference", "nonuniform", "compositional", "distractor", "shifting", "multiregion"
 ]
 DistractorMode = Literal["structured", "noise"]
+ShiftMode = Literal["dynamics", "emission"]
 EpisodeMode = Literal["episodic", "continuous"]
 
 # The validated reference scale (PRA-02 §1 defaults). Every scale-dependent
@@ -174,6 +176,14 @@ class Config:
     # draws) — the emission map is unchanged, what actions DO changes, and no
     # RNG is consumed at shift time.
     shift_after_steps: int = 0
+    # What swaps at the boundary (feature 020, EMSHIFT-DIAGNOSIS).
+    # "dynamics" = the recorded 017 behavior (displacement set swaps; the
+    # pinned default, byte-identical to the recorded runs). "emission" =
+    # per-object emission matrices swap instead (drawn at construction after
+    # all other draws) — appearance changes while the latent dynamics and
+    # trajectory distribution stay fixed, deconfounding "knowledge went
+    # stale" from "territory changed". Read only when shift_after_steps > 0.
+    shift_mode: ShiftMode = "dynamics"
     # W2 "multiregion": per-region transition-noise levels for the sign-defined
     # regions of latent[0] (2 entries) or (latent[0], latent[1]) (4 entries) —
     # the NonUniformWorld mechanism, generalized; a 0.0 entry draws nothing
@@ -311,6 +321,14 @@ class Config:
             "'distractor', 'shifting', 'multiregion'",
         )
         require(self.shift_after_steps >= 0, "shift_after_steps must be >= 0")
+        require(
+            self.shift_mode in ("dynamics", "emission"),
+            "shift_mode must be 'dynamics' or 'emission'",
+        )
+        require(
+            self.shift_mode == "dynamics" or self.shift_after_steps > 0,
+            "shift_mode='emission' requires shift_after_steps > 0",
+        )
         require(
             self.shift_after_steps == 0 or self.world == "shifting",
             "shift_after_steps > 0 requires world='shifting'",

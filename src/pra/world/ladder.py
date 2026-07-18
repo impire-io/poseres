@@ -320,17 +320,40 @@ class ShiftingWorld(_LadderWorldBase):
     def __init__(self, config: Config, rng: np.random.Generator):
         super().__init__(config, rng)
         self._shift_after = int(config.shift_after_steps)
+        self._shift_mode = str(config.shift_mode)
         if self._shift_after > 0:
-            self._post_actions: list[np.ndarray] = [
-                rng.standard_normal(self._true_dim) * config.action_scale
-                for _ in range(self._n_actions)
-            ]
+            if self._shift_mode == "dynamics":
+                # the recorded 017 draws, byte-identical
+                self._post_actions: list[np.ndarray] = [
+                    rng.standard_normal(self._true_dim) * config.action_scale
+                    for _ in range(self._n_actions)
+                ]
+            else:  # "emission" (feature 020, EMSHIFT-DIAGNOSIS): per-object
+                # post-shift emission matrices, drawn after all other draws in
+                # object order — appearance swaps at the boundary while the
+                # dynamics and latent trajectory distribution never change
+                self._post_emits: list[np.ndarray] = [
+                    rng.standard_normal((self._core_obs_dim, self._true_dim))
+                    for _ in range(len(self._objects))
+                ]
         self._steps_emitted = 0
+
+    def _shifted(self) -> bool:
+        return self._shift_after > 0 and self._steps_emitted >= self._shift_after
+
+    def _emit_core(self) -> np.ndarray:
+        if self._shift_mode == "emission" and self._shifted():
+            assert self._latent is not None and self._obj is not None
+            emit = self._post_emits[self._obj]
+            return np.tanh(emit @ self._latent / self._emit_norm)
+        return super()._emit_core()
 
     def step(self, action: int) -> np.ndarray:
         latent = self._require_latent()
-        shifted = self._shift_after > 0 and self._steps_emitted >= self._shift_after
-        disp = self._post_actions[action] if shifted else self._actions[action]
+        if self._shift_mode == "dynamics" and self._shifted():
+            disp = self._post_actions[action]
+        else:
+            disp = self._actions[action]
         self._latent = latent + disp
         self._steps_emitted += 1
         return self._emit()
@@ -349,8 +372,9 @@ class ShiftingWorld(_LadderWorldBase):
         return {
             "rung": "shifting",
             "shift_after_steps": self._shift_after,
+            "shift_mode": self._shift_mode,
             "steps_emitted": self._steps_emitted,
-            "shifted": bool(self._shift_after > 0 and self._steps_emitted >= self._shift_after),
+            "shifted": self._shifted(),
         }
 
 
