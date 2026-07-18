@@ -253,30 +253,50 @@ Mean surfaces (3 seeds), min dim / basin depth by age:
 **Gate: OPEN at f ∈ {0.1, 0.2, 0.3}; f = 0.2 confirmed as the shipping
 recommendation (the transport-anchored value).**
 
-## Result: E1b (recorded 2026-07-18; seeds 1–8, recorded rung dials, f = 0.2)
+## Result: E1b (recorded 2026-07-18; corrected the same day — both recordings kept)
 
-**PASS, 8/8 on both bars** (bar was ≥ 5/8 on each).
-`effective_min_age_cycles` = 6.
+**A recorded instrument bug, first.** E1b's first run (committed earlier
+in this arc's history) constructed the engine as `Engine(cfg)` — and a
+bare Engine builds the **reference** `SensorimotorWorld` regardless of
+`Config.world`; only a passed `world_factory` (the harness's
+`make_world`) builds ladder worlds. That run therefore measured a
+20-channel all-structured world with oracle weights suppressing ten
+*structured* channels — the wrong world entirely; its 8/8 table is void
+as an E1b reading. The mistake was caught by the shipped mechanism's own
+first smoke run (all twenty live weights sat near 1.0, impossible
+against real static — the estimator's amplitude-invariance made the
+wrong world unmistakable), diagnosed to `engine.py`'s silent default,
+and closed structurally: the engine now **refuses** a non-reference
+`Config.world` without a factory (the 016 hardening guard). P1 and E1a
+are unaffected (both built worlds via `make_world` directly).
+
+**The corrected E1b** (seeds 1–8, `world_factory=make_world`, recorded
+rung dials, σ_d = 1.0, f = 0.2): **PASS, 8/8 on both bars** (bar was
+≥ 5/8 on each). `effective_min_age_cycles` = 6.
 
 | seed | best_dim | best_score | pop-scaled bar | below? | mature frames | mean/final pop |
 |---|---|---|---|---|---|---|
-| 1 | 2 | 0.171 | 0.303 | yes | 39 | 31.6 / 45 |
-| 2 | 3 | 0.114 | 0.500 | yes | 13 | 14.3 / 19 |
-| 3 | 4 | 0.186 | 0.377 | yes | 26 | 17.9 / 32 |
-| 4 | 4 | 0.178 | 0.417 | yes | 21 | 22.3 / 27 |
-| 5 | 3 | 0.157 | 0.455 | yes | 17 | 15.2 / 23 |
-| 6 | 5 | 0.179 | 0.455 | yes | 17 | 14.9 / 23 |
-| 7 | 4 | 0.283 | 0.513 | yes | 11 | 23.5 / 18 |
-| 8 | 6 | 0.255 | 0.426 | yes | 18 | 20.5 / 26 |
+| 1 | 3 | 0.337 | 0.400 | yes | 23 | 20.3 / 29 |
+| 2 | 4 | 0.299 | 0.488 | yes | 14 | 17.5 / 20 |
+| 3 | 4 | 0.316 | 0.500 | yes | 13 | 15.8 / 19 |
+| 4 | 4 | 0.327 | 0.488 | yes | 9 | 22.6 / 20 |
+| 5 | 2 | 0.273 | 0.392 | yes | 24 | 17.6 / 30 |
+| 6 | 3 | 0.278 | 0.435 | yes | 19 | 20.7 / 25 |
+| 7 | 3 | 0.297 | 0.435 | yes | 13 | 24.4 / 25 |
+| 8 | 2 | 0.250 | 0.426 | yes | 20 | 22.6 / 26 |
 
-Winners sit at 0.114–0.283 against bars 0.303–0.513 — the recorded
+Winners sit at 0.250–0.337 against bars 0.392–0.500 — the recorded
 unweighted state was 0.72–0.83 against 0.49–0.65 with **zero** mature
-frames in every seed. The conveyor is broken by the oracle; populations
-carry mature anchors again. (Reading note: with the monkeypatch, the
-telemetry pred-error norms are weighted too — the shipped feature keeps
-them unweighted (C2); E1b's bars read maturation and score-vs-bar only.)
+frames in every seed. The conveyor is broken by the oracle on the real
+noise world; populations carry mature anchors again, and the final
+best_dims ([3,4,4,4,2,3,3,2]) sit within one of the true dim in 6/8
+seeds — a live-oracle reading consistent with the frozen surfaces.
+(Reading note: with the monkeypatch, the telemetry pred-error norms are
+weighted too — the shipped feature keeps them unweighted (C2); E1b's
+bars read maturation and score-vs-bar only.)
 
-**H-transport: confirmed. The arc proceeds to the shipping stage.**
+**H-transport: confirmed — on the right world, with the wrong-world run
+kept in the record. The arc proceeds to the shipping stage.**
 
 ## The shipping shape (after the E1 gate, before E2)
 
@@ -291,6 +311,20 @@ seed-1 baseline, determinism, explicit-inert-config summary equality,
 feature-off blob format equality, twin-engine ON/OFF same-seed identical
 world streams (no-RNG proof). Constraint recorded: telemetry norms stay
 unweighted (C2 above); summary fields appear only when ON.
+
+**Shipped (recorded 2026-07-18).** As registered: estimator on
+`FrameStore` (five arrays, allocated only when on), `w=None` threading
+through the five `FrameGroup` operations, `channel_weight_floor` /
+`channel_stats_decay` dials, `chanw__*` additive-optional snapshot keys,
+ON-only summary block, ladder-report echo. One split the registration
+implied, made explicit in code: when ON, `online_step` norms the same
+predicted observation twice — weighted into the survival EMAs, unweighted
+into the recorder's telemetry (C2). One hardening shipped with it: the
+engine now refuses a non-reference `Config.world` without a
+`world_factory` (the E1b instrument bug, made structurally impossible).
+Zero other engine edits (the summary pass-through is unconditional and
+`None` in every existing mode). Full gate green, none skipped; pinned
+baseline, determinism, ladder streams, and blob formats byte-identical.
 
 ## E2 — estimator identification (shipped estimator; protocol pre-registered)
 

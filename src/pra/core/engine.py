@@ -99,6 +99,16 @@ class Engine:
     ):
         self.config = config
         self.scoring_mode = scoring_mode or config.scoring_mode
+        # Guard (feature 016 hardening): a bare Engine builds the reference
+        # world ONLY. A config that selects a ladder world without a factory
+        # would silently run the wrong world — exactly the instrument bug the
+        # 016 arc's first E1b run made (CHANNELWEIGHT-DIAGNOSIS). Refuse loudly.
+        if world_factory is None and config.world != "reference":
+            raise ValueError(
+                f"config selects world={config.world!r} but no world_factory was given — "
+                "a bare Engine builds the reference world only; pass "
+                "world_factory=pra.world.ladder.make_world"
+            )
         self._world_factory = world_factory or SensorimotorWorld
         self._scorer = scorer or WeightedSumScorer(config)
         self._proposal = proposal or BiasedProposalPolicy(config)
@@ -526,6 +536,8 @@ class Engine:
             population_by_cycle=population_by_cycle,
             still_growing=is_still_growing(population_by_cycle),
             agency=agency.summary() if agency is not None else None,
+            # pure pass-through (feature 016): None in every existing mode
+            channel_weighting=store.channel_weighting_summary(),
         )
 
     def _take_snapshot(

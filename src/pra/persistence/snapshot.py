@@ -113,6 +113,13 @@ def encode(state: SystemState) -> bytes:
     for dim, tensors in state.frame_store["groups"].items():
         for name, arr in tensors.items():
             arrays[f"g{dim}__{name}"] = arr
+    # learned channel weighting (feature 016): estimator state, written only
+    # when the run had it on — feature-off blobs stay bit-identical to the
+    # pre-016 format (the world_state/streams additive-optional pattern).
+    channel_stats = state.frame_store.get("channel_stats")
+    if channel_stats is not None:
+        for name, arr in channel_stats.items():
+            arrays[f"chanw__{name}"] = arr
     arrays["acc__map_fractions"] = np.asarray(state.map_fractions, dtype=np.float64)
     arrays["acc__pred_errors"] = np.asarray(state.pred_errors, dtype=np.float64)
     arrays["acc__population_by_cycle"] = np.asarray(state.population_by_cycle, dtype=np.int64)
@@ -216,6 +223,8 @@ def encode(state: SystemState) -> bytes:
     cfg_dims = (state.config.obs_dim, state.config.n_actions)
     if None not in fs_dims and tuple(fs_dims) != cfg_dims:
         meta["current_dims"] = [int(fs_dims[0]), int(fs_dims[1])]
+    if channel_stats is not None:
+        meta["channel_stats"] = True
     arrays["meta"] = np.array(json.dumps(meta))
 
     buf = io.BytesIO()
@@ -322,6 +331,18 @@ def decode(blob: bytes) -> SystemState:
                 "obs_dim": int(cur[0]),
                 "n_actions": int(cur[1]),
                 "groups": groups,
+                # absent in pre-016 and feature-off blobs → the store falls
+                # back to fresh estimator init on load (stated refill)
+                **(
+                    {
+                        "channel_stats": {
+                            name: np.array(archive[f"chanw__{name}"])
+                            for name in ("m", "v", "cov", "n", "w")
+                        }
+                    }
+                    if meta.get("channel_stats")
+                    else {}
+                ),
             },
             agency=agency,
             rng_state=meta["rng_state"],

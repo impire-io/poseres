@@ -209,3 +209,29 @@ def test_k1_blobs_carry_no_streams_record():
     Engine(cfg, snapshot_store=store).run(1)
     archive = np.load(io.BytesIO(store.read(store.list()[0][0])), allow_pickle=False)
     assert "streams" not in json.loads(str(archive["meta"]))
+
+
+# --- feature 016: learned channel weighting (contracts C4) -------------------------
+
+
+def test_channel_weighting_on_snapshot_resume_is_byte_identical():
+    store = InMemorySnapshotStore()
+    cfg = Config(**SMALL, channel_weight_floor=0.2, snapshot_every_n_cycles=2)
+    uninterrupted = Engine(cfg, snapshot_store=store).run(1).serialize()
+    blob = store.read(store.list()[-1][0])  # mid-run
+    state = decode(blob)
+    assert "channel_stats" in state.frame_store  # the estimator travels
+    resumed = Engine(cfg).run(1, resume_from=blob).serialize()
+    assert resumed == uninterrupted
+
+
+def test_feature_off_blobs_carry_no_channel_stats():
+    import io
+    import json
+
+    store = InMemorySnapshotStore()
+    cfg = Config(**SMALL, snapshot_every_n_cycles=2)
+    Engine(cfg, snapshot_store=store).run(1)
+    archive = np.load(io.BytesIO(store.read(store.list()[0][0])), allow_pickle=False)
+    assert "channel_stats" not in json.loads(str(archive["meta"]))
+    assert not [k for k in archive.files if k.startswith("chanw__")]

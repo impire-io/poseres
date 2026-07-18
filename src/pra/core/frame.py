@@ -18,6 +18,7 @@ per-frame reference.
 
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass
 
 import numpy as np
@@ -222,8 +223,16 @@ class FrameGroup:
             setattr(self, name, getattr(self, name)[keep])
 
     # ---- forward maps (batched over the frame axis) --------------------------
-    def encode(self, obs: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
-        h = np.tanh(np.einsum("fho,o->fh", self.W1, obs) + self.b1)
+    # Every observation-facing method takes ``w`` (learned channel weighting,
+    # CHANNELWEIGHT-DIAGNOSIS): ``None`` is the pinned validated path — the
+    # textually-current expressions, no extra float work. A weight vector
+    # applies ONE consistent treatment to both legs: the survival norms
+    # (weighted numerator AND denominator) and the learning path (the encoder
+    # consumes w*obs; the placement error and its encoder outer product are
+    # weighted) — judging and learning never disagree about a channel's worth.
+    def encode(self, obs: np.ndarray, w: np.ndarray | None = None) -> tuple[np.ndarray, np.ndarray]:
+        x = obs if w is None else obs * w
+        h = np.tanh(np.einsum("fho,o->fh", self.W1, x) + self.b1)
         pose = np.einsum("fdh,fh->fd", self.W2, h) + self.b2
         return pose, h
 
@@ -238,22 +247,38 @@ class FrameGroup:
         return pred, h
 
     def fit_quality(
-        self, obs: np.ndarray
+        self, obs: np.ndarray, w: np.ndarray | None = None
     ) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
-        pose, h = self.encode(obs)
+        pose, h = self.encode(obs, w)
         recon, hd = self.reconstruct(pose)
-        fit = np.linalg.norm(recon - obs, axis=1) / (np.linalg.norm(obs) + _EPS)
+        if w is None:
+            fit = np.linalg.norm(recon - obs, axis=1) / (np.linalg.norm(obs) + _EPS)
+        else:
+            fit = np.linalg.norm((recon - obs) * w, axis=1) / (np.linalg.norm(obs * w) + _EPS)
         return fit, pose, h, recon, hd
 
-    def honest_pred_err(self, prev_obs: np.ndarray, a: int, obs: np.ndarray) -> np.ndarray:
-        """Obs-space prediction error with current weights (PRA-01 §5.2)."""
-        ppose, _ = self.encode(prev_obs)
+    def predicted_obs(
+        self, prev_obs: np.ndarray, a: int, w: np.ndarray | None = None
+    ) -> np.ndarray:
+        """The decoded one-step prediction (the forward half of
+        :meth:`honest_pred_err`, exposed so a caller can norm it more than
+        one way without a second forward pass)."""
+        ppose, _ = self.encode(prev_obs, w)
         pnext, _ = self.predict_next(ppose, a)
         pobs, _ = self.reconstruct(pnext)
-        return np.linalg.norm(pobs - obs, axis=1) / (np.linalg.norm(obs) + _EPS)
+        return pobs
 
-    def effort(self, prev_obs: np.ndarray, a: int) -> np.ndarray:
-        ppose, _ = self.encode(prev_obs)
+    def honest_pred_err(
+        self, prev_obs: np.ndarray, a: int, obs: np.ndarray, w: np.ndarray | None = None
+    ) -> np.ndarray:
+        """Obs-space prediction error with current weights (PRA-01 §5.2)."""
+        pobs = self.predicted_obs(prev_obs, a, w)
+        if w is None:
+            return np.linalg.norm(pobs - obs, axis=1) / (np.linalg.norm(obs) + _EPS)
+        return np.linalg.norm((pobs - obs) * w, axis=1) / (np.linalg.norm(obs * w) + _EPS)
+
+    def effort(self, prev_obs: np.ndarray, a: int, w: np.ndarray | None = None) -> np.ndarray:
+        ppose, _ = self.encode(prev_obs, w)
         pnext, _ = self.predict_next(ppose, a)
         return np.linalg.norm(pnext - ppose, axis=1)
 
@@ -268,11 +293,18 @@ class FrameGroup:
         elect: np.ndarray,
         lr: float,
         clip: float,
+        w: np.ndarray | None = None,
     ) -> None:
         m = elect.astype(np.float64)
         m1 = m[:, None]
         m2 = m[:, None, None]
-        e = recon - obs
+        # Weighted (w is not None): the error is weighted — silencing the
+        # static-target decoder rows AND the static leak back through Dc2 into
+        # the shared layers — and the encoder outer product uses the weighted
+        # input the forward pass actually saw (gradient correctness + the
+        # third contamination point, CHANNELWEIGHT-DIAGNOSIS).
+        e = recon - obs if w is None else (recon - obs) * w
+        x = obs if w is None else obs * w
         gD2 = np.clip(np.einsum("fo,fh->foh", e, hd), -clip, clip)
         ghd = np.einsum("foh,fo->fh", self.Dc2, e) * (1.0 - hd**2)
         gD1 = np.clip(np.einsum("fh,fd->fhd", ghd, pose), -clip, clip)
@@ -283,7 +315,7 @@ class FrameGroup:
         gpose = np.einsum("fhd,fh->fd", self.Dc1, ghd)  # uses updated Dc1 (matches v4)
         gW2 = np.clip(np.einsum("fd,fh->fdh", gpose, h), -clip, clip)
         ghe = np.einsum("fdh,fd->fh", self.W2, gpose) * (1.0 - h**2)  # uses current W2
-        gW1 = np.clip(np.einsum("fh,o->fho", ghe, obs), -clip, clip)
+        gW1 = np.clip(np.einsum("fh,o->fho", ghe, x), -clip, clip)
         self.W2 -= lr * gW2 * m2
         self.b2 -= lr * np.clip(gpose, -clip, clip) * m1
         self.W1 -= lr * gW1 * m2
@@ -298,6 +330,7 @@ class FrameGroup:
         elect: np.ndarray,
         lr: float,
         clip: float,
+        w: np.ndarray | None = None,
     ) -> None:
         """Train the per-action transition toward the mode's target (PRA-01 §5.6):
         ``predictive`` → the next pose (the real dynamics), ``effort_only`` → the
@@ -306,8 +339,8 @@ class FrameGroup:
         m = elect.astype(np.float64)
         m1 = m[:, None]
         m2 = m[:, None, None]
-        p, _ = self.encode(prev_obs)
-        nxt, _ = self.encode(next_obs)
+        p, _ = self.encode(prev_obs, w)
+        nxt, _ = self.encode(next_obs, w)
         pred, h = self.predict_next(p, a)
         if scoring_mode == "effort_only":
             target = np.zeros_like(nxt)
@@ -349,6 +382,63 @@ class FrameStore:
         # per-event results always use the current dims.
         self.obs_dim = int(config.obs_dim)
         self.n_actions = int(config.n_actions)
+        # Learned channel weighting (CHANNELWEIGHT-DIAGNOSIS, feature 016).
+        # Off (floor == 0, the default): no state, no float work, no RNG —
+        # every group call receives w=None, the pinned validated path.
+        self._cw_floor = float(config.channel_weight_floor)
+        self._cw_on = self._cw_floor > 0.0
+        if self._cw_on:
+            self._cw_beta = float(config.channel_stats_decay)
+            self._cw_ready_at = math.ceil(1.0 / (1.0 - self._cw_beta))
+            self._cw_init_stats(self.obs_dim)
+
+    # ---- learned channel weighting (store-level: channel quality is a world
+    # property, not a frame property; one estimator, one weight vector) -------
+    def _cw_init_stats(self, obs_dim: int) -> None:
+        self._cw_m = np.zeros(obs_dim)
+        self._cw_v = np.zeros(obs_dim)
+        self._cw_cov = np.zeros(obs_dim)
+        self._cw_n = np.zeros(obs_dim)
+        self._cw_w = np.ones(obs_dim)
+
+    def _cw_update(self, obs: np.ndarray, prev_obs: np.ndarray | None) -> None:
+        """The registered EMA arithmetic — every online step, before forwards."""
+        b = self._cw_beta
+        self._cw_m = b * self._cw_m + (1.0 - b) * obs
+        d = obs - self._cw_m  # post-update mean, as registered
+        self._cw_v = b * self._cw_v + (1.0 - b) * d * d
+        if prev_obs is not None:
+            self._cw_cov = b * self._cw_cov + (1.0 - b) * d * (prev_obs - self._cw_m)
+        self._cw_n += 1.0
+
+    def _cw_recompute(self) -> None:
+        """Weights from the whiteness statistic — episode starts only, so every
+        within-episode judgment happens in one norm (the fair-judge window
+        must not drift mid-window). Max-normalized shaping, P1-pinned."""
+        ready = self._cw_n >= self._cw_ready_at
+        if not ready.any():
+            return
+        rho = np.clip(self._cw_cov / (self._cw_v + _EPS), 0.0, 1.0)
+        w = np.clip(rho / (rho[ready].max() + _EPS), self._cw_floor, 1.0)
+        w[~ready] = 1.0
+        self._cw_w = w
+
+    @property
+    def channel_weights(self) -> np.ndarray | None:
+        """The current weight vector (copy) when on; ``None`` when off."""
+        return np.array(self._cw_w, copy=True) if self._cw_on else None
+
+    def channel_weighting_summary(self) -> dict | None:
+        """The ON-only summary block (agency-fields pattern): ``None`` when
+        off, so every existing mode's serialization stays byte-identical."""
+        if not self._cw_on:
+            return None
+        return {
+            "floor": self._cw_floor,
+            "decay": self._cw_beta,
+            "ready_channels": int((self._cw_n >= self._cw_ready_at).sum()),
+            "final_weights": [round(float(x), 4) for x in self._cw_w],
+        }
 
     # ---- population ----------------------------------------------------------
     @property
@@ -397,6 +487,20 @@ class FrameStore:
 
         for dim in sorted(self._groups):
             self._groups[dim].resize(new_obs_dim, new_n_actions, self._scale, rng)
+        if self._cw_on:
+            d_obs = int(new_obs_dim) - self.obs_dim
+            if d_obs > 0:
+                # new channels: zero stats, FULL weight until ready — the same
+                # optimistic-until-evidence stance the ready gate gives young runs
+                zeros = np.zeros(d_obs)
+                self._cw_m = np.concatenate([self._cw_m, zeros])
+                self._cw_v = np.concatenate([self._cw_v, zeros])
+                self._cw_cov = np.concatenate([self._cw_cov, zeros])
+                self._cw_n = np.concatenate([self._cw_n, zeros])
+                self._cw_w = np.concatenate([self._cw_w, np.ones(d_obs)])
+            elif d_obs < 0:
+                for name in ("_cw_m", "_cw_v", "_cw_cov", "_cw_n", "_cw_w"):
+                    setattr(self, name, getattr(self, name)[: int(new_obs_dim)])
         self.obs_dim = int(new_obs_dim)
         self.n_actions = int(new_n_actions)
         self._lr = float(self.config.learning_rate * (OBS_DIM_REF / new_obs_dim) ** 1.5)
@@ -468,7 +572,7 @@ class FrameStore:
         + the next frame id, plus the current anatomy dims (feature 010 —
         differ from the boot config after a mid-run resize). Arrays are copies
         (a snapshot is point-in-time)."""
-        return {
+        state = {
             "next_id": self._next_id,
             "obs_dim": self.obs_dim,
             "n_actions": self.n_actions,
@@ -478,6 +582,18 @@ class FrameStore:
                 if g.size > 0
             },
         }
+        if self._cw_on:
+            # estimator state is behavior-affecting → snapshot state (Doc 06
+            # §2); written only when on, so feature-off snapshots stay
+            # bit-identical to the pre-016 format.
+            state["channel_stats"] = {
+                "m": np.array(self._cw_m, copy=True),
+                "v": np.array(self._cw_v, copy=True),
+                "cov": np.array(self._cw_cov, copy=True),
+                "n": np.array(self._cw_n, copy=True),
+                "w": np.array(self._cw_w, copy=True),
+            }
+        return state
 
     def load_state_dict(self, state: dict) -> None:
         """Reconstruct the population exactly from :meth:`state_dict` output.
@@ -499,6 +615,19 @@ class FrameStore:
             for name in self._GROUP_FIELDS:
                 setattr(g, name, np.array(tensors[name], copy=True))
             self._groups[int(dim)] = g
+        if self._cw_on:
+            cs = state.get("channel_stats")
+            if cs is not None:
+                self._cw_m = np.array(cs["m"], copy=True)
+                self._cw_v = np.array(cs["v"], copy=True)
+                self._cw_cov = np.array(cs["cov"], copy=True)
+                self._cw_n = np.array(cs["n"], copy=True)
+                self._cw_w = np.array(cs["w"], copy=True)
+            else:
+                # pre-016 blob (or one written with the feature off) resumed
+                # with the feature newly enabled: the estimator starts fresh
+                # from new data — stated openly (spec US3 scenario 2).
+                self._cw_init_stats(self.obs_dim)
 
     def best_frame_predictor(self, scorer):
         """The current best frame's ``(age_cycles, predict_decoded)`` for the
@@ -517,8 +646,10 @@ class FrameStore:
                 continue
             i = int(idx[0])
 
-            def predict_decoded(obs: np.ndarray, action: int, g=g, i=i) -> np.ndarray:
-                pose, _ = g.encode(obs)
+            wv = self._cw_w if self._cw_on else None
+
+            def predict_decoded(obs: np.ndarray, action: int, g=g, i=i, w=wv) -> np.ndarray:
+                pose, _ = g.encode(obs, w)
                 pred, _ = g.predict_next(pose, action)
                 recon, _ = g.reconstruct(pred)
                 return recon[i]
@@ -540,6 +671,14 @@ class FrameStore:
         alive = 0
         elect_errs: list[float] = []
         decay = self._decay
+        # learned channel weighting (opt-in): recompute weights at episode
+        # starts (from the stats accumulated so far), then fold this step's
+        # observation into the stats — both before any forward pass. No RNG.
+        if self._cw_on:
+            if prev_obs is None:
+                self._cw_recompute()
+            self._cw_update(obs, prev_obs)
+        wv = self._cw_w if self._cw_on else None
         # lifetime stability (weight_norm_cap > 0, opt-in): project weight
         # norms at each episode start, before any processing of the episode.
         if prev_obs is None and self._norm_cap > 0.0:
@@ -549,14 +688,14 @@ class FrameStore:
             if g.size == 0:
                 continue
             alive += g.size
-            fit, pose, h, recon, hd = g.fit_quality(obs)  # pre-learning forward
+            fit, pose, h, recon, hd = g.fit_quality(obs, wv)  # pre-learning forward
             elect = fit < self._fit_gate
             mapped += int(elect.sum())
             if elect.any():
-                g.learn_placement(obs, pose, h, recon, hd, elect, self._lr, self._clip)
+                g.learn_placement(obs, pose, h, recon, hd, elect, self._lr, self._clip, wv)
                 if prev_obs is not None:
                     g.learn_transition(
-                        prev_obs, prev_a, obs, scoring_mode, elect, self._lr, self._clip
+                        prev_obs, prev_a, obs, scoring_mode, elect, self._lr, self._clip, wv
                     )
             # coverage-fair recon EMA over every exposure, using the pre-learning fit.
             # ema_update=False (score_window_steps, THRESHOLD-DIAGNOSIS): the step
@@ -566,11 +705,24 @@ class FrameStore:
             if ema_update:
                 g.recon_err_ema = decay * g.recon_err_ema + (1.0 - decay) * fit
             if prev_obs is not None:
-                honest = g.honest_pred_err(prev_obs, prev_a, obs)  # post-learning weights
+                if wv is None:
+                    honest = g.honest_pred_err(prev_obs, prev_a, obs)  # post-learning weights
+                    honest_tele = honest
+                else:
+                    # one forward pass, two norms: the WEIGHTED error feeds the
+                    # survival EMAs (what the ecology judges); the UNWEIGHTED
+                    # all-channel error feeds telemetry, keeping pred_error_
+                    # early/late/improvement comparable across the dose record
+                    # (CHANNELWEIGHT-DIAGNOSIS constraint C2).
+                    pobs = g.predicted_obs(prev_obs, prev_a, wv)
+                    honest = np.linalg.norm((pobs - obs) * wv, axis=1) / (
+                        np.linalg.norm(obs * wv) + _EPS
+                    )
+                    honest_tele = np.linalg.norm(pobs - obs, axis=1) / (np.linalg.norm(obs) + _EPS)
                 if ema_update:
                     g.pred_err_ema = decay * g.pred_err_ema + (1.0 - decay) * honest
                 if elect.any():
-                    elect_errs.extend(honest[elect].tolist())
+                    elect_errs.extend(honest_tele[elect].tolist())
         return StepStats(mapped=mapped, alive=alive, elect_pred_errors=elect_errs)
 
     # ---- per-frame delivery (Bus FrameProcessor) -----------------------------
@@ -578,14 +730,17 @@ class FrameStore:
         wanted = set(frame_ids)
         out: dict[int, FrameResult] = {}
         obs = event.observation
+        # channel weighting on → delivered per-frame results are the judged
+        # (weighted) quantities, consistent with the survival EMAs they mirror.
+        wv = self._cw_w if self._cw_on else None
         for g in self._groups.values():
             if g.size == 0:
                 continue
-            fit, pose, _, _, _ = g.fit_quality(obs)
+            fit, pose, _, _, _ = g.fit_quality(obs, wv)
             elect = fit < self._fit_gate
             if event.has_previous:
-                honest = g.honest_pred_err(event.previous_observation, event.action, obs)
-                effort = g.effort(event.previous_observation, event.action)
+                honest = g.honest_pred_err(event.previous_observation, event.action, obs, wv)
+                effort = g.effort(event.previous_observation, event.action, wv)
             for i in range(g.size):
                 fid = int(g.frame_ids[i])
                 if fid not in wanted:

@@ -113,6 +113,9 @@ class PerSeedRunSummary:
     # drive; None in every existing mode so the validated baseline summary's
     # serialization is byte-identical (FR-008, research R2).
     agency: dict | None = None
+    # Learned channel weighting (feature 016). Present ONLY when the feature
+    # was on (same byte-identity pattern as agency).
+    channel_weighting: dict | None = None
     _improvement: float | None = field(default=None, repr=False)
 
     @property
@@ -154,6 +157,14 @@ class PerSeedRunSummary:
                 "learning_progress_mean": _canonical_float(self.agency["learning_progress_mean"]),
                 "novelty_mean": _canonical_float(self.agency["novelty_mean"]),
                 "directed_fraction": _canonical_float(self.agency["directed_fraction"]),
+            }
+        if self.channel_weighting is not None:
+            cw = self.channel_weighting
+            out["channel_weighting"] = {
+                "floor": _canonical_float(cw["floor"]),
+                "decay": _canonical_float(cw["decay"]),
+                "ready_channels": int(cw["ready_channels"]),
+                "final_weights": [_canonical_float(x) for x in cw["final_weights"]],
             }
         return out
 

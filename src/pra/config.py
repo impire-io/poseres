@@ -100,6 +100,22 @@ class Config:
     # preserving the never-trained-then-frozen premise. ---
     weight_norm_cap: float = 0.0
 
+    # --- Learned channel weighting (CHANNELWEIGHT-DIAGNOSIS, feature 016).
+    # 0.0 = off: the pinned validated default — no estimator state, no float
+    # work, no RNG, byte-identical. f > 0 = an in-system per-channel whiteness
+    # estimator (lag-1 autocorrelation of the observation stream) down-weights
+    # channels carrying irreducible static in BOTH the survival norms and the
+    # frame learning path; the value is the weight floor w_min — no channel is
+    # ever silenced below it (full exclusion is measured worse, E1a). 0.2 is
+    # the transport-anchored recommendation: static weighted at 0.2 puts unit
+    # amplitude in the operating point measured PASS at sigma_d = 0.2. ---
+    channel_weight_floor: float = 0.0
+    # Estimator EMA decay (read only when the floor is > 0); 0.995 pinned by
+    # probe P1 — the unique beta clearing both the separation and the
+    # no-suppression bars, and the most drift-stable. Readiness is derived
+    # (ceil(1/(1-beta)) samples), not a constant.
+    channel_stats_decay: float = 0.995
+
     # --- Schedule ---
     warmup_episodes: int = 25
     n_cycles: int = 18
@@ -223,6 +239,14 @@ class Config:
         require(self.max_frames >= self.min_frames, "max_frames must be >= min_frames")
         require(self.score_window_steps >= 0, "score_window_steps must be >= 0")
         require(self.weight_norm_cap >= 0, "weight_norm_cap must be >= 0")
+        require(
+            0.0 <= self.channel_weight_floor <= 1.0,
+            "channel_weight_floor must be in [0, 1] (0 = off)",
+        )
+        require(
+            0.0 <= self.channel_stats_decay < 1.0,
+            "channel_stats_decay must be in [0, 1)",
+        )
 
         require(self.warmup_episodes >= 0, "warmup_episodes must be >= 0")
         require(self.n_cycles >= 0, "n_cycles must be >= 0")

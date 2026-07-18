@@ -231,6 +231,16 @@ def build_ladder_report(
                 "distractor_channels": r.config.distractor_channels,
                 "distractor_mode": r.config.distractor_mode,
                 "distractor_noise_std": r.config.distractor_noise_std,
+                # learned channel weighting (feature 016): echoed only when
+                # on, so existing reports serialize byte-identically
+                **(
+                    {
+                        "channel_weight_floor": r.config.channel_weight_floor,
+                        "channel_stats_decay": r.config.channel_stats_decay,
+                    }
+                    if r.config.channel_weight_floor > 0
+                    else {}
+                ),
             },
             "wall_clock_seconds": r.wall_clock_seconds,
             "failed_seeds": list(r.failed_seeds),
