@@ -449,6 +449,91 @@ identical event streams; 8 seeds carry real power for paired reads):**
 PASS under its recorded criterion form, all paired drops ≤ 0.05 in strict
 majority, all byte-identity checks bit-exact.
 
+## Result: E3 (recorded 2026-07-18; exploratory 8 × 5 doses, confirmatory 24 × {0.5, 1.0}; recorded rung dials, f = 0.2, β = 0.995)
+
+**The primary criterion is met: L3 noise PASSES at σ_d = 1.0 under the
+unchanged criterion form, at 24-seed power.** Within-one-of-3 counts at
+checkpoints 18/30/50: **21/24, 18/24, 20/24** (bar: strict majority
+≥ 13/24 at every checkpoint). At 0.5: 22/24, 21/24, 22/24 — PASS.
+Confirmatory finals at 1.0:
+[3,4,4,3,2,3,2,3,1,3,3,3,3,3,3,1,3,1,2,2,1,3,4,4].
+
+Exploratory grid (seeds 1–8): ON **PASS at every dose**
+{0.04, 0.1, 0.2, 0.5, 1.0} — including 0.1's recorded flicker, gone
+(recorded, not gated). OFF reproduces the recorded collapse exactly
+(σ_d = 1.0 finals [1,4,1,1,1,3,1,6] — the L3 record's own numbers), and
+adds a new reading: at the recorded rung dials **0.5 OFF is a full FAIL**
+(@18 [2,2,1,1,2,2,1,2]) — the instability band is deeper at the rung's
+construction stream than the parent arc's `distractor_dim=1` replicate
+showed.
+
+**Secondaries (informative, recorded with spreads):**
+
+- **Unweighted median improvement: both bars missed narrowly,
+  as-written.** At 1.0: **0.144** [0.069, 0.207] vs the 0.15 bar
+  (−0.006); at 0.5: **0.236** [0.179, 0.358] vs 0.25 (−0.014). The bars'
+  ceiling arithmetic was derived on the parent replicate stream (OFF
+  anchor 0.107); the rung stream's own OFF anchors are lower
+  (0.081 at 1.0, 0.174 at 0.5), so the same 65%-of-ceiling intent lands
+  below the registered constants. Relative lifts: +78% and +36%. The
+  misses are recorded; the constants are not re-derived to pass.
+- **Conveyor broken, 24/24.** Every confirmatory seed at 1.0 ends with
+  mature unprotected frames (4–23 per seed) and its winner *below* the
+  pop-scaled bar (0.231–0.373 vs 0.392–0.606) — the recorded unweighted
+  state is zero mature frames in every seed.
+- **Learned-weights frozen surface (seeds 1–3, σ_d = 1.0):** age 24 min
+  **4**, depth **0.365**; age 12 depth **0.113** (gradient restored,
+  ≥ 0.06) but min lands at **6**, above dim 4 by **0.0034** — a sixth of
+  one dim's price, on the same flat 4↔6 shelf where the oracle arm sat
+  at 4 by 0.0055 with the identical per-seed min pattern [6,6,4]. The
+  substance (dim-1 gradient restored) holds; the min-location letter
+  wobbles on a shelf thinner than seed noise. Corruption heal: core
+  dim-3 error 1.00× (age 12) / 1.08× (age 24) of the healthy unweighted
+  0.04 baseline — bar ≤ 1.2×.
+
+## Result: E4 (recorded 2026-07-18; paired arms, feature ON at f = 0.2, β = 0.995)
+
+**No harm, measured — X2 closes without a fix.** All paired reads exploit
+the seed pairing (the trajectories track until a rare election-boundary
+flip changes a no-map birth; see the C3 nuance below).
+
+- **σ_d = 0.04 noise, ON vs OFF (paired seeds 1–8):** both PASS; per-seed
+  improvement drops [0.031, 0.027, −0.007, −0.098, 0.008, 0.031, −0.124,
+  −0.022] — ≤ 0.05 in **8/8** (bar ≥ 6/8; negative = ON better). The
+  same clause at 0.1: 7/8 (one 0.065); at 0.2 and above ON is
+  systematically better.
+- **Structured mode:** ON PASS (7/8 at every checkpoint; recorded anchor
+  8/8, 7/8, 8/8 — retained), paired drops ≤ 0.05 in 8/8 (ON median
+  improvement 0.422 vs OFF 0.394).
+- **L1 (both dials), under the recorded (amended) criterion:** σ = 0.2
+  retained — twin-match 7/8, improvement 8/8, occupancy non-degenerate
+  8/8; the per-seed occupancies match the recorded OFF table to ~0.01
+  ([0.728, 0.869, 0.998, 0.448, 0.966, 0.846, 0.681, 0.863] vs recorded
+  [0.715, 0.861, 0.997, 0.458, 0.963, 0.859, 0.671, 0.863]) — the
+  harness's coded band clause prints FAIL exactly as it did for the
+  recorded OFF run (3/8 in band), a known criterion-vs-code gap, not a
+  regression. σ = 0.8: the recorded *brain-finding* FAIL (twin-match
+  4/8) **flips to PASS with ON** (twin-match 8/8, improvement 6/8) —
+  strong region noise genuinely perturbed the landing, and down-weighting
+  is exactly the remedy's mechanism; recorded as an improvement, not
+  gated.
+- **L2 (both factorizations):** PASS. **Reference suite ON:** T1–T6 all
+  PASS. **Snapshot ON round-trip, K = 2, continuous:** permanent tests,
+  green in the shipping gate.
+
+**X2 resolution (from the E2 record):** the weight transients measured
+there produce no measurable harm on any arm; the amended no-suppression
+clause is this E4 harm bar plus the E2 dip census, as recorded.
+
+**C3 nuance, recorded.** "The feature consumes no RNG" is literally true
+and unit-proven; "identical event streams" additionally requires the
+no-map birth pattern to coincide, because election under the weighted fit
+can flip a marginal step and births draw from the shared generator. In
+practice the E4 pairs track to high precision (the L1 occupancies above;
+the OFF σ_d = 1.0 arm reproduces the recorded collapse finals
+[1, 4, 1, 1, 1, 3, 1, 6] exactly), so paired reads stand; the contract's
+wording in the feature docs states the divergence channel explicitly.
+
 ## D1 — the relative survival bar (conditional; stays a named deferral)
 
 The parent arc's second named leg — a survival bar with a notion of
@@ -490,3 +575,61 @@ the conveyor-correction conditionality (THRESHOLD-DIAGNOSIS).
 Results are appended to this document as they land; the Outcome section
 closes the arc. Scratchpad instruments stay out of git; their protocols
 and tables live here.
+
+## Outcome (recorded 2026-07-18)
+
+1. **H-rescue: confirmed — the ladder's first open problem is closed,
+   opt-in.** With learned channel weighting ON (floor 0.2, β 0.995), L3
+   noise mode PASSES at σ_d = 1.0 under the unchanged criterion form at
+   24-seed power (21/18/20 of 24 within one at 18/30/50), the whole dose
+   grid PASSES at 8 seeds, and the conveyor is broken in 24/24 seeds.
+   The default-config FAIL stands untouched as the recorded reference
+   behavior; the rescue is a dated addendum beside it (LADDER-CRITERIA).
+2. **The transport argument carried the arc end-to-end.** Oracle weights
+   at floor 0.2 reproduced the σ_d = 0.2 surfaces at unit amplitude
+   (depth ratios 1.04–1.16, same minima); the learned weights then
+   reproduced the oracle: separation 8/8 at every dose, static pinned at
+   the floor, corruption healed to 1.00–1.08× the healthy baseline, and
+   the live rescue followed. No constant was tuned toward green.
+3. **The floor is load-bearing — a design finding, not a safety margin.**
+   Full exclusion (f = 0) fails even with oracle knowledge (min 8 at age
+   24, dose-invariantly): silencing static entirely makes spare capacity
+   free, and the parsimony price alone cannot hold the elbow. A floor
+   > 0 keeps a residual price on wasted width.
+4. **Whiteness is the right statistic for this world family, for a
+   measured reason:** lag-1 autocorrelation is amplitude-invariant, so
+   separation cannot degrade with dose — the exact failure mode of the
+   residual-ratio alternative. The price is a scope limit, named at
+   pre-registration: temporally-correlated-but-unpredictable channels
+   read as structure; the whiteness×floor hybrid stays the named
+   successor if such a world enters the ladder.
+5. **Recorded amendments and misses (letter vs substance):** the E1a
+   σ = 0.5 age-48 clause and the E2 monotonicity clause each tested an
+   assumption the arc's own earlier results had already retired (the
+   long-age overfit drift; amplitude invariance) — both amended openly
+   with raw numbers kept. The E2 no-suppression letter failed on a
+   50-mark order statistic of jitter a 5-mark bar was calibrated for;
+   E4's paired arms measured the transients harmless everywhere, which
+   is now the clause. The improvement secondaries missed by 0.006/0.014
+   against constants derived on the other construction stream — recorded,
+   not re-derived. The learned-weights age-12 min sits on a 0.003-thin
+   4↔6 shelf. None of these touch the primary.
+6. **Caught along the way:** a bare `Engine` silently builds the
+   reference world regardless of `Config.world` — the arc's own first
+   E1b run measured the wrong world because of it, the shipped
+   mechanism's smoke run exposed it (all-structured weights near 1 are
+   impossible against real static), and the engine now refuses the
+   combination (hardening guard). The C3 pairing nuance is recorded: the
+   feature draws no RNG, but weighted election can shift a no-map birth
+   and decorrelate the shared stream — measured tiny (L1 occupancies
+   match OFF to ~0.01). Bonus reading: L1@0.8's recorded brain-finding
+   FAIL flips to PASS with weighting ON (twin-match 4/8 → 8/8) — region
+   noise was the perturbation, and down-weighting is its remedy too.
+7. **D1 (the relative survival bar) stays a named deferral.** Neither
+   trigger fired: E1b passed, and E3's primary passed. The achievable-
+   error bar remains the successor if a future world restores the
+   gradient but leaves winners above the absolute bar.
+8. **What ships:** `channel_weight_floor` / `channel_stats_decay`
+   (inert at default, byte-identical — test-guarded), the estimator on
+   the frame store with snapshot completeness, the engine world-factory
+   guard, the test set, and this trail.
