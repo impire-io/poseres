@@ -118,8 +118,11 @@ dials. Trails: `BLEND-DIAGNOSIS.md`, `PREDLP-DIAGNOSIS.md`.
 
 ## Phase B — Make it usable (platform)
 
-Phase B is complete (B1–B5); B3/B4 were
-engine work that everything in Phase C depends on.
+B1–B5 are complete; B3/B4 were engine work that everything in Phase C
+depends on. Two platform successors were added 2026-07-18 (JOURNEY.md
+ch. 27): **B6**, the external bus backend the distributed-operation chain
+always named as the step after B4, and **B7**, the dashboard that consumes
+it. They are sequenced strictly B6 → B7 — one transport, built once.
 
 ### B1. The watchable world (`examples/` + live viewer) — ✅ done (JOURNEY.md ch. 20)
 An in-repo 2D rover world with a built-in web viewer: `pip install poseres`,
@@ -198,6 +201,57 @@ positions. Bonus repair: a pre-existing one-ULP resume-exactness bug
 (frame-group order lost to sorting in the blob) found by this feature's
 tests and fixed — group order now travels as lived.
 
+### B6. External bus backend (NATS/JetStream) — open
+The next link in the distributed-operation chain (A1 → B4 → **this** →
+multi-machine), now a scheduled item rather than a horizon note. The
+framing that was considered and rejected (JOURNEY.md ch. 27): NATS
+*underneath* the engine. The fast loop is a batched in-process kernel
+whose validation story is byte-identity; a network hop inside it breaks
+both throughput and the T1–T7 gate. NATS enters **at the seams**, opt-in,
+with the reference paths byte-frozen — the same pattern as every feature
+since 001:
+
+- **Bus backend** (Doc 02's stated purpose): run telemetry fanned out as
+  subjects, so any external process can tap a live brain without touching
+  the run path — the B1 viewer discipline, generalized off-process.
+- **Snapshot transport**: the SnapshotStore seam backed by a JetStream
+  object store. This is also Phase D's "shareable brains" transport,
+  bought once.
+- **Control plane**: request/reply for pause / snapshot / inspect —
+  the management surface B7 and any future fleet tooling sit on.
+- **Inter-brain communication** (broadcast / anycast / unicast): named as
+  the horizon this enables, deliberately *not* in this item's exit —
+  brain-to-brain semantics are research, not plumbing.
+
+The determinism line is drawn in the spec before code: telemetry **out**
+is observer-safe (the B1 viewer precedent — non-perturbation proven by
+byte-identity tests); experience **in** over a network is a Doc 06 §5b
+class-4 mode (openly non-reproducible), stated up front, never
+discovered.
+*Gate:* B4 (done). Design-first: spec-kit feature with the seam
+inventory and the determinism boundary written before code.
+*Exit:* reference suite byte-identical with the backend absent, and with
+it attached as observer; a live run's telemetry consumed from NATS
+subjects by a separate process; snapshot round-trip through JetStream
+verified; the reproducibility classes of every NATS-touching mode
+recorded in Doc 06 §5b.
+
+### B7. Web dashboard / monitor — open, gated on B6
+The B1 viewer generalized: one dashboard for any PRA brain, consuming the
+B6 telemetry subjects and control plane — never a second transport. Two
+modes: **simple** (what the brain is doing, for a person standing in
+front of it) and **advanced** (population census, best_dim trajectory,
+score surfaces, per-frame detail — the researcher's instrument panel).
+Honest split of its two purposes: the *monitor* half is an instrument
+and ships here; the *"show what makes PRA unique"* half is a showcase
+spend and obeys principle 1 — published demo material inherits C1/C2's
+gates.
+*Gate:* B6.
+*Exit:* the dashboard attaches to a live run over NATS without
+perturbing it (byte-identity with dashboard attached — the B1
+discipline, now off-process); both modes render the rover world and one
+scaled run; zero engine edits.
+
 ---
 
 ## Phase C — Worlds makers care about (showcases)
@@ -233,6 +287,14 @@ first openly non-reproducible mode (Doc 06 §5b class 4, stated). What
 remains of C2 is the *showcase* itself — a physical build, its guide, and
 the mid-run growth video — on whichever body (ROS2 or Pybricks-direct) the
 build uses.
+*Showcase gate sharpened (2026-07-18, JOURNEY.md ch. 27):* real sensors
+carry noisy channels — the Gazebo lidar already NaN-poisoned a run
+(ch. 26), and channel static at sensor amplitude collapses selection
+(ch. 25). **Learned channel weighting** is therefore a de facto research
+gate for the physical showcase, not an unrelated open item. The build
+itself (CAD, printing, electronics) is cheap and may proceed in
+parallel; the growth video waits for the brain that survives real
+sensor noise.
 
 ### C3. Embedded steppable game server (parked)
 The Minecraft-like single binary — viable *only* as a tick-steppable fork
@@ -283,9 +345,9 @@ even though none is a schedulable milestone.
 - **Distributed operation — the path to larger intelligences.** The Doc 02
   bus seam was designed for this from the start; scaling a single brain
   across machines is how the architecture is meant to grow. Sequenced, not
-  skipped: A1 (done — a functioning ecology at scale) → B4 (multi-stream experience
-  on one machine proves the merged-experience science) → an external bus
-  backend (e.g. NATS/JetStream) → multi-machine. Distributing a brain whose
+  skipped: A1 (done — a functioning ecology at scale) → B4 (done — multi-stream
+  experience on one machine proves the merged-experience science) → the external
+  bus backend (**now scheduled as B6**) → multi-machine. Distributing a brain whose
   scale rules are still breaking would distribute the failure.
 - **Tool self-invention.** Tagged [O] since the design docs: the registration
   interface exists (Doc 02), the inventing mechanism is unsolved research.
@@ -315,12 +377,14 @@ project's claims and its measurements cannot drift apart.
 
 ---
 
-*Sequencing summary:* **Phase A complete (A1–A4)**; **Phase B complete
-(B1–B5)** — C1's gate (B3, B5, A4-guidance) and C2's (B3, physical-reset
-answer) are open; **C2's platform half landed** (the ROS2 adapter, feature
-013 — hardware and simulators through one seam; the showcase build/video
-remains); C1 next alongside the named research successors (learned channel
-weighting; frontier where camping costs; predictive LP); D alongside C;
-C3 parked.
+*Sequencing summary:* **Phase A complete (A1–A4)**; **B1–B5 complete**,
+with the platform successors **B6 (NATS at the seams) → B7 (dashboard)**
+scheduled (2026-07-18) — C1's gate (B3, B5, A4-guidance) and C2's (B3,
+physical-reset answer) are open; **C2's platform half landed** (the ROS2
+adapter, feature 013 — hardware and simulators through one seam; the
+showcase build/video remains, with **learned channel weighting** its
+named de facto research gate); C1 next alongside the named research
+successors (learned channel weighting; frontier where camping costs;
+predictive LP); D alongside C; C3 parked.
 *This file is load-bearing: changes to it are decisions and belong in
 JOURNEY.md like any other.*
