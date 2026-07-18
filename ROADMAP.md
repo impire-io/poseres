@@ -424,9 +424,15 @@ guidance stands; the predictive-LP form was then gated before code
 (arc 018, SCOUT-DIAGNOSIS, 2026-07-18) and **stopped at its gate**: no
 half-comparison over the current 200-entry err@visit FIFO can detect a
 regime change (the baseline is forgotten in ~5 episodes), so the
-successor is a representation feature — **place-indexed long-horizon
-error memory** — before any predictive-LP drive; C1 next alongside it
-(the relative survival bar stays a named conditional deferral); D
-alongside C; C3 parked.
+successor is a representation feature; the observation-space form of
+that memory then also stopped at its offline gate (arc 019,
+PLACEMEM-DIAGNOSIS, 2026-07-18): raw-observation places are **not
+shift-invariant** — a dynamics shift moves where the brain goes, so
+mastered anchors are not revisited — and the successor is now
+two-part: **error memory in a shift-invariant space** (the frame's own
+pose/encoding is the in-system candidate) with **spike-robust per-cell
+statistics**, plus a complementary emission-shift world for the ladder;
+C1 next alongside that research (the relative survival bar stays a
+named conditional deferral); D alongside C; C3 parked.
 *This file is load-bearing: changes to it are decisions and belong in
 JOURNEY.md like any other.*

@@ -94,3 +94,61 @@ the shift is?).
 
 Results are appended as they land; the Outcome section closes the arc.
 Scratchpad instruments stay out of git; protocols and tables live here.
+
+## Result: P1 (recorded 2026-07-18; offline replay over live traces, shifting seeds 1–3 + multiregion seed 1)
+
+**FAIL — X0, twice, with one openly-amended design revision in between.**
+
+As registered (fast EMA, min of fast): staleness medians — multiregion
+**0.110**; shifting pre-shift 0.113 / 0.088 / 0.168, post-shift 0.064 /
+0.082 / 0.122. Every clause broken: benign ground reads ~0.1 staleness,
+and **post-shift reads LOWER than pre-shift in all three seeds.**
+
+Amendment, recorded before the retry: the registered X0 allowed no
+design revision — stricter than the house norm (CHANNELWEIGHT X1
+granted two recorded revisions for design iteration distinct from
+criterion tuning). Amended to permit **one** recorded revision with the
+accept bars untouched. Revision 1 (constant-free double smoothing:
+`smooth = EMA(fast)` at the same decay, `best = min(smooth)`,
+staleness = smooth − best): multiregion 0.108; pre 0.108 / 0.085 /
+0.160, post 0.062 / 0.085 / 0.119. **No material change — the floor is
+not EMA fluctuation noise. The revision budget is spent; X0 closes the
+arc with zero src changes.**
+
+**The diagnosis, in two layers (the recorded value of this arc):**
+
+1. *Min-skimming is real but shallow*: per-step errors-at-visit are
+   spiky, so a running min under any smoothing this fast skims a
+   ~0.1 staleness floor onto benign ground. Curable in principle
+   (spike-robust per-cell statistics), and not the binding break.
+2. *The binding break is the anchor space*: a displacement-set shift
+   changes **where the brain goes** — the visited observation
+   distribution itself moves — so post-shift trajectories rarely
+   revisit the anchors whose `best` encodes pre-shift mastery, and
+   place-anchored comparison has nothing to compare (post < pre
+   staleness is the fingerprint: late-life traffic concentrates on
+   anchors with no mastered baseline). Observation-space places are
+   **not shift-invariant** in this world family.
+
+## Outcome (recorded 2026-07-18)
+
+1. **The arc closes at its gate with zero src changes** — the second
+   consecutive arc to do so, and the pre-registration priced that
+   outcome in as a complete deliverable.
+2. **The successor question is now sharply posed, in two named parts:**
+   (i) *representation space* — error memory must be anchored in a
+   space invariant to the change being detected (the frame's own
+   pose/encoding space is the in-system candidate: the emission map
+   survives the 017 shift, so encoded places should too), and
+   (ii) *statistics* — per-cell error summaries robust to the spiky
+   per-step series (median-of-means, not EMA minima). Both are Doc
+   05-adjacent design research; neither is a dial.
+3. **A testbed note, recorded for the next design:** the 017 shifting
+   world changes the visited distribution along with the dynamics —
+   any staleness detector validated there must survive that
+   confound, or a complementary world (emission-shift at fixed
+   dynamics) should join the ladder first.
+4. **What ships: nothing but knowledge** — this trail, the spec that
+   scoped it, and the two-part successor. Doc 05 guidance unchanged:
+   competence stands. The 017 worlds and frozen grid remain the
+   waiting testbed.
