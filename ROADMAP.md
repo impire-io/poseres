@@ -433,10 +433,13 @@ two-part; the emission-shift world then completed the testbed pair
 (arc 020) and action-context anchors failed the same gate (arc 021,
 CONTEXTMEM-DIAGNOSIS) — **three eliminated spaces, one ~1–2× ceiling,
 and a signal-level diagnosis**: per-step errors-at-visit are a tracking
-signal, so the successor is a **transfer-error stream for the agency
-layer** (episode-start prediction errors, the fair-judge lesson applied
-to drives) before any further anchor-space design; C1 next alongside
-that research (the relative survival bar stays a named conditional
-deferral); D alongside C; C3 parked.
+signal — and the transfer stream measured next (arc 022,
+TRANSFERSIG-DIAGNOSIS) **is the right signal**: direction universal on
+both shift modes, ratios to 7× where tracking managed ~1×, bars still
+unmet with the frozen grid ending mid-improvement, so the successor is
+the **extended transfer-staleness probe** (richer cells, longer
+windows, pre-registered fresh; per-frame transfer error as fallback);
+C1 next alongside it (the relative survival bar stays a named
+conditional deferral); D alongside C; C3 parked.
 *This file is load-bearing: changes to it are decisions and belong in
 JOURNEY.md like any other.*

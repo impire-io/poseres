@@ -252,10 +252,14 @@ a territory move, vs the 4× bar). Action-context anchors then failed the same
 gate (Chapter 35) — three spaces, one ~1–2× ceiling — and the diagnosis
 moved down a level: the per-step errors-at-visit stream is a *tracking*
 signal, and staleness detection needs a *transfer* signal (the
-fair-judge lesson, applied to drives). Open research, in priority
-order: **a transfer-error stream for the agency layer**
-(episode-start prediction errors as the staleness input; the three
-eliminated spaces retry on top of it), the
+fair-judge lesson, applied to drives). The transfer stream was then
+measured (Chapter 36): **the right signal at last** — staleness moves
+the right way in all six shift cells on both modes, ratios to 7× where
+tracking managed ~1× — but the frozen bars are unmet (two ~1.5× seeds,
+floor uncleared) and the grid ended still improving. Open research, in
+priority order: **the transfer-staleness probe, extended**
+(richer context cells, longer windows, pre-registered fresh; per-frame
+transfer error as fallback), the
 elect-gating question, and (design-level,
 when a deployment demands it) whether reference-scale long lifetimes
 eventually need the cap too. Snapshot support for anatomy-resized runs
@@ -1394,6 +1398,32 @@ eliminated representations, and a signal-level diagnosis with an
 in-house precedent for the fix. Doc 05 guidance unchanged — competence
 stands. Trail: `design/validate/CONTEXTMEM-DIAGNOSIS.md`;
 `specs/021-context-memory/spec.md`; commit `bba601a` and this close.
+
+## Chapter 36 — The vein is found: transfer errors carry what tracking drowns (2026-07-18)
+
+The fourth staleness gate, and the first to strike signal. The arc
+changed nothing but the input: the same cell arithmetic and the same
+chapter-34 bracket, computed on the **transfer stream** — errors at the
+first K = 5 steps of each episode, the fair judge's own recorded
+constant reused — instead of the all-step tracking stream that three
+anchor spaces had failed on identically. At the best frozen setting
+(two-action context cells, window 16), staleness moved the right way in
+**all six** shift cells on **both** world-change modes — the tracking
+stream never once managed direction on a dynamics shift — with ratios
+2.5–7.2× (dynamics) and 1.5–3.3× (emission) against a benign floor that
+collapsed monotonically as cells deepened (0.163 → 0.027 across the
+grid). The frozen bars are still unmet: two seeds sit at ~1.5× and the
+floor is not 4×-cleared, and the grid ended exactly where its own trend
+was still improving. Extending it post hoc would be the tuning the
+discipline forbids, so the arc closed at X0 — the fourth consecutive
+zero-src gate-stop — with the successor probe named *from the measured
+trend*: richer context cells and longer windows on the transfer stream,
+pre-registered fresh, with per-frame transfer error as the fallback
+space. The staleness program's map is now clean: right signal
+(transfer), known direction (slower, higher-resolution statistics),
+testbeds and brackets standing ready. Doc 05 guidance unchanged —
+competence stands. Trail: `design/validate/TRANSFERSIG-DIAGNOSIS.md`;
+commits `51173f0` (pre-registration), `a75e18d` (result + outcome).
 
 ## Chapter template (append below)
 
