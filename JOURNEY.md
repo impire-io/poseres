@@ -278,14 +278,21 @@ exceed every shift cell's peak. **Four signal families measured on one
 testbed, one verdict: no passive statistic separates a world change
 from the brain's own nonstationarity — the detector's background is
 the brain itself.** The staleness-detection program pauses with its
-map complete. Open threads, in priority order: **C1** (the roadmap's
-front); **scheduled probing** (the named active successor: re-visit
-mastered ground under a held policy and re-test — detection as a
-designed experiment, a Doc 05-level feature, when the program
-resumes); the ch. 39 tolerant-gate conditional (~1.6% false-fire, if a
-deployment can afford it); and (design-level, when a deployment
-demands it) whether reference-scale long lifetimes eventually need the
-cap too. Snapshot support for anatomy-resized runs
+map complete. **C1's runway is cleared** (Chapter 41): the reference-
+scale lifetime question is answered at deployment length — no rot in
+500k-step soaks (episodic stationary, continuous decelerating; cap
+measured behaviorally free → C1 runs cap-on), resume byte-identical at
+500k in every arm, and two honest bar-failures converted to sizing
+facts (continuous rides the population ceiling at ~10% wall cost;
+snapshot blobs grow ~8 B/step by design — bounded-trace option named
+as a future feature). Open threads, in priority order: **C1** (build
+and launch — posture green, config notes recorded); **scheduled
+probing** (the named active successor: re-visit mastered ground under
+a held policy and re-test — detection as a designed experiment, a Doc
+05-level feature, when the program resumes); the ch. 39 tolerant-gate
+conditional (~1.6% false-fire, if a deployment can afford it); and the
+bounded-trace snapshot option (when a deployment's horizon demands
+it). Snapshot support for anatomy-resized runs
 shipped in Chapter 23. **A live brain now has an off-process presence**
 (Chapters 27–28): the platform successors were sequenced (B6 → B7, one
 transport built once; NATS-underneath-the-engine rejected on the
@@ -1591,6 +1598,40 @@ never depended on detection: competence stands. With the map complete
 the detection program pauses, and the roadmap's front returns to C1.
 Trail: `design/validate/ELECTSTREAM-DIAGNOSIS.md`; commits `1881dfc`
 (pre-registration), `bc05ba6` (close).
+
+## Chapter 41 — The soak before the weeks: C1's deferred questions answered in an afternoon (2026-07-19)
+
+With the staleness program paused and C1 the front, two recorded
+deferrals sat under the multi-week run: does reference-scale weight rot
+appear at deployment lengths (the ch. 14 open tail), and what does the
+ch. 21 drift caveat mean for an unbroken run? Rather than discover the
+answers at week two of a live deployment, arc 026 paid for them in
+compute: sixteen 500,200-step runs (the C1 cooldown arithmetic),
+episodic × continuous, cap off × on, competence drive, instrumented
+entirely through snapshots — plus four resumed half-runs to exercise
+the persistence guarantee at length.
+
+The headline: **no rot at reference scale over a C1 lifetime.**
+Episodic norms are stationary; continuous norms grow slowly and
+decelerate but have not plateaued by 500k steps — and since the cap-on
+controls show capping is behaviorally free (identical early/late
+errors to three decimals), the recorded recommendation is simply to
+run C1 with the cap on and close the tail. **Resume is byte-identical
+at 500k steps in all four arms** — Doc 06's constitution, now
+exercised at deployment length. Two frozen bars failed honestly and
+both diagnoses came back "by construction, not defect": continuous
+mode fills the population budget and rides it forever at max_frames +
+spawn_per_cycle (the evict-then-spawn ordering; measured wall cost of
+a ceiling-full brain: ~10%), and snapshot blobs grow ~8 bytes/step
+without bound because the per-step error trace is deliberately carried
+in-state (feature 003) — 2–20 MB over a three-month C1 run, tolerable,
+with a bounded-trace snapshot option named as a future feature that
+must first resolve its Doc 06 semantics. Zero src changes; the
+mis-anchored bars are recorded as such with the numbers beside them.
+**C1 launch posture: GREEN** — cap on, snapshot cadence sized to the
+growth, population budgeted at the ceiling. Trail:
+`design/validate/C1SOAK-DIAGNOSIS.md`; commits `8ff6808`
+(pre-registration), `53437b0` (close).
 
 ## Chapter template (append below)
 

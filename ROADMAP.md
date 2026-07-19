@@ -449,7 +449,11 @@ background is the brain itself; the staleness-detection program
 pauses with its map complete**, successor named (scheduled probing —
 active re-visit under a held policy; a Doc 05-level feature), the
 tolerant gate a recorded conditional;
-**C1 is the front** (the relative survival bar stays a named
-conditional deferral); D alongside C; C3 parked.
+**C1 is the front and its runway is cleared** (arc 026,
+C1SOAK-DIAGNOSIS: no reference-scale rot at 500k steps, resume
+byte-identical at length, launch posture GREEN with config notes —
+cap on, ~8 B/step blob growth budgeted, population at the ceiling in
+continuous mode; the relative survival bar stays a named conditional
+deferral); D alongside C; C3 parked.
 *This file is load-bearing: changes to it are decisions and belong in
 JOURNEY.md like any other.*
