@@ -439,11 +439,15 @@ both shift modes, ratios to 7× where tracking managed ~1×; the extended
 probe (arc 023, TRANSFERSTALE-DIAGNOSIS) then measured the full
 (resolution × window) plane and **closed the windowed-median family**
 (best margin 0.21 at the shallow corner, ~5× short; the per-frame
-fallback censored by election), so the successors are the
-**change-point form** on the transfer stream (self-normalized,
-hit/false-alarm bars pre-registered fresh) and the **election-stream
-space** (staleness as who stops electing);
-C1 next alongside them (the relative survival bar stays a named
+fallback censored by election), and the change-point arc (024,
+CHANGEPOINT-DIAGNOSIS) closed jump and accumulation too — three
+families, one verdict: the population transfer stream lacks contrast
+for universal detection at honest false-alarm rates (best ROC 6/6
+within four episodes at ~1.6% false-fire), so the successor is the
+**election-stream space** (staleness as who stops electing, the
+cheapest instrument — elections are already counted), with the
+tolerant-gate question a named conditional;
+C1 next alongside it (the relative survival bar stays a named
 conditional deferral); D alongside C; C3 parked.
 *This file is load-bearing: changes to it are decisions and belong in
 JOURNEY.md like any other.*

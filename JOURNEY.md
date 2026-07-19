@@ -265,15 +265,21 @@ worst-cell margin 0.21, at the *shallow* corner — the 022 trend was the
 floor leg only), the per-frame fallback is structurally censored by
 election (stale frames stop electing and leave the reading), and the
 signal itself is immediate and real (~2× first-bin contrast, decaying
-with relearning): a contrast problem, not a latency problem. Open
-research, in priority order: **the change-point successor** (a
-self-normalized read on the same transfer stream, judged by
-hit/false-alarm counts on the testbed pair, bars pre-registered fresh),
-**the election-stream space** (staleness as who goes silent — mapped
-fraction and refused elections of mastered frames, absorbing the old
-elect-gating question), and (design-level, when a deployment demands
-it) whether reference-scale long lifetimes eventually need the cap
-too. Snapshot support for anatomy-resized runs
+with relearning): a contrast problem, not a latency problem. The
+change-point successor then closed the question end-to-end (Chapter
+39): jump and accumulation statistics fail the same way level did —
+the weak half of the shift cells never separates from benign
+background at honest false-alarm rates (best ROC: 6/6 detection within
+four episodes only at ~1.6% false-fire) — so **the population transfer
+read is closed across all three statistic families, and it was never
+the statistic**. Open research, in priority order: **the
+election-stream space** (staleness as who goes silent — mapped
+fraction and refused elections of mastered frames, the ch. 38
+censorship mechanism turned into the signal; absorbs the old
+elect-gating question), the named tolerant-gate conditional (whether a
+~2%-false-fire detector still collects, only if a deployment wants
+it), and (design-level, when a deployment demands it) whether
+reference-scale long lifetimes eventually need the cap too. Snapshot support for anatomy-resized runs
 shipped in Chapter 23. **A live brain now has an off-process presence**
 (Chapters 27–28): the platform successors were sequenced (B6 → B7, one
 transport built once; NATS-underneath-the-engine rejected on the
@@ -1509,6 +1515,36 @@ space** — staleness as who goes silent, not whose error rises. Doc 05
 guidance unchanged: competence stands. Trail:
 `design/validate/TRANSFERSTALE-DIAGNOSIS.md`; commits `d1cf02d`
 (pre-registration), `34ac8c6` (I0 reconciliation), `8fd7d52` (close).
+
+## Chapter 39 — Not the statistic: the population transfer read closes end-to-end (2026-07-19)
+
+The ch. 38 successor ran the same day, on the same fourteen traces (the
+instrument of record, reused verbatim): a change-point probe — does the
+jump against the stream's *own recent past* separate, where level bars
+against a cross-world floor could not? Hit/false-alarm bars were frozen
+fresh (fire in the first two post-shift cycles on all six cells, zero
+false alarms pre-shift and benign; 023's held-out confirmation tier
+kept), with Z-jump (median/MAD window contrast) as P1 and Page–Hinkley
+accumulation as the frozen fallback.
+
+Both closed at X0, and together they finish the question. Z-jump is
+structurally blocked: at every window shape the background's largest
+excursion (z ≈ 2–7) exceeds the weakest shift cells' peaks (z ≈ 1–2) —
+no threshold, in or out of the grid, could separate. Page–Hinkley
+measures the whole trade instead: 6/6 detection within four episodes at
+the sensitive corner, but at a ~1.6% false-fire rate; every
+near-zero-false-alarm setting detects at most one cell. Three statistic
+families — level (ch. 38), jump, accumulation — now share one verdict
+on one testbed: the weak half of the shift cells is statistically
+indistinguishable from benign background in the population transfer
+stream. It was never the statistic. The recorded conditional (a
+tolerant ~2%-false-fire gate for a drive that can afford wasted
+exploration) is named, not smuggled in; the front door is now the
+**election stream** — staleness as who goes silent, the mechanism P2 of
+ch. 38 exposed, and the cheapest instrument in the program (the engine
+already counts elections). Doc 05 guidance unchanged: competence
+stands. Trail: `design/validate/CHANGEPOINT-DIAGNOSIS.md`; commits
+`6537743` (pre-registration), `05b6f25` (close).
 
 ## Chapter template (append below)
 
