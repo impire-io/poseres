@@ -435,11 +435,15 @@ CONTEXTMEM-DIAGNOSIS) — **three eliminated spaces, one ~1–2× ceiling,
 and a signal-level diagnosis**: per-step errors-at-visit are a tracking
 signal — and the transfer stream measured next (arc 022,
 TRANSFERSIG-DIAGNOSIS) **is the right signal**: direction universal on
-both shift modes, ratios to 7× where tracking managed ~1×, bars still
-unmet with the frozen grid ending mid-improvement, so the successor is
-the **extended transfer-staleness probe** (richer cells, longer
-windows, pre-registered fresh; per-frame transfer error as fallback);
-C1 next alongside it (the relative survival bar stays a named
+both shift modes, ratios to 7× where tracking managed ~1×; the extended
+probe (arc 023, TRANSFERSTALE-DIAGNOSIS) then measured the full
+(resolution × window) plane and **closed the windowed-median family**
+(best margin 0.21 at the shallow corner, ~5× short; the per-frame
+fallback censored by election), so the successors are the
+**change-point form** on the transfer stream (self-normalized,
+hit/false-alarm bars pre-registered fresh) and the **election-stream
+space** (staleness as who stops electing);
+C1 next alongside them (the relative survival bar stays a named
 conditional deferral); D alongside C; C3 parked.
 *This file is load-bearing: changes to it are decisions and belong in
 JOURNEY.md like any other.*

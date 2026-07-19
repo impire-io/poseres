@@ -149,7 +149,7 @@ the implementation commit following it.
 
 ---
 
-## Where things stand (2026-07-18)
+## Where things stand (2026-07-19)
 
 The project now has a product thesis and a milestone-gated plan — **an OSS
 continuously-learning brain for hobbyists and makers**, `ROADMAP.md`
@@ -257,14 +257,23 @@ signal, and staleness detection needs a *transfer* signal (the
 fair-judge lesson, applied to drives). The transfer stream was then
 measured (Chapter 36): **the right signal at last** — staleness moves
 the right way in all six shift cells on both modes, ratios to 7× where
-tracking managed ~1× — but the frozen bars are unmet (two ~1.5× seeds,
-floor uncleared) and the grid ended still improving. Open research, in
-priority order: **the transfer-staleness probe, extended**
-(richer context cells, longer windows, pre-registered fresh; per-frame
-transfer error as fallback), the
-elect-gating question, and (design-level,
-when a deployment demands it) whether reference-scale long lifetimes
-eventually need the cap too. Snapshot support for anatomy-resized runs
+tracking managed ~1× — but the frozen bars are unmet and the grid ended
+still improving. The extended probe then measured the whole plane
+(Chapter 38) and **closed the statistic family**: no windowed-median
+level statistic on the transfer stream reaches the 4× bracket (best
+worst-cell margin 0.21, at the *shallow* corner — the 022 trend was the
+floor leg only), the per-frame fallback is structurally censored by
+election (stale frames stop electing and leave the reading), and the
+signal itself is immediate and real (~2× first-bin contrast, decaying
+with relearning): a contrast problem, not a latency problem. Open
+research, in priority order: **the change-point successor** (a
+self-normalized read on the same transfer stream, judged by
+hit/false-alarm counts on the testbed pair, bars pre-registered fresh),
+**the election-stream space** (staleness as who goes silent — mapped
+fraction and refused elections of mastered frames, absorbing the old
+elect-gating question), and (design-level, when a deployment demands
+it) whether reference-scale long lifetimes eventually need the cap
+too. Snapshot support for anatomy-resized runs
 shipped in Chapter 23. **A live brain now has an off-process presence**
 (Chapters 27–28): the platform successors were sequenced (B6 → B7, one
 transport built once; NATS-underneath-the-engine rejected on the
@@ -1461,6 +1470,45 @@ resume over 150 resumed steps. Trail: `explainer/index.html`; this close.
 (Numbering note: authored as "Chapter 35" in a parallel session while
 chapters 35–36 landed on main; renumbered mechanically to 37 at merge,
 content untouched.)
+
+## Chapter 38 — The plane is measured: level statistics close, two doors open (2026-07-19)
+
+The 022 successor ran exactly as named: richer context cells (phase,
+ctx3/ctx4, context⊗phase) and longer windows (to W=64) on the transfer
+stream, at a reading-count-parity post span (6760..10600), with per-frame
+transfer error as the frozen fallback and — new — a held-out confirmation
+tier so a 32-setting grid could not buy a pass by search. The I0
+instrument-reproduction gate fired first (XI): the recorded 022 decimals
+do not reproduce under the registered arithmetic or five nearby variants
+— but every recorded *conclusion* does (direction universal, monotone
+benign collapse 0.180→0.030 vs recorded 0.163→0.027, bars unmet, floor
+as blocker), the residue is most consistent with an unrecorded join
+detail in the retired 022 scratchpad, and the reconciliation was
+committed before any extended number was read. The instrument of record
+is now written down.
+
+The extension itself refuted the trend it was built to ride. The benign
+floor does keep falling with resolution (to 0.010) but the post-shift
+response dies faster; the worst-cell margin (post ÷ max(4·pre, 4·benign))
+is maximized at the *shallow* corner — ctx1/W8, 0.21, ~5× short — so
+022's "grid ended still improving" was the floor leg only, and no
+windowed-median level statistic on this stream reaches the 4× bracket.
+The per-frame fallback failed more sharply: directionally dead (post ≈
+pre, one emission seed *falls*), because **election censors the signal**
+— frames the shift hurt stop clearing the fit gate and leave the reading
+population. Meanwhile the trajectory read shows the signal itself is
+immediate and real: first-bin elevation on all six cells at ~2× the
+trailing background, decaying over ~6–16 cycles as the brain relearns.
+No latency problem — a contrast problem.
+
+Fifth consecutive zero-src gate-stop, and the successors are named by
+the numbers: a **self-normalized change-point form** on the same
+transfer stream (judged by hit/false-alarm counts on the testbed pair,
+bars pre-registered fresh), and the **election stream as the fallback
+space** — staleness as who goes silent, not whose error rises. Doc 05
+guidance unchanged: competence stands. Trail:
+`design/validate/TRANSFERSTALE-DIAGNOSIS.md`; commits `d1cf02d`
+(pre-registration), `34ac8c6` (I0 reconciliation), `8fd7d52` (close).
 
 ## Chapter template (append below)
 
