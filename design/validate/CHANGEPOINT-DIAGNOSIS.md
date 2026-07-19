@@ -93,3 +93,58 @@ byte-identity at default everywhere.
 
 Results are appended as they land; the Outcome section closes the arc.
 Scratchpad instruments stay out of git; protocols and tables live here.
+
+## Result: P1 (recorded 2026-07-19; screening tier, all 8 window shapes × 3 thresholds)
+
+**FAIL at every setting — X0 — and no threshold outside the grid could
+have passed either.** The separation read makes it structural: at every
+(space, n_test, n_ref), the false-alarm ceiling (the largest z the
+pre-shift and benign spans produce: 2.0–6.8) sits ABOVE the hit floor
+(the weakest shift cell's detection-window peak: 0.9–1.8). Best
+separation, global/nt10/nr60: hit floor 1.7 vs fa ceiling 5.5 — the
+background out-jumps the weak half of the shift cells (dyn s1, emi s2
+peak at z ≈ 1.0–2.0 everywhere) at every window shape. Sharp window
+contrast cannot see the weak cells at all. Confirmation tier: never
+read (no screening pass).
+
+## Result: P2 (recorded 2026-07-19; Page–Hinkley fallback, all 24 settings)
+
+**FAIL — X0 — with the sensitivity/specificity trade now measured
+end-to-end.** The accumulator CAN catch everything: ctx1/nr60/δ1/λ10
+hits 6/6 with detection latency +5..+161 steps (within four episodes on
+every cell) — but at 101 false alarms across the read spans (~1.6% of
+~6300 read samples). Tightening toward the zero-FA bar collapses
+detection monotonically: global δ2/λ40 = 1/6 hits at 1 false alarm;
+both zero-FA settings (ctx1 δ2/λ40, ctx1/nr60 δ2/λ40) detect nothing.
+No operating point in either space clears both bars; the ROC bends far
+from the corner. Confirmation tier: never read.
+
+## Outcome (recorded 2026-07-19)
+
+1. **The change-point family closes on this stream — and with it the
+   population transfer read as a whole.** Level statistics (ch. 38),
+   sharp jumps (P1), and sustained accumulation (P2) have now all been
+   measured against the same frozen testbed, and all fail the same
+   way: the weak half of the shift cells (dynamics s1, emission s2 —
+   different seeds, both modes) produces post-shift elevation that is
+   statistically indistinguishable from the benign stream's own
+   fluctuations. The diagnosis moves up a level: **it was never the
+   statistic — the population transfer-error stream at drive level
+   does not carry enough contrast for universal detection at honest
+   false-alarm rates.**
+2. **What the family CAN do is recorded, not discarded**: a
+   PH detector at the sensitive corner detects every shift within four
+   episodes at a ~1.6% false-fire rate — potentially useful for a
+   drive gate that tolerates occasional wasted exploration, but that
+   is a different question with different bars, and it is named here,
+   not smuggled in.
+3. **The front door is now the election stream** (the X0 clause, and
+   ch. 38's successor ii): staleness as *who goes silent* — mapped
+   fraction and refused elections of previously-mastered frames — on
+   the same testbed pair. It is also the cheapest instrument in the
+   program: the engine already counts elections in the hot loop.
+4. **What ships: nothing but knowledge** — two closed statistic
+   families with their mechanism, one measured ROC, one named
+   conditional (the tolerant-gate question), and the program pointed
+   at the stream P2's censorship finding said to read. Doc 05
+   guidance unchanged: competence stands.
