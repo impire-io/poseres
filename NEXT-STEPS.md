@@ -1,4 +1,9 @@
-# PRA — Next Steps (handoff to Claude Code)
+# PRA — Next Steps (HISTORICAL — superseded by ROADMAP.md)
+
+> **2026-07-19: this document is a June 2026 handoff, kept for provenance
+> (feature 001's spec documents cite it). Everything below is done or
+> superseded. The live plan is `ROADMAP.md`; the narrative is `JOURNEY.md`.
+> Do not add new work here.**
 
 Updated 2026-06-20, after running the STEP-0 gate, redesigning the scoring, and
 propagating the fix into the spec. Read this first, then work top-down.

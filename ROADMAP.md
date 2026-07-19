@@ -363,8 +363,10 @@ even though none is a schedulable milestone.
 - **An alternative paradigm of intelligence.** PRA's long-range claim is
   against *frozen* intelligence — the trained-then-deployed model — on the
   axis where that paradigm is structurally weak: continual learning, online
-  restructuring, adaptation without retraining. Not "beat LLMs at language";
-  language is not PRA's axis. When the research matures, this claim demands
+  restructuring, adaptation without retraining. PRA does not compete with
+  frozen LLMs at *being* a language model; whether a PRA brain can *learn*
+  language from lived interaction is a gated horizon question (below,
+  amended 2026-07-19 — JOURNEY.md ch. 42). When the research matures, this claim demands
   honest comparative evaluation against continual-learning and RL baselines,
   run with the same spread-and-horizons discipline as everything else.
   *Precondition:* Phase A complete and the ladder results strong enough that
@@ -388,13 +390,60 @@ even though none is a schedulable milestone.
   else: revisit when the research earns it. A paradigm claim eventually
   requires richer senses; the frame architecture is not there yet, and
   pretending otherwise would put a demo ahead of a capability.
+- **Language as a learnable world** (added 2026-07-19, reversing the
+  2026-07-08 exclusion — JOURNEY.md ch. 42). The founding bet
+  (`design/validate/pose-resolution-architecture.md`: the same machinery
+  for physical objects and abstract concepts) makes language a *world to
+  learn*, not a rival's turf. The named first gate: the **teacher-world
+  experiment** — observation = sentence-so-far plus teacher feedback
+  (feedback is world state, not a new reward channel; the teacher is an
+  object in the world), action = emit token (character-level first, ~30
+  actions), an LLM as the interactive teacher (which also makes the world
+  recurrent, satisfying the B3 finding). Three prerequisite decisions
+  before it can run: whether the competence drive alone pulls toward
+  teacher approval (predicting disapproval ≠ avoiding it — an unmeasured
+  hypothesis: a systematic teacher makes sensible utterances more
+  *predictable*), per-action transition slices vs realistic vocabularies
+  (a mechanism gap — factored/embedded actions are kernel research, to be
+  derisked small, not scaled through), and the observation encoding for
+  unbounded sequences. Pre-registered prediction in ch. 42. No language
+  showcase before the gate reads — the constitution applies.
+- **Seeding / compounding intelligence** (added 2026-07-19; experiment
+  space, no decisions taken). The claim to measure: a snapshotted brain used
+  as a *seed* gives a new brain a head start, and the head start survives
+  chaining (brain A seeds B seeds C). Runnable with current code (B5
+  snapshots + existing worlds/harness). The honest design: three arms —
+  seeded vs fresh vs a maturity control (equivalent experience in an
+  *unrelated* world) — on rover map A → map B first (same anatomy), then a
+  resize hop (transfer benefit across `resize()` is unmeasured; only
+  bit-preservation is). Pre-registered claim: seeded reaches a stated
+  competence threshold in less experience, 24 paired seeds, and the margin
+  does **not** shrink across two hops (a head start that halves per hop is a
+  discount, not compounding). Reversal condition: if seeded loses or margins
+  shrink hop-over-hop, earned persistence is the suspect and "seed brains"
+  leaves the vision language until diagnosed. Seed-protection ideas
+  (age-modulated plasticity — older seeds adapt slower) are second-round
+  only, tested only if unprotected seeding measurably forgets, and must
+  face PRA's **two forgetting channels**: weight drift AND eviction —
+  slower learning protects against drift while an unadaptable frame's EMAs
+  climb until the ecology evicts it, so any plasticity rule likely needs a
+  paired eviction-grace rule. Earned persistence already protects
+  well-mapping seeded frames for free, hence "no protection" is the honest
+  first arm. Feeds the same session's open questions: language-as-world
+  (sentence / add-token / teacher-feedback-as-observation; whether the
+  competence drive alone pulls toward approval is unmeasured) and
+  per-action transition slices vs large action vocabularies (mechanism gap
+  — factored/embedded actions).
 
 ## Non-goals (still)
 
 Benchmark theater (chasing leaderboard SOTA for its own sake — comparative
 evaluation above is the honest substitute); any hosted service (this is OSS
-you run yourself); competing on language and encyclopedic knowledge — that is
-LLMs' home turf and not PRA's axis.
+you run yourself); competing with frozen LLMs on encyclopedic recall — a
+stored-knowledge property, not a learning property. *Language learning* is
+no longer on this list: it moved to Horizon ambitions on 2026-07-19 as a
+gated research question (the 2026-07-08 exclusion reversed — JOURNEY.md
+ch. 42).
 
 ## Standing risks
 
