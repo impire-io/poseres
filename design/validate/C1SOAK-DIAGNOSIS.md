@@ -77,3 +77,71 @@ drift.
 
 Results are appended as they land; the Outcome section closes the arc.
 Scratchpad instruments stay out of git; protocols and tables live here.
+
+## Result (recorded 2026-07-19; 16 runs × 500,200 steps + 4 resumed half-runs)
+
+**S1 — PASS, 8/8 cap-off runs; the deferred rot question is answered
+for C1 lengths.** Episodic cap-off is stationary (growth ratios 0.80 /
+0.84 / 0.88 / 1.30 from cycle 520 to 2080; the max bounces in a 2–6
+band with frame churn, no trend). Continuous cap-off grows slowly —
+1.28 / 1.33 / 1.36 / 1.47, all under the 1.5 bar but the last one
+narrowly — and the trajectory is *decelerating without having
+plateaued* (seed 1 increments per 160 cycles: 0.74 → 0.27 → … → 0.08).
+No NaN/inf anywhere. The cap-on controls calibrate the instrument and
+the mechanism at once: the capped quantity rides at ≈ 1.20–1.28
+exactly as `project_norms` promises, and capping is **measured
+behaviorally free** (continuous seed 1: early error 0.1309 with cap
+and without; late 0.0328 vs 0.0312).
+**S2 — episodic PASS; continuous fails the letter, and the diagnosis
+is by-construction.** Continuous population climbs to the frame
+budget by ~cycle 960 and rides it forever at **201**: `offline_cycle`
+evicts down to `max_frames` = 200 and THEN spawns `spawn_per_cycle`
+= 1, so the true steady-state invariant is ≤ max_frames +
+spawn_per_cycle — the bar mis-modeled the recorded ordering, not the
+ecology. The substantive finding stands: **continuous mode saturates
+the population budget** (episodic stabilizes at 6–46) — consistent
+with ch. 21's drift caveat (perpetual novelty) — at a measured wall
+cost of only ~10% (373–400 s vs 345–358 s per 500k steps): per-step
+cost is overhead-dominated, not population-dominated. Births continue
+in every run; nothing freezes.
+**S3 — size clause fails everywhere, mechanism identified and
+verified; resume clause passes everywhere.** Blobs grow 2.0–2.4 MB →
+7.6–7.9 MB across ALL arms uniformly — the in-state per-step
+pred-error trace (122,577 floats at cycle 520 → 487,428 at 2080,
+~8 bytes/step, linear since feature 003 by design; population state
+is bounded; nothing leaks). The frozen 1.25× bar mis-modeled a
+recorded design property. The clause that matters held: **resume from
+cycle 1040 reproduces the cycle-2080 blob byte-for-byte in all four
+arms** — Doc 06's guarantee, now exercised at 500k steps.
+**S4 — PASS, 4/4 episodic runs** (improvement ≥ 0). Continuous
+context rows, recorded not judged: improvements +0.10…+0.25, early
+0.13–0.28 → late ~0.03 — learning is strong in continuous mode
+despite the world-drift caveat.
+
+## Outcome (recorded 2026-07-19)
+
+1. **No rot at reference scale over a C1 lifetime — the ch. 14
+   deferral is answered with trajectories, not conjecture.** Episodic
+   norms are stationary; continuous norms decelerate but have not
+   plateaued by 500k steps. Since the cap is measured behaviorally
+   free, the recorded recommendation is: **C1 runs with
+   `weight_norm_cap = 1.2`** — it closes the un-plateaued tail for
+   multi-month horizons at zero measured cost. Guidance, not a
+   default change (X-rot did not fire).
+2. **Two bars failed honestly and bought real intel.** Both X-eco and
+   X-snap diagnosed to by-construction mechanisms, not defects — the
+   bars mis-modeled recorded designs (evict-then-spawn ordering; the
+   in-state error trace). What they quantified matters for C1:
+   **budget for a ceiling-sized population** (max_frames + spawn, at
+   ~10% wall cost), and **snapshot blobs grow ~8 bytes/step forever**
+   (2–20 MB over a 3-month run at C1's 3–30 s cooldowns — tolerable,
+   but a named future feature: a bounded-trace snapshot option, which
+   must first resolve its Doc 06 semantics, since the trace feeds the
+   early/late/improvement reads).
+3. **The persistence constitution holds at deployment length**:
+   byte-identical resume at 500k steps, all four arms, episodic and
+   continuous, cap on and off.
+4. **C1 launch posture: GREEN**, with three configuration notes
+   recorded above (cap on; snapshot cadence sized to ~8 B/step
+   growth; population budget at the ceiling). Zero src changes; the
+   soak instrument was snapshots + the run summary, nothing else.
