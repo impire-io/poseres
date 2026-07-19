@@ -88,3 +88,68 @@ byte-identity at default everywhere.
 
 Results are appended as they land; the Outcome section closes the arc.
 Scratchpad instruments stay out of git; protocols and tables live here.
+
+## Result: I0 (recorded 2026-07-19)
+
+All 14 extended captures reproduce the 023 trace fields byte-identically
+(decompressed comparison, every file). The lifecycle extension is
+non-perturbing; 177–188 birth/evict events per trace ride the sidecar.
+
+## Result: P1 (recorded 2026-07-19; screening tier, all 12 settings)
+
+**FAIL at every setting — X0 — and the hardest close of the program so
+far: not even the strong cells separate.** Detection-window peaks:
+dynamics 0.13–0.25 (s1 again the weak cell: at most 14% of established
+frames go silent), emission 0.33–0.50 — but the false-alarm peak is
+**0.60–0.67**: the benign world and the pre-shift reference world
+produce episodes in which over half the established frames go silent
+at once, exceeding every shift cell's peak. At θ = 0.25 the detector
+reaches only 3/6 hits with 2–4 false alarms; at zero-false-alarm
+thresholds it detects nothing. The readings are nearly invariant to M
+and c (identical peaks at M8 c1/c4) — the verdict is robust to the
+statistic's own dials. The mechanism is visible in where the false
+alarms live: on multiregion the drive moves the policy between
+regions, and an episode spent elsewhere silences the other region's
+specialists en masse; on the pre-shift reference world the ecology's
+own churn does the same. **Self-generated behavioral nonstationarity
+produces mass silence indistinguishable from — and larger than — a
+world-change's.** Confirmation tier: never read.
+
+## Result: P2 (recorded 2026-07-19; mapped-drop fallback, all 6 settings)
+
+**FAIL — X0, same trade.** Form A (mean-election drop): 5/6 hits at
+q = 0.75 only with 51–69 false alarms; 2/6 at q = 0.5 with 5–9. Form B
+(zero-election steps): L1 = 2/6 hits at 29 false alarms; L4 = nothing
+anywhere. The crude population read inherits the same background.
+
+## Outcome (recorded 2026-07-19)
+
+1. **The election stream joins the closed families, and the map is
+   complete: four signal families — error level, error jump, error
+   accumulation, election/silence — measured on one frozen testbed,
+   one shared verdict.** No passive statistic on any stream this
+   engine emits separates a world shift from the system's own
+   nonstationarity at honest false-alarm rates. The censorship
+   mechanism (ch. 38) was real, but reading the censor directly fails
+   for the deeper reason the whole program kept hitting: **the
+   detector's background is the brain itself** — an exploring drive
+   that moves, an ecology that churns, both producing signatures as
+   large as the shifts.
+2. **The successor the numbers name is active, not passive: scheduled
+   probing.** Every family failed on confounded evidence — "the world
+   changed" vs "I changed where I go / who I am." Only a controlled
+   probe removes the confound: deliberately re-visit mastered ground
+   under a held policy for a probe window and re-test — detection as
+   a designed experiment (a Doc 05-level design feature with its own
+   spec, costs, and no-harm surface), not a passive read. Named, not
+   built here.
+3. **The standing alternatives are recorded, not lost**: the ch. 39
+   tolerant gate (6/6 within four episodes at ~1.6% false-fire) if a
+   deployment can afford wasted exploration, and the program-level
+   fact that Doc 05's guidance (competence) never depended on
+   detection. With the detection program paused at a complete map,
+   the roadmap's front returns to C1.
+4. **What ships: nothing but knowledge** — the byte-identity-proven
+   lifecycle instrument, the fourth closed family, the
+   self-nonstationarity diagnosis, and a named active successor. Doc
+   05 guidance unchanged: competence stands.
