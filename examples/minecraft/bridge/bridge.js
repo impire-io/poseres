@@ -28,6 +28,13 @@ const bot = mineflayer.createBot({ host: MC_HOST, port: MC_PORT, username: BOT_N
 
 bot.on("kicked", (reason) => console.error("kicked:", reason));
 bot.on("error", (err) => console.error("bot error:", err.message));
+bot.on("end", () => {
+  console.error("bot disconnected from the server — restart the stack (README)");
+  process.exit(1);
+});
+// a weeks-long bridge logs unforeseen failures instead of dying of them;
+// per-request errors still reach the client as ok:false responses.
+process.on("unhandledRejection", (err) => console.error("unhandled:", err && err.message));
 
 let spawnAnchor = null;
 let tick = 0;
@@ -42,8 +49,9 @@ bot.once("spawn", () => {
 });
 
 function handleClient(socket) {
+  socket.on("error", () => {});
   if (busy) {
-    socket.write(JSON.stringify({ ok: false, error: "bridge serves one client at a time" }) + "\n");
+    safeWrite(socket, { ok: false, error: "bridge serves one client at a time" });
     socket.end();
     return;
   }
@@ -52,25 +60,37 @@ function handleClient(socket) {
   const lines = readline.createInterface({ input: socket });
   let queue = Promise.resolve();
   lines.on("line", (line) => {
-    queue = queue.then(async () => {
-      let response;
-      let goodbye = false;
-      try {
-        const message = JSON.parse(line);
-        [response, goodbye] = await handle(message);
-      } catch (err) {
-        response = { ok: false, error: String(err.message || err) };
-      }
-      socket.write(JSON.stringify(response) + "\n");
-      if (goodbye) socket.end();
-    });
+    queue = queue
+      .then(async () => {
+        let response;
+        let goodbye = false;
+        try {
+          const message = JSON.parse(line);
+          [response, goodbye] = await handle(message);
+        } catch (err) {
+          response = { ok: false, error: String(err.message || err) };
+        }
+        safeWrite(socket, response);
+        if (goodbye) socket.end();
+      })
+      .catch((err) => console.error("request handling error:", err.message || err));
   });
   socket.on("close", () => {
     busy = false;
     clearControls();
     console.log("client disconnected");
   });
-  socket.on("error", () => {});
+}
+
+function safeWrite(socket, message) {
+  // the client may have vanished mid-request (a killed brain): a write to a
+  // dead socket must never take the bridge down with it.
+  if (socket.destroyed || socket.writableEnded) return;
+  try {
+    socket.write(JSON.stringify(message) + "\n");
+  } catch (err) {
+    /* the close handler frees the slot */
+  }
 }
 
 async function handle(message) {
@@ -81,8 +101,13 @@ async function handle(message) {
     return [{ ok: true, version: VERSION, channels: CHANNELS, spawn: true }, false];
   }
   if (op === "tick") {
-    for (const command of message.commands || []) await applyCommand(command);
-    await sleep(Math.max(1, message.tick_ms | 0));
+    const tickMs = Math.max(1, message.tick_ms | 0);
+    // every world action is bounded by the tick's own timescale: a dig that
+    // needs longer than the budget is abandoned mid-swing (stopDigging), a
+    // hung placeBlock is dropped — world facts, never protocol stalls.
+    const budget = Math.max(1000, 4 * tickMs);
+    for (const command of message.commands || []) await applyCommand(command, budget);
+    await sleep(tickMs);
     clearControls();
     tick += 1;
     return [{ ok: true, tick, channels: sampleChannels() }, false];
@@ -104,7 +129,19 @@ function aheadColumn() {
   return new Vec3(Math.round(p.x - Math.sin(yaw)), Math.floor(p.y), Math.round(p.z + Math.cos(yaw)));
 }
 
-async function applyCommand(command) {
+function bounded(promise, ms, onTimeout) {
+  // never let a world action outlive its budget; late failures are swallowed
+  // (the observations carry the verdict), late successes simply land.
+  const guarded = promise.catch(() => {});
+  return Promise.race([
+    guarded,
+    sleep(ms).then(() => {
+      if (onTimeout) onTimeout();
+    }),
+  ]);
+}
+
+async function applyCommand(command, budget) {
   const names = Object.keys(command);
   if (names.length === 0) return; // idle
   if (names.length > 1) throw new Error(`command carries ${names.length} keys, expected one`);
@@ -112,46 +149,40 @@ async function applyCommand(command) {
   if (name === "forward" || name === "back") {
     bot.setControlState(name, true);
   } else if (name === "turn_left") {
-    await bot.look(bot.entity.yaw + Math.PI / 4, 0, true);
+    await bounded(bot.look(bot.entity.yaw + Math.PI / 4, 0, true), 500);
   } else if (name === "turn_right") {
-    await bot.look(bot.entity.yaw - Math.PI / 4, 0, true);
+    await bounded(bot.look(bot.entity.yaw - Math.PI / 4, 0, true), 500);
   } else if (name === "jump_forward") {
     bot.setControlState("forward", true);
     bot.setControlState("jump", true);
   } else if (name === "dig_ahead") {
     const block = bot.blockAt(aheadColumn());
     if (block && block.diggable && bot.canDigBlock(block)) {
-      try {
-        await bot.dig(block);
-      } catch (err) {
-        /* the world said no — the observations carry the verdict */
-      }
+      await bounded(bot.dig(block), budget, () => {
+        try {
+          bot.stopDigging();
+        } catch (err) {
+          /* already stopped */
+        }
+      });
     }
   } else if (name === "place_ahead") {
     const target = aheadColumn();
     const below = bot.blockAt(target.offset(0, -1, 0));
-    const held = bot.heldItem || (await equipAnyBlock());
+    const held = bot.heldItem || (await equipAnyBlock(budget));
     if (below && held) {
-      try {
-        await bot.placeBlock(below, new Vec3(0, 1, 0));
-      } catch (err) {
-        /* nothing placeable / no reach — a world fact */
-      }
+      await bounded(bot.placeBlock(below, new Vec3(0, 1, 0)), budget);
     }
   } else {
     throw new Error(`unknown command '${name}'`);
   }
 }
 
-async function equipAnyBlock() {
+async function equipAnyBlock(budget) {
   const item = bot.inventory.items().find((i) => i.name.includes("dirt") || i.name.includes("stone"));
   if (!item) return null;
-  try {
-    await bot.equip(item, "hand");
-    return item;
-  } catch (err) {
-    return null;
-  }
+  await bounded(bot.equip(item, "hand"), budget);
+  return bot.heldItem;
 }
 
 function clearControls() {
