@@ -152,3 +152,40 @@ default everywhere.
 
 Results are appended as they land; the Outcome section closes the arc.
 Scratchpad instruments stay out of git; protocols and tables live here.
+
+## Result: I0 (recorded 2026-07-19; 14 traces recaptured, XI fired, reconciliation recorded before any extended reading)
+
+**The recorded 022 rows do not reproduce exactly under the registered
+arithmetic — or under any of five nearby interpretations** (global
+running best; transfer filter e ∈ {1..4} — the 1-based-counter reading
+of "t mod 40 ∈ {1..K}"; error↔action join lag ±1; lag+1 × {1..4};
+lower-middle median). The 022 scratchpad is retired and its exact join
+details were never recorded, so row-level fidelity is untestable. The
+reconciliation, openly:
+
+- **Every recorded conclusion reproduces.** At ctx2/W16 (clean
+  arithmetic, 022 spans) staleness moves the right way in ALL SIX shift
+  cells — dynamics 0.004→0.046 / 0.000→0.091 / 0.000→0.028, emission
+  0.013→0.040 / 0.003→0.019 / 0.000→0.021 — the benign floor is 0.030
+  (recorded 0.027), the across-grid benign collapse is monotone
+  0.180→0.030 (recorded 0.163→0.027), and the 022 bars still FAIL at
+  the 022 spans (max post 0.091 < 4× benign 0.120): same verdict, same
+  blocker (the floor clause), same trend.
+- **The row decimals do not.** The recorded pre-shift medians
+  (0.007–0.028) sit ~0.02 above the clean replay's (0.000–0.013); a
+  deliberate +1 join misalignment (context shifted one action late)
+  recreates that inflated pre-shift scale (0.024/0.018/0.008 dynamics)
+  but not the recorded posts — the closest single explanation is an
+  unrecorded join detail in the 022 instrument, and no tested variant
+  lands the decimals exactly.
+- **Consequence, recorded**: the 022 ratios (2.5–7.2×) most likely
+  *understated* the clean transfer statistic's separation — the clean
+  replay's dynamics ratios at ctx2/W16 are 11× and two divisions by
+  ~zero. The finding sharpens, the verdict does not change.
+
+**Instrument of record from here on**: the arithmetic registered in
+this document (clean join, e ∈ {1..5}, per-cell best, even-window
+median = mean of the middle pair), replayed on the 14 recaptured
+traces. The extended reading proceeds on this instrument; the recorded
+022 rows stay in TRANSFERSIG-DIAGNOSIS as that arc's evidence, with
+this section as the bridge between the two.
