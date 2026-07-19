@@ -287,12 +287,19 @@ Each showcase is a Body implementation plus a write-up. None ships before its
 gate. The point of a showcase is that PRA *visibly does what the repo claims*
 — structure-finding and drive-directed learning you can watch.
 
-### C1. Game-over-API showcase (e.g. Artifacts MMO)
-A persistent HTTP-API world as the long-horizon demo: one character, learning
-continuously for weeks. Cooldowns (3–30s/action) make it a terrible lab and an
-acceptable *deployment* — which is exactly the story it tells.
+### C1. Live-game showcase — Minecraft (world chosen 2026-07-20)
+A persistent live-game world as the long-horizon demo: one character,
+learning continuously for weeks. Originally sketched as a cooldown
+HTTP game (e.g. Artifacts MMO); the owner chose a small self-hosted
+Minecraft server instead — easier to run (Docker), richer to live in,
+same story: a deployment, not a lab.
 *Gate:* B3 (no reset), B5 (external persistence), A4 (non-uniform drive).
 *Exit:* a multi-week continuously-learning run with published telemetry.
+*Platform half DONE (feature 027, JOURNEY ch. 43):* the pra-mc/1
+transport on the unchanged 013 seam, FakeBridge-carried gate, mineflayer
+bridge + compose world + runbook (`examples/minecraft/`), real stack
+measured green including hard-kill + exact resume; launch posture and
+config notes from arc 026 applied. The run itself is the operator's.
 
 ### C2. Hardware body (LEGO / Pybricks)
 `PybricksSensor`/`PybricksActuator` over BLE; obs_dim ~6–12 fits the validated
