@@ -439,15 +439,17 @@ both shift modes, ratios to 7× where tracking managed ~1×; the extended
 probe (arc 023, TRANSFERSTALE-DIAGNOSIS) then measured the full
 (resolution × window) plane and **closed the windowed-median family**
 (best margin 0.21 at the shallow corner, ~5× short; the per-frame
-fallback censored by election), and the change-point arc (024,
-CHANGEPOINT-DIAGNOSIS) closed jump and accumulation too — three
-families, one verdict: the population transfer stream lacks contrast
-for universal detection at honest false-alarm rates (best ROC 6/6
-within four episodes at ~1.6% false-fire), so the successor is the
-**election-stream space** (staleness as who stops electing, the
-cheapest instrument — elections are already counted), with the
-tolerant-gate question a named conditional;
-C1 next alongside it (the relative survival bar stays a named
+fallback censored by election), the change-point arc (024,
+CHANGEPOINT-DIAGNOSIS) closed jump and accumulation (best ROC 6/6
+within four episodes at ~1.6% false-fire), and the election-stream arc
+(025, ELECTSTREAM-DIAGNOSIS) closed the censor-read too (benign
+mass-silence from the drive's own movement exceeds every shift cell's
+peak) — **four families, one testbed, one verdict: the detector's
+background is the brain itself; the staleness-detection program
+pauses with its map complete**, successor named (scheduled probing —
+active re-visit under a held policy; a Doc 05-level feature), the
+tolerant gate a recorded conditional;
+**C1 is the front** (the relative survival bar stays a named
 conditional deferral); D alongside C; C3 parked.
 *This file is load-bearing: changes to it are decisions and belong in
 JOURNEY.md like any other.*

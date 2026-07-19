@@ -270,16 +270,22 @@ change-point successor then closed the question end-to-end (Chapter
 39): jump and accumulation statistics fail the same way level did —
 the weak half of the shift cells never separates from benign
 background at honest false-alarm rates (best ROC: 6/6 detection within
-four episodes only at ~1.6% false-fire) — so **the population transfer
-read is closed across all three statistic families, and it was never
-the statistic**. Open research, in priority order: **the
-election-stream space** (staleness as who goes silent — mapped
-fraction and refused elections of mastered frames, the ch. 38
-censorship mechanism turned into the signal; absorbs the old
-elect-gating question), the named tolerant-gate conditional (whether a
-~2%-false-fire detector still collects, only if a deployment wants
-it), and (design-level, when a deployment demands it) whether
-reference-scale long lifetimes eventually need the cap too. Snapshot support for anatomy-resized runs
+four episodes only at ~1.6% false-fire). The election stream — reading
+the censor itself, staleness as who goes silent — then failed hardest
+(Chapter 40): benign mass-silence events (up to ⅔ of established
+frames in one episode, the drive's own movement between regions)
+exceed every shift cell's peak. **Four signal families measured on one
+testbed, one verdict: no passive statistic separates a world change
+from the brain's own nonstationarity — the detector's background is
+the brain itself.** The staleness-detection program pauses with its
+map complete. Open threads, in priority order: **C1** (the roadmap's
+front); **scheduled probing** (the named active successor: re-visit
+mastered ground under a held policy and re-test — detection as a
+designed experiment, a Doc 05-level feature, when the program
+resumes); the ch. 39 tolerant-gate conditional (~1.6% false-fire, if a
+deployment can afford it); and (design-level, when a deployment
+demands it) whether reference-scale long lifetimes eventually need the
+cap too. Snapshot support for anatomy-resized runs
 shipped in Chapter 23. **A live brain now has an off-process presence**
 (Chapters 27–28): the platform successors were sequenced (B6 → B7, one
 transport built once; NATS-underneath-the-engine rejected on the
@@ -1545,6 +1551,46 @@ ch. 38 exposed, and the cheapest instrument in the program (the engine
 already counts elections). Doc 05 guidance unchanged: competence
 stands. Trail: `design/validate/CHANGEPOINT-DIAGNOSIS.md`; commits
 `6537743` (pre-registration), `05b6f25` (close).
+
+## Chapter 40 — Reading the censor: the fourth family closes and the map is complete (2026-07-19)
+
+Chapter 38 exposed the censorship mechanism — frames a shift hurts stop
+electing and vanish from every error statistic — and chapter 39 named
+the election stream itself as the front door: staleness as *who goes
+silent*. This arc read it. The 023 captures already carried the full
+per-step electing-id stream; a lifecycle extension (birth/evict events,
+proven non-perturbing by byte-identity against all fourteen 023 trace
+files) supplied aliveness, and the silence statistic was frozen first:
+the fraction of established frames (electing in every one of the last
+M episodes) that go completely quiet in an episode while still alive —
+eviction excluded as the ecology's own response, hit/false-alarm bars
+and the held-out tier inherited from 024.
+
+It failed hardest of all — X0 at every setting, and for the first time
+not even the strong cells separate. Emission shifts silence a third to
+half of established frames; the *benign* world silences up to
+two-thirds in a single episode, because the drive moves the policy
+between regions and an episode spent elsewhere silences the other
+region's specialists en masse — and the pre-shift reference world's
+ecology churn does the same. The mapped-drop fallback inherited the
+identical trade (5/6 hits only at 51–69 false alarms). The readings
+are invariant to the statistic's own dials; the verdict is not a
+tuning accident.
+
+Four signal families — error level, error jump, error accumulation,
+election silence — now stand measured on one frozen testbed with one
+shared verdict: **no passive statistic separates a world change from
+the brain's own nonstationarity at honest false-alarm rates. The
+detector's background is the brain itself.** The successor the numbers
+name is active, not passive: **scheduled probing** — deliberately
+re-visit mastered ground under a held policy and re-test, detection as
+a designed experiment (a Doc 05-level feature with its own costs and
+no-harm surface). The ch. 39 tolerant gate stays recorded for
+deployments that can afford ~1.6% false fires, and Doc 05's guidance
+never depended on detection: competence stands. With the map complete
+the detection program pauses, and the roadmap's front returns to C1.
+Trail: `design/validate/ELECTSTREAM-DIAGNOSIS.md`; commits `1881dfc`
+(pre-registration), `bc05ba6` (close).
 
 ## Chapter template (append below)
 
