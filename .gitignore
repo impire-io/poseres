@@ -14,3 +14,9 @@ venv/
 snapshots/
 .claude/worktrees/
 *.egg-info/
+
+# Minecraft example runtime artifacts (feature 027)
+examples/minecraft/data/
+examples/minecraft/bridge/node_modules/
+examples/minecraft/bridge/package-lock.json
+c1-snapshots/

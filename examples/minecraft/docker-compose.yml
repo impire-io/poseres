@@ -1,0 +1,22 @@
+# The C1 world: a small self-hosted Minecraft server (feature 027).
+# The VERSION pin and the bridge's mineflayer version move together —
+# see README.md before changing either.
+services:
+  minecraft:
+    image: itzg/minecraft-server:latest
+    environment:
+      EULA: "TRUE"
+      VERSION: "1.21.1"
+      TYPE: VANILLA
+      MODE: survival
+      DIFFICULTY: peaceful
+      ONLINE_MODE: "FALSE"
+      SPAWN_PROTECTION: "0"
+      VIEW_DISTANCE: "6"
+      SNOOPER_ENABLED: "FALSE"
+      MEMORY: 2G
+    ports:
+      - "25565:25565"
+    volumes:
+      - ./data:/data
+    restart: unless-stopped
