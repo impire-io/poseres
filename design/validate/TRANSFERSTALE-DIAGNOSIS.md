@@ -189,3 +189,83 @@ median = mean of the middle pair), replayed on the 14 recaptured
 traces. The extended reading proceeds on this instrument; the recorded
 022 rows stay in TRANSFERSIG-DIAGNOSIS as that arc's evidence, with
 this section as the bridge between the two.
+
+## Result: P1 (recorded 2026-07-19; screening tier, all 32 settings, fresh spans)
+
+**FAIL at every setting — X0 — and the 022 trend is now explained, not
+extended.** The benign floor does keep collapsing with resolution
+(0.203 at global/W8 → 0.010 at ctx2⊗phase/W64, monotone as 022 saw)
+but the post-shift response dies faster than the floor falls: at every
+deep/long setting the dynamics posts go to ~0 (windows in fine cells
+never turn over — or never fill: ctx4 and the W≥32 deep rows are
+degenerate on 2–3 samples/episode), while every shallow setting with a
+live response carries a floor its post cannot 4×-clear. The balanced
+read makes it precise — worst-cell margin, post ÷ max(4·pre,
+4·benign), across the plane:
+
+| setting | worst-cell margin |
+|---|---|
+| **ctx1/W8** | **0.211** (the plane's maximum) |
+| global/W8 · W16 · W32 | 0.206 · 0.198 · 0.197 |
+| phase/W8 · W16 | 0.175 · 0.171 |
+| ctx2/W16 (the 022 corner) | 0.114 |
+| everything deeper/longer | lower or degenerate |
+
+The maximum sits at the SHALLOW corner: 022's "still improving" was
+the floor leg only, and the whole windowed-median family tops out ~5×
+short of the bracket. Secondary reads, recorded: the early-detection
+row at ctx1/W8 (022 spans) is pre 0.087–0.154 → post 0.147–0.247 —
+elevation on all six cells inside the first two cycles; the per-cycle
+trajectory at ctx1/W8 puts the elevation in the FIRST post-shift bin
+(dynamics first-bin 0.168/0.205/0.334 vs pre medians 0.091–0.154,
+emission 0.243/0.193/0.146 vs 0.087–0.131) decaying back over ~6–16
+cycles as the brain relearns. **No latency problem — a contrast
+problem.** The confirmation tier was never read (no screening pass),
+per the registered rule.
+
+## Result: P2 (recorded 2026-07-19; per-frame fallback, screening tier)
+
+**FAIL — X0, and directionally dead, the arc's sharpest finding.**
+Post ≈ pre at every W (W8: dynamics 0.143→0.138 / 0.123→0.133 /
+0.121→0.113; emission s1 *falls*, 0.165→0.124) and the benign floors
+(0.090–0.166) are the highest of the whole arc. The mechanism is
+visible in the construction: **election censors the signal**. A frame
+the shift hurt stops clearing the fit gate, so it leaves the electing
+population — and with it the reading — while the frames still electing
+post-shift are precisely the unhurt ones. Per-frame self-comparison
+removes the population-composition noise it was built to remove *and*
+the staleness signal, which lives in exactly the frames that go
+silent.
+
+## Outcome (recorded 2026-07-19)
+
+1. **The question 022 left open is answered end-to-end: no windowed-
+   median level statistic on the transfer stream reaches the 4×
+   bracket.** The floor leg and the response leg trade against each
+   other across the full (resolution × window) plane; their best
+   balance (ctx1/W8, margin 0.21) is ~5× short, and the trend 022
+   recorded as "still improving" inverts once both legs are read
+   together. This closes the statistic family, not the signal: the
+   transfer stream still shows immediate, universal, ~2× contrast on
+   every shift cell.
+2. **Frame-level self-comparison is structurally censored.** The fit
+   gate deletes stale frames from the electing population, so any
+   statistic over *electing* frames' errors reads survivors. The
+   damage signal at frame level is not "my errors rose" — it is "I
+   stopped electing," a stream the engine already counts.
+3. **The fifth gate-stop, zero src changes — and the successors are
+   named by the numbers, not conjecture.** (i) A **change-point form
+   on the same transfer stream**: the trajectory shows the signal
+   arrives in the first post-shift bin at ~2× its own trailing
+   background and decays as relearning proceeds — a level bar against
+   a cross-world floor discards exactly this; the successor statistic
+   is self-normalized (its own trailing distribution as the
+   reference), judged by hit/false-alarm counts on the shift/benign
+   testbed pair, bars pre-registered fresh. (ii) **The election stream
+   as the fallback space** (from P2's censorship mechanism): mapped
+   fraction and refused elections of previously-mastered frames —
+   staleness as *who goes silent*, not *whose error rises*.
+4. **What ships: nothing but knowledge** — the I0 reconciliation (the
+   instrument of record for the program, with the 022 decimals
+   bridged), the measured plane, the censorship mechanism, and two
+   named successors. Doc 05 guidance unchanged: competence stands.
