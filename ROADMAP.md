@@ -76,7 +76,7 @@ scale (the population-mean measure reads the juvenile conveyor). The
 **PASSed at all three scales, 24/24 paired seeds positive** (margins
 +0.021/+0.028/+0.026 — flat across scales, ~⅓ of reference; as-written
 counts kept in the record). Every scaled acceptance criterion is now
-measured. Trail: `design/validate/T3SCALE-DIAGNOSIS.md`; instrument:
+measured. Trail: `hq/02-DESIGN/validate/T3SCALE-DIAGNOSIS.md`; instrument:
 `pra-validate scale --t3` (the quartet).
 
 ### A3. The complexity ladder (worlds with ground truth) — ✅ done (JOURNEY.md ch. 17)
@@ -93,7 +93,7 @@ landing spread (dose-dependent, real); **high-amplitude channel static
 collapses it** — the ladder's first new open problem, named
 channel-noise robustness. One criterion clause (occupancy band) was
 amended openly after its distributional assumption was refuted by the
-data. Trail: `design/validate/LADDER-CRITERIA.md`.
+data. Trail: `hq/02-DESIGN/validate/LADDER-CRITERIA.md`.
 
 ### A4. The drive blend for non-uniform worlds — ✅ done (JOURNEY.md ch. 18 + 24)
 The open curiosity/competence blend (camping risk), measured on the A3
@@ -399,7 +399,7 @@ even though none is a schedulable milestone.
   pretending otherwise would put a demo ahead of a capability.
 - **Language as a learnable world** (added 2026-07-19, reversing the
   2026-07-08 exclusion — JOURNEY.md ch. 42). The founding bet
-  (`design/validate/pose-resolution-architecture.md`: the same machinery
+  (`hq/02-DESIGN/validate/pose-resolution-architecture.md`: the same machinery
   for physical objects and abstract concepts) makes language a *world to
   learn*, not a rival's turf. The named first gate: the **teacher-world
   experiment** — observation = sentence-so-far plus teacher feedback
@@ -432,7 +432,7 @@ even though none is a schedulable milestone.
   forgetting to protect against). One criterion amended openly (the pilot
   refuted the p=0.5-of-gap θ rule as degenerate; θ is now a fresh-arm-only
   strict line, full θ-sweep reported). Trail:
-  `design/validate/SEEDING-DIAGNOSIS.md`. Named successors: resize-*magnitude*
+  `hq/02-DESIGN/validate/SEEDING-DIAGNOSIS.md`. Named successors: resize-*magnitude*
   dependence, deeper chains (A→B→C→D), non-rover worlds; and the parked
   second-round seed-protection rule (age-modulated plasticity paired with an
   eviction-grace rule) — tested only *if* a future arm measurably forgets,

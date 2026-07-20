@@ -12,8 +12,8 @@ browser (one command, zero extra dependencies, byte-reproducible).
 continuously-learning brain for hobbyists and makers.
 
 See `specs/001-validation-harness/` for the spec, plan, and contracts, and
-`design/` for the architecture documents. The behavioral oracle is
-`design/validate/pra_sim_v4.py`.
+`hq/02-DESIGN/` for the architecture documents. The behavioral oracle is
+`hq/02-DESIGN/validate/pra_sim_v4.py`.
 
 ## Quickstart
 
@@ -87,7 +87,7 @@ tests/                 # unit (incl. batched-vs-reference proof) / contract (5 s
 
 ## Behavioral oracle
 
-`design/validate/pra_sim_v4.py` is the validated reference run. The batched core
+`hq/02-DESIGN/validate/pra_sim_v4.py` is the validated reference run. The batched core
 reproduces its T1–T6 trajectory at the default config (the per-frame-vs-batched
 equivalence is enforced by `tests/unit/test_batched_equivalence.py`) at roughly 40×
 the speed. The full default suite (8 seeds × predictive + ablation × 50 cycles)

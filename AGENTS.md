@@ -8,7 +8,7 @@ Durable instructions for any coding agent working in this repository.
    refuted, and why things are the way they are. Start here.
 2. The current feature plan — pointed to by the SPECKIT block in `CLAUDE.md`
    (tech stack, structure, commands).
-3. `design/00-README-index.md` — the system design map; `design/validate/` —
+3. `hq/02-DESIGN/README.md` — the system design map; `hq/02-DESIGN/validate/` —
    the normative specs (PRA-01/PRA-02) and the evidence-trail documents
    (`*-DIAGNOSIS.md`).
 
@@ -38,7 +38,7 @@ contradicted expectations. Commit it with the work it describes.
   until green.
 - **Diagnose before fixing.** For behavioral problems: hypothesis → cheap
   discriminating experiment → only then a principled fix, with the trail
-  recorded in a `design/validate/*-DIAGNOSIS.md` document.
+  recorded in a `hq/02-DESIGN/validate/*-DIAGNOSIS.md` document.
 - **Reference-preserving parameter rules.** Scale-dependent constants ship as
   effective forms whose factors are exactly 1 at the validated reference scale
   (see PRA-01 §8.8 for the pattern).
@@ -52,4 +52,4 @@ tasks → implement) on a numbered feature branch (`specs/NNN-name/`), merged to
 `main` when the gate is green. Small hardening/research changes may land
 directly with tests and spec propagation (see JOURNEY chapters 4 and 7 for
 precedent). Propagate every behavioral change into the design docs it touches
-(`design/0X-*.md`, PRA-01/PRA-02, Doc 07 for parameters).
+(`hq/02-DESIGN/000X-*.md`, PRA-01/PRA-02, Doc 07 for parameters).

@@ -507,11 +507,11 @@ apply:     judging  → ‖(recon − obs)⊙w‖ / (‖obs⊙w‖ + 1e-6)
   </p>
   <p>
     Everything above simplifies scale, never rules: the simulations run the actual update
-    equations from <span class="mono">design/03</span>–<span class="mono">06</span> with smaller
+    equations from <span class="mono">hq/02-DESIGN/0003</span>–<span class="mono">0006</span> with smaller
     nets, faster EMA clocks, and friendlier consolidation periods. The shipping system adds the
     parts that don't demo well on a web page: the SIMD-batched kernel (~40× the reference
     oracle), the event bus with preemption, the eight scale rules, and the acceptance harness
-    that keeps all of it honest. For the full story: <span class="mono">design/01-system-overview.md</span>
+    that keeps all of it honest. For the full story: <span class="mono">hq/02-DESIGN/0001-system-overview.md</span>
     for the map, <span class="mono">JOURNEY.md</span> for how it got here — including the parts
     that failed.
   </p>
@@ -568,7 +568,7 @@ function norm(x) { let s = 0; for (let i = 0; i < x.length; i++) s += x[i] * x[i
 function clipv(g, c) { return g > c ? c : (g < -c ? -c : g); }
 function tanhv(x) { for (let i = 0; i < x.length; i++) x[i] = Math.tanh(x[i]); return x; }
 
-/* ================= shared: the Frame (design/03 math, exactly) ================= */
+/* ================= shared: the Frame (hq/02-DESIGN/0003 math, exactly) ================= */
 class Frame {
   constructor(obsDim, dim, hidden, nActions, lr, clip, rng) {
     this.obsDim = obsDim; this.dim = dim; this.H = hidden;

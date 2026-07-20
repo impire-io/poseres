@@ -1,6 +1,8 @@
-# PRA — System Specification (Document Set)
+# 02-DESIGN — PRA System Specification (Document Set)
 
 This set specifies, without ambiguity and from a functional point of view, the system to be built. It defines **what must exist** and **how each part behaves**, not the reasoning behind the choices. An implementer should be able to build a working system from these documents without needing undocumented decisions.
+
+**The spec-kit rule:** every document here is written explicit enough to be the argument to `/speckit-specify` — the capability, its seams, its configuration surface, and its acceptance criteria, with no guessing left to the spec writer. New documents take the next free `NNNN-` number (`0008-…` onward). Graduating research enters through `/research-graduate`; behavioral changes made during implementation propagate back here (see [`../00-GENESIS/how-we-work.md`](../00-GENESIS/how-we-work.md)). `validate/` holds the normative specifications (PRA-01, PRA-02), the founding bet (`pose-resolution-architecture.md`), and the `*-DIAGNOSIS.md` evidence trails.
 
 The system is a **continuously-learning machine intelligence** with a configurable body (sensors and actuators), a fixed innate drive, and a brain that learns and restructures itself online. It is not trained-then-frozen; it learns for as long as it runs. Its perception-and-world-model core is the Pose Resolution Architecture (PRA), from which the whole system takes its name.
 
@@ -10,13 +12,13 @@ The system is a **continuously-learning machine intelligence** with a configurab
 
 | # | Document | Covers |
 |---|---|---|
-| 01 | `01-system-overview.md` | What the system is, the component map, the runtime loop, boot/restore lifecycle, scope, glossary |
-| 02 | `02-anatomy-io-bus.md` | Sensors, actuators, tools, and the communication bus |
-| 03 | `03-sensorimotor-core.md` | Reference frames, the SIMD requirement, scoring, the global pose |
-| 04 | `04-structural-learning.md` | Online/offline learning, spawn-and-select, eviction, earned persistence |
-| 05 | `05-motivation-action.md` | The innate drive, the value signal, action selection |
-| 06 | `06-state-persistence.md` | What system state is, snapshot/restore, the storage layer |
-| 07 | `07-configuration-reference.md` | Every configuration parameter, defaults, ranges |
+| 01 | `0001-system-overview.md` | What the system is, the component map, the runtime loop, boot/restore lifecycle, scope, glossary |
+| 02 | `0002-anatomy-io-bus.md` | Sensors, actuators, tools, and the communication bus |
+| 03 | `0003-sensorimotor-core.md` | Reference frames, the SIMD requirement, scoring, the global pose |
+| 04 | `0004-structural-learning.md` | Online/offline learning, spawn-and-select, eviction, earned persistence |
+| 05 | `0005-motivation-action.md` | The innate drive, the value signal, action selection |
+| 06 | `0006-state-persistence.md` | What system state is, snapshot/restore, the storage layer |
+| 07 | `0007-configuration-reference.md` | Every configuration parameter, defaults, ranges |
 
 Read 01 first; it is the map. The rest may be read in any order, but 03 and 04 describe the validated core and are the natural place for an implementer to begin building.
 

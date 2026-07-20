@@ -19,7 +19,7 @@ the refuted hypotheses are as load-bearing as the shipped code.
 The goal: a **continuously-learning machine intelligence** — a configurable
 body, a fixed innate drive, and a brain (the Pose Resolution Architecture) that
 learns and restructures itself online, never trained-then-frozen. The design
-was written as seven documents (`design/01`–`07`) with validation-maturity tags
+was written as seven documents (`hq/02-DESIGN/0001`–`0007`) with validation-maturity tags
 ([V] validated / [D] designed / [O] open problem), plus two normative specs:
 PRA-01 (the system) and PRA-02 (the acceptance suite T1–T6 + investigatory
 T-SCALE). The strategy: validate the risky core in a synthetic world before
@@ -27,7 +27,7 @@ building anything else.
 
 ## Chapter 2 — Prototypes and the STEP-0 gate (June 2026)
 
-Four throwaway prototypes (`design/validate/pra_sim*.py`) evolved the scoring.
+Four throwaway prototypes (`hq/02-DESIGN/validate/pra_sim*.py`) evolved the scoring.
 The **STEP-0 gate caught v3 red-handed**: its load-bearing dimensionality
 result (T4) passed only at a lucky 18-cycle horizon and collapsed at 30, and
 its population grew without bound. Diagnosis: the survival score was gameable —
@@ -79,7 +79,7 @@ lever). Honest side-finding: even the validated system barely beat the
 persistence baseline (0.157 vs 0.165) — which led directly to hardening T3 with
 a learned-persistence ablation (`9c4db1a`). Also: parallel seed execution
 (byte-identity proven), suite 132s → 21s (`c16f76b`). Trail:
-`design/validate/SCALE-DIAGNOSIS.md`; commits `02559ca` → `647c50f`.
+`hq/02-DESIGN/validate/SCALE-DIAGNOSIS.md`; commits `02559ca` → `647c50f`.
 
 ## Chapter 5 — Feature 002: motivation & action — the system becomes an agent (2026-07-07)
 
@@ -126,7 +126,7 @@ beating random in 6/8 seeds at each (+0.064 scaled, +0.027 reference)** — the
 project's first measured net-positive directed exploration. Open [O]:
 the curiosity/competence blend for worlds with unlearnable regions (camping
 risk), predicted-learning-progress lookahead. Trail:
-`design/validate/AGENCY-DIAGNOSIS.md`; commits `1953832`, `41cfed2`.
+`hq/02-DESIGN/validate/AGENCY-DIAGNOSIS.md`; commits `1953832`, `41cfed2`.
 
 ## Chapter 8 — Feature 004: anatomy & body — the design is fully built (2026-07-08)
 
@@ -407,7 +407,7 @@ best_dim 62–74 / 26–34 / 12–25 at td 20/35/50 (69/29/17 windows), overshoo
 a truth of 20 threefold and falling far short of a truth of 50; the td=35
 median of 28.5 would have read as a breakthrough in isolation, which is the
 whole argument for the multi-scale protocol. Trail:
-`design/validate/PROPOSAL-DIAGNOSIS.md`; committed together with this chapter.
+`hq/02-DESIGN/validate/PROPOSAL-DIAGNOSIS.md`; committed together with this chapter.
 
 ## Chapter 10 — The product thesis: an OSS brain for makers (2026-07-08)
 
@@ -463,7 +463,7 @@ the named successor: fair inter-age comparison (the incumbent-lifetime
 advantage in niche entry), ahead of the scorer-level question the elbow scans
 exposed (the honest optimum sits at 12–16 regardless of the world's true
 dimensionality at these budgets). Trail:
-`design/validate/THRESHOLD-DIAGNOSIS.md`; committed together with this
+`hq/02-DESIGN/validate/THRESHOLD-DIAGNOSIS.md`; committed together with this
 chapter.
 
 ## Chapter 12 — The inter-age diagnosis: a successor problem dissolves (2026-07-11)
@@ -487,7 +487,7 @@ concrete: **the scorer** (Doc 03 §6) — make the basin informative (re-shaped
 parsimony, elbow-relative selection, or a frozen shared-window judge), a
 design-level [D] investigation with reference revalidation. Negative results
 are results; this one cost one experiment. Trail:
-`design/validate/INTERAGE-DIAGNOSIS.md`; committed together with this
+`hq/02-DESIGN/validate/INTERAGE-DIAGNOSIS.md`; committed together with this
 chapter.
 
 ## Chapter 13 — The scorer diagnosis finds the rot: lifetime stability is the real frontier (2026-07-11)
@@ -514,7 +514,7 @@ the diagnosis is the deliverable; the named successor is the eighth
 rule-class problem, lifetime stability, with per-tensor max-norm control as
 the reference- and premise-preserving candidate (no freezing; the system
 stays never-trained-then-frozen). Trail:
-`design/validate/SCORER-DIAGNOSIS.md`; committed together with this chapter.
+`hq/02-DESIGN/validate/SCORER-DIAGNOSIS.md`; committed together with this chapter.
 
 ## Chapter 14 — The eighth rule and the price of a dimension (2026-07-11)
 
@@ -546,7 +546,7 @@ marginal gain crosses the 0.0067/dim price at dims 8–12; the landing is 10).
 What T-SCALE can honestly claim, and now measures at every scale and budget:
 **selection lands at the price-optimal dimensionality, stably.** That is the
 finding the investigatory suite existed to produce. Trails:
-`design/validate/LONGEVITY-DIAGNOSIS.md`, SCORER-DIAGNOSIS epilogue;
+`hq/02-DESIGN/validate/LONGEVITY-DIAGNOSIS.md`, SCORER-DIAGNOSIS epilogue;
 committed together with this chapter.
 
 Roadmap consequence, recorded with the Chapter 10 docs bundle as it ships:
@@ -592,7 +592,7 @@ juvenile fraction alone (it predicts the wrong ordering; elect-gating is
 the named candidate — open). Verdicts stand as measured; the successor is
 named, not improvised: a **churn-matched scaled form of T3**, designed
 openly as a criterion amendment per the T7 precedent. Trail:
-`design/validate/T3SCALE-DIAGNOSIS.md`; committed with this chapter.
+`hq/02-DESIGN/validate/T3SCALE-DIAGNOSIS.md`; committed with this chapter.
 
 ## Chapter 16 — The amendment pays: churn-matched T3 passes 24/24 at scale (2026-07-12)
 
@@ -670,7 +670,7 @@ non-degenerate); amended verdicts from the same table: mild PASS, strong
 FAIL. Chapter lesson, now thrice-learned and once pre-empted: write the
 criterion first, and when it breaks, diagnose *which* broke — the claim
 or the measure — before touching either. Trail:
-`design/validate/LADDER-CRITERIA.md`; A4 is unblocked with its baselines
+`hq/02-DESIGN/validate/LADDER-CRITERIA.md`; A4 is unblocked with its baselines
 in hand.
 
 ## Chapter 18 — The blend dissolves: one novelty statistic, three behaviors (2026-07-13)
@@ -712,7 +712,7 @@ directed-vs-random effect sits inside seed noise at reference budgets.
 Recorded as measured. What remains of A4 is the predicted-LP lookahead —
 a per-candidate *learnability* signal, the only live path to a genuine
 blend; interim showcase guidance is `competence` on strongly non-uniform
-worlds. Trail: `design/validate/BLEND-DIAGNOSIS.md`; committed with this
+worlds. Trail: `hq/02-DESIGN/validate/BLEND-DIAGNOSIS.md`; committed with this
 chapter.
 
 ## Chapter 19 — Feature 007: the Gymnasium adapter — hundreds of worlds through one seam (2026-07-13)
@@ -981,7 +981,7 @@ learnable) are the named next tests, now properly instrumented.
 **(3) The blend is finally real** — the independence of the frontier
 term is unit-pinned, so `drive_weights` blends are no longer degenerate
 relabelings. Gate green throughout; trail:
-`design/validate/PREDLP-DIAGNOSIS.md`.
+`hq/02-DESIGN/validate/PREDLP-DIAGNOSIS.md`.
 
 ## Chapter 25 — Channel noise: the score loses its gradient before the brain loses its structure (2026-07-14)
 
@@ -1009,7 +1009,7 @@ the probe data) rescues σ=0.5 but not 1.0 — the encoder input path
 needs the same treatment — so the fix is **learned channel weighting**
 (an in-system per-channel floor estimator feeding both the survival
 norm and the encoder), a real feature, not a dial. Trail:
-`design/validate/CHANNELNOISE-DIAGNOSIS.md`; the dose–response dial
+`hq/02-DESIGN/validate/CHANNELNOISE-DIAGNOSIS.md`; the dose–response dial
 ships inert with byte-identity tests.
 
 ## Chapter 26 — Feature 013: the ROS2 adapter — robots are message streams, so topics became tools (2026-07-14)
@@ -1267,7 +1267,7 @@ longer waits on the brain flailing in static. The relative survival bar
 whiteness×floor hybrid is the named successor if a world with
 correlated-but-unpredictable channels enters the ladder; and the L1@0.8
 flip suggests the weighting has something to say about region noise too.
-Trail: `design/validate/CHANNELWEIGHT-DIAGNOSIS.md` (pre-registration,
+Trail: `hq/02-DESIGN/validate/CHANNELWEIGHT-DIAGNOSIS.md` (pre-registration,
 P1/E1a/E1b/E2/E3/E4, outcome), `specs/016-channel-weighting/` (spec,
 plan, research, contracts, tasks); commits `bdb8111` (spec), `f716b36`
 (pre-registration), `c0065d8` (P1), `db8df8e` (E1), `b2a6bf0` (plan),
@@ -1314,7 +1314,7 @@ per-candidate error model), which now has two purpose-built testbeds
 and recorded baselines waiting. Doc 05 guidance is unchanged by
 measurement — competence stands, its one measured weakness (worst
 post-shift recovery) not yet exploitable by anything in the registry.
-Trail: `design/validate/CAMPING-DIAGNOSIS.md` (pre-registration, E0–E2,
+Trail: `hq/02-DESIGN/validate/CAMPING-DIAGNOSIS.md` (pre-registration, E0–E2,
 outcome), `specs/017-camping-worlds/`; commits `314750a` (spec),
 `8d5f4dc` (pre-registration), `e8c7726` (worlds), `9e8ea1c` (results +
 outcome).
@@ -1356,7 +1356,7 @@ when I knew this region" must survive long enough to compare with "what
 error is here now"), a Doc 05 design feature with its own
 snapshot/scale surface. The 017 worlds and their 576-run grid still
 wait as its testbed. Doc 05 guidance unchanged: competence stands.
-Trail: `design/validate/SCOUT-DIAGNOSIS.md` (pre-registration, P1,
+Trail: `hq/02-DESIGN/validate/SCOUT-DIAGNOSIS.md` (pre-registration, P1,
 outcome), `specs/018-predictive-lp/spec.md`; commits `2e90c99`
 (spec + pre-registration), and this close.
 
@@ -1394,7 +1394,7 @@ EMA minima) — plus a testbed note: the shifting world confounds
 "knowledge went stale" with "territory changed", so an emission-shift
 world (dynamics fixed, appearance changed) belongs on the ladder before
 the next detector design. Doc 05 guidance unchanged: competence stands.
-Trail: `design/validate/PLACEMEM-DIAGNOSIS.md`;
+Trail: `hq/02-DESIGN/validate/PLACEMEM-DIAGNOSIS.md`;
 `specs/019-place-memory/spec.md`; commit `f79ee57` and this close.
 
 ## Chapter 34 — The repainted world: the testbed pair closes, and brackets the problem (2026-07-18)
@@ -1422,7 +1422,7 @@ a shift-invariant error memory must clear 4× separation on both modes,
 from measured starting points of ~1.5× (emission) and < 1× (dynamics).
 That — pose/encoding anchors with spike-robust per-cell statistics,
 judged against this bracket — is the successor arc, unchanged in name,
-now fully instrumented. Trail: `design/validate/EMSHIFT-DIAGNOSIS.md`;
+now fully instrumented. Trail: `hq/02-DESIGN/validate/EMSHIFT-DIAGNOSIS.md`;
 `specs/020-emission-shift/spec.md`; commit `3500576` and this close.
 
 ## Chapter 35 — Three spaces, one ceiling: the signal was the problem all along (2026-07-18)
@@ -1457,7 +1457,7 @@ every instrument and wrote no src), and jointly they bought what a
 lucky pass never could: measured brackets on both world modes, three
 eliminated representations, and a signal-level diagnosis with an
 in-house precedent for the fix. Doc 05 guidance unchanged — competence
-stands. Trail: `design/validate/CONTEXTMEM-DIAGNOSIS.md`;
+stands. Trail: `hq/02-DESIGN/validate/CONTEXTMEM-DIAGNOSIS.md`;
 `specs/021-context-memory/spec.md`; commit `bba601a` and this close.
 
 ## Chapter 36 — The vein is found: transfer errors carry what tracking drowns (2026-07-18)
@@ -1483,7 +1483,7 @@ pre-registered fresh, with per-frame transfer error as the fallback
 space. The staleness program's map is now clean: right signal
 (transfer), known direction (slower, higher-resolution statistics),
 testbeds and brackets standing ready. Doc 05 guidance unchanged —
-competence stands. Trail: `design/validate/TRANSFERSIG-DIAGNOSIS.md`;
+competence stands. Trail: `hq/02-DESIGN/validate/TRANSFERSIG-DIAGNOSIS.md`;
 commits `51173f0` (pre-registration), `a75e18d` (result + outcome).
 
 ## Chapter 37 — The mechanisms, playable: an interactive explainer that runs the real math (2026-07-18)
@@ -1557,7 +1557,7 @@ transfer stream (judged by hit/false-alarm counts on the testbed pair,
 bars pre-registered fresh), and the **election stream as the fallback
 space** — staleness as who goes silent, not whose error rises. Doc 05
 guidance unchanged: competence stands. Trail:
-`design/validate/TRANSFERSTALE-DIAGNOSIS.md`; commits `d1cf02d`
+`hq/02-DESIGN/validate/TRANSFERSTALE-DIAGNOSIS.md`; commits `d1cf02d`
 (pre-registration), `34ac8c6` (I0 reconciliation), `8fd7d52` (close).
 
 ## Chapter 39 — Not the statistic: the population transfer read closes end-to-end (2026-07-19)
@@ -1587,7 +1587,7 @@ exploration) is named, not smuggled in; the front door is now the
 **election stream** — staleness as who goes silent, the mechanism P2 of
 ch. 38 exposed, and the cheapest instrument in the program (the engine
 already counts elections). Doc 05 guidance unchanged: competence
-stands. Trail: `design/validate/CHANGEPOINT-DIAGNOSIS.md`; commits
+stands. Trail: `hq/02-DESIGN/validate/CHANGEPOINT-DIAGNOSIS.md`; commits
 `6537743` (pre-registration), `05b6f25` (close).
 
 ## Chapter 40 — Reading the censor: the fourth family closes and the map is complete (2026-07-19)
@@ -1627,7 +1627,7 @@ no-harm surface). The ch. 39 tolerant gate stays recorded for
 deployments that can afford ~1.6% false fires, and Doc 05's guidance
 never depended on detection: competence stands. With the map complete
 the detection program pauses, and the roadmap's front returns to C1.
-Trail: `design/validate/ELECTSTREAM-DIAGNOSIS.md`; commits `1881dfc`
+Trail: `hq/02-DESIGN/validate/ELECTSTREAM-DIAGNOSIS.md`; commits `1881dfc`
 (pre-registration), `bc05ba6` (close).
 
 ## Chapter 41 — The soak before the weeks: C1's deferred questions answered in an afternoon (2026-07-19)
@@ -1661,7 +1661,7 @@ must first resolve its Doc 06 semantics. Zero src changes; the
 mis-anchored bars are recorded as such with the numbers beside them.
 **C1 launch posture: GREEN** — cap on, snapshot cadence sized to the
 growth, population budgeted at the ceiling. Trail:
-`design/validate/C1SOAK-DIAGNOSIS.md`; commits `8ff6808`
+`hq/02-DESIGN/validate/C1SOAK-DIAGNOSIS.md`; commits `8ff6808`
 (pre-registration), `53437b0` (close).
 
 ## Chapter 42 — The vision re-broadened: language returns as a gated horizon (2026-07-19)
@@ -1806,7 +1806,7 @@ What it opens: brain snapshots are usable seeds across rover maps *and* across a
 `resize()` at reference scale — the first measured transfer benefit through
 anatomy growth (previously only bit-preservation was guaranteed). Named
 successors: resize-*magnitude* dependence, deeper chains (A→B→C→D), and
-non-rover worlds. Trail: `design/validate/SEEDING-DIAGNOSIS.md`,
+non-rover worlds. Trail: `hq/02-DESIGN/validate/SEEDING-DIAGNOSIS.md`,
 `specs/028-brain-seeding/`; commits `1661fd4` (spec+US1 core), `844a38e` (US1
 tests), `bd69e0b` (frozen pre-registration), `55d1576` (US2 + hop-1 verdict),
 and this chapter's.

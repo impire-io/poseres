@@ -1,6 +1,6 @@
 """Ladder runner (feature 005, ROADMAP A3) — run the complexity-ladder rungs
 and judge them against the pre-registered criteria in
-``design/validate/LADDER-CRITERIA.md``.
+``hq/02-DESIGN/validate/LADDER-CRITERIA.md``.
 
 Investigatory at the build level: a rung FAIL is a finding, reported with
 its numbers, never an exit-code failure. Each rung composes existing

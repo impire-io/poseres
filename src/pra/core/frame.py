@@ -9,7 +9,7 @@ births frames (drawing weights in the v4 oracle's exact order so the single seed
 generator is consumed identically), evicts them, and runs one online step batched
 across all groups.
 
-The math is a faithful, vectorized port of ``design/validate/pra_sim_v3.Frame``
+The math is a faithful, vectorized port of ``hq/02-DESIGN/validate/pra_sim_v3.Frame``
 (the behavioral oracle): a single-hidden-layer encoder, decoder, and per-action
 transition, trained with clipped one-layer backprop. ``tests/unit/
 test_batched_equivalence.py`` proves the batched path matches a straightforward

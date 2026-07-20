@@ -27,7 +27,7 @@ def _extract(group: FrameGroup, i: int) -> dict:
     }
 
 
-# --- reference per-frame math (a direct port of design/validate/pra_sim_v3.Frame) ---
+# --- reference per-frame math (a direct port of hq/02-DESIGN/validate/pra_sim_v3.Frame) ---
 def ref_encode(w, obs):
     h = np.tanh(w["W1"] @ obs + w["b1"])
     return w["W2"] @ h + w["b2"], h

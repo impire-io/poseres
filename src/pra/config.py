@@ -38,7 +38,7 @@ EpisodeMode = Literal["episodic", "continuous"]
 # constant below was validated AT this scale; the effective_* rules hold the
 # validated *regime* constant as dimensions grow, and are exactly the raw
 # constants at the reference (all scale factors equal 1). See
-# design/validate/SCALE-DIAGNOSIS.md for the evidence behind each rule.
+# hq/02-DESIGN/validate/SCALE-DIAGNOSIS.md for the evidence behind each rule.
 OBS_DIM_REF = 10
 HIDDEN_REF = 12
 TRUE_DIM_REF = 3

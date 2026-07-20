@@ -2,7 +2,7 @@
 runners, and the CLI (feature 005; FR-005/FR-006/FR-010/FR-012).
 
 Small budgets throughout: these tests check the instrument, never the
-science — recorded results live in design/validate/LADDER-CRITERIA.md.
+science — recorded results live in hq/02-DESIGN/validate/LADDER-CRITERIA.md.
 """
 
 from __future__ import annotations

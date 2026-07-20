@@ -137,7 +137,7 @@ The following are the parameters an operator changes to run the system at larger
 - `hidden_size` (§2) — frame capacity; **MUST scale ≳ 2 × the expected latent dimensionality** — a frame cannot resolve structure past its own hidden width.
 
 **Scale-invariant parameter rules [D]** (PRA-01 §8.8, evidence in
-`design/validate/SCALE-DIAGNOSIS.md`): `learning_rate`, `init_weight_scale`, and
+`validate/SCALE-DIAGNOSIS.md`): `learning_rate`, `init_weight_scale`, and
 `w_complexity` are regime-dependent — their defaults were validated at
 `obs_dim = 10`, `hidden_size = 12` and silently leave that regime at larger
 dimensions (raw `learning_rate` *diverges* at `obs_dim = 60`). Implementations
@@ -150,8 +150,8 @@ grow with convergence time). All factors are exactly 1 at the reference scale.
 `effective_survive_threshold_pop_baseline = pop_baseline +
 spawn_per_cycle·(effective_min_age_cycles − min_age_cycles)`, so the
 youth-protected conveyor does not tighten the bar (evidence:
-`design/validate/PROPOSAL-DIAGNOSIS.md` for the emptied mature niche,
-`design/validate/THRESHOLD-DIAGNOSIS.md` for the rule). Applies **only when
+`validate/PROPOSAL-DIAGNOSIS.md` for the emptied mature niche,
+`validate/THRESHOLD-DIAGNOSIS.md` for the rule). Applies **only when
 the fair judge is on** (`score_window_steps > 0`) — corrected-but-flattered
 scoring lands the ecology below the honest surface (measured). The
 judge+correction pair is what unblocks `ClimbingProposalPolicy` (the measured

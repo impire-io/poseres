@@ -26,7 +26,7 @@ At its degenerate dial every rung consumes *exactly* the reference
 sequence, so engine summaries are byte-identical to ``SensorimotorWorld``
 — pinned by integration tests, which is also what guards the deliberate
 duplication of the ~40-line reference core here (the reference world is
-byte-frozen and cannot drift; ``design/validate/`` records why it must
+byte-frozen and cannot drift; ``hq/02-DESIGN/validate/`` records why it must
 not be modified even for subclass hooks).
 
 **Ground-truth hiding.** The ``EventSource`` surface (``reset``/``step``/

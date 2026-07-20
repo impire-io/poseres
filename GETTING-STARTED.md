@@ -279,7 +279,7 @@ code, so code comes from your factory). Gymnasium-mounted runs snapshot
 and resume exactly in episodic mode (the adapter carries its reset
 counter), conditional on the environment's own seeded determinism. What
 is and is not guaranteed, per world class, is written down in
-`design/06-state-persistence.md` §5b — live services and hardware get no
+`hq/02-DESIGN/0006-state-persistence.md` §5b — live services and hardware get no
 world-state guarantee, by honest design.
 
 ## 7. Watch and manage it live from anywhere: NATS at the seams
@@ -357,7 +357,7 @@ range regardless of connector.
 
 ## 9. Where to go next
 
-`design/00-README-index.md` is the map of the seven design documents (read 01
+`hq/02-DESIGN/README.md` is the map of the seven design documents (read 01
 first). `JOURNEY.md` tells you how the project got here, including the dead
 ends — the refuted hypotheses are as load-bearing as the shipped code. The
 acceptance suite (`pra-validate suite`, plus `pra-validate agency` for T7) is
