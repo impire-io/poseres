@@ -1,7 +1,7 @@
 """Minecraft body adapter (feature 027): a pra-mc/1 transport for the 013 seam.
 
 `Ros2Body` mounts unchanged over :class:`MinecraftTransport` — hardware,
-simulators, and now a live game world through one seam (JOURNEY ch. 26,
+simulators, and now a live game world through one seam (hq/04-JOURNEY/0026,
 extended). The in-repo :class:`FakeBridge` carries the whole quality
 gate; the mineflayer bridge in ``examples/minecraft/`` is the worked
 deployment. See specs/027-minecraft-body/.

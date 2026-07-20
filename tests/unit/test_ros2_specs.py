@@ -105,7 +105,7 @@ def test_non_finite_values_are_loud_pointing_at_the_escape_hatch():
     # A real lidar's no-hit beams are +inf, below-min-range beams are -inf,
     # invalid returns are NaN — the learning surface has no missing-data
     # semantics, so all three are delivery errors naming the fix (found by
-    # the Gazebo worked example, JOURNEY ch. 26).
+    # the Gazebo worked example, hq/04-JOURNEY/0026).
     for bad in (np.inf, -np.inf, np.nan):
         with pytest.raises(AnatomyError, match=r"non-finite.*callable extract="):
             extract_vector(np.array([1.0, bad, 3.0]), _spec(3))

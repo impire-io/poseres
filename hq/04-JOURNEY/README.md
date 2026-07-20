@@ -1,0 +1,270 @@
+# 04-JOURNEY — the narrative record
+
+What was built, what was measured, what was believed and then refuted, and
+what each episode taught. Specs say what the system *is*; these episodes say
+how we *got here* — including the dead ends, because the refuted hypotheses
+are as load-bearing as the shipped code.
+
+> **Keeping this log alive:** whenever a feature lands, a research
+> investigation concludes, or a load-bearing decision is made, add a numbered
+> episode with `/journey-log` (research topics get theirs via
+> `/research-graduate`). Follow [`TEMPLATE.md`](TEMPLATE.md) — including its
+> required Reversal-condition line and evidence-class tags. Honesty rules
+> apply here as everywhere: record what actually happened, including
+> failures, reversals, and findings that contradicted expectations. This
+> duty is anchored in `../00-GENESIS/how-we-work.md`; the numbering and
+> index are enforced by `tests/test_hq_structure.py`.
+
+Episodes 0001–0044 were chapters of the original single-file `JOURNEY.md`
+(split 2026-07-20; chapter numbers = episode numbers, so older references to
+"ch. NN" resolve to `00NN-*.md`). The recurring principles the journey keeps
+teaching moved to `../00-GENESIS/how-we-work.md`.
+
+## Where things stand (2026-07-20)
+
+The project now has a product thesis and a milestone-gated plan — **an OSS
+continuously-learning brain for hobbyists and makers**, `ROADMAP.md`
+([Chapter 10](0010-the-product-thesis.md)), and the core mechanisms now have an interactive,
+simulation-backed explainer for that audience (`explainer/index.html`,
+[Chapter 37](0037-the-mechanisms-playable.md)). **The vision was re-broadened on 2026-07-19** ([Chapter 42](0042-the-vision-re-broadened.md)):
+language learning reversed from non-goal to gated horizon question (the
+teacher-world experiment), seeding/compounding intelligence named as
+experiment space, and the working agreement now requires teach-back,
+evidence-class tags, and recorded reversal conditions on direction
+decisions. **Brain seeding is now measured, not just named** ([Chapter 44](0044-brain-seeding.md),
+feature 028): a snapshotted brain used as a *seed* gives the next a real
+head start (B1), the head start is *relevant transfer* not mere maturity
+(B2 — the unrelated-mature control is if anything mildly worse than blank
+at a strict competence line), and it **survives chaining across a
+body-growing resize and does not shrink** (C1, delta +177) — all three
+bars PASS at 24 seeds, the reversal condition untriggered, earned
+persistence exonerated. Built as orchestration over the unchanged engine
+(harness-owned rover layout seed + permuted-rover control + a +1-sensor
+resize hop; no core edits); the pre-registered θ rule was refuted by the
+pilot and amended openly to a fresh-arm-only strict line, with the full
+θ-sweep reported. **Every design document (02–07) is built and validated** at the
+reference scale: the batched sensorimotor core + structural learning (Docs
+03/04), the anatomy/body layer with runtime tools (Doc 02), motivation &
+action with the competence drive (Doc 05), state persistence (Doc 06), and
+the honest harness (T1–T7, determinism, scale, scan, agency) with parallel
+seed execution. **The scaled selection ecology now works** (Chapters [9](0009-the-proposal-diagnosis.md) and
+[11](0011-the-threshold-diagnosis.md)): the fair judge (`score_window_steps`) + the constant-free conveyor
+correction (the seventh scale rule) + climbing proposals are the
+`pra-validate scale` defaults, and the scaled reference is 24/24 anchored
+runs with `best_dim` invariant to budget and proposal policy. The inter-age
+successor dissolved under measurement ([Chapter 12](0012-the-inter-age-diagnosis.md)); the scorer arc found the
+rot ([Chapter 13](0013-the-scorer-diagnosis.md)); and the eighth rule fixed it and closed the T-SCALE
+question ([Chapter 14](0014-the-eighth-rule.md)): **the honest scaled ecology stands on three measured
+legs** (fair judge, conveyor correction, lifetime cap `weight_norm_cap` —
+all `pra-validate scale` defaults, with climbing proposals), the capped
+scaled reference is **medians 10 / 9 / 9 at true_dim 20/35/50, 24/24
+anchored**, and the scaled world measurably carries no `true_dim` signature —
+the parsimony weight is a *price*, and selection lands at the price-optimal
+dimensionality, stably, at every scale and budget. **Every scaled
+acceptance criterion is now measured** (Chapters [15](0015-t3-at-scale.md)–[16](0016-the-amendment-pays.md)): T3 as written
+FAILs at td 20/35 — the criterion, not the capability, breaks at scale
+(the population-mean measure reads the juvenile conveyor) — and the
+pre-registered churn-matched amendment **PASSes at all three scales,
+24/24 paired seeds positive**, with the persistence edge real in every
+seed and thin (~⅓ of reference, flat across scales, presumably
+budget-bound). **The complexity ladder is built and measured**
+([Chapter 17](0017-the-complexity-ladder.md)): three opt-in worlds behind the existing seam, degenerate
+dials byte-identical, criteria pre-registered — first results: selection
+lands *part-sized* on compositional worlds and ignores structured
+distractors (PASS), strong region noise widens the landing
+(dose-dependent), and high-amplitude channel static collapses it (the
+named new open problem: channel-noise robustness — diagnosed in [Chapter 25](0025-channel-noise.md) and **closed opt-in in [Chapter 30](0030-learned-channel-weighting.md)**: learned channel weighting,
+feature 016 — L3 noise PASSES at unit amplitude at 24 seeds with the
+weighting on; the default-config FAIL stands as the recorded reference). **Phase A closes
+with the frontier drive** ([Chapter 24](0024-the-frontier-drive.md)): the per-candidate learnability
+signal predicted-LP demanded exists (realized local progress —
+`"frontier"` in the drive registry), the blend surface is real for the
+first time, and at 24-seed power the A4 exit is met — competence and the
+frontier blend beat random at every horizon, both noise dials; frontier
+matches competence where avoidance is optimal and is the named candidate
+for worlds where camping costs. **Phase B is
+complete** ([Chapter 23](0023-snapshot-completeness.md)): snapshots now cover grown bodies,
+capture-required worlds (episodic Gymnasium resume is exact), and
+multi-stream runs, with per-world-class guarantees written down in Doc
+06 §5b — and the feature's tests caught and fixed a one-ULP
+resume-exactness bug as old as feature 003 (group order lost to sorting
+in the blob). **Hardware and simulators now mount through one seam**
+([Chapter 26](0026-the-ros2-adapter.md)): the ROS2 adapter (feature 013) makes each topic a
+first-class Doc 02 tool — declared anatomy, a control-tick step
+discipline (publish → one tick → sample), an explicit hold-last-value
+staleness policy with loud bounds — provable end-to-end on an in-package
+fake transport (the gate needs no ROS2 anywhere), with a Gazebo rover in
+Docker as the stepped, continuous, single-boot worked example; C2's
+platform half landed, `requires-python` relaxed to 3.12 on a green
+full-gate measurement, and free-running operation is the project's first
+openly non-reproducible mode (Doc 06 §5b class 4, stated). **N worlds now
+feed one brain** ([Chapter 22](0022-multi-stream.md)): `n_streams=K` runs K explorers of one
+world structure merged deterministically, cadence in total experience —
+measured safe (24-seed noninferiority: merged experience matches focused
+experience per observation), with a protocol lesson recorded (pairing
+bars require actually-paired arms; ROADMAP B4 closed, K>1 snapshots to
+B5). **Worlds that
+cannot restart are now first-class** ([Chapter 21](0021-continuous-operation.md)): opt-in continuous
+mode — single engine-enforced boot, virtual episode boundaries carrying
+every validated mechanism, exact resume via the optional world-state
+capture protocol; healthy on bounded worlds, and the recorded reading
+teaches that continuous deployments need recurrent worlds (the reference
+world drifts and saturates when run unbroken — an instrument property,
+now written down); ROADMAP B3 closed. **The
+getting-started experience exists** ([Chapter 20](0020-the-watchable-rover-world.md)): `pra-rover` — a 2D
+rover body of named parts on the unchanged engine with a stdlib live
+viewer, install to watching in under five minutes, byte-reproducible
+with the viewer on; ROADMAP B1 closed. **The first
+external-world adapter is in** ([Chapter 19](0019-the-gymnasium-adapter.md)): any Discrete-action /
+Box-observation Gymnasium environment mounts through the existing body
+seam (`GymnasiumBody`, optional `gym` extra) with explicit
+respawn-on-termination semantics and byte-identical seeded runs —
+CartPole worked example in `examples/`, ROADMAP B2 closed. **The blend
+question is measured and dissolved** ([Chapter 18](0018-the-blend-dissolves.md)): the drive pair shares
+one novelty statistic, so no blend surface exists — competence wins
+where non-uniformity bites (19/24 at strong noise, no structural cost),
+nothing directed beats random at mild noise, and the pre-registered A4
+exit was met by no configuration — later met at proper power ([Chapter 24](0024-the-frontier-drive.md)). The camping-costs question is now **measured** ([Chapter 31](0031-the-camping-bill.md)):
+camping does cost — the camper recovers worst when the world shifts —
+but realized LP does not collect the prize; competence guidance stands.
+The predictive-LP form
+then stopped at its own pre-registered gate ([Chapter 32](0032-the-scout-that-never-left-camp.md)): no trend
+statistic over the current 5-episode error memory can see a regime
+change. The observation-space place memory
+then failed its own offline gate too ([Chapter 33](0033-places-that-move.md)): raw-observation
+anchors are not shift-invariant. The emission-shift world then
+completed the testbed pair and bracketed the problem with numbers
+([Chapter 34](0034-the-repainted-world.md): raw-obs places read ~1.5× background on a repaint, < 1× on
+a territory move, vs the 4× bar). Action-context anchors then failed the same
+gate ([Chapter 35](0035-three-spaces-one-ceiling.md)) — three spaces, one ~1–2× ceiling — and the diagnosis
+moved down a level: the per-step errors-at-visit stream is a *tracking*
+signal, and staleness detection needs a *transfer* signal (the
+fair-judge lesson, applied to drives). The transfer stream was then
+measured ([Chapter 36](0036-the-vein-is-found.md)): **the right signal at last** — staleness moves
+the right way in all six shift cells on both modes, ratios to 7× where
+tracking managed ~1× — but the frozen bars are unmet and the grid ended
+still improving. The extended probe then measured the whole plane
+([Chapter 38](0038-the-plane-is-measured.md)) and **closed the statistic family**: no windowed-median
+level statistic on the transfer stream reaches the 4× bracket (best
+worst-cell margin 0.21, at the *shallow* corner — the 022 trend was the
+floor leg only), the per-frame fallback is structurally censored by
+election (stale frames stop electing and leave the reading), and the
+signal itself is immediate and real (~2× first-bin contrast, decaying
+with relearning): a contrast problem, not a latency problem. The
+change-point successor then closed the question end-to-end ([Chapter 39](0039-not-the-statistic.md)): jump and accumulation statistics fail the same way level did —
+the weak half of the shift cells never separates from benign
+background at honest false-alarm rates (best ROC: 6/6 detection within
+four episodes only at ~1.6% false-fire). The election stream — reading
+the censor itself, staleness as who goes silent — then failed hardest
+([Chapter 40](0040-reading-the-censor.md)): benign mass-silence events (up to ⅔ of established
+frames in one episode, the drive's own movement between regions)
+exceed every shift cell's peak. **Four signal families measured on one
+testbed, one verdict: no passive statistic separates a world change
+from the brain's own nonstationarity — the detector's background is
+the brain itself.** The staleness-detection program pauses with its
+map complete. **C1's runway is cleared** ([Chapter 41](0041-the-soak-before-the-weeks.md)): the reference-
+scale lifetime question is answered at deployment length — no rot in
+500k-step soaks (episodic stationary, continuous decelerating; cap
+measured behaviorally free → C1 runs cap-on), resume byte-identical at
+500k in every arm, and two honest bar-failures converted to sizing
+facts (continuous rides the population ceiling at ~10% wall cost;
+snapshot blobs grow ~8 B/step by design — bounded-trace option named
+as a future feature). **And C1 is built to launch-ready** ([Chapter 43](0043-the-brain-moves-into-minecraft.md)): the world is a small self-hosted Minecraft server (owner's
+choice), reached through a new *transport* for the unchanged 013 seam
+(pra-mc/1, mineflayer bridge, deterministic in-repo FakeBridge
+carrying the whole gate), real stack measured green end-to-end —
+live learning (0.50 → 0.10 over 1,960 steps), hard-kill and exact
+resume, gate clean without the stack — with the arc-026 posture
+applied in the runbook. **The multi-week run is the operator's.**
+Open threads, in priority order: **the C1 run itself** (user-run;
+everything agent-side is done); **scheduled probing** (the named
+active successor: re-visit mastered ground under a held policy and
+re-test — detection as a designed experiment, a Doc 05-level feature,
+when the program resumes); the [ch. 39](0039-not-the-statistic.md) tolerant-gate conditional
+(~1.6% false-fire, if a deployment can afford it); and the
+bounded-trace snapshot option (when a deployment's horizon demands
+it). **Repository housekeeping (2026-07-20):** the 2026-07-19/20
+session's work — the staleness-program successors (arcs 023–025,
+chapters [38](0038-the-plane-is-measured.md)–[40](0040-reading-the-censor.md)), the C1 soak (arc 026, chapter 41), and the Minecraft
+body (feature 027, chapter 43) — is all merged to `main` and pushed,
+each on its own numbered branch on `origin`; the local feature-branch
+copies were pruned after merge, and this feature worktree parks on
+`worktree-022-transfer-signal` at `main`'s tip between features.
+Snapshot support for anatomy-resized runs
+shipped in [Chapter 23](0023-snapshot-completeness.md). **A live brain now has an off-process presence**
+(Chapters [27](0027-the-platform-successors.md)–[28](0028-nats-at-the-seams.md)): the platform successors were sequenced (B6 → B7, one
+transport built once; NATS-underneath-the-engine rejected on the
+byte-identity constitution) and B6 landed the same day — `pra.nats`,
+the tap that binds three existing injection seams (world-wrapper
+mirror + pause gate, the B1 viewer's store capture, a snapshot-store
+wrapper at the C4 write site): telemetry as versioned run-scoped
+subjects, snapshots through a JetStream object store (shareable
+brains, bought once for Phase D), a three-command control plane with
+honestly-deferred snapshot fulfillment — observer safety proven by
+byte-identity (attached/absent, outage-long, paused-and-resumed), the
+run never waiting on the network, the whole gate on an in-repo fake
+transport with zero skips, and the real stack measured green
+end-to-end (`examples/nats/demo.py`, nats-server + nats-py 2.15,
+then uninstalled and the gate re-run clean). Doc 06 §5b records every
+NATS-touching mode's class; experience-in is named class 4 and not
+built; inter-brain communication stays reserved subject space. **And
+the brain has a face** ([Chapter 29](0029-one-face-for-any-brain.md)): `pra-dash`, a pure consumer of
+the documented subjects — simple mode with the world's own view (the
+rover mounts its existing three-call telemetry surface onto the bus
+unchanged), advanced mode with the census history, honesty counters,
+and the four control buttons, replies verbatim; observer safety
+re-proven with the whole dashboard attached and polling, and one
+instrument bug (per-subject seq-gap counting misreading the shared
+mirror family) caught by an actual browser session and fixed with a
+regression test. **Phase B is complete, B1–B7.** Next: the C1/C2
+showcases, whose C2 research gate is named — learned channel
+weighting, because real sensors are the chapter-25 failure mode.
+
+## Episode index
+
+| # | Episode |
+|---|---|
+| 0001 | [Vision and design](0001-vision-and-design.md) |
+| 0002 | [Prototypes and the STEP-0 gate](0002-prototypes-and-the-step-0-gate.md) |
+| 0003 | [Feature 001: the validation harness + batched core](0003-the-validation-harness.md) |
+| 0004 | [The T-SCALE diagnosis: six scale-invariance rules](0004-the-t-scale-diagnosis.md) |
+| 0005 | [Feature 002: motivation & action — the system becomes an agent](0005-motivation-and-action.md) |
+| 0006 | [Feature 003: state persistence](0006-state-persistence.md) |
+| 0007 | [The agency diagnosis: curiosity loses, competence wins](0007-the-agency-diagnosis.md) |
+| 0008 | [Feature 004: anatomy & body — the design is fully built](0008-anatomy-and-body.md) |
+| 0009 | [The proposal diagnosis: the ladder was never the bottleneck](0009-the-proposal-diagnosis.md) |
+| 0010 | [The product thesis: an OSS brain for makers](0010-the-product-thesis.md) |
+| 0011 | [The threshold diagnosis: the fair judge and the conveyor](0011-the-threshold-diagnosis.md) |
+| 0012 | [The inter-age diagnosis: a successor problem dissolves](0012-the-inter-age-diagnosis.md) |
+| 0013 | [The scorer diagnosis finds the rot: lifetime stability is the real frontier](0013-the-scorer-diagnosis.md) |
+| 0014 | [The eighth rule and the price of a dimension](0014-the-eighth-rule.md) |
+| 0015 | [T3 at scale: the criterion breaks before the capability does](0015-t3-at-scale.md) |
+| 0016 | [The amendment pays: churn-matched T3 passes 24/24 at scale](0016-the-amendment-pays.md) |
+| 0017 | [Feature 005: the complexity ladder — every failure names its cause](0017-the-complexity-ladder.md) |
+| 0018 | [The blend dissolves: one novelty statistic, three behaviors](0018-the-blend-dissolves.md) |
+| 0019 | [Feature 007: the Gymnasium adapter — hundreds of worlds through one seam](0019-the-gymnasium-adapter.md) |
+| 0020 | [Feature 006: the watchable rover world — the product is the watching](0020-the-watchable-rover-world.md) |
+| 0021 | [Feature 008: continuous operation — the slow loop was always a cadence](0021-continuous-operation.md) |
+| 0022 | [Feature 009: multi-stream — the merge does no harm, and a protocol gets caught](0022-multi-stream.md) |
+| 0023 | [Feature 010: snapshot completeness — three debts, one principle, one caught bug](0023-snapshot-completeness.md) |
+| 0024 | [The frontier drive: A4 closes at proper power](0024-the-frontier-drive.md) |
+| 0025 | [Channel noise: the score loses its gradient before the brain loses its structure](0025-channel-noise.md) |
+| 0026 | [Feature 013: the ROS2 adapter — robots are message streams, so topics became tools](0026-the-ros2-adapter.md) |
+| 0027 | [The platform successors: NATS at the seams, the dashboard behind it, and the robot's real gate](0027-the-platform-successors.md) |
+| 0028 | [NATS at the seams: the off-process window that provably isn't there](0028-nats-at-the-seams.md) |
+| 0029 | [One face for any brain: the dashboard, and the browser that caught a bug](0029-one-face-for-any-brain.md) |
+| 0030 | [Learned channel weighting: the score gets its gradient back](0030-learned-channel-weighting.md) |
+| 0031 | [The camping bill arrives, and nobody collects it](0031-the-camping-bill.md) |
+| 0032 | [The scout that never left camp: a gate does its job](0032-the-scout-that-never-left-camp.md) |
+| 0033 | [Places that move: the map fails its gate, and names its successor twice over](0033-places-that-move.md) |
+| 0034 | [The repainted world: the testbed pair closes, and brackets the problem](0034-the-repainted-world.md) |
+| 0035 | [Three spaces, one ceiling: the signal was the problem all along](0035-three-spaces-one-ceiling.md) |
+| 0036 | [The vein is found: transfer errors carry what tracking drowns](0036-the-vein-is-found.md) |
+| 0037 | [The mechanisms, playable: an interactive explainer that runs the real math](0037-the-mechanisms-playable.md) |
+| 0038 | [The plane is measured: level statistics close, two doors open](0038-the-plane-is-measured.md) |
+| 0039 | [Not the statistic: the population transfer read closes end-to-end](0039-not-the-statistic.md) |
+| 0040 | [Reading the censor: the fourth family closes and the map is complete](0040-reading-the-censor.md) |
+| 0041 | [The soak before the weeks: C1's deferred questions answered in an afternoon](0041-the-soak-before-the-weeks.md) |
+| 0042 | [The vision re-broadened: language returns as a gated horizon](0042-the-vision-re-broadened.md) |
+| 0043 | [The brain moves into Minecraft: C1's world, built to launch-ready](0043-the-brain-moves-into-minecraft.md) |
+| 0044 | [Brain seeding: the head start is real, relevant, and compounds](0044-brain-seeding.md) |

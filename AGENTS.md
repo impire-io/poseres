@@ -4,22 +4,23 @@ Durable instructions for any coding agent working in this repository.
 
 ## Orientation (read in this order)
 
-1. `JOURNEY.md` — the narrative of the project so far: what was built, what was
-   refuted, and why things are the way they are. Start here.
+1. `hq/04-JOURNEY/README.md` — the narrative of the project so far: what was
+   built, what was refuted, and why things are the way they are. Start here.
 2. The current feature plan — pointed to by the SPECKIT block in `CLAUDE.md`
    (tech stack, structure, commands).
 3. `hq/02-DESIGN/README.md` — the system design map; `hq/02-DESIGN/validate/` —
    the normative specs (PRA-01/PRA-02) and the evidence-trail documents
    (`*-DIAGNOSIS.md`).
 
-## Maintaining JOURNEY.md (required)
+## Maintaining the journey (required)
 
 Whenever you complete a feature, conclude a research investigation, or make a
 load-bearing decision (a spec change, a criterion amendment, a refuted
-hypothesis), **append or extend a chapter in `JOURNEY.md`** using the template
-at its bottom, and update its "Where things stand" section. Record what
-actually happened — including failures, reversals, and findings that
-contradicted expectations. Commit it with the work it describes.
+hypothesis), **add a numbered episode in `hq/04-JOURNEY/`** following
+`hq/04-JOURNEY/TEMPLATE.md`, and update the "Where things stand" section and
+episode index in its README. Record what actually happened — including
+failures, reversals, and findings that contradicted expectations. Commit it
+with the work it describes.
 
 ## Non-negotiable working rules
 
@@ -50,6 +51,6 @@ contradicted expectations. Commit it with the work it describes.
 New capabilities go through the Spec Kit flow (`/speckit-specify` → plan →
 tasks → implement) on a numbered feature branch (`specs/NNN-name/`), merged to
 `main` when the gate is green. Small hardening/research changes may land
-directly with tests and spec propagation (see JOURNEY chapters 4 and 7 for
+directly with tests and spec propagation (see `hq/04-JOURNEY/0004` and `0007` for
 precedent). Propagate every behavioral change into the design docs it touches
 (`hq/02-DESIGN/000X-*.md`, PRA-01/PRA-02, Doc 07 for parameters).

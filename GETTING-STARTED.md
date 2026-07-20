@@ -235,7 +235,7 @@ decides *which* experience to seek. Two drives ship today:
 
 - **`curiosity`** — learning progress + novelty. Measured result worth
   knowing: in a uniformly learnable world, pure novelty-seeking is *worse*
-  than random (JOURNEY.md, Chapter 7).
+  than random (hq/04-JOURNEY/0007-the-agency-diagnosis.md).
 - **`competence`** — mastery + familiarity (concentrated practice). The first
   drive measured to beat random exploration, at both tested scales — and on
   non-uniform worlds too (Chapter 24): the recommended drive when parts of
@@ -358,7 +358,7 @@ range regardless of connector.
 ## 9. Where to go next
 
 `hq/02-DESIGN/README.md` is the map of the seven design documents (read 01
-first). `JOURNEY.md` tells you how the project got here, including the dead
+first). `hq/04-JOURNEY/` tells you how the project got here, including the dead
 ends — the refuted hypotheses are as load-bearing as the shipped code. The
 acceptance suite (`pra-validate suite`, plus `pra-validate agency` for T7) is
 the contract: if you change something and T1–T7 still pass byte-identically,
