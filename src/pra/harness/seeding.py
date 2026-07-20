@@ -254,19 +254,19 @@ def _margin(name: str, a: dict[int, int], b: dict[int, int]) -> Margin:
             if m > 0:
                 n_better += 1
     arr = np.asarray(per_seed, dtype=np.float64)
-    n = arr.size
+    n = int(arr.size)
     mean = float(arr.mean()) if n else 0.0
     std = float(arr.std()) if n else 0.0
-    se = std / np.sqrt(n) if n else 0.0
+    se = float(std / np.sqrt(n)) if n else 0.0
     return Margin(name, per_seed, mean, std, se, n_better, n)
 
 
 def _superiority(m: Margin) -> bool:
-    return m.n >= 2 and m.mean > m.bound_superiority
+    return bool(m.n >= 2 and m.mean > m.bound_superiority)
 
 
 def _noninferior(m: Margin) -> bool:
-    return m.n >= 2 and m.mean >= m.bound_noninferiority
+    return bool(m.n >= 2 and m.mean >= m.bound_noninferiority)
 
 
 # --- orchestration -------------------------------------------------------------

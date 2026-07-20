@@ -50,10 +50,10 @@ test, US3 = reproducibility & non-perturbation).
 
 ### Tests for User Story 1
 
-- [ ] T003 [P] [US1] Byte-identity test for the layout-seed degenerate path in `tests/unit/test_rover_layout_seed.py`: rover with `rover_layout_seed=None` (and layout_seed==run_seed single stream) produces a byte-identical observation stream to today's rover for seeds 1–3; plus a test that two distinct layout seeds yield distinct layouts while the brain seed is fixed.
-- [ ] T004 [P] [US1] Byte-identity + learnability test for the permuted rover in `tests/unit/test_permuted_rover.py`: identity permutation ⇒ byte-identical to plain rover; a non-identity permutation is still learnable (prediction error falls) and its learned mapping does not match the un-permuted world (sanity: action/sensor vectors permuted).
-- [ ] T005 [P] [US1] Metric unit test in `tests/unit/test_seeding_metric.py`: time-to-competence τ = first checkpoint where `W_smooth`-smoothed error ≤ θ; right-censoring at `N_probe` sets `reached=false`, `tau=N_probe`; `_margins_vs`-style paired margins with the ±1.9·SE superiority form; sign of margin follows "positive = seeded faster".
-- [ ] T006 [P] [US1] Contract test in `tests/contract/test_seeding_cli.py` per `contracts/seeding-cli.md`: pilot prints no bar verdict; confirmatory prints B1/B2/C1 + overall; readings carry `reached`; JSON shape matches; running it leaves the byte-frozen baseline green.
+- [X] T003 [P] [US1] Byte-identity test for the layout-seed degenerate path in `tests/unit/test_rover_layout_seed.py`: `layout_seed=None` byte-identical to plain rover; distinct seeds → distinct maps; same seed → same map regardless of run rng; deterministic.
+- [X] T004 [P] [US1] Byte-identity + learnability test for the permuted rover in `tests/unit/test_permuted_rover.py`: `permute=False` byte-identical; perm vectors are valid permutations; permuted world learnable (error falls) and distinct from the un-permuted map; permutation reindexes senses without redrawing the map.
+- [X] T005 [P] [US1] Metric unit test in `tests/unit/test_seeding_metric.py`: trailing smoothing, τ first-crossing, censoring (incl. common-length), paired margin sign/pairing, ±1.9·SE superiority/noninferiority bounds.
+- [X] T006 [P] [US1] Contract test in `tests/contract/test_seeding_cli.py`: pilot no bar verdict (calibration only); confirmatory B1/B2 + overall; readings carry `reached`/`n_censor`; margin sign convention; JSON shape; CLI `main` writes JSON. (Baseline byte-identity guarded by the full gate, which stays green.)
 
 ### Implementation for User Story 1
 
