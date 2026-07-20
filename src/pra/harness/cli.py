@@ -193,6 +193,33 @@ def _cmd_agency(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_seeding(args: argparse.Namespace) -> int:
+    from pra.harness.seeding import (
+        params_from_dict,
+        run_seeding,
+    )
+    from pra.harness.seeding import (
+        render_text as render_seeding,
+    )
+    from pra.harness.seeding import (
+        to_json as seeding_json,
+    )
+
+    overrides: dict = {}
+    if args.config:
+        overrides.update(json.loads(Path(args.config).read_text()))
+    params = params_from_dict(overrides)
+    seeds = list(_int_list(args.seeds)) if args.seeds else list(range(1, 25))
+    result = run_seeding(seeds, args.mode, params)
+    sys.stdout.write(render_seeding(result) + "\n")
+    if args.json:
+        out = Path(args.json)
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(json.dumps(seeding_json(result), indent=2))
+    # investigatory: a bar FAIL is a finding, never a CLI error.
+    return 0
+
+
 def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="pra-validate", description="PRA validation harness")
     sub = parser.add_subparsers(dest="command")
@@ -280,6 +307,24 @@ def _build_parser() -> argparse.ArgumentParser:
         help="parallel seed processes (0 = one per seed up to CPU count); never changes results",
     )
     p_agency.set_defaults(func=_cmd_agency)
+
+    p_seeding = sub.add_parser(
+        "seeding",
+        help="brain-seeding experiment: does a seed brain's head start compound (feature 028)",
+    )
+    p_seeding.add_argument("--seeds", help="comma list (default 1..24)")
+    p_seeding.add_argument(
+        "--mode",
+        choices=("pilot", "confirmatory"),
+        default="confirmatory",
+        help="pilot calibrates theta/budgets (no verdict); confirmatory decides the bars",
+    )
+    p_seeding.add_argument(
+        "--config",
+        help="JSON with seeding params (n_pretrain, n_probe, theta_b, theta_c, w_smooth)",
+    )
+    p_seeding.add_argument("--json")
+    p_seeding.set_defaults(func=_cmd_seeding)
 
     return parser
 

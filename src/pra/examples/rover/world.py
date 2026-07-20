@@ -169,20 +169,45 @@ class RoverWorld:
         *,
         telemetry=None,
         step_delay: float = 0.0,
+        layout_seed: int | None = None,
+        permute: bool = False,
+        permute_seed: int | None = None,
     ):
         self._noise_std = float(config.sensor_noise_std)
         self._rng = rng
         self._telemetry = telemetry
         self._step_delay = float(step_delay)
 
+        # Brain-seeding seam (feature 028): the *map* (obstacles + spawns) may be
+        # drawn from a harness-owned ``layout_seed`` separate from the run/brain
+        # generator, so the seeding experiment can face all three arms at one
+        # seed with the identical new map while each brain keeps its own
+        # exploration stream. ``layout_seed=None`` draws from ``rng`` in exactly
+        # the recorded order — byte-identical to feature 006.
+        layout_rng = rng if layout_seed is None else np.random.default_rng(layout_seed)
+
         # Construction draws: per obstacle (center, radius), then spawns (R4).
         obstacles: list[tuple[float, float, float]] = []
         for _ in range(N_OBSTACLES):
-            center = rng.uniform(-OBSTACLE_SPREAD, OBSTACLE_SPREAD, size=2)
-            radius = float(rng.uniform(OBSTACLE_R_MIN, OBSTACLE_R_MAX))
+            center = layout_rng.uniform(-OBSTACLE_SPREAD, OBSTACLE_SPREAD, size=2)
+            radius = float(layout_rng.uniform(OBSTACLE_R_MIN, OBSTACLE_R_MAX))
             obstacles.append((float(center[0]), float(center[1]), radius))
         self._obstacles = obstacles
-        self._spawns = _draw_spawns(rng, obstacles)
+        self._spawns = _draw_spawns(layout_rng, obstacles)
+
+        # Permuted rover (feature 028): a fixed construction-time permutation of
+        # action semantics and sensor channels — fully learnable, structurally
+        # unrelated to an un-permuted map, so a brain that masters it transfers
+        # nothing useful. Drawn from an independent ``permute_seed`` generator
+        # (never the run/brain rng), so a permuted world consumes no run-stream
+        # draws; ``permute=False`` is byte-identical to the plain rover.
+        if permute:
+            perm_rng = np.random.default_rng(permute_seed)
+            self._action_perm: np.ndarray | None = perm_rng.permutation(ROVER_N_ACTIONS)
+            self._sensor_perm: np.ndarray | None = perm_rng.permutation(ROVER_OBS_DIM)
+        else:
+            self._action_perm = None
+            self._sensor_perm = None
 
         self._x = 0.0
         self._y = 0.0
@@ -204,6 +229,13 @@ class RoverWorld:
         no RNG; blocked moves hold the pose and set the bumper."""
         if self._senses is None:
             raise RuntimeError("apply() called before reset()")
+        if action < 0 or action >= ROVER_N_ACTIONS:
+            raise ValueError(f"rover action {action} outside [0, {ROVER_N_ACTIONS})")
+        # Permuted rover (feature 028): the brain's action index is relabelled to
+        # a scrambled physical action — learnable, but the learned action→outcome
+        # map is wrong for an un-permuted world. Identity (None) is a no-op.
+        if self._action_perm is not None:
+            action = int(self._action_perm[action])
         if action == 0 or action == 1:
             step = MOVE_STEP if action == 0 else -MOVE_STEP * REVERSE_FACTOR
             nx = self._x + step * math.cos(self._theta)
@@ -242,6 +274,11 @@ class RoverWorld:
         clean[8] = self._y / ARENA_HALF
         clean[9] = float(self._bump)
         obs = clean + self._rng.standard_normal(ROVER_OBS_DIM) * self._noise_std
+        # Permuted rover (feature 028): scramble which physical channel feeds
+        # which named sensor window. A reindex only — no new draw — so the run
+        # stream is untouched; identity (None) is a no-op.
+        if self._sensor_perm is not None:
+            obs = obs[self._sensor_perm]
         self._senses = {
             "rays": obs[0:5],
             "compass": obs[5:7],
@@ -318,6 +355,9 @@ def make_rover_body(
     *,
     telemetry=None,
     step_delay: float = 0.0,
+    layout_seed: int | None = None,
+    permute: bool = False,
+    permute_seed: int | None = None,
 ) -> Body:
     """Build the rover body — the Engine's ``world_factory`` for feature 006.
 
@@ -326,6 +366,12 @@ def make_rover_body(
     message naming the mismatch (FR-011). When a telemetry tap is attached
     the world records pose/step events into it and the tap receives the
     static layout — the engine remains ignorant of both.
+
+    Brain-seeding seam (feature 028): ``layout_seed`` draws the map from a
+    harness-owned generator separate from the run/brain stream (maps A/B/C at
+    one seed), and ``permute`` builds the permuted rover (the maturity
+    control's learnable-but-unrelated world). Both default to the feature-006
+    behavior, byte-identical.
     """
     if config.obs_dim != ROVER_OBS_DIM or config.n_actions != ROVER_N_ACTIONS:
         raise AnatomyError(
@@ -333,7 +379,15 @@ def make_rover_body(
             f"n_actions={ROVER_N_ACTIONS} (the validated reference widths); "
             f"got obs_dim={config.obs_dim} / n_actions={config.n_actions}"
         )
-    world = RoverWorld(config, rng, telemetry=telemetry, step_delay=step_delay)
+    world = RoverWorld(
+        config,
+        rng,
+        telemetry=telemetry,
+        step_delay=step_delay,
+        layout_seed=layout_seed,
+        permute=permute,
+        permute_seed=permute_seed,
+    )
     sensors = [RoverSensor(world, part, width) for part, width in SENSOR_PARTS]
     body = Body(world, sensors=sensors, actuators=[RoverDrive(world)])
     if telemetry is not None:
