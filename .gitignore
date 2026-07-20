@@ -10,6 +10,10 @@ venv/
 # macOS
 .DS_Store
 
+# IDE / tool-session artifacts
+.idea/
+.playwright-mcp/
+
 # Snapshots (quickstart example output)
 snapshots/
 .claude/worktrees/
