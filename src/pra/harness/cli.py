@@ -210,7 +210,7 @@ def _cmd_seeding(args: argparse.Namespace) -> int:
         overrides.update(json.loads(Path(args.config).read_text()))
     params = params_from_dict(overrides)
     seeds = list(_int_list(args.seeds)) if args.seeds else list(range(1, 25))
-    result = run_seeding(seeds, args.mode, params)
+    result = run_seeding(seeds, args.mode, params, do_hop2=not args.no_hop2)
     sys.stdout.write(render_seeding(result) + "\n")
     if args.json:
         out = Path(args.json)
@@ -322,6 +322,11 @@ def _build_parser() -> argparse.ArgumentParser:
     p_seeding.add_argument(
         "--config",
         help="JSON with seeding params (n_pretrain, n_probe, theta_b, theta_c, w_smooth)",
+    )
+    p_seeding.add_argument(
+        "--no-hop2",
+        action="store_true",
+        help="run only hop 1 (transfer test, B1/B2); skip the resize hop (C1)",
     )
     p_seeding.add_argument("--json")
     p_seeding.set_defaults(func=_cmd_seeding)

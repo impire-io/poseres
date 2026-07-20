@@ -8,6 +8,7 @@ import numpy as np
 
 from pra.harness.seeding import (
     NONINFERIORITY_T,
+    _delta_margin,
     _margin,
     _noninferior,
     _smooth,
@@ -90,3 +91,31 @@ def test_superiority_and_noninferiority_bounds():
 
 def test_noninferiority_t_is_the_repo_form():
     assert NONINFERIORITY_T == 1.9
+
+
+def test_delta_margin_is_paired_difference_of_margins():
+    # margin1 and margin2 are paired over the same sorted seeds; delta = m2 - m1.
+    seeded_b = {1: 10, 2: 20, 3: 30}
+    fresh_b = {1: 40, 2: 60, 3: 50}  # margin1 = [30, 40, 20]
+    seeded_c = {1: 5, 2: 10, 3: 15}
+    fresh_c = {1: 45, 2: 90, 3: 45}  # margin2 = [40, 80, 30]
+    m1 = _margin("margin1", seeded_b, fresh_b)
+    m2 = _margin("margin2", seeded_c, fresh_c)
+    d = _delta_margin(m2, m1)
+    assert d.per_seed == [10.0, 40.0, 10.0]  # 40-30, 80-40, 30-20
+    assert d.n == 3
+    assert d.n_better == 3
+
+
+def test_c1_combination_superiority_and_nonshrink():
+    # C1 = margin2 superior AND delta non-shrink. A margin2 that is strongly
+    # positive and a delta that does not drop below -1.9*SE both hold.
+    seeded_b = {s: 100 for s in range(1, 9)}
+    fresh_b = {s: 200 for s in range(1, 9)}  # margin1 = +100 each
+    seeded_c = {s: 100 for s in range(1, 9)}
+    fresh_c = {s: 210 + (s % 2) for s in range(1, 9)}  # margin2 ~ +110, delta ~ +10
+    m1 = _margin("margin1", seeded_b, fresh_b)
+    m2 = _margin("margin2", seeded_c, fresh_c)
+    d = _delta_margin(m2, m1)
+    assert _superiority(m2) is True
+    assert _noninferior(d) is True  # non-shrink: delta not significantly negative

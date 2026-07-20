@@ -79,7 +79,7 @@ class SeedingParams:
     n_pretrain: int = 30
     n_probe: int = 30
     theta_b: float = 0.30
-    theta_c: float = 0.30
+    theta_c: float = 0.33
     w_smooth: int = 240
     # Base rover config (schedule dials); anatomy fixed at the reference widths.
     base_config: Config = field(default_factory=Config)
@@ -141,10 +141,18 @@ class SeedingResult:
 # --- run capture ---------------------------------------------------------------
 
 
-def _rover_factory(layout_seed, permute=False, permute_seed=None):
+def _rover_factory(
+    layout_seed, permute=False, permute_seed=None, extra_ray=False, extra_ray_pending=False
+):
     def factory(cfg: Config, rng):
         return make_rover_body(
-            cfg, rng, layout_seed=layout_seed, permute=permute, permute_seed=permute_seed
+            cfg,
+            rng,
+            layout_seed=layout_seed,
+            permute=permute,
+            permute_seed=permute_seed,
+            extra_ray=extra_ray,
+            extra_ray_pending=extra_ray_pending,
         )
 
     return factory
@@ -190,25 +198,33 @@ def _pretrain(seed: int, params: SeedingParams, *, permute: bool) -> SystemState
     return _capture(cfg, factory, seed)
 
 
-def _probe_trajectory(
-    seed: int, seed_state: SystemState | None, params: SeedingParams, map_label: str
-) -> np.ndarray:
-    """Run the probe phase on ``map_label`` and return the per-step prediction
-    error trajectory *on the probe map only* (the prior-map prefix sliced off
-    for resumed arms)."""
+def _probe(
+    seed: int,
+    resume_state: SystemState | None,
+    params: SeedingParams,
+    map_label: str,
+    *,
+    grow: bool = False,
+) -> tuple[np.ndarray, SystemState]:
+    """Run the probe phase on ``map_label`` and return (probe-map trajectory,
+    final state) so an A→B→C chain can continue. For resumed arms the prior-map
+    prefix is sliced off. ``grow`` selects the +1-sensor rover: a native 11-dim
+    body for a fresh arm, or a pending 10→11 resize for a resumed chain."""
     layout = _layout_seed(seed, map_label)
-    factory = _rover_factory(layout)
-    if seed_state is None:  # fresh: whole trajectory (warmup + probe cycles)
-        cfg = _fixed_length_config(params.n_probe, params.base_config)
+    if resume_state is None:  # fresh: whole trajectory (warmup + probe cycles)
+        base = params.base_config.replace(obs_dim=11) if grow else params.base_config
+        cfg = _fixed_length_config(params.n_probe, base)
+        factory = _rover_factory(layout, extra_ray=grow)
         final = _capture(cfg, factory, seed)
-        return np.asarray(final.pred_errors, dtype=np.float64)
+        return np.asarray(final.pred_errors, dtype=np.float64), final
     # seeded / maturity: extend the resumed run by n_probe cycles, slice the prefix
-    prior_len = len(seed_state.pred_errors)
-    total = seed_state.cycles_done + params.n_probe
-    probe_cfg = _fixed_length_config(total, seed_state.config)
-    probe_state = dataclasses.replace(seed_state, config=probe_cfg)
+    prior_len = len(resume_state.pred_errors)
+    total = resume_state.cycles_done + params.n_probe
+    probe_cfg = _fixed_length_config(total, resume_state.config)
+    probe_state = dataclasses.replace(resume_state, config=probe_cfg)
+    factory = _rover_factory(layout, extra_ray_pending=grow)
     final = _capture(probe_cfg, factory, seed, resume_from=probe_state)
-    return np.asarray(final.pred_errors[prior_len:], dtype=np.float64)
+    return np.asarray(final.pred_errors[prior_len:], dtype=np.float64), final
 
 
 # --- metric --------------------------------------------------------------------
@@ -273,41 +289,88 @@ def _noninferior(m: Margin) -> bool:
 # --- orchestration -------------------------------------------------------------
 
 
-def _hop(
-    seed: int, params: SeedingParams, map_label: str, theta: float
-) -> dict[str, tuple[np.ndarray, SystemState | None]]:
-    """Run all three arms' probe trajectories on ``map_label`` for one seed.
-    Returns arm -> (trajectory, seed_state used) so hop 2 can chain the seeded
-    and maturity arms onward."""
-    seeded_seed = _pretrain(seed, params, permute=False)
-    maturity_seed = _pretrain(seed, params, permute=True)
+def _hop1(seed: int, params: SeedingParams) -> dict[str, tuple[np.ndarray, SystemState | None]]:
+    """Hop 1 (A→B): pretrain seeded (map A) and maturity (permuted), then probe
+    all three arms on map B. Returns arm -> (probe trajectory, post-B state) so
+    the seeded/maturity chains can continue into hop 2 (fresh does not chain)."""
+    seeded_a = _pretrain(seed, params, permute=False)
+    maturity_a = _pretrain(seed, params, permute=True)
+    seeded_traj, seeded_ab = _probe(seed, seeded_a, params, "B")
+    fresh_traj, _ = _probe(seed, None, params, "B")
+    maturity_traj, maturity_mb = _probe(seed, maturity_a, params, "B")
     return {
-        "seeded": (_probe_trajectory(seed, seeded_seed, params, map_label), seeded_seed),
-        "fresh": (_probe_trajectory(seed, None, params, map_label), None),
-        "maturity": (_probe_trajectory(seed, maturity_seed, params, map_label), maturity_seed),
+        "seeded": (seeded_traj, seeded_ab),
+        "fresh": (fresh_traj, None),
+        "maturity": (maturity_traj, maturity_mb),
     }
 
 
-def run_seeding(seeds: list[int], mode: str, params: SeedingParams) -> SeedingResult:
-    """Run the brain-seeding experiment (hop 1: A→B). ``mode`` is ``"pilot"``
-    (calibration read, no bars) or ``"confirmatory"`` (decide B1/B2)."""
+def _hop2(
+    seed: int, params: SeedingParams, seeded_ab: SystemState, maturity_mb: SystemState
+) -> dict[str, np.ndarray]:
+    """Hop 2 (B→resize→C): grow the seeded/maturity chains by one sensor onto
+    map C; fresh-C mounts a native 11-dim rover. Returns arm -> trajectory."""
+    seeded_traj, _ = _probe(seed, seeded_ab, params, "C", grow=True)
+    fresh_traj, _ = _probe(seed, None, params, "C", grow=True)
+    maturity_traj, _ = _probe(seed, maturity_mb, params, "C", grow=True)
+    return {"seeded": seeded_traj, "fresh": fresh_traj, "maturity": maturity_traj}
+
+
+def _score_hop(readings, tau, reached, seed, map_label, trajs, theta, w) -> None:
+    """Common-length censoring + time-to-threshold for one seed's arms on one
+    map; appends readings and fills the tau/reached tables in place."""
+    n_cens = min(t.size for t in trajs.values())
+    for arm, traj in trajs.items():
+        t, r = _time_to_threshold(traj, theta, w, n_cens)
+        final_err = float(_smooth(traj, w)[-1]) if traj.size else float("nan")
+        readings.append(ArmReading(arm, seed, map_label, theta, t, r, final_err, n_cens))
+        tau[arm][seed] = t
+        reached[arm][seed] = r
+
+
+def _delta_margin(margin2: Margin, margin1: Margin) -> Margin:
+    """The non-shrink statistic: per-seed ``margin2 − margin1`` (both are paired
+    over the same sorted seed set, so their per_seed lists align)."""
+    per_seed = [m2 - m1 for m1, m2 in zip(margin1.per_seed, margin2.per_seed, strict=True)]
+    arr = np.asarray(per_seed, dtype=np.float64)
+    n = int(arr.size)
+    mean = float(arr.mean()) if n else 0.0
+    std = float(arr.std()) if n else 0.0
+    se = float(std / np.sqrt(n)) if n else 0.0
+    n_better = int(sum(1 for v in per_seed if v > 0))
+    return Margin("delta", per_seed, mean, std, se, n_better, n)
+
+
+def run_seeding(
+    seeds: list[int], mode: str, params: SeedingParams, *, do_hop2: bool = True
+) -> SeedingResult:
+    """Run the brain-seeding experiment. ``mode`` is ``"pilot"`` (hop-1
+    calibration read, no bars) or ``"confirmatory"`` (decide B1/B2, and — when
+    ``do_hop2`` — the compounding bar C1)."""
     readings: list[ArmReading] = []
     tau_b: dict[str, dict[int, int]] = {"seeded": {}, "fresh": {}, "maturity": {}}
     reached_b: dict[str, dict[int, bool]] = {"seeded": {}, "fresh": {}, "maturity": {}}
+    tau_c: dict[str, dict[int, int]] = {"seeded": {}, "fresh": {}, "maturity": {}}
+    reached_c: dict[str, dict[int, bool]] = {"seeded": {}, "fresh": {}, "maturity": {}}
     fresh_curves: list[np.ndarray] = []
+    hop2 = mode == "confirmatory" and do_hop2
 
     for seed in seeds:
-        arms = _hop(seed, params, "B", params.theta_b)
-        n_cens = min(traj.size for traj, _ in arms.values())
-        for arm, (traj, _) in arms.items():
-            tau, reached = _time_to_threshold(traj, params.theta_b, params.w_smooth, n_cens)
-            final_err = float(_smooth(traj, params.w_smooth)[-1]) if traj.size else float("nan")
-            readings.append(
-                ArmReading(arm, seed, "B", params.theta_b, tau, reached, final_err, n_cens)
-            )
-            tau_b[arm][seed] = tau
-            reached_b[arm][seed] = reached
+        arms = _hop1(seed, params)
+        _score_hop(
+            readings,
+            tau_b,
+            reached_b,
+            seed,
+            "B",
+            {a: t for a, (t, _) in arms.items()},
+            params.theta_b,
+            params.w_smooth,
+        )
         fresh_curves.append(arms["fresh"][0])
+        if hop2:
+            c = _hop2(seed, params, arms["seeded"][1], arms["maturity"][1])
+            _score_hop(readings, tau_c, reached_c, seed, "C", c, params.theta_c, params.w_smooth)
 
     margins = {
         "margin1": _margin("margin1", tau_b["seeded"], tau_b["fresh"]),
@@ -317,6 +380,15 @@ def run_seeding(seeds: list[int], mode: str, params: SeedingParams) -> SeedingRe
         f"{arm}_B": (sum(reached_b[arm].values()) / len(seeds) if seeds else 0.0)
         for arm in ("seeded", "fresh", "maturity")
     }
+    if hop2:
+        margins["margin2"] = _margin("margin2", tau_c["seeded"], tau_c["fresh"])
+        margins["delta"] = _delta_margin(margins["margin2"], margins["margin1"])
+        reach_rates.update(
+            {
+                f"{arm}_C": (sum(reached_c[arm].values()) / len(seeds) if seeds else 0.0)
+                for arm in ("seeded", "fresh", "maturity")
+            }
+        )
 
     bars: list[Bar] = []
     overall: str | None = None
@@ -342,7 +414,29 @@ def run_seeding(seeds: list[int], mode: str, params: SeedingParams) -> SeedingRe
                 ),
             ),
         ]
-        overall = "PASS" if (b1 and b2) else "FAIL"
+        passes = [b1, b2]
+        if hop2:
+            d = margins["delta"]
+            c_sup = _superiority(margins["margin2"])
+            c_non = _noninferior(d)
+            c1 = c_sup and c_non
+            detail = _fmt_margin(
+                margins["margin2"], reach_rates, "seeded_C", "fresh_C", superiority=True
+            )
+            detail += (
+                f"; delta {d.mean:+.0f} (non-shrink "
+                f"{'PASS' if c_non else 'fail'}, >= {d.bound_noninferiority:+.0f})"
+            )
+            bars.append(
+                Bar(
+                    "C1",
+                    "head start does not shrink across the resize hop (B→resize→C)",
+                    "PASS" if c1 else "FAIL",
+                    detail,
+                )
+            )
+            passes.append(c1)
+        overall = "PASS" if all(passes) else "FAIL"
     else:  # pilot: report the median fresh learning curve for theta calibration
         calibration = _calibrate(fresh_curves, params)
 
@@ -406,7 +500,7 @@ def params_from_dict(d: dict) -> SeedingParams:
         n_pretrain=int(d.get("n_pretrain", 30)),
         n_probe=int(d.get("n_probe", 30)),
         theta_b=float(d.get("theta_b", 0.30)),
-        theta_c=float(d.get("theta_c", 0.30)),
+        theta_c=float(d.get("theta_c", 0.33)),
         w_smooth=int(d.get("w_smooth", 240)),
         base_config=base,
     )

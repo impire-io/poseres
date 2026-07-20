@@ -27,7 +27,7 @@ def test_pilot_reports_calibration_without_bars():
 
 
 def test_confirmatory_decides_bars_and_overall():
-    result = run_seeding([1, 2], "confirmatory", _PARAMS)
+    result = run_seeding([1, 2], "confirmatory", _PARAMS, do_hop2=False)
     names = {b.name for b in result.bars}
     assert names == {"B1", "B2"}
     for b in result.bars:
@@ -35,8 +35,18 @@ def test_confirmatory_decides_bars_and_overall():
     assert result.overall in ("PASS", "FAIL")
 
 
+def test_hop2_adds_c1_bar_and_compounding_margins():
+    result = run_seeding([1, 2], "confirmatory", _PARAMS, do_hop2=True)
+    assert {b.name for b in result.bars} == {"B1", "B2", "C1"}
+    assert {"margin1", "marginM", "margin2", "delta"} <= set(result.margins)
+    # map-C readings exist for all three arms and grew the body (n_censor > 0)
+    c_arms = {r.arm for r in result.readings if r.map_label == "C"}
+    assert c_arms == {"seeded", "fresh", "maturity"}
+    assert result.overall in ("PASS", "FAIL")
+
+
 def test_every_reading_carries_reached_and_censor():
-    result = run_seeding([1, 2], "confirmatory", _PARAMS)
+    result = run_seeding([1, 2], "confirmatory", _PARAMS, do_hop2=False)
     assert result.readings
     for r in result.readings:
         assert isinstance(r.reached, bool)
@@ -47,7 +57,7 @@ def test_every_reading_carries_reached_and_censor():
 def test_margin_sign_convention_positive_is_seeded_faster():
     # tau is lower-better; margin = fresh - seeded, so a positive mean means the
     # seeded arm reached theta sooner (contract guarantee #4).
-    result = run_seeding([1, 2, 3], "confirmatory", _PARAMS)
+    result = run_seeding([1, 2, 3], "confirmatory", _PARAMS, do_hop2=False)
     m1 = result.margins["margin1"]
     assert m1.per_seed == [
         result_tau(result, "fresh", s) - result_tau(result, "seeded", s) for s in (1, 2, 3)
@@ -62,7 +72,7 @@ def result_tau(result, arm, seed):
 
 
 def test_to_json_shape_is_stable():
-    result = run_seeding([1, 2], "confirmatory", _PARAMS)
+    result = run_seeding([1, 2], "confirmatory", _PARAMS, do_hop2=False)
     doc = to_json(result)
     assert set(doc) >= {
         "mode",
@@ -110,6 +120,7 @@ def test_cli_writes_json(tmp_path):
             "confirmatory",
             "--seeds",
             "1,2",
+            "--no-hop2",
             "--config",
             str(cfg),
             "--json",

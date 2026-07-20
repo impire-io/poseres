@@ -75,12 +75,12 @@ test, US3 = reproducibility & non-perturbation).
 
 ### Tests for User Story 2
 
-- [ ] T012 [P] [US2] Extend `tests/unit/test_seeding_metric.py` (or a sibling) with `margin2` and `delta = margin2 − margin1`, and the C1 compound bar: superiority of `margin2` AND non-shrink (`mean(delta) ≥ −1.9·SE`).
+- [X] T012 [P] [US2] `tests/unit/test_seeding_metric.py` + `tests/unit/test_rover_resize.py`: `_delta_margin` (paired m2−m1), the C1 combination (margin2 superiority AND delta non-shrink), and the resize world (native 11-dim, pending 10→11 growth, ungrown byte-identical, deterministic).
 
 ### Implementation for User Story 2
 
-- [ ] T013 [US2] Resize-hop orchestration in `src/pra/harness/seeding.py`: after hop 1, grow the seeded (and maturity) chain by one sensor (obs_dim 10→11) via `register_sensor` → `apply_pending_tools` → `FrameStore.resize`, applied identically at the same boundary; then run on map C (`layout_seed = H(seed, "C")`, `θ_C`).
-- [ ] T014 [US2] Add `margin2`, `delta`, and bar C1 to the report (human + JSON) in `src/pra/harness/seeding.py`; overall verdict `B1 ∧ B2 ∧ C1`.
+- [X] T013 [US2] Resize hop: `world.py` gains a clean RNG-free back-ray (`extra_ray` native 11-dim; `extra_ray_pending` grows 10→11 via `register_sensor` → `apply_pending_tools` → `FrameStore.resize`). `seeding.py` `_probe(grow=…)` + `_hop2` chain the seeded/maturity brains onto map C; fresh-C mounts the native 11-dim rover.
+- [X] T014 [US2] `margin2`, `delta`, bar C1 (superiority AND non-shrink) in the report (human + JSON); overall `B1 ∧ B2 ∧ C1`; `--no-hop2` CLI flag. θ_C recalibrated on the 11-dim fresh curve → 0.33 (frozen before the hop-2 run).
 
 **Checkpoint**: US1 and US2 both independently functional.
 
@@ -94,8 +94,8 @@ test, US3 = reproducibility & non-perturbation).
 
 ### Tests for User Story 3
 
-- [ ] T015 [P] [US3] Integration test in `tests/integration/test_seeding_chain.py`: a seeded chain snapshotted mid-run resumes byte-identically across the permuted-world maturity training and the +1-sensor resize; a full seeding run is deterministic across two invocations (same seeds/mode/frozen table).
-- [ ] T016 [US3] Confirm the reference-suite guard stays green with all new code present (`tests/integration/test_baseline_unchanged.py` unchanged and passing); no engine/core edits landed.
+- [X] T015 [P] [US3] Integration test `tests/integration/test_seeding_chain.py`: the full two-hop run reproduces byte-identically across two invocations (τ tables + all four margins), hop-2 readings grow the body, and the reference rover is unperturbed by the seeding machinery.
+- [X] T016 [US3] Reference-suite guard stays green with all new code present (full gate: `test_baseline_unchanged.py` passes; no engine/core edits — orchestration only).
 
 **Checkpoint**: all three stories independently functional; constitution intact.
 

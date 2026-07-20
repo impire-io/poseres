@@ -142,8 +142,14 @@ Other budgets, from the pilot:
 | `N_pretrain` | map-A / permuted-world pre-train budget | **30** |
 | `N_probe` | per-hop probe budget on B and C | **30** |
 | `θ_B` | competence line on map B (headline) | **0.30** |
-| `θ_C` | competence line on map C (headline) | **0.30** |
+| `θ_C` | competence line on map C — 11-dim (headline) | **0.33** |
 | `W_smooth` | smoothing window (pred-steps) | **240** |
+
+θ_C was recalibrated on the **11-dim fresh curve** before the hop-2 confirmatory
+(the +1-sensor back-ray shifts the competence scale): the same fresh-only
+plateau + 0.03 rule gives 0.30 + 0.03 → **0.33** (measured 11-dim fresh plateau
+0.297). Each hop's θ is the analogous strict competence line for its body, so
+the head-start margins (in pred-steps) are comparable across the resize hop.
 | θ-sweep | reported for transparency | **0.30 / 0.33 / 0.36 / 0.40** |
 
 **Pilot reading (seeds 1–8, exploratory — the confirmatory 24 is the verdict).**
@@ -196,5 +202,34 @@ persistence guidance are updated to match.
 
 ## Results
 
-_(pilot calibration and confirmatory results appended here after the run — this
-section is empty until the pilot freezes the table above.)_
+### Hop 1 — transfer (A→B), confirmatory 24 seeds (2026-07-20)
+
+Frozen budgets N_pretrain=30, N_probe=30, W_smooth=240; seeds 1–24. Headline at
+θ = 0.30; full θ-sweep reported for transparency. Positive margin = seeded
+faster (τ is lower-better).
+
+| θ | median τ (seeded / maturity / fresh) | B1 (seeded<fresh) | B2 (seeded<maturity) |
+|---|---|---|---|
+| **0.30 (headline)** | **58 / 853 / 814** | **+871, 21/24, PASS** | **+1186, 19/24, PASS** |
+| 0.33 | 23 / 206 / 630 | +735, 22/24, PASS | +487, 16/24, **fail** |
+| 0.36 | 14 / 75 / 508 | +624, 24/24, PASS | +244, 18/24, PASS |
+| 0.40 | 4 / 35 / 445 | +427, 24/24, PASS | +125, 22/24, PASS |
+
+**Verdict: hop 1 PASS at the frozen headline θ = 0.30 — B1 ∧ B2.** The head
+start is real (B1) and it is *relevant transfer, not maturity* (B2). All arms
+reach θ (no censoring). Ordering at the strict line: **seeded ≪ fresh ≤
+maturity** — and note **maturity is marginally *slower* than fresh** (853 vs
+814): a mature brain from an *unrelated* (permuted) world carries
+confidently-wrong structure that must be unlearned, so at a strict competence
+line it mildly *interferes* rather than helps. This makes B2 the strongest
+possible honesty check, and seeded clears it decisively (+1186). The sweep shows
+B2 is **variable at intermediate lines** (fails at 0.33, passes at 0.36/0.40) —
+real noise near the plateau, disclosed not hidden; B1 is monotone and decisive
+everywhere. Reproduces byte-for-byte at commit (this feature branch); raw
+per-seed τ in the run's JSON record.
+
+### Hop 2 — compounding (B→resize→C)
+
+_(appended after the resize-hop run; θ_C recalibrated on the 11-dim fresh curve
+before the confirmatory, since the +1-sensor world changes the competence
+scale.)_

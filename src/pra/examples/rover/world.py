@@ -56,6 +56,10 @@ REVERSE_FACTOR = 0.5
 TURN_STEP = math.pi / 6.0
 RAY_ANGLES = (-math.pi / 2.0, -math.pi / 4.0, 0.0, math.pi / 4.0, math.pi / 2.0)
 RAY_MAX = 1.0
+# feature 028: the +1-sensor resize hop's extra rangefinder ray (straight back).
+# A clean (noiseless, RNG-free) 11th channel; appended after the 10 standard
+# channels so its index is fixed. Present only when a grow flag is set.
+BACK_RAY_ANGLE = math.pi
 N_SPAWNS = 8
 SPAWN_ATTEMPTS = 1000
 SPAWN_SPREAD = 0.85
@@ -172,11 +176,15 @@ class RoverWorld:
         layout_seed: int | None = None,
         permute: bool = False,
         permute_seed: int | None = None,
+        emit_back: bool = False,
     ):
         self._noise_std = float(config.sensor_noise_std)
         self._rng = rng
         self._telemetry = telemetry
         self._step_delay = float(step_delay)
+        # feature 028 resize hop: when set, _emit also computes the clean back-ray
+        # into a "ray_back" sense so the grown body (native or resized) can read it.
+        self._emit_back = bool(emit_back)
 
         # Brain-seeding seam (feature 028): the *map* (obstacles + spawns) may be
         # drawn from a harness-owned ``layout_seed`` separate from the run/brain
@@ -285,6 +293,13 @@ class RoverWorld:
             "gps": obs[7:9],
             "bump": obs[9:10],
         }
+        if self._emit_back:
+            ang = self._theta + BACK_RAY_ANGLE
+            back = (
+                _ray_distance(self._x, self._y, math.cos(ang), math.sin(ang), self._obstacles)
+                / RAY_MAX
+            )
+            self._senses["ray_back"] = np.array([back], dtype=np.float64)
 
     def sense(self, part_id: str) -> np.ndarray | None:
         """The cached part vector from the last emission (None before it)."""
@@ -358,6 +373,8 @@ def make_rover_body(
     layout_seed: int | None = None,
     permute: bool = False,
     permute_seed: int | None = None,
+    extra_ray: bool = False,
+    extra_ray_pending: bool = False,
 ) -> Body:
     """Build the rover body — the Engine's ``world_factory`` for feature 006.
 
@@ -372,11 +389,20 @@ def make_rover_body(
     one seed), and ``permute`` builds the permuted rover (the maturity
     control's learnable-but-unrelated world). Both default to the feature-006
     behavior, byte-identical.
+
+    Resize hop (feature 028 US2): ``extra_ray`` builds the grown 11-dim rover
+    (a 6th clean back-ray sensor active from boot — the native body the fresh-C
+    arm mounts); ``extra_ray_pending`` boots the 10-dim body but *queues* the
+    6th sensor as a Doc 02 tool, so the seeded chain grows 10→11 at the first
+    slow loop (``apply_pending_tools`` → ``FrameStore.resize``). The back-ray is
+    RNG-free, so the un-grown path stays byte-identical.
     """
-    if config.obs_dim != ROVER_OBS_DIM or config.n_actions != ROVER_N_ACTIONS:
+    expected_obs = ROVER_OBS_DIM + (1 if extra_ray else 0)
+    if config.obs_dim != expected_obs or config.n_actions != ROVER_N_ACTIONS:
         raise AnatomyError(
-            f"the rover anatomy is fixed at obs_dim={ROVER_OBS_DIM} / "
-            f"n_actions={ROVER_N_ACTIONS} (the validated reference widths); "
+            f"the rover anatomy is fixed at obs_dim={expected_obs} / "
+            f"n_actions={ROVER_N_ACTIONS} (the validated reference widths"
+            f"{' + the resize hop back-ray' if extra_ray else ''}); "
             f"got obs_dim={config.obs_dim} / n_actions={config.n_actions}"
         )
     world = RoverWorld(
@@ -387,9 +413,14 @@ def make_rover_body(
         layout_seed=layout_seed,
         permute=permute,
         permute_seed=permute_seed,
+        emit_back=extra_ray or extra_ray_pending,
     )
     sensors = [RoverSensor(world, part, width) for part, width in SENSOR_PARTS]
+    if extra_ray:  # active from boot: the native grown 11-dim body
+        sensors.append(RoverSensor(world, "ray_back", 1))
     body = Body(world, sensors=sensors, actuators=[RoverDrive(world)])
+    if extra_ray_pending:  # queued: grows 10→11 at the first slow loop
+        body.register_sensor(RoverSensor(world, "ray_back", 1))
     if telemetry is not None:
         telemetry.attach_layout(world.layout())
     return body
