@@ -149,7 +149,7 @@ the implementation commit following it.
 
 ---
 
-## Where things stand (2026-07-19)
+## Where things stand (2026-07-20)
 
 The project now has a product thesis and a milestone-gated plan — **an OSS
 continuously-learning brain for hobbyists and makers**, `ROADMAP.md`
@@ -305,7 +305,14 @@ re-test — detection as a designed experiment, a Doc 05-level feature,
 when the program resumes); the ch. 39 tolerant-gate conditional
 (~1.6% false-fire, if a deployment can afford it); and the
 bounded-trace snapshot option (when a deployment's horizon demands
-it). Snapshot support for anatomy-resized runs
+it). **Repository housekeeping (2026-07-20):** the 2026-07-19/20
+session's work — the staleness-program successors (arcs 023–025,
+chapters 38–40), the C1 soak (arc 026, chapter 41), and the Minecraft
+body (feature 027, chapter 43) — is all merged to `main` and pushed,
+each on its own numbered branch on `origin`; the local feature-branch
+copies were pruned after merge, and this feature worktree parks on
+`worktree-022-transfer-signal` at `main`'s tip between features.
+Snapshot support for anatomy-resized runs
 shipped in Chapter 23. **A live brain now has an off-process presence**
 (Chapters 27–28): the platform successors were sequenced (B6 → B7, one
 transport built once; NATS-underneath-the-engine rejected on the
