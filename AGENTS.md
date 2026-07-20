@@ -1,56 +1,49 @@
 # Agent guide for the PRA project
 
-Durable instructions for any coding agent working in this repository.
+Durable instructions for any coding agent working in this repository. The
+full rules live in `hq/00-GENESIS/`; this file is the orientation and the
+non-negotiables.
 
 ## Orientation (read in this order)
 
-1. `hq/04-JOURNEY/README.md` — the narrative of the project so far: what was
-   built, what was refuted, and why things are the way they are. Start here.
-2. The current feature plan — pointed to by the SPECKIT block in `CLAUDE.md`
+1. `hq/00-GENESIS/` — [`vision.md`](hq/00-GENESIS/vision.md) (what PRA is
+   and where it's pointed), [`constitution.md`](hq/00-GENESIS/constitution.md)
+   (the articles no change may violate), and
+   [`how-we-work.md`](hq/00-GENESIS/how-we-work.md) (pipeline, research
+   lifecycle, working agreement). Decisions are held against these.
+2. `hq/04-JOURNEY/README.md` — where things stand + the episode index: what
+   was built, what was refuted, and why things are the way they are.
+3. The current feature plan — pointed to by the SPECKIT block in `CLAUDE.md`
    (tech stack, structure, commands).
-3. `hq/02-DESIGN/README.md` — the system design map; `hq/02-DESIGN/validate/` —
-   the normative specs (PRA-01/PRA-02) and the evidence-trail documents
+4. `hq/02-DESIGN/README.md` — the system design map; `hq/02-DESIGN/validate/`
+   — the normative specs (PRA-01/PRA-02) and the evidence trails
    (`*-DIAGNOSIS.md`).
 
-## Maintaining the journey (required)
-
-Whenever you complete a feature, conclude a research investigation, or make a
-load-bearing decision (a spec change, a criterion amendment, a refuted
-hypothesis), **add a numbered episode in `hq/04-JOURNEY/`** following
-`hq/04-JOURNEY/TEMPLATE.md`, and update the "Where things stand" section and
-episode index in its README. Record what actually happened — including
-failures, reversals, and findings that contradicted expectations. Commit it
-with the work it describes.
-
-## Non-negotiable working rules
+## Non-negotiables (constitution articles, in brief)
 
 - **Quality gate before "done"** (all green, none skipped):
   `./.venv/bin/ruff format --check . && ./.venv/bin/ruff check . && ./.venv/bin/pytest -q`
-- **Use the repo venv** (`./.venv/bin/python`); the system interpreter is
-  PEP-668 managed. Sign commits.
-- **The validated behavior is byte-frozen.** The T1–T6 suite under the pinned
-  random baseline must reproduce the recorded reference values exactly
-  (`tests/integration/test_baseline_unchanged.py` guards seed 1). New
-  capability must be opt-in and leave existing modes' RNG stream, behavior, and
-  serialized summaries untouched.
-- **Honest measurement.** Report spreads, never a mean where a spread is
-  required; a FAIL is data, shown with the numbers that explain it; criteria
-  are amended openly (with the raw measurements recorded), never tuned quietly
-  until green.
-- **Diagnose before fixing.** For behavioral problems: hypothesis → cheap
-  discriminating experiment → only then a principled fix, with the trail
-  recorded in a `hq/02-DESIGN/validate/*-DIAGNOSIS.md` document.
-- **Reference-preserving parameter rules.** Scale-dependent constants ship as
-  effective forms whose factors are exactly 1 at the validated reference scale
-  (see PRA-01 §8.8 for the pattern).
-- **Research experiments** live in the session scratchpad, not the repo; only
-  their conclusions, documents, and principled code changes land in git.
+  — this includes the hq structural lint (`tests/test_hq_structure.py`).
+- **Use the repo venv** (`./.venv/bin/python`); sign commits; never commit
+  `.claude/settings.local.json`.
+- **The validated behavior is byte-frozen** (constitution I): the T1–T6
+  suite under the pinned baseline reproduces its reference values exactly;
+  new capability is opt-in and leaves existing modes' RNG stream, behavior,
+  and serialized summaries untouched.
+- **Honest measurement** (II): spreads not bare means; FAILs are data;
+  criteria amended openly, never tuned quietly.
+- **Diagnose before fixing** (III): hypothesis → cheap discriminating
+  experiment → principled fix, trail in `hq/02-DESIGN/validate/`.
+  Experiments live in the session scratchpad; conclusions land in git.
 
-## Feature workflow
+## The flow
 
-New capabilities go through the Spec Kit flow (`/speckit-specify` → plan →
-tasks → implement) on a numbered feature branch (`specs/NNN-name/`), merged to
-`main` when the gate is green. Small hardening/research changes may land
-directly with tests and spec propagation (see `hq/04-JOURNEY/0004` and `0007` for
-precedent). Propagate every behavioral change into the design docs it touches
-(`hq/02-DESIGN/000X-*.md`, PRA-01/PRA-02, Doc 07 for parameters).
+- **Research** runs through `/research-start` → investigate →
+  `/research-graduate` (`hq/01-RESEARCH/`; never through spec-kit).
+- **Features** run the spec-kit flow (`/speckit-specify` → plan → tasks →
+  implement) on a numbered branch, and land with the roadmap update, the
+  journey episode, and design-doc propagation in the same merge.
+- **The journey duty (required):** every landed feature, concluded
+  investigation, or load-bearing decision gets a numbered episode in
+  `hq/04-JOURNEY/` — `/journey-log` does this (template, index,
+  where-things-stand, roadmap).

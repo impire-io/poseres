@@ -11,6 +11,6 @@ decision is held against.
 
 **Required:** whenever you complete a feature, conclude a research
 investigation, or make a load-bearing decision, add a numbered episode in
-`hq/04-JOURNEY/` (follow `hq/04-JOURNEY/TEMPLATE.md`) and refresh the
-"Where things stand" section and index in its README — committed together
-with the work it describes.
+`hq/04-JOURNEY/` — the `/journey-log` skill does this (template, README
+index, "Where things stand", roadmap) — committed together with the work
+it describes. Research topics get theirs via `/research-graduate`.
