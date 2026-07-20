@@ -8,7 +8,7 @@ New here? **[GETTING-STARTED.md](GETTING-STARTED.md)** walks you from install
 to hooking up your own sensors/actuators and configuring the drive — or just
 run `pra-rover` and watch a PRA brain learn a 2D rover world, live in your
 browser (one command, zero extra dependencies, byte-reproducible).
-**[ROADMAP.md](ROADMAP.md)** is where the project is going: an OSS
+**[hq/03-IMPLEMENTATION/roadmap.md](hq/03-IMPLEMENTATION/roadmap.md)** is where the project is going: an OSS
 continuously-learning brain for hobbyists and makers.
 
 See `specs/001-validation-harness/` for the spec, plan, and contracts, and
