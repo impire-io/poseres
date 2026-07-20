@@ -22,8 +22,16 @@ teaching moved to `../00-GENESIS/how-we-work.md`.
 
 ## Where things stand (2026-07-20)
 
+**The project's working structure moved into `hq/`**
+([episode 0045](0045-the-hq-restructure.md)): GENESIS holds the vision,
+constitution (wired into every spec-kit plan via symlink), and working
+agreement; research runs a `/research-start` → `/research-graduate`
+lifecycle; this journal is now numbered episodes with the structure enforced
+by `tests/test_hq_structure.py`. The paths below reflect the new layout.
+
 The project now has a product thesis and a milestone-gated plan — **an OSS
-continuously-learning brain for hobbyists and makers**, `ROADMAP.md`
+continuously-learning brain for hobbyists and makers**,
+`../03-IMPLEMENTATION/roadmap.md`
 ([Chapter 10](0010-the-product-thesis.md)), and the core mechanisms now have an interactive,
 simulation-backed explainer for that audience (`explainer/index.html`,
 [Chapter 37](0037-the-mechanisms-playable.md)). **The vision was re-broadened on 2026-07-19** ([Chapter 42](0042-the-vision-re-broadened.md)):
@@ -268,3 +276,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0042 | [The vision re-broadened: language returns as a gated horizon](0042-the-vision-re-broadened.md) |
 | 0043 | [The brain moves into Minecraft: C1's world, built to launch-ready](0043-the-brain-moves-into-minecraft.md) |
 | 0044 | [Brain seeding: the head start is real, relevant, and compounds](0044-brain-seeding.md) |
+| 0045 | [The HQ restructure: the process gets a constitution](0045-the-hq-restructure.md) |
