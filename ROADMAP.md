@@ -415,32 +415,29 @@ even though none is a schedulable milestone.
   derisked small, not scaled through), and the observation encoding for
   unbounded sequences. Pre-registered prediction in ch. 42. No language
   showcase before the gate reads — the constitution applies.
-- **Seeding / compounding intelligence** (added 2026-07-19; experiment
-  space, no decisions taken). The claim to measure: a snapshotted brain used
-  as a *seed* gives a new brain a head start, and the head start survives
-  chaining (brain A seeds B seeds C). Runnable with current code (B5
-  snapshots + existing worlds/harness). The honest design: three arms —
-  seeded vs fresh vs a maturity control (equivalent experience in an
-  *unrelated* world) — on rover map A → map B first (same anatomy), then a
-  resize hop (transfer benefit across `resize()` is unmeasured; only
-  bit-preservation is). Pre-registered claim: seeded reaches a stated
-  competence threshold in less experience, 24 paired seeds, and the margin
-  does **not** shrink across two hops (a head start that halves per hop is a
-  discount, not compounding). Reversal condition: if seeded loses or margins
-  shrink hop-over-hop, earned persistence is the suspect and "seed brains"
-  leaves the vision language until diagnosed. Seed-protection ideas
-  (age-modulated plasticity — older seeds adapt slower) are second-round
-  only, tested only if unprotected seeding measurably forgets, and must
-  face PRA's **two forgetting channels**: weight drift AND eviction —
-  slower learning protects against drift while an unadaptable frame's EMAs
-  climb until the ecology evicts it, so any plasticity rule likely needs a
-  paired eviction-grace rule. Earned persistence already protects
-  well-mapping seeded frames for free, hence "no protection" is the honest
-  first arm. Feeds the same session's open questions: language-as-world
-  (sentence / add-token / teacher-feedback-as-observation; whether the
-  competence drive alone pulls toward approval is unmeasured) and
-  per-action transition slices vs large action vocabularies (mechanism gap
-  — factored/embedded actions).
+- **Seeding / compounding intelligence** — ✅ **measured (feature 028,
+  JOURNEY ch. 44, 2026-07-20); all three bars PASS.** The claim held: a
+  snapshotted brain used as a *seed* gives the next a real head start (B1,
+  +871, 21/24), the head start is *relevant transfer* not mere maturity (B2,
+  +1186, 19/24 — the equal-experience unrelated-world control is if anything
+  mildly *worse* than blank at a strict competence line), and it **survives
+  chaining across a body-growing resize and does not shrink** (C1: seeded
+  beats fresh 24/24 on the grown map, delta +177 — the head start slightly
+  *grew* B→C). 24 paired seeds, rover map A→B→(+1-sensor resize)→C, three
+  arms (seeded / fresh / permuted-rover maturity control), time-to-competence
+  at a strict fresh-plateau line. Built as orchestration over the unchanged
+  engine (no core edits). **Reversal condition untriggered — earned
+  persistence is exonerated** (it protects the transferred frames for free,
+  so the second-round seed-protection ideas below stay parked: no measured
+  forgetting to protect against). One criterion amended openly (the pilot
+  refuted the p=0.5-of-gap θ rule as degenerate; θ is now a fresh-arm-only
+  strict line, full θ-sweep reported). Trail:
+  `design/validate/SEEDING-DIAGNOSIS.md`. Named successors: resize-*magnitude*
+  dependence, deeper chains (A→B→C→D), non-rover worlds; and the parked
+  second-round seed-protection rule (age-modulated plasticity paired with an
+  eviction-grace rule) — tested only *if* a future arm measurably forgets,
+  facing PRA's two forgetting channels (weight drift AND eviction). Feeds the
+  language-as-world horizon (seeded brains as a building block).
 
 ## Non-goals (still)
 

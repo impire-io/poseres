@@ -105,10 +105,10 @@ test, US3 = reproducibility & non-perturbation).
 
 **Purpose**: run the science, freeze it honestly, propagate, and gate.
 
-- [ ] T017 Run the pilot (`pra-validate seeding --mode pilot`), choose θ_B/θ_C/`N_pretrain`/`N_probe`/`W_smooth`, and **freeze** them into the `_TBD (pilot)_` table in `design/validate/SEEDING-DIAGNOSIS.md`; commit the pre-registration BEFORE the confirmatory run.
-- [ ] T018 Run the confirmatory 24-seed experiment (`--mode confirmatory`); append raw per-seed τ, the four margins, verdicts, and reach-rates to the Results section of `design/validate/SEEDING-DIAGNOSIS.md`.
-- [ ] T019 [P] Record JOURNEY chapter 44 (honest outcome, including the reversal condition if triggered) and refresh "Where things stand"; update the ROADMAP seeding entry and Doc 06 §5b persistence guidance to match the verdict.
-- [ ] T020 Run `quickstart.md` end-to-end and the full quality gate green, none skipped: `./.venv/bin/ruff format --check . && ./.venv/bin/ruff check . && ./.venv/bin/pytest -q`.
+- [X] T017 Pilot (8 seeds) run; θ_B=0.30 / θ_C=0.33 (recalibrated on the 11-dim curve) / N_pretrain=30 / N_probe=30 / W_smooth=240 frozen and committed (`bd69e0b`) BEFORE the confirmatory. The p=0.5 θ rule was refuted by the pilot and amended openly to a fresh-arm-only strict line.
+- [X] T018 Confirmatory 24-seed (both hops, θ-sweeps) run; raw per-seed τ, four margins, verdicts, reach-rates recorded in `SEEDING-DIAGNOSIS.md`. **B1 ∧ B2 ∧ C1 all PASS; overall PASS.**
+- [X] T019 [P] JOURNEY ch. 44 + "Where things stand" refreshed; ROADMAP seeding entry marked ✅ measured; Doc 06 §5b gained the snapshots-as-seeds guidance. Reversal condition untriggered (earned persistence exonerated).
+- [X] T020 Full quality gate green, none skipped (ruff format + ruff check + pytest); the pilot→freeze→confirmatory quickstart flow exercised end-to-end.
 
 ---
 

@@ -228,8 +228,39 @@ real noise near the plateau, disclosed not hidden; B1 is monotone and decisive
 everywhere. Reproduces byte-for-byte at commit (this feature branch); raw
 per-seed τ in the run's JSON record.
 
-### Hop 2 — compounding (B→resize→C)
+### Hop 2 — compounding (B→resize→C), confirmatory 24 seeds (2026-07-20)
 
-_(appended after the resize-hop run; θ_C recalibrated on the 11-dim fresh curve
-before the confirmatory, since the +1-sensor world changes the competence
-scale.)_
+The seeded chain A→B is grown by one sensor (obs_dim 10→11, a clean back-ray via
+`register_sensor`→`apply_pending_tools`→`FrameStore.resize`) and learns map C;
+fresh-C mounts the native 11-dim rover. Headline θ_C = 0.33 (11-dim strict line);
+full θ-sweep reported. `margin2 = τ_fresh(C) − τ_seeded(C)`; `delta = margin2 −
+margin1` (the non-shrink statistic).
+
+| θ_C | median τ (seeded / fresh) | margin2 (seeded<fresh) | reach s/f |
+|---|---|---|---|
+| **0.33 (headline)** | **14 / 821** | **+1048, 24/24, PASS** | 24/24 |
+| 0.36 | 7 / 572 | +607, 24/24, PASS | 24/24 |
+| 0.40 | 2 / 389 | +454, 24/24, PASS | 24/24 |
+| 0.43 | 1 / 345 | +355, 24/24, PASS | 24/24 |
+
+**Bar C1 — PASS.** margin2 superiority is decisive at every line (24/24; headline
++1048 vs the +407 bound). **Non-shrink: delta = +177** (mean), non-shrink PASS
+(bound −650; delta is *positive* — the head start did not shrink, it slightly
+*grew* from +871 on B to +1048 on C, though with wide spread SE 342). The seeded
+chain arrives on map C already near-competent (median τ 14 vs fresh 821) — the
+transferred structure **survives the +1-sensor resize** and re-uses on a third
+map.
+
+### Overall verdict (2026-07-20)
+
+**Seeding holds: B1 ∧ B2 ∧ C1 all PASS.** A snapshotted brain gives the next a
+real head start (B1), the head start is *relevant transfer* not mere maturity
+(B2 — the unrelated-mature control is if anything mildly *worse* than blank at a
+strict line), and the head start **survives chaining across a body-growing hop
+and does not shrink** (C1). The reversal condition is **not** triggered — earned
+persistence is *not* implicated; on the contrary it protects the transferred
+frames for free. Guidance: brain snapshots are usable seeds across rover maps and
+across a `resize()`; the compounding claim is supported at reference scale. Open
+successors named in the ROADMAP (resize *magnitude* dependence; deeper chains
+A→B→C→D; non-rover worlds). Runs reproduce byte-for-byte at this feature's
+commit; raw per-seed τ and both θ-sweeps in the run record.

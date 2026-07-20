@@ -149,6 +149,18 @@ recorded:
 - **Experience in over a network** (remote sensors feeding the brain):
   class 4 — openly non-reproducible — and **not built**. Named here so
   it is stated before anyone builds it, never discovered after.
+- **Snapshots as *seeds*** (feature 028, ROADMAP compounding-intelligence,
+  JOURNEY ch. 44): a snapshot restored into a *different but same-anatomy*
+  world (a new rover map) — and, across a mid-run `resize()`, into a
+  *grown-anatomy* world — is not only bit-preservation but a measured
+  **transfer benefit**: the seeded brain reaches competence on the new
+  world in less experience than a fresh one, and the advantage survives a
+  +1-sensor resize hop without shrinking (24 paired seeds, all bars PASS).
+  Guarantee class is unchanged (episodic rover = class 1, byte-identical
+  resume; the resize path is the feature-010 grown-body guarantee). The new
+  *fact* is that a restored population is useful structure on a related
+  world, not merely a faithful copy of the old one — brain snapshots are
+  shareable seeds. Reproducibility is exact per seed.
 
 ---
 
