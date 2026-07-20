@@ -75,11 +75,12 @@ class SeedingParams:
     """The frozen calibration table (pilot-set, then committed before the
     confirmatory run — SEEDING-DIAGNOSIS §calibration)."""
 
-    n_pretrain: int = 24
+    # Defaults are the SEEDING-DIAGNOSIS frozen values (2026-07-20 pilot).
+    n_pretrain: int = 30
     n_probe: int = 30
     theta_b: float = 0.30
     theta_c: float = 0.30
-    w_smooth: int = 200
+    w_smooth: int = 240
     # Base rover config (schedule dials); anatomy fixed at the reference widths.
     base_config: Config = field(default_factory=Config)
 
@@ -402,11 +403,11 @@ def params_from_dict(d: dict) -> SeedingParams:
         base_overrides["horizon_checkpoints"] = tuple(base_overrides["horizon_checkpoints"])
     base = Config(**base_overrides) if base_overrides else Config()
     return SeedingParams(
-        n_pretrain=int(d.get("n_pretrain", 24)),
+        n_pretrain=int(d.get("n_pretrain", 30)),
         n_probe=int(d.get("n_probe", 30)),
         theta_b=float(d.get("theta_b", 0.30)),
         theta_c=float(d.get("theta_c", 0.30)),
-        w_smooth=int(d.get("w_smooth", 200)),
+        w_smooth=int(d.get("w_smooth", 240)),
         base_config=base,
     )
 
