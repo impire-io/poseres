@@ -6,7 +6,8 @@
 #
 # Usage: ./up.sh [run_c1.py args...]      # e.g. ./up.sh --seed 1
 # Env:   BOT_NAME (pra), BRIDGE_PORT (25580), DASH_PORT (8600),
-#        NATS_URL (nats://127.0.0.1:4222), OPEN_CLIENT (1), SPECTATE (1)
+#        NATS_URL (nats://127.0.0.1:4222), OPEN_CLIENT (1), SPECTATE (1),
+#        TICK_RATE (empty = leave the world's speed alone)
 
 set -euo pipefail
 
@@ -22,6 +23,7 @@ NATS_URL="${NATS_URL:-nats://127.0.0.1:4222}"
 NATS_PORT="${NATS_URL##*:}"
 OPEN_CLIENT="${OPEN_CLIENT:-1}"
 SPECTATE="${SPECTATE:-1}"
+TICK_RATE="${TICK_RATE:-}"
 
 PY="$ROOT/.venv/bin/python"
 DASH="$ROOT/.venv/bin/pra-dash"
@@ -103,6 +105,13 @@ until rcon list >/dev/null 2>&1; do
   sleep 2
 done
 say "world: ready on :25565"
+
+# The world clock resets to 20 TPS on every server restart (measured),
+# so an accelerated run must re-assert its rate each boot - that is
+# this knob's whole job. Empty = don't touch the current rate.
+if [ -n "$TICK_RATE" ]; then
+  say "world: $(rcon "tick rate $TICK_RATE")"
+fi
 
 # 2. NATS - reuse a running server, otherwise start one with JetStream
 #    (the snapshot-on-request object store needs it).

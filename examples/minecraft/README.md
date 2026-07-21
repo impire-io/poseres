@@ -32,7 +32,30 @@ dash, watcher, nats if it launched one); the world container keeps
 running for fast resume (`docker compose down` here stops it too).
 Knobs (env vars): `BOT_NAME`, `BRIDGE_PORT`, `DASH_PORT`, `NATS_URL`,
 `OPEN_CLIENT=0` (no launcher/browser), `SPECTATE=0` (never touch your
-gamemode). Stage logs land in `logs/`.
+gamemode), `TICK_RATE` (see below). Stage logs land in `logs/`.
+
+## Accelerating the run
+
+    TICK_RATE=80 ./up.sh --tick-ms 62      # ~4x wall-clock compression
+
+Two paired knobs. `TICK_RATE` sets the world's simulation speed
+(vanilla `/tick rate`; 20 = normal) and re-asserts it on every boot,
+because the server resets to 20 TPS on restart — measured. It scales
+everything the server simulates: day/night, weather, growth, mob
+behavior — the rhythms the bot's env channels sense. `--tick-ms`
+(default 250) sets the brain's step cadence; lowering it gives
+proportionally more brain steps per hour. For a coherent factor-F
+acceleration, scale both together: tick rate `20*F`, tick-ms `250/F`.
+
+The one honest exception: the bot's *body* is paced by mineflayer in
+real wall-clock time, so walking and digging do not speed up — at
+factor F the body is effectively F× slower relative to the world and
+to the brain's sampling, and a shorter tick budget means less motion
+(and more abandoned digs) per step. That is a different embodiment,
+not a broken one — but pick a factor once and keep it for the whole
+run, and expect measurements from accelerated runs to differ from the
+250 ms posture. Measured green at 40 TPS / 100 ms; per-tick headroom
+at this world size suggests ~4–8× is workable.
 
 ## Start (by hand)
 
