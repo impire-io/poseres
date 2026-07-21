@@ -29,12 +29,16 @@ gym = ["gymnasium>=1.0"]
 # exists; the quality gate never imports it (the fake transport carries the
 # contract; the worked example carries the integration proof).
 nats = ["nats-py>=2.9"]
+# The observatory flusher's S3 client (feature 032) — same honesty pattern:
+# the gate carries the flusher core with the DirSink, never importing boto3.
+s3 = ["boto3>=1.34"]
 dev = ["pytest>=8.0", "ruff>=0.6", "gymnasium>=1.0"]
 
 [project.scripts]
 pra-validate = "pra.harness.cli:main"
 pra-rover = "pra.examples.rover.cli:main"
 pra-dash = "pra.dash.cli:main"
+pra-flush = "pra.flush.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

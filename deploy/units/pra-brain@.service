@@ -1,0 +1,19 @@
+[Unit]
+Description=PRA brain for experiment %i (resumes from its newest snapshot)
+After=pra-bridge@%i.service
+Wants=pra-bridge@%i.service
+
+[Service]
+User=calmera
+WorkingDirectory=/home/calmera/pra
+EnvironmentFile=/etc/pra/%i.env
+ExecStart=/home/calmera/pra/.venv/bin/python examples/minecraft/run_c1.py \
+  --nats nats://127.0.0.1:4222 --run-id ${RUN_ID} --seed ${SEED} \
+  --bridge-port ${BRIDGE_PORT} --tick-ms ${TICK_MS} \
+  --snapshot-dir ${SNAPSHOT_DIR} --cycles ${CYCLES}
+Restart=on-failure
+RestartSec=15
+StartLimitIntervalSec=0
+
+[Install]
+WantedBy=multi-user.target

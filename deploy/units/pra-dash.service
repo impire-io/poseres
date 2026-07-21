@@ -1,0 +1,14 @@
+[Unit]
+Description=PRA dashboard (observability layer, feature 032)
+After=network-online.target
+
+[Service]
+User=calmera
+WorkingDirectory=/home/calmera/pra
+ExecStart=/home/calmera/pra/.venv/bin/pra-dash --url nats://127.0.0.1:4222 --port 8600
+Restart=on-failure
+RestartSec=5
+StartLimitIntervalSec=0
+
+[Install]
+WantedBy=multi-user.target
