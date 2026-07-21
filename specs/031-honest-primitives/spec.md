@@ -171,10 +171,14 @@ zero dashboard changes.
   no-op otherwise. This replaces 030's auto-pick placement.
 - **FR-004**: The grid MUST fill column-first (slots top-left,
   bottom-left, top-right, bottom-right), hold at most 4 items, and
-  compute its result by vanilla's rules for the curated classes: any
-  staged log → planks (4 per log taken); two planks in one column and
-  nothing else → 4 sticks. `take_result` MUST consume exactly the
-  recipe's inputs; `grid_take` MUST return contents exactly.
+  compute its result by vanilla's rules for the curated classes:
+  exactly one staged log and nothing else → offer planks (take
+  consumes it, +4); exactly two planks, column-adjacent, nothing
+  else → offer sticks (take consumes both, +4); anything else — mixed
+  classes, a second log, a lone plank — offers nothing (vanilla-exact:
+  contents must match the recipe exactly, which is itself a learnable
+  consequence). `take_result` MUST consume exactly the recipe's
+  inputs; `grid_take` MUST return contents exactly.
 - **FR-005**: Both bridges MUST implement identical semantics; the live
   bridge's grid is declared body furniture (virtual staging, real
   material flows, real craft at `take_result`) in the contract; the
