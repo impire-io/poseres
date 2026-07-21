@@ -24,6 +24,9 @@ def test_subject_scheme_names_are_versioned_and_run_scoped():
         "snapshot": "pra.v1.run.r1.tele.snapshot",
         "view_static": "pra.v1.run.r1.tele.view.static",
         "view_live": "pra.v1.run.r1.tele.view.live",
+        "brain_anatomy": "pra.v1.run.r1.brain.anatomy",  # feature 029
+        "brain_frames": "pra.v1.run.r1.brain.frames",
+        "brain_events": "pra.v1.run.r1.brain.events",
         "ctrl": "pra.v1.run.r1.ctrl",
     }
     assert subjects.DISCOVER_SUBJECT == "pra.v1.discover"

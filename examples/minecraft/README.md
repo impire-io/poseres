@@ -27,6 +27,12 @@ left-click the bot to see through its eyes (Shift to detach). Spectators
 are invisible, don't collide, and can't touch blocks — the experiment
 cannot tell you are there.
 
+The dashboard's **Brain** tab (feature 029) is the other window: the
+body drawn as a schematic (pose/vitals/env/blocks lighting up as the bot
+senses, the chosen action highlighted as it acts), named channel charts
+with a scrolling log, every frame in the brain's population with its
+errors and score, and the spawn/evict timeline.
+
 Ctrl-C stops the brain and tears down what the script started (bridge,
 dash, watcher, nats if it launched one); the world container keeps
 running for fast resume (`docker compose down` here stops it too).

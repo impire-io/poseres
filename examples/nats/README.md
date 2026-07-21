@@ -57,6 +57,7 @@ can watch — for example the `nats` CLI:
 
 ```bash
 nats sub 'pra.v1.run.demo.tele.>'
+nats sub 'pra.v1.run.demo.brain.>'   # feature 029: anatomy, per-frame rows, spawn/evict
 nats req 'pra.v1.run.demo.ctrl' '{"cmd":"inspect"}'
 nats req 'pra.v1.run.demo.ctrl' '{"cmd":"pause"}'
 nats req 'pra.v1.run.demo.ctrl' '{"cmd":"resume"}'
