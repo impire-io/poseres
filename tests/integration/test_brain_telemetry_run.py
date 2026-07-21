@@ -74,6 +74,57 @@ def test_frame_rows_agree_with_every_census():
     assert final["population"] == summary.final_population
 
 
+def test_lifecycle_events_are_exactly_once_ordered_and_reconcile():
+    # a small ceiling forces churn: spawns every cycle, cap evictions to match
+    cfg = Config(**SMALL, max_frames=4)
+    transport, tap, summary = _run_with_periodic_census(cfg)
+
+    events = [json.loads(p) for p in transport.published(subjects.brain_events_subject("t"))]
+    assert events, "the run must have produced lifecycle events"
+    spawns = [e for e in events if e["event"] == "spawn"]
+    evicts = [e for e in events if e["event"] == "evict"]
+    assert evicts, "the ceiling must have forced at least one eviction"
+
+    # exactly once, in mirror order
+    seqs = [e["seq"] for e in events]
+    assert seqs == sorted(seqs) and len(seqs) == len(set(seqs))
+    assert tap.events_dropped == 0
+
+    # reconciliation from boot: spawn includes boot registration (contract §2.3)
+    assert len(spawns) - len(evicts) == summary.final_population
+
+    # per-frame sanity: a frame's history alternates spawn, evict, spawn, ...
+    history: dict[int, list[str]] = {}
+    for e in events:
+        history.setdefault(e["frame"], []).append(e["event"])
+    for kinds in history.values():
+        assert kinds[0] == "spawn"
+        assert all(a != b for a, b in zip(kinds, kinds[1:], strict=False))
+
+    # steps stamps are monotone (the run's own counter, no wall clock)
+    steps = [e["steps"] for e in events]
+    assert steps == sorted(steps)
+    assert all(set(e) == {"run", "seq", "event", "frame", "steps"} for e in events)
+
+
+def test_mid_run_attach_reconciles_from_the_census():
+    cfg = Config(**SMALL, max_frames=4)
+    transport, _, summary = _run_with_periodic_census(cfg)
+    censuses = [json.loads(p) for p in transport.published(subjects.census_subject("t"))]
+    events = [json.loads(p) for p in transport.published(subjects.brain_events_subject("t"))]
+    attach = censuses[len(censuses) // 2]  # a mid-run attacher's first census
+    later = [e for e in events if e["seq"] > attach["seq"]]
+    delta = sum(1 if e["event"] == "spawn" else -1 for e in later)
+    assert attach["population"] + delta == summary.final_population
+
+
+def test_engine_outputs_are_identical_with_and_without_the_tap_bus():
+    cfg = Config(**SMALL, max_frames=4)
+    plain = Engine(cfg).run(1).serialize()
+    _, _, tapped_summary = _run_with_periodic_census(cfg)
+    assert tapped_summary.serialize() == plain
+
+
 def test_row_scores_are_the_engine_scorers_own():
     cfg = Config(**SMALL)
     transport, tap, _ = _run_with_periodic_census(cfg)

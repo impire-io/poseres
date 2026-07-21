@@ -169,6 +169,15 @@ function frameTable(st) {
          `<th>recon</th><th>pred</th><th>effort</th><th>score</th></tr>${rows}</table>`;
 }
 
+function lifecycleTimeline(st) {
+  const evs = st.events || [];
+  if (!evs.length) return `<p class="note">no lifecycle events since attach — the population is settled</p>`;
+  const rows = evs.slice(-25).map(e =>
+    `<span style="color:${e.event === "spawn" ? "#6fc27a" : "#c96a5a"}">` +
+    `${e.event === "spawn" ? "+" : "−"} frame ${String(e.frame).padEnd(5)}</span> @ step ${e.steps}`);
+  return `<pre class="reply">${rows.join("\n")}</pre>`;
+}
+
 function channelLog(st) {
   const win = st.steps_window || [];
   if (!win.length) return `<p class="note">no steps received yet</p>`;
@@ -287,6 +296,11 @@ async function refreshPanel() {
     html += `<h3>Channel log</h3>` + channelLog(st);
     const pop = st.frames_latest ? ` <span class="note">(${st.frames_latest.population})</span>` : "";
     html += `<h3>Frames${pop}</h3>` + frameTable(st);
+    const evs = st.events || [];
+    const births = evs.filter(e => e.event === "spawn").length;
+    const deaths = evs.length - births;
+    html += `<h3>Lifecycle <span class="note">(since attach: +${births} −${deaths})</span></h3>`
+          + lifecycleTimeline(st);
   } else if (mode === "simple") {
     html += `<div class="cards">`
       + card("run", st.run) + card("state", st.state) + card("last message", age)

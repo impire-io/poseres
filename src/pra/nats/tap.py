@@ -121,6 +121,36 @@ class _WorldViewAdapter:
         return payload
 
 
+class _TapBus:
+    """Delegating Bus (feature 029): forwards delivery verbatim to the stock
+    ``InMemorySyncBus`` and mirrors ``register``/``unregister`` as
+    ``spawn``/``evict`` lifecycle events — the engine routes every population
+    change through these two calls (boot, birth, decay eviction alike), so
+    the mirror is complete without a single engine edit. Runs on the engine
+    thread: the same single writer as the step mirror, so the tap's no-lock
+    buffer discipline holds. Mirrors fire *after* the inner call — a rejected
+    registration never fabricates an event."""
+
+    def __init__(self, inner: InMemorySyncBus, tap: NatsTap):
+        self._inner = inner
+        self._tap = tap
+
+    def register(self, frame_id: int) -> int:
+        result = self._inner.register(frame_id)
+        self._tap._mirror_lifecycle("spawn", frame_id)
+        return result
+
+    def unregister(self, frame_id: int) -> None:
+        self._inner.unregister(frame_id)
+        self._tap._mirror_lifecycle("evict", frame_id)
+
+    def publish(self, event):
+        return self._inner.publish(event)
+
+    def subscribers(self) -> list[int]:
+        return self._inner.subscribers()
+
+
 class _TapStore:
     """Delegating SnapshotStore: forwards the four-method protocol unchanged
     and lets the tap observe each C4 write (engine.py's only store call)."""
@@ -222,9 +252,10 @@ class NatsTap:
 
     def bus_factory(self, processor):
         """Pass-through capture point (the B1 viewer pattern): keep the store
-        reference, return the stock bus — delivery semantics untouched."""
+        reference, return the stock bus wrapped for the lifecycle mirror
+        (feature 029) — delivery semantics untouched."""
         self._store = processor
-        return InMemorySyncBus(processor)
+        return _TapBus(InMemorySyncBus(processor), self)
 
     def wrap_store(self, inner):
         """Wrap an injected SnapshotStore so C4 writes are observed."""
@@ -333,6 +364,12 @@ class NatsTap:
         self._seq += 1
         self.events_mirrored += 1
         self._buffer.append(("view_live", self._seq, kind, payload))
+
+    def _mirror_lifecycle(self, event: str, frame_id: int) -> None:
+        # engine thread (offline cycle / boot): counters + one deque append
+        self._seq += 1
+        self.events_mirrored += 1
+        self._buffer.append(("brain_event", self._seq, event, int(frame_id), self.steps))
 
     def _brain_meta_attach(self, meta: dict) -> None:
         # run thread (world construction): one deep copy, then heartbeat reuse
@@ -445,6 +482,16 @@ class NatsTap:
                 _, _, static = item
                 payload = {"run": run, "seq": seq, **static}
                 subject = subjects.brain_anatomy_subject(run)
+            elif kind == "brain_event":
+                _, _, event, frame_id, steps = item
+                payload = {
+                    "run": run,
+                    "seq": seq,
+                    "event": event,
+                    "frame": frame_id,
+                    "steps": steps,
+                }
+                subject = subjects.brain_events_subject(run)
             else:  # "started"
                 _, _, obs_dim, n_actions = item
                 cfg = self._config
