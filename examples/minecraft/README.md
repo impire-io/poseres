@@ -118,16 +118,22 @@ speaks, and a spectator joins with a matching launcher installation
 ## What the bot senses and does
 
 The channel contract (specs/027-minecraft-body/contracts/, amended by
-feature 030): position relative to spawn + facing (5), health/food (2),
-light/time/rain (4), a three-bit read of the block column ahead (3),
-and the pocket (5) — normalized counts of mined blocks, logs, planks,
-sticks, plus a "place has material" bit — obs_dim 19. Actions: forward,
-back, turn left/right 45°, jump-forward, dig ahead, place ahead, idle,
-craft planks (1 log → 4), craft sticks (2 planks → 4) — n_actions 10.
-Dig/place act on exactly the block the `blocks` channel reads, place
-*consumes* from the pocket, and craft consequences land in the
-`inventory` channel: act and sense line up by construction. The
-feature-027 body (14/8, no pocket) stays one flag away —
+features 030/031): position relative to spawn + facing (5), health/food
+(2), light/time/rain (4), a three-bit read of the block column ahead
+(3), the pocket (5 — normalized counts of mined blocks, logs, planks,
+sticks + a held-is-placeable bit), the hand (4 — one-hot held class),
+and the 2×2 staging grid (5 — staged counts + what the grid currently
+offers) — obs_dim 28. Actions: the eight of feature 027 (forward, back,
+turns, jump, dig, place, idle) plus four **honest primitives**:
+hold-next (cycle the held class), grid-put, grid-take, take-result —
+n_actions 12. There is no "craft" button: crafting is a *ladder* —
+hold a log, stage it, see the grid offer planks (vanilla shows its
+offer before any craft), take it — and every rung has a next-tick
+sensed consequence. Whether the brain climbs the ladder is the
+experiment; the pilot measured chance-level climbing at ~1 accidental
+planks-craft per ~2,200 undirected steps (specs/031-honest-primitives/
+pilot-results.md), so purposeful crafting in the long run means
+emergence. The feature-027 body (14/8) stays one flag away —
 `c1_anatomy(crafting=False)` — and snapshots do not cross the switch.
 
 To watch the material loop by hand while spectating: give the bot wood

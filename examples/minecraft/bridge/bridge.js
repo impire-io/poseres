@@ -23,6 +23,11 @@ const HOLD_CYCLE = [null, "blocks", "logs", "planks", "sticks"];
 let held = null;
 let grid = []; // <=4 class names, column-first; first two are column-adjacent
 
+// the contract's four material classes (items outside them are not counted)
+const isBlockItem = (n) => n.includes("dirt") || n.includes("stone");
+const isLogItem = (n) => n.endsWith("_log");
+const isPlankItem = (n) => n.endsWith("_planks");
+
 const MC_HOST = process.env.MC_HOST || "127.0.0.1";
 const MC_PORT = parseInt(process.env.MC_PORT || "25565", 10);
 const BOT_NAME = process.env.BOT_NAME || "pra";
@@ -308,13 +313,8 @@ function sampleChannels() {
   };
 }
 
-// features 030/031: the pocket, read fresh every tick — the contract's four
-// material classes (items outside them are not counted); staged reservations
+// features 030/031: the pocket, read fresh every tick; staged reservations
 // are subtracted so pocket + grid always sum to the real inventory.
-const isBlockItem = (n) => n.includes("dirt") || n.includes("stone");
-const isLogItem = (n) => n.endsWith("_log");
-const isPlankItem = (n) => n.endsWith("_planks");
-
 function sampleInventory() {
   const pocket = (cls) => Math.max(0, rawCount(cls) - stagedCount(cls));
   const norm = (n) => Math.min(n, 64) / 64;
