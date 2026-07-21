@@ -238,3 +238,60 @@ def test_advanced_mode_data_is_complete_for_a_nonreference_config():
     assert len(state["snapshots"]) == 2  # one notice per cycle
     assert state["completed_summary"] == summary.canonical()
     model.stop()
+
+
+# --- feature 029: the Brain tab's inputs, live ----------------------------------
+
+
+def test_brain_panel_inputs_flow_for_a_live_rover_run():
+    cfg = Config(**SMALL)
+
+    def factory_for(tap):
+        inner_factory = tap.world_factory(inner=lambda c, r: make_rover_body(c, r))
+
+        def factory(config, rng):
+            world = inner_factory(config, rng)
+            original_step = world.step
+
+            def step(action):
+                obs = original_step(action)
+                if tap.steps % 15 == 0:
+                    tap._publish_census()  # deterministic mid-run censuses
+                return obs
+
+            world.step = step
+            return world
+
+        return factory
+
+    summary, polls, model = _watched_run(cfg, factory_for)
+    assert polls > 0
+    state = model.state_of("t")
+
+    # the schematic's inputs: metadata, decoded steps, rows, lifecycle
+    meta = state["brain_meta"]
+    assert [g["id"] for g in meta["groups"]] == ["rays", "compass", "gps", "bump"]
+    assert [a["label"] for a in meta["actuators"]] == [
+        "forward",
+        "reverse",
+        "turn_left",
+        "turn_right",
+    ]
+    window = state["steps_window"]
+    assert window and len(window[-1]["obs"]) == meta["obs_dim"]
+    assert isinstance(window[-1]["action"], int)
+    frames = state["frames_latest"]
+    assert frames is not None and frames["population"] == len(frames["rows"])
+    events = state["events"]
+    assert events and events[0]["event"] == "spawn"  # boot registration arrived
+    spawns = sum(1 for e in events if e["event"] == "spawn")
+    evicts = len(events) - spawns
+    assert spawns - evicts == summary.final_population
+
+
+def test_page_serves_the_brain_tab():
+    from importlib import resources
+
+    page = resources.files("pra.dash").joinpath("page.html").read_text()
+    for marker in ("anatomySvg", "frameTable", "lifecycleTimeline", "channelLog", ">Brain<"):
+        assert marker in page

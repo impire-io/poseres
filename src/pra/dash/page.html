@@ -157,6 +157,68 @@ function stripSvg(win, group) {
   return `<svg class="chart" viewBox="0 0 ${W} ${Hh}" width="${W}" height="${Hh}">${lines.join("")}</svg>`;
 }
 
+function channelRange(win, index) {
+  let lo = Infinity, hi = -Infinity;
+  for (const e of win) if (e.obs) {
+    const v = e.obs[index];
+    if (v < lo) lo = v;
+    if (v > hi) hi = v;
+  }
+  return hi > lo ? [lo, hi] : [lo - 0.5, lo + 0.5];
+}
+
+function anatomySvg(st) {
+  const meta = st.brain_meta;
+  if (!meta || !meta.groups || !meta.groups.length)
+    return `<p class="note">this body publishes no anatomy — channels are shown generically above</p>`;
+  const win = st.steps_window || [];
+  const latest = win.length ? win[win.length - 1] : null;
+  const rowH = 15, W = 680;
+
+  // left column: sensor groups with per-channel value bars
+  let y = 14; const gBoxes = [];
+  for (const g of meta.groups) { const h = g.width * rowH + 24; gBoxes.push({ g, y, h }); y += h + 10; }
+  // right column: one node per actuator/action
+  let ay = 14; const aBoxes = [];
+  for (const a of meta.actuators || []) { aBoxes.push({ a, y: ay }); ay += 24; }
+  const H = Math.max(y, ay + 14, 200);
+  const hubX = 348, hubY = H / 2;
+  const parts = [];
+
+  for (const { g, y, h } of gBoxes) {
+    const glow = 0.3 + 0.7 * groupActivity(win, g);
+    parts.push(`<rect x="12" y="${y}" width="200" height="${h}" rx="8" fill="#161c23" stroke="#2d5c8a" stroke-opacity="${glow.toFixed(2)}"/>`);
+    parts.push(`<text x="20" y="${y + 15}" fill="#8fb6dd" font-size="11">${g.id}</text>`);
+    for (let c = 0; c < g.width; c++) {
+      const by = y + 22 + c * rowH;
+      parts.push(`<text x="20" y="${by + 9}" fill="#5c6773" font-size="9">${channelLabel(g, c)}</text>`);
+      parts.push(`<rect x="92" y="${by + 2}" width="110" height="8" rx="2" fill="#0c1013"/>`);
+      if (latest && latest.obs) {
+        const v = latest.obs[g.start + c];
+        const [lo, hi] = channelRange(win, g.start + c);
+        const frac = Math.max(0, Math.min(1, (v - lo) / (hi - lo)));
+        parts.push(`<rect x="92" y="${by + 2}" width="${(110 * frac).toFixed(1)}" height="8" rx="2" fill="${PALETTE[c % PALETTE.length]}"/>`);
+      }
+    }
+    parts.push(`<line x1="212" y1="${y + h / 2}" x2="${hubX - 44}" y2="${hubY}" stroke="#2d3a46"/>`);
+  }
+
+  const pop = st.frames_latest ? st.frames_latest.population : (st.census ? st.census.population : "…");
+  parts.push(`<circle cx="${hubX}" cy="${hubY}" r="42" fill="#161c23" stroke="#2d5c8a"/>`);
+  parts.push(`<text x="${hubX}" y="${hubY - 4}" fill="#8fb6dd" font-size="11" text-anchor="middle">brain</text>`);
+  parts.push(`<text x="${hubX}" y="${hubY + 13}" fill="#d8dee5" font-size="13" text-anchor="middle">${pop} frames</text>`);
+
+  for (const { a, y } of aBoxes) {
+    const chosen = latest && latest.action === a.action;
+    parts.push(`<line x1="${hubX + 44}" y1="${hubY}" x2="490" y2="${y + 10}" stroke="${chosen ? "#6fc27a" : "#2d3a46"}"/>`);
+    parts.push(`<rect x="492" y="${y}" width="176" height="20" rx="6" fill="${chosen ? "#1d3324" : "#161c23"}" stroke="${chosen ? "#6fc27a" : "#232b34"}"/>`);
+    parts.push(`<text x="500" y="${y + 14}" fill="${chosen ? "#6fc27a" : "#aab6c2"}" font-size="11">${a.label}</text>`);
+    parts.push(`<text x="662" y="${y + 14}" fill="#5c6773" font-size="9" text-anchor="end">${a.action}</text>`);
+  }
+
+  return `<svg class="chart" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">${parts.join("")}</svg>`;
+}
+
 function frameTable(st) {
   const f = st.frames_latest;
   if (!f || !f.rows || !f.rows.length) return `<p class="note">no frame census received yet</p>`;
@@ -282,6 +344,7 @@ async function refreshPanel() {
     </div>`;
 
   if (mode === "brain") {
+    html += `<h3>Anatomy</h3>` + anatomySvg(st);
     const groups = metaGroups(st);
     const labeled = st.brain_meta ? "" :
       ` <span class="note">(no anatomy published — generic labels)</span>`;
