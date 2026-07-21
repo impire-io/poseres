@@ -40,9 +40,9 @@ would never think of (decided in [journey 0010](../04-JOURNEY/0010-the-product-t
 
 The horizon ambitions, restated and re-broadened on 2026-07-19
 ([journey 0042](../04-JOURNEY/0042-the-vision-re-broadened.md)). None is a
-schedulable milestone; all shape design decisions today. The live gates and
-their status are tracked in `../03-IMPLEMENTATION/roadmap.md` (Horizon
-ambitions).
+schedulable milestone; all shape design decisions today. The concrete next
+experiment each ambition is gated behind is tracked in
+`../03-IMPLEMENTATION/roadmap.md` (Research candidates).
 
 - **Compounding intelligence.** A brain can be snapshotted and cloned as a
   *seed* for the next, so knowledge compounds across brains — **measured**:

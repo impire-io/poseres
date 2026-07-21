@@ -277,3 +277,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0043 | [The brain moves into Minecraft: C1's world, built to launch-ready](0043-the-brain-moves-into-minecraft.md) |
 | 0044 | [Brain seeding: the head start is real, relevant, and compounds](0044-brain-seeding.md) |
 | 0045 | [The HQ restructure: the process gets a constitution](0045-the-hq-restructure.md) |
+| 0046 | [The roadmap becomes a plan again](0046-the-roadmap-becomes-a-plan-again.md) |
