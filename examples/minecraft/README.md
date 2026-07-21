@@ -117,9 +117,19 @@ speaks, and a spectator joins with a matching launcher installation
 
 ## What the bot senses and does
 
-The channel contract (specs/027-minecraft-body/contracts/): position
-relative to spawn + facing (5), health/food (2), light/time/rain (4),
-and a three-bit read of the block column ahead (3) — obs_dim 14.
-Actions: forward, back, turn left/right 45°, jump-forward, dig ahead,
-place ahead, idle. Dig/place act on exactly the block the `blocks`
-channel reads: act and sense line up by construction.
+The channel contract (specs/027-minecraft-body/contracts/, amended by
+feature 030): position relative to spawn + facing (5), health/food (2),
+light/time/rain (4), a three-bit read of the block column ahead (3),
+and the pocket (5) — normalized counts of mined blocks, logs, planks,
+sticks, plus a "place has material" bit — obs_dim 19. Actions: forward,
+back, turn left/right 45°, jump-forward, dig ahead, place ahead, idle,
+craft planks (1 log → 4), craft sticks (2 planks → 4) — n_actions 10.
+Dig/place act on exactly the block the `blocks` channel reads, place
+*consumes* from the pocket, and craft consequences land in the
+`inventory` channel: act and sense line up by construction. The
+feature-027 body (14/8, no pocket) stays one flag away —
+`c1_anatomy(crafting=False)` — and snapshots do not cross the switch.
+
+To watch the material loop by hand while spectating: give the bot wood
+(`docker compose exec minecraft rcon-cli "give pra oak_log 8"`) and the
+inventory channels move within a tick on the dashboard's Brain tab.
