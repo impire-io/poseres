@@ -178,7 +178,9 @@ async function handle(message) {
     const budget = Math.max(1000, 4 * tickMs); // bounds *quick* ops (look/place/craft)
     for (const command of message.commands || []) await applyCommand(command, budget);
     await sleep(tickMs);
-    clearControls();
+    // control writes count as movement and abort a dig in progress — while
+    // the intention is held there is nothing to clear (dig sets no controls)
+    if (digTarget === null) clearControls();
     tick += 1;
     return [{ ok: true, tick, channels: sampleChannels(), view: sampleView() }, false];
   }
@@ -239,13 +241,16 @@ async function applyCommand(command, budget) {
     digTarget = target.clone();
     digStart = Date.now();
     digTotalMs = Math.max(1, bot.digTime(block));
-    // NOT awaited: the dig runs across ticks while the brain keeps sensing
+    // NOT awaited: the dig runs across ticks while the brain keeps sensing;
+    // forceLook 'ignore' — a mid-dig look counts as movement and aborts the
+    // dig (measured live: forceLook=true self-aborted at one tick)
     bot
-      .dig(block, true)
+      .dig(block, "ignore")
       .then(() => {
         digTarget = null; // broken — the drop lands by the game's own physics
       })
-      .catch(() => {
+      .catch((err) => {
+        console.error("dig ended early:", err && err.message, "after", Date.now() - digStart, "ms");
         digTarget = null;
       });
   } else if (name === "place_ahead") {
