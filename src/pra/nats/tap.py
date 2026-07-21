@@ -473,10 +473,23 @@ class NatsTap:
                 self._scorer = WeightedSumScorer(cfg)
             dims: dict[int, int] = {}
             best: tuple[float, int, int, float] | None = None
+            rows: list[dict] = []  # feature 029: the same walk, kept per frame
             for s in states:
                 dims[s.dim] = dims.get(s.dim, 0) + 1
                 score = float(
                     self._scorer.combine(s.recon_err_ema, s.pred_err_ema, s.effort_ema, s.dim)
+                )
+                rows.append(
+                    {
+                        "id": s.frame_id,
+                        "dim": s.dim,
+                        "age": s.age_cycles,
+                        "cand": s.is_candidate,
+                        "recon": s.recon_err_ema,
+                        "pred": s.pred_err_ema,
+                        "effort": s.effort_ema,
+                        "score": score,
+                    }
                 )
                 # ties by ascending frame_id — the store's own rule (PRA-01 §7.1)
                 if best is None or (score, s.frame_id) < (best[0], best[1]):
@@ -498,3 +511,16 @@ class NatsTap:
         self._last_census = payload
         self.transport.publish(subjects.census_subject(self.run_id), subjects.to_bytes(payload))
         self.census_published += 1
+        # feature 029: the rows the aggregate came from — complete (bounded by
+        # max_frames), same walk, so population/best_frame agree by construction
+        frames_payload = {
+            "run": self.run_id,
+            "seq": payload["seq"],
+            "steps": payload["steps"],
+            "population": len(rows),
+            "best_frame": best[1],
+            "rows": rows,
+        }
+        self.transport.publish(
+            subjects.brain_frames_subject(self.run_id), subjects.to_bytes(frames_payload)
+        )

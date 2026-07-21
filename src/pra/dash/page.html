@@ -44,6 +44,11 @@
   table.counters { border-collapse: collapse; font-size: .85rem; }
   table.counters td { border: 1px solid #232b34; padding: .25rem .6rem; }
   table.counters td:first-child { color: #5c6773; }
+  table.frames { border-collapse: collapse; font-size: .82rem; }
+  table.frames th { color: #5c6773; font-weight: normal; text-align: right; padding: .2rem .55rem; }
+  table.frames td { border-top: 1px solid #232b34; padding: .2rem .55rem; text-align: right;
+                    font-variant-numeric: tabular-nums; }
+  table.frames tr.best td { color: #6fc27a; }
   h3 { font-size: .8rem; text-transform: uppercase; color: #5c6773; margin: 1.1rem 0 .4rem; }
 </style>
 </head>
@@ -150,6 +155,18 @@ function stripSvg(win, group) {
     lines.push(`<text x="${6 + c * 78}" y="12" fill="${col}" font-size="9">${channelLabel(group, c)}</text>`);
   }
   return `<svg class="chart" viewBox="0 0 ${W} ${Hh}" width="${W}" height="${Hh}">${lines.join("")}</svg>`;
+}
+
+function frameTable(st) {
+  const f = st.frames_latest;
+  if (!f || !f.rows || !f.rows.length) return `<p class="note">no frame census received yet</p>`;
+  const rows = f.rows.map(r =>
+    `<tr${r.id === f.best_frame ? ` class="best"` : ""}><td>${r.id}</td><td>${r.dim}</td>` +
+    `<td>${r.age}</td><td>${r.cand ? "young" : ""}</td><td>${r.recon.toFixed(3)}</td>` +
+    `<td>${r.pred.toFixed(3)}</td><td>${r.effort.toFixed(3)}</td><td>${r.score.toFixed(3)}</td></tr>`
+  ).join("");
+  return `<table class="frames"><tr><th>frame</th><th>dim</th><th>age</th><th></th>` +
+         `<th>recon</th><th>pred</th><th>effort</th><th>score</th></tr>${rows}</table>`;
 }
 
 function channelLog(st) {
@@ -268,6 +285,8 @@ async function refreshPanel() {
               + stripSvg(st.steps_window || [], g);
     }
     html += `<h3>Channel log</h3>` + channelLog(st);
+    const pop = st.frames_latest ? ` <span class="note">(${st.frames_latest.population})</span>` : "";
+    html += `<h3>Frames${pop}</h3>` + frameTable(st);
   } else if (mode === "simple") {
     html += `<div class="cards">`
       + card("run", st.run) + card("state", st.state) + card("last message", age)
