@@ -54,8 +54,18 @@ The S3 objects are the artifact behind every number (constitution II:
 public artifacts link their telemetry). The journey episode for the
 run reports R1–R5 with spreads/rates, flattering or not.
 
-## Pre-launch gate still open when this was written
+## Pre-launch gate: CLOSED — soak PASS (2026-07-21, beno4)
 
-The overnight 28/12 FakeBridge soak on beno4 (~1M steps: no-rot,
-resume-at-length at the exact launch config) must be green before
-boot; its numbers get appended here.
+961,000 observation steps at the exact launch config (28/12,
+continuous, cap on, snapshot cadence 25): improvement **+0.635**
+(pred error 0.778 → 0.143 — no rot, still improving at ~1M steps),
+final population 29 at the ceiling, and **resume-at-length byte-exact**
+(run B resumed from the cycle-2000 snapshot and serialized identically
+to the uninterrupted run at cycle 4000). The soak also earned its keep
+twice on the way: it exposed a 027-era FakeBridge socket bug at ~367k
+requests (fixed, 06d93f3) before any reading counted. One vacuous
+field in the soak script (population_tail_stable compared a list to
+itself) is disregarded; the error trajectory carries the no-rot
+reading. Scripts and raw logs: beno4:~/pra-runs/soak/.
+
+**Launched 2026-07-21** with this plan in force.
