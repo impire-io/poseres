@@ -6,7 +6,32 @@ the server (Docker), the bridge (Node + mineflayer), the brain (this
 repo). Each can restart independently; the brain resumes exactly from
 its latest snapshot.
 
-## Start
+## One command, watching included
+
+    ./up.sh                    # from examples/minecraft/; extra args go
+                               # to run_c1.py, e.g. ./up.sh --seed 1
+
+Brings up the whole stack in dependency order, each stage gated on a
+readiness check: the world (Docker), a NATS server (reused if one is
+already on :4222), the bridge, `pra-dash` (opened in your browser), the
+Minecraft launcher, and finally the brain in the foreground with
+telemetry on.
+
+Join the server from the launcher (Multiplayer → add `127.0.0.1:25565`
+once) and the stack flips you to **spectator** and teleports you next to
+the bot, camera facing it: press F5 to orbit it in third person,
+left-click the bot to see through its eyes (Shift to detach). Spectators
+are invisible, don't collide, and can't touch blocks — the experiment
+cannot tell you are there.
+
+Ctrl-C stops the brain and tears down what the script started (bridge,
+dash, watcher, nats if it launched one); the world container keeps
+running for fast resume (`docker compose down` here stops it too).
+Knobs (env vars): `BOT_NAME`, `BRIDGE_PORT`, `DASH_PORT`, `NATS_URL`,
+`OPEN_CLIENT=0` (no launcher/browser), `SPECTATE=0` (never touch your
+gamemode). Stage logs land in `logs/`.
+
+## Start (by hand)
 
     # 1. the world (first boot generates the map: ~1-2 minutes)
     docker compose up -d
