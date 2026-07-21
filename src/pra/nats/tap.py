@@ -52,6 +52,12 @@ class _TapWorld:
         self._stream = stream
         self._episode = 0
         self._booted = False
+        # Body self-description (feature 029): one getattr at construction —
+        # metadata is per-run (one body definition), so stream 0 speaks for all.
+        if stream == 0:
+            meta = getattr(inner, "anatomy_meta", None)
+            if callable(meta):
+                tap._brain_meta_attach(meta())
 
     @property
     def n_actions(self) -> int:
@@ -160,6 +166,7 @@ class NatsTap:
         self._census_interval = float(census_interval)
         self._view_heartbeat = float(view_heartbeat)
         self._view_static_latest: tuple[str, dict] | None = None
+        self._brain_meta_latest: dict | None = None
 
         # run-thread state (no locks by design — single writer)
         self._seq = 0
@@ -327,6 +334,14 @@ class NatsTap:
         self.events_mirrored += 1
         self._buffer.append(("view_live", self._seq, kind, payload))
 
+    def _brain_meta_attach(self, meta: dict) -> None:
+        # run thread (world construction): one deep copy, then heartbeat reuse
+        static = copy.deepcopy(meta)
+        self._brain_meta_latest = static
+        self._seq += 1
+        self.events_mirrored += 1
+        self._buffer.append(("brain_meta", self._seq, static))
+
     def _on_snapshot_written(self, snapshot_id: str, metadata: dict) -> None:
         # engine thread, C4: plain copies + the pending-request handoff
         self._seq += 1
@@ -354,6 +369,7 @@ class NatsTap:
                 next_census = time.monotonic() + self._census_interval
             if time.monotonic() >= next_view:
                 self._republish_view_static()
+                self._republish_brain_meta()
                 next_view = time.monotonic() + self._view_heartbeat
         self._drain()  # final: everything still buffered goes out
 
@@ -367,6 +383,16 @@ class NatsTap:
         payload = {"run": self.run_id, "seq": self._seq, "kind": kind, "static": static}
         self.transport.publish(
             subjects.view_static_subject(self.run_id), subjects.to_bytes(payload)
+        )
+
+    def _republish_brain_meta(self) -> None:
+        # same late-attach guarantee as the view static (contract §2.2)
+        latest = self._brain_meta_latest
+        if latest is None:
+            return
+        payload = {"run": self.run_id, "seq": self._seq, **latest}
+        self.transport.publish(
+            subjects.brain_anatomy_subject(self.run_id), subjects.to_bytes(payload)
         )
 
     def _drain(self) -> None:
@@ -415,6 +441,10 @@ class NatsTap:
                 _, _, view_kind, live = item
                 payload = {"run": run, "seq": seq, "kind": view_kind, **live}
                 subject = subjects.view_live_subject(run)
+            elif kind == "brain_meta":
+                _, _, static = item
+                payload = {"run": run, "seq": seq, **static}
+                subject = subjects.brain_anatomy_subject(run)
             else:  # "started"
                 _, _, obs_dim, n_actions = item
                 cfg = self._config

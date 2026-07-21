@@ -92,6 +92,80 @@ async function refreshRuns() {
 
 function card(k, v) { return `<div class="card"><div class="k">${k}</div><div class="v">${v}</div></div>`; }
 
+// --- the Brain tab (feature 029): everything renders from brain_meta +
+// steps_window + frames_latest + events — pure consumers of /state.
+const PALETTE = ["#6fc27a", "#8fb6dd", "#d8b453", "#c96a5a", "#b48ead", "#7fc7c4", "#a3be8c", "#d08770"];
+
+function metaGroups(st) {
+  if (st.brain_meta && st.brain_meta.groups && st.brain_meta.groups.length)
+    return st.brain_meta.groups;
+  const w = st.steps_window || [];
+  const dim = w.length && w[w.length - 1].obs ? w[w.length - 1].obs.length : 0;
+  return dim ? [{ id: "obs", start: 0, width: dim, generic: true }] : [];
+}
+
+function channelLabel(group, i) {
+  if (group.labels && group.labels.length === group.width) return group.labels[i];
+  return group.width === 1 ? group.id : `${group.id}[${i}]`;
+}
+
+function actionLabel(st, a) {
+  if (st.brain_meta && st.brain_meta.actuators)
+    for (const act of st.brain_meta.actuators) if (act.action === a) return act.label;
+  return a === null || a === undefined ? "—" : `a${a}`;
+}
+
+function groupActivity(win, group) {
+  // mean |Δ| of the group's channels over the last few window entries, vs the
+  // window's own scale — the schematic's and charts' shared liveness number
+  if (win.length < 2) return 0;
+  const tail = win.slice(-6);
+  let move = 0, n = 0;
+  for (let t = 1; t < tail.length; t++)
+    for (let c = 0; c < group.width; c++) {
+      const a = tail[t].obs, b = tail[t - 1].obs;
+      if (a && b) { move += Math.abs(a[group.start + c] - b[group.start + c]); n++; }
+    }
+  return n ? Math.min(1, move / n) : 0;
+}
+
+function stripSvg(win, group) {
+  const W = 640, Hh = 96, n = win.length;
+  if (n < 2) return `<p class="note">waiting for steps…</p>`;
+  const px = i => 4 + (W - 8) * i / (n - 1);
+  const lines = [];
+  for (let c = 0; c < group.width; c++) {
+    let lo = Infinity, hi = -Infinity;
+    for (const e of win) if (e.obs) {
+      const v = e.obs[group.start + c];
+      if (v < lo) lo = v;
+      if (v > hi) hi = v;
+    }
+    const span = hi - lo || 1;
+    const pts = win.map((e, i) =>
+      `${px(i)},${(Hh - 6) - (Hh - 12) * (((e.obs ? e.obs[group.start + c] : lo) - lo) / span)}`
+    ).join(" ");
+    const col = PALETTE[c % PALETTE.length];
+    lines.push(`<polyline points="${pts}" fill="none" stroke="${col}" stroke-width="1"/>`);
+    lines.push(`<text x="${6 + c * 78}" y="12" fill="${col}" font-size="9">${channelLabel(group, c)}</text>`);
+  }
+  return `<svg class="chart" viewBox="0 0 ${W} ${Hh}" width="${W}" height="${Hh}">${lines.join("")}</svg>`;
+}
+
+function channelLog(st) {
+  const win = st.steps_window || [];
+  if (!win.length) return `<p class="note">no steps received yet</p>`;
+  const groups = metaGroups(st);
+  const rows = win.slice(-30).map(e => {
+    const parts = groups.map(g => {
+      const vals = e.obs ? e.obs.slice(g.start, g.start + g.width).map(v => v.toFixed(2)).join(" ") : "…";
+      return `${g.id} ${vals}`;
+    });
+    return `#${e.step}  ${actionLabel(st, e.action).padEnd(12)} ${parts.join("  |  ")}`;
+  });
+  return `<pre class="reply">${rows.join("\n")}</pre>`;
+}
+
 function worldSvg(view) {
   if (!view) return "";
   if (view.kind !== "rover")
@@ -177,10 +251,24 @@ async function refreshPanel() {
   const census = st.census || {};
   let html = `<div class="tabs">
       <button class="${mode === "simple" ? "sel" : ""}" onclick="setMode('simple')">Simple</button>
+      <button class="${mode === "brain" ? "sel" : ""}" onclick="setMode('brain')">Brain</button>
       <button class="${mode === "advanced" ? "sel" : ""}" onclick="setMode('advanced')">Advanced</button>
     </div>`;
 
-  if (mode === "simple") {
+  if (mode === "brain") {
+    const groups = metaGroups(st);
+    const labeled = st.brain_meta ? "" :
+      ` <span class="note">(no anatomy published — generic labels)</span>`;
+    html += `<h3>Channels${labeled}</h3>`;
+    if (!groups.length) {
+      html += `<p class="note">no observations yet — is the run publishing telemetry?</p>`;
+    } else {
+      for (const g of groups)
+        html += `<h3>${g.id} <span class="note">[${g.start}:${g.start + g.width}]</span></h3>`
+              + stripSvg(st.steps_window || [], g);
+    }
+    html += `<h3>Channel log</h3>` + channelLog(st);
+  } else if (mode === "simple") {
     html += `<div class="cards">`
       + card("run", st.run) + card("state", st.state) + card("last message", age)
       + card("population", census.population ?? "—") + card("best dim", census.best_dim ?? "—")

@@ -164,6 +164,42 @@ class Body:
         actuator.apply(local)
         return self._compose()
 
+    # ---- self-description (feature 029, contract §3) ---------------------------
+    def anatomy_meta(self) -> dict:
+        """The body's telemetry self-description: channel groups in composition
+        order, one actuator entry per global action id. Inert data — nothing
+        calls this unless a tap is attached, and it reads the *live* lists so
+        grown tools stay correct after ``apply_pending_tools``."""
+        groups, start = [], 0
+        for s in self._sensors:
+            width = int(s.width())
+            groups.append({"id": str(s.id()), "start": start, "width": width})
+            start += width
+        actuators, action = [], 0
+        for a in self._actuators:
+            count = int(a.action_count())
+            labels = None
+            get_labels = getattr(a, "action_labels", None)
+            if callable(get_labels):
+                declared = [str(x) for x in get_labels()]
+                if len(declared) == count:
+                    labels = declared
+            for local in range(count):
+                if labels is not None:
+                    label = labels[local]
+                elif count == 1:
+                    label = str(a.id())
+                else:
+                    label = f"{a.id()}[{local}]"
+                actuators.append({"id": str(a.id()), "action": action, "label": label})
+                action += 1
+        return {
+            "obs_dim": int(self.obs_dim),
+            "n_actions": int(self.n_actions),
+            "groups": groups,
+            "actuators": actuators,
+        }
+
     # ---- composition & routing ------------------------------------------------
     def _compose(self) -> np.ndarray:
         parts = []

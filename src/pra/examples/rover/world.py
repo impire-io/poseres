@@ -360,6 +360,12 @@ class RoverDrive:
     def action_count(self) -> int:
         return ROVER_N_ACTIONS
 
+    def action_labels(self) -> list[str]:
+        """Human names for telemetry (feature 029): the standard mapping —
+        the permuted arm (feature 028) relabels physics, not the brain-facing
+        indices these describe."""
+        return list(ACTION_NAMES)
+
     def apply(self, local_action_index: int) -> None:
         self._world.apply(local_action_index)
 

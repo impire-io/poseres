@@ -19,6 +19,9 @@ import uuid
 __all__ = [
     "DISCOVER_SUBJECT",
     "SCHEME_VERSION",
+    "brain_anatomy_subject",
+    "brain_events_subject",
+    "brain_frames_subject",
     "census_subject",
     "control_subject",
     "default_run_id",
@@ -89,6 +92,22 @@ def view_live_subject(run_id: str) -> str:
     return f"{_ROOT}.run.{validate_run_id(run_id)}.tele.view.live"
 
 
+def brain_anatomy_subject(run_id: str) -> str:
+    """Brain-introspection family (feature 029): the body's self-description,
+    once at world construction + heartbeat republish."""
+    return f"{_ROOT}.run.{validate_run_id(run_id)}.brain.anatomy"
+
+
+def brain_frames_subject(run_id: str) -> str:
+    """Per-frame census rows (feature 029), census cadence."""
+    return f"{_ROOT}.run.{validate_run_id(run_id)}.brain.frames"
+
+
+def brain_events_subject(run_id: str) -> str:
+    """Frame lifecycle events (feature 029): spawn/evict, mirrored in order."""
+    return f"{_ROOT}.run.{validate_run_id(run_id)}.brain.events"
+
+
 def control_subject(run_id: str) -> str:
     return f"{_ROOT}.run.{validate_run_id(run_id)}.ctrl"
 
@@ -103,6 +122,9 @@ def run_subjects(run_id: str) -> dict[str, str]:
         "snapshot": snapshot_subject(run_id),
         "view_static": view_static_subject(run_id),
         "view_live": view_live_subject(run_id),
+        "brain_anatomy": brain_anatomy_subject(run_id),
+        "brain_frames": brain_frames_subject(run_id),
+        "brain_events": brain_events_subject(run_id),
         "ctrl": control_subject(run_id),
     }
 

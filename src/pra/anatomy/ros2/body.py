@@ -114,6 +114,11 @@ class CommandActuator:
     def action_count(self) -> int:
         return len(self.spec.presets)
 
+    def action_labels(self) -> list[str]:
+        """Human names for telemetry (feature 029): preset keys in declared
+        order, ``+``-joined; the all-defaults command is ``idle``."""
+        return ["+".join(p) if p else "idle" for p in self.spec.presets]
+
     def apply(self, local_action_index: int) -> None:
         self._transport.publish(self.spec, local_action_index)
         self.published += 1

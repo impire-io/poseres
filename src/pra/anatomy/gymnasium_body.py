@@ -118,6 +118,19 @@ class GymnasiumWorld:
     def obs_dim(self) -> int:
         return self._obs_dim
 
+    def anatomy_meta(self) -> dict:
+        """Telemetry self-description (feature 029, contract §3): structural
+        only — one flattened observation group, generic action labels (the
+        environment's own semantics are not visible through the spaces)."""
+        return {
+            "obs_dim": self._obs_dim,
+            "n_actions": self._n_actions,
+            "groups": [{"id": "obs", "start": 0, "width": self._obs_dim}],
+            "actuators": [
+                {"id": "env", "action": i, "label": f"a{i}"} for i in range(self._n_actions)
+            ],
+        }
+
     def reset(self) -> np.ndarray:
         obs, _info = self._env.reset(seed=self._next_seed())
         self._started = True

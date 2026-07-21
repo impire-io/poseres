@@ -30,6 +30,8 @@ __all__ = ["DashboardModel", "RunModel"]
 
 CENSUS_HISTORY = 512
 SNAPSHOT_NOTICES = 64
+STEPS_WINDOW = 600  # feature 029: the live channel window (bounded by construction)
+EVENTS_WINDOW = 512  # feature 029: recent lifecycle events
 
 
 class RunModel:
@@ -48,6 +50,10 @@ class RunModel:
         self.view_kind: str | None = None
         self.view_static: dict | None = None
         self.view_live: dict | None = None
+        self.brain_meta: dict | None = None  # latest brain.anatomy (029)
+        self.frames_latest: dict | None = None  # latest brain.frames (029)
+        self.events: deque = deque(maxlen=EVENTS_WINDOW)  # brain.events (029)
+        self.steps_window: deque = deque(maxlen=STEPS_WINDOW)  # from tele.step (029)
         self.last_step = 0
         self.last_mirror_seq = 0
         self.seq_gaps = 0
@@ -80,6 +86,10 @@ class RunModel:
             "counters": self.counters,
             "snapshots": list(self.snapshots),
             "view": view,
+            "brain_meta": self.brain_meta,
+            "frames_latest": self.frames_latest,
+            "events": list(self.events),
+            "steps_window": list(self.steps_window),
             "last_step": self.last_step,
             "seq_gaps": self.seq_gaps,
             "wire_errors": self.wire_errors,
@@ -203,6 +213,14 @@ class DashboardModel:
                 run.completed_summary = event.get("summary")
         elif family == ["tele", "step"]:
             run.last_step = int(event["step"])
+            run.steps_window.append(
+                {
+                    "step": run.last_step,
+                    "stream": int(event.get("stream", 0)),
+                    "action": event.get("action"),
+                    "obs": event.get("obs"),
+                }
+            )
         elif family == ["tele", "census"]:
             run.latest_census = event
             run.census_history.append(
@@ -220,6 +238,19 @@ class DashboardModel:
         elif family == ["tele", "view", "live"]:
             run.view_kind = str(event["kind"])
             run.view_live = event
+        elif family == ["brain", "anatomy"]:
+            run.brain_meta = event
+        elif family == ["brain", "frames"]:
+            run.frames_latest = event
+        elif family == ["brain", "events"]:
+            run.events.append(
+                {
+                    "seq": event.get("seq"),
+                    "event": str(event["event"]),
+                    "frame": int(event["frame"]),
+                    "steps": int(event.get("steps", 0)),
+                }
+            )
         # tele.episode and unknown families: presence already refreshed last_seen
 
     # -- discovery + the slow inspect loop ---------------------------------------
