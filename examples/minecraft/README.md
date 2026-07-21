@@ -17,9 +17,12 @@ already on :4222), the bridge, `pra-dash` (opened in your browser), the
 Minecraft launcher, and finally the brain in the foreground with
 telemetry on.
 
-Join the server from the launcher (Multiplayer → add `127.0.0.1:25565`
-once) and the stack flips you to **spectator** and teleports you next to
-the bot, camera facing it: press F5 to orbit it in third person,
+Join the server from the launcher — your client version must match the
+server pin (**1.21.11**, not the latest 26.x release: see "Version pins"
+below). In the launcher: Installations → New installation → version
+`1.21.11`, Play, then Multiplayer → add `127.0.0.1:25565` once. The
+stack flips you to **spectator** and teleports you next to the bot,
+camera facing it: press F5 to orbit it in third person,
 left-click the bot to see through its eyes (Shift to detach). Spectators
 are invisible, don't collide, and can't touch blocks — the experiment
 cannot tell you are there.
@@ -70,11 +73,18 @@ Add `--nats nats://127.0.0.1:4222` (with a nats-server running; see
 
 ## Version pins
 
-`docker-compose.yml` pins `VERSION: "1.21.1"`; the bridge pins
+`docker-compose.yml` pins `VERSION: "1.21.11"`; the bridge pins
 `mineflayer ^4.20`. They move together: pick a server version mineflayer
 supports (https://github.com/PrismarineJS/mineflayer#features), update
 both, restart the stack. The brain side is version-agnostic (it speaks
 only pra-mc/1 to the bridge).
+
+Why not the current Minecraft release (26.x, the year-based scheme that
+replaced 1.21.x in 2026): mineflayer's protocol support ends at 1.21.11
+as of 2026-07, and a vanilla client can only join a server of exactly
+its own version. So the stack sits at the newest version mineflayer
+speaks, and a spectator joins with a matching launcher installation
+(two clicks, see above). When mineflayer adds 26.x, bump both pins.
 
 ## What the bot senses and does
 

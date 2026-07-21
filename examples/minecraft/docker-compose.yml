@@ -6,7 +6,7 @@ services:
     image: itzg/minecraft-server:latest
     environment:
       EULA: "TRUE"
-      VERSION: "1.21.1"
+      VERSION: "1.21.11"
       TYPE: VANILLA
       MODE: survival
       DIFFICULTY: peaceful

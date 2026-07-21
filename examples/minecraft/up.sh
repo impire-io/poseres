@@ -149,7 +149,7 @@ if [ "$OPEN_CLIENT" = 1 ]; then
   if open -a Minecraft >/dev/null 2>&1; then
     say "client: launcher opened - Play, then Multiplayer (add 127.0.0.1:25565 once)"
   else
-    say "client: Minecraft.app not found - join 127.0.0.1:25565 from any 1.21.1 client"
+    say "client: Minecraft.app not found - join 127.0.0.1:25565 from any 1.21.11 client"
   fi
 fi
 if [ "$SPECTATE" = 1 ]; then
