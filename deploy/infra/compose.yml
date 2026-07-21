@@ -27,8 +27,9 @@ services:
       SNOOPER_ENABLED: "FALSE"
       MEMORY: 2G
     ports:
-      # bind address comes from deploy/infra/.env (provision writes the node's
-      # tailscale IP there): tailnet-wide spectating, no LAN/public exposure
+      # localhost for the node's own bridges; the tailnet address (written to
+      # deploy/infra/.env by provision) for spectators. No LAN/public exposure.
+      - "127.0.0.1:25565:25565"
       - "${PRA_BIND_IP:-127.0.0.1}:25565:25565"
     volumes:
       - ./data/minecraft:/data
