@@ -44,7 +44,9 @@ for the life of a run** (config-in-force travels in snapshots).
 store, 1h max age) with a durable consumer and writes gzip JSONL batches
 to S3 as `pra/v1/<run>/<family>/<utc>-<seq_first>-<seq_last>.jsonl.gz` —
 acked only after the write, so a flusher outage shorter than the buffer
-loses nothing, and gaps stay *visible* in the key ranges. Snapshots are
+loses nothing, and gaps stay *visible* in the key ranges. Delivery is
+**at-least-once**: analysis dedupes by `(run, family, seq)` — duplicates
+are possible around restarts, never silent loss. Snapshots are
 mirrored to `pra/v1/_snapshots/` and the local store pruned to newest-5
 (only after a confirmed mirror).
 

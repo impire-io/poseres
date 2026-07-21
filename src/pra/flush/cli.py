@@ -43,7 +43,7 @@ def main(argv: list[str] | None = None) -> int:
 async def _pump(args, sink) -> None:
     import nats
     from nats.errors import TimeoutError as NatsTimeout
-    from nats.js.api import RetentionPolicy, StorageType, StreamConfig
+    from nats.js.api import ConsumerConfig, RetentionPolicy, StorageType, StreamConfig
     from nats.js.errors import NotFoundError
 
     nc = await nats.connect(args.url)
@@ -59,7 +59,16 @@ async def _pump(args, sink) -> None:
         await js.stream_info("PRA_V1")
     except NotFoundError:
         await js.add_stream(config)
-    sub = await js.pull_subscribe("pra.v1.>", durable="pra-flush", stream="PRA_V1")
+    # ack_wait must comfortably outlive the flush interval: messages stay
+    # unacked until their batch is durably written (the discipline), and a
+    # shorter ack_wait makes JetStream redeliver them into the same batch —
+    # measured live on beno4 (3.2x duplicates at the 30s default).
+    sub = await js.pull_subscribe(
+        "pra.v1.>",
+        durable="pra-flush",
+        stream="PRA_V1",
+        config=ConsumerConfig(ack_wait=max(300.0, args.interval * 3.0)),
+    )
 
     flusher = Flusher(flush_interval=args.interval)
     mirrored: set[str] = set()

@@ -2,6 +2,8 @@
 Description=PRA Minecraft bridge for experiment %i (the body's transport)
 After=network-online.target docker.service
 
+StartLimitIntervalSec=0
+
 [Service]
 User=calmera
 WorkingDirectory=/home/calmera/pra/examples/minecraft/bridge
@@ -9,7 +11,6 @@ EnvironmentFile=/etc/pra/%i.env
 ExecStart=/usr/bin/env node bridge.js
 Restart=on-failure
 RestartSec=10
-StartLimitIntervalSec=0
 
 [Install]
 WantedBy=multi-user.target

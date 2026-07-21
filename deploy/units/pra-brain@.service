@@ -3,6 +3,8 @@ Description=PRA brain for experiment %i (resumes from its newest snapshot)
 After=pra-bridge@%i.service
 Wants=pra-bridge@%i.service
 
+StartLimitIntervalSec=0
+
 [Service]
 User=calmera
 WorkingDirectory=/home/calmera/pra
@@ -13,7 +15,6 @@ ExecStart=/home/calmera/pra/.venv/bin/python examples/minecraft/run_c1.py \
   --snapshot-dir ${SNAPSHOT_DIR} --cycles ${CYCLES}
 Restart=on-failure
 RestartSec=15
-StartLimitIntervalSec=0
 
 [Install]
 WantedBy=multi-user.target
