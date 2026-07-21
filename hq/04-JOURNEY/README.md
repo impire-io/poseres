@@ -228,8 +228,18 @@ incl. a kill test and a real flusher bug the live stack caught
 the run is pre-registered (C1-RUN-PLAN: real-time posture, emergence
 bars vs the measured chance baseline) with the ~1M-step length soak
 launched as the last gate.
-Open threads, in priority order: **the C1 run itself** (boot it on the
-observatory once the soak reads green — everything agent-side is done); **scheduled probing** (the named
+**And the run's first hours were an audit the owner read best**
+([episode 0052](0052-senses-without-my-ontology.md), feature 033): the live run exposed my
+material classifiers (blind pocket, measured) and my flat action
+timeout (logs unmineable), and both were argued out of the body —
+properties + appearance signatures instead of classes, digging as a
+held intention with sensed progress, labels on every channel, ground
+truth beside the senses. Chance now completes zero digs (the
+persistence cliff, measured) — **any crafting in the long run is
+unambiguous emergence**. Run v1 archived honestly; **run v2 (`c1b`) is
+live on a fresh world** under the amended pre-registration.
+Open threads, in priority order: **the c1b run** (live; read R1–R5 when
+the weeks have spoken); **scheduled probing** (the named
 active successor: re-visit mastered ground under a held policy and
 re-test — detection as a designed experiment, a Doc 05-level feature,
 when the program resumes); the [ch. 39](0039-not-the-statistic.md) tolerant-gate conditional
@@ -327,3 +337,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0049 | [The builder's body: inventory sensed, crafting learnable](0049-the-builders-body.md) |
 | 0050 | [The ladder, not the button: honest primitives](0050-the-ladder-not-the-button.md) |
 | 0051 | [The observatory: the run gets a home](0051-the-observatory.md) |
+| 0052 | [Senses without my ontology: the property body](0052-senses-without-my-ontology.md) |
