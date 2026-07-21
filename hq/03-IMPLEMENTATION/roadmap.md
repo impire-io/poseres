@@ -158,6 +158,7 @@ like "ROADMAP A3" resolve here.
 | C1-watching | Brain telemetry family + introspection dashboard (feature 029); one-command stack `up.sh` with auto-spectate + `TICK_RATE` | [0048](../04-JOURNEY/0048-the-brain-gets-a-window.md) |
 | C1-body | The builder's body (feature 030): inventory sense + pocket crafting, materially honest placement (owner's call, reversal recorded) | [0049](../04-JOURNEY/0049-the-builders-body.md) |
 | C1-primitives | Honest primitives (feature 031): macros out, held-class selection + sensed staging grid in; 28/12 default, crafting = emergence question with a measured chance baseline | [0050](../04-JOURNEY/0050-the-ladder-not-the-button.md) |
+| C1-observatory | The observatory (feature 032): three layers on beno4, pra-flush buffer→S3 durability, systemd supervision, run pre-registered (C1-RUN-PLAN) | [0051](../04-JOURNEY/0051-the-observatory.md) |
 | Research arcs | Camping bill; scout, place-memory, emission-shift, context-memory, transfer-signal, staleness, change-point, election-stream (program paused, map complete); seeding measured | [0031](../04-JOURNEY/0031-the-camping-bill.md)–[0040](../04-JOURNEY/0040-reading-the-censor.md), [0044](../04-JOURNEY/0044-brain-seeding.md) |
 
 *This file is load-bearing: changes to it are decisions and belong in

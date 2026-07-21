@@ -217,8 +217,19 @@ brain may climb or honestly may not; C1 default is now 28/12, chance
 climbs only the first rung (measured baseline: ~1 accidental
 planks-craft per ~2,200 undirected steps, zero sticks), and purposeful
 crafting in the long run now *means* emergence.
-Open threads, in priority order: **the C1 run itself** (user-run;
-everything agent-side is done); **scheduled probing** (the named
+**And the run has a home** ([episode 0051](0051-the-observatory.md), feature 032): the
+three-layer observatory on beno4 — infra (NATS 1h ring buffer,
+Minecraft, MinIO-default S3) / shared observability (multi-run dash +
+the pra-flush durability piece: ack-after-write gzip batches, seq
+ranges visible, at-least-once stated) / per-experiment systemd pairs
+(bridge+brain, one env file each, resume-on-restart) — verified live
+incl. a kill test and a real flusher bug the live stack caught
+(ack_wait vs flush interval, 3.2× duplicates, fixed and re-verified);
+the run is pre-registered (C1-RUN-PLAN: real-time posture, emergence
+bars vs the measured chance baseline) with the ~1M-step length soak
+launched as the last gate.
+Open threads, in priority order: **the C1 run itself** (boot it on the
+observatory once the soak reads green — everything agent-side is done); **scheduled probing** (the named
 active successor: re-visit mastered ground under a held policy and
 re-test — detection as a designed experiment, a Doc 05-level feature,
 when the program resumes); the [ch. 39](0039-not-the-statistic.md) tolerant-gate conditional
@@ -315,3 +326,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0048 | [The brain gets a window: telemetry for the inside, drawn](0048-the-brain-gets-a-window.md) |
 | 0049 | [The builder's body: inventory sensed, crafting learnable](0049-the-builders-body.md) |
 | 0050 | [The ladder, not the button: honest primitives](0050-the-ladder-not-the-button.md) |
+| 0051 | [The observatory: the run gets a home](0051-the-observatory.md) |
