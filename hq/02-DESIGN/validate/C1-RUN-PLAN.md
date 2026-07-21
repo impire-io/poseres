@@ -69,3 +69,29 @@ itself) is disregarded; the error trajectory carries the no-rot
 reading. Scripts and raw logs: beno4:~/pra-runs/soak/.
 
 **Launched 2026-07-21** with this plan in force.
+
+## Amendment v2 (2026-07-21, same day): the property body, run `c1b`
+
+The first hours of run v1 surfaced a measured blind-pocket bug (the
+name-class filter missed the spawn biome's items) and the log-hardness
+blocker; the owner then argued material classifiers and flat action
+timeouts out of the body entirely (feature 033, episode 0052). Run v1
+(~40.7k steps, run id `c1`) is closed and archived in S3 as a burn-in
+observation: its learning was real (pred err 0.967 → 0.198, pop 1 → 16)
+but its pocket was blind — not the experiment to spend two weeks on.
+
+**Run v2 config (run id `c1b`, fresh world, launched ~20:55 UTC)**:
+the property body — obs 32 / actions 12, classifier-free senses
+(properties + sha256 appearance signatures), digging as a held
+intention with sensed progress, per-channel labels, ground-truth view.
+Everything else unchanged (seed 1, 250 ms, cadence 25, cap on).
+
+**Baseline superseded**: the 031 chance baseline (~1 accidental
+planks per ~2,200 steps) was an artifact of instant digs. Re-measured
+at the v4 body: **0/8 pilot seeds completed even one dig** (max
+progress: 1 tick of 3) — the material chain's chance rate is ≈ 0.
+R1 accordingly sharpens: **any sustained material acquisition is above
+chance, and any crafting at all is emergence**; the sensed `mining`
+progress channel is the ladder's first learnable rung (it rises only
+while the intention is held). R2–R5 unchanged; the dig-persistence
+rate (consecutive dig_ahead streaks, completed digs) joins R2.
