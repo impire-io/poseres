@@ -69,6 +69,16 @@ Sensor:
 ### 3.3 Composition into an observation
 At each fast-loop step, the body reads all active sensors in a **fixed declared order** and concatenates their outputs into one `Observation`. `obs_dim` = sum of all active sensors' `width()`. The order is fixed for the lifetime of a configuration (changing it changes the meaning of every observation dimension and requires a fresh boot, not a restore). **[D]**
 
+### 3.4 Self-description (telemetry; feature 029) — **[V]**
+The body exposes `anatomy_meta()`: channel groups (sensor id, slice start,
+width) in composition order and one labeled entry per global action id,
+read from the *live* sensor/actuator lists so tool growth stays reflected.
+Actuators may offer an optional `action_labels()` hook (the ROS2/Minecraft
+`CommandActuator` derives labels from preset keys, `{}` → `idle`; the rover
+drive names its four actions). This is inert data — nothing calls it unless
+a telemetry tap is attached, and the tap publishes it verbatim as the
+`brain.anatomy` subject (specs/029-brain-telemetry-dashboard/contracts/).
+
 ---
 
 ## 4. Actuators

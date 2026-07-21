@@ -190,6 +190,15 @@ carrying the whole gate), real stack measured green end-to-end —
 live learning (0.50 → 0.10 over 1,960 steps), hard-kill and exact
 resume, gate clean without the stack — with the arc-026 posture
 applied in the runbook. **The multi-week run is the operator's.**
+**And the brain now has a window** ([episode 0048](0048-the-brain-gets-a-window.md), feature 029): the additive
+`brain.*` telemetry family (anatomy/channel metadata from the bodies'
+own declarations, complete per-frame census rows, spawn/evict lifecycle
+events — all riding the tap's existing seams, zero core edits) and the
+dashboard's Brain tab (metadata-driven body schematic, named channel
+charts + decoded log, frame table, lifecycle timeline), verified live
+against the real Minecraft stack; the C1 watching stack itself is
+`examples/minecraft/up.sh` (world + NATS + bridge + dash + brain, one
+command, auto-spectate, `TICK_RATE` world acceleration).
 Open threads, in priority order: **the C1 run itself** (user-run;
 everything agent-side is done); **scheduled probing** (the named
 active successor: re-visit mastered ground under a held policy and
@@ -285,3 +294,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0045 | [The HQ restructure: the process gets a constitution](0045-the-hq-restructure.md) |
 | 0046 | [The roadmap becomes a plan again](0046-the-roadmap-becomes-a-plan-again.md) |
 | 0047 | [The book decision: one builder, two lanes](0047-the-book-decision.md) |
+| 0048 | [The brain gets a window: telemetry for the inside, drawn](0048-the-brain-gets-a-window.md) |
