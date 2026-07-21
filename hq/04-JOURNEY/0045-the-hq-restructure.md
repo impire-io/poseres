@@ -17,9 +17,11 @@ What moved, one home per artifact: `design/` → `hq/02-DESIGN/` (docs
 renumbered `0001–0007`, numbers stable so "Doc NN" prose survives),
 `ROADMAP.md` → `hq/03-IMPLEMENTATION/roadmap.md` (~40 chapter refs became
 links), `JOURNEY.md` → split into these 44 numbered episodes (chapter N =
-episode `00NN`), `NEXT-STEPS.md` → `history/`, frozen. Root stubs keep the
-72 frozen `specs/` references resolving; `book/` (untracked draft) was left
-untouched.
+episode `00NN`), `NEXT-STEPS.md` → `history/`, frozen. `book/` (untracked
+draft) was left untouched. *Amended 2026-07-21:* the three root pointer
+stubs originally kept for the 72 frozen `specs/` references were removed at
+the maintainer's call — "migrated" means gone from the root; the frozen
+references are historical prose and git history resolves them.
 
 The enforcement is mechanical, not aspirational [mechanism-argument]: the
 spec-kit constitution is now a symlink into GENESIS so every feature plan's
