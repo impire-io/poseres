@@ -42,7 +42,7 @@ printf 'DASH_HOST=%s\n' "$BIND_IP" | sudo tee /etc/pra/dash.env > /dev/null
 say "bind address: $BIND_IP (dashboard :8600, minecraft :25565)"
 
 # 4. run directories (snapshot stores per experiment)
-mkdir -p /home/calmera/pra-runs/c1/snapshots /home/calmera/pra-runs/c1-smoke/snapshots
+mkdir -p /home/calmera/pra-runs/c1b/snapshots /home/calmera/pra-runs/c1-smoke/snapshots
 
 # 5. systemd units
 sudo cp "$ROOT"/deploy/units/*.service /etc/systemd/system/

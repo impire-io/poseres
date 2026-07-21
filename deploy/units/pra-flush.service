@@ -9,7 +9,7 @@ User=calmera
 WorkingDirectory=/home/calmera/pra
 EnvironmentFile=/etc/pra/s3.env
 ExecStart=/home/calmera/pra/.venv/bin/pra-flush --url nats://127.0.0.1:4222 \
-  --snapshot-dir /home/calmera/pra-runs/c1/snapshots --snapshot-keep 5
+  --snapshot-dir /home/calmera/pra-runs/c1b/snapshots --snapshot-keep 5
 Restart=on-failure
 RestartSec=5
 
