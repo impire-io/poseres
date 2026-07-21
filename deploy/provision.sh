@@ -33,6 +33,14 @@ if [ ! -f /etc/pra/s3.env ]; then
   say "installed default s3.env (on-node MinIO) — edit /etc/pra/s3.env for real S3"
 fi
 
+# 3b. bind address: the tailscale IP when present (tailnet-wide dashboard
+# and spectating with zero LAN/public exposure), else localhost-only
+BIND_IP="$(tailscale ip -4 2>/dev/null | head -1 || true)"
+BIND_IP="${BIND_IP:-127.0.0.1}"
+printf 'PRA_BIND_IP=%s\n' "$BIND_IP" > "$ROOT/deploy/infra/.env"
+printf 'DASH_HOST=%s\n' "$BIND_IP" | sudo tee /etc/pra/dash.env > /dev/null
+say "bind address: $BIND_IP (dashboard :8600, minecraft :25565)"
+
 # 4. run directories (snapshot stores per experiment)
 mkdir -p /home/calmera/pra-runs/c1/snapshots /home/calmera/pra-runs/c1-smoke/snapshots
 

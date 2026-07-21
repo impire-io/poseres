@@ -30,13 +30,20 @@ byte-exact); systemd restarts any crashed unit — the unattended-night
 gap from the launch audit is closed. **Keep `SEED` and `TICK_MS` fixed
 for the life of a run** (config-in-force travels in snapshots).
 
-## Watching
+## Watching (tailnet-wide)
 
-- Dashboard: `ssh -L 8600:localhost:8600 <node>` → http://localhost:8600
-  (bound to localhost on the node; exposing it is your explicit choice).
-- Spectating: connect Minecraft 1.21.11 to `<node>:25565`, then
+`provision.sh` binds the dashboard and the Minecraft server to the
+node's **tailscale IP** when tailscale is present (else localhost-only):
+every device on the tailnet reaches them, nothing on the LAN or beyond
+does, and tailnet ACLs govern who — the dashboard carries control
+endpoints (pause/snapshot), so that boundary is the security model.
+
+- Dashboard: `http://<tailscale-ip-or-magicdns>:8600` from any tailnet
+  device (e.g. `http://beno4:8600` with MagicDNS).
+- Spectating: connect Minecraft 1.21.11 to `<tailscale-ip>:25565`, then
   `docker compose --project-directory ~/pra/deploy/infra exec minecraft rcon-cli "gamemode spectator <you>"`.
-- MinIO console: `ssh -L 9101:localhost:9101 <node>` → http://localhost:9101.
+- MinIO console (stays localhost): `ssh -L 9101:localhost:9101 <node>` →
+  http://localhost:9101.
 
 ## Durable telemetry
 
