@@ -57,19 +57,26 @@ def main() -> int:
         print(f"resuming from {newest_id} (cycle {meta['cycle']}, step {meta['step']})")
 
     sensors, actuators = c1_anatomy()
-    factory = Ros2Body.factory(
-        sensors,
-        actuators,
-        transport=lambda: MinecraftTransport(port=args.bridge_port, tick_ms=args.tick_ms),
-    )
 
     bus_factory = None
     tap = None
+    on_view = None
     if args.nats:
         from pra.nats import NatsTap, NatsTransport
 
         nats_transport = NatsTransport(args.nats)
         tap = NatsTap(nats_transport, run_id=args.run_id)
+        on_view = tap.world_view("minecraft").record_step  # ground truth (033)
+
+    factory = Ros2Body.factory(
+        sensors,
+        actuators,
+        transport=lambda: MinecraftTransport(
+            port=args.bridge_port, tick_ms=args.tick_ms, on_view=on_view
+        ),
+    )
+
+    if tap is not None:
         factory = tap.world_factory(inner=factory)
         bus_factory = tap.bus_factory
         store = tap.wrap_store(store)

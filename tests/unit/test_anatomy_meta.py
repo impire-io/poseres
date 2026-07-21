@@ -45,21 +45,27 @@ def test_ros2_body_meta_groups_and_preset_labels():
 
 
 def test_c1_minecraft_meta_matches_the_channel_contract():
-    # the builder's body (features 030/031) is the C1 default: 28 / 12
+    # the property body (feature 033) is the C1 default: 32 / 12, labeled
     sensors, actuators = c1_anatomy()
     body = Ros2Body(sensors, actuators, FakeTransport(script={}))
     meta = body.anatomy_meta()
     _assert_invariants(meta)
-    assert (meta["obs_dim"], meta["n_actions"]) == (28, 12)
+    assert (meta["obs_dim"], meta["n_actions"]) == (32, 12)
     assert [(g["id"], g["start"], g["width"]) for g in meta["groups"]] == [
         ("pose", 0, 5),
         ("vitals", 5, 2),
         ("env", 7, 4),
         ("blocks", 11, 3),
-        ("inventory", 14, 5),
-        ("hand", 19, 4),
-        ("grid", 23, 5),
+        ("mining", 14, 1),
+        ("pocket", 15, 4),
+        ("hand", 19, 6),
+        ("grid", 25, 7),
     ]
+    labels = {g["id"]: g.get("labels") for g in meta["groups"]}
+    assert labels["pose"] == ["x", "z", "y", "sin_yaw", "cos_yaw"]
+    assert labels["env"] == ["light", "sin_time", "cos_time", "rain"]
+    assert labels["hand"] == ["present", "placeable", "count", "sig0", "sig1", "sig2"]
+    assert labels["grid"][:4] == ["staged", "offer", "offer_placeable", "offer_count"]
     assert [a["label"] for a in meta["actuators"]] == [
         "forward",
         "back",

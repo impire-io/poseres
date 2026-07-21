@@ -58,6 +58,9 @@ class TopicSensor:
     def width(self) -> int:
         return self.spec.width
 
+    def labels(self) -> tuple[str, ...] | None:
+        return self.spec.labels  # per-channel names for telemetry (feature 033)
+
     def read(self) -> np.ndarray:
         if self._cache is None:
             raise AnatomyError(

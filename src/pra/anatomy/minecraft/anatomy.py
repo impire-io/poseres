@@ -1,15 +1,16 @@
-"""The C1 anatomy declaration (features 027 + 030 + 031, research R3/R4).
+"""The C1 anatomy declaration (features 027 + 030 + 031 + 033).
 
 Declaration is configuration (013 SC-006): the body is these lists, and
 the channel contract in specs/027-minecraft-body/contracts/ (as amended
-by features 030/031) is the meaning of every dimension. The default is
-the builder's body — obs_dim 28, n_actions 12: the feature-027 channels
-plus the pocket (inventory), the held class (hand), and the sensed 2x2
-staging grid, with **honest primitives** — held-class selection and
-grid staging — instead of macro craft actions (feature 031: crafting is
-a ladder the brain may climb, not a button). ``crafting=False`` is the
-exact feature-027 body (obs_dim 14, n_actions 8) — the recorded
-reversal path (spec 031, Assumptions).
+by 030/031/033) is the meaning of every dimension. The default is the
+**property body** — obs_dim 32, n_actions 12: no material classifiers
+anywhere (owner's argument, feature 033) — the pocket senses aggregates,
+the hand and the grid's offer sense world-mechanical *properties*
+(placeable, counts) plus a stable *appearance signature* (sha256-derived;
+things look different, nobody names them), digging progress is sensed
+(`mining`), and every channel carries its label. Categories are the
+brain's to form. ``crafting=False`` is the exact feature-027 body
+(obs_dim 14, n_actions 8) — the recorded reversal path.
 """
 
 from __future__ import annotations
@@ -19,16 +20,39 @@ from pra.anatomy.ros2.specs import ActuatorSpec, SensorSpec
 __all__ = ["C1_ACTUATORS", "C1_N_ACTIONS", "C1_OBS_DIM", "C1_SENSORS", "c1_anatomy"]
 
 _BASE_SENSORS: tuple[SensorSpec, ...] = (
-    SensorSpec(id="pose", topic="pose", width=5),
-    SensorSpec(id="vitals", topic="vitals", width=2),
-    SensorSpec(id="env", topic="env", width=4),
-    SensorSpec(id="blocks", topic="blocks", width=3),
+    SensorSpec(id="pose", topic="pose", width=5, labels=("x", "z", "y", "sin_yaw", "cos_yaw")),
+    SensorSpec(id="vitals", topic="vitals", width=2, labels=("health", "food")),
+    SensorSpec(id="env", topic="env", width=4, labels=("light", "sin_time", "cos_time", "rain")),
+    SensorSpec(
+        id="blocks", topic="blocks", width=3, labels=("solid_ahead", "solid_eye", "drop_ahead")
+    ),
 )
 
-_BUILDER_SENSORS: tuple[SensorSpec, ...] = (
-    SensorSpec(id="inventory", topic="inventory", width=5),
-    SensorSpec(id="hand", topic="hand", width=4),
-    SensorSpec(id="grid", topic="grid", width=5),
+_PROPERTY_SENSORS: tuple[SensorSpec, ...] = (
+    SensorSpec(id="mining", topic="mining", width=1, labels=("progress",)),
+    SensorSpec(
+        id="pocket", topic="pocket", width=4, labels=("total", "kinds", "placeable", "other")
+    ),
+    SensorSpec(
+        id="hand",
+        topic="hand",
+        width=6,
+        labels=("present", "placeable", "count", "sig0", "sig1", "sig2"),
+    ),
+    SensorSpec(
+        id="grid",
+        topic="grid",
+        width=7,
+        labels=(
+            "staged",
+            "offer",
+            "offer_placeable",
+            "offer_count",
+            "offer_sig0",
+            "offer_sig1",
+            "offer_sig2",
+        ),
+    ),
 )
 
 _BASE_PRESETS: tuple[dict, ...] = (
@@ -53,11 +77,11 @@ _GRID_PRESETS: tuple[dict, ...] = (
 def c1_anatomy(crafting: bool = True) -> tuple[list[SensorSpec], list[ActuatorSpec]]:
     """The (sensors, actuators) lists `Ros2Body.factory` expects.
 
-    ``crafting=True`` (default): the builder's body — pocket, hand, and
-    staging-grid senses with the honest grid primitives.
+    ``crafting=True`` (default): the property body — classifier-free
+    senses, held intentions, the sensed staging grid.
     ``crafting=False``: the exact feature-027 body.
     """
-    sensors = list(_BASE_SENSORS) + (list(_BUILDER_SENSORS) if crafting else [])
+    sensors = list(_BASE_SENSORS) + (list(_PROPERTY_SENSORS) if crafting else [])
     presets = _BASE_PRESETS + (_GRID_PRESETS if crafting else ())
     return sensors, [ActuatorSpec(id="control", topic="control", presets=presets)]
 

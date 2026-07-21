@@ -254,8 +254,22 @@ function channelLog(st) {
   return `<pre class="reply">${rows.join("\n")}</pre>`;
 }
 
+function minecraftTruth(view) {
+  // feature 033: ground truth for humans - real item names, never sensed
+  const l = view.live && view.live.args ? view.live.args[0] : null;
+  if (!l) return `<p class="note">ground truth: waiting for the world…</p>`;
+  const rows = (l.inventory || []).map(([n, c]) => `<tr><td>${n}</td><td>${c}</td></tr>`).join("");
+  return `<div class="cards">`
+    + card("position", (l.pos || []).map(v => Number(v).toFixed(0)).join(", "))
+    + card("held (real)", l.held || "—")
+    + card("digging", l.digging ? (l.digging * 100).toFixed(0) + "%" : "—") + `</div>`
+    + (rows ? `<table class="frames"><tr><th>real item</th><th>count</th></tr>${rows}</table>`
+            : `<p class="note">the pockets are empty</p>`);
+}
+
 function worldSvg(view) {
   if (!view) return "";
+  if (view.kind === "minecraft") return minecraftTruth(view);
   if (view.kind !== "rover")
     return `<p class="note">world view present, kind “${view.kind}” — no renderer for it yet</p>`;
   const s = view.static, l = view.live;
@@ -344,6 +358,9 @@ async function refreshPanel() {
     </div>`;
 
   if (mode === "brain") {
+    if (st.view && st.view.kind === "minecraft")
+      html += `<h3>Ground truth <span class="note">(the world's names — the brain never senses these)</span></h3>`
+            + minecraftTruth(st.view);
     html += `<h3>Anatomy</h3>` + anatomySvg(st);
     const groups = metaGroups(st);
     const labeled = st.brain_meta ? "" :

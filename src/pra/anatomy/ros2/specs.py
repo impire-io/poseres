@@ -69,8 +69,14 @@ class SensorSpec:
     width: int
     msg_type: str = ""
     extract: str | Callable[[object], object] = ""
+    labels: tuple[str, ...] | None = None  # per-channel names (feature 033 telemetry)
 
     def __post_init__(self) -> None:
+        if self.labels is not None:
+            _require(
+                len(self.labels) == self.width,
+                f"sensor '{self.id}': labels must match width ({self.width})",
+            )
         _require(
             bool(self.id) and isinstance(self.id, str), "SensorSpec.id must be a non-empty string"
         )

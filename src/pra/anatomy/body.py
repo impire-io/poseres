@@ -173,7 +173,12 @@ class Body:
         groups, start = [], 0
         for s in self._sensors:
             width = int(s.width())
-            groups.append({"id": str(s.id()), "start": start, "width": width})
+            group = {"id": str(s.id()), "start": start, "width": width}
+            get_labels = getattr(s, "labels", None)
+            labels = get_labels() if callable(get_labels) else None
+            if labels is not None and len(labels) == width:
+                group["labels"] = [str(x) for x in labels]
+            groups.append(group)
             start += width
         actuators, action = [], 0
         for a in self._actuators:

@@ -45,6 +45,7 @@ class MinecraftTransport:
         tick_ms: int = 250,
         tick_budget: float | None = None,
         connect_timeout: float = 10.0,
+        on_view=None,
     ):
         if int(tick_ms) < 1:
             raise AnatomyError("tick_ms must be >= 1")
@@ -55,6 +56,7 @@ class MinecraftTransport:
         self._tick_ms = int(tick_ms)
         self._tick_budget = float(tick_budget) if tick_budget else self._tick_ms / 1000.0 * 1.5
         self._connect_timeout = float(connect_timeout)
+        self._on_view = on_view  # ground-truth narration for humans (feature 033)
         self._sock: socket.socket | None = None
         self._rfile = None
         self._channels: dict[str, int] = {}
@@ -158,6 +160,9 @@ class MinecraftTransport:
                     f"bridge tick response is missing channel '{spec.topic}' (sensor '{spec.id}')"
                 )
             deliver(np.asarray(channels[spec.topic], dtype=np.float64))
+        view = response.get("view")
+        if self._on_view is not None and isinstance(view, dict):
+            self._on_view(view)  # never sensed; the world-view channel (015)
 
     @property
     def can_reset(self) -> bool:

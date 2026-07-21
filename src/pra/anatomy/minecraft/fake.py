@@ -1,23 +1,28 @@
-"""FakeBridge: the deterministic in-repo bridge (feature 027, FR-005).
+"""FakeBridge: the deterministic in-repo bridge (features 027/030/031/033).
 
-A voxel *sketch* — flat ground, a wall, a tall pillar, two pits — that
-speaks the full pra-mc/1 protocol on a localhost socket, so the entire
-adapter code path (framing, handshake, tick round-trip, delivery, the
-state seam) runs in this repository's quality gate with no Minecraft,
-Node, or Docker anywhere. Its physics is the *shape* of the channel
-contract, not a Minecraft simulation: movement is grid steps with
-feet-level collision, jump_forward additionally crosses pits, dig/place
-edit the feet-level solid set, daylight advances 25/24000 per tick.
-Everything is pure arithmetic — no RNG, no wall clock — so same-command
-runs are byte-identical (SC-002).
+A voxel *sketch* — flat ground, a wall, a tall pillar, two pits, wood
+columns — that speaks the full pra-mc/1 protocol on a localhost socket,
+so the entire adapter code path (framing, handshake, tick round-trip,
+delivery, the state seam) runs in this repository's quality gate with no
+Minecraft, Node, or Docker anywhere. Its physics is the *shape* of the
+channel contract, not a Minecraft simulation. Everything is pure
+arithmetic — no RNG, no wall clock — so same-command runs are
+byte-identical.
 
-``state`` returns the complete world (bot pose, tick, time, block
-edits); ``load_state`` restores it exactly: fake-mode resume is class 1
-(Doc 06 §5b), and the integration suite proves it byte-for-byte.
+Feature 033 (the property body): items are *names* ("cobblestone",
+"oak_log", …) whose signatures and placeability the channels derive the
+same way the live bridge does — no material classes anywhere. Digging is
+a held intention with per-material durations and sensed progress; any
+other command releases it (vanilla: letting go resets the cracks).
+
+``state`` returns the complete world (pose, tick, time, edits, pocket,
+held kind, staging grid, mid-dig progress); ``load_state`` restores it
+exactly: fake-mode resume is class 1 (Doc 06 §5b), proven byte-for-byte.
 """
 
 from __future__ import annotations
 
+import hashlib
 import json
 import math
 import socket
@@ -26,20 +31,35 @@ from collections import deque
 
 from pra.anatomy.minecraft.protocol import PROTOCOL_VERSION, send_message
 
-__all__ = ["FakeBridge"]
+__all__ = ["FakeBridge", "item_signature"]
 
 _GROUND_Y = 64.0
 _TIME_STEP = 25  # ticks of the 24000-tick day per control tick
 
 # the fixed layout: feet-level solids, eye-level solids (tall), pits, wood.
-# The (-1, 0) wood column is the starter: two turns and a dig from spawn,
-# because the real overworld offers diggable material almost everywhere and
-# the sketch misrepresented that (pilot diagnosis, feature 030 — material
-# contact was unreachable for undirected exploration in 5/8 seeds).
-_WOOD_SOLIDS = frozenset({(-1, 0), (-2, 3), (5, -1)})  # feature 030: diggable wood
+# The (-1, 0) wood column is the starter (feature 030 pilot diagnosis).
+_WOOD_SOLIDS = frozenset({(-1, 0), (-2, 3), (5, -1)})
 _FEET_SOLIDS = frozenset({(3, z) for z in range(-2, 3)} | {(-4, 0)} | _WOOD_SOLIDS)
 _EYE_SOLIDS = frozenset({(-4, 0)})  # the pillar is tall; the wall is chest-high
 _PITS = frozenset({(0, 4), (1, 4)})
+
+# world facts (the game's, not a brain ontology): what an item is called
+# when mined, whether it maps to a placeable block, how long it takes to
+# break (ticks at the 250 ms posture, vanilla-proportioned: ~0.75 s mineral
+# bare-handed, ~3 s wood)
+_MINERAL_ITEM = "cobblestone"
+_WOOD_ITEM = "oak_log"
+_PLACEABLE = frozenset({"cobblestone", "oak_log", "oak_planks"})  # stick is not a block
+_DIG_TICKS_MINERAL = 3
+_DIG_TICKS_WOOD = 12
+
+
+def item_signature(name: str) -> tuple[float, float, float]:
+    """The appearance signature (feature 033, contract): sha256 of the item
+    name, bytes 0..2, each mapped to [-1, 1]. Identical in both bridges —
+    stable, distinguishing, semantics-free."""
+    digest = hashlib.sha256(name.encode("utf-8")).digest()
+    return tuple(b / 127.5 - 1.0 for b in digest[:3])
 
 
 class _World:
@@ -52,13 +72,11 @@ class _World:
         self.tick = 0
         self.time = 0
         self.dug: set[tuple[int, int]] = set()
-        self.placed: set[tuple[int, int]] = set()
-        # feature 030: the pocket — world-held state, sensed per tick
-        self.inventory: dict[str, int] = {"blocks": 0, "logs": 0, "planks": 0, "sticks": 0}
-        # feature 031: the held class and the 2x2 staging grid (column-first
-        # list order; the first two entries are column-adjacent)
-        self.held: str | None = None
-        self.grid: list[str] = []
+        self.placed: dict[tuple[int, int], str] = {}  # column -> the item placed there
+        self.inventory: dict[str, int] = {}  # item name -> count (the pocket)
+        self.held: str | None = None  # the held kind (an item name)
+        self.grid: list[str] = []  # <=4 staged item names, column-first
+        self.digging: tuple[tuple[int, int], int] | None = None  # (column, progress ticks)
 
     # ---- geometry -------------------------------------------------------------
     def _ahead(self) -> tuple[int, int]:
@@ -73,11 +91,44 @@ class _World:
     def _step_to(self, column: tuple[int, int]) -> None:
         self.x, self.z = float(column[0]), float(column[1])
 
-    # ---- commands (the contract's eight) --------------------------------------
+    def _dig_ticks(self, column: tuple[int, int]) -> int:
+        if column in self.placed:
+            return _DIG_TICKS_MINERAL
+        return _DIG_TICKS_WOOD if column in _WOOD_SOLIDS else _DIG_TICKS_MINERAL
+
+    def _dig_yield(self, column: tuple[int, int]) -> str:
+        if column in self.placed:
+            return self.placed[column]
+        return _WOOD_ITEM if column in _WOOD_SOLIDS else _MINERAL_ITEM
+
+    def _kinds(self) -> list[str]:
+        return sorted(name for name, count in self.inventory.items() if count > 0)
+
+    def _gain(self, name: str, count: int = 1) -> None:
+        self.inventory[name] = self.inventory.get(name, 0) + count
+
+    def _offer(self) -> tuple[str, int] | None:
+        """The world's pocket-craft rules (vanilla-exact matching): one log
+        alone offers its species' planks; two same planks offer sticks."""
+        if len(self.grid) == 1 and self.grid[0].endswith("_log"):
+            return self.grid[0].replace("_log", "_planks"), 4
+        if (
+            len(self.grid) == 2
+            and self.grid[0] == self.grid[1]
+            and self.grid[0].endswith("_planks")
+        ):
+            return "stick", 4
+        return None
+
+    # ---- commands (the contract's twelve) --------------------------------------
     def apply(self, command: dict) -> None:
-        if not command:  # idle
+        name = next(iter(command)) if command else None
+        if name != "dig_ahead":
+            self.digging = None  # releasing the intention resets the cracks
+        if name is None:  # idle
             return
-        (name,) = command.keys()  # presets carry exactly one key by construction
+        if len(command) > 1:
+            raise ValueError(f"command carries {len(command)} keys, expected one")
         if name == "forward":
             ahead = self._ahead()
             if not self._feet_solid(ahead) and ahead not in _PITS:
@@ -97,55 +148,53 @@ class _World:
                 self._step_to(ahead)
         elif name == "dig_ahead":
             ahead = self._ahead()
-            if self._feet_solid(ahead):
-                # feature 030: digging fills the pocket — wood yields a log,
-                # everything else (layout or previously placed) a block
+            if not self._feet_solid(ahead):
+                self.digging = None
+                return
+            progress = self.digging[1] + 1 if self.digging and self.digging[0] == ahead else 1
+            if progress >= self._dig_ticks(ahead):
+                self._gain(self._dig_yield(ahead))
                 if ahead in self.placed:
-                    self.placed.discard(ahead)
-                    self.inventory["blocks"] += 1
+                    del self.placed[ahead]
                 else:
                     self.dug.add(ahead)
-                    key = "logs" if ahead in _WOOD_SOLIDS else "blocks"
-                    self.inventory[key] += 1
+                self.digging = None
+            else:
+                self.digging = (ahead, progress)
         elif name == "place_ahead":
             ahead = self._ahead()
-            # feature 031: held-based and materially honest — places one item
-            # of the held class if placeable; selection is the brain's
             if (
                 not self._feet_solid(ahead)
-                and self.held in ("blocks", "planks")
-                and self.inventory[self.held] > 0
+                and self.held is not None
+                and self.held in _PLACEABLE
+                and self.inventory.get(self.held, 0) > 0
             ):
                 self.dug.discard(ahead)
-                self.placed.add(ahead)
+                self.placed[ahead] = self.held
                 self.inventory[self.held] -= 1
         elif name == "hold_next":
-            cycle = (None, "blocks", "logs", "planks", "sticks")
-            self.held = cycle[(cycle.index(self.held) + 1) % len(cycle)]
+            cycle: list[str | None] = [None] + self._kinds()
+            index = cycle.index(self.held) if self.held in cycle else 0
+            self.held = cycle[(index + 1) % len(cycle)]
         elif name == "grid_put":
-            if self.held is not None and self.inventory[self.held] > 0 and len(self.grid) < 4:
+            if (
+                self.held is not None
+                and self.inventory.get(self.held, 0) > 0
+                and len(self.grid) < 4
+            ):
                 self.inventory[self.held] -= 1
                 self.grid.append(self.held)
         elif name == "grid_take":
             for staged in self.grid:
-                self.inventory[staged] += 1
+                self._gain(staged)
             self.grid = []
         elif name == "take_result":
             offer = self._offer()
             if offer is not None:
                 self.grid = []  # the offer's inputs are exactly the staging
-                self.inventory[offer] += 4
+                self._gain(offer[0], offer[1])
         else:
             raise ValueError(f"unknown command {name!r}")
-
-    def _offer(self) -> str | None:
-        """Vanilla-exact: contents must match the recipe exactly (a second
-        log kills the planks offer — itself a learnable consequence)."""
-        if self.grid == ["logs"]:
-            return "planks"
-        if self.grid == ["planks", "planks"]:
-            return "sticks"
-        return None
 
     def advance(self) -> None:
         self.tick += 1
@@ -156,6 +205,36 @@ class _World:
         ahead = self._ahead()
         theta = 2.0 * math.pi * (self.time / 24000.0)
         clip = lambda v: max(-1.0, min(1.0, v))  # noqa: E731 - three uses, one line
+        total = sum(self.inventory.values())
+        kinds = self._kinds()
+        placeable_count = sum(c for n, c in self.inventory.items() if n in _PLACEABLE)
+        held_count = self.inventory.get(self.held, 0) if self.held else 0
+        if self.held is not None and held_count > 0:
+            hand = [
+                1.0,
+                1.0 if self.held in _PLACEABLE else 0.0,
+                min(held_count, 64) / 64.0,
+                *item_signature(self.held),
+            ]
+        else:
+            hand = [0.0] * 6
+        offer = self._offer()
+        if offer is not None:
+            offer_name, offer_count = offer
+            grid = [
+                len(self.grid) / 4.0,
+                1.0,
+                1.0 if offer_name in _PLACEABLE else 0.0,
+                min(offer_count, 64) / 64.0,
+                *item_signature(offer_name),
+            ]
+        else:
+            grid = [len(self.grid) / 4.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+        if self.digging is not None:
+            column, progress = self.digging
+            mining = [min(progress / self._dig_ticks(column), 1.0)]
+        else:
+            mining = [0.0]
         return {
             "pose": [
                 clip(self.x / 64.0),
@@ -171,25 +250,24 @@ class _World:
                 1.0 if ahead in _EYE_SOLIDS else 0.0,
                 1.0 if ahead in _PITS else 0.0,
             ],
+            "mining": mining,
+            "pocket": [
+                min(total, 64) / 64.0,
+                min(len(kinds), 9) / 9.0,
+                min(placeable_count, 64) / 64.0,
+                min(total - placeable_count, 64) / 64.0,
+            ],
+            "hand": hand,
+            "grid": grid,
+        }
+
+    def view(self) -> dict:
+        """Ground truth for humans (feature 033): never sensed by the brain."""
+        return {
+            "pos": [self.x, _GROUND_Y + 1.0, self.z],
+            "held": self.held,
             "inventory": [
-                min(self.inventory["blocks"], 64) / 64.0,
-                min(self.inventory["logs"], 64) / 64.0,
-                min(self.inventory["planks"], 64) / 64.0,
-                min(self.inventory["sticks"], 64) / 64.0,
-                1.0 if self.held in ("blocks", "planks") else 0.0,
-            ],
-            "hand": [
-                1.0 if self.held == "blocks" else 0.0,
-                1.0 if self.held == "logs" else 0.0,
-                1.0 if self.held == "planks" else 0.0,
-                1.0 if self.held == "sticks" else 0.0,
-            ],
-            "grid": [
-                len(self.grid) / 4.0,
-                self.grid.count("logs") / 4.0,
-                self.grid.count("planks") / 4.0,
-                1.0 if self._offer() == "planks" else 0.0,
-                1.0 if self._offer() == "sticks" else 0.0,
+                [n, self.inventory[n]] for n in sorted(self.inventory) if self.inventory[n] > 0
             ],
         }
 
@@ -202,10 +280,11 @@ class _World:
             "tick": self.tick,
             "time": self.time,
             "dug": sorted(self.dug),
-            "placed": sorted(self.placed),
-            "inventory": dict(self.inventory),
+            "placed": sorted([list(c), n] for c, n in self.placed.items()),
+            "inventory": {n: c for n, c in sorted(self.inventory.items()) if c > 0},
             "held": self.held,
             "grid": list(self.grid),
+            "digging": [list(self.digging[0]), self.digging[1]] if self.digging else None,
         }
 
     def load_state_dict(self, state: dict) -> None:
@@ -215,10 +294,12 @@ class _World:
         self.tick = int(state["tick"])
         self.time = int(state["time"])
         self.dug = {tuple(c) for c in state["dug"]}
-        self.placed = {tuple(c) for c in state["placed"]}
-        self.inventory = {k: int(v) for k, v in state["inventory"].items()}
+        self.placed = {tuple(c): n for c, n in state["placed"]}
+        self.inventory = {n: int(c) for n, c in state["inventory"].items()}
         self.held = state["held"]
         self.grid = list(state["grid"])
+        digging = state["digging"]
+        self.digging = (tuple(digging[0]), int(digging[1])) if digging else None
 
 
 class FakeBridge:
@@ -228,7 +309,16 @@ class FakeBridge:
     is answered with an error and closed. ``stop()`` is idempotent.
     """
 
-    CHANNELS = {"pose": 5, "vitals": 2, "env": 4, "blocks": 3, "inventory": 5, "hand": 4, "grid": 5}
+    CHANNELS = {
+        "pose": 5,
+        "vitals": 2,
+        "env": 4,
+        "blocks": 3,
+        "mining": 1,
+        "pocket": 4,
+        "hand": 6,
+        "grid": 7,
+    }
 
     def __init__(self) -> None:
         self.world = _World()
@@ -238,9 +328,7 @@ class FakeBridge:
         self._busy = threading.Lock()
         self._stopping = threading.Event()
         self._workers: list[threading.Thread] = []
-        self.requests: deque[str] = deque(
-            maxlen=1_000_000
-        )  # op journal (bounded: soak-length runs)
+        self.requests: deque[str] = deque(maxlen=1_000_000)  # op journal (bounded)
         self._thread = threading.Thread(target=self._serve, daemon=True)
         self._thread.start()
 
@@ -292,9 +380,8 @@ class FakeBridge:
     def _serve_client(self, conn: socket.socket) -> None:
         # A manual receive buffer, NOT conn.makefile(): a buffered file object
         # on a timeout socket is left in an undefined state by a mid-read
-        # timeout (found by the C1 length soak at ~367k requests — a rare
-        # mid-line timeout corrupted the stream and silently closed the
-        # connection). Partial lines survive timeouts here by construction.
+        # timeout (found by the C1 length soak at ~367k requests). Partial
+        # lines survive timeouts here by construction.
         conn.settimeout(0.2)
         buffer = bytearray()
         while not self._stopping.is_set():
@@ -349,11 +436,16 @@ class FakeBridge:
             for command in message.get("commands", []):
                 self.world.apply(command)
             self.world.advance()
-            return {"ok": True, "tick": self.world.tick, "channels": self.world.channels()}, False
+            return {
+                "ok": True,
+                "tick": self.world.tick,
+                "channels": self.world.channels(),
+                "view": self.world.view(),
+            }, False
         if op == "state":
             return {"ok": True, "world": self.world.state_dict()}, False
         if op == "load_state":
-            self.world.load_state_dict(message["world"])
+            self.world.load_state_dict(message.get("world", {}))
             return {"ok": True}, False
         if op == "bye":
             return {"ok": True}, True
