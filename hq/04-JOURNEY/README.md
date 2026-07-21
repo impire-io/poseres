@@ -208,6 +208,15 @@ both bridges (the fake was minting matter), C1 default 19/10 with the
 contact-frequency bar failed as written and was amended openly with the
 mechanism measured; equal-budget cost −0.043 median, an exploration
 tax); the live bridge crafted the full chain on the real server.
+**Then the owner argued the craft buttons back out and won**
+([episode 0050](0050-the-ladder-not-the-button.md), feature 031): macros are skills wearing
+primitives' clothing — replaced the same day by honest primitives
+(held-class selection, a sensed 2×2 staging grid whose *offer* shows
+before any craft) so crafting is a ladder of one-step consequences the
+brain may climb or honestly may not; C1 default is now 28/12, chance
+climbs only the first rung (measured baseline: ~1 accidental
+planks-craft per ~2,200 undirected steps, zero sticks), and purposeful
+crafting in the long run now *means* emergence.
 Open threads, in priority order: **the C1 run itself** (user-run;
 everything agent-side is done); **scheduled probing** (the named
 active successor: re-visit mastered ground under a held policy and
@@ -305,3 +314,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0047 | [The book decision: one builder, two lanes](0047-the-book-decision.md) |
 | 0048 | [The brain gets a window: telemetry for the inside, drawn](0048-the-brain-gets-a-window.md) |
 | 0049 | [The builder's body: inventory sensed, crafting learnable](0049-the-builders-body.md) |
+| 0050 | [The ladder, not the button: honest primitives](0050-the-ladder-not-the-button.md) |
