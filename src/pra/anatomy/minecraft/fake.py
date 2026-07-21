@@ -18,11 +18,13 @@ edits); ``load_state`` restores it exactly: fake-mode resume is class 1
 
 from __future__ import annotations
 
+import json
 import math
 import socket
 import threading
+from collections import deque
 
-from pra.anatomy.minecraft.protocol import PROTOCOL_VERSION, recv_message, send_message
+from pra.anatomy.minecraft.protocol import PROTOCOL_VERSION, send_message
 
 __all__ = ["FakeBridge"]
 
@@ -236,7 +238,9 @@ class FakeBridge:
         self._busy = threading.Lock()
         self._stopping = threading.Event()
         self._workers: list[threading.Thread] = []
-        self.requests: list[str] = []  # op journal, a test convenience
+        self.requests: deque[str] = deque(
+            maxlen=1_000_000
+        )  # op journal (bounded: soak-length runs)
         self._thread = threading.Thread(target=self._serve, daemon=True)
         self._thread.start()
 
@@ -286,15 +290,34 @@ class FakeBridge:
             self._busy.release()
 
     def _serve_client(self, conn: socket.socket) -> None:
+        # A manual receive buffer, NOT conn.makefile(): a buffered file object
+        # on a timeout socket is left in an undefined state by a mid-read
+        # timeout (found by the C1 length soak at ~367k requests — a rare
+        # mid-line timeout corrupted the stream and silently closed the
+        # connection). Partial lines survive timeouts here by construction.
         conn.settimeout(0.2)
-        rfile = conn.makefile("rb")
+        buffer = bytearray()
         while not self._stopping.is_set():
-            try:
-                message = recv_message(rfile)
-            except TimeoutError:
+            newline = buffer.find(b"\n")
+            if newline < 0:
+                try:
+                    chunk = conn.recv(65536)
+                except TimeoutError:
+                    continue  # the partial line stays buffered
+                except OSError:
+                    return
+                if not chunk:
+                    return  # client closed
+                buffer.extend(chunk)
                 continue
-            except Exception:
-                return  # client vanished or spoke garbage; the client side is loud
+            line = bytes(buffer[:newline])
+            del buffer[: newline + 1]
+            try:
+                message = json.loads(line)
+                if not isinstance(message, dict):
+                    raise ValueError("message must be a JSON object")
+            except ValueError:
+                return  # garbage; the client side is loud
             try:
                 response, goodbye = self._handle(message)
             except Exception as exc:  # a bridge-side contract violation is loud
