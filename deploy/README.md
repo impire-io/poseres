@@ -40,8 +40,15 @@ endpoints (pause/snapshot), so that boundary is the security model.
 
 - Dashboard: `http://<tailscale-ip-or-magicdns>:8600` from any tailnet
   device (e.g. `http://beno4:8600` with MagicDNS).
-- Spectating: connect Minecraft 1.21.11 to `<tailscale-ip>:25565`, then
-  `docker compose --project-directory ~/pra/deploy/infra exec minecraft rcon-cli "gamemode spectator <you>"`.
+- Spectating: connect Minecraft **1.21.11** (launcher → Installations →
+  the 1.21.11 profile) to `<tailscale-ip>:25565`. Op yourself once
+  (`docker compose --project-directory ~/pra/deploy/infra exec minecraft rcon-cli "op <you>"`)
+  and from then on it is self-serve in the in-game chat:
+  `/gamemode spectator` (fly anywhere, through walls; left-click the bot
+  to ride its eyes, Shift to detach, F5 for third person, scroll wheel
+  to change fly speed; `/gamemode survival` to become solid again).
+  Spectators are invisible to the bot's channels — the experiment cannot
+  tell you are there.
 - MinIO console (stays localhost): `ssh -L 9101:localhost:9101 <node>` →
   http://localhost:9101.
 
