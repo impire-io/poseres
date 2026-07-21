@@ -45,18 +45,20 @@ def test_ros2_body_meta_groups_and_preset_labels():
 
 
 def test_c1_minecraft_meta_matches_the_channel_contract():
-    # the builder's body (feature 030) is the C1 default: 19 / 10
+    # the builder's body (features 030/031) is the C1 default: 28 / 12
     sensors, actuators = c1_anatomy()
     body = Ros2Body(sensors, actuators, FakeTransport(script={}))
     meta = body.anatomy_meta()
     _assert_invariants(meta)
-    assert (meta["obs_dim"], meta["n_actions"]) == (19, 10)
+    assert (meta["obs_dim"], meta["n_actions"]) == (28, 12)
     assert [(g["id"], g["start"], g["width"]) for g in meta["groups"]] == [
         ("pose", 0, 5),
         ("vitals", 5, 2),
         ("env", 7, 4),
         ("blocks", 11, 3),
         ("inventory", 14, 5),
+        ("hand", 19, 4),
+        ("grid", 23, 5),
     ]
     assert [a["label"] for a in meta["actuators"]] == [
         "forward",
@@ -67,8 +69,10 @@ def test_c1_minecraft_meta_matches_the_channel_contract():
         "dig_ahead",
         "place_ahead",
         "idle",
-        "craft_planks",
-        "craft_sticks",
+        "hold_next",
+        "grid_put",
+        "grid_take",
+        "take_result",
     ]
 
 

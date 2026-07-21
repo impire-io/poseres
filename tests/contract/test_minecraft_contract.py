@@ -37,9 +37,9 @@ def _body(bridge: FakeBridge, **kw) -> Ros2Body:
 
 
 def test_declared_anatomy_matches_the_contract_table():
-    # the builder's body (feature 030 amendment) is the C1 default
-    assert C1_OBS_DIM == 19
-    assert C1_N_ACTIONS == 10
+    # the builder's body (features 030/031) is the C1 default
+    assert C1_OBS_DIM == 28
+    assert C1_N_ACTIONS == 12
     # the feature-027 body remains one flag away (the recorded reversal path)
     legacy_sensors, legacy_actuators = c1_anatomy(crafting=False)
     assert sum(s.width for s in legacy_sensors) == 14
@@ -152,7 +152,7 @@ def test_walls_block_turns_turn_and_dig_opens_the_way():
     with FakeBridge() as bridge:
         body = _body(bridge)
         obs = body.reset()
-        assert obs.shape == (19,)
+        assert obs.shape == (28,)
         # face +x (the wall at x=3): turn_right once from +z takes yaw to -45deg
         # -> ahead is the (1, 1) diagonal; instead steer by turning to face the
         # wall column directly: two turn_rights = -90deg -> ahead (1, 0).
@@ -173,57 +173,94 @@ def test_walls_block_turns_turn_and_dig_opens_the_way():
         body.close()
 
 
-def test_place_ahead_is_materially_honest():
-    # feature 030: place consumes from the pocket and no-ops when it is empty
+def test_hold_next_cycles_every_class_regardless_of_counts():
+    # feature 031: holding an empty class is a valid, sensed state
     with FakeBridge() as bridge:
         body = _body(bridge)
         body.reset()
-        noop = body.step(6)  # place with an empty pocket: nothing happens
+        expected = [
+            [1.0, 0.0, 0.0, 0.0],  # blocks (pocket empty - still holdable)
+            [0.0, 1.0, 0.0, 0.0],  # logs
+            [0.0, 0.0, 1.0, 0.0],  # planks
+            [0.0, 0.0, 0.0, 1.0],  # sticks
+            [0.0, 0.0, 0.0, 0.0],  # back to nothing
+        ]
+        for hand in expected:
+            obs = body.step(8)  # hold_next
+            assert list(obs[19:23]) == hand
+        body.close()
+
+
+def test_place_ahead_is_held_based_and_materially_honest():
+    # feature 031: place acts on the held class only - selection is the
+    # brain's; an empty hand or an unplaceable class no-ops
+    with FakeBridge() as bridge:
+        body = _body(bridge)
+        body.reset()
+        noop = body.step(6)  # nothing held: nothing happens
         assert noop[11] == 0.0 and noop[18] == 0.0
-        # walk to the wall, dig one block into the pocket, put it back
+        # walk to the wall, dig one block, hold it, put it back
         body.step(3)
         body.step(3)  # face +x
         body.step(0)
         body.step(0)  # x=2; the wall at (3, 0) is ahead
-        dug = body.step(5)  # dig_ahead: the pocket fills
-        assert dug[14] == pytest.approx(1 / 64)  # one placeable block
-        assert dug[18] == 1.0  # place now has material
+        dug = body.step(5)  # dig_ahead: the pocket fills, the hand is empty
+        assert dug[14] == pytest.approx(1 / 64)
+        assert dug[18] == 0.0  # nothing held yet - place would no-op
+        unheld = body.step(6)  # place with pocket full but hand empty: no-op
+        assert unheld[11] == 0.0 and unheld[14] == pytest.approx(1 / 64)
+        held = body.step(8)  # hold_next -> blocks
+        assert held[18] == 1.0  # the held class is placeable
         placed = body.step(6)  # place_ahead: the wall is back, pocket empty
         assert placed[11] == 1.0
-        assert placed[14] == 0.0 and placed[18] == 0.0
-        stuck = body.step(0)  # forward is blocked again
-        assert stuck[0] == placed[0]
+        assert placed[14] == 0.0
+        assert placed[18] == 1.0  # still *holding* blocks (a class, not a count)
         body.close()
 
 
-def test_the_full_material_chain_is_visible_step_by_step():
-    # feature 030 SC-001: dig wood -> craft planks -> craft sticks -> place,
-    # every intermediate visible in the channels on the next tick
+def test_the_honest_ladder_every_rung_sensed():
+    # feature 031 FR-008/SC-001: dig wood -> hold -> stage -> observe the
+    # offer -> take -> re-stage -> sticks -> place; and the vanilla
+    # exact-match rule (a wrong staging kills the offer)
     with FakeBridge() as bridge:
         body = _body(bridge)
         body.reset()
-        body.step(0)
-        body.step(0)  # (0, 2), facing +z
-        body.step(2)  # turn_left: 45 deg
-        body.step(0)  # the (-1, 3) diagonal
-        faced = body.step(2)  # turn_left: 90 deg — the wood column (-2, 3) ahead
-        assert faced[11] == 1.0  # feet-level solid ahead (the wood)
-        assert list(faced[14:19]) == [0.0, 0.0, 0.0, 0.0, 0.0]  # empty pocket
-        dug = body.step(5)  # dig the wood: one log
+        body.step(2)
+        faced = body.step(2)  # two turn_lefts: the starter wood (-1, 0) ahead
+        assert faced[11] == 1.0
+        dug = body.step(5)  # dig the wood: one log in the pocket
         assert dug[15] == pytest.approx(1 / 64)
-        assert dug[18] == 0.0  # a log is not placeable
-        planked = body.step(8)  # craft_planks: 1 log -> 4 planks
-        assert planked[15] == 0.0
-        assert planked[16] == pytest.approx(4 / 64)
-        assert planked[18] == 1.0  # planks are placeable
-        sticked = body.step(9)  # craft_sticks: 2 planks -> 4 sticks
-        assert sticked[16] == pytest.approx(2 / 64)
-        assert sticked[17] == pytest.approx(4 / 64)
-        placed = body.step(6)  # place a plank where the wood stood
+        body.step(8)  # hold_next -> blocks
+        held_logs = body.step(8)  # hold_next -> logs
+        assert list(held_logs[19:23]) == [0.0, 1.0, 0.0, 0.0]
+        staged = body.step(9)  # grid_put: one log staged
+        assert staged[15] == 0.0  # left the pocket
+        assert staged[23] == pytest.approx(1 / 4)  # staged count
+        assert staged[24] == pytest.approx(1 / 4)  # staged logs
+        assert staged[26] == 1.0  # the offer: planks - before any craft
+        taken = body.step(11)  # take_result: the real rung
+        assert taken[16] == pytest.approx(4 / 64)  # 4 planks in the pocket
+        assert taken[23] == 0.0 and taken[26] == 0.0  # grid and offer cleared
+        body.step(8)  # hold_next -> planks
+        one = body.step(9)  # one plank staged: a lone plank offers nothing
+        assert one[26] == 0.0 and one[27] == 0.0
+        two = body.step(9)  # two planks, column-adjacent: sticks offered
+        assert two[27] == 1.0
+        three = body.step(9)  # a third plank: exact-match rule kills the offer
+        assert three[27] == 0.0
+        returned = body.step(10)  # grid_take: everything back to the pocket
+        assert returned[16] == pytest.approx(4 / 64)
+        assert returned[23] == 0.0
+        body.step(9)
+        body.step(9)  # stage the pair again
+        sticks = body.step(11)  # take_result: 4 sticks for 2 planks
+        assert sticks[17] == pytest.approx(4 / 64)
+        assert sticks[16] == pytest.approx(2 / 64)
+        placed = body.step(6)  # still holding planks: place one where wood stood
         assert placed[11] == 1.0
         assert placed[16] == pytest.approx(1 / 64)
-        empty_craft = body.step(8)  # craft with no logs: byte-honest no-op
-        assert list(empty_craft[14:18]) == list(placed[14:18])
+        idle = body.step(11)  # take_result on an empty grid: honest no-op
+        assert list(idle[14:28]) == list(placed[14:28])
         body.close()
 
 
@@ -248,18 +285,18 @@ def test_state_round_trip_restores_the_edited_world_exactly():
         body.close()
 
 
-def test_state_round_trip_carries_the_pocket_mid_chain():
-    # feature 030 US3: a snapshot taken mid-material-chain restores exactly
+def test_state_round_trip_carries_the_pocket_mid_staging():
+    # feature 031 US3: a snapshot taken mid-staging (held class + grid
+    # contents + a live offer) restores byte-exactly
     with FakeBridge() as bridge:
         body = _body(bridge)
         body.reset()
-        body.step(0)
-        body.step(0)
         body.step(2)
-        body.step(0)
-        body.step(2)  # the wood column ahead
+        body.step(2)  # the starter wood ahead
         body.step(5)  # a log in the pocket
-        body.step(8)  # crafted: 4 planks
+        body.step(8)
+        body.step(8)  # hold logs
+        body.step(9)  # staged: the planks offer is live
         saved = body.state_dict()
         obs_at_save = body.step(7)
         body.close()
@@ -269,5 +306,7 @@ def test_state_round_trip_carries_the_pocket_mid_chain():
         body.load_state_dict(saved)
         restored = body.step(7)
         assert restored.tolist() == obs_at_save.tolist()
-        assert restored[16] == pytest.approx(4 / 64)  # the planks came along
+        assert restored[26] == 1.0  # the offer survived the snapshot
+        taken = body.step(11)  # and it is still takeable after resume
+        assert taken[16] == pytest.approx(4 / 64)
         body.close()

@@ -53,6 +53,10 @@ class _World:
         self.placed: set[tuple[int, int]] = set()
         # feature 030: the pocket — world-held state, sensed per tick
         self.inventory: dict[str, int] = {"blocks": 0, "logs": 0, "planks": 0, "sticks": 0}
+        # feature 031: the held class and the 2x2 staging grid (column-first
+        # list order; the first two entries are column-adjacent)
+        self.held: str | None = None
+        self.grid: list[str] = []
 
     # ---- geometry -------------------------------------------------------------
     def _ahead(self) -> tuple[int, int]:
@@ -103,25 +107,43 @@ class _World:
                     self.inventory[key] += 1
         elif name == "place_ahead":
             ahead = self._ahead()
-            # feature 030: materially honest — consumes blocks first, then
-            # planks; an empty pocket no-ops (the live bridge's semantics)
-            if not self._feet_solid(ahead) and (
-                self.inventory["blocks"] > 0 or self.inventory["planks"] > 0
+            # feature 031: held-based and materially honest — places one item
+            # of the held class if placeable; selection is the brain's
+            if (
+                not self._feet_solid(ahead)
+                and self.held in ("blocks", "planks")
+                and self.inventory[self.held] > 0
             ):
                 self.dug.discard(ahead)
                 self.placed.add(ahead)
-                key = "blocks" if self.inventory["blocks"] > 0 else "planks"
-                self.inventory[key] -= 1
-        elif name == "craft_planks":
-            if self.inventory["logs"] >= 1:
-                self.inventory["logs"] -= 1
-                self.inventory["planks"] += 4
-        elif name == "craft_sticks":
-            if self.inventory["planks"] >= 2:
-                self.inventory["planks"] -= 2
-                self.inventory["sticks"] += 4
+                self.inventory[self.held] -= 1
+        elif name == "hold_next":
+            cycle = (None, "blocks", "logs", "planks", "sticks")
+            self.held = cycle[(cycle.index(self.held) + 1) % len(cycle)]
+        elif name == "grid_put":
+            if self.held is not None and self.inventory[self.held] > 0 and len(self.grid) < 4:
+                self.inventory[self.held] -= 1
+                self.grid.append(self.held)
+        elif name == "grid_take":
+            for staged in self.grid:
+                self.inventory[staged] += 1
+            self.grid = []
+        elif name == "take_result":
+            offer = self._offer()
+            if offer is not None:
+                self.grid = []  # the offer's inputs are exactly the staging
+                self.inventory[offer] += 4
         else:
             raise ValueError(f"unknown command {name!r}")
+
+    def _offer(self) -> str | None:
+        """Vanilla-exact: contents must match the recipe exactly (a second
+        log kills the planks offer — itself a learnable consequence)."""
+        if self.grid == ["logs"]:
+            return "planks"
+        if self.grid == ["planks", "planks"]:
+            return "sticks"
+        return None
 
     def advance(self) -> None:
         self.tick += 1
@@ -152,7 +174,20 @@ class _World:
                 min(self.inventory["logs"], 64) / 64.0,
                 min(self.inventory["planks"], 64) / 64.0,
                 min(self.inventory["sticks"], 64) / 64.0,
-                1.0 if self.inventory["blocks"] + self.inventory["planks"] > 0 else 0.0,
+                1.0 if self.held in ("blocks", "planks") else 0.0,
+            ],
+            "hand": [
+                1.0 if self.held == "blocks" else 0.0,
+                1.0 if self.held == "logs" else 0.0,
+                1.0 if self.held == "planks" else 0.0,
+                1.0 if self.held == "sticks" else 0.0,
+            ],
+            "grid": [
+                len(self.grid) / 4.0,
+                self.grid.count("logs") / 4.0,
+                self.grid.count("planks") / 4.0,
+                1.0 if self._offer() == "planks" else 0.0,
+                1.0 if self._offer() == "sticks" else 0.0,
             ],
         }
 
@@ -167,6 +202,8 @@ class _World:
             "dug": sorted(self.dug),
             "placed": sorted(self.placed),
             "inventory": dict(self.inventory),
+            "held": self.held,
+            "grid": list(self.grid),
         }
 
     def load_state_dict(self, state: dict) -> None:
@@ -178,6 +215,8 @@ class _World:
         self.dug = {tuple(c) for c in state["dug"]}
         self.placed = {tuple(c) for c in state["placed"]}
         self.inventory = {k: int(v) for k, v in state["inventory"].items()}
+        self.held = state["held"]
+        self.grid = list(state["grid"])
 
 
 class FakeBridge:
@@ -187,7 +226,7 @@ class FakeBridge:
     is answered with an error and closed. ``stop()`` is idempotent.
     """
 
-    CHANNELS = {"pose": 5, "vitals": 2, "env": 4, "blocks": 3, "inventory": 5}
+    CHANNELS = {"pose": 5, "vitals": 2, "env": 4, "blocks": 3, "inventory": 5, "hand": 4, "grid": 5}
 
     def __init__(self) -> None:
         self.world = _World()

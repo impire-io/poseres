@@ -14,7 +14,14 @@ const mineflayer = require("mineflayer");
 const { Vec3 } = require("vec3");
 
 const VERSION = "pra-mc/1";
-const CHANNELS = { pose: 5, vitals: 2, env: 4, blocks: 3, inventory: 5 };
+const CHANNELS = { pose: 5, vitals: 2, env: 4, blocks: 3, inventory: 5, hand: 4, grid: 5 };
+
+// feature 031: the held class and the 2x2 staging grid — body furniture
+// (contract-declared): virtual staging over the REAL inventory, real craft
+// at take_result, the world always the authority on counts.
+const HOLD_CYCLE = [null, "blocks", "logs", "planks", "sticks"];
+let held = null;
+let grid = []; // <=4 class names, column-first; first two are column-adjacent
 
 const MC_HOST = process.env.MC_HOST || "127.0.0.1";
 const MC_PORT = parseInt(process.env.MC_PORT || "25565", 10);
@@ -167,23 +174,81 @@ async function applyCommand(command, budget) {
       });
     }
   } else if (name === "place_ahead") {
+    // feature 031: held-based — selection is the brain's; blocks and planks
+    // are the placeable classes
     const target = aheadColumn();
     const below = bot.blockAt(target.offset(0, -1, 0));
-    const held = bot.heldItem || (await equipAnyBlock(budget));
-    if (below && held) {
-      await bounded(bot.placeBlock(below, new Vec3(0, 1, 0)), budget);
+    if (below && (held === "blocks" || held === "planks")) {
+      const equipped = await equipHeld(budget);
+      if (equipped) await bounded(bot.placeBlock(below, new Vec3(0, 1, 0)), budget);
     }
-  } else if (name === "craft_planks") {
-    // feature 030: 1 log -> 4 planks, species by name transform, first found
-    const log = bot.inventory.items().find((i) => isLogItem(i.name));
-    if (log) await craftByName(log.name.replace("_log", "_planks"), budget);
-  } else if (name === "craft_sticks") {
-    // feature 030: 2 planks -> 4 sticks
-    const plank = bot.inventory.items().find((i) => isPlankItem(i.name));
-    if (plank) await craftByName("stick", budget);
+  } else if (name === "hold_next") {
+    held = HOLD_CYCLE[(HOLD_CYCLE.indexOf(held) + 1) % HOLD_CYCLE.length];
+  } else if (name === "grid_put") {
+    if (held && grid.length < 4 && rawCount(held) - stagedCount(held) > 0) {
+      grid.push(held);
+    }
+  } else if (name === "grid_take") {
+    grid = [];
+  } else if (name === "take_result") {
+    const offer = gridOffer();
+    if (offer === "planks") {
+      const log = bot.inventory.items().find((i) => isLogItem(i.name));
+      if (log) {
+        const before = rawCount("planks");
+        await craftByName(log.name.replace("_log", "_planks"), budget);
+        if (rawCount("planks") > before) grid = []; // the world confirms
+      }
+    } else if (offer === "sticks") {
+      const before = rawCount("sticks");
+      await craftByName("stick", budget);
+      if (rawCount("sticks") > before) grid = [];
+    }
+    resyncGrid();
   } else {
     throw new Error(`unknown command '${name}'`);
   }
+}
+
+const CLASS_TESTS = {
+  blocks: isBlockItem,
+  logs: isLogItem,
+  planks: isPlankItem,
+  sticks: (n) => n === "stick",
+};
+
+function rawCount(cls) {
+  let n = 0;
+  for (const item of bot.inventory.items()) if (CLASS_TESTS[cls](item.name)) n += item.count;
+  return n;
+}
+
+function stagedCount(cls) {
+  return grid.filter((c) => c === cls).length;
+}
+
+function resyncGrid() {
+  // the world is the authority: reservations the real inventory can no
+  // longer cover are dropped (newest first)
+  for (const cls of Object.keys(CLASS_TESTS)) {
+    while (stagedCount(cls) > rawCount(cls)) {
+      grid.splice(grid.lastIndexOf(cls), 1);
+    }
+  }
+}
+
+function gridOffer() {
+  // vanilla-exact: contents must match the recipe exactly
+  if (grid.length === 1 && grid[0] === "logs") return "planks";
+  if (grid.length === 2 && grid[0] === "planks" && grid[1] === "planks") return "sticks";
+  return null;
+}
+
+async function equipHeld(budget) {
+  const item = bot.inventory.items().find((i) => CLASS_TESTS[held](i.name));
+  if (!item) return null;
+  await bounded(bot.equip(item, "hand"), budget);
+  return bot.heldItem;
 }
 
 async function craftByName(itemName, budget) {
@@ -197,14 +262,6 @@ async function craftByName(itemName, budget) {
   await bounded(bot.craft(recipe, 1, null), budget);
 }
 
-async function equipAnyBlock(budget) {
-  // feature 030: planks joined the placeable class (mined blocks first)
-  const items = bot.inventory.items();
-  const item = items.find((i) => isBlockItem(i.name)) || items.find((i) => isPlankItem(i.name));
-  if (!item) return null;
-  await bounded(bot.equip(item, "hand"), budget);
-  return bot.heldItem;
-}
 
 function clearControls() {
   for (const control of ["forward", "back", "jump"]) bot.setControlState(control, false);
@@ -235,23 +292,37 @@ function sampleChannels() {
       bot.blockAt(ahead.offset(0, -1, 0)) && bot.blockAt(ahead.offset(0, -1, 0)).boundingBox === "empty" ? 1 : 0,
     ],
     inventory: sampleInventory(),
+    hand: [
+      held === "blocks" ? 1 : 0,
+      held === "logs" ? 1 : 0,
+      held === "planks" ? 1 : 0,
+      held === "sticks" ? 1 : 0,
+    ],
+    grid: [
+      grid.length / 4,
+      stagedCount("logs") / 4,
+      stagedCount("planks") / 4,
+      gridOffer() === "planks" ? 1 : 0,
+      gridOffer() === "sticks" ? 1 : 0,
+    ],
   };
 }
 
-// feature 030: the pocket, read fresh every tick — the contract's four
-// material classes; items outside them are not counted (coarse by design).
+// features 030/031: the pocket, read fresh every tick — the contract's four
+// material classes (items outside them are not counted); staged reservations
+// are subtracted so pocket + grid always sum to the real inventory.
 const isBlockItem = (n) => n.includes("dirt") || n.includes("stone");
 const isLogItem = (n) => n.endsWith("_log");
 const isPlankItem = (n) => n.endsWith("_planks");
 
 function sampleInventory() {
-  let blocks = 0, logs = 0, planks = 0, sticks = 0;
-  for (const item of bot.inventory.items()) {
-    if (isBlockItem(item.name)) blocks += item.count;
-    else if (isLogItem(item.name)) logs += item.count;
-    else if (isPlankItem(item.name)) planks += item.count;
-    else if (item.name === "stick") sticks += item.count;
-  }
+  const pocket = (cls) => Math.max(0, rawCount(cls) - stagedCount(cls));
   const norm = (n) => Math.min(n, 64) / 64;
-  return [norm(blocks), norm(logs), norm(planks), norm(sticks), blocks + planks > 0 ? 1 : 0];
+  return [
+    norm(pocket("blocks")),
+    norm(pocket("logs")),
+    norm(pocket("planks")),
+    norm(pocket("sticks")),
+    held === "blocks" || held === "planks" ? 1 : 0,
+  ];
 }
