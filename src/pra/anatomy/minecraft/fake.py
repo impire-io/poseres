@@ -29,8 +29,12 @@ __all__ = ["FakeBridge"]
 _GROUND_Y = 64.0
 _TIME_STEP = 25  # ticks of the 24000-tick day per control tick
 
-# the fixed layout: feet-level solids, eye-level solids (tall), pits, wood
-_WOOD_SOLIDS = frozenset({(-2, 3), (5, -1)})  # feature 030: diggable wood columns
+# the fixed layout: feet-level solids, eye-level solids (tall), pits, wood.
+# The (-1, 0) wood column is the starter: two turns and a dig from spawn,
+# because the real overworld offers diggable material almost everywhere and
+# the sketch misrepresented that (pilot diagnosis, feature 030 — material
+# contact was unreachable for undirected exploration in 5/8 seeds).
+_WOOD_SOLIDS = frozenset({(-1, 0), (-2, 3), (5, -1)})  # feature 030: diggable wood
 _FEET_SOLIDS = frozenset({(3, z) for z in range(-2, 3)} | {(-4, 0)} | _WOOD_SOLIDS)
 _EYE_SOLIDS = frozenset({(-4, 0)})  # the pillar is tall; the wall is chest-high
 _PITS = frozenset({(0, 4), (1, 4)})
