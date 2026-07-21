@@ -36,7 +36,7 @@ for the life of a run** (config-in-force travels in snapshots).
   (bound to localhost on the node; exposing it is your explicit choice).
 - Spectating: connect Minecraft 1.21.11 to `<node>:25565`, then
   `docker compose --project-directory ~/pra/deploy/infra exec minecraft rcon-cli "gamemode spectator <you>"`.
-- MinIO console: `ssh -L 9001:localhost:9001 <node>` → http://localhost:9001.
+- MinIO console: `ssh -L 9101:localhost:9101 <node>` → http://localhost:9101.
 
 ## Durable telemetry
 
