@@ -199,6 +199,15 @@ charts + decoded log, frame table, lifecycle timeline), verified live
 against the real Minecraft stack; the C1 watching stack itself is
 `examples/minecraft/up.sh` (world + NATS + bridge + dash + brain, one
 command, auto-spectate, `TICK_RATE` world acceleration).
+**And the body is a builder's now** ([episode 0049](0049-the-builders-body.md), feature 030,
+owner's call recorded with its reversal condition): inventory sensed as
+five coarse channels (the world holds the state — sensing over
+remembering), two pocket craft actions, materially honest placement in
+both bridges (the fake was minting matter), C1 default 19/10 with the
+14/8 body one flag away; pilot honest (learning robust 8/8; the
+contact-frequency bar failed as written and was amended openly with the
+mechanism measured; equal-budget cost −0.043 median, an exploration
+tax); the live bridge crafted the full chain on the real server.
 Open threads, in priority order: **the C1 run itself** (user-run;
 everything agent-side is done); **scheduled probing** (the named
 active successor: re-visit mastered ground under a held policy and
@@ -295,3 +304,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0046 | [The roadmap becomes a plan again](0046-the-roadmap-becomes-a-plan-again.md) |
 | 0047 | [The book decision: one builder, two lanes](0047-the-book-decision.md) |
 | 0048 | [The brain gets a window: telemetry for the inside, drawn](0048-the-brain-gets-a-window.md) |
+| 0049 | [The builder's body: inventory sensed, crafting learnable](0049-the-builders-body.md) |
