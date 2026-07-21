@@ -37,8 +37,13 @@ def _body(bridge: FakeBridge, **kw) -> Ros2Body:
 
 
 def test_declared_anatomy_matches_the_contract_table():
-    assert C1_OBS_DIM == 14
-    assert C1_N_ACTIONS == 8
+    # the builder's body (feature 030 amendment) is the C1 default
+    assert C1_OBS_DIM == 19
+    assert C1_N_ACTIONS == 10
+    # the feature-027 body remains one flag away (the recorded reversal path)
+    legacy_sensors, legacy_actuators = c1_anatomy(crafting=False)
+    assert sum(s.width for s in legacy_sensors) == 14
+    assert sum(len(a.presets) for a in legacy_actuators) == 8
 
 
 # ---- handshake honesty (FR-002) ----------------------------------------------------
@@ -147,7 +152,7 @@ def test_walls_block_turns_turn_and_dig_opens_the_way():
     with FakeBridge() as bridge:
         body = _body(bridge)
         obs = body.reset()
-        assert obs.shape == (14,)
+        assert obs.shape == (19,)
         # face +x (the wall at x=3): turn_right once from +z takes yaw to -45deg
         # -> ahead is the (1, 1) diagonal; instead steer by turning to face the
         # wall column directly: two turn_rights = -90deg -> ahead (1, 0).
@@ -168,15 +173,57 @@ def test_walls_block_turns_turn_and_dig_opens_the_way():
         body.close()
 
 
-def test_place_ahead_creates_a_wall_where_none_was():
+def test_place_ahead_is_materially_honest():
+    # feature 030: place consumes from the pocket and no-ops when it is empty
     with FakeBridge() as bridge:
         body = _body(bridge)
         body.reset()
-        assert body.step(7)[11] == 0.0  # ahead of spawn (facing +z) is open
-        obs = body.step(6)  # place_ahead
-        assert obs[11] == 1.0
-        stuck = body.step(0)  # forward is now blocked
-        assert stuck[1] == obs[1]
+        noop = body.step(6)  # place with an empty pocket: nothing happens
+        assert noop[11] == 0.0 and noop[18] == 0.0
+        # walk to the wall, dig one block into the pocket, put it back
+        body.step(3)
+        body.step(3)  # face +x
+        body.step(0)
+        body.step(0)  # x=2; the wall at (3, 0) is ahead
+        dug = body.step(5)  # dig_ahead: the pocket fills
+        assert dug[14] == pytest.approx(1 / 64)  # one placeable block
+        assert dug[18] == 1.0  # place now has material
+        placed = body.step(6)  # place_ahead: the wall is back, pocket empty
+        assert placed[11] == 1.0
+        assert placed[14] == 0.0 and placed[18] == 0.0
+        stuck = body.step(0)  # forward is blocked again
+        assert stuck[0] == placed[0]
+        body.close()
+
+
+def test_the_full_material_chain_is_visible_step_by_step():
+    # feature 030 SC-001: dig wood -> craft planks -> craft sticks -> place,
+    # every intermediate visible in the channels on the next tick
+    with FakeBridge() as bridge:
+        body = _body(bridge)
+        body.reset()
+        body.step(0)
+        body.step(0)  # (0, 2), facing +z
+        body.step(2)  # turn_left: 45 deg
+        body.step(0)  # the (-1, 3) diagonal
+        faced = body.step(2)  # turn_left: 90 deg — the wood column (-2, 3) ahead
+        assert faced[11] == 1.0  # feet-level solid ahead (the wood)
+        assert list(faced[14:19]) == [0.0, 0.0, 0.0, 0.0, 0.0]  # empty pocket
+        dug = body.step(5)  # dig the wood: one log
+        assert dug[15] == pytest.approx(1 / 64)
+        assert dug[18] == 0.0  # a log is not placeable
+        planked = body.step(8)  # craft_planks: 1 log -> 4 planks
+        assert planked[15] == 0.0
+        assert planked[16] == pytest.approx(4 / 64)
+        assert planked[18] == 1.0  # planks are placeable
+        sticked = body.step(9)  # craft_sticks: 2 planks -> 4 sticks
+        assert sticked[16] == pytest.approx(2 / 64)
+        assert sticked[17] == pytest.approx(4 / 64)
+        placed = body.step(6)  # place a plank where the wood stood
+        assert placed[11] == 1.0
+        assert placed[16] == pytest.approx(1 / 64)
+        empty_craft = body.step(8)  # craft with no logs: byte-honest no-op
+        assert list(empty_craft[14:18]) == list(placed[14:18])
         body.close()
 
 
@@ -198,4 +245,29 @@ def test_state_round_trip_restores_the_edited_world_exactly():
         body.reset()
         body.load_state_dict(saved)
         assert body.step(7).tolist() == obs_at_save.tolist()
+        body.close()
+
+
+def test_state_round_trip_carries_the_pocket_mid_chain():
+    # feature 030 US3: a snapshot taken mid-material-chain restores exactly
+    with FakeBridge() as bridge:
+        body = _body(bridge)
+        body.reset()
+        body.step(0)
+        body.step(0)
+        body.step(2)
+        body.step(0)
+        body.step(2)  # the wood column ahead
+        body.step(5)  # a log in the pocket
+        body.step(8)  # crafted: 4 planks
+        saved = body.state_dict()
+        obs_at_save = body.step(7)
+        body.close()
+    with FakeBridge() as fresh:
+        body = _body(fresh)
+        body.reset()
+        body.load_state_dict(saved)
+        restored = body.step(7)
+        assert restored.tolist() == obs_at_save.tolist()
+        assert restored[16] == pytest.approx(4 / 64)  # the planks came along
         body.close()

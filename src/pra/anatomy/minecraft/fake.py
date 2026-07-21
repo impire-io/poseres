@@ -29,8 +29,9 @@ __all__ = ["FakeBridge"]
 _GROUND_Y = 64.0
 _TIME_STEP = 25  # ticks of the 24000-tick day per control tick
 
-# the fixed layout: feet-level solids, eye-level solids (tall), pits
-_FEET_SOLIDS = frozenset({(3, z) for z in range(-2, 3)} | {(-4, 0)})
+# the fixed layout: feet-level solids, eye-level solids (tall), pits, wood
+_WOOD_SOLIDS = frozenset({(-2, 3), (5, -1)})  # feature 030: diggable wood columns
+_FEET_SOLIDS = frozenset({(3, z) for z in range(-2, 3)} | {(-4, 0)} | _WOOD_SOLIDS)
 _EYE_SOLIDS = frozenset({(-4, 0)})  # the pillar is tall; the wall is chest-high
 _PITS = frozenset({(0, 4), (1, 4)})
 
@@ -46,6 +47,8 @@ class _World:
         self.time = 0
         self.dug: set[tuple[int, int]] = set()
         self.placed: set[tuple[int, int]] = set()
+        # feature 030: the pocket — world-held state, sensed per tick
+        self.inventory: dict[str, int] = {"blocks": 0, "logs": 0, "planks": 0, "sticks": 0}
 
     # ---- geometry -------------------------------------------------------------
     def _ahead(self) -> tuple[int, int]:
@@ -85,14 +88,34 @@ class _World:
         elif name == "dig_ahead":
             ahead = self._ahead()
             if self._feet_solid(ahead):
-                self.placed.discard(ahead)
-                if ahead in _FEET_SOLIDS:
+                # feature 030: digging fills the pocket — wood yields a log,
+                # everything else (layout or previously placed) a block
+                if ahead in self.placed:
+                    self.placed.discard(ahead)
+                    self.inventory["blocks"] += 1
+                else:
                     self.dug.add(ahead)
+                    key = "logs" if ahead in _WOOD_SOLIDS else "blocks"
+                    self.inventory[key] += 1
         elif name == "place_ahead":
             ahead = self._ahead()
-            if not self._feet_solid(ahead):
+            # feature 030: materially honest — consumes blocks first, then
+            # planks; an empty pocket no-ops (the live bridge's semantics)
+            if not self._feet_solid(ahead) and (
+                self.inventory["blocks"] > 0 or self.inventory["planks"] > 0
+            ):
                 self.dug.discard(ahead)
                 self.placed.add(ahead)
+                key = "blocks" if self.inventory["blocks"] > 0 else "planks"
+                self.inventory[key] -= 1
+        elif name == "craft_planks":
+            if self.inventory["logs"] >= 1:
+                self.inventory["logs"] -= 1
+                self.inventory["planks"] += 4
+        elif name == "craft_sticks":
+            if self.inventory["planks"] >= 2:
+                self.inventory["planks"] -= 2
+                self.inventory["sticks"] += 4
         else:
             raise ValueError(f"unknown command {name!r}")
 
@@ -120,6 +143,13 @@ class _World:
                 1.0 if ahead in _EYE_SOLIDS else 0.0,
                 1.0 if ahead in _PITS else 0.0,
             ],
+            "inventory": [
+                min(self.inventory["blocks"], 64) / 64.0,
+                min(self.inventory["logs"], 64) / 64.0,
+                min(self.inventory["planks"], 64) / 64.0,
+                min(self.inventory["sticks"], 64) / 64.0,
+                1.0 if self.inventory["blocks"] + self.inventory["planks"] > 0 else 0.0,
+            ],
         }
 
     # ---- the state seam ---------------------------------------------------------
@@ -132,6 +162,7 @@ class _World:
             "time": self.time,
             "dug": sorted(self.dug),
             "placed": sorted(self.placed),
+            "inventory": dict(self.inventory),
         }
 
     def load_state_dict(self, state: dict) -> None:
@@ -142,6 +173,7 @@ class _World:
         self.time = int(state["time"])
         self.dug = {tuple(c) for c in state["dug"]}
         self.placed = {tuple(c) for c in state["placed"]}
+        self.inventory = {k: int(v) for k, v in state["inventory"].items()}
 
 
 class FakeBridge:
@@ -151,7 +183,7 @@ class FakeBridge:
     is answered with an error and closed. ``stop()`` is idempotent.
     """
 
-    CHANNELS = {"pose": 5, "vitals": 2, "env": 4, "blocks": 3}
+    CHANNELS = {"pose": 5, "vitals": 2, "env": 4, "blocks": 3, "inventory": 5}
 
     def __init__(self) -> None:
         self.world = _World()

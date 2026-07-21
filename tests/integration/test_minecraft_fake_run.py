@@ -10,7 +10,13 @@ from __future__ import annotations
 import pytest
 
 from pra.anatomy.body import AnatomyError
-from pra.anatomy.minecraft import FakeBridge, MinecraftTransport, c1_anatomy
+from pra.anatomy.minecraft import (
+    C1_N_ACTIONS,
+    C1_OBS_DIM,
+    FakeBridge,
+    MinecraftTransport,
+    c1_anatomy,
+)
 from pra.anatomy.ros2 import Ros2Body
 from pra.config import Config
 from pra.core.engine import Engine
@@ -28,7 +34,10 @@ SMALL = dict(
 
 
 def _cfg(**overrides) -> Config:
-    return Config(obs_dim=14, n_actions=8, episode_mode="continuous", **SMALL, **overrides)
+    # the builder's body (feature 030): 19/10 is the C1 default
+    return Config(
+        obs_dim=C1_OBS_DIM, n_actions=C1_N_ACTIONS, episode_mode="continuous", **SMALL, **overrides
+    )
 
 
 def _run(seed: int, cfg: Config | None = None, store=None, resume=None):
@@ -62,7 +71,7 @@ def test_different_seeds_differ():
 
 
 def test_episodic_mounting_is_loud():
-    cfg = Config(obs_dim=14, n_actions=8, episode_mode="episodic", **SMALL)
+    cfg = Config(obs_dim=C1_OBS_DIM, n_actions=C1_N_ACTIONS, episode_mode="episodic", **SMALL)
     with pytest.raises(AnatomyError, match="continuous"):
         _run(1, cfg=cfg)
 

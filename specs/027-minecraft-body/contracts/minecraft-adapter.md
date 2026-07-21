@@ -29,14 +29,35 @@ anatomy (Doc 02 §3.3) and is a spec change.
 | `vitals` | 2 | health/20, food/20 — both in [0, 1] |
 | `env` | 4 | block-light at feet /15; sin(ϑ); cos(ϑ) with ϑ = 2π·(time_of_day/24000); raining ? 1 : 0 |
 | `blocks` | 3 | solid at feet-level one block ahead ? 1 : 0; solid at eye-level one block ahead ? 1 : 0; air below the block ahead ? 1 : 0 |
+| `inventory` | 5 | min(blocks,64)/64; min(logs,64)/64; min(planks,64)/64; min(sticks,64)/64; a `place_ahead` has material to consume ? 1 : 0 — *amended by feature 030* |
 
-"Ahead" is the unit grid step nearest the bot's yaw. obs_dim = 14.
+"Ahead" is the unit grid step nearest the bot's yaw. obs_dim = 14 for
+the feature-027 body; **19 with the builder's body (feature 030)**,
+`inventory` at slice [14:19]. Material classes (both bridges,
+identical): blocks = mined placeable blocks (dirt/stone families);
+logs = any `*_log`; planks = any `*_planks`; sticks = `stick`; items
+outside the classes are not counted. A body that does not declare the
+`inventory` channel ignores it (the transport reads declared topics
+only) — the protocol version stays `pra-mc/1`.
 
 ## Commands (preset mappings; unknown keys are a loud bridge error)
 
 `{"forward": 1}` `{"back": 1}` `{"turn_left": 1}` `{"turn_right": 1}`
 `{"jump_forward": 1}` `{"dig_ahead": 1}` `{"place_ahead": 1}` `{}` (idle)
+`{"craft_planks": 1}` `{"craft_sticks": 1}` — *feature 030*
 
 Movement commands hold their control for the tick's `tick_ms` and then
 stop; turns are 45° exact; dig/place target the feet-level block one
-step ahead (the same block `blocks[0]` reads). n_actions = 8.
+step ahead (the same block `blocks[0]` reads). n_actions = 8 for the
+feature-027 body; **10 with the builder's body**.
+
+Material arithmetic (feature 030, both bridges): digging a wood column
+yields one log, any other diggable column one placeable block;
+`craft_planks` = 1 log → 4 planks (species by name transform, first
+species in inventory); `craft_sticks` = 2 planks → 4 sticks;
+`place_ahead` **consumes** one placeable item (mined blocks first, then
+planks) and no-ops on an empty pocket — this records the live bridge's
+existing behavior as normative (the fake previously minted matter; it
+no longer does). Unmet requirements no-op and consume the tick — world
+facts, never protocol errors. Craft is bounded by the tick budget like
+dig/place.

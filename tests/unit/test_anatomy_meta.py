@@ -45,16 +45,18 @@ def test_ros2_body_meta_groups_and_preset_labels():
 
 
 def test_c1_minecraft_meta_matches_the_channel_contract():
+    # the builder's body (feature 030) is the C1 default: 19 / 10
     sensors, actuators = c1_anatomy()
     body = Ros2Body(sensors, actuators, FakeTransport(script={}))
     meta = body.anatomy_meta()
     _assert_invariants(meta)
-    assert (meta["obs_dim"], meta["n_actions"]) == (14, 8)
+    assert (meta["obs_dim"], meta["n_actions"]) == (19, 10)
     assert [(g["id"], g["start"], g["width"]) for g in meta["groups"]] == [
         ("pose", 0, 5),
         ("vitals", 5, 2),
         ("env", 7, 4),
         ("blocks", 11, 3),
+        ("inventory", 14, 5),
     ]
     assert [a["label"] for a in meta["actuators"]] == [
         "forward",
@@ -65,7 +67,19 @@ def test_c1_minecraft_meta_matches_the_channel_contract():
         "dig_ahead",
         "place_ahead",
         "idle",
+        "craft_planks",
+        "craft_sticks",
     ]
+
+
+def test_c1_legacy_flag_is_the_exact_feature_027_body():
+    sensors, actuators = c1_anatomy(crafting=False)
+    body = Ros2Body(sensors, actuators, FakeTransport(script={}))
+    meta = body.anatomy_meta()
+    _assert_invariants(meta)
+    assert (meta["obs_dim"], meta["n_actions"]) == (14, 8)
+    assert [g["id"] for g in meta["groups"]] == ["pose", "vitals", "env", "blocks"]
+    assert meta["actuators"][-1]["label"] == "idle"
 
 
 def test_rover_meta_names_parts_and_actions():

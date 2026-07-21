@@ -14,7 +14,7 @@ const mineflayer = require("mineflayer");
 const { Vec3 } = require("vec3");
 
 const VERSION = "pra-mc/1";
-const CHANNELS = { pose: 5, vitals: 2, env: 4, blocks: 3 };
+const CHANNELS = { pose: 5, vitals: 2, env: 4, blocks: 3, inventory: 5 };
 
 const MC_HOST = process.env.MC_HOST || "127.0.0.1";
 const MC_PORT = parseInt(process.env.MC_PORT || "25565", 10);
@@ -173,13 +173,34 @@ async function applyCommand(command, budget) {
     if (below && held) {
       await bounded(bot.placeBlock(below, new Vec3(0, 1, 0)), budget);
     }
+  } else if (name === "craft_planks") {
+    // feature 030: 1 log -> 4 planks, species by name transform, first found
+    const log = bot.inventory.items().find((i) => isLogItem(i.name));
+    if (log) await craftByName(log.name.replace("_log", "_planks"), budget);
+  } else if (name === "craft_sticks") {
+    // feature 030: 2 planks -> 4 sticks
+    const plank = bot.inventory.items().find((i) => isPlankItem(i.name));
+    if (plank) await craftByName("stick", budget);
   } else {
     throw new Error(`unknown command '${name}'`);
   }
 }
 
+async function craftByName(itemName, budget) {
+  // pocket (2x2) recipes only — no crafting table; an unmet or timed-out
+  // craft is a world fact, exactly like an undigable block.
+  const mcData = require("minecraft-data")(bot.version);
+  const item = mcData.itemsByName[itemName];
+  if (!item) return;
+  const recipe = bot.recipesFor(item.id, null, 1, null)[0];
+  if (!recipe) return;
+  await bounded(bot.craft(recipe, 1, null), budget);
+}
+
 async function equipAnyBlock(budget) {
-  const item = bot.inventory.items().find((i) => i.name.includes("dirt") || i.name.includes("stone"));
+  // feature 030: planks joined the placeable class (mined blocks first)
+  const items = bot.inventory.items();
+  const item = items.find((i) => isBlockItem(i.name)) || items.find((i) => isPlankItem(i.name));
   if (!item) return null;
   await bounded(bot.equip(item, "hand"), budget);
   return bot.heldItem;
@@ -213,5 +234,24 @@ function sampleChannels() {
       solid(bot.blockAt(ahead.offset(0, 1, 0))),
       bot.blockAt(ahead.offset(0, -1, 0)) && bot.blockAt(ahead.offset(0, -1, 0)).boundingBox === "empty" ? 1 : 0,
     ],
+    inventory: sampleInventory(),
   };
+}
+
+// feature 030: the pocket, read fresh every tick — the contract's four
+// material classes; items outside them are not counted (coarse by design).
+const isBlockItem = (n) => n.includes("dirt") || n.includes("stone");
+const isLogItem = (n) => n.endsWith("_log");
+const isPlankItem = (n) => n.endsWith("_planks");
+
+function sampleInventory() {
+  let blocks = 0, logs = 0, planks = 0, sticks = 0;
+  for (const item of bot.inventory.items()) {
+    if (isBlockItem(item.name)) blocks += item.count;
+    else if (isLogItem(item.name)) logs += item.count;
+    else if (isPlankItem(item.name)) planks += item.count;
+    else if (item.name === "stick") sticks += item.count;
+  }
+  const norm = (n) => Math.min(n, 64) / 64;
+  return [norm(blocks), norm(logs), norm(planks), norm(sticks), blocks + planks > 0 ? 1 : 0];
 }
