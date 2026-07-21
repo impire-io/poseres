@@ -1,0 +1,194 @@
+<!-- Draws on: hq/02-DESIGN/validate/pra_sim_v4.py header (the four v3 exploits, with
+     numbers); journey 0002 (v4, constitution) and journey 0011 (fair judge);
+     hq/02-DESIGN/validate/THRESHOLD-DIAGNOSIS.md (E3 table: f=1.0 ratchet,
+     f=2.0 → 8/8 anchors; K=5 episode-start scoring; coupled fixes).
+     Commits 8b8c802, a6e6c6c, 31dd186. -->
+
+# Never let it grade its own homework
+
+There's a law that rules every system built on competition, and you've met
+it even if you've never named it: the moment a score decides survival, the
+contestants stop optimizing for the truth and start optimizing for the
+score. Not out of malice. Selection doesn't know what you *meant* to
+measure; it rewards whatever actually earns the points. It will find every
+gap between your scoreboard and reality, including the ones you'd swear
+aren't there.
+
+Chapter 6 built a tournament of frames and put eviction on the line.
+Everything now depends on the scoreboard. And I can report from experience
+that my first scoreboard had four separate holes in it. This chapter is
+the autopsy. Then comes the story of a fifth hole, subtler than the other
+four, that I only found weeks later, deep in the scale campaign, hiding
+in the question *when*.
+
+## The autopsy
+
+When the STEP-0 gate caught v3 (chapter 2), I went back in with a scalpel.
+The bloat and the lucky-horizon pass weren't one bug; they were four
+exploits, stacked, each feeding the others.
+
+**Cheat one: grade me in my own coordinates.** A frame predicts in its
+own terms. A one-knob frame says: my number is 0.40 right now; move
+forward, and it will become 0.41. One step later the next observation
+arrives, ten fresh sensor numbers. A frame has exactly one way to read
+an observation: through its encoder, which for this frame turns the
+ten numbers into one. That one number comes out as 0.41, matching the
+prediction. v3 counted that as good prediction. That was the mistake,
+and you can see it by looking at what actually got compared: the
+frame's prediction against the frame's own next reading. Both numbers
+came out of the same squeeze. Whatever the squeeze throws away, the
+comparison is blind to, and a one-knob squeeze throws away almost
+everything. The rover can be drifting toward a wall in ways that one
+number can't express, and both sides of the comparison will calmly
+agree, because neither side can see it. The frame isn't lying. It's
+being judged entirely inside its own blind spot.
+
+Measurement made the gap visible. Judged in their own coordinates, the
+most collapsed frames looked strong: error around 0.36. Judged against
+the sensors themselves, by decoding the predicted pose into ten
+predicted sensor numbers and comparing those with what the sensors
+actually said next, the same frames came in near 1.0, no better than
+guessing. So the fix: a prediction only counts when it's checked
+against the sensor numbers, the raw material that every frame shares
+and no frame controls. *Where* you grade matters.
+
+**Cheat two: let me pick which moments count.** A frame has a gate: if
+an observation reconstructs too poorly on its knobs, the frame declines
+to map it, and it does no learning on that step. The gate itself is
+legitimate. It's what lets frames specialize instead of all covering
+everything badly. The mistake was letting the gate also decide the
+score. v3 averaged each frame's errors over only the moments that frame
+had agreed to map, and an average is only as honest as the set it's
+taken over. v3 handed each contestant control of the set.
+
+Watch a small frame use that power. For a one-knob frame, some moments
+are easy: stretches where little is changing, where its drastic squeeze
+loses nothing that matters for the next step. It maps those and
+declines the rest. In the measurement, a collapsed frame got away with
+mapping 23% of observations, the easy quarter of its world, and its
+average over that quarter looked excellent. Scored this way, the
+world-size signal disappears entirely: the scan favored one- and
+two-knob frames on their self-chosen subsets. Scored over *every*
+observation a frame was exposed to, mapped or declined, the advantage
+of the right size comes straight back. So v4 split the two roles: the
+gate still controls what you learn from, and it no longer controls
+what you're graded on. *Which events* count matters.
+
+**Cheat three: charge me no rent.** Even with the first two holes
+sealed, one drift remains, and it runs the opposite direction. Add a
+knob to any frame and its measured error will never go up. It will
+usually creep down, because extra capacity can always memorize a
+little more of whatever passed by recently, including the noise. The
+creep is small, but it's relentless, and if the survival score is
+error alone, then "slightly bigger is slightly better" never stops
+being true. The crowd inflates one justified-looking knob at a time:
+chapter 2's hoard in slow motion, with paperwork. Better grading can't
+fix this, because the extra knobs genuinely do reduce measured error.
+The fix has to make them unprofitable instead. Every knob charges a
+flat fee against its frame's score, so a knob earns its place only
+when it removes more error than it costs. In v4 the fee was small
+(0.04 per dimension) and it was enough: winners stopped drifting
+upward and settled where added capacity stopped paying for itself.
+Hold on to this mechanism. Chapter 8 will show the fee doing far more
+than blocking a cheat; it quietly becomes the answer to Part 1's
+deepest question.
+
+**Cheat four: make eviction toothless.** v3's slow loop spawned one new
+frame every cycle. Its eviction step removed at most one. Follow that
+arithmetic for a moment: plus one, minus at most one, every cycle,
+forever. The population can grow or hold; it can never shrink.
+Eviction existed in the code and ran on schedule, and the loop was
+structurally incapable of reducing anything. Behind that sat two more
+guarantees of growth. There was no hard cap, so nothing backstopped
+the failure. And the survival bar bent the wrong way under crowding,
+as chapter 6 told you: v3's bar loosened as the population grew, so
+each new arrival made survival easier for everyone already inside.
+Hoarders sheltering hoarders. v4 replaced all three at once: evict
+*everyone* over the bar each cycle (childhood protection aside),
+enforce a hard cap behind that, and make crowding tighten the bar, so
+growth itself raises the pressure to be worth keeping. The population
+chart that had been a straight line became a curve that rises, rolls
+over, and levels off at a number the mechanism negotiates on its own.
+
+All four sealed, v4 passed the full suite honestly: at short horizons
+and long ones, across all eight seeds, with the population leveling off
+instead of climbing. Out of that week came three rules I've treated as
+constitutional ever since. Read the spread across runs, never the average.
+Judge at several horizons, never one snapshot. And never, ever let the
+system grade its own homework. They'll keep reappearing to the last page
+of this book.
+
+## The fifth cheat: *when*
+
+I thought the homework rule was fully paid. Observation space had fixed
+*where* frames are graded; coverage-fairness had fixed *which events*.
+A few weeks and one scale-up later, deep in the campaign to make discovery
+work on 20-knob worlds, the rule turned out to have a third clause I
+hadn't noticed. There was still a *when*.
+
+Here's the hole. A frame's score was a running average over the stream,
+including all the moments when the frame was actively practicing on that
+very stream. It's being tested on material seconds after cramming exactly
+that material. Within one episode of experience, a frame adapts to the
+current corner of the world and looks a little sharper than it truly is.
+The flattery is stronger for some sizes than others. The scoreboard
+wasn't measuring understanding; it was partly measuring *recency of
+practice*. Self-graded homework, third form: the frame supplies the
+grader with its own freshly-rehearsed moments.
+
+The fix is called the fair judge, and it's the pop-quiz principle: your
+survival score only advances on the *first few steps of each episode*,
+the moment you've just been dropped somewhere fresh, before any cramming.
+What transfers to a new context counts; what you were tracking a second
+ago doesn't. Learning itself still runs on every step. Only the *judging*
+moved.
+
+And then the twist that makes this my favorite result in the project: the
+fair judge, alone, made everything *worse*. Honest scores are naturally
+higher than flattered ones (of course they are), so with the old survival
+bar in place, nothing could pass it anymore. No frame ever matured;
+newcomers churned endlessly. Honesty without a recalibrated bar is just a
+different way to be wrong.
+
+Fixed as a pair, fair judge plus a bar that honest scores can actually
+clear, the ecology snapped into health at scale for the first time. On
+every one of eight seeds, a long-lived resident frame formed and held.
+The population self-limited far under its cap. The runaway growth that
+had haunted the scaled runs stalled. Neither fix works without the other,
+and I have the failed single-fix runs on record to prove it.
+
+> **Under the hood: the fair-judge experiment.** `score_window_steps = K`:
+> survival EMAs advance only on the first K steps of each episode
+> (K=5 shipped; K=2 measured, no change: the residual within-episode
+> adaptation at K=5 is not the binding limit). Crossed with bar factor
+> f ∈ {1.0, 1.5, 2.0} at td=20, climbing proposals, 500 cycles, seeds
+> 1–8. f=1.0: zero mature frames, best_dim ratchets to median 32.5;
+> the fair judge alone accelerates the disease. f=2.0: 8/8 seeds anchor
+> at dims 7–11 with anchor ages 353–496 of 500, populations self-limit
+> at 44–57 against a cap of 200. The trilogy, as the trail doc puts it:
+> coverage-fairness fixed *which* events, observation-space fixed
+> *where*, the fair judge fixed *when*. Trail:
+> `hq/02-DESIGN/validate/THRESHOLD-DIAGNOSIS.md` §E3.
+
+## What the judge actually is
+
+Step back and look at what accumulated here, because it changed how I
+think about this whole field. The frames (the clever part, the learning
+part) are small and almost boring: three little networks each. Nearly
+all the real design effort, the months of it, went into the *judge*: what
+counts, when it counts, in whose coordinates, at what price, against what
+bar. I came into this project believing the hard problem was building
+something that learns. The record says otherwise. Learning was cheap.
+*Measuring* learning, in a way that can't be gamed by the very selection
+pressure it creates, was the work.
+
+Keep that inversion in mind whenever anyone (including me) shows you a
+system and says it's learning. Your first question now shouldn't be "how
+does it learn?" It should be "who grades it, and can it reach the
+gradebook?"
+
+One cheat from the autopsy is still waiting for its full story: the rent.
+I told you every knob costs a fee, and I owe you what happens when that
+fee meets a world whose true size nobody knows, because what it does is
+quietly rewrite the question this entire project asked at the start. That's
+chapter 8.
