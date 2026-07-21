@@ -103,9 +103,9 @@ book. Add items as they come up; strike them when resolved.
   claim against the repo at that date. Known risk: channel weighting
   (spec 016) is in progress and may change scaled results; the
   "medians 10/9/9" and price-crossing numbers are 2026-07 snapshots.
-- [ ] hq/04-JOURNEY/: when the book/ directory is first committed, consider an
+- [x] hq/04-JOURNEY/: when the book/ directory is first committed, consider an
   episode recording the book decision (voice, two-lane rule, register).
-  Daan's call and Daan's file.
+  Daan's call and Daan's file. Done: episode 0047 (2026-07-21).
 - [ ] Part 5 has no measured foundation yet beyond multi-stream (journey 0022).
   Before drafting chapters 13–14, re-check whether any teacher-related
   work has landed since 2026-07-18.

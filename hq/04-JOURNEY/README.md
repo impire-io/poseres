@@ -20,14 +20,20 @@ Episodes 0001–0044 were chapters of the original single-file `JOURNEY.md`
 "ch. NN" resolve to `00NN-*.md`). The recurring principles the journey keeps
 teaching moved to `../00-GENESIS/how-we-work.md`.
 
-## Where things stand (2026-07-20)
+## Where things stand (2026-07-21)
 
 **The project's working structure moved into `hq/`**
 ([episode 0045](0045-the-hq-restructure.md)): GENESIS holds the vision,
 constitution (wired into every spec-kit plan via symlink), and working
 agreement; research runs a `/research-start` → `/research-graduate`
 lifecycle; this journal is now numbered episodes with the structure enforced
-by `tests/test_hq_structure.py`. The paths below reflect the new layout.
+by `tests/test_hq_structure.py`. The roadmap was then cut back to a
+forward-looking plan ([episode 0046](0046-the-roadmap-becomes-a-plan-again.md)),
+and **the book is now committed and on that plan**
+([episode 0047](0047-the-book-decision.md)): four parts drafted under the
+`book/STYLE.md` contract (one builder's voice, two lanes, AI-tells banned),
+Part 5 gated on teacher-world research, publication gated on a numbers
+audit. The paths below reflect the new layout.
 
 The project now has a product thesis and a milestone-gated plan — **an OSS
 continuously-learning brain for hobbyists and makers**,
@@ -278,3 +284,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0044 | [Brain seeding: the head start is real, relevant, and compounds](0044-brain-seeding.md) |
 | 0045 | [The HQ restructure: the process gets a constitution](0045-the-hq-restructure.md) |
 | 0046 | [The roadmap becomes a plan again](0046-the-roadmap-becomes-a-plan-again.md) |
+| 0047 | [The book decision: one builder, two lanes](0047-the-book-decision.md) |

@@ -72,6 +72,13 @@ Mostly parallel to Phase C; cheap individually, decisive together.
   merged.
 - **Show, then tell**: a demo video per showcase, published with its honest
   telemetry. No demo outruns its measured capability (constitution IV).
+- **The book**: the long-form narrative (`book/` — four parts drafted;
+  contract in `book/STYLE.md`; decision recorded in
+  [episode 0047](../04-JOURNEY/0047-the-book-decision.md)). Part 5
+  (teachers) waits on the teacher-world research candidate. *Exit:* every
+  chapter through the STYLE revision checklist, the REVISIT backlog
+  arbitrated by the maintainer, and the numbers audit re-verified against
+  the repo at publication date.
 
 ## Research candidates (gated; each becomes a `/research-start` topic when picked up)
 
