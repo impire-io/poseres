@@ -28,3 +28,15 @@ centimeter) self-resolved. Watch items: first log, offer, craft;
 whether camping episodes lengthen; dig-streak record (0.84).
 
 **2026-07-22 08:01 — nothing special.** step 131,354, err 0.027 (a hair under the old floor), pop 22, all green.
+
+**2026-07-22 09:02 — the run survived its first real restart, and resumed exactly.**
+At 08:45 local the brain unit was manually restarted (operator; clean
+stop→start, no crash — bridge untouched). This was the resume
+machinery's first production test and it passed: the brain reloaded its
+newest snapshot and continued at cycle ~575 / step ~133k with its
+learned state intact — error read 0.021 immediately after resume, the
+night's floor, where a fresh brain would read ~0.5+. Snapshot ids
+continue on the cumulative counter (now snap-139000); the dashboard's
+per-process step counter reset to zero by design. Also this hour: a
+striking dig burst (124 dig actions in one 150s window — 21% of all
+actions vs ~8% uniform). All units green, zero gaps.
