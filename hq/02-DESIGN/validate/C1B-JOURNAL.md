@@ -50,3 +50,10 @@ actions vs ~8% uniform). All units green, zero gaps.
 **2026-07-22 13:09 — nothing special.** cumulative ~199k steps (cycle 825), err 0.080, pop 27, quiet hour, all green.
 
 **2026-07-22 14:10 — nothing special.** cumulative ~211k steps (cycle 875), err 0.092, pop 26, all green.
+
+**2026-07-22 17:31 — catch-up after a 3½h gap (my fault, not the run's).** The hourly
+watch stalled 14:10→17:31 because this session was busy in a long conversation and the
+in-session timer only fires when idle — no reading was missed by the run, only by the
+journal. The run itself sailed through untouched: cumulative ~259k steps (cycle 1075),
+err 0.103, pop 28, zero restarts, zero gaps, disk 42G. Still no logs/offers/crafts;
+material engagement steady (dig bursts continue). Cadence restored.
