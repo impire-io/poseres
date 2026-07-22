@@ -80,22 +80,55 @@ A baby wants to eat with a spoon, drops it; the world does **not** reset. Three
    (`hq/00-GENESIS/vision.md:56`) — this spoon question may be what makes
    "what minimal teacher does the brain need?" a concrete fork.
 
-### Teacher invariant (owner's principle, 2026-07-22)
+### Teacher model (owner's principle, 2026-07-22, rev. 2)
 
-A teacher teaches **mechanisms**, never **purposes**. "How to craft" is
-knowledge (world-model + reusable skill); "*what* to craft, when, to what end"
-stays the learner's own goal-setting. Candidate hard rule, parallel to the
-constitution's "the system cannot modify its own drive":
+> Rev. 1 said "a teacher writes to knowledge, never to goals." The owner
+> corrected it: a real teacher *does* set goals ("using logs, make a stick")
+> and follows up. What a teacher must never touch is the **drive**, not goals.
+> This rev. supersedes it.
 
-> **A teacher may write to the knowledge layer (world-model, skills) — never to
-> the goal/value layer.**
+**The teacher's job is twofold:** (1) show the mechanism through concrete
+examples (demonstration → knowledge), and (2) set a goal and follow up on it
+(a transient suggested goal + a completion signal).
 
-This preserves autonomy-of-purpose *mechanically*: a teacher can only expand
-what the brain **can** do, never what it **wants**. It is the online, interactive
-cousin of **seeding** (feature 028), which already transfers mechanisms offline
-— measured as *relevant transfer, not maturity*, and it never dictates goals.
-Lineage: Willow-Garage learning-from-demonstration = imitate the *how*, not the
-*what*.
+**Corrected invariant:**
+
+> A teacher may **suggest** a transient goal and **give feedback** on it —
+> writing to the goal-suggestion and completion-signal channels — but may
+> **never** write the intrinsic drive.
+
+Why it stays coherent with autonomy:
+
+- **No privilege.** A teacher-suggested goal is a *candidate*, valued by the
+  same intrinsic machinery as self-generated goals, and just as **abandonable**
+  — flat frontier progress drops it even though the teacher set it. Teacher
+  proposes; the drive disposes.
+- **Landscape, not drive.** The learner elects the taught goal for its *own*
+  reasons: the demonstration makes the goal *learnable*, which makes it the
+  highest-frontier option. Good teaching arranges the world so curiosity flows
+  to the lesson — it does not coerce interest. The two halves reinforce.
+- **Follow-up patches the graveyard.** A teacher's "that's a stick — yes" is an
+  external, *un-confounded* completion signal — exactly the "did I succeed / am
+  I stuck?" detector the seven arcs could not build from inside (the confound).
+  The teacher bootstraps it; the learner learns to *predict* the verdict and
+  internalizes it. **Outgrowing a teacher = knowing you succeeded without being
+  told.**
+
+**Outgrowing the teacher is the success criterion, not a complication.**
+- *Weak (tractable):* recombine taught mechanisms into goals no teacher assigned.
+- *Strong (holy grail):* discover a mechanism no teacher had.
+- Possible **only because the drive is intrinsic and frozen** — a purely
+  externally-rewarded agent can never outgrow its teacher (no reason to go where
+  the teacher didn't point). The founding bet *is* the outgrowing engine; the
+  teacher idea depends on it rather than fighting it. Cousin of **seeding**
+  (028: measured relevant transfer, never dictates goals); lineage =
+  Willow-Garage learning-from-demonstration (imitate the *how*, not the *what*).
+
+**Failure mode to design against — dependence.** Training wheels that never come
+off: if teacher-goals/feedback dominate, self-generation atrophies and the
+learner never outgrows. The scaffold must **fade** (Vygotsky's zone of proximal
+development). Concretely a knob: weight on teacher-suggestions, and whether it
+decays.
 
 **Honest caveat:** *detecting* deadlock ("the world stopped responding to me")
 is exactly the stasis-detection this project keeps finding HARD — election-
@@ -155,7 +188,11 @@ hill-climber can't?** This also speaks directly to C1's emergence bet.
 3. **Goal generation** — where do candidate goals come from? Sampled from
    memory? From frontier regions? Imagined by the world model?
 4. **Deadlock/teacher scope** — is a teacher/reset in scope for the first
-   experiment, or do we lean on Minecraft's forgivingness and defer it?
+   experiment, or do we lean on Minecraft's forgivingness and defer it? (See
+   *Teacher model rev. 2*.) Sub-questions: how does a teacher-suggested goal get
+   *represented* alongside self-generated ones; does the fade-knob decay, and by
+   what rule; and what is the concrete **test for outgrowing** (weak =
+   self-generated goal past the taught set; strong = self-discovered mechanism)?
 5. **The bar** — crafting-chain completion rate vs. the reactive policy on the
    FakeBridge testbed? At what margin, how many seeds, what horizon?
 6. **Is this even the next frontier?** — steelman the null: curiosity-alone at
