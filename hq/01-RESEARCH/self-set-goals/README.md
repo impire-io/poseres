@@ -80,10 +80,62 @@ A baby wants to eat with a spoon, drops it; the world does **not** reset. Three
    (`hq/00-GENESIS/vision.md:56`) — this spoon question may be what makes
    "what minimal teacher does the brain need?" a concrete fork.
 
+### Teacher invariant (owner's principle, 2026-07-22)
+
+A teacher teaches **mechanisms**, never **purposes**. "How to craft" is
+knowledge (world-model + reusable skill); "*what* to craft, when, to what end"
+stays the learner's own goal-setting. Candidate hard rule, parallel to the
+constitution's "the system cannot modify its own drive":
+
+> **A teacher may write to the knowledge layer (world-model, skills) — never to
+> the goal/value layer.**
+
+This preserves autonomy-of-purpose *mechanically*: a teacher can only expand
+what the brain **can** do, never what it **wants**. It is the online, interactive
+cousin of **seeding** (feature 028), which already transfers mechanisms offline
+— measured as *relevant transfer, not maturity*, and it never dictates goals.
+Lineage: Willow-Garage learning-from-demonstration = imitate the *how*, not the
+*what*.
+
 **Honest caveat:** *detecting* deadlock ("the world stopped responding to me")
 is exactly the stasis-detection this project keeps finding HARD — election-
 stream's killer was that the drive's own stillness looks like real signal.
 "Am I stuck?" is not a cheap sensor.
+
+## Do we need to solve the shift-invariance graveyard first? No — goals are its cure
+
+Read `hq/02-DESIGN/validate/ELECTSTREAM-DIAGNOSIS.md` (the last of seven arcs).
+The documented root cause is **not** "too few knobs," "misread raw signal," or
+"too few event sources" — it is a **confound** [documented, ELECTSTREAM
+Outcome §1–2]:
+
+> "the detector's background is the brain itself… Every family failed on
+> confounded evidence — 'the world changed' vs 'I changed where I go / who I
+> am.'"
+
+The train illusion: you can't tell if the next train or *you* are moving by
+looking harder out the window — the view is identical. Every *passive* signal
+mixes "world shifted" with "I moved / my frames aged," and no statistic un-mixes
+it after the fact (robust across 4 statistic families, 3 representation spaces,
+3 shift worlds). Mapped to the three hypotheses: (a) NO — robust to world dials;
+(b) partial, not root — any passive read is confounded; (c) closest, but the
+issue is *contamination by self-motion*, not source count.
+
+**The successor the numbers name is active probing** — "deliberately re-visit
+mastered ground under a held policy and re-test." *That is a goal.* So the
+graveyard didn't die pointing nowhere; it died pointing at goal-directed active
+probing. **Goals are not blocked by the shift problem; goals are the tool it
+concluded it needed.**
+
+Sequencing that falls out:
+1. **Experiment #1 = crafting on the stable FakeBridge world** — no
+   shift-detection involved; sidesteps the whole graveyard.
+2. Shift-detection returns later as a *downstream application* of goals (active
+   probing), never a prerequisite.
+3. The only graveyard reach into goal work is **representation** (Hard Problem
+   1): a goal that must *survive a shift* needs a shift-robust anchor — but a
+   crafting goal in a stable world does not. Stable-world crafting first;
+   shift-durable goals much later.
 
 ## The testbed already exists
 
