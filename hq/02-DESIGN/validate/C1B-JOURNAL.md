@@ -57,3 +57,20 @@ in-session timer only fires when idle — no reading was missed by the run, only
 journal. The run itself sailed through untouched: cumulative ~259k steps (cycle 1075),
 err 0.103, pop 28, zero restarts, zero gaps, disk 42G. Still no logs/offers/crafts;
 material engagement steady (dig bursts continue). Cadence restored.
+
+**2026-07-22 18:47 — c1b retired mid-watch; the live run is now `c1c` (frontier drive). This closes the c1b journal.**
+During this session the operator read the dashboard, saw the brain **idling 26.7% of
+steps**, and diagnosed the cause: `c1b` ran competence-alone, whose only per-candidate
+lookahead term is *familiarity* — maximised by the outcome most like now, i.e. standing
+still (episode 0053). It was learning well to the very end (mature frames at pred err
+~0.10, clean age→error gradient), but learning its way into stasis. `c1b` was **stopped
+at cumulative ~271k steps (cycle 1125, `snap-000000271000-01125`)** and replaced by a
+fresh brain, run `c1c`, on the **FrontierDrive** (the designed anti-camping successor:
+scores both mastered and no-change outcomes at ~0, so it cannot camp on idle). `c1b`'s
+snapshots are now frozen; the dashboard still lists `c1b` as "running" only because it
+retains the last frame. Handoff reading — `c1c` is live and already learning: step ~5.5k,
+pred_err 0.485→**0.337** (cold-start descent), population 8→**19**, zero gaps/errors,
+units green, disk 42G, first snapshot imminent (< cycle 25). The hourly watch moves to
+`c1c` from here (→ `C1C-JOURNAL.md`). Frontier's anti-idle effect is not yet measurable
+until frames mature past the lookahead gate; the reversal condition is written in ep 0053
+(idle staying ≥~20% after maturity, or a forward-lock, refutes frontier-alone).
