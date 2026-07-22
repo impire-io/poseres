@@ -20,7 +20,7 @@ Episodes 0001–0044 were chapters of the original single-file `JOURNEY.md`
 "ch. NN" resolve to `00NN-*.md`). The recurring principles the journey keeps
 teaching moved to `../00-GENESIS/how-we-work.md`.
 
-## Where things stand (2026-07-21)
+## Where things stand (2026-07-22)
 
 **The project's working structure moved into `hq/`**
 ([episode 0045](0045-the-hq-restructure.md)): GENESIS holds the vision,
@@ -238,8 +238,19 @@ truth beside the senses. Chance now completes zero digs (the
 persistence cliff, measured) — **any crafting in the long run is
 unambiguous emergence**. Run v1 archived honestly; **run v2 (`c1b`) is
 live on a fresh world** under the amended pre-registration.
-Open threads, in priority order: **the c1b run** (live; read R1–R5 when
-the weeks have spoken); **scheduled probing** (the named
+**And the run watched back changed the drive**
+([episode 0053](0053-the-brain-that-preferred-to-stand-still.md)): `c1b` was
+learning well (mature frames at pred 0.10, clean age→error gradient) but
+**idling 26.7% of steps** — competence-alone's only per-candidate term is
+familiarity, maximised by the outcome most like now, i.e. standing still
+(mechanism, traced in source). Competence-as-familiarity degenerates toward
+stasis in a rich world; the arc-031 "competence stands" posture is reversed
+for Minecraft. `c1b` stopped at step 137,103; **fresh run `c1c` launched on
+the FrontierDrive** (the designed anti-camping successor, arc 024) — its
+anti-idle effect is not yet measured (reversal condition written).
+Open threads, in priority order: **the c1c run** (live; does frontier hold
+idle down once matured? read R1–R5 when the weeks have spoken);
+**scheduled probing** (the named
 active successor: re-visit mastered ground under a held policy and
 re-test — detection as a designed experiment, a Doc 05-level feature,
 when the program resumes); the [ch. 39](0039-not-the-statistic.md) tolerant-gate conditional
@@ -338,3 +349,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0050 | [The ladder, not the button: honest primitives](0050-the-ladder-not-the-button.md) |
 | 0051 | [The observatory: the run gets a home](0051-the-observatory.md) |
 | 0052 | [Senses without my ontology: the property body](0052-senses-without-my-ontology.md) |
+| 0053 | [The brain that preferred to stand still: competence → frontier](0053-the-brain-that-preferred-to-stand-still.md) |
