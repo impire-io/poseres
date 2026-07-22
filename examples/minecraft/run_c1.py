@@ -22,6 +22,19 @@ from pra.config import Config
 from pra.core.engine import Engine
 from pra.persistence.store import FileSnapshotStore
 
+# Selectable drive sets for the curiosity-lookahead policy. Frontier is the
+# default: competence-alone was measured to camp on stasis in Minecraft (its
+# only per-candidate term is familiarity, which is maximised by "stand still");
+# frontier rewards moving toward regions where prediction error is falling and
+# scores both mastered and no-change outcomes at ~0, so it cannot camp on idle.
+_DRIVE_SETS = {
+    "frontier": (("frontier", 1.0),),
+    "competence": (("competence", 1.0),),
+    "curiosity": (("curiosity", 1.0),),
+    "curiosity+frontier": (("curiosity", 1.0), ("frontier", 1.0)),
+    "competence+frontier": (("competence", 1.0), ("frontier", 1.0)),
+}
+
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
@@ -33,6 +46,12 @@ def main() -> int:
     parser.add_argument("--tick-ms", type=int, default=250)
     parser.add_argument("--nats", default="", help="NATS url; empty = no telemetry")
     parser.add_argument("--run-id", default="c1")
+    parser.add_argument(
+        "--drive",
+        choices=sorted(_DRIVE_SETS),
+        default="frontier",
+        help="drive set for action valuation (default: frontier)",
+    )
     args = parser.parse_args()
 
     checkpoints = (18, 30, 50) if args.cycles >= 50 else (args.cycles,)
@@ -41,7 +60,7 @@ def main() -> int:
         n_actions=C1_N_ACTIONS,
         episode_mode="continuous",
         policy_mode="curiosity",
-        drive_weights=(("competence", 1.0),),
+        drive_weights=_DRIVE_SETS[args.drive],
         weight_norm_cap=1.2,  # arc 026: measured behaviorally free, closes the tail
         n_cycles=args.cycles,
         horizon_checkpoints=checkpoints,
@@ -89,8 +108,8 @@ def main() -> int:
     engine = Engine(cfg, **engine_kwargs)
 
     print(
-        f"C1 up: obs_dim {C1_OBS_DIM}, n_actions {C1_N_ACTIONS}, tick {args.tick_ms} ms, "
-        f"snapshot every {args.snap_every} cycles -> {args.snapshot_dir}/"
+        f"C1 up: obs_dim {C1_OBS_DIM}, n_actions {C1_N_ACTIONS}, drive {args.drive!r}, "
+        f"tick {args.tick_ms} ms, snapshot every {args.snap_every} cycles -> {args.snapshot_dir}/"
     )
     try:
         summary = engine.run(args.seed, resume_from=resume)

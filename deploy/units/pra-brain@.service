@@ -12,7 +12,7 @@ EnvironmentFile=/etc/pra/%i.env
 ExecStart=/home/calmera/pra/.venv/bin/python examples/minecraft/run_c1.py \
   --nats nats://127.0.0.1:4222 --run-id ${RUN_ID} --seed ${SEED} \
   --bridge-port ${BRIDGE_PORT} --tick-ms ${TICK_MS} \
-  --snapshot-dir ${SNAPSHOT_DIR} --cycles ${CYCLES}
+  --snapshot-dir ${SNAPSHOT_DIR} --cycles ${CYCLES} --drive ${DRIVE}
 Restart=on-failure
 RestartSec=15
 
