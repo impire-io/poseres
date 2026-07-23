@@ -1,6 +1,6 @@
 # Does the brain set goals for itself, or only follow a drive?
 
-**State:** draft — bars OPEN, held for the Fable 5 adversarial pass (2026-07-23)
+**State:** bars REGISTERED (2026-07-23, owner-delegated numbers) — E0 read authorized, in progress
 **Started:** 2026-07-22
 **Origin:** a friend (ex-Willow Garage) asked what the brain has *as goals* —
 curiosity is an inner drive, but does the brain ever set itself a target and
@@ -351,10 +351,69 @@ baseline, the 028 seeding transfer; everything else here is
 [mechanism-argument] or [judgment]. Per the working agreement, only the ladder
 turns the arguments into numbers.
 
-## Pre-registered bars
+## Pre-registered bars (REGISTERED 2026-07-23, before any c1c telemetry read)
 
-**OPEN.** E0's prediction is frozen above; numeric thresholds (k, H, the c1c
-read horizon) are the owner's to set at `/research-start` graduation.
+> Numbers proposed by Fable 5 at the owner's explicit delegation ("your
+> guess is better than mine when it comes to setting k and H") and
+> registered/committed **before** opening the S3 archive. The only c1c
+> facts known at registration: step count ~340k (owner-reported) and the
+> boot-time observations already in ep. 0053.
+
+### E0 — the free experiment (c1c read)
+
+**Body correction that sharpens the read:** the "1 accidental planks per
+~2,200 steps" rate is the *031* body's [measured, 0050]. c1c runs the
+**033 property body**, whose measured chance floor is ≈ 0 — 0/8 pilot
+seeds completed even one *dig* by chance (max 1 of 3 ticks) [measured,
+0052]. Under the frozen prediction we therefore expect **zero planks and
+zero sticks** at ~340k steps — not "some planks." Any crafting at all is
+above chance; under this body planks is already a multi-step chain (held
+dig → hold_next → grid_put → take_result).
+
+- **Window:** the full c1c run, step 0 through the latest archived step at
+  read time (must be ≥ 300,000 steps; it is).
+- **Primary counts:** (a) planks-creation events (planks signature count
+  rises in the pocket/ground-truth view), (b) stick-creation events,
+  (c) full log→planks→sticks chains.
+- **Decision rule:**
+  - 0 sticks AND ≤ 1 planks event → prediction holds; premise stands;
+    **build E1**.
+  - ≥ 1 stick, OR ≥ 2 planks events, OR ≥ 1 full chain → the reversal
+    condition fires: frontier-alone is producing directed multi-step
+    crafting; topic **pauses**, no build.
+  - Exactly 1 planks event → fluke-consistent (0050's one-in-2,200
+    spirit); premise stands *flagged*; re-read at +250k steps.
+- **Context rows (no bar):** dig successes / log acquisitions,
+  offer-present events. The drive may legitimately elect digs — material
+  acquisition is not crafting and does not fire the reversal.
+
+### E0b — the 0053 anti-idle read (same telemetry pull, separate question)
+
+Ep. 0053 froze this reversal before c1c matured; folded in here so one S3
+pull answers both. Over the **last 10,000 steps** of the window:
+
+- idle share **< 20%** (prediction: well below competence's 26.7%);
+- no single action ≥ 50% of steps (the frontier-degeneracy clause);
+- otherwise the 0053 reversal fires: frontier-alone refuted for Minecraft
+  → escalate per 0053 (curiosity+frontier blend, or scheduled probing).
+
+### E1 — k and H (built only if E0 upholds the premise)
+
+- **Seeds:** 24 per arm (project-standard power); arms E1a / E1b / blank.
+- **Horizon H = 5,000 free-run steps** per seed on the FakeBridge world
+  (E1a: after the guided phase ends; E1b and blank: from birth).
+  Rationale: a directed chain is ~10–20 steps, so H gives ~250× slack for
+  election and fumbling; the ≈0 chance floor means a generous H cannot
+  inflate a false PASS, while a stingy H risks a false FAIL that sends us
+  into E2's heavy build — the expensive error.
+- **PASS bar k = 6: ≥ 6/24 seeds** complete ≥ 1 full log→planks→sticks
+  chain, AND blank = 0/24. (Any nonzero blank re-opens the 0052 baseline
+  and voids the read.) Rationale: with chance ≈ 0 any nonzero count is
+  statistically unambiguous; 6/24 separates "taught knowledge reliably
+  re-elects the chain" from a single-seed fluke, without a bar so high
+  that noisy-but-real teaching fails us into building E2 unnecessarily.
+- **Ordering read (frozen prediction E1a ≥ E1b > blank):** judged on
+  per-arm seed counts; descriptive unless both taught arms clear k.
 
 ## Reversal condition
 
