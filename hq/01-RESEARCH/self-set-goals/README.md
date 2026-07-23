@@ -199,10 +199,121 @@ hill-climber can't?** This also speaks directly to C1's emergence bet.
    C1 scale might yet produce directed chains; goals might add nothing. What
    would show that *before* we build?
 
+## Adversarial pass (Fable 5, 2026-07-23)
+
+Verdicts on the draft's load-bearing claims, argued against the code and the
+measured record — not against the draft's own summary of them.
+
+### BREAKS — "goals slot into the policy seam" hides the real wall
+
+The seam is swappable [documented: `policy.py`], but the shipped lookahead
+values exactly ONE predicted next observation (`engine.py:357`). A goal object
+plus a one-step bias is *greedy descent on distance-to-goal* — and the
+honest-primitives chain is (deliberately, 031/033) gradient-free at one step:
+~10+ ordered actions (dig as held intention → `hold_next` → `grid_put` exactly
+one log → offer → `take_result` → re-stage two planks adjacent →
+`take_result`), most changing nothing any goal-distance metric can see, with
+traps (a second log kills the offer) [documented: 0050 + `anatomy.py`].
+**A goal object without multi-step machinery is decorative.** The real build is
+one of: (a) multi-step rollouts over frame models (compounding error), (b)
+means-ends/backward chaining over learned action effects, (c) learned skills.
+Each is a Doc-05-level design; none is "nearly free." Likewise "abandonment
+falls out free" overstates: goal-progress needs *per-goal-attempt* bookkeeping
+— a NEW state surface with Doc 06 snapshot obligations, not the existing
+per-visit error history [mechanism-argument].
+
+### BREAKS (internal contradiction) — "no privilege" vs "the goal changes behavior"
+
+If a suggested goal enters with zero weight and only intrinsic valuation
+counts, the goal object is **inert** — that's just the frontier drive again; no
+machinery needed. For a goal to matter it must carry weight (λ) beyond
+intrinsic value — **which is privilege**. The honest version: goals are
+privileged by a *bounded, fading* λ; the design question is λ's size and decay
+rule, never whether privilege exists. Rev. 2's elegance ("demonstration makes
+the goal highest-frontier, so the learner elects it") actually describes
+teaching **without any goal channel** — pure landscape-shaping. The draft
+conflates two separable mechanisms: **(A) demonstration → knowledge** (needs no
+goal object at all) and **(B) suggestion + λ** (needs everything). (A) is
+testable first and alone.
+
+### TENSION RESOLVED — the completion signal's only legal consumer is a *sensor*
+
+Where does "that's a stick — yes" GO? Wired into valuation it is external
+reward — the founding bet forbids it; the drive is frozen. The resolution that
+survives: **the teacher's verdict is an observation channel** — part of the
+world, predicted by the frames like any other channel. Then internalization
+falls out of existing machinery: when the brain predicts the verdict before it
+arrives, it knows it succeeded without being told — **outgrowing, mechanized,
+at zero new cost**. "Teacher as channels in the world" is literally the
+vision's gated teacher-world. Caveat: prediction ≠ pursuit; *caring* still
+requires λ (previous item) [mechanism-argument].
+
+### OVERSTATED — "goals are the graveyard's cure"
+
+Active probing needs a policy **held fixed** through the probe window —
+commitment strong enough to temporarily override the drive: the *strongest,
+riskiest* form of goal machinery (the dependence knob at maximum). A λ-biased
+valuation does not give held-policy probes. Goals are a *prerequisite* of the
+cure, not the cure. Sequencing unchanged; claim softened.
+
+### SURVIVES (stronger) — the testbed choice
+
+Pocket/hand/grid channels are cumulative and semantic-by-label; "offer
+present," "count > 0" are directly observable and **un-confounded by
+self-motion** — goal-completion here does NOT inherit the graveyard confound
+[mechanism-argument over `anatomy.py`]. And the bar is measured and brutal:
+one accidental planks in 8×275 undirected steps, **zero sticks** [measured,
+0050]. Any deliberate chain is unmistakable.
+
+### SURVIVES (stronger) — the teacher model fits the body better than the draft noticed
+
+The property body (033) has **no material classifiers** — a teacher goal "make
+a stick" cannot even be *expressed* as a category to this body. A teacher goal
+must be **ostensive**: shown, not named — a demonstrated chain, a target
+signature. The classifier-free body *forces* teaching toward
+learning-from-demonstration, which is exactly the owner's two-job teacher
+model. The body decision and the teacher model were made independently and
+agree [mechanism-argument].
+
+### FOUND — the null arm is already running (open question #6)
+
+c1c is frontier-alone in the live world [documented: 056af43]. **The null
+experiment costs nothing — it is the current run.** Discipline: pre-register
+the prediction BEFORE peeking at crafting telemetry. Prediction (frozen now):
+frontier-alone produces stick-family crafting at ≈ the measured accident rate
+— i.e. ~zero deliberate chains — over the run's horizon. If c1c *does* craft
+chains, the premise weakens and this topic pauses (the standing reversal
+condition, now with a concrete read).
+
+## The ladder (PROPOSED — bars open until the owner sets thresholds)
+
+Cheapest falsification first; each rung builds only if the one below
+fails/underdelivers; X0 at any rung is data.
+
+- **E0 — the free experiment.** Pre-registered read of c1c crafting telemetry
+  vs the 0050 chance rate. No build. (Prediction frozen above.)
+- **E1 — demonstration only, no goal object.** A scripted teacher phase drives
+  the *body* through the chain (seeding's online cousin — hands guided, brain
+  untouched, frames learn what they learn); then the intrinsic drives run
+  alone. Question: do familiarity/frontier corridors alone reproduce chains?
+  Candidate bar: ≥1 full log→stick chain in ≥ k/24 seeds within horizon H,
+  vs 0 in undemonstrated paired arms.
+- **E2 — goal object + bounded fading λ** (only if E1 fails): suggestion
+  channel + λ + ONE of the multi-step mechanisms (a)/(b)/(c) — that choice is
+  its own registered decision.
+- **E3 — teacher loop:** verdict-as-sensor + follow-up; internalization test =
+  verdict-prediction accuracy rising while verdict-delivery fades (the
+  outgrowing measurement, weak form).
+
+Evidence-class audit of this whole topic: [measured] = the 0050 chance
+baseline, the 028 seeding transfer; everything else here is
+[mechanism-argument] or [judgment]. Per the working agreement, only the ladder
+turns the arguments into numbers.
+
 ## Pre-registered bars
 
-**OPEN.** To be set with Fable 5 tomorrow, then this graduates to a real
-pre-registration via `/research-start` (or stays a topic here).
+**OPEN.** E0's prediction is frozen above; numeric thresholds (k, H, the c1c
+read horizon) are the owner's to set at `/research-start` graduation.
 
 ## Reversal condition
 
