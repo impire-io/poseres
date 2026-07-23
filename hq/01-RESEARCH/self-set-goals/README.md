@@ -1,6 +1,8 @@
 # Does the brain set goals for itself, or only follow a drive?
 
-**State:** bars REGISTERED (2026-07-23, owner-delegated numbers) — E0 read authorized, in progress
+**State:** E0 + E0b MEASURED (2026-07-23) — prediction confirmed exactly (zero
+logs/planks/sticks in 328,560 steps); premise stands, **E1 is authorized**;
+E0b: frontier anti-idle confirmed (idle 3.1%), the 0053 reversal does not fire
 **Started:** 2026-07-22
 **Origin:** a friend (ex-Willow Garage) asked what the brain has *as goals* —
 curiosity is an inner drive, but does the brain ever set itself a target and
@@ -414,6 +416,44 @@ pull answers both. Over the **last 10,000 steps** of the window:
   that noisy-but-real teaching fails us into building E2 unnecessarily.
 - **Ordering read (frozen prediction E1a ≥ E1b > blank):** judged on
   per-arm seed counts; descriptive unless both taught arms clear k.
+
+## E0 + E0b outcome [measured, 2026-07-23]
+
+Read executed the same day the bars were registered (commit 11725f1), against
+the full S3 archive `pra/v1/c1c/` (first archive-read tooling; gzip-JSONL,
+deduped by seq). Window: the whole run, **328,560 archived steps** (one boot,
+zero restarts, run live since 2026-07-22 17:23 UTC).
+
+**E0 — crafting (ground-truth `tele.view.live`):**
+
+- planks events: **0**. stick events: **0**. full chains: **0**.
+- Deeper than predicted: **not one log ever entered the inventory.** Items
+  ever held in ~328k steps: dirt ×1, leaf_litter ×22, wheat_seeds ×1.
+- The drive *does* dig — 6,548 records with digging>0, dig_ahead 4.7% of all
+  steps — but digs ground cover, never completes a tree. A sensed crafting
+  offer was present on **0 steps** of the entire run.
+- **Decision rule: 0 sticks AND ≤1 planks → prediction holds; premise
+  stands; build E1.** The 0052 chance floor is honest at scale: 328k
+  frontier-driven steps produced zero material-chain progress. Whatever E1's
+  taught arms produce sits on a measured floor of zero.
+
+**E0b — anti-idle (tele.step, last 10,000 steps):**
+
+- idle share **3.1%** (bar < 20%; competence camped at 26.7%) — an ~8.6×
+  drop, below even the uniform 8.3% cold-start share: frontier actively
+  disfavors stasis.
+- top action `forward` **35.7%** (bar < 50%) — no degeneracy; the remaining
+  mass is spread near-uniformly across all 11 other actions.
+- **The 0053 reversal does NOT fire.** Frontier-alone stands for Minecraft;
+  no escalation to blends or scheduled probing. This closes ep. 0053's
+  "anti-idle effect not yet measured" caveat.
+
+One honest asymmetry to carry: E0b's action spread (3–9% each for the grid
+actions) looks *exploratory*, not *directed* — the brain pulls crafting
+levers ~22% of all steps (hold_next + grid_put + grid_take + take_result)
+yet never once assembled the preconditions for an offer. Busy hands, no
+chain. That is precisely the premise's shape: drives generate contact with
+the mechanism, not sequences through it.
 
 ## Reversal condition
 
