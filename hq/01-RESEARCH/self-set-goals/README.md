@@ -130,6 +130,46 @@ learner never outgrows. The scaffold must **fade** (Vygotsky's zone of proximal
 development). Concretely a knob: weight on teacher-suggestions, and whether it
 decays.
 
+> **Owner confirmed (2026-07-23):** the adversarial pass's λ reframe stands —
+> teacher privilege exists, *bounded and fading*, rather than "no privilege."
+
+### The two doors (owner's distinction, 2026-07-23)
+
+The owner: guiding the **body** and guiding the **brain** are two different
+things a teacher can do — body-guidance for physical skill, brain-guidance for
+abstract/conceptual content (math, language). Architecturally this maps onto
+the only two ways into a brain — there is no third door:
+
+1. **The senses** (door 1): experience through the body's channels.
+   Body-guidance teaches here — the teacher drives experience, the brain learns
+   it the way it learns everything. *Apprenticeship.*
+2. **Birth** (door 2): **seeding** (028) — the one legal direct brain-write,
+   measured (relevant transfer, not maturity, survives resize), never touching
+   the drive. Brain-guidance teaches here — knowledge arrives as inherited
+   structure, without the lived fumbling. *Book-learning.* For abstract content
+   (where even human demonstration is already symbolic), donated structure is
+   the honest current analog — until language-as-a-world (the vision's gated
+   horizon) gives teachers a symbol channel through door 1.
+
+**The invariant holds at both doors: either door writes knowledge; neither
+writes the drive.**
+
+Consequences for the ladder — E1 splits into paired arms:
+- **E1a — guided body** (apprenticeship): scripted teacher drives the body
+  through the chain; brain untouched.
+- **E1b — donated brain** (book-learning): learner seeded at birth from a donor
+  that lived the chain (existing 028 machinery; same anatomy, no resize).
+- **Blank control.**
+
+**Frozen prediction (owner's hypothesis, registered before any run):** for this
+*physical* chain, E1a ≥ E1b, both > blank. If E1b matches E1a, inherited
+knowledge equals lived experience even for physical skill — surprising, and
+the number decides.
+
+**Teacher lineage:** E1a's graduate is E1b's donor — the guided apprentice
+becomes the master whose brain seeds the next learner. Compounding
+intelligence (the vision ambition) appearing as teaching, unprompted.
+
 **Honest caveat:** *detecting* deadlock ("the world stopped responding to me")
 is exactly the stasis-detection this project keeps finding HARD — election-
 stream's killer was that the drive's own stillness looks like real signal.
@@ -292,12 +332,13 @@ fails/underdelivers; X0 at any rung is data.
 
 - **E0 — the free experiment.** Pre-registered read of c1c crafting telemetry
   vs the 0050 chance rate. No build. (Prediction frozen above.)
-- **E1 — demonstration only, no goal object.** A scripted teacher phase drives
-  the *body* through the chain (seeding's online cousin — hands guided, brain
-  untouched, frames learn what they learn); then the intrinsic drives run
-  alone. Question: do familiarity/frontier corridors alone reproduce chains?
-  Candidate bar: ≥1 full log→stick chain in ≥ k/24 seeds within horizon H,
-  vs 0 in undemonstrated paired arms.
+- **E1 — demonstration only, no goal object** (two-door form, see *The two
+  doors*): paired arms **E1a** guided body (scripted teacher drives the body;
+  brain untouched) vs **E1b** donated brain (seeded at birth from a donor that
+  lived the chain; 028 machinery) vs **blank**; then intrinsic drives run
+  alone. Question: does taught knowledge + existing drives reproduce chains?
+  Candidate bar: ≥1 full log→stick chain in ≥ k/24 seeds within horizon H, vs
+  0 in blank paired arms. Frozen prediction: E1a ≥ E1b > blank.
 - **E2 — goal object + bounded fading λ** (only if E1 fails): suggestion
   channel + λ + ONE of the multi-step mechanisms (a)/(b)/(c) — that choice is
   its own registered decision.
