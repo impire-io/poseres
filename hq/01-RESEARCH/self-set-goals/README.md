@@ -1,12 +1,26 @@
 # Does the brain set goals for itself, or only follow a drive?
 
-**State:** E0 + E0b MEASURED (2026-07-23) — prediction confirmed exactly (zero
-logs/planks/sticks in 328,560 steps); premise stands, **E1 is authorized**;
-E0b: frontier anti-idle confirmed (idle 3.1%), the 0053 reversal does not fire
+**State:** active
+**Where it stands (2026-07-23):** E0 + E0b MEASURED — prediction confirmed
+exactly (zero logs/planks/sticks in 328,560 steps); premise stands, **E1 is
+authorized**; E0b: frontier anti-idle confirmed (idle 3.1%), the 0053
+reversal does not fire.
 **Started:** 2026-07-22
 **Origin:** a friend (ex-Willow Garage) asked what the brain has *as goals* —
 curiosity is an inner drive, but does the brain ever set itself a target and
 pursue it? Humans do. This topic is that question, held against the code.
+
+## Abstract
+
+Drives are innate and frozen; a goal is transient and self-set. The code
+today has only drives — every deliberate step is a one-step greedy
+hill-climb with no held target. This topic asks whether goal-setting
+machinery (and the teacher model it drags in) is the missing ingredient for
+directed multi-step behavior — held against the measured fact that the C1
+crafting chain's chance floor is ≈ 0, so any deliberate chain is
+unmistakable. A decisive answer either authorizes the goal build (E2),
+shows taught knowledge + intrinsic drives suffice (E1), or — should the
+live null arm ever craft on its own — dissolves the premise entirely.
 
 > This is a **capture for review**, not a pre-registration. The two
 > load-bearing decisions — *what a goal is made of* and *the pass/fail bars* —
