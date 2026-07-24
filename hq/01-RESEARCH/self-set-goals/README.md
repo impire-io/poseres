@@ -965,6 +965,46 @@ firings in free-run (the judge stays live in V).
   event-sensitive predictor could reopen E3; that is a named successor,
   not a licensed build.
 
+## Verdict (2026-07-24, owner's call: parked; lifecycle outcome: abandoned)
+
+Every pre-registered bar, with its number:
+
+- **E0 (the premise):** held as registered — 0 planks, 0 sticks, 0
+  chains in 328,560 live frontier-alone steps; not one log ever entered
+  the inventory [measured]. **E0b:** anti-idle GREEN — idle 3.1% vs the
+  20% bar; the 0053 reversal did not fire [measured].
+- **E1 (teaching alone): FAIL as registered** — taught 0/24 against the
+  ≥ 6/24 bar, blank 0/24, with all 45/45 demonstrations provably
+  carried (19 vs 13 frames) [measured]. Knowledge without wanting is
+  not behavior; a well-taught lesson is exhausted territory to a
+  realized-progress drive (rev.2's landscape claim refuted).
+- **E2.0 (λ holding): FAIL as registered** — 0/24 seeds at 20% dwell;
+  orbit, not hold [measured]. Context rows delivered the project's
+  first deliberate chains: 2 full log→planks→sticks across 42
+  goal-biased runs vs zero from frontier-alone anywhere [measured].
+- **E2.0h (λ rate-vs-horizon): FAIL as registered** — C(H) flat at 1/24
+  from H = 5,000 to 40,000; chains are decided in the departure window
+  (both recorded chains < 700 ticks in) [measured]. The λ form is
+  exhausted for holding and rate.
+- **E3.0 (verdict sensation): precursor FAIL as registered** — specific
+  14/24 against the ≥ 18 bar (5 seeds anti-predictive), behavior
+  V = M = 0/24 exactly on the frozen prediction [measured]. Sensing is
+  not wanting, from the approval side; refutation predictor-shaped, not
+  concept-shaped [judgment].
+
+**Standing result [measured]:** knowledge + even a weak, failing want
+produced the only deliberate multi-step behavior in the project's
+record; no drive, horizon, or sensed approval added anything. **Answer
+to the title question as of parking [judgment]:** the brain does not
+set goals for itself, and no cheap seam-level want converts taught
+knowledge into reliable directed behavior — the missing machinery is
+real and non-trivial (a homing gradient, an event-sensitive predictor,
+multi-step reach; each named, none built, none licensed).
+
+**Unexplored door:** E2.0b (homing-capable goal term). **Watch:** the
+c1c run. Three frozen predictions were beaten by their own bars in one
+day; the method, not the author, decided every rung.
+
 ## Reversal condition
 
 **Draft:** if the C1 curiosity-alone run begins producing multi-step crafting
