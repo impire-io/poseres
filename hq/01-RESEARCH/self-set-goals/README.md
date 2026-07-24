@@ -1,14 +1,18 @@
 # Does the brain set goals for itself, or only follow a drive?
 
 **State:** active
-**Where it stands (2026-07-24, late night):** the owner picked fork door
-(iii) via the satisfaction question — no reward wire, ever; satisfaction
-only as a *sensed* verdict — and **E3.0, the verdict-sensation gate, is
-REGISTERED**: a 33-channel cohort taught with approval pulsing in the
-stream (V) against a mute-channel control (M), asking whether the brain
-comes to *expect* approval (the internalization precursor, the
-load-bearing bars) and whether merely sensing it moves the hands
-(frozen prediction: it doesn't — V = M = 0/24). Earlier: E2.0h MEASURED
+**Where it stands (2026-07-24, late night):** E3.0 MEASURED — **precursor
+FAIL: approval seen 45 times, never reliably expected.** The verdict
+pulse provably reaches the senses, yet the pose-linear predictor carries
+it only partially and seed-dependently (rising 18/24 at the bar;
+specific 14/24 under it; 5 seeds end anti-predictive), and behavior
+lands exactly on the frozen prediction: V = M = 0/24 — sensing is not
+wanting, measured from the approval side. Verdict-as-sensor is refuted
+at its root *for the current predictor* (predictor-shaped, not
+concept-shaped; an event-sensitive predictor is the named successor).
+**The fork is now E2.0b or park.** The door was picked via the
+satisfaction question — no reward wire, ever; satisfaction only as a
+sensed verdict. Earlier: E2.0h MEASURED
 — **registered FAIL: a floor, not a rate.** C(H) flat at 1/24 from
 H = 5,000 to 40,000; chains are decided in the departure window and the
 λ pull never re-captures. The λ-on-one-step-lookahead form is exhausted
@@ -927,6 +931,39 @@ firings in free-run (the judge stays live in V).
   brain; the fork returns to E2.0b or park.
 - **Behavior moves** (V ≥ 6/24, M = 0) → sensing alone changes
   behavior; the model is re-read wholesale.
+
+## E3.0 outcome [measured, 2026-07-24] — precursor FAIL: approval seen, never reliably expected
+
+- **P0 green, instrument verified end-to-end:** 45/45 demonstrations in
+  all 48 arm-runs; the verdict pulse present in the brain's own
+  observation (channel 33 = 1.0 at step 21, instrument-checked against
+  the lived stream), exactly once per segment, tick-stable; the mute
+  arm's channel never left zero.
+- **Precursor bars: (a) rising 18/24 — met exactly at the bar; (b)
+  specific 14/24 — FAIL (bar ≥ 18). The conjunction FAILs.** The
+  structure under the number: last-5-demo completion-tick predictions
+  range −0.20 to +0.23 across seeds against an off-tick baseline of
+  ~+0.03; 14 seeds end specific (some strongly: +0.23, +0.20, +0.18),
+  5 end *negative* — anti-predictive at the exact tick approval always
+  arrives. After 45 identical approvals, an expectation of approval
+  forms only partially, unreliably, seed-dependently [measured].
+- **Behavior: V = 0/24, M = 0/24 — the frozen prediction, exact.**
+  Sensing is not wanting, now measured at power from the approval side:
+  dwell medians 0.37% vs 0.46%, zero log-ups in either arm, zero
+  free-run verdict firings. The E1 mechanism (a mastered lesson is
+  exhausted territory) extends to a lesson with approval in it.
+- **The frozen prediction on the precursor was wrong** (predicted:
+  green-but-partial; measured: partial-but-not-green) — the third gate
+  today to decide against its author's expectation.
+- **Consequence (per the registered decision rule):** verdict-as-sensor
+  is **refuted at its root for the current predictor** — the pose-linear
+  one-step model cannot reliably carry a sparse 1-in-22 conditional
+  pulse, so there is no dependable expectation for internalization to
+  grow from, and nothing for a future E3.1 want to consume. The fork
+  returns to **E2.0b or park**. Honest scope note [judgment]: the
+  refutation is predictor-shaped, not concept-shaped — an
+  event-sensitive predictor could reopen E3; that is a named successor,
+  not a licensed build.
 
 ## Reversal condition
 
