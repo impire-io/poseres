@@ -355,6 +355,22 @@ fails/underdelivers; X0 at any rung is data.
   alone. Question: does taught knowledge + existing drives reproduce chains?
   Candidate bar: ≥1 full log→stick chain in ≥ k/24 seeds within horizon H, vs
   0 in blank paired arms. Frozen prediction: E1a ≥ E1b > blank.
+
+  > **Arm dissolution (owner's call, 2026-07-24, before any run):** at plan
+  > time the mechanism argument showed E1a/E1b collapse — 028 seeding is a
+  > full-state resume and E1b's donor IS E1a's graduate, so both arms hold
+  > byte-identical brains at the free-run boundary; only the world could
+  > differ, making the comparison either empty (fresh world = identical
+  > runs) or confounded (teacher-depleted world = material handicap). E1
+  > runs **two arms: taught vs blank**. The E1a ≥ E1b half of the frozen
+  > prediction is recorded as **untestable with current machinery** (not
+  > wrong, not dropped); partial/structural transfer — inherited structure
+  > without the lived episode — is the named successor that would make the
+  > two-doors contrast testable. Taught > blank stands as the primary and
+  > is what E1 decides. Dose (owner-set, same day): **45 demonstrations /
+  > ~1,012 guided steps** as 45 fresh-world single-chain segments (the
+  > 15×3 sketch traded for tape determinism, dose unchanged). Spec:
+  > `specs/034-two-doors/spec.md`.
 - **E2 — goal object + bounded fading λ** (only if E1 fails): suggestion
   channel + λ + ONE of the multi-step mechanisms (a)/(b)/(c) — that choice is
   its own registered decision.
