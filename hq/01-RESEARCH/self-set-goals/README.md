@@ -1,10 +1,13 @@
 # Does the brain set goals for itself, or only follow a drive?
 
 **State:** active
-**Where it stands (2026-07-23):** E0 + E0b MEASURED — prediction confirmed
-exactly (zero logs/planks/sticks in 328,560 steps); premise stands, **E1 is
-authorized**; E0b: frontier anti-idle confirmed (idle 3.1%), the 0053
-reversal does not fire.
+**Where it stands (2026-07-24):** E1 MEASURED at full power — taught 0/24,
+blank 0/24, registered bar FAIL: demonstration alone does not reproduce
+chains; the graduate leaves the workshop *because* the teaching worked
+(frontier scores mastered ground at ~0). **E2 (goal object + bounded fading
+λ + one multi-step mechanism) is authorized**; the E2 mechanism choice is
+its own registered decision. E0/E0b (2026-07-23): premise + frontier
+anti-idle both confirmed.
 **Started:** 2026-07-22
 **Origin:** a friend (ex-Willow Garage) asked what the brain has *as goals* —
 curiosity is an inner drive, but does the brain ever set itself a target and
@@ -123,6 +126,11 @@ Why it stays coherent with autonomy:
   reasons: the demonstration makes the goal *learnable*, which makes it the
   highest-frontier option. Good teaching arranges the world so curiosity flows
   to the lesson — it does not coerce interest. The two halves reinforce.
+  > **Refuted for realized-progress drives [measured, E1 2026-07-24]:** the
+  > frontier goes silent on mastered ground, so demonstration makes the
+  > lesson the *least* interesting region after the guided phase — the
+  > graduate flees the workshop. The claim survives, if at all, only for a
+  > drive that values *prospective* reachable progress. See *E1 outcome*.
 - **Follow-up patches the graveyard.** A teacher's "that's a stick — yes" is an
   external, *un-confounded* completion signal — exactly the "did I succeed / am
   I stuck?" detector the seven arcs could not build from inside (the confound).
@@ -484,6 +492,40 @@ levers ~22% of all steps (hold_next + grid_put + grid_take + take_result)
 yet never once assembled the preconditions for an offer. Busy hands, no
 chain. That is precisely the premise's shape: drives generate contact with
 the mechanism, not sequences through it.
+
+## E1 outcome [measured, 2026-07-24] — FAIL; E2 authorized
+
+Feature 034 (`specs/034-two-doors/`), run same-day: P0 tape gate 45/45,
+8-seed pilot published first (`pilot-results.md`), then the registered
+24-seed read.
+
+- **Taught: 0/24** seeds with a full chain (bar was ≥ 6/24), despite every
+  seed receiving all **45/45 demonstrations** and provably carrying them —
+  graduates enter the free-run with ~19 frames where blanks build ~13.
+- **Blank: 0/24** (bar required 0 — the 0052 floor holds; the read is
+  valid).
+- Sharper than the bar: **zero dig attempts in 240,000 taught free-run
+  steps.** Both arms drift off the feature cluster (~2,000–2,700 unique
+  positions per 5,000-step window) and never return. The arms are
+  behaviorally indistinguishable: teaching changed the brain, not the
+  behavior.
+
+**Reading [mechanism-argument]:** the frontier drive rewards error
+*falling* and scores mastered ground at ~0. Forty-five identical
+demonstrations make the workshop the best-learned region the brain knows;
+by graduation the progress is already collected, so the drive goes silent
+exactly there. **A well-taught lesson is exhausted territory — the
+graduate leaves because the teaching worked.** This refutes, for
+realized-progress drives, rev.2's landscape claim ("demonstration makes
+the goal learnable, hence the highest-frontier option"): demonstration
+lights the frontier *during* the guided phase and silences it after.
+Knowledge without wanting is not behavior — which is the topic's thesis,
+now measured from the teaching side too.
+
+**Consequence:** the ladder's condition "E2 only if E1 fails" is met at
+full power. **E2 — goal object + bounded fading λ + ONE multi-step
+mechanism ((a) rollouts / (b) means-ends / (c) skills) — is authorized**;
+the mechanism choice is its own registered decision, per the ladder.
 
 ## Reversal condition
 

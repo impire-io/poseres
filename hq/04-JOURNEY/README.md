@@ -20,7 +20,7 @@ Episodes 0001–0044 were chapters of the original single-file `JOURNEY.md`
 "ch. NN" resolve to `00NN-*.md`). The recurring principles the journey keeps
 teaching moved to `../00-GENESIS/how-we-work.md`.
 
-## Where things stand (2026-07-22)
+## Where things stand (2026-07-24)
 
 **The project's working structure moved into `hq/`**
 ([episode 0045](0045-the-hq-restructure.md)): GENESIS holds the vision,
@@ -246,10 +246,32 @@ familiarity, maximised by the outcome most like now, i.e. standing still
 (mechanism, traced in source). Competence-as-familiarity degenerates toward
 stasis in a rich world; the arc-031 "competence stands" posture is reversed
 for Minecraft. `c1b` stopped at step 137,103; **fresh run `c1c` launched on
-the FrontierDrive** (the designed anti-camping successor, arc 024) — its
-anti-idle effect is not yet measured (reversal condition written).
-Open threads, in priority order: **the c1c run** (live; does frontier hold
-idle down once matured? read R1–R5 when the weeks have spoken);
+the FrontierDrive** (the designed anti-camping successor, arc 024).
+**The anti-idle effect is now measured and the drive vindicated**
+([episode 0054](0054-two-doors-one-graduate-who-walks-away.md), E0b):
+idle **3.1%** over the last 10k of 328,560 archived steps (competence
+camped at 26.7%; bar was <20%), no action degeneracy — the 0053 reversal
+does not fire. The same registered read (E0) confirmed the emergence
+floor the hard way: in 328k frontier-alone steps the brain never held a
+single log — drives make contact with the crafting mechanism (~22% of
+steps pull its levers) but assemble no sequences.
+**And teaching alone does not move the hands**
+([episode 0054](0054-two-doors-one-graduate-who-walks-away.md),
+feature 034): the E1a/E1b arms were dissolved pre-run on an honest
+mechanism argument (full-state seeding makes them byte-identical), and
+the two-arm read — 45 scripted demonstrations of the full chain, then
+frontier free-running — FAILed its registered bar at full power: taught
+0/24, blank 0/24, zero dig attempts in 240k graduate steps, with the
+demonstrations provably in the frames (19 vs 13). The mechanism reading
+cuts deep: frontier scores mastered ground at ~0, so **a well-taught
+lesson is exhausted territory — the graduate leaves the workshop because
+the teaching worked** — refuting the teacher-model's landscape claim for
+realized-progress drives. Per the topic ladder, **E2 (a goal object with
+bounded fading λ + one multi-step mechanism) is authorized**, its
+mechanism choice a registered decision of its own.
+Open threads, in priority order: **the E2 pre-registration** (the
+goal-object rung, now authorized; offline dwell-gate before any src
+build); **the c1c run** (live; R1–R5 read when the weeks have spoken);
 **scheduled probing** (the named
 active successor: re-visit mastered ground under a held policy and
 re-test — detection as a designed experiment, a Doc 05-level feature,
@@ -350,3 +372,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0051 | [The observatory: the run gets a home](0051-the-observatory.md) |
 | 0052 | [Senses without my ontology: the property body](0052-senses-without-my-ontology.md) |
 | 0053 | [The brain that preferred to stand still: competence → frontier](0053-the-brain-that-preferred-to-stand-still.md) |
+| 0054 | [Two doors, one graduate who walks away: teaching alone doesn't move the hands](0054-two-doors-one-graduate-who-walks-away.md) |
