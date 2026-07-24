@@ -4,10 +4,11 @@
 **Where it stands (2026-07-24):** E1 MEASURED at full power — taught 0/24,
 blank 0/24, registered bar FAIL: demonstration alone does not reproduce
 chains; the graduate leaves the workshop *because* the teaching worked
-(frontier scores mastered ground at ~0). **E2 (goal object + bounded fading
-λ + one multi-step mechanism) is authorized**; the E2 mechanism choice is
-its own registered decision. E0/E0b (2026-07-23): premise + frontier
-anti-idle both confirmed.
+(frontier scores mastered ground at ~0). **E2 authorized; E2.0 (the dwell
+gate) is REGISTERED** — a bare λ-bias must hold the policy near the
+workshop before any goal machinery is built; the E2.1 mechanism choice is
+its own registered decision, gated behind E2.0. E0/E0b (2026-07-23):
+premise + frontier anti-idle both confirmed.
 **Started:** 2026-07-22
 **Origin:** a friend (ex-Willow Garage) asked what the brain has *as goals* —
 curiosity is an inner drive, but does the brain ever set itself a target and
@@ -526,6 +527,64 @@ now measured from the teaching side too.
 full power. **E2 — goal object + bounded fading λ + ONE multi-step
 mechanism ((a) rollouts / (b) means-ends / (c) skills) — is authorized**;
 the mechanism choice is its own registered decision, per the ladder.
+
+## E2.0 pre-registration — the dwell gate (REGISTERED 2026-07-24, before any run)
+
+The cheapest falsification of the goal-object idea, run at the policy
+seam with **zero src edits** (arc convention; runner scratchpad-only).
+Episode 0054's reversal condition, operationalized: before any goal
+machinery is built, a bare λ-bias must at least **hold the policy near
+the workshop** where frontier-alone provably leaves (E1: every graduate
+walked off and never dug).
+
+**The gate policy.** `GoalBiasPolicy` mirrors `CuriosityLookaheadPolicy`
+exactly (same ε-gate at 0.1, same maturity gate, same fixed draw order,
+ties to lowest index) with one added term per candidate action:
+`value = drive_value(pred) + λ · (−‖pred − goal_obs‖₂)` over the full
+32-channel predicted observation. The goal is **teacher-given and
+ostensive**: the observation captured at tape step 2 of the E1
+demonstration — standing at the workshop, facing the wood — identical
+across seeds (the world is deterministic). v1 uses the full observation;
+a labeled-channel mask is the single pre-named amendment if the pilot
+shows the time-of-day channels swamping the spatial ones (raw numbers
+reported either way).
+
+**Subjects and arms, seed-paired on the E1 graduates** (the brain that
+lived the 45 demonstrations, resumed into a fresh world exactly as in
+E1): **G-λ** = goal-biased free-run at λ; **F** = frontier-alone free-run
+(the E1 taught arm, replicated). Window H = 5,000 free-run steps.
+
+**Dwell metric [ground truth]:** fraction of window steps within
+Chebyshev distance ≤ 2 of the wood column (−1, 0). The run *starts
+inside* this region — **the gate tests HOLDING, not homing.** Homing
+from the featureless plain is explicitly out of scope for E2.0: a
+one-step distance-to-goal has no gradient out there; returning from afar
+is exactly the multi-step mechanism's job (E2.1), not the λ-bias's.
+
+**Protocol and frozen bars:**
+
+- Pilot: 8 seeds × (λ ∈ {0.25, 1.0, 4.0} + F), full grid published;
+  **λ\*** = the smallest λ whose pilot median dwell ≥ 20%.
+- Confirmatory: 24 seeds at λ\* + F. **PASS iff ≥ 18/24 G-λ\* seeds have
+  dwell ≥ 20% AND the F arm's median dwell < 5%.** The demanding k
+  (18/24, vs E1's 6/24) is deliberate: this gate tests a mechanism
+  *directly* biased toward the goal — if it barely works, E2 proper has
+  no chance, and a weak pass must not launder the rung.
+- Context rows (no bar): digs/planks/sticks during goal-biased runs
+  (workshop re-contact is the point of dwell), unique positions, mean
+  distance-to-goal per arm.
+
+**Frozen prediction:** PASS at λ ≥ 1 — near the workshop the one-step
+goal-distance gradient is real (stepping away increases predicted
+distance), so λ should hold what frontier abandons. The named doubt is ε
+and drive noise slowly leaking the runner off the plateau edge; that is
+what the 20% dwell floor and 18/24 measure.
+
+**Decision rule:** PASS → E2.1 unblocks: the multi-step mechanism choice
+((a) rollouts / (b) means-ends / (c) skills) goes to the owner as its own
+registered decision before any build. FAIL → per episode 0054's reversal,
+**the goal-object approach pauses before any src build** — the topic
+returns to the drawing board with the dwell numbers as the diagnosis.
 
 ## Reversal condition
 
