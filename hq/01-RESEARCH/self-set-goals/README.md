@@ -1,13 +1,17 @@
 # Does the brain set goals for itself, or only follow a drive?
 
 **State:** active
-**Where it stands (2026-07-24, night):** E2.0h REGISTERED — the owner
-picked fork option (ii), the horizon read: is the 2-in-42 chain rate at
-H = 5,000 a floor that climbs with an 8× window? Frozen: PASS iff
-≥ 6/24 graduates chain by H = 40,000 (E1's own k) with growth beyond
-C(5,000); FAIL iff ≤ 2. The instrument must first re-prove itself (P0:
-the rebuilt runner reproduces E2.0's recorded confirmatory — the
-originals were scratchpad-only per convention). Earlier same day: E2.0
+**Where it stands (2026-07-24, night):** E2.0h MEASURED — **registered
+FAIL: a floor, not a rate.** C(H) is flat at 1/24 from H = 5,000 to
+40,000 (seed 7's tick-427 chain and nothing ever after); both recorded
+chains happen in the departure window (< 700 ticks) and the λ pull
+never re-captures once the runner leaves the plain's capture radius.
+The λ-on-one-step-lookahead form is exhausted for holding *and* rate.
+The fork narrows, owner's pick: E2.0b homing-capable goal term / E3
+verdict-channel reread / park with the existence proof standing. The
+whole read ran on an instrument rebuilt from the committed record and
+proven by a P0 replication gate (median dwell 3.76% vs recorded 3.8%,
+chain set exact). Earlier same day: E2.0h registered; E2.0
 MEASURED — the dwell gate **FAILs at power** (0/24 at 20%; λ-bias
 orbits, doesn't hold) so the goal-object-via-λ approach paused per its
 own reversal — **and the gate's context rows hold the project's first
@@ -781,6 +785,40 @@ is offered with that humility.)
   narrows to (i) E2.0b homing or (iii) E3 verdict-channel — or park,
   with the existence proof standing and the c1c run as the watch.
 - **Gray** → the owner decides with the curve on the table.
+
+## E2.0h outcome [measured, 2026-07-24] — FAIL: a floor, not a rate
+
+- **C(H) is flat at every read point: C(5,000) = C(10,000) = C(20,000)
+  = C(40,000) = 1/24** (seed 7, tick 427). The registered FAIL bar
+  (C(40,000) ≤ 2) fires. No recurrence anywhere: 6 log-ups total across
+  the 24 G-λ4 seeds, one conversion, no seed chains twice. The λ0.25
+  context arm replicates E2.0's other recorded chain exactly (seed 6,
+  tick 706) and adds nothing else — the same flat curve. Validity all
+  green: F control 0 chains in 8 × 40,018 steps (median dwell 0.04%),
+  prefix invariance exact, P0 as published.
+- **Mechanism read [measured for the where/when; mechanism-argument for
+  the why]:** chaining is not a touch *rate* — it is decided in the
+  departure window. Both chains in the entire record happen within the
+  first ~700 ticks; all workshop-contact mass sits in the first
+  5,000-step block (two seeds carry a trace into block 1, none
+  further); per-block mean distance wanders to 100–1,300 and the λ term
+  never re-captures — the one-step obs-distance is flat out on the
+  plain, the same pre-named no-gradient failure mode that broke E2.0's
+  holding, now measured to also break its rate. Patience buys nothing:
+  8× the horizon, zero new chains.
+- **The frozen prediction was wrong again** (C(40k) ∈ [4, 10], marginal
+  PASS): the memoryless reference was the wrong model — the chain
+  probability is per-*departure*, not per-window. Two registered gates
+  in a row have beaten their author's frozen prediction; kept as
+  calibration data.
+- **Consequence (per the registered decision rule):** the
+  λ-on-one-step-lookahead form is exhausted — for holding (E2.0) *and*
+  for rate (E2.0h). The fork narrows to (i) E2.0b, a homing-capable
+  goal term (potential-shaped distance / goal-conditioned frames), or
+  (iii) E3, the verdict-channel reread — or **park**, with the
+  existence proof standing (knowledge + weak wanting = the record's
+  only deliberate chains) and the c1c run as the watch. Each option
+  builds nothing before its own registered gate.
 
 ## Reversal condition
 
