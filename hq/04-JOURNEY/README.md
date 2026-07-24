@@ -280,11 +280,21 @@ ticks, vs zero logs ever from frontier-alone anywhere in the measured
 record. The topic's three readings compose: drives alone make contact but
 no sequences (E0); knowledge without wanting is not behavior (E1);
 knowledge plus even a failing want yields the first directed sequences
-(E2.0). The drawing-board fork is the owner's — E2.0b homing-capable goal
-term, orbit-rate-vs-horizon read, or the E3 verdict-channel reread — each
-behind its own registered gate.
-Open threads, in priority order: **the drawing-board fork**
-([episode 0055](0055-the-first-deliberate-chains.md), owner's pick);
+(E2.0). The owner then picked the horizon read from that fork, and it
+too decided against its author
+([episode 0056](0056-a-floor-not-a-rate.md)): C(H) is **flat at 1/24
+from H = 5,000 to 40,000** — chains are decided in the departure window
+(both recorded chains land inside the first ~700 ticks) and the λ pull
+never re-captures once the runner leaves the plain's capture radius, so
+**the λ-on-one-step-lookahead form is exhausted for holding *and*
+rate**. The whole read ran on an instrument rebuilt from the committed
+record alone and proven by a P0 replication gate — the
+registered-record discipline rebuilding a lost runner bit-faithfully
+from prose. The fork narrows, owner's pick: E2.0b homing-capable goal
+term (must create gradient *outside* the departure window), the E3
+verdict-channel reread, or park with the existence proof standing.
+Open threads, in priority order: **the narrowed fork**
+([episode 0056](0056-a-floor-not-a-rate.md), owner's pick);
 **the c1c run** (live; R1–R5 read when the weeks have spoken);
 **scheduled probing** (the named
 active successor: re-visit mastered ground under a held policy and
@@ -388,3 +398,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0053 | [The brain that preferred to stand still: competence → frontier](0053-the-brain-that-preferred-to-stand-still.md) |
 | 0054 | [Two doors, one graduate who walks away: teaching alone doesn't move the hands](0054-two-doors-one-graduate-who-walks-away.md) |
 | 0055 | [The first deliberate chains, found by a failing gate](0055-the-first-deliberate-chains.md) |
+| 0056 | [A floor, not a rate: the horizon buys nothing](0056-a-floor-not-a-rate.md) |
