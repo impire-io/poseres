@@ -292,9 +292,20 @@ record alone and proven by a P0 replication gate — the
 registered-record discipline rebuilding a lost runner bit-faithfully
 from prose. The fork narrows, owner's pick: E2.0b homing-capable goal
 term (must create gradient *outside* the departure window), the E3
-verdict-channel reread, or park with the existence proof standing.
-Open threads, in priority order: **the narrowed fork**
-([episode 0056](0056-a-floor-not-a-rate.md), owner's pick);
+verdict-channel reread, or park with the existence proof standing. The
+owner took the E3 door via the satisfaction question — no reward wire,
+ever; satisfaction only as a *sensed* verdict — and its gate decided the
+same night ([episode 0057](0057-approval-without-expectation.md)):
+**approval seen 45 times is never reliably expected** (the pulse
+provably reaches the senses; the pose-linear predictor carries it
+partially and seed-dependently — specific in 14/24 against a bar of 18)
+and behavior lands exactly on the frozen prediction (V = M = 0/24 —
+sensing is not wanting, measured from the approval side). Verdict-as-
+sensor is refuted at its root for the current predictor
+(predictor-shaped, not concept-shaped; an event-sensitive predictor is
+the named successor). **The fork is now E2.0b or park.**
+Open threads, in priority order: **the E2.0b-or-park decision**
+([episode 0057](0057-approval-without-expectation.md), owner's pick);
 **the c1c run** (live; R1–R5 read when the weeks have spoken);
 **scheduled probing** (the named
 active successor: re-visit mastered ground under a held policy and
@@ -399,3 +410,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0054 | [Two doors, one graduate who walks away: teaching alone doesn't move the hands](0054-two-doors-one-graduate-who-walks-away.md) |
 | 0055 | [The first deliberate chains, found by a failing gate](0055-the-first-deliberate-chains.md) |
 | 0056 | [A floor, not a rate: the horizon buys nothing](0056-a-floor-not-a-rate.md) |
+| 0057 | [Approval without expectation](0057-approval-without-expectation.md) |
