@@ -1,17 +1,19 @@
 # Does the brain set goals for itself, or only follow a drive?
 
 **State:** active
-**Where it stands (2026-07-24, night):** E2.0h MEASURED — **registered
-FAIL: a floor, not a rate.** C(H) is flat at 1/24 from H = 5,000 to
-40,000 (seed 7's tick-427 chain and nothing ever after); both recorded
-chains happen in the departure window (< 700 ticks) and the λ pull
-never re-captures once the runner leaves the plain's capture radius.
-The λ-on-one-step-lookahead form is exhausted for holding *and* rate.
-The fork narrows, owner's pick: E2.0b homing-capable goal term / E3
-verdict-channel reread / park with the existence proof standing. The
-whole read ran on an instrument rebuilt from the committed record and
-proven by a P0 replication gate (median dwell 3.76% vs recorded 3.8%,
-chain set exact). Earlier same day: E2.0h registered; E2.0
+**Where it stands (2026-07-24, late night):** the owner picked fork door
+(iii) via the satisfaction question — no reward wire, ever; satisfaction
+only as a *sensed* verdict — and **E3.0, the verdict-sensation gate, is
+REGISTERED**: a 33-channel cohort taught with approval pulsing in the
+stream (V) against a mute-channel control (M), asking whether the brain
+comes to *expect* approval (the internalization precursor, the
+load-bearing bars) and whether merely sensing it moves the hands
+(frozen prediction: it doesn't — V = M = 0/24). Earlier: E2.0h MEASURED
+— **registered FAIL: a floor, not a rate.** C(H) flat at 1/24 from
+H = 5,000 to 40,000; chains are decided in the departure window and the
+λ pull never re-captures. The λ-on-one-step-lookahead form is exhausted
+for holding *and* rate; the read ran on an instrument rebuilt from the
+committed record and proven by P0 replication. Earlier same day: E2.0
 MEASURED — the dwell gate **FAILs at power** (0/24 at 20%; λ-bias
 orbits, doesn't hold) so the goal-object-via-λ approach paused per its
 own reversal — **and the gate's context rows hold the project's first
@@ -819,6 +821,112 @@ is offered with that humility.)
   existence proof standing (knowledge + weak wanting = the record's
   only deliberate chains) and the c1c run as the watch. Each option
   builds nothing before its own registered gate.
+
+## E3 reread (owner's direction, 2026-07-24, late)
+
+**The owner picked fork door (iii)**, arriving at it from the
+satisfaction question: *"we said we didn't want a reward signal — is
+that what's biting us now? The 'satisfaction' of completing a goal?
+Gamification works for humans. But I worry it degrades autonomy and our
+core ideas."* The reread's answer, recorded as the working position:
+
+- **What's biting is not the absence of external reward** — it is that
+  the drive set has no consumer for competence. Every drive is an
+  appetite for *acquiring* knowledge (learning progress); none is an
+  appetite for *using* it, so a completed lesson has zero drive value
+  by construction. E1 measured the sharp form (the graduate flees the
+  mastered workshop) [measured].
+- **The two shortcuts are closed, one by principle and one by data.**
+  An external task reward is the teacher reaching into the valuation
+  machinery — the teacher-invariant forbids it ("the teacher can set
+  goals, never the drive") — and it would have fired twice in the whole
+  measured record anyway. An innate satisfaction-drive was effectively
+  tried: competence-alone camped on stasis (ep. 0053, idle 26.7%)
+  [measured] — wireheading in miniature, inside intrinsic-drive land.
+- **The constitutional form of satisfaction is the sensed verdict** (the
+  adversarial pass's resolution: the completion signal's only legal
+  consumer is a *sensor*). Approval enters through the senses like any
+  world event; the brain's interest in it comes from its own drives;
+  internalization — anticipation replacing delivery — is the ladder's
+  registered outgrowing measurement. This is gamification in its
+  autonomy-preserving form.
+- **Two walls, named before any gate** [mechanism-argument]: (1) the
+  *consumer* problem — a fully-learned verdict predictor is mastered
+  territory, and every current drive goes silent on mastery, approval
+  included; (2) the *reach* problem — one-step anticipation cannot
+  initiate a 20-step chain (E2.0h's departure-window lesson applies to
+  any one-step signal, verdict included). E3 rungs must measure, not
+  assume, their way past both.
+
+## E3.0 pre-registration — the verdict-sensation gate (REGISTERED 2026-07-24, before any run)
+
+The cheapest falsification at the root of the verdict road: **can the
+brain come to *expect* approval, and does merely *sensing* it change
+behavior?** Zero src edits: the verdict channel is a harness-side world
+wrapper appending one observation channel (the inner body keeps its
+32-dim config; the engine sees 33); the judge is a harness fixture with
+ground-truth view access, like the detector.
+
+**The channel.** Verdict = 1.0 on the tick a stick-craft lands (full
+completion; the judge watches the view's stick count), 0.0 otherwise.
+During each 22-step demonstration it fires exactly once, at the
+observation following tape action 20 (`take_result`, view index 21).
+
+**Arms, seed-paired, seeds 1–24, fresh 33-channel cohort** (the E1
+graduates are 32-dim; this is a new teaching run, same tape, same 45
+single-chain segments, same dose): **V** = verdict live during
+demonstrations and free-run; **M** = channel present but mute (constant
+0) throughout — the paired control isolating verdict *content* from
+body shape; the two arms' streams are identical except channel 33, so
+any divergence is attributable. Free-run: H = 5,000 frontier-alone (the
+E1 horizon; E2.0h measured that longer buys nothing).
+
+**P0 (tape gate, inherited + extended):** 45/45 demonstrations complete
+per seed; the verdict fires exactly once per segment at the stick-craft
+tick in V and exactly zero times in M.
+
+**The load-bearing new measurement — the internalization precursor.**
+At every guided step the teacher records the brain's own one-step
+prediction of the next observation for the tape action it is about to
+take (`predict_decoded(tape[t])`), element 33 — the predicted verdict.
+Immature/no-prediction steps count as 0.0 (absence of expectation).
+Frozen bars, on the V arm:
+
+- **(a) Rising:** mean predicted verdict at completion ticks (the
+  step-20 prediction) is higher over the last 5 demonstrations than the
+  first 5, in **≥ 18/24 seeds**.
+- **(b) Specific:** over the last 5 demonstrations, mean predicted
+  verdict at completion ticks exceeds the off-tick mean, in
+  **≥ 18/24 seeds**.
+
+**Behavioral bars (the E1 claim, retested with approval in the
+stream):** free-run full chains, V vs M, at the E1 line — V ≥ 6/24 with
+M = 0 would PASS the original E1 bar and mean sensing alone suffices.
+**Frozen prediction: V = 0/24 and M = 0/24** — sensing is not wanting;
+the E1 mechanism (a mastered lesson is exhausted territory) applies to
+approval too. On the precursor bars: green but partial — predicted
+verdict rises and is specific, magnitudes well below 1.0 (a sparse
+1-in-22 pulse through a linear pose predictor).
+
+**Context rows (no bar):** the full 45-demo verdict-prediction
+trajectory; free-run rows as in E1 (digs / logs / planks / sticks,
+unique positions, dwell); any V-vs-M free-run divergence; verdict
+firings in free-run (the judge stays live in V).
+
+**Decision rule.**
+
+- **Precursor GREEN + behavior null** (the frozen expectation) → the
+  verdict is established as a learnable sensed signal and "sensing ≠
+  wanting" is measured at power from the approval side. The next
+  registered decision is the owner's: **E3.1** — wiring the
+  *anticipated* verdict into a want, which per E2.0/E2.0h must arrive
+  with a multi-step mechanism (one-step anticipation cannot initiate a
+  20-step chain; named now so E3.1 cannot quietly retry the λ form).
+- **Precursor FAIL** → the current predictor cannot carry a sparse
+  conditional pulse; verdict-as-sensor is refuted at its root for this
+  brain; the fork returns to E2.0b or park.
+- **Behavior moves** (V ≥ 6/24, M = 0) → sensing alone changes
+  behavior; the model is re-read wholesale.
 
 ## Reversal condition
 
