@@ -1,14 +1,16 @@
 # Does the brain set goals for itself, or only follow a drive?
 
 **State:** active
-**Where it stands (2026-07-24):** E1 MEASURED at full power — taught 0/24,
-blank 0/24, registered bar FAIL: demonstration alone does not reproduce
-chains; the graduate leaves the workshop *because* the teaching worked
-(frontier scores mastered ground at ~0). **E2 authorized; E2.0 (the dwell
-gate) is REGISTERED** — a bare λ-bias must hold the policy near the
-workshop before any goal machinery is built; the E2.1 mechanism choice is
-its own registered decision, gated behind E2.0. E0/E0b (2026-07-23):
-premise + frontier anti-idle both confirmed.
+**Where it stands (2026-07-24, evening):** E2.0 MEASURED — the dwell gate
+**FAILs at power** (0/24 at 20%; λ-bias orbits, doesn't hold) so the
+goal-object-via-λ approach pauses per its own reversal — **and the gate's
+context rows hold the project's first deliberate crafting chains** (2 full
+log→planks→sticks across 42 goal-biased runs; frontier-alone: zero in the
+entire measured record). Knowledge + weak wanting = rare directed chains;
+the drawing-board fork (E2.0b homing term / orbit-rate-vs-horizon read /
+E3 verdict-channel reread) is the owner's. Earlier same day: E1 FAIL at
+power (teaching alone doesn't move the hands). E0/E0b (2026-07-23):
+premise + frontier anti-idle confirmed.
 **Started:** 2026-07-22
 **Origin:** a friend (ex-Willow Garage) asked what the brain has *as goals* —
 curiosity is an inner drive, but does the brain ever set itself a target and
@@ -585,6 +587,52 @@ what the 20% dwell floor and 18/24 measure.
 registered decision before any build. FAIL → per episode 0054's reversal,
 **the goal-object approach pauses before any src build** — the topic
 returns to the drawing board with the dwell numbers as the diagnosis.
+
+## E2.0 outcome [measured, 2026-07-24] — gate FAIL; and the first deliberate chains
+
+- **The registered bar FAILs at power: 0/24 seeds reach 20% dwell**
+  (λ\* = 4.0, the pilot's best; no λ cleared the pilot floor — grid
+  medians 4.6% / 4.2% / 5.6% for λ 0.25 / 1 / 4). Confirmatory G4.0
+  median dwell **3.8%** vs frontier's **0.3%**; F sanity bar met. The
+  pull is real — mean Chebyshev distance to the workshop roughly halves
+  (~50–150 vs ~100–420), unique positions halve (~1,000 vs ~2,300) — but
+  it is **orbit, not hold**: the pre-named failure mode (no obs-distance
+  gradient out on the plain) dominates once ε and drive noise leak the
+  runner off the plateau. Per the decision rule and 0054's reversal,
+  **the λ-on-one-step-lookahead form is refuted as the holding mechanism
+  and the goal-object approach pauses before any src build.**
+- **The context rows carry the discovery: the first deliberate crafting
+  chains in the project's history.** Across all 42 goal-biased runs
+  (8 seeds × 3 λ pilot + 24-seed confirmatory + 2 probe): **2 full
+  log→planks→sticks chains** (seed 6 at λ 0.25; seed 7 at λ 4.0,
+  deterministic across pilot and confirmatory) and ≥1 dug log in ~10
+  runs — each log 12 consecutive deliberate dig ticks, planks and sticks
+  vanilla-exact grid crafts, with post-craft grid churn (dozens of
+  stage/unstage cycles) showing sustained engagement with the mechanism.
+  Frontier-alone across the entire measured record — 328k live steps
+  (E0), 24 E1 free-runs, 26 F arms today — has never produced one log.
+  **E1's knowledge was deployable all along; it needed pull, not push.**
+  Wanting-without-holding touches the workshop rarely; when it touches,
+  the taught chain executes. The chains live at the intersection of E1's
+  knowledge and E2.0's (weak) wanting — an existence proof that a goal
+  signal converts taught knowledge into directed sequences, delivered by
+  the very gate that failed its bar.
+- **Instrument correction, recorded openly:** the FakeBridge ground-truth
+  view carries no `digging` field (only the live bridge does), so the
+  `digging_records = 0` context rows in E1/E2.0 measured nothing;
+  episode 0054's phrase "zero dig attempts" overstated — the measured
+  fact is zero dig *completions* (inventory-based, unaffected). The E1
+  verdict stands unchanged.
+
+**Where this leaves the ladder:** E2 as specified (λ + ONE multi-step
+mechanism) is paused by its own gate. The drawing-board fork is the
+owner's: (i) a homing-capable goal term (e.g. potential-shaped distance
+or goal-conditioned frames) re-registered as E2.0b; (ii) accept
+orbit-and-touch and measure whether λ-orbiting yields chains reliably at
+longer horizons (the 2/42 existence rate vs H); or (iii) reread the
+teacher model — the completion-signal/verdict channel (E3 machinery) as
+the thing that holds attention, not distance. No option builds src
+before its own registered gate.
 
 ## Reversal condition
 

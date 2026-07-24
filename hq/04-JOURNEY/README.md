@@ -267,11 +267,25 @@ cuts deep: frontier scores mastered ground at ~0, so **a well-taught
 lesson is exhausted territory — the graduate leaves the workshop because
 the teaching worked** — refuting the teacher-model's landscape claim for
 realized-progress drives. Per the topic ladder, **E2 (a goal object with
-bounded fading λ + one multi-step mechanism) is authorized**, its
-mechanism choice a registered decision of its own.
-Open threads, in priority order: **the E2 pre-registration** (the
-goal-object rung, now authorized; offline dwell-gate before any src
-build); **the c1c run** (live; R1–R5 read when the weeks have spoken);
+bounded fading λ + one multi-step mechanism) was authorized** — and its
+own gate then both failed and delivered
+([episode 0055](0055-the-first-deliberate-chains.md)): the E2.0 dwell
+gate FAILed at power (0/24 at 20% dwell; a λ-biased lookahead *orbits*
+the workshop at ~13× frontier's presence but cannot hold — the pre-named
+no-gradient-on-the-plain failure mode), so the goal-object-via-λ approach
+pauses per its own reversal — **and the gate's context rows hold the
+project's first deliberate crafting chains**: two full log→planks→sticks
+chains across 42 goal-biased runs, each log 12 consecutive deliberate dig
+ticks, vs zero logs ever from frontier-alone anywhere in the measured
+record. The topic's three readings compose: drives alone make contact but
+no sequences (E0); knowledge without wanting is not behavior (E1);
+knowledge plus even a failing want yields the first directed sequences
+(E2.0). The drawing-board fork is the owner's — E2.0b homing-capable goal
+term, orbit-rate-vs-horizon read, or the E3 verdict-channel reread — each
+behind its own registered gate.
+Open threads, in priority order: **the drawing-board fork**
+([episode 0055](0055-the-first-deliberate-chains.md), owner's pick);
+**the c1c run** (live; R1–R5 read when the weeks have spoken);
 **scheduled probing** (the named
 active successor: re-visit mastered ground under a held policy and
 re-test — detection as a designed experiment, a Doc 05-level feature,
@@ -373,3 +387,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0052 | [Senses without my ontology: the property body](0052-senses-without-my-ontology.md) |
 | 0053 | [The brain that preferred to stand still: competence → frontier](0053-the-brain-that-preferred-to-stand-still.md) |
 | 0054 | [Two doors, one graduate who walks away: teaching alone doesn't move the hands](0054-two-doors-one-graduate-who-walks-away.md) |
+| 0055 | [The first deliberate chains, found by a failing gate](0055-the-first-deliberate-chains.md) |
