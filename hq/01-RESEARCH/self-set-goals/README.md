@@ -748,6 +748,27 @@ atypically-structured brain rather than RNG luck, the curve plateaus at
 ≤ 3 and the read FAILs. (E2.0's frozen prediction was wrong; this one
 is offered with that humility.)
 
+### E2.0h P0 + pilot [measured, 2026-07-24] — published before the confirmatory
+
+- **P0 rebuild gate GREEN.** The reconstructed instrument reproduces the
+  recorded E2.0 confirmatory from the committed record alone: chain set
+  exactly {seed 7} (first chain at tick 427), 0/24 seeds ≥ 20% dwell,
+  median dwell **3.76%** against the recorded 3.8% — under the declared
+  raw-float Chebyshev operationalization, no variants needed. The lost
+  runner is rebuilt and proven; every downstream number stands on this.
+- **Pilot (seeds 1–8, λ = 4, 40,018 steps): the dwell after the first
+  5,000-step block is exactly 0.0 in every seed.** No seed re-enters
+  Chebyshev ≤ 2 of the workshop in 35,000 further steps; per-block mean
+  distance wanders 100–1,300 blocks out. Chains: seed 7's early one
+  (tick 427) and nothing after, anywhere. Prefix invariance green (the
+  40k runs' first 5,016 steps reproduce P0 per-seed exactly).
+- **Reading:** not orbit-and-touch — **leave-and-never-return**. The λ
+  pull is local: within its capture radius it halves distance (E2.0),
+  but past that radius the one-step obs-distance is flat and the walk
+  never re-crosses. The pilot predicts the confirmatory reads
+  C(40,000) = C(5,000) = 1 → registered FAIL (floor). Confirmatory
+  proceeds per protocol.
+
 **Decision rule.**
 
 - **PASS** → orbit-and-touch stands as the topic's measured mechanism:
