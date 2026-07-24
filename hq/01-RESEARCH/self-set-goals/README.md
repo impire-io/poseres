@@ -1,16 +1,20 @@
 # Does the brain set goals for itself, or only follow a drive?
 
 **State:** active
-**Where it stands (2026-07-24, evening):** E2.0 MEASURED — the dwell gate
-**FAILs at power** (0/24 at 20%; λ-bias orbits, doesn't hold) so the
-goal-object-via-λ approach pauses per its own reversal — **and the gate's
-context rows hold the project's first deliberate crafting chains** (2 full
-log→planks→sticks across 42 goal-biased runs; frontier-alone: zero in the
-entire measured record). Knowledge + weak wanting = rare directed chains;
-the drawing-board fork (E2.0b homing term / orbit-rate-vs-horizon read /
-E3 verdict-channel reread) is the owner's. Earlier same day: E1 FAIL at
-power (teaching alone doesn't move the hands). E0/E0b (2026-07-23):
-premise + frontier anti-idle confirmed.
+**Where it stands (2026-07-24, night):** E2.0h REGISTERED — the owner
+picked fork option (ii), the horizon read: is the 2-in-42 chain rate at
+H = 5,000 a floor that climbs with an 8× window? Frozen: PASS iff
+≥ 6/24 graduates chain by H = 40,000 (E1's own k) with growth beyond
+C(5,000); FAIL iff ≤ 2. The instrument must first re-prove itself (P0:
+the rebuilt runner reproduces E2.0's recorded confirmatory — the
+originals were scratchpad-only per convention). Earlier same day: E2.0
+MEASURED — the dwell gate **FAILs at power** (0/24 at 20%; λ-bias
+orbits, doesn't hold) so the goal-object-via-λ approach paused per its
+own reversal — **and the gate's context rows hold the project's first
+deliberate crafting chains** (2 full log→planks→sticks across 42
+goal-biased runs; frontier-alone: zero in the entire measured record).
+E1 FAIL at power (teaching alone doesn't move the hands). E0/E0b
+(2026-07-23): premise + frontier anti-idle confirmed.
 **Started:** 2026-07-22
 **Origin:** a friend (ex-Willow Garage) asked what the brain has *as goals* —
 curiosity is an inner drive, but does the brain ever set itself a target and
@@ -633,6 +637,129 @@ longer horizons (the 2/42 existence rate vs H); or (iii) reread the
 teacher model — the completion-signal/verdict channel (E3 machinery) as
 the thing that holds attention, not distance. No option builds src
 before its own registered gate.
+
+## E2.0h pre-registration — the horizon read (REGISTERED 2026-07-24, before any run)
+
+**The owner picked fork option (ii)** (2026-07-24, evening): accept
+orbit-and-touch as measured and ask whether the chain rate climbs with
+horizon. Options (i) E2.0b homing term and (iii) E3 verdict-channel
+reread stay on the drawing board, unregistered.
+
+**Question.** E2.0 produced 2 full chains in 42 goal-biased runs at
+H = 5,000 (1/24 in the λ = 4 confirmatory). Floor or rate? If
+wanting-without-holding accumulates chains as the window grows, λ-orbit
+plus patience already converts taught knowledge into directed behavior —
+a holding mechanism would buy speed, not existence. If the count
+freezes, the λ-on-one-step-lookahead form is exhausted for rate as it
+already is for holding.
+
+**Instrument rebuild, declared before any run.** The E1/E2.0 runners
+were scratchpad-only per the arc convention and did not survive the
+session; the committed record plus the deterministic world make them
+reconstructible, and the rebuild must prove itself before any horizon
+step is read:
+
+- **P0 (rebuild gate):** regenerate the 24 graduates (seeds 1–24, 45
+  snapshot-bridged single-chain segments each, every segment asserting
+  its stick-craft — 034's tape gate inherited), then re-run G-λ4 at
+  H = 5,000. **HARD criterion:** the full-chain set is exactly
+  {seed 7} — E2.0 recorded it deterministic across pilot and
+  confirmatory. **SOFT criterion:** 0/24 seeds ≥ 20% dwell and median
+  dwell in 3.3–4.3% (recorded: 3.8%) under the declared
+  operationalization — Chebyshev distance ≤ 2 from the raw float (x, z)
+  of the ground-truth view position to the wood column (−1, 0). If the
+  recorded dwell cannot be recovered under this rule, nearby
+  operationalizations (floor/round of position) may be tried with every
+  attempt reported — instrument reconstruction, not bar-tuning; the
+  chain-set criterion admits no variant. If the full-observation goal
+  term fails the HARD criterion, E2.0's single pre-named amendment (the
+  labeled-channel mask) is the first diagnosis candidate. HARD mismatch
+  → instrument diagnosis; nothing downstream is read.
+- **Prefix invariance (validity):** the first 5,000 steps of every
+  40,000-step run must reproduce the P0 run's per-seed rows (the
+  horizon must not leak into the stream); divergence voids the read
+  pending diagnosis.
+
+**Subjects and arms.** G-λ4 = `GoalBiasPolicy` exactly as E2.0
+registered it — mirrors the curiosity lookahead (single ε draw at 0.1
+first, maturity gate, ascending candidate scan, ties to lowest index)
+plus λ·(−‖pred − goal_obs‖₂) over the full 32-channel decoded
+prediction; goal obs = the observation at tape step 2 (standing at the
+workshop, facing the wood, captured when the teacher emits its first
+`dig_ahead`); λ = 4.0 (the registered λ\*); subjects = the 24 E1
+graduates resumed into a fresh world. **H_max = 40,000** free-run steps
+(8× the E2.0 window; throughput probe 2026-07-24, calibration only:
+942 steps/s single-process, so the whole protocol is minutes-to-tens-of-
+minutes). Nested read points H ∈ {5,000, 10,000, 20,000, 40,000}.
+**F control:** frontier-alone graduates (no injected policy), seeds
+1–8, H = 40,000. **λ0.25 context arm (no bar):** seeds 1–8,
+H = 40,000 — the second recorded chain (seed 6) lived at this λ.
+
+**Primary metric.** C(H) = how many of the 24 G-λ4 seeds have ≥ 1 full
+log→planks→sticks chain within their first H steps. Detector: the
+causal triple over bare inventory increases in the ground-truth view
+(log-up → planks-up → stick-up, in order), exactly as operationalized
+for 034 — the window starts in a fresh world with an empty pocket, and
+the only mechanical path to a stick is the full chain.
+
+**Named cap (no silent caps):** the fake world holds exactly three wood
+columns — the starter (−1, 0) plus (−2, 3) and (5, −1) — so one world
+caps *recurrence* at ≤ 3 chains per seed. First-chain incidence, the
+primary, is uncapped by this. Recurrence is a context row, read against
+that ceiling.
+
+**Context rows (no bar):** per-seed first-chain step; chains per seed
+(ceiling 3, named above); dwell per 5,000-step block across the window
+(does the orbit persist or decay?); digs / logs / planks / sticks;
+unique positions and mean Chebyshev distance per block; the same rows
+for the λ0.25 and F arms.
+
+**Protocol.** P0 → pilot (seeds 1–8 at H_max, numbers published in this
+README before the confirmatory) → confirmatory (seeds 1–24 G-λ4 + the
+F and λ0.25 arms at H_max).
+
+**Frozen bars.**
+
+- **PASS iff C(40,000) ≥ 6 AND C(40,000) > C(5,000).** k = 6/24 is
+  deliberately E1's own bar: if weak wanting plus 8× patience reaches
+  the count that "taught knowledge reliably re-elects the chain"
+  demanded at H = 5,000, orbit-and-touch is a usable mechanism, not a
+  fluke. The second clause demands growth beyond the seeds already
+  known by 5,000 — accumulation, not replay.
+- **FAIL iff C(40,000) ≤ 2** — the count freezes at or below the known
+  chainers: a floor.
+- **C(40,000) ∈ {3, 4, 5} is a gray zone, reported as such** — no
+  laundering either way; the growth curve goes to the owner against the
+  memoryless reference, fork re-opened.
+- **Validity:** F chains = 0 (any nonzero re-opens the 0052 floor and
+  voids the read); P0 and prefix invariance as above.
+
+**Memoryless reference (frozen).** If chaining-on-touch were a
+constant-rate process at the confirmatory's observed p = 1/24 per
+5,000-step window, expected C(40,000) = 24·(1 − (23/24)⁸) ≈ 6.9. The
+PASS bar sits just under this line: a roughly-memoryless process should
+PASS; a strongly sub-memoryless one should not.
+
+**Frozen prediction.** C(40,000) ∈ [4, 10] — the orbit comes from a
+stationary policy with no decay mechanism, so touches should recur and
+chains accumulate near the memoryless line; PASS judged marginally more
+likely than not. Named doubt: seed heterogeneity — if chaining needs an
+atypically-structured brain rather than RNG luck, the curve plateaus at
+≤ 3 and the read FAILs. (E2.0's frozen prediction was wrong; this one
+is offered with that humility.)
+
+**Decision rule.**
+
+- **PASS** → orbit-and-touch stands as the topic's measured mechanism:
+  a taught goal observation plus a λ-bias at the policy seam converts
+  taught knowledge into directed chains at a usable, accumulating rate.
+  The next registered decision is the owner's: graduate the topic on
+  this result, or continue to E2.0b/E3 for speed and holding. No src
+  build is authorized by this gate alone.
+- **FAIL** → the λ-form is exhausted (holding *and* rate); the fork
+  narrows to (i) E2.0b homing or (iii) E3 verdict-channel — or park,
+  with the existence proof standing and the c1c run as the watch.
+- **Gray** → the owner decides with the curve on the table.
 
 ## Reversal condition
 
