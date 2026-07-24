@@ -303,9 +303,14 @@ and behavior lands exactly on the frozen prediction (V = M = 0/24 —
 sensing is not wanting, measured from the approval side). Verdict-as-
 sensor is refuted at its root for the current predictor
 (predictor-shaped, not concept-shaped; an event-sensitive predictor is
-the named successor). **The fork is now E2.0b or park.**
-Open threads, in priority order: **the E2.0b-or-park decision**
-([episode 0057](0057-approval-without-expectation.md), owner's pick);
+the named successor). **The owner then parked the topic**
+([episode 0058](0058-self-set-goals.md)): five gates, every one decided
+by its pre-registered bar, the existence proof standing as the
+project's measured statement on goals — knowledge + even a weak want
+produced the record's only deliberate chains; nothing else moved the
+hands at all. The topic folder is retired; E2.0b is the unexplored
+door; the c1c run is the watch that can reopen it.
+Open threads, in priority order:
 **the c1c run** (live; R1–R5 read when the weeks have spoken);
 **scheduled probing** (the named
 active successor: re-visit mastered ground under a held policy and
@@ -411,3 +416,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0055 | [The first deliberate chains, found by a failing gate](0055-the-first-deliberate-chains.md) |
 | 0056 | [A floor, not a rate: the horizon buys nothing](0056-a-floor-not-a-rate.md) |
 | 0057 | [Approval without expectation](0057-approval-without-expectation.md) |
+| 0058 | [Self-set goals, parked: five gates and an existence proof](0058-self-set-goals.md) |
