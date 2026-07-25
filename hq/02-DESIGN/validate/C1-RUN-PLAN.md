@@ -95,3 +95,42 @@ chance, and any crafting at all is emergence**; the sensed `mining`
 progress channel is the ladder's first learnable rung (it rises only
 while the intention is held). R2–R5 unchanged; the dig-persistence
 rate (consecutive dig_ahead streaks, completed digs) joins R2.
+
+## Amendment v3 (2026-07-22): the frontier drive, run `c1c`
+
+Recorded here 2026-07-25 (the decision and its evidence were recorded
+in episodes 0053–0054 on the day; this plan document is brought up to
+date so the pre-registration stays self-contained).
+
+`c1b` was learning well but **idling 26.7% of steps** — competence-
+alone's only per-candidate lookahead term is familiarity, maximised by
+the outcome most like now, i.e. standing still (mechanism traced in
+source, episode 0053). `c1b` was stopped at cumulative ~271k steps
+(`snap-000000271000-01125`, snapshots frozen) and replaced 2026-07-22
+16:23 UTC by run `c1c`:
+
+- **Changed**: `DRIVE=frontier` (the designed anti-camping successor,
+  arc 024 — scores mastered and no-change outcomes at ~0, so it cannot
+  camp on idle). **Fresh brain from step 0** (own snapshot counter).
+- **Unchanged**: the property body (obs 32 / actions 12, amendment
+  v2), seed 1, `TICK_MS=250`, snapshot cadence 25, cap on, single
+  brain/bot. The world and bridge were **not** restarted at the
+  handoff — `c1c` inherits `c1b`'s world as found (~271k steps of
+  light terrain edits; consistent with the plan's "its own edits"
+  non-stationarity clause).
+- **Registered addition — the anti-idle bar** (episode 0053's reversal
+  condition): idle ≥ ~20% of steps after frame maturity, or a
+  forward-lock degeneracy, refutes frontier-alone for this world.
+  **Read GREEN at power** (episode 0054, E0b): idle 3.1% over the last
+  10k of 328,560 steps, no degeneracy — the reversal did not fire.
+- **R1–R5 unchanged**, denominated on `c1c`'s own step clock: the
+  ≥ 14-days-of-brain-steps duration (~4.8M) and R1's final-7-days
+  window restart at `c1c` step 0. The E0 research read (episode 0054)
+  doubles as an early null: zero logs, planks, or sticks in the first
+  328k steps — consistent with the ≈ 0 chance baseline; the emergence
+  headline stays open.
+- **Standing reversal watch** (episode 0058): a self-produced
+  multi-step crafting chain in this run reopens the parked
+  self-set-goals topic.
+
+Live notes: [C1C-JOURNAL.md](C1C-JOURNAL.md).
