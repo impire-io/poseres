@@ -24,3 +24,30 @@ episodes 160–169**, per screening world. Unsettled ⇒ the mastery point
 moves later along the measured trajectory (keeping ≥ 2 pre-shift
 probes, i.e. no later than episode 150 at cadence 10), amended openly
 with the raw numbers here before any shift-cell reading.
+
+**2026-07-26 — instrument built and proven (I-gate) before any reading.**
+The runner (scratchpad, zero `src/pra` edits) follows the arcs' own
+instrument pattern: a world wrapper (counts resets; records the mastery
+episode's start `{latent, obj}` and 40-action tape; at probe resets
+restores the recorded start while **preserving** the world's
+`steps_emitted` / region counters, so a post-shift probe stays
+shifted), a probe policy (delegates to the exact
+`CuriosityLookaheadPolicy(PolicyParams.from_config(cfg))` the engine
+would build; plays the tape during probes; `last_was_directed=False`
+during probes — scripted is not directed), and a class patch of
+`FrameStore.online_step` (logs per-step mean electing error and elect
+count; reads only, no RNG, no float-order change). Gates: **I1** probe
+reset restores saved `{latent, obj}` and preserves `steps_emitted` —
+PASS; **I2** probe actions reaching the world equal the tape — PASS;
+**I3** a post-shift probe runs with the world reporting shifted=True —
+PASS; **I4** two identical runs → identical row logs, tapes, and
+engine summary hashes — PASS. Recorded instrument choices: a probe
+reset performs the normal inner reset (same draws as any episode),
+then restores state (no draws) and emits the restored state's first
+observation (one extra obs-noise draw) — downstream RNG therefore
+differs from a probe-free run; the run is deterministic and
+self-consistent, which is all the protocol requires. Erratum to the
+previous entry: probe-bearing arms share their prefix with probe-free
+runs only through episode 139 (5,600 steps), not 6,760 — the mastery
+recording at 130 is inside the shared prefix either way; the
+settledness criterion reads probe-free runs as frozen.
