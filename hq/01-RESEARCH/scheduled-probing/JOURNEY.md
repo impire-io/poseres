@@ -51,3 +51,15 @@ previous entry: probe-bearing arms share their prefix with probe-free
 runs only through episode 139 (5,600 steps), not 6,760 — the mastery
 recording at 130 is inside the shared prefix either way; the
 settledness criterion reads probe-free runs as frozen.
+
+**2026-07-26 — pilot: mastery at 130 is settled in every screening
+world (PASS, no amendment).** Probe-free h100 runs, pooled per-step
+electing-error medians (n = 389–390 per block): dynamics s1/s2/s3
+med(121–130) 0.162/0.119/0.188 vs med(160–169) 0.176/0.121/0.199 —
+ratios 0.92/0.99/0.95; emission s1/s2/s3 0.170/0.173/0.193 vs
+0.171/0.119/0.173 — ratios 0.99/**1.45**/1.12; multiregion s1 0.147 vs
+0.131 — ratio 1.12. All ≤ 1.5: the episode-130 mastery point stands as
+registered. The pre-shift plateau of the frontier arm sits at ~0.12–0.20
+mean electing error (this run family's own scale; not comparable to the
+old arcs' windowed cell statistics). Raw: scratchpad
+`probing/data/pilot.json`; every run byte-deterministic (I4 machinery).
