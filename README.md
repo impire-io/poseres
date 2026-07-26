@@ -58,6 +58,17 @@ growing over its final third), not merely because it hit a cap. A single-seed ru
 labelled **FOR DEBUGGING ONLY**. Exit code is 0 even when a test FAILs (a FAIL is
 data, not a CLI error) unless `--strict` is passed.
 
+## Documentation
+
+The docs site — getting started, the design documents 0001–0008, a
+worlds gallery, and the public-API promise — lives at
+**<https://impire-io.github.io/poseres/>**. It is built from this
+repository by `.github/workflows/docs.yml`: the committed pages under
+`docs/` plus build-time copies of `hq/02-DESIGN/*.md`,
+[GETTING-STARTED.md](GETTING-STARTED.md), and the interactive
+explainer — the repo holds exactly one copy of each document, and
+`tests/unit/test_docs_site.py` guards every file the site references.
+
 ## Public API & versioning
 
 From v1.0 the public surface is a promise: everything listed in

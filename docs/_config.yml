@@ -1,0 +1,29 @@
+# Site config for the PRA docs (feature 036). Built by the GitHub Pages
+# Jekyll action from .github/workflows/docs.yml, which copies the
+# single-sourced documents (GETTING-STARTED.md, hq/02-DESIGN/0*.md,
+# explainer/index.html) in beside these committed pages at build time.
+# tests/unit/test_docs_site.py guards every reference below.
+title: "PRA — Pose Resolution Architecture"
+description: >-
+  An OSS continuously-learning brain for hobbyists and makers: a
+  configurable body of sensors and actuators, a fixed innate drive, and
+  a brain that learns and restructures itself online.
+url: "https://impire-io.github.io"
+baseurl: "/poseres"
+theme: minima
+
+# Copied documents carry no front matter; take each page title from its
+# first heading and strip that heading so the layout doesn't render it twice.
+titles_from_headings:
+  enabled: true
+  strip_title: true
+  collections: false
+
+# Explicit navigation — without this, every copied design doc floods the
+# header. getting-started.md exists only in the assembled site (copied
+# from GETTING-STARTED.md at build time).
+header_pages:
+  - getting-started.md
+  - worlds.md
+  - design/index.md
+  - api.md
