@@ -71,8 +71,12 @@ surface that no longer moves.
   inventory with a surface guard in the gate; semver + deprecation policy
   published; `v1.0.0` tagged. *Exit met:* v1.0 tag; the seams documented
   as public API.
-- **Docs site**: GETTING-STARTED, the design docs, and a "worlds gallery"
-  rendered as a small static site. *Exit:* docs deployed, linked from README.
+- **Docs site — LANDED**
+  ([episode 0062](../04-JOURNEY/0062-the-docs-site.md), feature 036):
+  Pages site built from `docs/` + `hq/02-DESIGN` at deploy time (zero
+  duplication), worlds gallery with recorded FAILs stated, rot-guard
+  test in the gate. *Exit:* deployed and linked from README (deploy
+  verified at landing).
 - **Shareable brains**: snapshots as portable artifacts ("here's my rover
   brain after 100k steps — load it"). *Exit:* a snapshot published by one
   person loads and runs for another, verified.
