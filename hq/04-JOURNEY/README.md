@@ -442,3 +442,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0060 | [C2 parked, Phase D active: the road re-prioritized](0060-c2-parked-phase-d-active.md) |
 | 0061 | [The surface freezes: v1.0](0061-the-surface-freezes.md) |
 | 0062 | [The docs site: the record, rendered](0062-the-docs-site.md) |
+| 0063 | [The contribution surface: the on-ramp is bodies](0063-the-contribution-surface.md) |

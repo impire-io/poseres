@@ -80,10 +80,12 @@ surface that no longer moves.
 - **Shareable brains**: snapshots as portable artifacts ("here's my rover
   brain after 100k steps — load it"). *Exit:* a snapshot published by one
   person loads and runs for another, verified.
-- **Contribution surface**: CONTRIBUTING.md, good-first-issue labels on
-  world/sensor/actuator implementations — the natural contributor on-ramp is
-  *new bodies*, not core changes. *Exit:* first external world contribution
-  merged.
+- **Contribution surface — BUILT, exit pending-external**
+  ([episode 0063](../04-JOURNEY/0063-the-contribution-surface.md),
+  feature 038): CONTRIBUTING.md against the frozen seams, issue/PR
+  templates, five labels + four API-verified good-first-issue drafts.
+  *Exit* ("first external world contribution merged") awaits an external
+  human — recorded, not claimed.
 - **Show, then tell**: a demo video per showcase, published with its honest
   telemetry. No demo outruns its measured capability (constitution IV).
 - **The book**: the long-form narrative (`book/` — four parts drafted;
