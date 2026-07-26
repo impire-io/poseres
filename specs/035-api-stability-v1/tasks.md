@@ -69,7 +69,7 @@ entry states the promise and links Doc 0008.
 - [X] T016 Full gate green with the new guard in it: `./.venv/bin/ruff format --check . && ./.venv/bin/ruff check . && ./.venv/bin/pytest -q` — zero skips, byte-frozen baseline untouched (constitution I evidence)
 - [X] T017 Update `hq/03-IMPLEMENTATION/roadmap.md`: Phase D "API stability & v1.0" item marked landed with its episode link; ledger row added
 - [X] T018 Write journey episode `hq/04-JOURNEY/0061-the-surface-freezes.md` (via `/journey-log`): what v1.0 promises, the inventory-as-contract-test mechanism, evidence tags, reversal condition; update episode index + "Where things stand"
-- [ ] T019 Merge `035-api-stability-v1` → `main` (gate green), push, then cut the annotated signed tag `v1.0.0` on main and push the tag; verify the tag's gate evidence
+- [X] T019 Merge `035-api-stability-v1` → `main` (gate green), push, then cut the annotated signed tag `v1.0.0` on main and push the tag; verify the tag's gate evidence
 
 ## Dependencies
 
