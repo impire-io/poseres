@@ -109,3 +109,192 @@ book. Add items as they come up; strike them when resolved.
 - [ ] Part 5 has no measured foundation yet beyond multi-stream (journey 0022).
   Before drafting chapters 13–14, re-check whether any teacher-related
   work has landed since 2026-07-18.
+
+## STYLE-checklist audit, 2026-07-27 — findings for arbitration
+
+Full revision-checklist pass (STYLE.md items 1–7) over all 12 drafted
+chapters, every cited number cross-checked against `hq/04-JOURNEY/` and the
+`hq/02-DESIGN/validate/*-DIAGNOSIS.md` trail. Findings only; no prose was
+touched. Items already tracked above are referenced, not repeated.
+
+### Mechanical results (whole book)
+
+- Banned words/phrases (item 2): zero hits in any chapter's prose. PASS.
+- Em dashes (item 3): exactly one in the book (ch 1, "on your own
+  screen — from first command"); within budget. PASS.
+- No bullet lists anywhere; all headings sentence case; boxes strippable in
+  every chapter with the story intact (items 1, 3). PASS.
+- First-sentence parallelism (item 4): none found beyond ch 1's deliberate
+  "The world changes / The task changes / The body changes" triple. PASS.
+- [ ] Bold outside first definitions: ch 7's four run-in cheat labels
+  ("**Cheat one: grade me in my own coordinates.**" etc.). They function as
+  structural labels like the box titles, but sit outside the letter of the
+  bold rule. Style call.
+- [ ] One exclamation mark outside dialogue: ch 6 "(motors forward!)" — a
+  mock command, borderline under the humor policy.
+- [ ] Chapters with no dated, record-sourced event (item 5): ch 1 (only the
+  planted vacuum opener, tracked above), ch 4, ch 5. Ch 4/5 are concept
+  chapters; recorded here so the gap is a decision, not an oversight.
+- [ ] Reading ease: ch 9–12 not yet measured (extends the style-guide item
+  above; ch 8's measured ~9.3 leans on the "mechanism chapters may run
+  higher" clause).
+
+### Numbers audit (item 7) — claims I could not find in the record
+
+Everything not listed here traced cleanly: the v3 postmortem set (18→30
+cycles, 6/8→3/8, best_dim drift 1/2/6, ~+1 frame/cycle, 0.36 vs ~1.0, 23%,
+0.04/dim; `pra_sim_v4.py` header, journey 0002), the T-SCALE set (~40×,
+td 20/35/50, obs 60/105/150, best_dim≈1; journey 0003), the scale-rule set
+(patience 2/12/24/29 → 4.7/5.7/6.7/10.7; 65%/18% saturation; medians
+8/10.5/9.5; one seed to 18; climbers 62–74; census 29/0; 24/24 anchored;
+10/9/9; 0.0067/dim crossing 8–12; dim-28 minimum at 4×; journey 0004/0009/
+0011/0014, SCALE-/THRESHOLD-/SCORER-DIAGNOSIS), the E3 fair-judge grid
+(median 32.5; 8/8 at dims 7–11, ages 353–496/500; pops 44–57 vs cap 200;
+K=5/K=2), the full T7/agency set (−0.006±0.036; 3/8; −0.062; 1/8; 87%;
++0.014; +0.067 in 6/8; +0.064/+0.027 in 6/8; journey 0005/0007,
+AGENCY-DIAGNOSIS), the rot/cap set (dims 8–24; onset 400–800 cycles;
+∞/1.5/1.2 dose–response; 6.0→10.0; anchors 4–8→7–12; tenures 1736–1977;
++4/+1/+0.5; SCORER §E2, LONGEVITY), and the ch 12 set (five obstacles,
+10-channel anatomy, ~50-line adapter, 3.6% respawns, ±inf lidar,
+half-channel static collapse, populations 15/19/13, best_dim 2).
+
+Not found or discrepant (do not fix without Daan; publication numbers
+audit needs this list):
+
+- [ ] **Ch 8** — "After a year of removing every dishonesty I could find":
+  the recorded honesty arc runs June 2026 (journey 0002) to 2026-07-11
+  (journey 0014). Nothing in the record supports "a year". Looked: episode
+  dates 0001 ("up to 2026-06-20") through 0014. Either real unrecorded
+  prehistory (Daan to confirm) or the wording overstates.
+- [ ] **Ch 8** "Months of measurement said otherwise" and **ch 7** "the
+  months of it": the scale/judge campaign is dated 2026-06-29 → 07-11 in
+  the record (journey 0004, 0011, 0013, 0014) — weeks, not months. Same
+  question as above.
+- [ ] **Ch 11** — "Five features after snapshots shipped": snapshots are
+  feature 003 (journey 0006); the one-ULP bug was caught in feature 010
+  (journey 0023), with six features (004–009) landing between. "Five" is
+  not supported by any counting I could construct. The section heading
+  repeats the count.
+- [ ] **Ch 10** — "roughly doubling their honest prediction error between
+  the standard budget and the long one": SCORER-DIAGNOSIS §E2 records the
+  doubling vs the 4× budget (2400 episodes: dim 8 0.31→0.49, dim 20
+  0.25→0.53), not vs the standard 600. The box's "norm 20 → 18 → 29" is
+  the top of the record's 27–29 range (substantively verified; noting for
+  precision).
+- [ ] **Ch 7** — "across all eight seeds" for the v4 full-suite pass:
+  journey 0002 records "passed T1–T6 honestly" with no per-seed spread;
+  the nearest seed-level reading (journey 0003's oracle checkpoints) shows
+  6/8 at one checkpoint. Not confirmable as stated.
+- [ ] **Ch 9** — "four hundred simulation runs": no such count in the
+  record; the journey 0024 grid alone was 576 runs. Unverifiable as
+  stated (rhetorical understatement, but it is a number).
+- Ch 12 "about four minutes" and ch 4's constructed worked triplet:
+  already tracked above (no change; this pass confirms neither is in the
+  record — journey 0020 says "well under five minutes").
+
+### Since-reversed or superseded results (text predates the record's turn)
+
+- [ ] **Ch 9 (most severe)** — the drive-layer ending. "The shipped drive
+  became competence... it held up later on worlds built specifically to
+  punish it"; the frontier drive "wins nothing over competence"; its
+  payoff worlds are "named, instrumented, and not yet measured." Since
+  drafting: journey 0031 measured the camping bill (competence stood, at
+  reference), then journey 0053 reversed the competence-alone posture for
+  Minecraft (idling 26.7% of steps, mechanism traced to
+  familiarity-as-competence) and journey 0054 vindicated the frontier
+  drive live (idle 3.1%, reversal untriggered). The chapter's
+  reference-scale story remains true as written; its "current edge"
+  framing and the held-up claim now have a measured sequel that reverses
+  the posture in a rich world.
+- [ ] **Ch 12** — "learned channel weighting, is on the bench as I write
+  this, and it explicitly gates the physical-robot showcase": journey 0030
+  (2026-07-18) landed it — L3 noise PASSes opt-in at 24 seeds, the
+  default-config FAIL kept as the recorded reference — and journey 0060
+  then parked C2 (the showcase in question). Stale on both counts.
+- [ ] **Ch 10** — "Whether very long reference-scale lives eventually
+  would [need the cap] is a named open question, not a settled one":
+  journey 0041 answered it at deployment length — no rot in 500k-step
+  reference-scale soaks, cap measured behaviorally free, C1 runs cap-on.
+- [ ] **Ch 5 and ch 12 closings** — the Part 5 teacher hook ("The record
+  hasn't answered"; "Part 5 asks what this architecture becomes when the
+  world teaches back"): journey 0054–0058 have since answered a large part
+  of it (teaching alone moved nothing at full power; knowledge plus even a
+  failing want produced the record's only deliberate chains; the topic is
+  parked with the existence proof standing). The hooks are not wrong; the
+  tense is. Part 5's premise needs re-arbitration against the parked
+  topic before those chapters are drafted (extends the Part 5 item above).
+- [ ] **Ch 11** — "Not one triplet is retained": this pass confirms the
+  accuracy concern tracked above — Doc 05 §3.2–3.3's
+  `recent_observation_memory` is "a bounded store of recent observations"
+  in drive bookkeeping, so the flat claim is overstated per the record.
+- Ch 1 — "runs, today, on worlds ranging from simulated rovers to anything
+  that speaks a robot's message protocol": since journey 0043 the record
+  also has Minecraft. Understated, not wrong; currency note only.
+
+### Voice and lane findings (new ones only)
+
+- [ ] **Ch 4** — broken cross-reference: "When chapter 3 said PRA's models
+  compete to predict well" — chapter 3 says no such thing; the
+  crowd-of-rivals preview is chapter 2's ("keeps a whole crowd of small
+  rival models"). Concrete instance for the cross-reference item above.
+- [ ] **Ch 6** — encoder/decoder arrive in the main text without the
+  italicized one-line definition, and have no glossary entries; the
+  glossary also has no Part 4 section at all (extends the glossary
+  completeness item above).
+- [ ] **Ch 8** — "the emission function saturated" in main text: the term
+  exists only in ch 3's Under-the-hood box, so the main-text lane has
+  never met it. Lane wobble.
+- [ ] **Ch 8 / ch 12** — `best_dim` appears in main text (ch 8 quotes the
+  readout; ch 12 names the on-screen quantity). The only code identifiers
+  in the main lane; ch 12's is arguably earned since the screen shows it.
+  Style call.
+- [ ] **Ch 12** — "The instrument smiled; the numbers were garbage":
+  cute-risk candidate for the register list above (not previously
+  tracked). Same section as the tracked "drew blood" heading.
+- [ ] **Ch 10** — "death with the lights left on": strong metaphor,
+  arguably load-bearing; register call.
+- [ ] **Ch 2** — "the way you laugh at a plumbing disaster": extends the
+  tracked invented-emotional-beats item (same paragraph family as "made
+  me laugh out loud").
+- [ ] Colon-fragment sweep candidates found for the tracked fluency item:
+  ch 8 "why it moves, what it practices, what it seeks out"; ch 10 "what
+  'memory' even means" hand-off; ch 3's "what you sensed, what you did,
+  what you sensed next" is the triplet formula itself and probably stays.
+
+### Summary
+
+| ch | voice/register | lanes | unverified numbers | stale vs record | verdict |
+|----|----------------|-------|--------------------|-----------------|---------|
+| 1 | planted opener (tracked) | clean | 0 | currency note | needs arbitration |
+| 2 | tracked beats + 1 new | clean | 0 | — | needs arbitration |
+| 3 | clean | clean | 0 | — | pass |
+| 4 | tracked register item | clean | tracked triplet; broken xref | — | needs arbitration |
+| 5 | tracked planted claim | clean | 0 | Part 5 hook | needs arbitration |
+| 6 | 2 tracked + exclamation | encoder/decoder defs | 0 | — | needs arbitration (minor) |
+| 7 | tracked editorial claims | bold labels | "all eight seeds"; "months" | — | needs arbitration |
+| 8 | clean | emission function; best_dim | "a year"; "months"; else verified | — | needs arbitration |
+| 9 | tracked editorial claims | clean | "four hundred runs" | drive posture reversed (0053/0054) | needs arbitration |
+| 10 | 1 register note | clean | doubling baseline | cap question answered (0041) | needs arbitration |
+| 11 | tracked editorial claims | clean | "five features" | retention overstated (confirmed) | needs arbitration |
+| 12 | 1 new + tracked heading | best_dim in main | tracked "four minutes" | weighting landed (0030); C2 parked (0060); Part 5 hook | needs arbitration |
+
+### For arbitration, by severity
+
+1. Ch 9's ending vs journey 0053/0054: the competence posture is reversed
+   for Minecraft and the frontier drive vindicated; the book's "current
+   edge" is no longer the record's.
+2. Ch 8 "after a year" and ch 7/8 "months" vs the record's June–July 2026
+   arc: confirm real prehistory or correct before the publication numbers
+   audit.
+3. Ch 12's channel-weighting sentence vs journey 0030 and 0060 (landed;
+   showcase parked).
+4. Ch 5/12 Part 5 teacher hooks vs the parked self-set-goals topic
+   (journey 0054–0058).
+5. Ch 10's cap open question vs journey 0041 (answered at C1 length).
+6. Ch 11: "five features" count; "not one triplet is retained" (confirmed
+   overstated per Doc 05).
+7. Ch 4's chapter-3 cross-reference (the statement is chapter 2's).
+8. Precision fixes: ch 7 "across all eight seeds"; ch 9 "four hundred
+   runs"; ch 10 doubling baseline.
+9. Style calls: ch 7 bold cheat labels; ch 6 "(motors forward!)"; register
+   candidates in ch 10 and ch 12.
