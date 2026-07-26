@@ -96,11 +96,15 @@ next experiment each one is gated behind.
   (kernel research — derisk small), and observation encoding for unbounded
   sequences. Pre-registered prediction in 0042: the current kernel plateaus
   short of syntax. No language showcase before the gate reads.
-- **Scheduled probing** — the staleness-detection successor
-  ([episode 0040](../04-JOURNEY/0040-reading-the-censor.md)): four passive
-  read families closed with one verdict (the detector's background is the
-  brain itself), so the successor is *active* re-visit under a held policy —
-  a Doc 05-level feature. The tolerant gate is a recorded conditional.
+- **Staleness detection — closed, passive and active**
+  ([episode 0059](../04-JOURNEY/0059-scheduled-probing.md)): scheduled
+  probing, the active successor, failed its registered gate — the benign
+  band crossed above the shift band under total route control; the
+  detector's window is the brain's own relearning speed. The ch. 39
+  tolerant gate (~1.6% false-fire) stays the recorded deployment
+  conditional; reopening requires an episode-0059 named door with a fresh
+  registered gate, or a brain that measurably relearns slower than one
+  episode.
 - **Distributing the brain itself** — the remaining link of the chain
   A1 → B4 → B6 → multi-machine: inter-brain and cross-machine delivery
   semantics (broadcast / anycast / unicast), which B6 deliberately excluded
@@ -167,6 +171,7 @@ like "ROADMAP A3" resolve here.
 | Goals-E3.0 | Verdict-sensation gate FAILs at the precursor: approval pulses provably in the stream 45×, expectation forms in 14/24 (bar 18) with 5 seeds anti-predictive; behavior on the frozen prediction (V=M=0/24 — sensing ≠ wanting from the approval side); refutation predictor-shaped (event-sensitive predictor = named successor); fork now E2.0b or park | [0057](../04-JOURNEY/0057-approval-without-expectation.md) |
 | Goals-parked | Topic parked by the owner (lifecycle: abandoned; folder retired): five gates all decided by their registered bars; standing result = the existence proof (knowledge + weak wanting produced the record's only deliberate chains); E2.0b the unexplored door; c1c the reopening watch | [0058](../04-JOURNEY/0058-self-set-goals.md) |
 | Research arcs | Camping bill; scout, place-memory, emission-shift, context-memory, transfer-signal, staleness, change-point, election-stream (program paused, map complete); seeding measured | [0031](../04-JOURNEY/0031-the-camping-bill.md)–[0040](../04-JOURNEY/0040-reading-the-censor.md), [0044](../04-JOURNEY/0044-brain-seeding.md) |
+| Probing | Scheduled probing measured and closed: P0 FAIL both clauses (shift band ≤ 1.76× vs the 4× bar; benign probes to 2.80× above it), mechanism measured (relearning inside one episode; censoring survives held policy) — staleness detection closed passive+active | [0059](../04-JOURNEY/0059-scheduled-probing.md) |
 
 *This file is load-bearing: changes to it are decisions and belong in
 the journey (`../04-JOURNEY/`) as episodes like any other.*

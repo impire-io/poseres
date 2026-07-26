@@ -20,7 +20,7 @@ Episodes 0001–0044 were chapters of the original single-file `JOURNEY.md`
 "ch. NN" resolve to `00NN-*.md`). The recurring principles the journey keeps
 teaching moved to `../00-GENESIS/how-we-work.md`.
 
-## Where things stand (2026-07-24)
+## Where things stand (2026-07-26)
 
 **The project's working structure moved into `hq/`**
 ([episode 0045](0045-the-hq-restructure.md)): GENESIS holds the vision,
@@ -175,8 +175,19 @@ frames in one episode, the drive's own movement between regions)
 exceed every shift cell's peak. **Four signal families measured on one
 testbed, one verdict: no passive statistic separates a world change
 from the brain's own nonstationarity — the detector's background is
-the brain itself.** The staleness-detection program pauses with its
-map complete. **C1's runway is cleared** ([Chapter 41](0041-the-soak-before-the-weeks.md)): the reference-
+the brain itself.** The active successor then closed the program's
+last door ([episode 0059](0059-scheduled-probing.md)): scheduled
+probing — held-policy revisit of mastered ground, every judgment
+frozen pre-run, the instrument proven on four gates — FAILed its
+registered bar on both sides (shift band max 1.76× vs the 4× bracket;
+benign probes to 2.80× *above* it, the bands crossed), and the
+mechanism was measured: relearning completes inside one episode and
+election censoring survives total route control. **The detector's
+background is the brain itself, and its window is the brain's own
+relearning speed. The staleness-detection program is closed, passive
+and active — five signal families, one testbed, one verdict**; the
+ch. 39 tolerant gate stays the recorded deployment option, and Doc
+05's competence-stands guidance never depended on detection. **C1's runway is cleared** ([Chapter 41](0041-the-soak-before-the-weeks.md)): the reference-
 scale lifetime question is answered at deployment length — no rot in
 500k-step soaks (episodic stationary, continuous decelerating; cap
 measured behaviorally free → C1 runs cap-on), resume byte-identical at
@@ -312,13 +323,12 @@ hands at all. The topic folder is retired; E2.0b is the unexplored
 door; the c1c run is the watch that can reopen it.
 Open threads, in priority order:
 **the c1c run** (live; R1–R5 read when the weeks have spoken);
-**scheduled probing** (the named
-active successor: re-visit mastered ground under a held policy and
-re-test — detection as a designed experiment, a Doc 05-level feature,
-when the program resumes); the [ch. 39](0039-not-the-statistic.md) tolerant-gate conditional
+the [ch. 39](0039-not-the-statistic.md) tolerant-gate conditional
 (~1.6% false-fire, if a deployment can afford it); and the
 bounded-trace snapshot option (when a deployment's horizon demands
-it). **Repository housekeeping (2026-07-20):** the 2026-07-19/20
+it). Staleness detection is closed ([episode 0059](0059-scheduled-probing.md));
+reopening requires one of its named doors with a fresh registered
+gate, or a brain that measurably relearns slower than one episode. **Repository housekeeping (2026-07-20):** the 2026-07-19/20
 session's work — the staleness-program successors (arcs 023–025,
 chapters [38](0038-the-plane-is-measured.md)–[40](0040-reading-the-censor.md)), the C1 soak (arc 026, chapter 41), and the Minecraft
 body (feature 027, chapter 43) — is all merged to `main` and pushed,
@@ -417,3 +427,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0056 | [A floor, not a rate: the horizon buys nothing](0056-a-floor-not-a-rate.md) |
 | 0057 | [Approval without expectation](0057-approval-without-expectation.md) |
 | 0058 | [Self-set goals, parked: five gates and an existence proof](0058-self-set-goals.md) |
+| 0059 | [Scheduled probing: the window closes before the probe arrives](0059-scheduled-probing.md) |
