@@ -47,7 +47,7 @@ the gate. What this document adds is the *promise* around the list.
 
 Each element below is promised for all of v1.x: it exists at its
 path, matches its kind, and keeps its promised parameter names
-(keyword-only additions are legal in minors). The four CLI names are
+(keyword-only additions are legal in minors). The five CLI names are
 console commands; `pra.v1.>` is the versioned telemetry/control
 subject space whose per-subject grammar is Doc 0006 §5b and the
 subject-builder functions listed under Operational below.
@@ -156,6 +156,12 @@ subject-builder functions listed under Operational below.
 | Element | Kind | Promised parameters |
 |---|---|---|
 | `pra.nats.NatsSnapshotStore` | class | — |
+| `pra.persistence.portable.PORTABLE_FORMAT_VERSION` | constant | — |
+| `pra.persistence.portable.PortableIntegrityError` | class | — |
+| `pra.persistence.portable.PortableVersionError` | class | — |
+| `pra.persistence.portable.export_brain` | function | path, blob, store, snapshot_id, note, created_at |
+| `pra.persistence.portable.import_brain` | function | path |
+| `pra.persistence.portable.inspect_brain` | function | path |
 | `pra.persistence.snapshot.FORMAT_VERSION` | constant | — |
 | `pra.persistence.snapshot.SnapshotCompatibilityError` | class | — |
 | `pra.persistence.snapshot.SnapshotVersionError` | class | — |
@@ -175,6 +181,7 @@ subject-builder functions listed under Operational below.
 
 | Element | Kind | Promised parameters |
 |---|---|---|
+| `pra-brain` | cli | — |
 | `pra-dash` | cli | — |
 | `pra-flush` | cli | — |
 | `pra-rover` | cli | — |
