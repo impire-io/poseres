@@ -1,0 +1,64 @@
+# Docs site (feature 036): assemble docs/ + the single-sourced documents,
+# build with the standard GitHub Pages Jekyll action, deploy to Pages.
+# The repo never holds a second copy of GETTING-STARTED.md or the design
+# docs — they are copied into the assembled site here, at build time.
+# tests/unit/test_docs_site.py guards every path this workflow copies.
+#
+# One-time enablement (owner action): Settings → Pages → Source: GitHub
+# Actions. Until then the deploy job fails visibly; the build job is green.
+name: Docs
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "docs/**"
+      - "hq/02-DESIGN/**"
+      - "GETTING-STARTED.md"
+      - "explainer/index.html"
+      - ".github/workflows/docs.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Assemble site (copy single-sourced documents)
+        # Copy list — keep tests/unit/test_docs_site.py's mapping in sync:
+        #   GETTING-STARTED.md      -> docs/getting-started.md
+        #   hq/02-DESIGN/0*.md      -> docs/design/   (glob: 0009+ auto-deploys;
+        #                              the design README stays in the repo — its
+        #                              repo-relative links don't resolve on site)
+        #   explainer/index.html    -> docs/explainer/index.html
+        run: |
+          cp GETTING-STARTED.md docs/getting-started.md
+          cp hq/02-DESIGN/0*.md docs/design/
+          mkdir -p docs/explainer
+          cp explainer/index.html docs/explainer/index.html
+      # No configure-pages step: url/baseurl are pinned in docs/_config.yml,
+      # and omitting it keeps the build job green before Pages is enabled.
+      - uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./docs
+          destination: ./_site
+      - uses: actions/upload-pages-artifact@v3
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
