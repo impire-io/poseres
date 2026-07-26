@@ -323,14 +323,25 @@ hands at all. The topic folder is retired; E2.0b is the unexplored
 door; the c1c run is the watch that can reopen it.
 **The road was re-prioritized on 2026-07-26**
 ([episode 0060](0060-c2-parked-phase-d-active.md)): C2 parked (gates
-met — a priority call, not a gate), **Phase D active** — and its first
-item landed the same day ([episode 0061](0061-the-surface-freezes.md)):
-**v1.0 is tagged**, the public surface (110 elements, six families)
-frozen as Doc 0008 with a machine-checked inventory and a surface
-guard in the gate, semver + deprecation policy published, zero
-behavior change (the byte-frozen suite green on the landing commit).
-Next Phase D items: docs site, shareable brains, contribution
-surface.
+met — a priority call, not a gate), **Phase D active** — and then
+Phase D essentially completed in two days. **v1.0 tagged**
+([episode 0061](0061-the-surface-freezes.md)): the public surface
+(110 elements, six families) frozen as Doc 0008 with a machine-checked
+inventory and a surface guard in the gate, semver + deprecation
+policy, zero behavior change. **Then four parallel worktrees, one
+serial landing, v1.1.0 tagged** ([episode 0065](0065-phase-d-in-a-day.md)):
+the docs site built with a rot-guard test (deploy pending the owner's
+Pages click, [0062](0062-the-docs-site.md)); the contribution surface
+shipped with API-verified good-first-issues (external-merge exit
+pending an external human, [0063](0063-the-contribution-surface.md));
+**shareable brains landed with its exit met** — `pra-brain`
+export/inspect/import, cross-person load byte-identical
+([0064](0064-shareable-brains.md)); the book's STYLE audit flagged 11
+of 12 chapters for the maintainer's arbitration (`book/REVISIT.md`);
+and show-then-tell is deferred by constitution IV until the c1c read
+lands. Phase D's remaining human-gated threads: Pages enablement,
+seeded-issue creation, book arbitration, the first external
+contribution.
 Open threads, in priority order:
 **the c1c run** (live; R1–R5 read when the weeks have spoken);
 **Phase D** (active — API v1.0 in flight);
@@ -444,3 +455,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0062 | [The docs site: the record, rendered](0062-the-docs-site.md) |
 | 0063 | [The contribution surface: the on-ramp is bodies](0063-the-contribution-surface.md) |
 | 0064 | [Shareable brains: a snapshot becomes an artifact](0064-shareable-brains.md) |
+| 0065 | [Phase D in a day: four parallel worktrees, one serial landing](0065-phase-d-in-a-day.md) |

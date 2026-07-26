@@ -1,2 +1,0 @@
-[console_scripts]
-pra-validate = pra.harness.cli:main

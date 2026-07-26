@@ -88,8 +88,11 @@ surface that no longer moves.
   templates, five labels + four API-verified good-first-issue drafts.
   *Exit* ("first external world contribution merged") awaits an external
   human — recorded, not claimed.
-- **Show, then tell**: a demo video per showcase, published with its honest
-  telemetry. No demo outruns its measured capability (constitution IV).
+- **Show, then tell — deferred by constitution IV**
+  ([episode 0065](../04-JOURNEY/0065-phase-d-in-a-day.md)): a C1 demo
+  video before the c1c R1–R5 read lands would be a demo outrunning
+  measured capability. Resumes when the run's read is in; each showcase's
+  video publishes with its honest telemetry.
 - **The book**: the long-form narrative (`book/` — four parts drafted;
   contract in `book/STYLE.md`; decision recorded in
   [episode 0047](../04-JOURNEY/0047-the-book-decision.md)). Part 5
