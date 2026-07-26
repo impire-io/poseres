@@ -22,11 +22,14 @@ negative control) [measured]. Gate on the feature: 673 passed, zero
 skips — the eight new tests on top of the frozen 665
 [measured].
 
-Deployment is the one externally-gated step: Pages enabled at landing,
-first deploy by workflow run on main; until the first real Jekyll
-render the plugin-set assumption is stated, not proven — recorded here
-honestly [judgment], with the deploy verified in this episode's
-landing (see trail).
+Deployment is the one externally-gated step, and it stayed external:
+the automated landing was not permitted to enable Pages (publishing is
+the owner's act), so the exit's deploy clause is **pending the owner**
+— one click (Settings → Pages → Source: GitHub Actions) or
+`gh api -X POST repos/impire-io/poseres/pages -f build_type=workflow`,
+then the workflow deploys on the next docs push or manual dispatch.
+Until the first real Jekyll render the plugin-set assumption is
+stated, not proven [judgment].
 
 Reversal condition: none — records a completed build; the roadmap exit
 ("docs deployed, linked from README") is read at landing and the site
