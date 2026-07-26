@@ -103,6 +103,29 @@ stands — it never depended on detection).
 
 ## Verdict
 
-<Empty until graduation. Filled by /research-graduate: PASS/FAIL per bar with
-the honest numbers, each load-bearing claim tagged [measured] /
-[mechanism-argument] / [judgment].>
+- **Bar P0 — FAIL, both clauses** [measured]. Clause (a): the first
+  post-shift probe read C = 0.84–1.76 across all six screening cells
+  against the ≥ 4 bar (dynamics 1.08/0.87/0.84; emission
+  1.33/1.76/0.92). Clause (b): pre-shift probes all pass (max 1.65)
+  but the benign tier does not — no-shift twin s3 reads 2.41, and
+  multiregion s1 violates six times across 49 probes, to 2.80. The
+  benign band (max 2.80) sits above the entire shift band (max 1.76).
+  Confirmation tier not run (registered read-only-on-pass).
+- **Bar P1 — not run** (conditional on P0). Moot by overlap
+  [measured]: no θ separates bands that have crossed; the pre-frozen
+  θ = 3.0 was never applied.
+- **Bar P2 — not run** (conditional on P1).
+- **Mechanism** [measured]: relearning completes inside one episode
+  (first shifted episode collapses early→late 0.21–0.64 → 0.05–0.22;
+  one dynamics seed at floor within its first 40 shifted steps);
+  election censoring survives the held policy (emission arms halve
+  their electing census on the probe route, 14.0 → 6.5); the raw
+  one-step error has < 4× headroom over its own noise floor
+  (B 0.07–0.19; best reading anywhere: 3.9×, gone the next episode).
+- **Verdict** [judgment]: the reversal condition fired on both legs.
+  The chapter-40 verdict extends to active reads: the detector's
+  background is the brain itself, and its window is the brain's own
+  relearning speed. The staleness signal lives ~10–30 steps; the
+  earliest scheduled revisit arrives an episode late. The instrument
+  controlled everything it promised (I1–I4 PASS) and the reading
+  still cannot separate.
