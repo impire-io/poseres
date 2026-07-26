@@ -1,0 +1,27 @@
+[
+  {
+    "name": "good first issue",
+    "color": "7057ff",
+    "description": "Scoped first contribution — seams, acceptance bar, and honest size are named in the issue"
+  },
+  {
+    "name": "new-world",
+    "color": "0e8a16",
+    "description": "A new world or body for the brain to learn — the natural contributor on-ramp"
+  },
+  {
+    "name": "new-sensor-actuator",
+    "color": "1d76db",
+    "description": "A sensor or actuator behind the Doc 02 anatomy seam (src/pra/anatomy/body.py)"
+  },
+  {
+    "name": "new-drive",
+    "color": "5319e7",
+    "description": "An innate drive behind the Drive protocol; research-adjacent — value claims get measured"
+  },
+  {
+    "name": "proposal",
+    "color": "d4c5f9",
+    "description": "Design conversation before code — required for anything touching core behavior (constitution I)"
+  }
+]

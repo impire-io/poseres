@@ -1,0 +1,9 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Question, idea, or anything that fits neither template
+    url: https://github.com/impire-io/poseres/blob/main/CONTRIBUTING.md
+    about:
+      Start with CONTRIBUTING.md — it names the seams, the worked
+      examples, and the rules, and most questions are answered there.
+      If yours is not, open a world proposal and say so; a half-formed
+      proposal beats a lost question.
