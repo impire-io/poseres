@@ -26,3 +26,5 @@ examples/minecraft/bridge/node_modules/
 examples/minecraft/bridge/package-lock.json
 c1-snapshots/
 deploy/infra/.env
+build/
+dist/

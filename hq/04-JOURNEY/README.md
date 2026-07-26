@@ -323,8 +323,14 @@ hands at all. The topic folder is retired; E2.0b is the unexplored
 door; the c1c run is the watch that can reopen it.
 **The road was re-prioritized on 2026-07-26**
 ([episode 0060](0060-c2-parked-phase-d-active.md)): C2 parked (gates
-met — a priority call, not a gate), **Phase D active**, API stability
-& v1.0 first so every downstream item documents a frozen surface.
+met — a priority call, not a gate), **Phase D active** — and its first
+item landed the same day ([episode 0061](0061-the-surface-freezes.md)):
+**v1.0 is tagged**, the public surface (110 elements, six families)
+frozen as Doc 0008 with a machine-checked inventory and a surface
+guard in the gate, semver + deprecation policy published, zero
+behavior change (the byte-frozen suite green on the landing commit).
+Next Phase D items: docs site, shareable brains, contribution
+surface.
 Open threads, in priority order:
 **the c1c run** (live; R1–R5 read when the weeks have spoken);
 **Phase D** (active — API v1.0 in flight);
@@ -434,3 +440,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0058 | [Self-set goals, parked: five gates and an existence proof](0058-self-set-goals.md) |
 | 0059 | [Scheduled probing: the window closes before the probe arrives](0059-scheduled-probing.md) |
 | 0060 | [C2 parked, Phase D active: the road re-prioritized](0060-c2-parked-phase-d-active.md) |
+| 0061 | [The surface freezes: v1.0](0061-the-surface-freezes.md) |

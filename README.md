@@ -58,6 +58,17 @@ growing over its final third), not merely because it hit a cap. A single-seed ru
 labelled **FOR DEBUGGING ONLY**. Exit code is 0 even when a test FAILs (a FAIL is
 data, not a CLI error) unless `--strict` is passed.
 
+## Public API & versioning
+
+From v1.0 the public surface is a promise: everything listed in
+[Doc 0008](hq/02-DESIGN/0008-public-api-versioning.md) — the world/body
+seam, anatomy, drives, persistence, the run surface, the CLI tools, and
+the versioned subject space — is stable for all of v1.x (patch = fixes,
+minor = additive only, removals only at a major after a deprecation
+grace). The list is machine-enforced by the surface guard in the test
+gate; everything not listed is internal by default. See
+[CHANGELOG.md](CHANGELOG.md).
+
 ## Governing principle — honest summary
 
 Where a tidy report and a faithful one conflict, the faithful one wins (FR-008): a

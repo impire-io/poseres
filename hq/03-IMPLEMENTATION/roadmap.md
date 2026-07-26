@@ -65,9 +65,12 @@ flight: **API stability & v1.0** — frozen seams first, so the docs
 site, shareable brains, and the contribution surface all document a
 surface that no longer moves.
 
-- **API stability & v1.0**: freeze the seam surfaces (Body, Sensor/Actuator,
-  Drive, SnapshotStore), semantic versioning, deprecation policy.
-  *Exit:* v1.0 tag; the seams documented as public API.
+- **API stability & v1.0 — LANDED**
+  ([episode 0061](../04-JOURNEY/0061-the-surface-freezes.md), feature 035):
+  110 elements across six families frozen as Doc 0008 + a machine-checked
+  inventory with a surface guard in the gate; semver + deprecation policy
+  published; `v1.0.0` tagged. *Exit met:* v1.0 tag; the seams documented
+  as public API.
 - **Docs site**: GETTING-STARTED, the design docs, and a "worlds gallery"
   rendered as a small static site. *Exit:* docs deployed, linked from README.
 - **Shareable brains**: snapshots as portable artifacts ("here's my rover
@@ -178,6 +181,7 @@ like "ROADMAP A3" resolve here.
 | Goals-E3.0 | Verdict-sensation gate FAILs at the precursor: approval pulses provably in the stream 45×, expectation forms in 14/24 (bar 18) with 5 seeds anti-predictive; behavior on the frozen prediction (V=M=0/24 — sensing ≠ wanting from the approval side); refutation predictor-shaped (event-sensitive predictor = named successor); fork now E2.0b or park | [0057](../04-JOURNEY/0057-approval-without-expectation.md) |
 | Goals-parked | Topic parked by the owner (lifecycle: abandoned; folder retired): five gates all decided by their registered bars; standing result = the existence proof (knowledge + weak wanting produced the record's only deliberate chains); E2.0b the unexplored door; c1c the reopening watch | [0058](../04-JOURNEY/0058-self-set-goals.md) |
 | Research arcs | Camping bill; scout, place-memory, emission-shift, context-memory, transfer-signal, staleness, change-point, election-stream (program paused, map complete); seeding measured | [0031](../04-JOURNEY/0031-the-camping-bill.md)–[0040](../04-JOURNEY/0040-reading-the-censor.md), [0044](../04-JOURNEY/0044-brain-seeding.md) |
+| D-api | API stability & v1.0 (feature 035): public surface frozen as Doc 0008 + machine-checked inventory, surface guard in the gate, semver + deprecation policy, `v1.0.0` tag — zero behavior change | [0061](../04-JOURNEY/0061-the-surface-freezes.md) |
 | Probing | Scheduled probing measured and closed: P0 FAIL both clauses (shift band ≤ 1.76× vs the 4× bar; benign probes to 2.80× above it), mechanism measured (relearning inside one episode; censoring survives held policy) — staleness detection closed passive+active | [0059](../04-JOURNEY/0059-scheduled-probing.md) |
 
 *This file is load-bearing: changes to it are decisions and belong in
