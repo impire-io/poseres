@@ -443,3 +443,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0061 | [The surface freezes: v1.0](0061-the-surface-freezes.md) |
 | 0062 | [The docs site: the record, rendered](0062-the-docs-site.md) |
 | 0063 | [The contribution surface: the on-ramp is bodies](0063-the-contribution-surface.md) |
+| 0064 | [Shareable brains: a snapshot becomes an artifact](0064-shareable-brains.md) |

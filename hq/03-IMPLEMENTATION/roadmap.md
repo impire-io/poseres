@@ -77,9 +77,11 @@ surface that no longer moves.
   duplication), worlds gallery with recorded FAILs stated, rot-guard
   test in the gate. *Exit:* linked from README; **deploy pending the
   owner's Pages enablement** (one click or one gh call, episode 0062).
-- **Shareable brains**: snapshots as portable artifacts ("here's my rover
-  brain after 100k steps — load it"). *Exit:* a snapshot published by one
-  person loads and runs for another, verified.
+- **Shareable brains — LANDED**
+  ([episode 0064](../04-JOURNEY/0064-shareable-brains.md), feature 037):
+  `pra-brain` export/inspect/import over the untouched blob, sha256 +
+  version verification, deterministic artifact. *Exit met:* cross-person
+  load verified by test AND end-to-end shell run, resume byte-identical.
 - **Contribution surface — BUILT, exit pending-external**
   ([episode 0063](../04-JOURNEY/0063-the-contribution-surface.md),
   feature 038): CONTRIBUTING.md against the frozen seams, issue/PR
