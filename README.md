@@ -103,3 +103,9 @@ reproduces its T1–T6 trajectory at the default config (the per-frame-vs-batche
 equivalence is enforced by `tests/unit/test_batched_equivalence.py`) at roughly 40×
 the speed. The full default suite (8 seeds × predictive + ablation × 50 cycles)
 completes in well under a minute.
+
+## Contributing
+
+New worlds, sensors, actuators, and drives are the on-ramp — the public seams
+they mount through are frozen for all of v1.x ([Doc 0008](hq/02-DESIGN/0008-public-api-versioning.md)).
+[CONTRIBUTING.md](CONTRIBUTING.md) has the seams, the worked examples, the gate, and the rules.
