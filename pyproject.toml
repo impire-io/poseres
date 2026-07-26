@@ -39,6 +39,7 @@ pra-validate = "pra.harness.cli:main"
 pra-rover = "pra.examples.rover.cli:main"
 pra-dash = "pra.dash.cli:main"
 pra-flush = "pra.flush.cli:main"
+pra-brain = "pra.persistence.brain_cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

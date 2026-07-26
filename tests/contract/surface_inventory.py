@@ -134,6 +134,18 @@ SURFACE: tuple[SurfaceEntry, ...] = (
     E("pra.persistence.store.FileSnapshotStore", "class", "persistence", None),
     E("pra.persistence.store.InMemorySnapshotStore", "class", "persistence", None),
     E("pra.persistence.store.snapshot_id_for", "function", "persistence", None),
+    # portable brain artifacts (feature 037): the shareable one-file wrap
+    E("pra.persistence.portable.PORTABLE_FORMAT_VERSION", "constant", "persistence", None),
+    E("pra.persistence.portable.PortableIntegrityError", "class", "persistence", None),
+    E("pra.persistence.portable.PortableVersionError", "class", "persistence", None),
+    E(
+        "pra.persistence.portable.export_brain",
+        "function",
+        "persistence",
+        ("path", "blob", "store", "snapshot_id", "note", "created_at"),
+    ),
+    E("pra.persistence.portable.import_brain", "function", "persistence", ("path",)),
+    E("pra.persistence.portable.inspect_brain", "function", "persistence", ("path",)),
     E("pra.nats.NatsSnapshotStore", "class", "persistence", None),
     E("pra.nats.NatsTap", "class", "operational", None),
     E("pra.nats.NatsTransport", "class", "operational", None),
@@ -163,6 +175,7 @@ SURFACE: tuple[SurfaceEntry, ...] = (
     E("pra-rover", "cli", "operational"),
     E("pra-dash", "cli", "operational"),
     E("pra-flush", "cli", "operational"),
+    E("pra-brain", "cli", "operational"),
     # the versioned telemetry/control subject space (Doc 0006 S5b / B6);
     # documented, not importable -- the guard checks doc presence only
     E("pra.v1.>", "subject-family", "operational"),
