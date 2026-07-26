@@ -321,8 +321,13 @@ project's measured statement on goals — knowledge + even a weak want
 produced the record's only deliberate chains; nothing else moved the
 hands at all. The topic folder is retired; E2.0b is the unexplored
 door; the c1c run is the watch that can reopen it.
+**The road was re-prioritized on 2026-07-26**
+([episode 0060](0060-c2-parked-phase-d-active.md)): C2 parked (gates
+met — a priority call, not a gate), **Phase D active**, API stability
+& v1.0 first so every downstream item documents a frozen surface.
 Open threads, in priority order:
 **the c1c run** (live; R1–R5 read when the weeks have spoken);
+**Phase D** (active — API v1.0 in flight);
 the [ch. 39](0039-not-the-statistic.md) tolerant-gate conditional
 (~1.6% false-fire, if a deployment can afford it); and the
 bounded-trace snapshot option (when a deployment's horizon demands
@@ -428,3 +433,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0057 | [Approval without expectation](0057-approval-without-expectation.md) |
 | 0058 | [Self-set goals, parked: five gates and an existence proof](0058-self-set-goals.md) |
 | 0059 | [Scheduled probing: the window closes before the probe arrives](0059-scheduled-probing.md) |
+| 0060 | [C2 parked, Phase D active: the road re-prioritized](0060-c2-parked-phase-d-active.md) |

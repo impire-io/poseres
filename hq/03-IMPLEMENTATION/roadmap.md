@@ -31,20 +31,21 @@ ceiling in continuous mode).
 
 ## Next — showcases
 
-### C2. Hardware body — the physical build
+### C2. Hardware body — parked (2026-07-26, owner's call)
 
-Platform and research gates are both met: the ROS2 adapter
+Platform and research gates are both met and stay met: the ROS2 adapter
 ([episode 0026](../04-JOURNEY/0026-the-ros2-adapter.md)) gives hardware and
 simulators one seam (continuous single-boot is the hardware mode; a homing
 routine is an owner-supplied reset), and learned channel weighting
 ([episode 0030](../04-JOURNEY/0030-learned-channel-weighting.md)) cleared
-the sensor-noise gate.
+the sensor-noise gate. **Parked as a priority call, not a gate**
+([episode 0060](../04-JOURNEY/0060-c2-parked-phase-d-active.md)): Phase D
+runs first while the C1 run soaks. Un-parks on the owner's call; the
+episode names the readings that should prompt a revisit.
 
-- *What remains:* the **showcase itself** — a physical build (ROS2 or
-  Pybricks-direct), a reproducible build guide a maker can follow, and a
-  video of mid-run body growth. The build (CAD, printing, electronics) is
-  cheap and may proceed in parallel; the growth video waits for nothing —
-  its gates are met.
+- *What remains (unchanged):* the **showcase itself** — a physical build
+  (ROS2 or Pybricks-direct), a reproducible build guide a maker can
+  follow, and a video of mid-run body growth.
 
 ### C3. Embedded steppable game server — parked
 
@@ -57,6 +58,12 @@ wants to own it; the steppable-tick idea is recorded here so it isn't lost.
 ## Phase D — Make it a product (OSS hygiene)
 
 Mostly parallel to Phase C; cheap individually, decisive together.
+**Active since 2026-07-26**
+([episode 0060](../04-JOURNEY/0060-c2-parked-phase-d-active.md)): the
+owner moved Phase D ahead of C2 while the C1 run soaks. First item in
+flight: **API stability & v1.0** — frozen seams first, so the docs
+site, shareable brains, and the contribution surface all document a
+surface that no longer moves.
 
 - **API stability & v1.0**: freeze the seam surfaces (Body, Sensor/Actuator,
   Drive, SnapshotStore), semantic versioning, deprecation policy.
