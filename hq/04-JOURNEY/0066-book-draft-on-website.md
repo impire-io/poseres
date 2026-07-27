@@ -20,7 +20,7 @@ markup — so the site cannot silently drift from the book
 sides and demands equality, so any dropped, reordered, or reworded
 passage fails the build]. Contents page, twelve chapter pages,
 glossary; Part 5 is listed on the contents page as not written, with
-the reason. Website commit `c09dbcc`.
+the reason. Website commit `4b04f27`.
 
 What it opens: readers reach the draft while the REVISIT arbitration
 (11 of 12 chapters flagged,
@@ -37,5 +37,5 @@ condition is restored until the audit runs.
 
 Trail: [episode 0047](0047-the-book-decision.md) (the original
 gate); `book/REVISIT.md` (the open arbitration backlog); the website
-repository (`tools/build-book.py`, `pra/book/`), commit `c09dbcc`;
+repository (`tools/build-book.py`, `pra/book/`), commit `4b04f27`;
 this commit.
