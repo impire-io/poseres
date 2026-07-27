@@ -339,9 +339,9 @@ export/inspect/import, cross-person load byte-identical
 ([0064](0064-shareable-brains.md)); the book's STYLE audit flagged 11
 of 12 chapters for the maintainer's arbitration (`book/REVISIT.md`);
 and show-then-tell is deferred by constitution IV until the c1c read
-lands. Phase D's remaining human-gated threads: Pages enablement,
-seeded-issue creation, book arbitration, the first external
-contribution. **The book's drafts are public**
+lands. The seeded issues are live on the owner's instruction
+(impire-io/poseres #2–#5); Phase D's remaining human-gated threads:
+Pages enablement, book arbitration, the first external contribution. **The book's drafts are public**
 ([episode 0066](0066-book-draft-on-website.md)): all twelve chapters
 and the glossary on impire.io, every page draft-labeled; the numbers
 audit still gates calling anything final, and the arbitration backlog
