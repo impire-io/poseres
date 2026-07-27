@@ -95,7 +95,9 @@ surface that no longer moves.
   video publishes with its honest telemetry.
 - **The book**: the long-form narrative (`book/` — four parts drafted;
   contract in `book/STYLE.md`; decision recorded in
-  [episode 0047](../04-JOURNEY/0047-the-book-decision.md)). Part 5
+  [episode 0047](../04-JOURNEY/0047-the-book-decision.md)). The drafts
+  are published on impire.io, draft-labeled
+  ([episode 0066](../04-JOURNEY/0066-book-draft-on-website.md)). Part 5
   (teachers) waits on the teacher-world research candidate. *Exit:* every
   chapter through the STYLE revision checklist, the REVISIT backlog
   arbitrated by the maintainer, and the numbers audit re-verified against

@@ -20,7 +20,7 @@ Episodes 0001–0044 were chapters of the original single-file `JOURNEY.md`
 "ch. NN" resolve to `00NN-*.md`). The recurring principles the journey keeps
 teaching moved to `../00-GENESIS/how-we-work.md`.
 
-## Where things stand (2026-07-26)
+## Where things stand (2026-07-27)
 
 **The project's working structure moved into `hq/`**
 ([episode 0045](0045-the-hq-restructure.md)): GENESIS holds the vision,
@@ -341,7 +341,11 @@ of 12 chapters for the maintainer's arbitration (`book/REVISIT.md`);
 and show-then-tell is deferred by constitution IV until the c1c read
 lands. Phase D's remaining human-gated threads: Pages enablement,
 seeded-issue creation, book arbitration, the first external
-contribution.
+contribution. **The book's drafts are public**
+([episode 0066](0066-book-draft-on-website.md)): all twelve chapters
+and the glossary on impire.io, every page draft-labeled; the numbers
+audit still gates calling anything final, and the arbitration backlog
+is still open.
 Open threads, in priority order:
 **the c1c run** (live; R1–R5 read when the weeks have spoken);
 **Phase D** (active — API v1.0 in flight);
@@ -456,3 +460,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0063 | [The contribution surface: the on-ramp is bodies](0063-the-contribution-surface.md) |
 | 0064 | [Shareable brains: a snapshot becomes an artifact](0064-shareable-brains.md) |
 | 0065 | [Phase D in a day: four parallel worktrees, one serial landing](0065-phase-d-in-a-day.md) |
+| 0066 | [The book goes on the website, as a draft](0066-book-draft-on-website.md) |
