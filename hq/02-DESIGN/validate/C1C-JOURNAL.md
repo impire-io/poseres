@@ -57,3 +57,21 @@ Catch-up reading, live from the dashboard + host:
 Watch items carried forward: first log / first offer / first craft
 (the 0058 reversal condition), idle staying low as frames mature,
 dig-streak records, disk on every visit.
+**2026-07-27 20:26 (18:26 UTC) — owner-requested reading: on pace, and
+the pocket has news.** Step **1,732,786** (5.09 days in, 3.944 steps/s
+sustained; the ≥4.8M target lands in ~9 days, ~Aug 5). Ops spotless:
+zero restarts since launch, zero dropped events / publish failures /
+reconnects; dash seq_gaps 14 (+3 since 07-25, S3-auditable); disk 57G
+used / 36G free (~1.2G/day — comfortable for the remainder). Learning:
+pred-err EMA 0.147 (higher than 07-25's 0.082 — sweep-band variation),
+population 23 (down from 37, an eviction sweep in progress), best_dim
+steady at 4. Behavior: idle **5.8%** (reversal bar <20% — unfired),
+all 12 actions in use, crafting levers ~17.8%. **Ground truth: the
+inventory now holds `lead ×3` and `wheat_seeds ×5`, and the bot is
+HOLDING the seeds** (a deliberate hold-class selection) — up from a
+single seed two days ago. The leads cannot be self-crafted (a 3×3
+recipe; the body has a 2×2 and no string), so they are a world event
+pickup — likely a wandering-trader llama — an acquisition, not
+crafting: the 0058 reversal watch does NOT fire. Still no log, offer,
+or craft; the bot has surfaced (y = 72 vs y = −31 on 07-25) — wide
+vertical range covered. All green; the emergence headline stays open.
