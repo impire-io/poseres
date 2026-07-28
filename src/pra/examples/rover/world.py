@@ -60,6 +60,12 @@ RAY_MAX = 1.0
 # A clean (noiseless, RNG-free) 11th channel; appended after the 10 standard
 # channels so its index is fixed. Present only when a grow flag is set.
 BACK_RAY_ANGLE = math.pi
+# Odometry sense (proprioceptive): the physics step sizes are the natural
+# denominators — forward MOVE_STEP maps to +1, one TURN_STEP maps to ±1.
+# RNG-free and clean, like the back-ray; computed from pose delta, not
+# action index, so blocked moves correctly read (0, 0).
+ODO_DIST_SCALE = MOVE_STEP
+ODO_TURN_SCALE = TURN_STEP
 N_SPAWNS = 8
 SPAWN_ATTEMPTS = 1000
 SPAWN_SPREAD = 0.85
@@ -177,6 +183,7 @@ class RoverWorld:
         permute: bool = False,
         permute_seed: int | None = None,
         emit_back: bool = False,
+        emit_odo: bool = False,
     ):
         self._noise_std = float(config.sensor_noise_std)
         self._rng = rng
@@ -185,6 +192,10 @@ class RoverWorld:
         # feature 028 resize hop: when set, _emit also computes the clean back-ray
         # into a "ray_back" sense so the grown body (native or resized) can read it.
         self._emit_back = bool(emit_back)
+        # Odometry sense: when set, _emit also computes the clean pose-delta
+        # "odo" sense (signed distance, signed heading change) from the previous
+        # pose — RNG-free, appended after all standard channels like the back-ray.
+        self._emit_odo = bool(emit_odo)
 
         # Brain-seeding seam (feature 028): the *map* (obstacles + spawns) may be
         # drawn from a harness-owned ``layout_seed`` separate from the run/brain
@@ -220,6 +231,9 @@ class RoverWorld:
         self._x = 0.0
         self._y = 0.0
         self._theta = 0.0
+        self._prev_x = 0.0
+        self._prev_y = 0.0
+        self._prev_theta = 0.0
         self._bump = 0
         self._senses: dict[str, np.ndarray] | None = None
 
@@ -227,6 +241,11 @@ class RoverWorld:
     def reset(self) -> None:
         idx = int(self._rng.integers(len(self._spawns)))
         self._x, self._y, self._theta = self._spawns[idx]
+        # Odometry baseline: prev = current, so the first emission's pose delta
+        # is zero — a spawn is not motion.
+        self._prev_x = self._x
+        self._prev_y = self._y
+        self._prev_theta = self._theta
         self._bump = 0
         self._emit()
         if self._telemetry is not None:
@@ -239,6 +258,10 @@ class RoverWorld:
             raise RuntimeError("apply() called before reset()")
         if action < 0 or action >= ROVER_N_ACTIONS:
             raise ValueError(f"rover action {action} outside [0, {ROVER_N_ACTIONS})")
+        # Odometry baseline: the pose before this step (plain copies, no RNG).
+        self._prev_x = self._x
+        self._prev_y = self._y
+        self._prev_theta = self._theta
         # Permuted rover (feature 028): the brain's action index is relabelled to
         # a scrambled physical action — learnable, but the learned action→outcome
         # map is wrong for an un-permuted world. Identity (None) is a no-op.
@@ -300,6 +323,19 @@ class RoverWorld:
                 / RAY_MAX
             )
             self._senses["ray_back"] = np.array([back], dtype=np.float64)
+        if self._emit_odo:
+            dx = self._x - self._prev_x
+            dy = self._y - self._prev_y
+            # Signed distance: projection of displacement onto previous heading.
+            # Forward → +1, reverse → −0.5 (REVERSE_FACTOR), blocked → 0.
+            # One expression, no branching on action index.
+            dist = (
+                dx * math.cos(self._prev_theta) + dy * math.sin(self._prev_theta)
+            ) / ODO_DIST_SCALE
+            # Signed heading change: _wrap_angle handles the (−π, π] boundary
+            # so a turn across ±π reads ±1, not ±11.
+            dtheta = _wrap_angle(self._theta - self._prev_theta) / ODO_TURN_SCALE
+            self._senses["odo"] = np.array([dist, dtheta], dtype=np.float64)
 
     def sense(self, part_id: str) -> np.ndarray | None:
         """The cached part vector from the last emission (None before it)."""
@@ -381,6 +417,7 @@ def make_rover_body(
     permute_seed: int | None = None,
     extra_ray: bool = False,
     extra_ray_pending: bool = False,
+    emit_odo: bool = False,
 ) -> Body:
     """Build the rover body — the Engine's ``world_factory`` for feature 006.
 
@@ -402,13 +439,19 @@ def make_rover_body(
     6th sensor as a Doc 02 tool, so the seeded chain grows 10→11 at the first
     slow loop (``apply_pending_tools`` → ``FrameStore.resize``). The back-ray is
     RNG-free, so the un-grown path stays byte-identical.
+
+    ``emit_odo`` appends a 2-channel odometry sense (signed distance moved and
+    signed heading change, both scaled to roughly ±1) after all other channels.
+    RNG-free, computed from the pose delta; reset emits zeros (no previous
+    pose). Default off — the flag-absent path is byte-identical to feature 006.
     """
-    expected_obs = ROVER_OBS_DIM + (1 if extra_ray else 0)
+    expected_obs = ROVER_OBS_DIM + (1 if extra_ray else 0) + (2 if emit_odo else 0)
     if config.obs_dim != expected_obs or config.n_actions != ROVER_N_ACTIONS:
         raise AnatomyError(
             f"the rover anatomy is fixed at obs_dim={expected_obs} / "
             f"n_actions={ROVER_N_ACTIONS} (the validated reference widths"
-            f"{' + the resize hop back-ray' if extra_ray else ''}); "
+            f"{' + the resize hop back-ray' if extra_ray else ''}"
+            f"{' + the odometry sense' if emit_odo else ''}); "
             f"got obs_dim={config.obs_dim} / n_actions={config.n_actions}"
         )
     world = RoverWorld(
@@ -420,10 +463,13 @@ def make_rover_body(
         permute=permute,
         permute_seed=permute_seed,
         emit_back=extra_ray or extra_ray_pending,
+        emit_odo=emit_odo,
     )
     sensors = [RoverSensor(world, part, width) for part, width in SENSOR_PARTS]
     if extra_ray:  # active from boot: the native grown 11-dim body
         sensors.append(RoverSensor(world, "ray_back", 1))
+    if emit_odo:  # active from boot: the odometry sense (never pending)
+        sensors.append(RoverSensor(world, "odo", 2))
     body = Body(world, sensors=sensors, actuators=[RoverDrive(world)])
     if extra_ray_pending:  # queued: grows 10→11 at the first slow loop
         body.register_sensor(RoverSensor(world, "ray_back", 1))
