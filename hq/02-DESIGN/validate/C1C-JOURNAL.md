@@ -75,3 +75,36 @@ pickup — likely a wandering-trader llama — an acquisition, not
 crafting: the 0058 reversal watch does NOT fire. Still no log, offer,
 or craft; the bot has surfaced (y = 72 vs y = −31 on 07-25) — wide
 vertical range covered. All green; the emergence headline stays open.
+
+**2026-07-31 20:00 (18:00 UTC) — owner-requested reading: a clean
+mid-run restart absorbed, still on pace; the flusher has developed a
+cough.** Cumulative step ≈ **3,089,900** (latest snapshot
+`snap-000003085000-12850`, cycle 12,850), 9.07 days in — pace holds at
+~3.94 steps/s, and the ≥4.8M target still lands **~Aug 5 evening
+UTC**, ~5 days out. The notable ops event: on **07-29 06:37:27 UTC**
+the brain, bridge, and dash were stopped and started together — a
+deliberate `systemctl` restart (Stop→Start same second, NRestarts=0,
+not a crash). The brain resumed from its newest snapshot exactly as
+designed: cumulative now matches the zero-downtime projection within
+noise, so effectively nothing was lost. Bookkeeping note for future
+reads: since the resume, census/event `steps` count in-process
+(844,885 now) while snapshot ids carry the cumulative count. Learning:
+pred-err EMA **0.209** (0.082 → 0.147 → 0.209 across readings — a
+rising trend to keep an eye on, not just sweep-band variation);
+population **22** (stable post-sweep), best_dim 5 at score 0.196, dims
+spread 1–8 with mass at 4–6; spawn/evict active. Behavior: idle
+**5.2%** (reversal bar <20% — unfired), all 12 actions in use,
+crafting levers 25.3%, dig 8.8%. **Ground truth: `lead ×6` +
+`wheat_seeds ×5`, still holding the seeds** — the leads doubled (3→6),
+more world-event pickups; still no log, no offer, no craft — the 0058
+reversal watch does NOT fire. New watch items: **(1) pra-flush has
+crash-restarted 4× since 07-29** (asyncio TimeoutError → exit 1 → 5 s
+systemd restart, roughly every 6–24 h; JetStream's 1 h buffer spans
+the gap so no data loss expected — S3 key ranges auditable); **(2)
+disk growth is now the run's own**: 66G/98G used (71%),
+`pra-runs/c1c/snapshots` = 11G across 1,028 never-pruned files
+(~1.2G/day) → projected ~72G at target date. Fine to finish; snapshot
+pruning is a post-run cleanup candidate. Bridge/dash telemetry
+spotless: dropped 0, publish failures 0, reconnects 0, wire errors 0,
+seq_gaps 7 since the 07-29 dash boot. The emergence headline stays
+open.
