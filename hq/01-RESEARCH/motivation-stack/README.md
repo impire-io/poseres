@@ -297,6 +297,63 @@ should carry the term's *direction* even if calibration is rough; and
 one-step EMA-smoothed learning probably under-learns the completion
 cliff — which here is merciful (no stall).
 
+## G1L pilot [measured, 2026-08-08] — published before the confirmatory
+
+8 seeds × κ ∈ {0.25, 1.0, 4.0}, hold retained:
+
+- **Median logs 0.0 at every κ** (oracle pilot: 6–9.5). Seeds with
+  ≥ 1 log: 3/8, 2/8, 2/8. Chains: 2/8 at κ 0.25 (seeds 4 and 7 —
+  with 109 and 71 sticks: when the loop starts, knowledge cascades),
+  0/8 at κ 1, 1/8 at κ 4.
+- **The pre-named noise-election row explains it**: median
+  |predicted − realized| mining delta ≈ **0.05–0.07**, against a
+  single dig tick of 1/12 ≈ 0.083 — the brain's one-step model of
+  the channel is barely finer than the signal it must rank on. At
+  κ 4 the amplified noise visibly fights the hold (dwell drops to
+  84–98% from 100%).
+- **No completion stall**: 2 high-progress abandons across all 24
+  runs — the model under-learns the zeroing cliff, as the frozen
+  prediction guessed.
+- No κ clears the median-≥ 1 rule; all medians tie at 0.0 →
+  **κ\* = 0.25** by best seeds-with-log (3/8) and chains (2/8), grid
+  published per the rule.
+
+## G1L outcome [measured, 2026-08-08] — both bars FAIL; the itch is real and its signal is the bottleneck
+
+24 seeds at κ\* = 0.25, hold retained, H = 5,000:
+
+- **Bar A: FAIL 11/24** (bar ≥ 18/24). Total logs **34** against the
+  oracle arm's 286 and the no-itch floor's 0.
+- **Bar B: FAIL 5/24** (bar ≥ 6/24; seeds 4, 7, 9, 16, 21) — one
+  seed short, against the oracle's 6/24. Context row worth carrying:
+  5 chains from just 34 logs (5 of the 11 logging seeds chained) —
+  once logs exist, the taught chain converts at a higher per-seed
+  rate than the oracle arm's; the chain bottleneck is upstream, in
+  election, not in the crafting knowledge.
+- **Hold intact** (median dwell 99.98%); **no completion stall**
+  (7 high-progress abandons across 120,000 steps); **the noise row
+  decides the mechanism reading**: median |predicted − realized|
+  mining delta **0.0612** against a one-tick signal of 1/12 ≈ 0.083 —
+  the brain's one-step model of its own progress channel is barely
+  finer than the quantity the term must rank on.
+- **The dose-response across the three measured arms** `[measured]`:
+  no itch → 0/24 elect; noise-floor itch → 11/24; oracle itch →
+  24/24. Same policy shape, same hold, same graduates — election
+  scales with progress-signal fidelity and with nothing else that
+  varied.
+
+**Per the frozen decision rule: A FAIL → the composition claim
+reopens per episode 0070's reversal condition, and G3 — the
+event-sensitive predictor — jumps the queue.** The refined reading
+the rows support `[mechanism-argument]`: the oracle was not carrying
+the *mechanism* (11/24 at the noise floor is not 0/24); it was
+carrying *signal quality*. The completion-pull works exactly as far
+as the brain can perceive its own progress — which makes better
+progress/event prediction the arc's load-bearing build, precisely
+where 0058 left it. The frozen-prediction ledger takes its fifth
+miss (A predicted 18–23, measured 11) and second hit (B predicted
+3–7, measured 5).
+
 ## Reversal condition
 
 The map is refuted in the best possible way if any single-layer gate

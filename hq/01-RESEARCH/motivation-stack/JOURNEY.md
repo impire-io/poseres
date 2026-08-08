@@ -46,3 +46,19 @@ noise-election pathologies pre-named as ground-truth rows. Bars
 identical to G1 on purpose — 0070's reversal condition makes Bar A
 here the composition claim's own test. Frozen prediction: A 18–23,
 B 3–7.
+
+**2026-08-08 late — G1L lands: both bars FAIL, and the failure is a
+measurement, not a mess.** The de-scaffolded itch elects 11/24 (34
+logs) against the oracle's 24/24 (286) and the no-itch floor's 0/24;
+chains 5/24, one short of the bar — and 5 of the 11 logging seeds
+chained, so once logs exist the taught knowledge converts *better*
+than in the oracle arm. The pre-named noise row carries the reading:
+median prediction error on the mining channel 0.0612 vs the 0.083
+one-tick signal — the term ranks on a quantity the model can barely
+see. Dose-response across the three arms (0 → 11 → 24 as signal
+fidelity rises) says the mechanism is real and starved. Per the frozen
+rule, 0070's reversal condition fires as written and G3 — the
+event-sensitive predictor — jumps the queue: progress perception is
+the arc's load-bearing build, exactly where 0058's parking left it.
+Prediction ledger: fifth under/over-miss on A (18–23 vs 11), second
+hit on B (3–7 vs 5).
