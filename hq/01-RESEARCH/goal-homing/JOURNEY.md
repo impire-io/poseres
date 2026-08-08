@@ -43,3 +43,17 @@ confirmatory: whether 0 chains is the E2.0 floor rate at small sample
 owner's amendment before the 24-seed run. Either way the arc's shape
 has never been sharper: presence is now free; election is the whole
 remaining problem.
+
+**2026-08-08 — the confirmatory decides it: the middle branch.** Bar 1
+PASSes at the ceiling (24/24, median dwell 99.98%), Bar 2 PASSes in its
+amended never-leaves form (0 departures in 24 runs), and Bar 3 FAILs at
+zero — 120,000 steps standing at the workshop, taught chain in the
+frames, and not one log dug (3 cobblestone across the whole arm; F
+control 0 chains, G-λ4 in band). The registered decision rule sends the
+arc to E2.1: the mechanism choice (rollouts / means-ends / skills) is
+the owner's, with its own gate before any build. What this topic bought,
+at power: gradient reach was HALF the missing piece — it converts
+"walks away and never returns" into "never leaves" in one term — and
+the other half is now isolated with nothing left to hide behind:
+election of the first dig, twelve times in a row, at a place the drive
+scores as exhausted.

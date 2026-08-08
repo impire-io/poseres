@@ -221,10 +221,10 @@ Published before any confirmatory run, per protocol. 8 seeds ×
   visibly does not chain.
 - **Bar 2 evaluates vacuously at 0 departures** (a median return rate
   over an empty set). The registration assumed E2.0's departures would
-  persist; the oracle removed them. **Proposed amendment, put to the
-  owner BEFORE the confirmatory (open per the topic's own rule):**
-  Bar 2 is satisfied iff *(departures = 0 AND Bar 1 passes)* OR
-  *(median per-seed return rate ≥ 50%)* — positional control proven
+  persist; the oracle removed them. **Amendment ADOPTED (owner's call,
+  2026-08-08, before the confirmatory — open per the topic's own
+  rule):** Bar 2 is satisfied iff *(departures = 0 AND Bar 1 passes)*
+  OR *(median per-seed return rate ≥ 50%)* — positional control proven
   either by never leaving or by coming back. Raw departure/return
   counts reported either way.
 - Mechanism note `[mechanism-argument]`: eight of the twelve actions
@@ -239,6 +239,40 @@ Published before any confirmatory run, per protocol. 8 seeds ×
 
 Runner: `homing_pilot.py` (session scratchpad); per-run rows in
 `homing-pilot-rows.json` alongside it.
+
+## Confirmatory outcome [measured, 2026-08-08] — Bars 1+2 PASS at ceiling, Bar 3 FAILS at zero: the middle branch fires
+
+24 seeds at λ\* = 0.25, H = 5,000, plus the F control (24 seeds,
+frontier-alone). G-λ4 control stands from this session's P0 sweep
+(chain set {7: 427}, median dwell 3.76%).
+
+- **Bar 1 — holding: PASS 24/24** (bar: ≥ 18/24 at ≥ 20% dwell).
+  Median dwell **99.98%**.
+- **Bar 2 — position control (amended form): PASS.** Departures 0
+  across all 24 seeds; the never-leaves clause applies with Bar 1
+  green. The record's zero-returns pathology is closed by removal:
+  there is nothing left to return from.
+- **Bar 3 — chains: FAIL 0/24** (bar: ≥ 6/24). Acquisitions in
+  120,000 held-at-the-workshop steps: 3 cobblestone (seed 1). No log
+  was ever dug. Statistical honesty: 0/24 against E2.0's 2-in-42
+  floor is not itself significant (Fisher p ≈ 0.5) — what is decided
+  is the registered bar, and the direction: **presence multiplied by
+  ~25× did not raise the chain count at all.**
+- **Validity green:** F control 0/24 chains (median dwell 0.42%,
+  drifts off as always); G-λ4 in its P0 band.
+
+**Per the frozen decision rule, the middle branch fires:** wanting now
+holds and homes — and does not chain. **The wall is multi-step
+credit/election, not gradient reach.** The far-gradient mechanism
+stands as a measured *component* (it buys presence outright, at every
+λ, with zero escapes), and the **E2.1 mechanism decision — (a)
+rollouts / (b) means-ends / (c) skills — goes to the owner as its own
+registered gate before any build.** Mechanism note carried from the
+pilot `[mechanism-argument]`: the −Φ term confines the argmax to the
+zero-displacement action set, where a mastered workshop's frontier
+signal is ~flat; election of dig₁…dig₁₂ is unforced and ε-interrupted.
+Presence is free; election is the problem, now isolated at 24-seed
+power on both sides.
 
 ## Verdict
 
