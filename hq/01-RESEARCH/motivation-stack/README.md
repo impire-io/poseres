@@ -354,6 +354,111 @@ where 0058 left it. The frozen-prediction ledger takes its fifth
 miss (A predicted 18–23, measured 11) and second hit (B predicted
 3–7, measured 5).
 
+## G3 pre-registration — the event pathway (REGISTERED 2026-08-08 22:49, before any run)
+
+Continues the owner's delegated autonomy ("start with G3"). G1L's
+frozen decision rule moved G3 to the front of the queue; this
+registration is where the charter's prediction question and G1L's
+inherited behavior question meet in one gate.
+
+**The build under test** — a prototype *event head*, scratchpad per
+the arc convention (a PASS licenses the src build; it does not
+perform it): a second, bottleneck-free prediction pathway beside the
+frames. Per action (12), an online linear model of the next
+observation delta over all 32 channels:
+
+```
+Δ̂_a(obs) = W_a · [obs, 1]          (cold start W = 0)
+W_a += η · (Δ − Δ̂_a) · x / ‖x‖²    (normalized LMS, η = 0.5,
+                                     one update per executed transition)
+```
+
+It learns from exactly the stream the policy witnesses —
+consecutive `select_action` observations, which the engine
+guarantees are separated by one executed action in continuous mode
+(gap-free, duplication-free) — the brain's own experience, nothing
+else. Why this is event-sensitive where the frames are not
+`[mechanism-argument]`: no low-dimensional bottleneck (per-channel
+outputs), no cross-action averaging (per-action weights), delta-space
+targets — the three properties the G1L noise row indicted. The
+mechanics it must capture are near-deterministic and
+linear-representable given the per-action split; the completion
+cliff (mining 11/12 → 0 with a pocket gain) is the known residual.
+
+**The gate policy.** `EventItchPolicy` = G1L's `LearnableItchPolicy`
+with the itch's signal source swapped to the event head, and G1's
+completion rule restored in learnable form:
+
+```
+progress_after(a) = 1.0                              if Δ̂_a[pocket_total] > 1/128
+                  = clip(obs[mining] + Δ̂_a[mining], 0, 1)  otherwise
+value(a) = drive_value(pred_a) + 0.25 · (−Φ(pos_after(a)))
+                               + κ · (progress_after(a) − obs[mining])
+```
+
+The drive term still reads the frames (unchanged); the hold's Φ stays
+the licensed clone-step (unchanged); draw order, ε/maturity gates,
+and the frames' candidate-skip rule identical to G1/G1L. The
+completion rule is G1's own — "inventory gain is the completion
+signal" — with the oracle replaced by the head's *predicted* pocket
+gain (one item = 1/64; threshold half an item): restoring, brain-side
+and learnable, exactly what the oracle special-case stood in for.
+
+Pre-named pathology rows (ground truth, measurement only, never
+policy input): the completion stall (cracks abandoned at ≥ 9/12);
+**false completions** (directed steps where the completion rule fired
+without a realized pocket gain — the new rule's own honesty row);
+perseveration (cobblestone counts; mineral digs are 4-tick, so a
+sharp itch values them at 3× wood's per-tick rate); the noise row
+(per-seed mean |Δ̂[mining] − realized| on chosen directed actions —
+G1L's row, identical semantics).
+
+**Protocol.** The 24 P0 graduates, H = 5,000, fresh worlds; the head
+learns online within each run, nothing persists across runs. Pilot:
+seeds 1–8 × κ ∈ {0.25, 1.0, 4.0}, published here before the
+confirmatory; **κ\*** = smallest κ with pilot median logs ≥ 1, else
+best median by seeds-with-log then chains, grid published.
+Confirmatory: 24 seeds at κ\*. References standing: G1's oracle
+ceiling (24/24, 286 logs; 6/24 chains), G1L's noise-floor arm (11/24,
+34 logs; 5/24), the no-itch floor (0 logs).
+
+**Frozen bars.**
+
+- **Bar P — the charter's gate (prediction, not behavior): median
+  across the 24 confirmatory seeds of the per-seed mean
+  |Δ̂[mining] − realized| on chosen directed actions ≤ 1/24 ≈ 0.0417**
+  — the brain's progress signal at least twice as fine as the
+  one-tick quantity the term ranks on. The frames measured 0.0612.
+- **Bar A: ≥ 18/24 seeds gain ≥ 1 oak_log** (identical to G1/G1L).
+- **Bar B: ≥ 6/24 seeds complete ≥ 1 full log→planks→sticks chain**
+  (identical).
+
+**Decision rule (frozen).**
+
+- **P+A+B PASS** → the event pathway is the missing floor; 0070's
+  reopened composition claim is *restored* (it was signal quality,
+  and the signal is now brain-side). The src build — event head +
+  itch as a shipped feature through spec-kit, perseveration watch
+  included — becomes the owner's call, and G5 (approval revisited)
+  unblocks: layer 5's named prerequisite exists.
+- **P PASS, A FAIL** → sharp perception is necessary but not
+  sufficient; the wall is in election/valuation, not perception. The
+  layer-4 reading weakens; G2 (option-value) proceeds before any
+  build.
+- **P PASS, A PASS, B FAIL** → election restored, chains thin; the
+  sticks-rung question sharpens (G1L's split branch, now with a
+  clean signal).
+- **P FAIL** → this prototype architecture is refuted before any
+  behavior claim; one architecture iteration (registered as G3′) is
+  licensed under this topic before parking.
+
+**Frozen prediction (ledger: five A-side misses, two B-side hits).**
+Bar P PASS at median MAE 0.01–0.03. Bar A 14–20/24 — above G1L's 11
+(the term's direction becomes sharp once learned) but cold start
+costs early logs: the head needs on the order of 40 ε-digs before
+the itch points anywhere. Bar B 4–8/24. The stall row stays low (the
+completion rule closes the cliff); cobblestone rises.
+
 ## Reversal condition
 
 The map is refuted in the best possible way if any single-layer gate

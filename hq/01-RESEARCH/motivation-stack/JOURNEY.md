@@ -62,3 +62,22 @@ event-sensitive predictor — jumps the queue: progress perception is
 the arc's load-bearing build, exactly where 0058's parking left it.
 Prediction ledger: fifth under/over-miss on A (18–23 vs 11), second
 hit on B (3–7 vs 5).
+
+**2026-08-08 22:49 — G3 registered before any run: the event
+pathway.** The owner's word — "start with G3" — and the queue-jump
+G1L's decision rule ordered. The design meets the charter's question
+(can the brain learn to *expect* a discrete event? gate on
+prediction) and G1L's inherited one (does sharp perception restore
+the pass?) in a single gate: a prototype *event head* — per-action
+normalized-LMS delta models over all 32 channels, cold-started,
+learning only from the stream the policy witnesses — feeds the same
+itch term, with G1's completion rule restored in learnable form (the
+head's own predicted pocket gain stands where the oracle's
+inventory peek stood). Three frozen bars: P (median mining-channel
+prediction error ≤ half a tick — the frames measured 0.0612 against
+the 0.083 signal), A and B identical to G1/G1L. The engine's
+continuous-mode guarantee (trailing observation carries into the
+next episode's first policy call, gap-free) makes the training
+stream exact — checked against `core/engine.py` before freezing.
+Frozen prediction: P PASS at 0.01–0.03; A 14–20; B 4–8. The src
+build stays unlicensed until the bars speak.
