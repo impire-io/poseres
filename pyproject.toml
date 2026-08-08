@@ -11,8 +11,9 @@ readme = "README.md"
 # CPython 3.12, and the full quality-gate suite (incl. the byte-frozen baseline
 # values) was run green on 3.12.8 before this was relaxed — measured, not hoped.
 requires-python = ">=3.12"
-license = { text = "MIT" }
-classifiers = ["License :: OSI Approved :: MIT License"]
+# Fair-code: the Sustainable Use License (journey 0067). No OSI classifier —
+# SUL is source-available, not OSI-approved; versions ≤ v1.1.0 remain MIT.
+license = { file = "LICENSE" }
 authors = [{ name = "Daan Gerits" }]
 dependencies = ["numpy>=2.4"]
 

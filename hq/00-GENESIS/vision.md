@@ -30,7 +30,9 @@ leans on this bet.
 ## Who it is for
 
 Hobbyists and makers — people who want to point a learning system at a world
-(a simulation, a game, a robot) and *experiment* with it. Open source, MIT,
+(a simulation, a game, a robot) and *experiment* with it. Fair-code (the
+Sustainable Use License — free for personal and internal use, source always
+open to read; [journey 0067](../04-JOURNEY/0067-fair-code-license.md)),
 runs on a laptop: install in one command, mount a world through the Body API,
 watch it learn live, keep what it learned, share it. Putting it in people's
 hands is the whole bet: the discoveries that matter will come from worlds we

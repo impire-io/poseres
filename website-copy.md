@@ -83,4 +83,4 @@ Putting it in people's hands is the whole bet. The discoveries that matter won't
 
 **[ Get the code ]**  ·  **[ Read the spec ]**  ·  **[ See what it can do ]**
 
-*MIT-licensed · one dependency · runs on a laptop.*
+*Fair-code (Sustainable Use License) · one dependency · runs on a laptop.*
