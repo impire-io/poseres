@@ -1,0 +1,164 @@
+# Goal homing — does a far-reaching goal gradient convert taught knowledge into held, repeated chains?
+
+**State:** active
+**Started:** 2026-08-08
+
+## Abstract
+
+Reopens the parked self-set-goals ladder at its named door: **E2.0b, the
+homing-capable goal term** (episode 0058, reversal condition (b), owner's
+pick 2026-08-08). The parked topic's standing result is an existence
+proof — knowledge plus even a weak, failing want produced the record's
+only deliberate crafting chains (2 full log→planks→sticks in 42
+goal-biased runs; drives alone: zero, ever) — and its standing diagnosis
+is that the λ-on-one-step-obs-distance form is exhausted: no gradient on
+the plain, so it orbits instead of holding (E2.0, 0/24 at the 20% dwell
+bar) and never returns after departure (E2.0h, C(H) flat at 1/24 out to
+H = 40,000). The c1c run has since removed the "drives just need more
+time" alternative at 5.7M steps (episode 0068: zero sequences, and the
+mastered material era abandoned — the same walking-away mechanism E1
+measured in the workshop). This topic asks the one question that record
+leaves: **is gradient reach the missing piece, or is the wall deeper?**
+A decisive PASS licenses building a *learnable* far-field goal
+representation as the next registered rung; a decisive FAIL — at an
+oracle upper bound — kills the far-gradient family in one gate and
+points the arc at multi-step credit / the event-sensitive predictor
+(E3's named successor) instead.
+
+## The question
+
+Given the E1 graduates (brains that provably carry the taught
+log→planks→sticks knowledge), does replacing the goal term's
+obs-distance — which is measurably flat away from the goal — with a
+**potential that has gradient everywhere** (ground-truth world distance
+to the workshop, an explicit oracle) produce (a) holding at the bar the
+obs-form failed, (b) returns after departure, which the entire measured
+record has never once contained, and (c) repeated chains above the
+existence floor?
+
+The oracle deliberately over-supplies the gradient: it is the **upper
+bound** of what any learnable far-field goal representation could
+provide. That asymmetry is the point of the gate order — a FAIL here is
+strong (nothing in this family can work), while a PASS licenses the
+next rung without claiming the learnable form exists.
+
+## The inherited instrument (proven, reconstructible)
+
+Everything below replicated bit-faithfully once already (E2.0h P0:
+chain set exact, median dwell 3.76% vs 3.8% recorded):
+
+- **Graduates:** seeds 1–24, each having lived the 45 snapshot-bridged
+  demonstration segments (feature 034 tape, every segment asserting its
+  stick-craft), resumed into the fresh deterministic FakeBridge world.
+- **Goal:** teacher-given and ostensive — the observation at tape step 2
+  (standing at the workshop, facing the wood), identical across seeds.
+- **Dwell region [ground truth]:** Chebyshev distance ≤ 2 of the wood
+  column (−1, 0). Window **H = 5,000** free-run steps (E2.0h measured
+  that longer windows buy nothing for the λ-form; kept fixed here so
+  arms stay seed- and window-paired).
+- **Policy seam, zero src edits**, runner scratchpad-only (arc
+  convention); ε-gate 0.1, maturity gate, fixed draw order, ties to
+  lowest index — every knob identical to the refuted `GoalBiasPolicy`
+  except the one term under test (constitution III: one variable).
+
+## The gate policy (E2.0b)
+
+`HomingBiasPolicy` mirrors `GoalBiasPolicy` exactly, with the candidate
+term replaced:
+
+```
+value(a) = drive_value(pred_a) + λ · (−Φ(pos_after(a)))
+```
+
+where **Φ = ground-truth Chebyshev world distance to (−1, 0)** and
+`pos_after(a)` comes from the **clone-step oracle**: clone the
+deterministic world state, apply action `a`, read the ground-truth
+position, discard the clone. No brain-side quantity is touched; the
+brain's drive term is identical to E2.0's.
+
+- **Pre-named fallback (the single amendment):** if P0 shows
+  clone-per-candidate infeasible or non-neutral (the main world must
+  stay byte-identical after clone probes), fall back to a measured
+  per-action displacement table (forward/back/turn/jump from the
+  world's own kinematics; dig/place/grid/idle = zero displacement).
+  Raw numbers published either way.
+- **Scaffolding stated openly:** Φ is world coordinates — an oracle.
+  This gate deliberately sidesteps hard problem 1 (the shift-invariance
+  landmine, see the parked topic): it buys the *mechanism* answer, not
+  the *representation* answer. A PASS does not claim a shift-invariant
+  learnable Φ exists; building one is the next rung's registered
+  question.
+
+## Pre-registered bars
+
+Written before any run; the runner does not exist yet.
+
+- **P0 — rebuild + oracle-probe gate (HARD, blocks everything):**
+  regenerate the 24 graduates and re-run G-λ4 at H = 5,000. Criterion:
+  the full-chain set is exactly {seed 7, tick 427} and G-λ4 median
+  dwell lands in [3.3%, 4.3%] (the twice-measured value). Plus the
+  oracle probe: clone-step leaves the main world byte-identical over a
+  1,000-step interleaved probe run, else the fallback is invoked (and
+  its displacement table verified against 1,000 lived steps at ≤ 1
+  block error on ≥ 95% of steps).
+- **Pilot:** 8 seeds × λ ∈ {0.25, 1.0, 4.0}, homing arm only (controls
+  are already measured/replicated). **λ\*** = smallest λ with pilot
+  median dwell ≥ 20%; if none clears, the best pilot median proceeds
+  (grid published, as E2.0 did).
+- **Bar 1 — HOLDING:** ≥ 18/24 confirmatory H-λ\* seeds reach dwell
+  ≥ 20% of the window. This is E2.0's own bar, unchanged: the oracle
+  must clear exactly what the obs-form failed at 0/24.
+- **Bar 2 — HOMING (the discriminating observable):** a *departure* is
+  the first step with Φ > 25 after having been in the dwell region; a
+  *return* is a subsequent step back inside the dwell region within
+  1,000 steps (the departure-window scale both recorded chains lived
+  in). Bar: **median per-seed return rate ≥ 50%** over the
+  confirmatory. The entire measured record to date contains zero
+  returns; any nonzero count is qualitatively new, and is reported
+  regardless of the bar.
+- **Bar 3 — CHAINS (the arc's point):** ≥ **6/24** confirmatory seeds
+  produce ≥ 1 full log→planks→sticks chain in-window (E1's original
+  teaching bar, against the measured existence floor of 2 chains in 42
+  runs). Chain = 12 consecutive deliberate dig ticks on the wood, then
+  vanilla-exact planks and sticks crafts, inventory-verified — the
+  E2.0 definition unchanged.
+- **Controls (sanity, not bars):** G-λ4 arm inside its P0 band; F
+  (frontier-alone) arm 0 chains — both seed-paired.
+
+**Decision rule (frozen):**
+
+- Bars 1+2+3 PASS → the far-gradient mechanism is sufficient at oracle
+  bound: the **learnable far-field goal representation** (potential-
+  shaped distance from experience / goal-conditioned frames) becomes
+  the next rung, registered before any src build.
+- Bars 1+2 PASS, Bar 3 FAIL → wanting now holds and homes but does not
+  chain: the wall is **multi-step credit**, not gradient reach — the
+  E2.1 mechanism decision (rollouts / means-ends / skills) goes to the
+  owner as its own registered gate; the far-gradient result stands as
+  a component, not a solution.
+- Bar 1 or 2 FAIL at the oracle bound → the far-gradient family is
+  **refuted at its strongest form**; the arc's remaining doors are the
+  event-sensitive predictor (E3's successor) or park, and this topic
+  graduates abandoned with the numbers.
+
+**Frozen prediction (author's, for calibration — two registered gates
+have already beaten their author):** P0 green; λ\* = 1.0; Bar 1 passes
+20–23/24; Bar 2 passes with per-seed return rates > 80%; Bar 3 is the
+close one — predicted 5–9/24, i.e. a narrow pass, on the mechanism
+argument that chains are per-departure events (E2.0h) and homing
+multiplies departures-with-return, each a fresh contact with the
+taught chain's start state.
+
+## Reversal condition
+
+The far-gradient direction this topic assumes is abandoned if: (a) the
+oracle-bound gate fails Bar 1 or Bar 2 (gradient reach was not the
+missing piece); or (b) any run in the wider record produces repeated
+deliberate chains *without* goal machinery (the premise — that a want
+is load-bearing — weakens, reopening the drives-only reading c1c
+closed). Bar amendments only openly, with the degenerate raw numbers
+recorded in JOURNEY.md first.
+
+## Verdict
+
+<Empty until graduation.>
