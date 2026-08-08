@@ -124,9 +124,24 @@ determinism ends (free-running robots) and why the project says so out
 loud.
 Draws on: journey 0019, 0020, 0021, 0026.
 
-## Part 5 — Teachers (the frontier — written as design, not results)
+## Part 5 — The long run
 
-**13 · A teacher is a world**
+**13 · The log it put back** *(drafted 2026-08-08)*
+The multi-week Minecraft run (`c1c`), pre-registered and read: the setup
+and the bar (chance ≈ 0, any craft = emergence), the week-1 material era
+(449 digs, one mined oak log held four minutes and placed back), the
+clean null on the headline (zero offers in 5.67M steps), why the frontier
+drive abandons what it masters, the disk-full incident on the observer's
+side, and the three lessons (detectors not visits; exploration is not
+accumulation; pre-registration makes a null publishable).
+Draws on: journey 0068 (plus 0050–0054); C1-RUN-PLAN.md; C1C-JOURNAL.md.
+
+## Part 6 — Teachers (parked — premise re-arbitration pending, see REVISIT.md)
+
+The self-set-goals topic was probed and parked with an existence proof
+(journey 0054–0058); these chapters stay design until that re-arbitration.
+
+**14 · A teacher is a world**
 The reframe: feedback from a mentor is a triplet too (my attempt, their
 response, my updated state). Multiple teachers as multiple streams into one
 brain — and the measured foundation that makes this more than a metaphor:
@@ -135,7 +150,7 @@ experience). What is validated ends exactly there; the rest of this part is
 design.
 Draws on: journey 0022 (multi-stream measured); design horizon notes.
 
-**14 · What would make it true**
+**15 · What would make it true**
 The claims — pre-train on language, specialize to a profession, keep
 improving — stated as hypotheses with their falsification conditions, the
 way this project states everything. What experiments come first, what

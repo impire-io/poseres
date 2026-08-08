@@ -1,0 +1,234 @@
+<!-- Draws on: journey 0068 (the run has spoken), 0050 (honest primitives,
+     chance baseline), 0051 (the observatory), 0052 (the property body),
+     0053 (competence camps; frontier launched), 0054 (E0/E0b reads),
+     C1-RUN-PLAN.md (pre-registration, amendments v2/v3), C1C-JOURNAL.md
+     (live watch, closing entry, postscript). Numbers as of the 2026-08-08
+     close; commits d52e78f, 3580ee9. -->
+
+# The log it put back
+
+Every measurement in this book so far came from worlds I built. Small
+worlds, each tuned to ask one question. That was the point, and also
+the limit: a world built to ask a question cannot surprise you with a
+different one.
+
+So in July I gave the brain Minecraft.
+
+One bot, one brain, one vanilla server on a small Linux box. No script,
+no goals, no rewards. The bot's body reports 32 numbers each step:
+where it is, its health and hunger, the light, whether the block ahead
+is solid, what it is holding, what is in its pockets, and what sits in
+the little two-by-two crafting grid every Minecraft player knows. It
+can choose from twelve actions: walk, turn, jump, dig at the block
+ahead, place what it holds, switch what it holds, put something in the
+grid, take it back out, take whatever the grid offers, or do nothing.
+Digging is not a button press. Wood takes about three seconds of
+choosing "dig" over and over, and the body senses the progress climb
+while it holds on.
+
+The rules of the experiment were written before it started. That
+practice is called *pre-registration*: deciding what will count as
+success, and what will count as failure, before the run begins, so the
+goalposts cannot move once the data is in. The question on the poster
+was crafting. If the bot ever put a log in that grid, the grid would
+offer planks back. Nobody would teach it that. Would it find out?
+
+I knew what luck alone produces, because I measured it first. Eight
+pilot bots acting with no learning at all, run for the same purpose a
+coin flip serves in statistics: none of them ever finished digging a
+single block. Chance, in this body, produces nothing. So the bar was
+plain: any sustained gathering of materials is above chance, and a
+single craft is the headline.
+
+> **Under the hood: the fixed configuration.** Run id `c1c`, launched
+> 2026-07-22 16:23 UTC. Seed 1, `TICK_MS=250` (real time, four steps a
+> second, no world acceleration), observation width 32, twelve
+> discrete actions, snapshot every 25 cycles, `weight_norm_cap=1.2`.
+> Duration pre-registered at 14 days of accumulated brain-steps,
+> about 4.8 million, restarts included. The drive is `frontier`
+> (chapter 9's successor), because the first attempt, running the
+> competence drive, spent 26.7% of its steps standing still and was
+> stopped at 271k steps. The full pre-registration, with both
+> amendments recorded openly, is `C1-RUN-PLAN.md`.
+
+Then came the strange part of this kind of science: seventeen days of
+leaving it alone.
+
+The early readings were quiet. At 328,000 steps the record shows a bot
+that moves constantly (idle 3.1%), pulls every lever of the crafting
+machinery about a fifth of the time, and has gathered nothing at all.
+Consistent with the chance baseline. The headline stayed open.
+
+What I did not see, and would not see until the run was over, is that
+the bot's third day was the interesting one.
+
+## Four days of hands
+
+From roughly step 900,000 to step 2,030,000, July 25 to July 28, the
+bot gathered things. Not by accident and not once: 449 completed digs,
+605 pieces of dirt picked up, 448 handfuls of leaf litter, 15 oak
+saplings, 8 wheat seeds. Everything it picked up it later placed back
+into the world somewhere else, one block at a time. A brain nobody
+gave a goal spent four days quietly rearranging the ground it
+lived on.
+<!-- Numbers: journey 0068 / C1C-JOURNAL closing entry, S3-computed. -->
+
+And once, on July 26, it dug out an oak log.
+
+That is the single hardest acquisition in the run. Wood is the slow
+dig, the one that takes three seconds of sustained choice. The log
+entered its pocket at step 1,299,001, in the densest stretch of
+completed digs the run ever produced. The recipe that turns a log into
+planks needs one move: put the log in the grid. The bot held the log
+for about a thousand steps. Four minutes. Then it placed it back into
+the ground, the way it placed back the dirt, and never picked up
+another.
+
+One move away, once, for four minutes, on day four of seventeen.
+
+Nobody noticed. The watch procedure was a human reading the
+dashboard every couple of days, and the log was gone hours before
+anyone looked. It was found thirteen days later, in the post-run
+analysis, as one line among 1,918 inventory changes. I will come back
+to what that teaches.
+
+## The era ends
+
+After step 2,030,000 the gathering stopped. Not gradually tapering to
+occasional; it stopped. In the remaining 3.7 million steps, more than
+ten days, the bot picked up exactly nine things, and all nine were
+leashes dropped near it by a passing wandering trader's llamas. The
+world handed them over; the bot's own material loop never ran again.
+
+The digging *action* did not stop. The bot chose "dig" more often in
+the late run than in the era (9.4% of steps against 6.5%), and its
+longest streak of consecutive digs, 35, came late. But the digs
+stopped finishing. Motion without contact. Meanwhile the crafting grid
+stayed busy the entire run: something sat staged in it on 36% of all
+steps, the bot put items in with a full hand 132,645 times and pressed
+"take the offer" 222,305 times.
+
+Here is the number that decides the headline. The grid only offers
+something when a valid recipe is staged, and seeds, dirt, litter, and
+leashes form no recipe. Across all 5,669,662 recorded steps of the
+run, the count of steps on which an offer was showing is zero.
+
+Zero. It pressed the take button a quarter of a million times on an
+empty counter.
+<!-- Offer count: R1, journey 0068; the log was placed, not staged —
+     offer_steps=0 excludes staging, and the body has no drop action. -->
+
+So the pre-registered verdict is a clean null: crafting did not
+emerge. The reversal watches closed unfired. And the texture of the
+null is the finding. The brain made contact with every part of the
+machinery, relentlessly, for two and a half weeks. What it never
+produced is a *sequence*: get the right thing, stage the right thing,
+take the result. The gap this run measured is not curiosity and not
+engagement. It is chaining.
+
+> **Under the hood: the R1 reading.** Final-7-days window (the last
+> 2,419,200 brain-steps): planks 0, sticks 0, completed digs 0,
+> acquisitions 3 (leashes). Whole run: offer-shown steps 0 of
+> 5,669,662, so offer-conditioned taking is undefined; take_result
+> 222,305; grid staged 36.2% of steps. Chance baseline ≈ 0 (0/8
+> pilot seeds completed one dig), so the week-1 material era (449
+> digs, 1,077 block pickups) is above chance and reported as such;
+> the final window is chance-level. R2 trends fall, not rise:
+> completions by week run 449 / 0 / 0. Full table in the C1C journal
+> closing entry; every number recomputable from the S3 objects.
+
+## Why it walked away
+
+Chapter 9 ended with the frontier drive measured at reference scale
+and its payoff worlds "named, instrumented, and not yet measured."
+This run is that measurement, and the result has a shape I did not
+draw on the poster.
+
+The drive works. The camping failure it was built against never
+appeared: idle was 4.9% over the whole run against the 26.7% its
+predecessor managed in this same world. The reversal bar I registered
+for it (idle above 20% after maturity) was never approached.
+
+But watch what the drive's own logic does to a mastered skill. The
+frontier drive scores places and outcomes by whether prediction error
+there is falling. While digging was new, digs were exactly that, and
+the bot dug. Once a dig predicts cleanly there is nothing left falling,
+the score goes flat, and the frontier is elsewhere. The era did not end
+because something went wrong. It ended because the era succeeded, and
+success is precisely what this drive is built to leave.
+
+Two drives, two failure shapes, both now measured in the same world:
+competence-as-familiarity stands still forever, and frontier cannot
+stay anywhere. Neither contains anything that *keeps* a behavior
+because it produces something. The bot mined a log and there is no
+machinery anywhere in this architecture for the fact that a log is
+worth having. That machinery, wanting outcomes and chaining actions to
+get them, is now the named next question, and this run is its opening
+measurement rather than its answer.
+<!-- Mechanism: journey 0053 (camping traced), 0024 (frontier scoring);
+     the abandonment reading is 0068. Era/eviction coincidence noted in
+     the journal; cause unproven, reported as coincidence. -->
+
+## The part where my equipment failed and the brain didn't
+
+An honest run report includes the operator. In 17 days the brain
+process crashed zero times. It was restarted twice, deliberately, and
+both times it resumed from its latest snapshot, replaying 1,712 and
+5,038 steps, exactly as chapter 11 promised it would.
+
+My side of the table did worse. The telemetry pipeline's small
+flushing service crash-looped 14 times over the last week (a timeout
+bug, still open). And on the run's final morning the disk filled up,
+because the one thing nobody had told the cleanup job about was the
+run's own snapshot archive. For three hours the telemetry stream had
+nowhere durable to land, and the stream's buffer only holds one hour.
+57,219 steps of the record aged out and are gone. The final 56 minutes
+survived because we pulled them off the buffer minutes before they
+expired. The hole is visible in the archive's sequence numbers, on
+purpose: this system records its gaps rather than papering over them.
+
+The subject outlived the instruments. I keep rediscovering that the
+observer is part of the experiment, and this time it cost 57,219
+steps to relearn.
+
+> **Under the hood: durability by design.** Telemetry fans out over
+> NATS subjects, a JetStream ring buffer holds one hour, and a
+> flusher writes gzip batches to S3, acknowledging only after the
+> write lands. At-least-once, so crashes produce duplicates, never
+> silent loss, and every batch key carries its sequence range, so
+> loss that does occur (buffer expiry during the disk-full window) is
+> exactly measurable: seqs 4,829,420 to 4,944,345. The post-run
+> analysis deduplicates by sequence number per restart segment.
+
+## What seventeen days bought
+
+Three things, none of which I would trade.
+
+First: the watch has to live in the pipeline, not in the visitor. I
+pre-registered "first mined log" as a watch item and then checked for
+it by looking at a dashboard every few days, which is how the run's
+only headline-adjacent event went unseen for thirteen days. A watch
+item that matters deserves a detector running on the stream, raising
+its hand the moment the thing happens. Written into the next run's
+plan.
+
+Second: exploration is not accumulation. Before this run I would have
+said a good drive is one that keeps the brain moving and learning, and
+by that bar the frontier drive passed everything. It also walked away
+from every useful thing it found, including the one object the whole
+experiment was watching for. A brain that never stops learning turns
+out to need something else too, something that lets it stop learning
+*about a thing* and start using it anyway.
+
+Third: pre-registration is what made this chapter writable. The run
+produced a null result on its headline question, and because the bar,
+the baseline, and the duration were all on paper before boot, that
+null is a measurement I can publish at full volume instead of a
+disappointment I'd be tempted to dress up. The goalposts never moved,
+which is the only reason it means something to say the ball didn't go
+in.
+
+Somewhere on that server, in a hillside the bot rearranged in late
+July, there is an oak log it mined on day four and set back into the
+ground on the same afternoon. The next arc of this project is about
+building the part of a mind that would have kept it.

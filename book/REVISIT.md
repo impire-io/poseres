@@ -205,7 +205,9 @@ audit needs this list):
   drive live (idle 3.1%, reversal untriggered). The chapter's
   reference-scale story remains true as written; its "current edge"
   framing and the held-up claim now have a measured sequel that reverses
-  the posture in a rich world.
+  the posture in a rich world. (Update 2026-08-08: the sequel is drafted
+  as ch 13, `part-5-the-long-run/13-the-log-it-put-back.md`, from the
+  c1c close, journey 0068 — arbitration of ch 9 can point forward to it.)
 - [ ] **Ch 12** — "learned channel weighting, is on the bench as I write
   this, and it explicitly gates the physical-robot showcase": journey 0030
   (2026-07-18) landed it — L3 noise PASSes opt-in at 24 seeds, the

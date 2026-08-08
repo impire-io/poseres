@@ -19,8 +19,8 @@ book/
     01-....md
   part-2-the-triplet/
   part-3-the-mechanism/
-  part-4-why-it-matters/
-  part-5-teachers/
+  part-4-the-continuity-guarantee/
+  part-5-the-long-run/
 ```
 
 One chapter per file, numbered for order (`01-`, `02-`, ...). Chapter titles

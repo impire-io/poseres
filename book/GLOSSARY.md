@@ -47,3 +47,9 @@ the mastered, weighted by how well prediction is going there. (Ch 9)
 **frontier drive** — the current edge: prefer places where prediction
 error has been falling, so noise and mastered ground both score zero.
 (Ch 9)
+
+## Part 5
+
+**pre-registration** — deciding what will count as success, and what will
+count as failure, before an experiment runs, so the goalposts cannot move
+once the data is in. (Ch 13)

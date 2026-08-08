@@ -120,7 +120,22 @@ there); this is how they run day to day:
 - **Honest criteria, amended openly.** When a pass-bar proves degenerate, it
   is replaced in the open with the raw numbers recorded.
 - **Negative results are results.** "Curiosity hurts at scale" produced the
-  project's best positive finding one experiment later.
+  project's best positive finding one experiment later. The c1c run's
+  pre-registered null (episode 0068) is the pattern at full size: because
+  the bar, baseline, and duration were fixed before boot, "no emergence"
+  is a publishable measurement, not a disappointment to dress up.
+- **Watch items need detectors, not visits.** A pre-registered watch item
+  checked by periodically looking at a dashboard is a watch item that will
+  be missed: c1c's first-mined-log event went unseen for thirteen days
+  because the watch lived in the visitor, not the pipeline (episode 0068).
+  If an event matters enough to register, a detector runs on the stream
+  and raises its hand when it fires.
+- **The observer is part of the experiment.** In 17 days of c1c the
+  subject crashed zero times; the instrumentation crash-looped 14 times
+  and then filled its own disk, expiring 57,219 steps of the record
+  (episode 0068). Observability gets the same engineering care as the
+  system it watches: its disk is budgeted, its stores are pruned, and its
+  loss modes are visible by design.
 
 ## Enforcement (how this stays true without willpower)
 
