@@ -459,6 +459,32 @@ costs early logs: the head needs on the order of 40 ε-digs before
 the itch points anywhere. Bar B 4–8/24. The stall row stays low (the
 completion rule closes the cliff); cobblestone rises.
 
+## G3 pilot [measured, 2026-08-08] — published before the confirmatory
+
+8 seeds × κ ∈ {0.25, 1.0, 4.0}, hold retained, 159 s for the grid:
+
+- **Every seed digs at every κ: 8/8 · 8/8 · 8/8** (G1L pilot: 3/8,
+  2/8, 2/8; the oracle pilot: 8/8 at every κ) — election is back at
+  the oracle's level with a fully brain-side signal. Median logs
+  2.5 / 3.5 / 6.5.
+- **Chains: 5/8 · 6/8 · 5/8** — *above* the oracle pilot's 3–4/8,
+  with sticks in the hundreds (up to 210). Mechanism observation
+  `[measured]`: the learnable completion rule fires on *crafting*
+  pocket gains too (the head predicts `take_result`'s gain exactly as
+  it predicts a dig's), so the itch generalized itself from digging
+  to any predicted acquisition — G1's oracle rule only ever saw dig
+  completions. Emergent scope, not designed; carried openly.
+- **The noise row collapses**: median |Δ̂ − realized| mining delta
+  0.0071 / 0.0151 / 0.0076 — the frames measured 0.0612; the Bar-P
+  threshold is 0.0417. Roughly a 4–9× sharpening, from a cold-started
+  linear head with ~5,000 online updates.
+- **Hold intact everywhere** (99.98–100%); high-progress abandons 8
+  across 24 runs (no stall); false completions ≈ half the fired
+  count — they fire near-completion ticks and on crafting, and cost
+  nothing visible at pilot scale.
+- **κ\* = 0.25** by the frozen rule (smallest κ with median logs
+  ≥ 1 — all three clear it).
+
 ## Reversal condition
 
 The map is refuted in the best possible way if any single-layer gate
