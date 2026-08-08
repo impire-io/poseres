@@ -184,6 +184,56 @@ log-in-pocket-at-the-workshop is the taught context and the two
 existence chains prove the path re-elects — a narrow pass or an
 honest miss.
 
+## G1 pilot [measured, 2026-08-08] — published before the confirmatory
+
+8 seeds × κ ∈ {0.25, 1.0, 4.0}, λ = 0.25 hold retained:
+
+- **Every seed digs at every κ**: 8/8 seeds with ≥ 1 oak_log; median
+  logs per seed 6 / 9.5 / 9.5 (κ 0.25 / 1 / 4). The no-itch baseline
+  (goal-homing H-λ0.25) recorded **zero** logs in 24 runs.
+- **The taught first craft re-elects at volume**: 107–274 planks per
+  seed — the log→planks loop runs constantly once logs exist.
+- **Full chains**: 3/8 seeds at κ 0.25; 4/8 at κ 1 and 4 (sticks up
+  to 69). Dwell stays 99.98–100% — the hold is untouched.
+- κ 1.0 and 4.0 produce seed-identical rows: past κ ≈ 1 the itch term
+  saturates the argmax; **κ\* = 0.25** (smallest with median ≥ 1).
+- Ugly-twin watch, live already: seeds 2/4 at κ ≥ 1 dig 107–143
+  cobblestone — the itch is target-agnostic and will finish *any*
+  crack (mineral digs are 4-tick, cheap). Noted, not pathological at
+  pilot scale; the perseveration row rides into the confirmatory.
+
+## G1 outcome [measured, 2026-08-08] — BOTH BARS PASS: the first elected chains
+
+24 seeds at κ\* = 0.25 (hold retained at λ = 0.25), H = 5,000:
+
+- **Bar A — the rung: PASS 24/24** (bar ≥ 18/24). Every seed gained
+  at least one oak_log; **286 logs across the arm**. The no-itch
+  baseline (goal-homing, same graduates, same hold): 0 logs in 24
+  runs.
+- **Bar B — the chain: PASS 6/24, exactly at the bar** (bar ≥ 6/24;
+  seeds 1, 3, 5, 11, 19, 20). Reported as what it is: a pass at the
+  line, not above it. These are the **first bar-level deliberate
+  chains in the project's history** — the entire prior record held
+  two, both existence-level flukes.
+- **Median dwell 100.0%** — the hold is untouched by the new term.
+- **The itch-only context arm (κ\* = 0.25, λ = 0, seeds 1–8): 2/8
+  seeds dug (10 and 7 logs), zero chains.** The itch without the hold
+  digs only where wandering happens to stand and chains nowhere —
+  **the pass belongs to the composition**, not to either term alone.
+  The stack's core claim (layers compose; single layers fail) is now
+  measured from the passing side `[measured]`.
+- Frozen-prediction ledger: Bar A predicted 20–23, actual 24 (fourth
+  consecutive under-prediction); Bar B predicted 4–9, actual 6 — the
+  arc's first prediction inside its own range.
+
+**Per the frozen decision rule (A+B): layer 4 + position suffice for
+election.** The next registrations this outcome licenses: the
+**learnable-itch build** (replace the clone-step progress oracle with
+the brain's own sensed/predicted progress — the mining channel is
+already in the observation) and **E2.1 shaping informed by G1** (the
+election mechanism exists; rollouts/means-ends/skills now compete as
+*refinements*, not rescues). G2–G5 remain queued behind them.
+
 ## Reversal condition
 
 The map is refuted in the best possible way if any single-layer gate

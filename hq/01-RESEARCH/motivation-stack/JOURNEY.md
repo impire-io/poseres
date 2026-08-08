@@ -20,3 +20,18 @@ time by reading the world's source). Bars A (≥ 18/24 seeds gain a log)
 and B (≥ 6/24 full chains) frozen under the owner's delegated
 autonomy; itch-only context arm pre-named to separate the itch from
 the hold. Frozen prediction on record: A 20–23, B 4–9.
+
+**2026-08-08 — G1 lands: both bars PASS, and the stack's claim is
+measured from the passing side.** Pilot first (published): every seed
+digs at every κ, planks in the hundreds, chains in 3–4 of 8;
+κ 1.0/4.0 seed-identical (the term saturates the argmax past κ ≈ 1);
+κ* = 0.25 by the rule. Confirmatory: Bar A 24/24 (286 logs; the same
+graduates under the same hold dug zero without the itch), Bar B 6/24 —
+exactly at the bar, the first bar-level chains in the record. The
+itch-only arm seals the reading: without the hold, 2/8 dig and none
+chain. Neither term alone; the composition. Ugly-twin rows live as
+predicted: target-agnostic digging (cobblestone in the hundreds for
+some seeds at κ ≥ 1) — the perseveration watch carries forward into
+the learnable-itch registration. Episode 0070 records the landmark;
+the topic stays active with the learnable-itch and E2.1-shaping
+registrations next in the queue.

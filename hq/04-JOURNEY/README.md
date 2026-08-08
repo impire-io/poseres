@@ -37,19 +37,21 @@ deliberate brain restarts, a 14-crash flusher cough, and a
 disk-full incident in the final hours that cost ~57.7k steps of
 telemetry (the last 56 minutes rescued off the buffer pre-expiry).
 
-**And the goals ladder reopened and answered its next rung the same
-day** ([episode 0069](0069-goal-homing.md)): E2.0b measured at 24-seed
-power — a far-reaching goal gradient (clone-step oracle) holds the
-taught brain at the workshop **99.98% of the window with zero
-departures** (the obs-form managed 3.8%) and produces **zero chains**.
-Presence is solved; election is the isolated wall. The E2.1 mechanism
-choice (rollouts / means-ends / skills) is the owner's, and the
-evening's direction thinking is recorded as the
-**motivation-stack** topic (`../01-RESEARCH/motivation-stack/`):
-motivation as layered mechanisms — budget, deficits, options,
-completion itch, borrowed goals, imagination — each patching the ugly
-twin below, the record's five nulls mapped as upper layers over a
-missing floor, five candidate gates ordered and none registered.
+**And the goals ladder reopened and climbed two rungs the same day**
+([0069](0069-goal-homing.md), [0070](0070-the-first-elected-chains.md)):
+E2.0b measured at 24-seed power — a far-reaching goal gradient holds
+the taught brain at the workshop **99.98% with zero departures** (the
+obs-form managed 3.8%) and produces zero chains; presence solved,
+election isolated. The evening's direction thinking became the
+**motivation-stack** topic (`../01-RESEARCH/motivation-stack/`) —
+motivation as layered mechanisms, each patching the ugly twin below,
+the record's five nulls mapped as upper layers over a missing floor —
+and its first gate **G1, the completion itch, PASSED both bars the
+same night**: hold + itch elects **24/24 seeds to dig (286 logs)**
+and **6/24 to full chains** — the first bar-level deliberate chains
+in the record — while itch-without-hold chains nowhere. Single
+layers fail; the composition carries. Next registrations: the
+learnable itch, and E2.1 as refinement rather than rescue.
 
 **The project's working structure moved into `hq/`**
 ([episode 0045](0045-the-hq-restructure.md)): GENESIS holds the vision,
@@ -497,3 +499,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0067 | [PRA goes fair-code](0067-fair-code-license.md) |
 | 0068 | [The run has spoken: no emergence, one mined log](0068-the-run-has-spoken.md) |
 | 0069 | [Goal homing: presence solved, election isolated](0069-goal-homing.md) |
+| 0070 | [The first elected chains: hold + itch](0070-the-first-elected-chains.md) |
