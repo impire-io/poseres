@@ -234,6 +234,69 @@ already in the observation) and **E2.1 shaping informed by G1** (the
 election mechanism exists; rollouts/means-ends/skills now compete as
 *refinements*, not rescues). G2–G5 remain queued behind them.
 
+## G1L pre-registration — the learnable itch (REGISTERED 2026-08-08 21:55, before any run)
+
+Continues the owner's delegated autonomy ("continue with the learnable
+itch"). The question G1's decision rule licensed: **does the mechanism
+survive removing its scaffold** — can the brain's *own* one-step model
+of its sensed mining channel carry the itch that the clone-step oracle
+carried in G1?
+
+**The gate policy.** `LearnableItchPolicy` = G1's `HomingItchPolicy`
+with exactly one change — the itch term's signal source:
+
+```
+value(a) = drive_value(pred_a) + 0.25 · (−Φ(pos_after(a)))
+                                + κ · (pred_a[mining] − obs[mining])
+```
+
+`pred_a` is the same decoded one-step prediction the drive already
+values (no extra machinery); `obs[mining]` is the live sensed channel.
+The clone-step remains **only** for the hold's Φ — the itch is
+scaffold-free. **No completion special-case**: the brain cannot peek
+at inventory futures, so how its model handles the completing tick's
+zeroing is part of what this gate measures. Pre-named pathologies,
+carried as ground-truth rows (measurement only, never policy input):
+
+- **The completion stall** — a model that has *learned* the zeroing
+  penalizes the finishing tick; cracks could park near 11/12.
+  Row: count of cracks abandoned at ≥ 9/12 progress.
+- **Noise election** — a model that predicts the channel poorly makes
+  the term noise. Row: mean |predicted − realized| mining delta on
+  chosen directed actions.
+
+**Protocol.** The 24 P0 graduates, H = 5,000. Pilot: seeds 1–8 ×
+κ ∈ {0.25, 1.0, 4.0} (the brain-side term's useful scale may differ
+from the oracle's), published here before the confirmatory; **κ\*** =
+smallest κ with pilot median logs ≥ 1, else best median with the grid
+published. Confirmatory: 24 seeds at κ\*. References standing: G1's
+oracle arm is the ceiling (Bar A 24/24, 286 logs; Bar B 6/24);
+goal-homing's no-itch arm the floor (0 logs).
+
+**Frozen bars — identical to G1, deliberately** (episode 0070's
+reversal condition: failing Bar A here reopens the composition claim,
+because the oracle would have been carrying more than the mechanism):
+
+- **Bar A: ≥ 18/24 seeds gain ≥ 1 oak_log.**
+- **Bar B: ≥ 6/24 seeds complete ≥ 1 full log→planks→sticks chain.**
+
+**Decision rule (frozen).** A+B PASS → the itch is real without
+scaffolding: the src build (a shipped drive/policy feature through
+spec-kit, perseveration watch included) becomes the owner's call, with
+E2.1 refinements competing on top. A PASS, B FAIL → election survives
+de-scaffolding, chains thin: reported against ceiling and floor; the
+sticks-rung question sharpens. A FAIL → the oracle *was* the
+mechanism; the composition claim reopens per 0070, and G3 (the
+event-sensitive predictor) jumps the queue — progress prediction is
+the blocker.
+
+**Frozen prediction (ledger: four under-predictions, one hit).**
+Bar A 18–23/24; Bar B 3–7/24. Mechanism argument: the 45
+demonstrations exercised the mining channel heavily, so the model
+should carry the term's *direction* even if calibration is rough; and
+one-step EMA-smoothed learning probably under-learns the completion
+cliff — which here is merciful (no stall).
+
 ## Reversal condition
 
 The map is refuted in the best possible way if any single-layer gate

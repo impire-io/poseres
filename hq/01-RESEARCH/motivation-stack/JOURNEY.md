@@ -35,3 +35,14 @@ some seeds at κ ≥ 1) — the perseveration watch carries forward into
 the learnable-itch registration. Episode 0070 records the landmark;
 the topic stays active with the learnable-itch and E2.1-shaping
 registrations next in the queue.
+
+**2026-08-08 21:55 — G1L registered before any run: the learnable
+itch.** One change from G1: the itch reads the brain's own decoded
+one-step prediction of the mining channel instead of the clone oracle
+(the hold's Φ keeps its scaffold — one variable). No completion
+special-case: whether the model has learned the channel's zeroing
+cliff is part of the measurement, with the completion-stall and
+noise-election pathologies pre-named as ground-truth rows. Bars
+identical to G1 on purpose — 0070's reversal condition makes Bar A
+here the composition claim's own test. Frozen prediction: A 18–23,
+B 3–7.
