@@ -363,9 +363,10 @@ audit still gates calling anything final, and the arbitration backlog
 is still open.
 Open threads, in priority order:
 **the c1c post-run queue** (the read is in —
-[0068](0068-the-run-has-spoken.md); remaining: snapshot-store prune,
-flush `--snapshot-dir` fix, flusher TimeoutError root-cause, land the
-rescued tail into S3, publish the telemetry);
+[0068](0068-the-run-has-spoken.md); prune done, tail landed, flusher
+TimeoutError and `--snapshot-dir` fixed in-repo; remaining: publish
+the 2.41 GB telemetry archive and retire or repoint the observatory —
+both owner calls);
 **Phase D** (active — API v1.0 in flight);
 the [ch. 39](0039-not-the-statistic.md) tolerant-gate conditional
 (~1.6% false-fire, if a deployment can afford it); and the

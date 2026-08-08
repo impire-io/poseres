@@ -8,8 +8,12 @@ StartLimitIntervalSec=0
 User=calmera
 WorkingDirectory=/home/calmera/pra
 EnvironmentFile=/etc/pra/s3.env
+# Snapshot mirroring follows the run via /etc/pra/s3.env (PRA_SNAPSHOT_DIR);
+# empty disables it. The path was hardcoded to c1b here once, which is why
+# c1c's store was never mirror-pruned and the disk filled on the final
+# morning (C1C-JOURNAL 2026-08-08).
 ExecStart=/home/calmera/pra/.venv/bin/pra-flush --url nats://127.0.0.1:4222 \
-  --snapshot-dir /home/calmera/pra-runs/c1b/snapshots --snapshot-keep 5
+  --snapshot-dir ${PRA_SNAPSHOT_DIR} --snapshot-keep 5
 Restart=on-failure
 RestartSec=5
 

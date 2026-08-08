@@ -78,7 +78,11 @@ async def _pump(args, sink) -> None:
     while True:
         try:
             messages = await sub.fetch(500, timeout=5)
-        except NatsTimeout:
+        except (NatsTimeout, TimeoutError):
+            # nats-py's _fetch_n raises a bare asyncio.TimeoutError (builtin
+            # TimeoutError on 3.11+) when a partial batch expires — measured
+            # live on beno4 as the c1c-era crash loop (14 restarts,
+            # journalctl 2026-07-21..08-06); NatsTimeout alone missed it.
             messages = []
         now = time.monotonic()
         for message in messages:

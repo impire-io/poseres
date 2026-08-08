@@ -233,3 +233,21 @@ with the one hole in between, visible by key ranges as designed.
 Flusher healthy since (zero failures post-recovery; buffer down to
 residual control chatter). Still open: `--snapshot-dir` still points
 at c1b, the TimeoutError root-cause, and publishing the telemetry.
+
+**2026-08-08 17:05 (15:05 UTC) — the ops tail closes.** Both flusher
+defects are root-caused and fixed in the repo. **(1) The crash loop:**
+journalctl holds the full trace — nats-py's `_fetch_n`
+(`js/client.py:1289`) raises a **bare `asyncio.TimeoutError`** when a
+partial batch expires, and the pump caught only `nats.errors.
+TimeoutError`; the except now takes both (builtin `TimeoutError`
+covers it on ≥3.11). First crash was actually 2026-07-21 15:57 (c1b
+era) — the "cough" predates this run's journal. **(2) The prune miss:**
+`pra-flush.service` hardcoded `--snapshot-dir …/c1b/snapshots`; the
+unit now reads `PRA_SNAPSHOT_DIR` from `/etc/pra/s3.env` (empty =
+mirroring off), so the store follows the run instead of fossilizing.
+Archive sizes for the publishing decision: `pra/v1/c1c/` = **2.41 GB
+in 83,634 objects** (c1b 0.11 GB, c1 0.02 GB, mirrored snapshots
+0.11 GB). What remains open, deliberately: publishing the archive
+(hosting choice is the owner's) and the observatory's fate — dash +
+flush are still enabled on beno4 (idling on control chatter; the
+fixed unit takes effect at the next provision).
