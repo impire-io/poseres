@@ -213,3 +213,23 @@ Post-run queue (none executed yet): prune the snapshot store, fix
 `--snapshot-dir`, root-cause the flusher TimeoutError, land the
 rescued tail, then the R1–R5 journey episode carries the numbers to
 the public record.
+
+**2026-08-08 16:20 (14:20 UTC) — postscript: the queue's first half
+executed, and the loss figure sharpens slightly in our favor.** On
+the owner's instruction the snapshot store was pruned to the newest
+50 pairs (906 pairs deleted, **33.9 GB freed**; disk 100% → 66%,
+newest `snap-000005737000-23900` kept). MinIO accepted writes again
+on the flusher's next 60 s retry — **its stuck batch landed intact**
+(`…T083047Z-000004828465-000004829419`, 476 step events through step
+2,404,479), so the expired window is smaller than the closing entry
+stated: **lost = seqs 4,829,420→4,944,345, exactly 57,219 steps**
+(cum 5,670,479→5,727,697, ~08:31→11:29 UTC; 2.37% of the final-7-days
+window — the closing entry's ≈57,695 was correct pre-recovery). The
+**rescued tail is now landed in S3**: 42,665 records across all 8
+persisted families as `…/20260808T141326Z-…` objects (the 414
+unscoped `discover` records excluded, matching flusher semantics), so
+the durable record now runs seq 1→4,829,419 and 4,944,346→4,970,922
+with the one hole in between, visible by key ranges as designed.
+Flusher healthy since (zero failures post-recovery; buffer down to
+residual control chatter). Still open: `--snapshot-dir` still points
+at c1b, the TimeoutError root-cause, and publishing the telemetry.
