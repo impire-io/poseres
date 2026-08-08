@@ -108,3 +108,108 @@ pruning is a post-run cleanup candidate. Bridge/dash telemetry
 spotless: dropped 0, publish failures 0, reconnects 0, wire errors 0,
 seq_gaps 7 since the 07-29 dash boot. The emergence headline stays
 open.
+
+**2026-08-08 14:29 (12:29 UTC) — RUN CLOSED: duration met at 16.61
+days of brain-steps; the headline answered — no emergence, one mined
+log, and a week-1 material flare that quietly died.** Stopped
+deliberately at 12:29:14 UTC (`systemctl disable --now pra-brain@c1
+pra-bridge@c1`, clean shutdown). Final cumulative step **5,740,930**
+against the pre-registered ≥ 4.8M — the bar was crossed **Aug 5
+~19:20 UTC** (flush stamp of the object carrying step 4,800,000;
+within an hour of the 07-31 projection). Pace over the 16d 20h 6m
+wall clock: **3.946 steps/s**, 98.7% of the 250 ms ideal. Segment
+accounting from snapshot-id continuity: cum 1→2,247,711 /
+2,246,000→3,271,037 / 3,266,000→5,740,930, with **1,712 and 5,038
+steps replayed** at the two resumes — resume-from-snapshot exactly as
+designed. All numbers below are computed from the S3 objects
+(`pra/v1/c1c/`), segment-aware and redelivery-deduplicated.
+
+- **R1 — emergence: NOT EMERGED; the final-7-days window reads
+  chance-level.** Over the last 2,419,200 steps (cum ≈3.32M→5.74M):
+  planks **0**, sticks **0**, completed digs **0**, material
+  acquisitions **3** (all `lead` — wandering-trader world events).
+  `take_result` was pressed 98,493 times in the window, 222,305 over
+  the run — and **an offer was showing on 0 of the 5,669,662 recorded
+  steps**: the bot never staged a craftable item, so the
+  offer-conditioned-taking ratio never had a denominator. The
+  episode-0058 reversal watch (a self-produced crafting chain) closes
+  **unfired**.
+- **The whole-run record still holds a surprise: the first-mined-log
+  watch item FIRED — on ~Jul 26, and nobody noticed.** A **material
+  era ran cum ≈0.9M→2.03M** (≈Jul 25 morning → Jul 28 afternoon):
+  **449 completed digs** (all of the run's total), **605 dirt**, **448
+  leaf_litter**, **15 oak_sapling**, **8 wheat_seeds** picked up — and
+  **one `oak_log`** entering the inventory at cum ≈1,299,001, in the
+  era's peak-dig bucket (98 completions/100k steps). It was held
+  ~1,000 steps and then placed back into the world (offer_steps = 0
+  proves it was never staged; there is no drop action). Every pickup
+  was eventually re-placed (acquisitions and losses symmetric to the
+  unit). Against the amendment-v2 chance bar (0/8 pilot seeds
+  completed a single dig), that era is **real above-chance material
+  acquisition** — which then **decayed to zero by cum ≈2.03M and
+  never returned**: the final ~3.6M steps were world-inert except the
+  leads (9 total; 3 in a burst at 1.365–1.385M, then singles, last at
+  5.23M). The E0 zero-material read at 328k was correct for its
+  window — the flare began later.
+- **R2 — rungs: climbed, then abandoned; falling, not rising.**
+  Weekly (2.4192M-step weeks): completions 449 / 0 / 0;
+  place-with-material 1,100 / 0 / 0; hold→place 800 / 0 / 0. Dig
+  *action* usage rose (6.5% → 9.4% of steps) while completions fell
+  to zero — action without effect; sensed mining-progress steps fell
+  1.81% → 1.0%. Streak counts stayed flat (≥4-streaks 7,218 / 8,877 /
+  2,470; max 35). Grid levers stayed heavily exercised throughout —
+  something staged 36.2% of all steps, grid_put-with-item-in-hand
+  132,645, hold→grid_put 94,674 — with **zero recipes ever staged**.
+- **R3 — learning health: the no-rot clause fires as written,
+  qualified as a regime change.** Early plateau (cum 0.2–0.6M) mean
+  pred-err **0.101**; final-week mean **0.164** (+62%). The break is
+  a single event at cum ≈0.9M: an eviction sweep took the population
+  38 → ~22 and pred-err jumped 0.09 → 0.199 in the same bucket —
+  after which the error *improved* monotonically-ish 0.199 → 0.162
+  through the rest of the run (still inching down at stop; EMA 0.178
+  live pre-stop). Population stable 20–24 post-sweep (not at any
+  ceiling); churn spawn 23,679 / evict 23,614 (≈1 per cycle). The
+  material era sits *inside* the post-sweep regime — the flare began
+  at the sweep, not before it.
+- **R4 — reversal reading: the crafting=False fallback does NOT
+  fire.** Grid primitives were anything but unused (36.2% staged,
+  ~4.8% of all actions grid_put, 4.7% grid_take, 3.9% take_result),
+  and improvement (EMA 1.0 → 0.162) is not materially below the
+  pilot arm (0.778 → 0.143). The engagement data is the finding:
+  the machinery was exercised massively and the gate that never
+  opened was *staging a craftable* — the one log went back into the
+  dirt instead of into the grid. The hierarchy arc opens with that
+  exact shape.
+- **R5 — operational honesty.** Brain: **2 mid-run restarts, both
+  deliberate, zero crashes** (Jul 29 06:37:27; Aug 1 06:36:20 — the
+  second was *between readings and previously unrecorded*; journald
+  has since lost the Started lines for both, but the final process's
+  CPU accounting — 1w 5h 52m wall ending 12:29:14 — pins the Aug 1
+  start, and step-rate continuity shows no downtime). Bridge: **zero
+  mid-run restarts** — the 07-31 entry's claim that the bridge
+  restarted on 07-29 was wrong; only brain + dash restarted. Dash: 1
+  (Jul 29). Flush: **14 crash-restarts** Jul 30 → Aug 6 (the
+  asyncio-TimeoutError cough, worse than the 4× known on 07-31).
+  Snapshot chain: 942 notices, cadence-25 clean per segment except
+  2 missing notices (cycles 14,325 and 21,275). In-span seq gaps:
+  7,090 step events missing (0.125%) — at-least-once with visible
+  gaps, as designed; dash counted 18 union gaps at stop.
+- **The incident, in the open: the disk finally bit.** MinIO refused
+  writes from **08:30:47 UTC** (root disk 100% — the never-pruned
+  c1c snapshot store, ~34G/1,912 files; root cause compounded by
+  `pra-flush --snapshot-dir` still pointing at *c1b*, so c1c was
+  never mirror-pruned). The 1 h JetStream buffer then expired seqs
+  4,828,464→4,944,345 unrecovered: **≈57,695 steps of telemetry lost
+  (~08:29→11:29 UTC, 2.4% of the final-7-days window)**. The final
+  ~56 minutes (seqs 4,944,346→4,970,922; 43,079 records) were pulled
+  off the buffer before expiry and held locally, to be landed into
+  S3 once disk is freed. Ground truth brackets the gap: inventory
+  identical on both sides (lead ×9 + wheat_seeds ×5), no offer at
+  any recorded step, idle 5.6% in the rescued tail — no sign the gap
+  hid an event. Newest snapshot `snap-000005737000-23900`; a future
+  resume would replay 3,930 steps.
+
+Post-run queue (none executed yet): prune the snapshot store, fix
+`--snapshot-dir`, root-cause the flusher TimeoutError, land the
+rescued tail, then the R1–R5 journey episode carries the numbers to
+the public record.

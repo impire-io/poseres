@@ -20,7 +20,22 @@ Episodes 0001–0044 were chapters of the original single-file `JOURNEY.md`
 "ch. NN" resolve to `00NN-*.md`). The recurring principles the journey keeps
 teaching moved to `../00-GENESIS/how-we-work.md`.
 
-## Where things stand (2026-07-27)
+## Where things stand (2026-08-08)
+
+**The multi-week run is over and read**
+([episode 0068](0068-the-run-has-spoken.md)): `c1c` closed 2026-08-08
+at cumulative step 5,740,930 — 16.61 days of brain-steps against the
+pre-registered ≥ 14 — and the headline is answered: **crafting did
+not emerge** (zero crafts; an offer showed on 0 of 5.67M recorded
+steps), but the first-mined-log watch **fired unnoticed** inside a
+week-1 material era (449 completed digs, one `oak_log` held then
+placed back) that decayed to zero by cum ≈2.03M. The 0053 anti-idle
+and 0058 self-set-goals reversal watches close unfired; the R4
+crafting=False fallback does not fire; the hierarchy arc opens with
+its target named (engagement without sequence). Ops honesty: two
+deliberate brain restarts, a 14-crash flusher cough, and a
+disk-full incident in the final hours that cost ~57.7k steps of
+telemetry (the last 56 minutes rescued off the buffer pre-expiry).
 
 **The project's working structure moved into `hq/`**
 ([episode 0045](0045-the-hq-restructure.md)): GENESIS holds the vision,
@@ -347,7 +362,10 @@ and the glossary on impire.io, every page draft-labeled; the numbers
 audit still gates calling anything final, and the arbitration backlog
 is still open.
 Open threads, in priority order:
-**the c1c run** (live; R1–R5 read when the weeks have spoken);
+**the c1c post-run queue** (the read is in —
+[0068](0068-the-run-has-spoken.md); remaining: snapshot-store prune,
+flush `--snapshot-dir` fix, flusher TimeoutError root-cause, land the
+rescued tail into S3, publish the telemetry);
 **Phase D** (active — API v1.0 in flight);
 the [ch. 39](0039-not-the-statistic.md) tolerant-gate conditional
 (~1.6% false-fire, if a deployment can afford it); and the
@@ -462,3 +480,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0065 | [Phase D in a day: four parallel worktrees, one serial landing](0065-phase-d-in-a-day.md) |
 | 0066 | [The book goes on the website, as a draft](0066-book-draft-on-website.md) |
 | 0067 | [PRA goes fair-code](0067-fair-code-license.md) |
+| 0068 | [The run has spoken: no emergence, one mined log](0068-the-run-has-spoken.md) |

@@ -23,11 +23,18 @@ reference-scale rot at 500k steps, resume byte-identical at length, launch
 posture GREEN — cap on, ~8 B/step blob growth budgeted, population at the
 ceiling in continuous mode).
 
-- *What remains:* **the run itself — the operator's.** One character,
-  learning continuously for weeks.
-- *Exit:* a multi-week continuously-learning run with **published telemetry**.
+- *What remains:* nothing — **the run is over and read**
+  ([episode 0068](../04-JOURNEY/0068-the-run-has-spoken.md)): `c1c`
+  closed 2026-08-08 at 16.61 days of brain-steps; no emergence (zero
+  offers ever), one mined log in a week-1 material era that died,
+  reversal watches unfired, R4 fallback unfired.
+- *Exit:* the multi-week run happened and its R1–R5 read is recorded;
+  "**published telemetry**" is the remaining half — the S3 objects
+  live on beno4 only. Post-run queue: snapshot prune, flush
+  `--snapshot-dir` fix, TimeoutError root-cause, land the rescued
+  tail, publish.
 - *Named conditional:* the relative-survival bar from the soak stays a
-  recorded deferral — revisited if the long run surfaces it.
+  recorded deferral — the long run did not surface it.
 
 ## Next — showcases
 
@@ -91,8 +98,11 @@ surface that no longer moves.
 - **Show, then tell — deferred by constitution IV**
   ([episode 0065](../04-JOURNEY/0065-phase-d-in-a-day.md)): a C1 demo
   video before the c1c R1–R5 read lands would be a demo outrunning
-  measured capability. Resumes when the run's read is in; each showcase's
-  video publishes with its honest telemetry.
+  measured capability. **The read is in**
+  ([episode 0068](../04-JOURNEY/0068-the-run-has-spoken.md)) — the
+  deferral lifts on the owner's call; each showcase's video publishes
+  with its honest telemetry (and the honest headline is "no emergence,
+  one mined log").
 - **The book**: the long-form narrative (`book/` — four parts drafted;
   contract in `book/STYLE.md`; decision recorded in
   [episode 0047](../04-JOURNEY/0047-the-book-decision.md)). The drafts
