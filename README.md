@@ -120,3 +120,11 @@ completes in well under a minute.
 New worlds, sensors, actuators, and drives are the on-ramp — the public seams
 they mount through are frozen for all of v1.x ([Doc 0008](hq/02-DESIGN/0008-public-api-versioning.md)).
 [CONTRIBUTING.md](CONTRIBUTING.md) has the seams, the worked examples, the gate, and the rules.
+
+## License
+
+[Fair-code](https://faircode.io), under the [Sustainable Use License](LICENSE) —
+free to use, modify, and self-host for internal or non-commercial use; offering
+it to others as a paid product or service requires an agreement — see
+[impire.io/license](https://impire.io/license/). Versions up to and including
+v1.1.0 remain MIT.

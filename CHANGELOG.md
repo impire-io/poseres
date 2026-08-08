@@ -6,6 +6,16 @@ versioning promise is defined in
 [Doc 0008](hq/02-DESIGN/0008-public-api-versioning.md) and enforced by
 the surface guard (`tests/contract/test_public_surface.py`).
 
+## [Unreleased]
+
+### Changed
+
+- **License**: MIT → [Sustainable Use License](LICENSE) (fair-code).
+  Free to use, modify, and self-host for internal or non-commercial
+  use; offering PRA to others as a paid product or service now requires
+  an agreement (see [impire.io/license](https://impire.io/license/)).
+  Versions up to and including v1.1.0 remain MIT.
+
 ## [1.1.0] — 2026-07-27
 
 Phase D lands in parallel: the frozen surface grows additively.

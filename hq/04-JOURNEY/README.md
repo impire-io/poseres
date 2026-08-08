@@ -461,3 +461,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0064 | [Shareable brains: a snapshot becomes an artifact](0064-shareable-brains.md) |
 | 0065 | [Phase D in a day: four parallel worktrees, one serial landing](0065-phase-d-in-a-day.md) |
 | 0066 | [The book goes on the website, as a draft](0066-book-draft-on-website.md) |
+| 0067 | [PRA goes fair-code](0067-fair-code-license.md) |
