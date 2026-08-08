@@ -124,6 +124,66 @@ registration. Proposed order — the stack's, cheapest-first:
 - **G5 — approval, revisited** (layer 5): after G3, with the
   sycophancy watch pre-registered.
 
+## G1 pre-registration — the completion-pull gate (REGISTERED 2026-08-08, before any run)
+
+Bars set under the owner's delegated autonomy ("go ahead,
+autonomously", 2026-08-08) — recorded as such; the runner does not
+exist yet.
+
+**The gate policy.** `HomingItchPolicy` = goal-homing's
+`HomingBiasPolicy` with the measured λ\* = 0.25 homing term retained,
+plus exactly one new term per candidate action:
+
+```
+value(a) = drive_value(pred_a) + 0.25 · (−Φ(pos_after(a)))
+                                + κ · (progress_after(a) − progress_now)
+```
+
+`progress_after(a)` and `Φ` both read from the one proven clone-step
+oracle; `progress_after = 1.0` when the clone completes a dig (the
+sensed channel zeroes on the completing tick — inventory gain is the
+completion signal), else the clone's sensed mining channel;
+`progress_now` = the live sensed mining channel. Same draw order,
+ε/maturity gates, and candidate-skip rule as every gate in this arc.
+The world's own mechanics give the term its teeth `[measured in
+source]`: any non-dig action resets crack progress to zero, so the
+term rewards starting (~κ/12), rewards continuing, and penalizes
+abandoning in proportion to sunk progress (−κ·p).
+
+**Subjects and protocol.** The 24 P0-proven graduates, H = 5,000,
+fresh worlds. Pilot: seeds 1–8 × κ ∈ {0.25, 1.0, 4.0}, published here
+before the confirmatory; **κ\*** = smallest κ whose pilot median
+completed wood digs ≥ 1 (else best median, grid published).
+Confirmatory: 24 seeds at κ\*. Context arm (no bar): itch-only
+(κ\*, λ = 0), seeds 1–8 — separates the itch from the hold. Controls
+standing from the record: F, G-λ4, and goal-homing's H-λ0.25 arm
+(0 logs, 0 chains — the no-itch baseline).
+
+**Frozen bars.**
+
+- **Bar A — the rung: ≥ 18/24 confirmatory seeds gain ≥ 1 `oak_log`**
+  (a completed 12-tick wood dig) in-window. The term targets digs
+  directly, so the demanding k applies — a weak pass must not launder
+  the layer.
+- **Bar B — the chain: ≥ 6/24 seeds ≥ 1 full log→planks→sticks
+  chain** (the arc's standing k, E1's bar).
+
+**Decision rule (frozen).** A+B PASS → layer 4 + position suffice for
+election: the learnable-itch build and E2.1 shaping become the next
+registrations. A PASS, B FAIL → the wall moves up one rung, from
+digging to *staging/crafting election* (no progress channel exists to
+itch on there) — an informative split that reorders G2/G3. A FAIL →
+the one-step completion-pull is refuted at oracle bound; G2/G3
+proceed.
+
+**Frozen prediction (author's; three predecessors were wrong).**
+Bar A passes 20–23/24 — post-start, continuing beats abandoning by
+κ·p and only ε interrupts; expected ~39 ticks per log at ε = 0.1.
+Bar B is the open one: predicted 4–9/24, on the argument that
+log-in-pocket-at-the-workshop is the taught context and the two
+existence chains prove the path re-elects — a narrow pass or an
+honest miss.
+
 ## Reversal condition
 
 The map is refuted in the best possible way if any single-layer gate
