@@ -12,8 +12,8 @@ cfg = Config(
     obs_dim=20,
     distractor_dim=3,
     distractor_channels=10,
-    distractor_mode="noise",     # the recorded L3 FAIL configuration
-    channel_weight_floor=0.2,    # 0.0 = off (default); 0.2 = the measured recommendation
+    distractor_mode="noise",  # the recorded L3 FAIL configuration
+    channel_weight_floor=0.2,  # 0.0 = off (default); 0.2 = the measured recommendation
 )
 summary = Engine(cfg).run(seed=1)
 print(summary.best_dim, summary.canonical().get("channel_weighting"))

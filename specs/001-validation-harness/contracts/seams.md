@@ -15,10 +15,10 @@ substitute implementation can stand in without touching collaborators.
 
 ```python
 class Bus(Protocol):
-    def register(self, frame) -> int: ...          # returns frame_id
+    def register(self, frame) -> int: ...  # returns frame_id
     def unregister(self, frame_id: int) -> None: ...
     def publish(self, event: SensorimotorEvent) -> list[FrameResult]: ...
-    def subscribers(self) -> list[int]: ...         # deterministic order (ascending frame_id)
+    def subscribers(self) -> list[int]: ...  # deterministic order (ascending frame_id)
 ```
 
 **Default:** `InMemorySyncBus`. `publish` delivers to every subscriber in ascending
@@ -72,9 +72,10 @@ touching any other component.
 
 ```python
 class DecayPolicy(Protocol):
-    def threshold(self, population_size: int) -> float: ...        # population-scaled
-    def evict(self, frames, scorer, threshold, *, min_frames, max_frames, min_age_cycles) -> list[int]:
-        ...  # returns frame_ids to remove (soft + hard cap, young-protected)
+    def threshold(self, population_size: int) -> float: ...  # population-scaled
+    def evict(
+        self, frames, scorer, threshold, *, min_frames, max_frames, min_age_cycles
+    ) -> list[int]: ...  # returns frame_ids to remove (soft + hard cap, young-protected)
 ```
 
 **Default:** `threshold = survive_threshold_base / (1 + survive_threshold_pop_coeff ·
@@ -92,7 +93,7 @@ grows; young frames are never evicted.
 
 ```python
 class EventSource(Protocol):
-    def reset(self) -> "observation": ...          # begin a new episode; first observation
+    def reset(self) -> "observation": ...  # begin a new episode; first observation
     def step(self, action: int) -> "observation": ...
 ```
 

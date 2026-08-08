@@ -46,7 +46,7 @@ from pra import Config, Engine
 from pra.persistence.store import FileSnapshotStore
 
 store = FileSnapshotStore("my-runs/snapshots")
-snapshot_id, meta = store.list()[0]                  # newest
+snapshot_id, meta = store.list()[0]  # newest
 summary = Engine(cfg).run(seed, resume_from=store.read(snapshot_id))
 ```
 
@@ -60,11 +60,14 @@ resumed run is byte-identical to the run person A would have gotten.
 ```python
 from pra.persistence.portable import export_brain, import_brain, inspect_brain
 
-manifest = export_brain("rover.brain", store=store,      # or blob=...
-                        note="rover, 100k steps",
-                        created_at="2026-07-27T12:00:00+00:00")
-manifest = inspect_brain("rover.brain")                  # manifest only
-blob, manifest = import_brain("rover.brain")             # verified blob
+manifest = export_brain(
+    "rover.brain",
+    store=store,  # or blob=...
+    note="rover, 100k steps",
+    created_at="2026-07-27T12:00:00+00:00",
+)
+manifest = inspect_brain("rover.brain")  # manifest only
+blob, manifest = import_brain("rover.brain")  # verified blob
 ```
 
 `created_at` is caller-injected — the library never reads the clock.

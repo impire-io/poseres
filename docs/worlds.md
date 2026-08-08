@@ -25,7 +25,7 @@ telemetry.
 from pra.config import Config
 from pra.core.engine import Engine
 
-Engine(Config()).run(seed=1)      # Config() is the validated reference config
+Engine(Config()).run(seed=1)  # Config() is the validated reference config
 ```
 
 ```bash
@@ -49,7 +49,7 @@ and both noise dials (24 seeds) — the A4 exit criterion, met at proper
 power.
 
 ```python
-Config(world="nonuniform", region_noise_std=0.2)   # harness dials: 0.2 and 0.8
+Config(world="nonuniform", region_noise_std=0.2)  # harness dials: 0.2 and 0.8
 ```
 
 ```bash
@@ -87,8 +87,13 @@ stands as the reference. The opt-in fix is learned channel weighting
 amplitude at 24 seeds.
 
 ```python
-Config(world="distractor", obs_dim=20, distractor_dim=3,
-       distractor_channels=10, distractor_mode="structured")
+Config(
+    world="distractor",
+    obs_dim=20,
+    distractor_dim=3,
+    distractor_channels=10,
+    distractor_mode="structured",
+)
 ```
 
 Measured: [episode 0017](https://github.com/impire-io/poseres/blob/main/hq/04-JOURNEY/0017-the-complexity-ladder.md)
@@ -110,8 +115,8 @@ honest closing verdict (no passive or active statistic separated a
 world change from the brain's own nonstationarity).
 
 ```python
-Config(world="shifting", shift_after_steps=1500)                          # dynamics
-Config(world="shifting", shift_after_steps=1500, shift_mode="emission")   # repaint
+Config(world="shifting", shift_after_steps=1500)  # dynamics
+Config(world="shifting", shift_after_steps=1500, shift_mode="emission")  # repaint
 ```
 
 Measured: [episode 0031](https://github.com/impire-io/poseres/blob/main/hq/04-JOURNEY/0031-the-camping-bill.md)
@@ -130,7 +135,7 @@ Built alongside ShiftingWorld for the camping question; the measured
 occupancy readings come from its harness-only ground truth.
 
 ```python
-Config(world="multiregion", region_noise_levels=(0.0, 0.4))       # 2 regions
+Config(world="multiregion", region_noise_levels=(0.0, 0.4))  # 2 regions
 Config(world="multiregion", region_noise_levels=(0.0, 0.2, 0.4, 0.6))  # 4 regions
 ```
 
@@ -174,7 +179,7 @@ python examples/cartpole.py       # CartPole: obs_dim 4 / 2 actions, under a min
 ```python
 from pra.anatomy.gymnasium_body import GymnasiumBody
 
-cfg = Config(obs_dim=4, n_actions=2)    # must match the env; the factory checks
+cfg = Config(obs_dim=4, n_actions=2)  # must match the env; the factory checks
 Engine(cfg, world_factory=GymnasiumBody.factory("CartPole-v1")).run(seed=1)
 ```
 

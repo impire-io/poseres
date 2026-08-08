@@ -5,8 +5,8 @@
 ```python
 class Sensor(Protocol):
     def id(self) -> str: ...
-    def width(self) -> int: ...          # fixed for the sensor's lifetime
-    def read(self) -> np.ndarray: ...    # exactly width() floats, every call
+    def width(self) -> int: ...  # fixed for the sensor's lifetime
+    def read(self) -> np.ndarray: ...  # exactly width() floats, every call
 ```
 **MUST**: return exactly `width()` values on every read (wrong width →
 `AnatomyError` naming the sensor). Timeout/default behavior is the sensor
@@ -55,7 +55,7 @@ None otherwise.
 ## 5. Frame I/O resize (FrameStore)
 
 ```python
-store.resize(new_obs_dim, new_n_actions, rng)   # Doc 03 §7
+store.resize(new_obs_dim, new_n_actions, rng)  # Doc 03 §7
 ```
 **MUST**: preserve existing weight entries bit-for-bit; grow trailing
 observation columns/rows and trailing action slices with fresh draws at the

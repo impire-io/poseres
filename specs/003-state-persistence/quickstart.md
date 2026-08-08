@@ -9,11 +9,11 @@ from pra.persistence.store import FileSnapshotStore
 
 cfg = Config(snapshot_every_n_cycles=10)
 store = FileSnapshotStore("snapshots/")
-Engine(cfg, snapshot_store=store).run(1)          # writes a snapshot every 10 cycles
+Engine(cfg, snapshot_store=store).run(1)  # writes a snapshot every 10 cycles
 
-snap_id, meta = store.list()[0]                    # newest first
+snap_id, meta = store.list()[0]  # newest first
 blob = store.read(snap_id)
-summary = Engine(cfg).run(1, resume_from=blob)     # byte-identical continuation
+summary = Engine(cfg).run(1, resume_from=blob)  # byte-identical continuation
 ```
 
 ## 2. Confirm the validated behavior is untouched (US3)

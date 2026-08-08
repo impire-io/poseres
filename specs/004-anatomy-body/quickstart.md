@@ -8,9 +8,11 @@ from pra.config import Config
 from pra.core.engine import Engine
 from pra.world.event_source import SensorimotorWorld
 
+
 def body_factory(cfg, rng):
     world = SensorimotorWorld(cfg, rng)
     return Body(world, sensors=[WorldSensor(world)], actuators=[WorldActuator(world)])
+
 
 summary = Engine(Config(), world_factory=body_factory).run(1)
 # byte-identical to Engine(Config()).run(1)
@@ -20,6 +22,7 @@ summary = Engine(Config(), world_factory=body_factory).run(1)
 
 ```python
 from pra.anatomy.body import ConstantSensor
+
 body.register_sensor(ConstantSensor("thermo", [0.5, -0.5]))  # queued
 # ... takes effect at the next consolidation cycle: obs_dim += 2,
 # every frame's encoder/decoder resized (learned weights preserved).

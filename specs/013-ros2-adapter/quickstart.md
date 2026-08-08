@@ -19,18 +19,25 @@ from pra.core.engine import Engine
 # The robot's anatomy, as data. A 5-beam lidar and a heading channel
 # (obs 6), and four velocity presets (actions 4).
 sensors = [
-    SensorSpec(id="lidar", topic="/scan", width=5,
-               msg_type="sensor_msgs/msg/LaserScan", extract="ranges"),
-    SensorSpec(id="heading", topic="/heading", width=1,
-               msg_type="std_msgs/msg/Float64", extract="data"),
+    SensorSpec(
+        id="lidar", topic="/scan", width=5, msg_type="sensor_msgs/msg/LaserScan", extract="ranges"
+    ),
+    SensorSpec(
+        id="heading", topic="/heading", width=1, msg_type="std_msgs/msg/Float64", extract="data"
+    ),
 ]
 actuators = [
-    ActuatorSpec(id="drive", topic="/cmd_vel",
-                 msg_type="geometry_msgs/msg/Twist",
-                 presets=({"linear.x": 0.2},              # forward
-                          {"angular.z": 0.6},             # left
-                          {"angular.z": -0.6},            # right
-                          {})),                           # stop
+    ActuatorSpec(
+        id="drive",
+        topic="/cmd_vel",
+        msg_type="geometry_msgs/msg/Twist",
+        presets=(
+            {"linear.x": 0.2},  # forward
+            {"angular.z": 0.6},  # left
+            {"angular.z": -0.6},  # right
+            {},
+        ),
+    ),  # stop
 ]
 
 # A scripted world: message-shaped payloads per topic per tick — the same
@@ -41,10 +48,12 @@ actuators = [
 # startup-gate tick), and a topic that runs dry past the staleness bound
 # fails the run loudly — by design.
 TICKS = 14000
-transport = FakeTransport(script={
-    "/scan":    {k: [NS(ranges=np.full(5, 1.0 + 0.01 * k))] for k in range(TICKS)},
-    "/heading": {k: [NS(data=0.1 * (k % 63))] for k in range(0, TICKS, 3)},
-})  # heading publishes every 3rd tick -> watch its staleness counters
+transport = FakeTransport(
+    script={
+        "/scan": {k: [NS(ranges=np.full(5, 1.0 + 0.01 * k))] for k in range(TICKS)},
+        "/heading": {k: [NS(data=0.1 * (k % 63))] for k in range(0, TICKS, 3)},
+    }
+)  # heading publishes every 3rd tick -> watch its staleness counters
 
 # Keep a handle on the mounted body to read its telemetry afterwards.
 mounted = []
@@ -101,6 +110,7 @@ and construct the real transport:
 
 ```python
 from pra.anatomy.ros2 import RclpyTransport
+
 transport = RclpyTransport(mode="free_running", tick_period=0.1)  # 10 Hz
 ```
 

@@ -25,7 +25,7 @@ from pra.anatomy.gymnasium_body import GymnasiumBody
 from pra.config import Config
 from pra.core.engine import Engine
 
-cfg = Config(obs_dim=4, n_actions=2)   # match the env; the factory checks
+cfg = Config(obs_dim=4, n_actions=2)  # match the env; the factory checks
 summary = Engine(cfg, world_factory=GymnasiumBody.factory("CartPole-v1")).run(seed=1)
 print(summary)
 ```
@@ -72,5 +72,5 @@ from pra.anatomy.body import ConstantSensor
 from pra.anatomy.gymnasium_body import GymnasiumBody
 
 body = GymnasiumBody(gymnasium.make("CartPole-v1"), seed=1)
-body.register_sensor(ConstantSensor("bias", [0.5]))   # obs_dim 4 → 5 next slow loop
+body.register_sensor(ConstantSensor("bias", [0.5]))  # obs_dim 4 → 5 next slow loop
 ```

@@ -18,12 +18,12 @@ tap = NatsTap(transport, run_id="quickstart")
 cfg = Config()
 engine = Engine(
     cfg,
-    world_factory=tap.world_factory(),   # default: wraps the standard world
-    bus_factory=tap.bus_factory,         # the B1 viewer capture, off-process
+    world_factory=tap.world_factory(),  # default: wraps the standard world
+    bus_factory=tap.bus_factory,  # the B1 viewer capture, off-process
 )
 tap.start()
 summary = engine.run(seed=1)
-tap.finish(summary)                       # publishes status: completed
+tap.finish(summary)  # publishes status: completed
 
 # Everything the run published is in the fake's journal:
 for subject, payload in transport.journal:
@@ -73,13 +73,17 @@ from pra.nats import NatsSnapshotStore, NatsTransport
 
 store = NatsSnapshotStore(NatsTransport("nats://127.0.0.1:4222"))
 cfg = Config(snapshot_every_n_cycles=2)
-engine = Engine(cfg, snapshot_store=tap.wrap_store(store),
-                world_factory=tap.world_factory(), bus_factory=tap.bus_factory)
+engine = Engine(
+    cfg,
+    snapshot_store=tap.wrap_store(store),
+    world_factory=tap.world_factory(),
+    bus_factory=tap.bus_factory,
+)
 summary = engine.run(seed=1)
 
 # On another machine, against the same server:
 store = NatsSnapshotStore(NatsTransport("nats://server:4222"))
-snapshot_id, meta = store.list()[0]           # newest first
+snapshot_id, meta = store.list()[0]  # newest first
 blob = store.read(snapshot_id)
 resumed = Engine(cfg, snapshot_store=store).run(seed=1, resume_from=blob)
 ```

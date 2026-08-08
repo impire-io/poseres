@@ -38,9 +38,12 @@ from pra.config import Config
 from pra.core.engine import Engine
 from pra.world.ladder import make_world
 
-cfg = Config(world="nonuniform", region_noise_std=0.6,
-             policy_mode="curiosity",
-             drive_weights=(("competence", 1.0),))
+cfg = Config(
+    world="nonuniform",
+    region_noise_std=0.6,
+    policy_mode="curiosity",
+    drive_weights=(("competence", 1.0),),
+)
 summary = Engine(cfg, world_factory=make_world).run(seed=1)
 ```
 

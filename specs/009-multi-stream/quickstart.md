@@ -6,7 +6,7 @@
 from pra.config import Config
 from pra.core.engine import Engine
 
-cfg = Config(n_streams=4)          # four instances of the same world,
+cfg = Config(n_streams=4)  # four instances of the same world,
 summary = Engine(cfg).run(seed=1)  # four explorers, one brain
 ```
 

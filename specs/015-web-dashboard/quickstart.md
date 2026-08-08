@@ -35,7 +35,9 @@ engine = Engine(
     world_factory=tap.world_factory(inner=lambda c, r: make_rover_body(c, r, telemetry=view)),
     bus_factory=tap.bus_factory,
 )
-tap.start(); summary = engine.run(seed=1); tap.finish(summary)
+tap.start()
+summary = engine.run(seed=1)
+tap.finish(summary)
 ```
 
 Terminal 2 — the dashboard:
@@ -66,7 +68,7 @@ from pra.dash.model import DashboardModel
 from pra.dash.server import start_dashboard
 from pra.nats.fake import FakeBusTransport
 
-transport = FakeBusTransport()          # share it with a tap-attached Engine run
+transport = FakeBusTransport()  # share it with a tap-attached Engine run
 model = DashboardModel(transport)
 model.start()
 server, url = start_dashboard(model, port=0)

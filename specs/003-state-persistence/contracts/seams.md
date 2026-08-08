@@ -4,9 +4,9 @@
 
 ```python
 class SnapshotStore(Protocol):
-    def write(self, blob: bytes, metadata: dict) -> str: ...   # snapshot_id
+    def write(self, blob: bytes, metadata: dict) -> str: ...  # snapshot_id
     def read(self, snapshot_id: str) -> bytes: ...
-    def list(self) -> list[tuple[str, dict]]: ...              # newest first
+    def list(self) -> list[tuple[str, dict]]: ...  # newest first
     def delete(self, snapshot_id: str) -> None: ...
 ```
 

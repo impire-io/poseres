@@ -6,7 +6,7 @@
 from pra.config import Config
 from pra.core.engine import Engine
 
-cfg = Config(episode_mode="continuous")   # one change; everything else as before
+cfg = Config(episode_mode="continuous")  # one change; everything else as before
 summary = Engine(cfg).run(seed=1)
 ```
 

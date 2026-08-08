@@ -92,7 +92,7 @@ from pra.config import Config
 from pra.core.engine import Engine
 
 summary = Engine(Config()).run(seed=1)
-print(summary)   # per-seed telemetry: prediction error, population, best_dim…
+print(summary)  # per-seed telemetry: prediction error, population, best_dim…
 ```
 
 `Config()` is the validated reference configuration (a 10-dimensional
@@ -112,10 +112,12 @@ from pra.config import Config
 from pra.core.engine import Engine
 from pra.world.event_source import SensorimotorWorld
 
+
 def body_factory(cfg, rng):
     world = SensorimotorWorld(cfg, rng)
     sensor = WorldSensor(world)
     return Body(world, sensors=[sensor], actuators=[WorldActuator(world, sensor)])
+
 
 summary = Engine(Config(), world_factory=body_factory).run(seed=1)
 ```
@@ -133,18 +135,28 @@ just three methods each:
 ```python
 import numpy as np
 
-class Thermometer:                      # Sensor protocol
-    def id(self) -> str: return "thermo"
-    def width(self) -> int: return 1    # dimensions this sensor contributes
+
+class Thermometer:  # Sensor protocol
+    def id(self) -> str:
+        return "thermo"
+
+    def width(self) -> int:
+        return 1  # dimensions this sensor contributes
+
     def read(self) -> np.ndarray:
         return np.array([read_temperature()], dtype=np.float64)
 
-class Heater:                           # Actuator protocol
-    def id(self) -> str: return "heater"
-    def action_count(self) -> int: return 2   # off, on
+
+class Heater:  # Actuator protocol
+    def id(self) -> str:
+        return "heater"
+
+    def action_count(self) -> int:
+        return 2  # off, on
+
     def apply(self, local_action_index: int) -> None:
         set_heater(bool(local_action_index))  # returns nothing — feedback
-                                              # arrives only via observations
+        # arrives only via observations
 ```
 
 Rules the body enforces for you: sensor ids must be unique, `read()` must
@@ -167,11 +179,12 @@ with `episode_mode="continuous"`, K different vantage points of one world.
 
 ```python
 def body_factory(cfg, rng):
-    env = MyEnvironment()               # anything with reset()
+    env = MyEnvironment()  # anything with reset()
     return Body(env, sensors=[Thermometer()], actuators=[Heater()])
 
-cfg = Config(obs_dim=1, n_actions=2)    # match your body's dimensions —
-                                        # the scale rules key off obs_dim
+
+cfg = Config(obs_dim=1, n_actions=2)  # match your body's dimensions —
+# the scale rules key off obs_dim
 Engine(cfg, world_factory=body_factory).run(seed=1)
 ```
 
@@ -183,6 +196,7 @@ surfaces are resized:
 
 ```python
 from pra.anatomy.body import ConstantSensor
+
 body.register_sensor(ConstantSensor("bias", [0.5, -0.5]))
 # next slow loop: obs_dim += 2, no forgetting, run stays deterministic
 ```
@@ -201,7 +215,7 @@ python examples/cartpole.py     # the worked example — under a minute
 ```python
 from pra.anatomy.gymnasium_body import GymnasiumBody
 
-cfg = Config(obs_dim=4, n_actions=2)    # must match the env; the factory checks
+cfg = Config(obs_dim=4, n_actions=2)  # must match the env; the factory checks
 Engine(cfg, world_factory=GymnasiumBody.factory("CartPole-v1")).run(seed=1)
 ```
 
@@ -247,8 +261,7 @@ decides *which* experience to seek. Two drives ship today:
   parts (Chapter 24).
 
 ```python
-cfg = Config(policy_mode="curiosity",
-             drive_weights=(("competence", 1.0),))
+cfg = Config(policy_mode="curiosity", drive_weights=(("competence", 1.0),))
 Engine(cfg).run(seed=1)
 ```
 

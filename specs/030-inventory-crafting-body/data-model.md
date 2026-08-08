@@ -3,7 +3,7 @@
 ## The anatomy (declaration is configuration)
 
 ```python
-c1_anatomy(crafting=True)   # default: the builder's body
+c1_anatomy(crafting=True)  # default: the builder's body
 # sensors:  pose(5) vitals(2) env(4) blocks(3) inventory(5)  -> obs_dim 19
 # actuator: control presets forward, back, turn_left, turn_right,
 #           jump_forward, dig_ahead, place_ahead, idle,
