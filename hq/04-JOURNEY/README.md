@@ -37,21 +37,29 @@ deliberate brain restarts, a 14-crash flusher cough, and a
 disk-full incident in the final hours that cost ~57.7k steps of
 telemetry (the last 56 minutes rescued off the buffer pre-expiry).
 
-**And the goals ladder reopened and climbed two rungs the same day**
-([0069](0069-goal-homing.md), [0070](0070-the-first-elected-chains.md)):
-E2.0b measured at 24-seed power — a far-reaching goal gradient holds
-the taught brain at the workshop **99.98% with zero departures** (the
-obs-form managed 3.8%) and produces zero chains; presence solved,
-election isolated. The evening's direction thinking became the
-**motivation-stack** topic (`../01-RESEARCH/motivation-stack/`) —
-motivation as layered mechanisms, each patching the ugly twin below,
-the record's five nulls mapped as upper layers over a missing floor —
-and its first gate **G1, the completion itch, PASSED both bars the
-same night**: hold + itch elects **24/24 seeds to dig (286 logs)**
-and **6/24 to full chains** — the first bar-level deliberate chains
-in the record — while itch-without-hold chains nowhere. Single
-layers fail; the composition carries. Next registrations: the
-learnable itch, and E2.1 as refinement rather than rescue.
+**And the goals ladder reopened and climbed four rungs the same day**
+([0069](0069-goal-homing.md), [0070](0070-the-first-elected-chains.md),
+[0071](0071-wanting-follows-expecting.md)): E2.0b measured at 24-seed
+power — a far-reaching goal gradient holds the taught brain at the
+workshop **99.98% with zero departures** and produces zero chains;
+presence solved, election isolated. The evening's direction thinking
+became the **motivation-stack** topic
+(`../01-RESEARCH/motivation-stack/`) — motivation as layered
+mechanisms, each patching the ugly twin below — and its gates then ran
+the ladder in one night: **G1, the completion itch, PASSED both bars**
+(hold + itch elects 24/24 seeds to dig, 6/24 to full chains — the
+first bar-level deliberate chains in the record; itch-without-hold
+chains nowhere); **G1L, the learnable itch, FAILED both** (11/24,
+5/24) and turned the failure into a measurement — election scales
+with progress-signal fidelity and nothing else; and **G3, the event
+pathway, PASSED all three bars** — a cold-started per-action delta
+head sharpens the brain's self-perception 7.5× (0.0612 → 0.0081),
+election returns 24/24 (303 logs), and chains hit **13/24, double
+the bar and double the oracle arm**, because the learned completion
+rule generalized to crafting where the hand-built oracle never
+reached. Wanting follows expecting. What it licenses: the src build
+of the event head + itch (spec-kit; the owner's call) and G5 —
+approval revisited — unblocked.
 
 **The project's working structure moved into `hq/`**
 ([episode 0045](0045-the-hq-restructure.md)): GENESIS holds the vision,
@@ -500,3 +508,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0068 | [The run has spoken: no emergence, one mined log](0068-the-run-has-spoken.md) |
 | 0069 | [Goal homing: presence solved, election isolated](0069-goal-homing.md) |
 | 0070 | [The first elected chains: hold + itch](0070-the-first-elected-chains.md) |
+| 0071 | [Wanting follows expecting: the event pathway restores the pass](0071-wanting-follows-expecting.md) |

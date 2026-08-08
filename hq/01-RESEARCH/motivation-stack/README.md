@@ -485,6 +485,57 @@ completion rule closes the cliff); cobblestone rises.
 - **κ\* = 0.25** by the frozen rule (smallest κ with median logs
   ≥ 1 — all three clear it).
 
+## G3 outcome [measured, 2026-08-08] — ALL THREE BARS PASS: the event pathway is the missing floor
+
+24 seeds at κ\* = 0.25, hold retained, H = 5,000, 158 s:
+
+- **Bar P — the charter's gate: PASS at 0.0081** (bar ≤ 0.0417;
+  frames measured 0.0612). The brain's model of its own progress
+  channel went from barely-perceiving (0.0612 against a 0.083
+  signal) to ten-ticks-fine — a 7.5× sharpening from a cold-started
+  per-action linear head learning online from its own stream. The
+  charter's question — *can the brain learn to expect a discrete
+  event?* — is answered yes, at the event density this world offers.
+- **Bar A — the rung: PASS 24/24** (bar ≥ 18/24), **303 logs** —
+  above the oracle arm's 286. Election is fully restored with a
+  fully brain-side itch signal. The three-arm dose-response
+  completes: no itch 0/24 → frames' blur 11/24 → event head 24/24
+  `[measured]`.
+- **Bar B — the chain: PASS 13/24** (bar ≥ 6/24; seeds 1, 3, 4, 5,
+  6, 9, 10, 11, 14, 16, 18, 19, 22) — **more than double the bar,
+  and more than double the oracle arm's own 6/24.** The student beat
+  its scaffold `[measured]`, and the pilot's mechanism observation
+  says why `[mechanism-argument]`: the learned completion rule fires
+  on *any* predicted pocket gain — crafting included — so planks and
+  sticks became itchy the same way digs did; G1's hand-built oracle
+  rule only ever covered dig completion. Learning generalized where
+  the scaffold couldn't.
+- **Hold intact** (median dwell 100.0%); **no completion stall** (20
+  high-progress abandons across 120,000 steps); **no cobblestone
+  anywhere** at κ\* = 0.25 — the perseveration twin never woke at
+  this dose. False completions 812 of 1,957 fired — a noisy rule
+  that nonetheless carried three passing bars; carried as a known
+  roughness, not a defect claim.
+- Six seeds (7, 15, 17, 20, 23, 24) show the *woodcutter-hoarder*
+  profile — 21–61 logs, zero chains, near-zero completion fires on
+  crafting: they never enter the craft loop, so the itch never
+  learns crafting is completable. The chain bottleneck, where it
+  remains, is entry into the crafting context, not conversion.
+
+**Per the frozen decision rule — P+A+B PASS: the event pathway is
+the missing floor.** Episode 0070's reopened composition claim is
+*restored*: G1L's failure was signal quality, and the signal is now
+brain-side. What this outcome licenses: the **src build** — event
+head + completion itch as a shipped feature through spec-kit,
+perseveration watch included — is now the owner's call; and **G5
+(approval revisited) unblocks** — layer 5's named prerequisite
+(0058) exists, measured. Frozen-prediction ledger: Bar P predicted
+0.01–0.03, measured 0.0081 (sharper than predicted); Bar A predicted
+14–20, measured 24 (sixth consecutive A-side under-prediction);
+Bar B predicted 4–8, measured 13 (under again). The author's
+intuition remains systematically pessimistic about composed
+mechanisms; the bars keep being the better judge.
+
 ## Reversal condition
 
 The map is refuted in the best possible way if any single-layer gate

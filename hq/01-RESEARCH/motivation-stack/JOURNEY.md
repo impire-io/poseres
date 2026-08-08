@@ -81,3 +81,21 @@ next episode's first policy call, gap-free) makes the training
 stream exact — checked against `core/engine.py` before freezing.
 Frozen prediction: P PASS at 0.01–0.03; A 14–20; B 4–8. The src
 build stays unlicensed until the bars speak.
+
+**2026-08-08 late — G3 lands: ALL THREE BARS PASS, and the student
+beats its scaffold.** Pilot first (published): every seed digs at
+every κ, chains above the oracle pilot's, the noise row collapses
+0.0612 → ~0.008, κ\* = 0.25 by the rule. Confirmatory: Bar P 0.0081
+(bar 0.0417), Bar A 24/24 with 303 logs (the oracle arm: 286), Bar B
+13/24 — double the bar, double the oracle. The dose-response closes
+end to end: 0 → 11 → 24 as the progress signal sharpens, and the
+sharpest signal is the learned one. The mechanism surprise: the
+learnable completion rule generalized to crafting gains (the oracle's
+hand-built rule never covered them), which is where the doubled
+chains come from — wanting follows expecting, and learning to expect
+reaches further than any scaffold that stands in for it. Pathology
+watch: no stall (20 high abandons / 120k steps), no cobblestone at
+κ\*, false completions noisy-but-harmless. Per the frozen rule the
+composition claim is restored, the src build is the owner's call,
+and G5 unblocks. Prediction ledger: sixth A-side under-prediction;
+B under-predicted too. Episode 0071 records the landmark.
