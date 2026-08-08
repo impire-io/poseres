@@ -276,4 +276,27 @@ power on both sides.
 
 ## Verdict
 
-<Empty until graduation.>
+- **P0 (HARD): PASS** `[measured]` — chain set exactly {seed 7,
+  tick 427}, G-λ4 median dwell 3.76%, 0/24 ≥ 20%; oracle probe neutral
+  (12,144 clone-steps, run byte-identical to control). One diagnosis
+  detour recorded in full: the cap pin (`weight_norm_cap = 1.2`),
+  found after attempt 1 matched every coarse anchor and chained
+  nowhere.
+- **Bar 1 (holding): PASS 24/24** `[measured]` — bar ≥ 18/24 at
+  ≥ 20% dwell; median 99.98%.
+- **Bar 2 (position control, amended openly pre-run, owner's call):
+  PASS** `[measured]` — 0 departures across all 24 seeds; the
+  never-leaves clause applies with Bar 1 green.
+- **Bar 3 (chains): FAIL 0/24** `[measured]` — bar ≥ 6/24; F control
+  0 chains, G-λ4 control in its P0 band. 0/24 vs the 2-in-42 floor is
+  not itself significant (Fisher p ≈ 0.5) `[measured]`; the direction
+  — ~25× presence, zero chain gain — is the finding.
+- **The registered decision rule fires its middle branch**: the
+  far-gradient mechanism stands as a measured *component* (presence
+  solved outright), election is the isolated wall, and the E2.1
+  mechanism choice goes to the owner as its own registered gate.
+- **Answer to the topic question**: a far-reaching goal gradient
+  converts taught knowledge into *held position* absolutely — and
+  into *held, repeated chains* not at all `[measured]`. Gradient
+  reach was half the missing piece; the other half (election of the
+  first rung) proceeds under the successor topic's map.
