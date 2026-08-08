@@ -30,3 +30,16 @@ byte-identical throughout, probed run byte-equal to control, Φ spanning
 [0, 27] — so the pre-named kinematics-table fallback stays unused. The
 instrument pin (cap = 1.2) is recorded in the README's instrument
 section; the pilot is unlocked.
+
+**2026-08-08 — the pilot lands, and the question splits clean in two.**
+The far gradient does everything the holding half of the arc asked and
+more: median dwell 99.97% at every λ, zero departures in 24 runs — the
+author's frozen prediction (Bar 1 at 20–23/24, returns > 80%) was
+*under*, in the direction of not anticipating that departures would
+vanish entirely. And the chain count is zero, with the workshop under
+the runner's feet the whole window. Two readings ride on the
+confirmatory: whether 0 chains is the E2.0 floor rate at small sample
+(P ≈ 0.29) or a real clamp effect, and whether Bar 2's vacuity gets the
+owner's amendment before the 24-seed run. Either way the arc's shape
+has never been sharper: presence is now free; election is the whole
+remaining problem.

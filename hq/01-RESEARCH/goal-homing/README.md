@@ -197,6 +197,49 @@ recorded in JOURNEY.md first.
   `p0_runner.py`, `oracle_probe.py` (session scratchpad, arc
   convention); graduates regenerable from the record in ~6 minutes.
 
+## Pilot outcome [measured, 2026-08-08] — the oracle holds absolutely; nothing chains
+
+Published before any confirmatory run, per protocol. 8 seeds ×
+λ ∈ {0.25, 1.0, 4.0}, H-λ arm, H = 5,000, on the P0-proven graduates.
+
+- **Holding is not partial — it is total.** Median dwell **99.97% at
+  every λ** (per-seed range 99.94–100.0; the obs-form's recorded
+  median was 3.8%, the bar is 20%). All three λ clear the pilot floor,
+  so **λ\* = 0.25** (smallest clearing, per the frozen rule).
+- **Departures: 0 in all 24 runs** — Φ never exceeded 25 after
+  arrival; ε-noise and drive noise never accumulate an escape against
+  the far-field pull. The E2.0 leak mechanism (orbit off the plateau,
+  never return) is simply gone.
+- **Chains: 0 in all 24 runs. Acquisitions: 3 cobblestone (seed 1),
+  nothing else.** The runner stands at the workshop the entire window
+  and never runs the taught sequence. Statistical honesty: E2.0's
+  measured floor was ~2 chains / 42 runs, so 0/24 is not yet
+  distinguishable from that rate (P ≈ 0.29 of 0 by chance at the
+  recorded floor); the 24-seed confirmatory decides Bar 3, not the
+  pilot. The *shape*, though, matches the decision rule's middle
+  branch at full strength: wanting now holds — and holding alone
+  visibly does not chain.
+- **Bar 2 evaluates vacuously at 0 departures** (a median return rate
+  over an empty set). The registration assumed E2.0's departures would
+  persist; the oracle removed them. **Proposed amendment, put to the
+  owner BEFORE the confirmatory (open per the topic's own rule):**
+  Bar 2 is satisfied iff *(departures = 0 AND Bar 1 passes)* OR
+  *(median per-seed return rate ≥ 50%)* — positional control proven
+  either by never leaving or by coming back. Raw departure/return
+  counts reported either way.
+- Mechanism note `[mechanism-argument]`: eight of the twelve actions
+  are zero-displacement, so under a strong −Φ term the argmax runs on
+  the drive term *within the stationary set*; at a mastered workshop
+  the frontier scores ~0 everywhere, leaving near-tie noise to pick
+  among turn/dig/grid/idle. A 12-tick wood dig additionally needs 12
+  consecutive dig picks against ε = 0.1 (P ≈ 0.28 even if dig always
+  wins the argmax). Holding buys *presence*; election of the chain's
+  first rung remains unforced. This is the E2.1 question, now isolated
+  in its purest measured form.
+
+Runner: `homing_pilot.py` (session scratchpad); per-run rows in
+`homing-pilot-rows.json` alongside it.
+
 ## Verdict
 
 <Empty until graduation.>
