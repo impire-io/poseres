@@ -60,6 +60,14 @@ chain set exact, median dwell 3.76% vs 3.8% recorded):
   convention); ε-gate 0.1, maturity gate, fixed draw order, ties to
   lowest index — every knob identical to the refuted `GoalBiasPolicy`
   except the one term under test (constitution III: one variable).
+- **Instrument pin (P0 diagnosis, 2026-08-08):** the E1 config carries
+  **`weight_norm_cap = 1.2`** — the c1c posture's cap (arc 026), which
+  the parked topic's text never named explicitly. Without it the
+  rebuild matches every coarse anchor (graduate cycles/frames/pred
+  samples, dwell median band, 0/24 ≥ 20%) yet produces zero chains;
+  with it both recorded chains reproduce at their exact ticks. Recorded
+  here as instrument reconstruction, not a bar change; full trail in
+  JOURNEY.md.
 
 ## The gate policy (E2.0b)
 
@@ -158,6 +166,36 @@ deliberate chains *without* goal machinery (the premise — that a want
 is load-bearing — weakens, reopening the drives-only reading c1c
 closed). Bar amendments only openly, with the degenerate raw numbers
 recorded in JOURNEY.md first.
+
+## P0 outcome [measured, 2026-08-08] — rebuild gate GREEN, oracle probe GREEN
+
+- **The rebuilt instrument replicates the record exactly**: full-chain
+  set {seed 7, tick 427} (the HARD criterion, no variants), G-λ4
+  median dwell **3.76%** — the same value the E2.0h P0 recorded, to
+  the second decimal — 0/24 seeds ≥ 20% dwell, and the seed-1
+  graduate anchors byte-match the 034 pilot (cycles_done 45, 19
+  frames, 966 pred-error samples; tape events at view indices
+  14/17/21).
+- **The diagnosis, reported in full (attempt 1 FAILED HARD):** the
+  first rebuild used the Config default `weight_norm_cap = 0.0` and
+  matched every coarse anchor while producing **zero** chains — the
+  mechanism's statistics survived, the exact RNG path did not. The
+  c1c-posture cap (1.2, arc 026) was hypothesized from the 034 spec's
+  posture-matching language and confirmed by a two-chain fingerprint:
+  with the cap, seed 6 @ λ0.25 chains at tick **706** and seed 7 @ λ4
+  at tick **427**, both exactly as recorded, and no other (seed, λ)
+  probe pair chains. One knob, both chains, exact ticks.
+- **Oracle probe PASS, primary form — no fallback needed**: 12,144
+  clone-steps (deepcopy → apply → advance → read → discard) across
+  1,012 interleaved probed selections left the main world
+  byte-identical at every step, and the probed run's full view stream
+  and summary bytes equal the control's. The clone-read potential
+  spans Φ ∈ [0, 27] over seed 7's window — the far field the obs
+  term measurably lacks is available to read.
+- **Downstream is unlocked**: pilot (8 seeds × λ ∈ {0.25, 1.0, 4.0},
+  homing arm) is next, per the registered protocol. Runners:
+  `p0_runner.py`, `oracle_probe.py` (session scratchpad, arc
+  convention); graduates regenerable from the record in ~6 minutes.
 
 ## Verdict
 
