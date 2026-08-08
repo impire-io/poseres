@@ -57,3 +57,14 @@ at power: gradient reach was HALF the missing piece — it converts
 the other half is now isolated with nothing left to hide behind:
 election of the first dig, twelve times in a row, at a place the drive
 scores as exhausted.
+
+**2026-08-08 — the result grows a map.** The evening's owner
+conversation, starting from this arc's middle branch and reaching
+through empowerment, parents, and Fry's calorie, assembled into a
+direction hypothesis: motivation as a stack of layers, each patching
+the ugly twin of the one below, with the record's five nulls mapped as
+single upper layers tested over a missing floor. Written down as
+[../MOTIVATION-STACK.md](../MOTIVATION-STACK.md) — a map ordering the
+candidate gates (event-sensitive predictor, completion-pull,
+option-value, a world with a meter, approval revisited), committing to
+none.
