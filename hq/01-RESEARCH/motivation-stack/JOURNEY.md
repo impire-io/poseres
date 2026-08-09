@@ -160,3 +160,18 @@ alone carries election to ceiling). Prediction ledger: P5-a in range
 at the top; P5-b **above** its range — the seventh under-prediction;
 the V+ "within ±2 chains" call was wrong in the informative
 direction.
+
+**2026-08-09 — E3.1 and G4 registered before any run, in parallel**
+(owner's "can we do all in parallel and autonomous?"; E3.1's design
+from the owner's label-not-fuel conversation). E3.1: the parent
+applauds cobblestone — a preference the bots demonstrably do not
+have — and praise enters only as a completion label
+(progress_after = 1 + β·clip(Δ̂[verdict],0,1) inside fired
+completions; no level valuing, no decay tax possible). Bars: T1
+transmission ≥ 12/24 seeds gain cobble (floor arm measured), T2 own
+chains preserved ≥ 18/24; the farming row (gain events vs net) is
+the real sycophancy channel this world finally has. G4: the meter —
+energy decays 0.0005/tick, +0.1 per pocket gain, death at zero;
+bars: frontier-alone starves (median < 3,000) while the composition
+feeds itself (≥ 18/24 survive AND work); the miser watched. H1 (the
+brain-side hold) runs in its own topic the same afternoon.

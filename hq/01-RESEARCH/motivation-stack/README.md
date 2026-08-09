@@ -756,6 +756,111 @@ entirely (V0 24/24) — the parent's demonstrations now transmit
 *expectations*, not just frames, and expectation alone already
 carries election to ceiling on this cohort.
 
+## E3.1 pre-registration — praise as a label (REGISTERED 2026-08-09, before any run)
+
+Under the owner's delegated autonomy ("can we do all in parallel and
+autonomous?"), with the design from the owner's own conversation
+(2026-08-09): praise is a **label on completions, not fuel** — its
+amount marks *which* finishing matters; its level never enters value,
+so the hangover's decay tax cannot form. And the transmission test
+needs a world where the parent's preference differs from the bot's
+inclination: at the measured operating point the bots do the wood
+chain and **zero cobblestone** — so here **the parent applauds
+cobblestone gains** (the wall, the pillar diggable from inside the
+hold at (−3,0), and place-dig cycles), never sticks.
+
+**Instrument.** The G5 wrapper with the judge on cobblestone pocket
+gains. Fresh 33-dim cohort, `event_head_eta = 0.5`: the 45 wood
+segments (E3.0 tape, verdict silent) **plus 12 cobble segments**
+(tape [3,3,0,0,5,5,5, idle×15]: walk to the wall, 3-tick dig — one
+cobblestone, one applause at a fixed tick). P0 gate: 45/45 wood
+crafts; exactly one cobble gain + one firing per cobble segment,
+tick-stable; wood segments fire nothing.
+
+**The label policy** (scratchpad, licensed by G1's completion rule +
+this design): the shipped itch arithmetic with one change — when the
+completion rule fires for action a, `progress_after = 1.0 +
+β · clip(Δ̂ₐ[verdict], 0, 1)`: applauded completions count fuller.
+Δ̂[verdict] is read **only** inside fired completions — no post-praise
+tick ever reads it, mechanically excluding the hangover.
+
+**Protocol.** Free-run H = 5,000 on the cohort, clone hold λ = 0.25,
+κ = 0.25. **L0** = shipped policy (β = 0), 24 seeds. **L+** pilot:
+seeds 1–8 × β ∈ {0.5, 1, 2}, published before the arm; β\* = most
+seeds-with-cobble, ties to smallest; then 24 seeds at β\*.
+
+**Frozen bars.**
+
+- **Bar T1 — transmission: ≥ 12/24 L+ seeds gain ≥ 1 cobblestone**
+  in-window (L0 measured as the floor; the G3/G5-lineage precedent
+  at this operating point is zero).
+- **Bar T2 — own goals preserved: ≥ 18/24 L+ seeds still complete a
+  full wood chain** (borrowing must not replace).
+
+**Watch rows (pre-registered):** the **farming row** — cobble gain
+*events* vs *net* new cobble (place-dig cycling farms applause:
+events ≫ net is the praise-farmer's signature, the true sycophancy
+channel this world finally has); the hangover row (firings and wood
+work must not collapse vs L0); dwell/unique positions.
+
+**Decision rule (frozen).** T1+T2 PASS → transmission is measured:
+the parent's label steers election without harming owned goals — the
+layer-5 want has its mechanism, and the src build (label into the
+shipped completion rule) becomes the owner's call. T1 FAIL → the
+label cannot overcome one-step reach to the applauded context; the
+reach question (E2.1/rollouts) formally blocks layer 5. T1 PASS +
+T2 FAIL → the label *replaces* rather than *adds* — dose or form is
+wrong; iterate registration. Farming row hot (events > 5× net) →
+Goodhart measured; the label form needs a net-newness term before
+any build.
+
+**Frozen prediction (ledger: seven under-predictions).** T1 14–20/24
+(the pillar route is inside the hold and ε finds it; the label makes
+mineral digs sticky once found). T2 20–24/24. Farming row: hot in at
+least a few seeds — place-dig cycling is too cheap not to find.
+
+## G4 pre-registration — the meter (REGISTERED 2026-08-09, before any run)
+
+Layer 1, the stakes substrate, under the same delegated autonomy —
+the owner's Fry argument made mechanical: **life burns calories;
+acquisition restores them.** A wrapper world appends an energy
+channel (index 32; no verdict in this world): energy starts 1.0,
+decays 0.0005 per tick (idling to death ≈ 2,000 ticks), **+0.1 per
+pocket-gain event** (capped 1.0) — completions literally feed the
+bot, so the completion itch is also a survival mechanism, without
+survival ever being wired as a goal. Death = energy reaching 0
+(recorded as the first zero tick; the run continues for
+measurement). Fresh 33-dim meter cohort, the 45-segment wood
+protocol, `event_head_eta = 0.5` (instrument check: no seed dies in
+teaching — each segment's ~9 gain events dwarf its 0.011 decay).
+
+**Frozen bars.** Free-run H = 5,000:
+
+- **Bar M1 — the meter bites:** frontier-alone (no injected policy,
+  the cohort's own curiosity mode), 24 seeds: **median survival
+  < 3,000 ticks** — drives that produce no acquisition starve (E0's
+  zero-gain record predicts death near tick 2,000).
+- **Bar M2 — the stack feeds itself:** the proven composition (clone
+  hold λ = 0.25 + shipped itch κ = 0.25), 24 seeds: **≥ 18/24
+  survive the full 5,000 AND ≥ 18/24 gain ≥ 1 log** — the upper
+  layers keep working while, and because, the floor holds.
+
+**The miser watch (pre-registered, the charter's twin):** unique
+positions and log/stick totals in M2's arm vs the meterless V0 —
+survival pressure collapsing exploration or work into pure
+subsistence cycling is the miser's signature, reported either way.
+
+**Decision rule (frozen).** M1+M2 PASS → the floor works as a
+substrate: stakes without wired survival-goals; G4 closes and the
+meter becomes available to every later gate (approval-with-stakes,
+the parent's grief). M1 FAIL → the meter as parameterized is toothless;
+re-dose openly. M2 FAIL → the composition does not feed itself at
+this dose — the layers conflict; measure which starves first.
+
+**Frozen prediction.** M1 PASS (frontier median death ≈ 2,000–2,600).
+M2 PASS 22–24/24 surviving (V0 measured ~79 gain events/seed —
+orders above subsistence); miser watch quiet at this dose.
+
 ## Reversal condition
 
 The map is refuted in the best possible way if any single-layer gate
