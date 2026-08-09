@@ -78,4 +78,33 @@ obsessive as the binding twin and re-doses β before any successor.
 
 ## Verdict
 
-<Empty until graduation.>
+**ALL THREE BARS PASS [measured, 2026-08-09 night, 24 seeds at β\* = 0.5]**
+— taught order carries reach; the owner's premise is measured true.
+
+- **R1 — transmission: PASS 24/24** (bar ≥ 12; the label-alone floor was
+  0/24). 3,129 cobblestone gain events across the arm `[measured]`.
+- **R2 — own goals preserved: PASS 18/24, exactly at the bar** (E3.1's
+  label arm held 22/24). The obsessive twin is real and bounded: dwell
+  medians fall to ~55–72% as bots split time between the tree and the
+  wall; at pilot β = 2.0 chains sagged to 4/8 — dose sensitivity is
+  visible and β\* = 0.5 is the honest operating point `[measured]`.
+- **R3 — recipe-led, not luck: PASS 20/24** logging seeds show ≥ 2
+  subgoal advances before their first cobble; the parrot row is modest
+  (~2% of steps out of context) `[measured]`.
+- Instrument note, recorded openly: the first pilot ran with the applause
+  marker inert (the terminal-selection read the tape's idle tail; both
+  terminals verdict 0) and cobble was pursued anyway — drive novelty
+  alone favored the newer recipe at pilot scale. The fix (terminal = the
+  max-verdict observation of the whole sequence) made selection follow
+  the registered mechanism; the fixed pilot was published before the arm
+  `[measured]`.
+- Mechanism reading `[mechanism-argument]`: every component was
+  individually proven before composition — remembered-observation holds
+  (0074), station work via the itch (G1/G3), applause in the remembered
+  ending (G5) — and the only new machinery, the pointer along the taught
+  path, is what turned 0/24 into 24/24. The teachers teach the steps,
+  and the steps suffice.
+
+Reversal condition standing; nothing fired. Named successor (a new
+topic when licensed): recombination — recipes composed across taught
+fragments, the true means-ends question.

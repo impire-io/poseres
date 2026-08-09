@@ -198,3 +198,11 @@ owner's dose: full parental coverage to tick 1,500, weaning to zero at
 predicted ≈ 4,250) and M2b (≥ 18/24 alive AND working); the weaning
 window becomes an observable row. Runs in parallel with the
 recipe-reach gate (own topic) — the owner's purist road.
+
+**2026-08-09 night — G4b lands: BOTH BARS PASS, the taper to the
+tick.** Frontier median survival 4,250 — the registration's predicted
+number exactly (the first bulls-eye in the ledger) — and the
+provisioned composition goes 24/24 alive AND 24/24 working (from G4's
+10/24), sticks 2,304, the miser still quiet. The parent's gift of
+time turns the meter from a race into a floor; weaning happens and
+the work continues. Layer 1 is measured DONE at this dose.
