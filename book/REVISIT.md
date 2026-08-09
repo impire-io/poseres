@@ -318,3 +318,24 @@ audit needs this list):
 - [ ] **Part 6 gap** — the parallel afternoon (episodes 0074–0075: the
   brain-side hold, the inert label, the meter's runway) post-dates these
   chapters; chapter 16 material once the reach arc concludes.
+
+## Chapter 16 (drafted 2026-08-09, ghostwritten; flagged inferences)
+
+- [ ] **Ch 16** — the cobblestone-habit reading (emerges ~step 500k;
+  target-agnostic itch + meter counting any gain as food) is the
+  writer's interpretation of live status rows, marked "my reading" in
+  prose — confirm or replace.
+- [ ] **Ch 16** — the stop-to-amend sequence is written as intentional;
+  the record shows a manual stop and an amendment citing segment 1 but
+  not the causal link. Accurate in fact; confirm the framing.
+- [ ] **Ch 16** — derived arithmetic not in the record: ~125× real-time;
+  "seventeen days fit inside two"; "first fiftieth of a planned life";
+  the falling segment-rate observation (501→80/s, undiagnosed).
+- [ ] **Ch 16** — "nothing in the brain was keeping the order" (frames
+  and head store no sequence): the writer's mechanism argument
+  supporting the recipe premise; the record asserts the premise only.
+- [ ] **Record discrepancy caught by the writer**: the E3.1
+  registration says "the pillar diggable from inside the hold at
+  (−3,0)" while the world's wall is at (3,z) and the pillar at (−4,0)
+  (dug FROM (−3,0)); the cobble tape used the wall. Reconcile the
+  registration's wording in a record-keeping commit.

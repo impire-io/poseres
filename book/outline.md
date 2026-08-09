@@ -193,3 +193,58 @@ still paradise), with G2 (option-value) queued behind it.
   T1–T7 acceptance suite in plain words; a reading guide to the trail docs.
 - A possible interlude between Parts 3 and 4: "How I work" — spec-first,
   pre-registered criteria, amend-openly — if it earns its place.
+
+**16 · The steps, not the ingredients** *(drafted 2026-08-09)*
+One afternoon, three gates in parallel, every bar frozen before the
+runners existed. The hold goes brain-side: distance measured over the
+event head's predicted position channels replaces the clone-step
+oracle (dwell 98.22% against the clone's 99.98%, 23/24 chains, 647
+logs, no ground truth anywhere in the loop), and the graduates learn
+their own walking mid-run (dwell 91.5% over the first 1,000 steps,
+100.0% over the last) because the teaching tape holds only turns.
+July's obs-form verdict is scoped, not contradicted: the wall was
+asking one number to summarize thirty-two channels. The praise-label
+proves safe and inert: the parent applauds cobblestone, transmission
+0/24 at every dose while the wood chain holds 22/24 with 1,492 sticks
+and the pre-registered farming row has nothing to measure, so the
+frozen decision rule promotes one-step reach from refinement to
+layer-5 prerequisite (the ledger's first over-prediction: 14–20
+predicted, 0 measured). The meter bites and splits: frontier-alone
+starves at a median 2,001 ticks with zero gains, the composition goes
+24/24 working but 10/24 alive, the energy runway (~2,000 ticks)
+shorter than time-to-first-chain (~2,300) — the floor races learning
+and wins. Then two design calls from the same evening answer both
+failures. Recipe memory, order read from the witnessed demonstrations
+with no hand ladder: transmission 24/24 with 3,129 cobblestone gains
+against the label's 0/24, own chains 18/24 exactly at the bar with the
+obsessive real, bounded and dose-visible (β = 2.0 sagged chains to
+4/8), recipe-led 20/24, the parrot ~2%; plus the openly recorded
+inert-marker pilot, where novelty alone chose the new recipe. The
+tapered childhood: frontier-alone still dies in-window at the
+registration's predicted tick 4,250 exactly (the ledger's first
+bulls-eye), and the provisioned composition turns G4's 10/24 into
+24/24 alive and 24/24 working. c1d-lab then launches on the
+zero-scaffolding composition: one brain, one continuous world,
+regrowing columns, ~125× real time, and a degenerate stop rule amended
+openly mid-flight (segment 1's 131 chains per 50k steps would have
+graduated the run at 1.5% of target with none of its endurance
+readings); through the first million steps, 3,236 chains, dwell
+99.99%, energy 0.98, and an undesigned cobblestone habit from step
+500k on. Closes on rung 2, the real-game time machine measured exact
+(19.9 / 40.0 / 100.0 / 199.9–200.1 TPS, 5.02–5.29 game ticks per
+brain step) with the bot's hands as the blocker: digs 3/5, 4/5, 2/5,
+4/5 with no speed trend and the 1× reference failing its own bar.
+Draws on: journey 0074, 0075, 0076; motivation-stack README (E3.1, G4
+registrations and outcomes, G4b registration); recipe-reach README;
+design Doc 0009; C1D-LAB-RUN-PLAN.md (stop rules and the amendment);
+fast-real-bridge README.
+
+**What the record queues next (not yet chapters):** recombination,
+recipes composed across taught fragments, which is the real means-ends
+question and a new topic when licensed; c1d's own five readings
+(endurance of election, hold drift after long homeostasis, head
+stability at 50M steps, the life itself, the miser), unread until the
+run reaches its deciles; c1e in the full game, blocked not on speed
+but on dig reliability (B2′ re-registered as a relative bar, behind
+the bridge's own fix-and-gate); the recipe and label `src` builds the
+passes license; G2, option-value, still the queued layer.

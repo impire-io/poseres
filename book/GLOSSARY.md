@@ -76,3 +76,22 @@ number jumps. (Ch 14)
 praise valuable: right after praise lands, the praised loop's own next
 steps all predict praise going away, so the learner avoids the loop that
 earned it. (Ch 15)
+
+**recipe memory** — the remembered sequence of observations from a
+demonstrated success, kept whole and in order, so the steps that led to
+a result can be walked again. (Ch 16)
+
+**the obsessive** — the failure twin of a borrowed goal: a learner that
+pursues what its teacher applauds until its own goals lose time to it.
+(Ch 16)
+
+**the parrot** — the failure twin of taught order: a learner performing
+remembered recipe steps somewhere they do not apply. (Ch 16)
+
+**provisioning** — a parent covering a child's costs until the child's
+own competence can pay them. (Ch 16)
+
+**the stipend** — this project's measured dose of provisioning: the
+parent pays the whole metabolic bill through tick 1,500, then coverage
+fades in a straight line to nothing at tick 3,000, and the learner
+lives at full stakes after that. (Ch 16)
