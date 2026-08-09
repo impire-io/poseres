@@ -201,7 +201,14 @@ async function handle(message) {
 function aheadColumn() {
   const p = bot.entity.position;
   const yaw = bot.entity.yaw;
-  return new Vec3(Math.round(p.x - Math.sin(yaw)), Math.floor(p.y), Math.round(p.z + Math.cos(yaw)));
+  // the block CONTAINING the point one unit along the body's own forward
+  // vector: mineflayer yaw is pi - notchian yaw, so forward is (-sin, -cos)
+  // (its own physics uses atan2(-dx, -dz)) — with +cos this column was
+  // mirrored in z, naming the block BEHIND a body that faced along z. floor,
+  // not round: round names the block half a unit further along +x/+z, which
+  // is a diagonal neighbour for a body standing in the upper half of its own
+  // block and flips identity whenever a coordinate's fraction crosses .5
+  return new Vec3(Math.floor(p.x - Math.sin(yaw)), Math.floor(p.y), Math.floor(p.z - Math.cos(yaw)));
 }
 
 function bounded(promise, ms, onTimeout) {
@@ -233,6 +240,15 @@ async function applyCommand(command, budget) {
     const target = aheadColumn();
     const block = bot.blockAt(target);
     if (!block || !block.diggable || !bot.canDigBlock(block)) {
+      // a held intention outlives a momentary re-aim: the ahead column is
+      // recomputed from a position that drifts inside the body's own block,
+      // and the HELD block — not the recomputed column — is what the body is
+      // breaking (measured: this released whole digs mid-break)
+      const heldBlock = digTarget !== null ? bot.blockAt(digTarget) : null;
+      if (heldBlock && heldBlock.diggable && bot.canDigBlock(heldBlock)) {
+        if (Date.now() - digStart > DIG_SAFETY_MS) stopDig();
+        return;
+      }
       stopDig();
       return;
     }
