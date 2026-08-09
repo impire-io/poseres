@@ -536,6 +536,31 @@ Bar B predicted 4–8, measured 13 (under again). The author's
 intuition remains systematically pessimistic about composed
 mechanisms; the bars keep being the better judge.
 
+## G3 src closure [measured, 2026-08-09] — the shipped build IS the instrument
+
+Feature 040 (`specs/040-event-pathway/`, v1.2.0) promoted the prototype to
+src: the event head as FrameStore-owned brain state
+(`Config.event_head_eta`, snapshot-persisted, resize-safe, off = byte
+identical) and the shipped `CompletionItchPolicy`. Episode 0071's reversal
+condition demanded the G3 confirmatory reproduce Bar A on shipped
+components; it reproduced **everything**:
+
+- 24 seeds, κ = 0.25, η = 0.5, clone hold injected via the policy's
+  `potential_of` seam (research scaffold, still shipping nowhere): **every
+  row identical to the prototype confirmatory** — per-seed dwell, logs,
+  chain ticks, completions fired, false completions, prediction MAE, and
+  inventory gains all match exactly `[measured]`. Verdict identical: Bar P
+  0.0081, Bar A 24/24 (303 logs), Bar B 13/24, median dwell 100.0%,
+  812/1,957 false completions, 159 s.
+- Not bar-level replication — behavioral identity: the src pathway (engine
+  step-loop learning site, store-owned NLMS head, shipped policy
+  arithmetic) computes the same floats in the same order as the measured
+  scratchpad instrument. The reversal condition closes with nothing left
+  for it to bind: the mechanism, not the instrument, carried the pass.
+- Runner `src_closure.py` (session scratchpad, arc convention) — shipped
+  components only, plus a measurement-only subclass recording the Bar-P
+  trace; rows `src-closure-rows.json` alongside it.
+
 ## Reversal condition
 
 The map is refuted in the best possible way if any single-layer gate

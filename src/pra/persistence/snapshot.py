@@ -122,6 +122,12 @@ def encode(state: SystemState) -> bytes:
     if channel_stats is not None:
         for name, arr in channel_stats.items():
             arrays[f"chanw__{name}"] = arr
+    # event head (feature 040): weights written only when the run had it on —
+    # the channel_stats additive-optional pattern; head-off blobs stay
+    # bit-identical to the pre-040 format.
+    event_head = state.frame_store.get("event_head")
+    if event_head is not None:
+        arrays["eh__W"] = event_head["W"]
     arrays["acc__map_fractions"] = np.asarray(state.map_fractions, dtype=np.float64)
     arrays["acc__pred_errors"] = np.asarray(state.pred_errors, dtype=np.float64)
     arrays["acc__population_by_cycle"] = np.asarray(state.population_by_cycle, dtype=np.int64)
@@ -227,6 +233,8 @@ def encode(state: SystemState) -> bytes:
         meta["current_dims"] = [int(fs_dims[0]), int(fs_dims[1])]
     if channel_stats is not None:
         meta["channel_stats"] = True
+    if event_head is not None:
+        meta["event_head"] = {"updates": int(event_head["updates"])}
     arrays["meta"] = np.array(json.dumps(meta))
 
     buf = io.BytesIO()
@@ -343,6 +351,18 @@ def decode(blob: bytes) -> SystemState:
                         }
                     }
                     if meta.get("channel_stats")
+                    else {}
+                ),
+                # absent in pre-040 and head-off blobs → the store cold-starts
+                # the head on load (stated refill, the channel_stats rule)
+                **(
+                    {
+                        "event_head": {
+                            "W": np.array(archive["eh__W"]),
+                            "updates": int(meta["event_head"]["updates"]),
+                        }
+                    }
+                    if meta.get("event_head")
                     else {}
                 ),
             },

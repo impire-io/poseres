@@ -9,8 +9,10 @@ deployment. See specs/027-minecraft-body/.
 
 from pra.anatomy.minecraft.anatomy import (
     C1_ACTUATORS,
+    C1_MINING_INDEX,
     C1_N_ACTIONS,
     C1_OBS_DIM,
+    C1_POCKET_TOTAL_INDEX,
     C1_SENSORS,
     c1_anatomy,
 )
@@ -20,8 +22,10 @@ from pra.anatomy.minecraft.transport import MinecraftTransport
 
 __all__ = [
     "C1_ACTUATORS",
+    "C1_MINING_INDEX",
     "C1_N_ACTIONS",
     "C1_OBS_DIM",
+    "C1_POCKET_TOTAL_INDEX",
     "C1_SENSORS",
     "FakeBridge",
     "MinecraftTransport",

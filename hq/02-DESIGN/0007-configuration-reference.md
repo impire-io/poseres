@@ -31,6 +31,7 @@ Status: **[V]** validated, **[D]** design, **[O]** open (see Doc 00 legend).
 | `weight_norm_cap` | float | 0.0 | ≥ 0; **0 = off** (pinned validated behavior); c > 0 projects each weight tensor to `‖W‖ ≤ c·E‖W_init‖` at episode starts (lifetime stability, PRA-01 §8.8); measured c = 1.2 eliminates long-horizon rot with no plasticity cost | [D] |
 | `channel_weight_floor` | float | 0.0 | in [0, 1]; **0 = off** (pinned validated behavior, byte-identical); f > 0 enables learned channel weighting (Doc 03 §3.1) and is the weight floor w_min — full exclusion unreachable (measured worse, CHANNELWEIGHT-DIAGNOSIS E1a); 0.2 is the transport-anchored recommendation | [D] |
 | `channel_stats_decay` | float | 0.995 | in [0, 1); whiteness-estimator EMA decay, read only when the floor is > 0; pinned by probe P1 (CHANNELWEIGHT-DIAGNOSIS); readiness is derived (`ceil(1/(1−β))` samples) | [D] |
+| `event_head_eta` | float | 0.0 | in [0, 2); **0 = off** (pinned validated behavior, byte-identical — no state, no float work, no RNG); η > 0 enables the event head (Doc 05 §4.4): per-action normalized-LMS delta models beside the frames, cold-started, one update per executed transition, state in snapshots; stable for η < 2 (the NLMS bound); 0.5 is the G3-measured operating point (motivation-stack, episode 0071) | [D] |
 | `fit_gate` | float | 1.0 | > 0; map iff `fit_quality < fit_gate` | [V] |
 
 ---

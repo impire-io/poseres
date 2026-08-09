@@ -17,7 +17,15 @@ from __future__ import annotations
 
 from pra.anatomy.ros2.specs import ActuatorSpec, SensorSpec
 
-__all__ = ["C1_ACTUATORS", "C1_N_ACTIONS", "C1_OBS_DIM", "C1_SENSORS", "c1_anatomy"]
+__all__ = [
+    "C1_ACTUATORS",
+    "C1_MINING_INDEX",
+    "C1_N_ACTIONS",
+    "C1_OBS_DIM",
+    "C1_POCKET_TOTAL_INDEX",
+    "C1_SENSORS",
+    "c1_anatomy",
+]
 
 _BASE_SENSORS: tuple[SensorSpec, ...] = (
     SensorSpec(id="pose", topic="pose", width=5, labels=("x", "z", "y", "sin_yaw", "cos_yaw")),
@@ -90,3 +98,21 @@ C1_SENSORS: tuple[SensorSpec, ...] = tuple(c1_anatomy()[0])
 C1_ACTUATORS: tuple[ActuatorSpec, ...] = tuple(c1_anatomy()[1])
 C1_OBS_DIM = sum(s.width for s in C1_SENSORS)
 C1_N_ACTIONS = sum(len(a.presets) for a in C1_ACTUATORS)
+
+
+def _channel_index(sensor_id: str, label: str) -> int:
+    """The flat observation index of one labeled channel, derived from the
+    sensor specs in declaration order — never a hard-coded literal, so a
+    spec change moves the constants with it (feature 040 FR-010)."""
+    offset = 0
+    for spec in C1_SENSORS:
+        if spec.id == sensor_id:
+            return offset + spec.labels.index(label)
+        offset += spec.width
+    raise ValueError(f"unknown sensor {sensor_id!r}")
+
+
+# The completion-itch policy's anatomy knowledge (feature 040): the sensed
+# dig-progress channel and the pocket-total channel (one item = 1/64).
+C1_MINING_INDEX = _channel_index("mining", "progress")
+C1_POCKET_TOTAL_INDEX = _channel_index("pocket", "total")
