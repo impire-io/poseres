@@ -12,8 +12,8 @@ from pra import Config, Engine
 
 config = Config(
     # ... your run configuration ...
-    event_head_eta=0.5,   # 0.0 (default) = off, byte-identical behavior.
-                          # 0.5 is the G3-measured operating point.
+    event_head_eta=0.5,  # 0.0 (default) = off, byte-identical behavior.
+    # 0.5 is the G3-measured operating point.
 )
 ```
 
