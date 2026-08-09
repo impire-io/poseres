@@ -113,3 +113,23 @@ next long run's brain keeps its learned expectations across restarts —
 the prototype relearned from zero each session. Queue standing: G5
 (approval revisited) is the unblocked next gate; G2/G4 behind it;
 E2.1 refinements now compete on top of a shipped mechanism.
+
+**2026-08-09 13:11 — G5 registered before any run: approval,
+revisited.** The owner's "open G5." E3.0's instrument rebuilt from its
+committed record (verdict = channel 33, judge on stick-crafts, the 034
+tape, 45 snapshot-bridged demos, fresh 33-dim cohort) with one
+addition: `event_head_eta = 0.5` from the cohort's first step, the
+shipped head learning through the demonstrations, its state riding the
+feature-040 snapshot persistence between segments. Binding bars are
+July's own two, statistics unchanged, predictor swapped: rising
+≥ 18/24 and specific ≥ 18/24 on the head's predicted verdict at the
+completion tick (July measured 18/24 and 14/24 on the frames). No
+behavior bar — E3.0's rule already named the one-step-reach wall, so
+the wanting side runs as context rows at power (V0 = the shipped G3
+composition with approval merely present; V+ = plus κ₅·Δ̂[verdict],
+pilot before arm) with the charter's sycophancy watch pre-registered
+(stick/firing inflation against logs and unique positions). Frozen
+prediction: P5-a 22–24, P5-b 19–23; the sparse 1-in-22 pulse is
+exactly episode 0072's named risk — a P5-b FAIL splits
+"event-sensitive" into dense/sparse regimes and makes the head's
+architecture the next question, before any want.

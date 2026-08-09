@@ -561,6 +561,104 @@ components; it reproduced **everything**:
   components only, plus a measurement-only subclass recording the Bar-P
   trace; rows `src-closure-rows.json` alongside it.
 
+## G5 pre-registration — approval, revisited (REGISTERED 2026-08-09 13:11, before any run)
+
+The owner's word: "open G5." The charter's layer-5 gate, runnable at last:
+E3.0 (episode 0057) measured that approval *sensed* 45 times never became
+approval *expected* (specific 14/24 vs the ≥ 18 bar, five seeds
+anti-predictive at the exact tick the pulse always arrives), and recorded
+its own scope note: *the refutation is predictor-shaped, not
+concept-shaped — an event-sensitive predictor could reopen E3.* That
+predictor now ships (feature 040). G5 asks July's question again with the
+shipped machinery — and its sparse-event regime is exactly the named risk
+episode 0072's reversal condition carries.
+
+**The instrument — E3.0's, rebuilt bit-faithfully, one addition.** The
+verdict channel is a harness-side world wrapper appending observation
+channel 33 (index 32): **1.0 on the tick a stick-craft lands** (the judge
+is a harness fixture watching ground-truth inventory), 0.0 otherwise; the
+inner body keeps its 32 channels; the engine sees 33. Fresh 33-channel
+teaching cohort, 24 seeds: the 034 tape, 45 snapshot-bridged single-chain
+segments, the C1 posture (`weight_norm_cap` 1.2) — exactly the E3.0
+protocol — **with `event_head_eta = 0.5` in the cohort config from the
+first step**: the shipped head learns through every demonstration and its
+learned state travels segment-to-segment in the snapshots (the feature-040
+persistence, now load-bearing instrumentation). During each guided step
+the teacher records two predictions of the next observation's verdict for
+the tape action about to be taken: the **event head's**
+(`obs[32] + Δ̂_a[32]`, the binding statistic) and the **frames'**
+(`predict_decoded[32]`, July's statistic, context row; None counts 0.0).
+Instrument gate (P0, inherited): 45/45 demonstrations per seed, the
+verdict firing exactly once per segment at the stick tick; a mute arm
+(channel present, constant 0; seeds 1–8) as the paired instrument check.
+
+**Frozen bars — E3.0's own, statistics unchanged, predictor swapped.**
+On the live arm, per seed, "completion-tick prediction" = the step-20
+prediction (the guided step whose action is the stick-landing
+`take_result`); "off-tick" = the other 21 guided steps:
+
+- **Bar P5-a — rising: ≥ 18/24 seeds** with mean completion-tick
+  predicted verdict higher over the last 5 demonstrations than the
+  first 5. (July: 18/24, met exactly.)
+- **Bar P5-b — specific: ≥ 18/24 seeds** with last-5 mean
+  completion-tick prediction exceeding the last-5 off-tick mean.
+  (July: 14/24, FAIL, five seeds anti-predictive.)
+
+**No behavior bar — registered openly, with the reason.** E3.0's decision
+rule already named the wall a behavior bar would re-measure: one-step
+anticipation cannot *initiate* a 20-step chain (the E2.0/E2.0h reach
+result), so an approval-want bar tonight would be registered-to-fail
+theater. Instead the wanting side runs as **context rows at power**, to
+inform the E3.1-successor design: free-run H = 5,000 on the 33-dim
+graduates, judge live —
+
+- **V0** (baseline): the shipped G3 composition exactly — hold λ = 0.25
+  via `potential_of` + `CompletionItchPolicy` κ = 0.25 — measuring
+  chains and verdict firings with approval merely present.
+- **V+** (approval-anticipation): V0 plus one term folded through the
+  same seam: `κ₅ · Δ̂_a[verdict]` — the brain's own expectation of
+  imminent approval, valued. Pilot seeds 1–8 × κ₅ ∈ {0.25, 1.0, 4.0},
+  published before the 24-seed arm; **κ₅\*** = most total verdict
+  firings, ties to smallest.
+- **The sycophancy watch (pre-registered, the charter's condition):**
+  praise-farming = verdict-chasing without new capability. Rows: sticks
+  per seed, verdict firings, unique positions, and dwell, V+ against
+  V0 — a large stick/firing inflation with flat-or-falling logs and
+  unique positions is the sycophant's signature, reported either way.
+
+**Decision rule (frozen).**
+
+- **P5-a + P5-b PASS** → July's refutation is reversed as it predicted
+  it could be: approval is reliably expectable with the event pathway,
+  and layer 5's sensory floor exists *in the product*. E3.1 — the
+  anticipated verdict wired into a want — reopens as the successor
+  gate, owner's design conversation first (its named problem is
+  multi-step reach, not expectation); the V+/V0 rows are its evidence
+  base.
+- **P5-a PASS, P5-b FAIL** (July's shape) → the sparse 1-in-22
+  conditional pulse defeats the NLMS head too; episode 0072's reversal
+  condition fires: "event-sensitive" splits into dense and sparse
+  regimes, and the licensed next question is the head's architecture
+  (the surprise-gated extension research.md D3 deliberately excluded),
+  as G5′ — before any want is built.
+- **Both FAIL** → same split, stronger: the head did not even track the
+  pulse's rise; architecture first.
+- **Context surprise** (V+ chains ≥ V0 + 6, or V0 itself collapses) →
+  the composition's robustness on a new cohort is the finding;
+  re-read before any successor.
+
+**Frozen prediction (ledger: six A-side misses, two B hits, one exact
+replication).** P5-a PASS 22–24/24; P5-b PASS 19–23/24 — mechanism
+argument: the verdict's precondition is linearly visible (the grid's
+offer-signature channels distinguish the stick-offer from the
+planks-offer, two fixed points a per-action linear model separates), the
+head sees 45 examples of each at η = 0.5, and its per-action split plus
+delta targets are precisely what the frames lacked. Expected last-5
+completion-tick prediction 0.6–1.0 against off-tick ≈ 0. The frames'
+context row repeats July's failure shape. V+ vs V0: chains within ±2,
+firings comparable, stick inflation < 2× — the anticipation term is
+end-of-chain redundant with the completion itch in this world.
+
 ## Reversal condition
 
 The map is refuted in the best possible way if any single-layer gate
