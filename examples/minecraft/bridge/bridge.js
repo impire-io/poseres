@@ -361,5 +361,8 @@ function sampleView() {
     held,
     inventory,
     digging: digTarget !== null ? Math.min((Date.now() - digStart) / digTotalMs, 1) : 0,
+    // server game-tick clock (feature: fast-real-bridge calibration) —
+    // lets the harness measure achieved TPS and game-ticks-per-brain-step
+    age: bot.time.age,
   };
 }
