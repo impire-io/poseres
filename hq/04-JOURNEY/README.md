@@ -74,8 +74,21 @@ chains 24/24 on the head-taught cohort, vs G3's 13/24), and wiring
 the *anticipated* approval into value backfires — the post-approval
 hangover taxes praise-earning 70% at the smallest dose and collapses
 into avoidance at larger ones. Sycophancy watch closed inverted:
-avoidance, not farming. Queue: E3.1 (the approval want, hazard list
-measured) awaits the owner's design conversation; G2/G4 stand.
+avoidance, not farming. **The parallel afternoon then ran three gates
+at once** ([0074](0074-brain-side-hold.md),
+[0075](0075-the-label-and-the-meter.md)): the **hold went brain-side**
+— the head's own predicted positions replace the clone oracle (98.22%
+dwell, 23/24 chains, no ground truth anywhere; **c1d is registrable
+with zero scaffolding**, design in Doc 0009); the praise-label proved
+perfectly safe and perfectly inert (0/24 transmission — one-step reach
+blocks the walk to what the parent applauds); and the meter proved
+stakes work (frontier starves at tick 2,001) while exposing a timing
+coupling (24/24 seeds working, only 10/24 outliving a runway shorter
+than time-to-first-chain — the gap provisioning exists for). The
+stack's standing: expectation ✓, completion ✓, position ✓, floor
+✓-with-coupling, transmission ✗ on reach. **E2.1 — multi-step reach —
+is now the load-bearing prerequisite**, a design conversation; c1d and
+the provisioning dose are the owner's other open calls.
 
 **The project's working structure moved into `hq/`**
 ([episode 0045](0045-the-hq-restructure.md)): GENESIS holds the vision,
@@ -527,3 +540,5 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0071 | [Wanting follows expecting: the event pathway restores the pass](0071-wanting-follows-expecting.md) |
 | 0072 | [The event pathway ships: the brain keeps its expectations](0072-the-event-pathway-ships.md) |
 | 0073 | [Expecting the well-done perfectly; wanting it, backwards](0073-the-hangover.md) |
+| 0074 | [The last scaffold falls: the hold goes brain-side](0074-brain-side-hold.md) |
+| 0075 | [The label that couldn't reach and the floor that outran learning](0075-the-label-and-the-meter.md) |
