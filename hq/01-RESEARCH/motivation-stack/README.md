@@ -915,6 +915,34 @@ demos feed the learner). Both arms at 24 seeds:
   Prediction ledger: M2 predicted 22–24 alive, measured 10 — the
   ninth miss.
 
+## G4b pre-registration — the tapered childhood (REGISTERED 2026-08-09, before any run)
+
+The open re-dose G4's M2 split demanded, dosed by the owner's choice
+(the tapering stipend) from G4's own numbers: runway ~2,000 vs median
+time-to-first-chain ~2,300. **The stipend**: the parent fully covers
+the metabolic drain through tick 1,500, then coverage fades linearly
+to zero at tick 3,000 — full stakes thereafter (implementation:
+effective drain = 0.0005 · clip((t − 1500)/1500, 0, 1); feeding
+unchanged at +0.1 per gain tick). The stack reading this encodes: the
+parent's first transmission is *time* — provisioning couples layer 5
+to layer 1 before praise ever does.
+
+**Frozen bars** (same cohort and arms as G4; the G4 rows stand as the
+unprovisioned reference):
+
+- **Bar M1b — stakes survive the stipend:** frontier-alone still dies
+  in-window — median survival < 5,000 (the taper predicts death near
+  tick ≈ 4,250 for a bot that never feeds itself).
+- **Bar M2b — the provisioned stack feeds itself: ≥ 18/24 composition
+  seeds survive the full 5,000 AND ≥ 18/24 gain ≥ 1 log.**
+- **The weaning row (new, no bar):** energy and work rate across the
+  taper window (1,500–3,000) — the first observable weaning; the miser
+  watch continues (unique positions, sticks).
+
+**Frozen prediction.** M1b PASS (frontier median ≈ 4,200–4,400). M2b
+PASS 20–24/24 — G4 measured all 24 working; the stipend buys exactly
+the runway the slow starters lacked.
+
 ## Reversal condition
 
 The map is refuted in the best possible way if any single-layer gate

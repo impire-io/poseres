@@ -191,3 +191,10 @@ M2 FAIL-informative (10/24 alive but 24/24 working — the runway is
 shorter than time-to-first-chain; stakes race learning, and the gap
 is what provisioning exists for). Episodes 0074 (H1 graduation) and
 0075 record the afternoon.
+
+**2026-08-09 night — G4b registered: the tapered childhood.** The
+owner's dose: full parental coverage to tick 1,500, weaning to zero at
+3,000, stakes thereafter. Bars M1b (frontier still dies in-window,
+predicted ≈ 4,250) and M2b (≥ 18/24 alive AND working); the weaning
+window becomes an observable row. Runs in parallel with the
+recipe-reach gate (own topic) — the owner's purist road.
