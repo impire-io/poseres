@@ -659,6 +659,77 @@ context row repeats July's failure shape. V+ vs V0: chains within ±2,
 firings comparable, stick inflation < 2× — the anticipation term is
 end-of-chain redundant with the completion itch in this world.
 
+## G5 outcome, the binding bars [measured, 2026-08-09] — BOTH PASS 24/24: approval is perfectly expectable
+
+The teaching cohort (24 seeds × 45 demonstrations, 234 s), instrument
+green end to end: 45/45 stick-crafts per seed, the verdict firing
+exactly once per segment at guided step 21, tick-stable in every one of
+1,080 demonstrations; the mute arm's channel never left zero (8 seeds).
+
+- **Bar P5-a — rising: PASS 24/24** (bar ≥ 18). Every seed's
+  completion-tick expectation rises from a 0.450 first-5 mean to a
+  1.000 last-5 mean.
+- **Bar P5-b — specific: PASS 24/24** (bar ≥ 18). Last-5 completion-tick
+  prediction **1.000** against an off-tick mean of **0.000** — the head
+  expects approval *exactly* when it always arrives and *never*
+  otherwise. Perfect specificity, at ceiling, in every seed.
+- **Seed-invariance is itself a mechanism reading** `[measured]`: all
+  24 rows are identical to three decimals. The frames' expectation was
+  seed-dependent because their random initialization shapes what the
+  bottleneck can carry; the head cold-starts at zero and learns a
+  deterministic stream deterministically — expectation stops being a
+  lottery.
+- **The July replication, in the same run** `[measured]`: the frames'
+  context row lands on **rising 18/24, specific 14/24 — E3.0's exact
+  recorded numbers** — the rebuilt instrument proven bit-faithful in
+  the act of overturning its own result. The head's first-5 mean of
+  0.450 says more: the expectation is already half-formed within five
+  approvals; the frames never got there in forty-five.
+
+**Per the frozen decision rule: July's refutation is reversed exactly
+as its scope note predicted it could be.** Approval is reliably —
+here, perfectly — expectable with the event pathway, and layer 5's
+sensory floor now exists in the product. **E3.1 — the anticipated
+verdict wired into a want — reopens as the successor gate**, owner's
+design conversation first (its named problem is multi-step reach, not
+expectation). The sparse-regime worry episode 0072 carried is
+answered for the 1-in-22 conditional pulse: sparse in time is not
+sparse in structure — the precondition was linearly visible and the
+head read it. Prediction ledger: P5-a predicted 22–24, measured 24
+(in range, high edge); P5-b predicted 19–23, measured 24 — the
+seventh under-prediction, and the first time the measurement
+exceeded the range's *top*.
+
+## G5 context rows — the wanting side [measured, 2026-08-09; pilot published before the 24-seed V+ arm]
+
+**V0 — the registered context surprise fires** `[measured]`: the shipped
+G3 composition (hold + completion itch, no approval term) on this
+cohort completes the chain in **24/24 seeds** (G3's cohort: 13/24) —
+1,888 verdict firings, 2,473 sticks, hold intact. The one variable
+separating the cohorts: this one's head **learned through the 45
+demonstrations** (η in the config from the first step, state riding the
+feature-040 snapshots), so it enters free-run already knowing the dig
+and craft dynamics — G3's cold-start bootstrap cost (the ε-dig
+learning phase) is gone, and with it the last barrier to chaining.
+Teaching the *predictor* was worth more than eleven chains
+`[mechanism-argument]`.
+
+**V+ pilot (seeds 1–8 × κ₅ ∈ {0.25, 1, 4}) — the approval term
+*hurts*, dose-dependently** `[measured]`: firings 179 / 117 / 77
+against the same seeds' 659 at κ₅ = 0; at κ₅ ≥ 1, seeds flip into
+log-hoarding with **zero sticks** (seed 2: 100 logs; seed 6 at κ₅ = 4:
+156 logs) — the bot stops doing the thing that earns approval. The
+rows support a mechanism reading `[mechanism-argument]`: the verdict's
+1 → 0 decay after each firing is learned online per action — the
+*familiar* post-approval actions (the craft loop's continuation)
+accumulate Δ̂[verdict] ≈ −1 and are taxed −κ₅ at every post-firing
+tick, while untrained actions predict ≈ 0 — so the term systematically
+repels the bot from its own praised loop the moment praise lands.
+**The post-approval hangover**: an ugly twin the sycophancy watch did
+not name — not praise-farming but *praise-avoidance*, from wiring a
+still-learning expectation into value. κ₅\* = 0.25 by the registered
+rule (max firings 179; ties moot).
+
 ## Reversal condition
 
 The map is refuted in the best possible way if any single-layer gate
