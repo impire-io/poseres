@@ -53,6 +53,39 @@ wall-clock-physics distortion is worse than the pacing story assumes —
 the fork question (roadmap C3, one-page spec first) reopens as the
 honest road to fast fidelity, per the ladder conversation.
 
-## Verdict
+## Verdict (partial — B1/B3 decided, B2 re-registration required)
 
-<Empty until graduation.>
+**[measured, 2026-08-09 night, two full gate runs + instrumented probes]**
+
+- **B1 — the server sustains it: PASS at every M.** Measured 19.9 / 40.0 /
+  100.0 / 199.9-200.1 TPS against nominals 20/40/100/200, bot attached and
+  working; per-tick averages ~1.6 ms against a 10 ms budget at M = 5 — the
+  ceiling was not reached at 10×.
+- **B3 — the posture holds: PASS at every M.** 5.02–5.29 game ticks per
+  brain-step across all speeds; the tick_ms = 250/M pacing law is real.
+- **B2 — primitives: the REFERENCE fails its own bar.** Digs completed
+  3/5, 4/5, 2/5, 4/5 (pose-stable run) across M ∈ {1, 2, 5, 10} — **no
+  speed trend; M = 1 itself misses 5/5**. Every completed dig also
+  crafted (5/5 conversion): the craft pipeline is solid; the flake is
+  dig completion. Bridge logs attribute it: mineflayer digs aborting
+  mid-break ("Digging aborted" after 26–800 ms) — a 1×-native bridge
+  behavior c1c lived with unmeasured (its 449 digs never needed
+  per-attempt reliability). The bar as registered conflated
+  bridge-native flakiness with speed effects and is **unmeasurable as
+  written**; raw numbers recorded here per the amendment protocol.
+- Instrument findings recorded on the way (all landed as fixes):
+  the bridge died on a vanished client's EPIPE (fixed, committed);
+  `rcon-cli` swallows negative coordinates as flags (`--` required);
+  MC rotation 0 = mineflayer yaw π (the two conventions differ 180°);
+  a collect-walk displaces the bot permanently at high M (wall-clock
+  physics — the registered distortion, first measured in practice:
+  17 brain-steps to cross a block at 10× vs 4 at 1×).
+
+**What stands `[measured]`:** the time machine itself is real — vanilla
+1.21.11 runs 10× with exact throughput and intact pacing. **What blocks
+c1e** `[judgment]`: not speed — dig reliability at any speed. Successor
+bars (a re-registration, not a quiet retry): B2′ as a *relative* bar
+(success rate at M within noise of the 1× reference, n ≥ 20 reps per
+arm) once the bridge's dig robustness question (its own small fix-and-
+gate: why mineflayer aborts mid-break, likely look/movement validation)
+is answered. Both are named work, neither started.
