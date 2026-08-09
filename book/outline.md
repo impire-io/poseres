@@ -4,7 +4,7 @@ Parts follow the argument; chapters follow events. Each chapter lists its
 beats and the real material it draws on (hq/04-JOURNEY episode numbers — episode 00NN = old chapter N — trail
 docs). Beats are prompts, not sentences — the prose decides.
 
-Status: working draft, 2026-07-18. Chapter count will move as drafting
+Status: working draft, 2026-08-09. Chapter count will move as drafting
 reveals what merges and what splits.
 
 ## Part 1 — The problem
@@ -136,28 +136,56 @@ side, and the three lessons (detectors not visits; exploration is not
 accumulation; pre-registration makes a null publishable).
 Draws on: journey 0068 (plus 0050–0054); C1-RUN-PLAN.md; C1C-JOURNAL.md.
 
-## Part 6 — Teachers (parked — premise re-arbitration pending, see REVISIT.md)
+## Part 6 — Teachers
 
-The self-set-goals topic was probed and parked with an existence proof
-(journey 0054–0058); these chapters stay design until that re-arbitration.
+The parked premise re-arbitration resolved itself: the goals arc ran
+(2026-08-08/09) and the teacher material is now measured, not design.
+The former design chapters ("A teacher is a world", "What would make
+it true") are superseded; their reframe survives inside ch 15's
+transmission finding, and the multi-stream foundation (journey 0022)
+can re-enter wherever a later chapter needs it.
 
-**14 · A teacher is a world**
-The reframe: feedback from a mentor is a triplet too (my attempt, their
-response, my updated state). Multiple teachers as multiple streams into one
-brain — and the measured foundation that makes this more than a metaphor:
-N worlds already feed one brain safely (merged experience matches focused
-experience). What is validated ends exactly there; the rest of this part is
-design.
-Draws on: journey 0022 (multi-stream measured); design horizon notes.
+**14 · Wanting follows expecting** *(drafted 2026-08-09)*
+The one-evening goals ladder, run the day the c1c close landed. July's
+staircase of nothing recapped (teaching 0/24, two existence chains in
+42 runs, approval sensed but never expected). Goal-homing: a perfect
+position oracle buys presence (dwell 99.98%, zero departures) and zero
+chains — presence without election, plus the weight-cap instrument
+lesson (coarse anchors are not identity). The motivation-stack map
+from the same evening (single upper layers over a missing floor). G1,
+the completion itch: 24/24 logs (286), 6/24 chains at the bar — the
+first bar-level chains; the itch-only control proves the pass belongs
+to the composition. G1L, the learnable itch, fails informatively
+(11/24; noise row 0.0612 vs a 0.083 signal): election scales with
+signal fidelity. G3, the event head, passes all three bars (0.0081;
+24/24 with 303 logs; 13/24 chains) — the student beats its oracle
+because the learned completion rule generalizes to crafting. The
+arc's sentence: wanting follows expecting.
+Draws on: journey 0069, 0070, 0071; motivation-stack README
+(G1/G1L/G3 registrations, pilots, outcomes); July from 0054–0058.
 
-**15 · What would make it true**
-The claims — pre-train on language, specialize to a profession, keep
-improving — stated as hypotheses with their falsification conditions, the
-way this project states everything. What experiments come first, what
-failure would look like, and why the book ends on an open question on
-purpose. This project's record says directional bets sometimes lose to
-random; Part 5 gets no exemption.
-Draws on: the recurring principles (hq/00-GENESIS/how-we-work.md); the vision's horizon ambitions (hq/00-GENESIS/vision.md).
+**15 · A label, not fuel** *(drafted 2026-08-09)*
+Feature 040: the head becomes brain state (snapshot-persisted
+expectations; off = byte-identical), and the closure reproduces the
+prototype confirmatory row for row. G5: July's approval refutation
+reversed at ceiling (24/24 and 24/24; expectation 1.000 at the tick,
+0.000 off it; the frames' context row reproduces July's exact
+digits). Teaching now transmits expectations: V0 chains 24/24 against
+G3's 13/24, cold start erased by demonstration-taught heads. Then the
+post-approval hangover: valuing expected praise taxes earning it
+~70%; avoidance, not sycophancy. Ends on the open design question
+E3.1 inherits: praise as a label, not fuel.
+Draws on: journey 0072, 0073, 0057; motivation-stack README (src
+closure, G5, context rows); specs/040-event-pathway/.
+
+**What the record queues next (not yet chapters):** E3.1, the
+anticipated verdict wired into a want, behind an owner design
+conversation and its own registered gate (hazard list: the one-step
+reach wall, the hangover, avoidant collapse at dose); the brain-side
+hold (the shipped product still holds position with nothing — the
+clone-step potential remains research scaffolding); G4, a world with
+a meter (idling costs, food exists, death at zero — both testbeds are
+still paradise), with G2 (option-value) queued behind it.
 
 ## Not scheduled yet, parked
 

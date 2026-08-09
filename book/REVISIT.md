@@ -300,3 +300,21 @@ audit needs this list):
    runs"; ch 10 doubling baseline.
 9. Style calls: ch 7 bold cheat labels; ch 6 "(motors forward!)"; register
    candidates in ch 10 and ch 12.
+
+## Part 6 (chapters 14–15, drafted 2026-08-09)
+
+- [ ] **Ch 14** — "because I was only thinking about digs when I wrote it"
+  (the G1 completion-rule beat): interior moment inferred from the record's
+  "the hand-built rule only ever covered dig completion" — Daan confirm or
+  reword.
+- [ ] **Ch 15** — closing editorials in Daan's voice ("for information, not
+  for payment"; "my pupil learns most from praise when…"): supported by the
+  V0/V+ rows but owned opinions — confirm.
+- [ ] **Ch 14** — "a faithful stand-in of the same Minecraft mechanics, one
+  the test rig can copy and restart" (the FakeBridge gloss) — composite of
+  scattered record claims, never stated in one place; verify wording.
+- [ ] **Ch 14** — timing language ("before the day was out") inferred from
+  commit dates, not a recorded clock.
+- [ ] **Part 6 gap** — the parallel afternoon (episodes 0074–0075: the
+  brain-side hold, the inert label, the meter's runway) post-dates these
+  chapters; chapter 16 material once the reach arc concludes.

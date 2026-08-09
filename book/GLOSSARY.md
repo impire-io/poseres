@@ -53,3 +53,26 @@ error has been falling, so noise and mastered ground both score zero.
 **pre-registration** — deciding what will count as success, and what will
 count as failure, before an experiment runs, so the goalposts cannot move
 once the data is in. (Ch 13)
+
+## Part 6
+
+**oracle** — a measurement taken by peeking at the world's ground truth,
+which the brain itself could never make, used to mark the ceiling of what
+any learnable version could reach. (Ch 14)
+
+**election** — choosing, on purpose, to begin a sequence you know: its
+first step and all the steps after it. (Ch 14)
+
+**completion itch** — a small standing pull that makes begun things want
+finishing: starting is worth a little, continuing is worth more, and
+abandoning charges everything sunk. (Ch 14)
+
+**event head** — a small second predictor beside the frames, one model
+per action, predicting how every sensed number will change next; learned
+online from lived steps and built to be sharp about the moments when a
+number jumps. (Ch 14)
+
+**post-approval hangover** — the measured backfire of making expected
+praise valuable: right after praise lands, the praised loop's own next
+steps all predict praise going away, so the learner avoids the loop that
+earned it. (Ch 15)
