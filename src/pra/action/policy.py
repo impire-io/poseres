@@ -152,6 +152,8 @@ class CompletionItchPolicy:
         pocket_index: int,
         completion_threshold: float = 1.0 / 128.0,
         potential_of: Callable[[int], float] | None = None,
+        label_index: int | None = None,
+        label_beta: float = 0.0,
     ):
         self.params = params
         self.kappa = float(kappa)
@@ -159,6 +161,11 @@ class CompletionItchPolicy:
         self.pocket_index = int(pocket_index)
         self.completion_threshold = float(completion_threshold)
         self.potential_of = potential_of
+        # the praise label (feature 041; E3.1 + recipe-reach measured): read
+        # ONLY inside fired completions — the hangover mechanism cannot form.
+        # None (default) = off: bit-exact v1.2.0 behavior.
+        self.label_index = None if label_index is None else int(label_index)
+        self.label_beta = float(label_beta)
         self.last_was_directed = False  # telemetry only; overwritten every step
         self.completions_fired = 0
         self.false_completions = 0
@@ -187,8 +194,11 @@ class CompletionItchPolicy:
     def select_action(self, context: PolicyContext, rng: np.random.Generator) -> int:
         obs = context.observation
         if not self._indices_checked:
-            hi = max(self.progress_index, self.pocket_index)
-            lo = min(self.progress_index, self.pocket_index)
+            idxs = [self.progress_index, self.pocket_index] + (
+                [] if self.label_index is None else [self.label_index]
+            )
+            hi = max(idxs)
+            lo = min(idxs)
             if lo < 0 or hi >= obs.shape[0]:
                 raise ValueError(
                     f"CompletionItchPolicy: channel index {hi if hi >= obs.shape[0] else lo} "
@@ -227,6 +237,10 @@ class CompletionItchPolicy:
                 completion = float(delta[self.pocket_index]) > self.completion_threshold
                 if completion:
                     progress_after = 1.0
+                    if self.label_index is not None:
+                        progress_after += self.label_beta * min(
+                            max(float(delta[self.label_index]), 0.0), 1.0
+                        )
                 else:
                     progress_after = min(
                         max(progress_now + float(delta[self.progress_index]), 0.0), 1.0

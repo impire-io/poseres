@@ -170,6 +170,22 @@ without being designed to). This section stays within §6's rule: the drive
 set is untouched — the itch is a policy-term reading of a *sensed* channel,
 never a modified drive.
 
+### 4.5 Recipes and the praise label — **[O]** (feature 041, opt-in)
+
+Measured provenance: recipe-reach + E3.1 (episodes 0075/0076). The
+**label**: `CompletionItchPolicy(label_index=…, label_beta=…)` counts a
+fired completion fuller by `β·clip(Δ̂[label], 0, 1)` — the label is read
+only inside fired completions, so the G5-measured hangover cannot form;
+off (the default) is bit-exact 1.2.0 behavior. **Recipes**:
+`RecipeMemory` extracts remembered observation sequences from
+demonstrations (terminal = the applauded ending when a label channel is
+set); `RecipePolicy` selects the most-valued ending
+(drive + β·label), walks its stepping stones via the event head's
+predicted positions (Doc 0009's hold form, chained; nearest-step-plus-one
+pointer), and lets the itch work each station. Measured: transmission
+24/24 against a 0/24 label-alone floor; watch counters ship (advance
+events; out-of-context — the parrot). §6's rule holds: drives untouched.
+
 ---
 
 ## 5. Stability: counter-drives — **[D]** (optional, not in base build)
