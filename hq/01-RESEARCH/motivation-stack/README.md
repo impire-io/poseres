@@ -730,6 +730,32 @@ not name — not praise-farming but *praise-avoidance*, from wiring a
 still-learning expectation into value. κ₅\* = 0.25 by the registered
 rule (max firings 179; ties moot).
 
+**V+ arm (24 seeds at κ₅\* = 0.25)** `[measured]`: chains **23/24**
+(seed 12 the miss) — capability survives the term — but **firings 572
+against V0's 1,888 and sticks 863 against 2,473**: valuing the
+expectation of approval taxes the *earning* of it by ~70% at the
+smallest measured dose, exactly the hangover shape the pilot read.
+Hold intact (median dwell 100.0%), unique positions flat (median 22
+vs V0's ~20) — no exploration collapse, no praise-farming anywhere in
+either arm. The sycophancy watch closes with its question inverted:
+the measured failure mode of approval-as-value is avoidance, not
+sycophancy, and it appears at every dose tried.
+
+**G5 closes per the frozen decision rule (P5-a + P5-b PASS):**
+July's refutation is reversed; approval is perfectly expectable with
+the event pathway; layer 5's sensory floor exists in the product.
+**E3.1 — the anticipated verdict wired into a want — reopens as the
+successor gate, an owner design conversation first**, now with a
+measured hazard list its registration must answer: (1) one-step
+anticipation cannot initiate chains (E2.0h, standing); (2) the
+post-approval hangover — a value term on a still-learning expectation
+repels the agent from its praised loop (this gate); (3) the avoidant
+collapse at dose (κ₅ ≥ 1: log-hoarding, zero approvals). And one
+measured gift: teaching the predictor removed the cold-start barrier
+entirely (V0 24/24) — the parent's demonstrations now transmit
+*expectations*, not just frames, and expectation alone already
+carries election to ceiling on this cohort.
+
 ## Reversal condition
 
 The map is refuted in the best possible way if any single-layer gate

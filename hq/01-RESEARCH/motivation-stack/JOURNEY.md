@@ -133,3 +133,30 @@ prediction: P5-a 22–24, P5-b 19–23; the sparse 1-in-22 pulse is
 exactly episode 0072's named risk — a P5-b FAIL splits
 "event-sensitive" into dense/sparse regimes and makes the head's
 architecture the next question, before any want.
+
+**2026-08-09 afternoon — G5 lands: the brain learns to expect the
+well-done perfectly, and wanting it backfires.** The binding bars:
+**24/24 and 24/24** (bars 18) — every seed's completion-tick
+expectation at exactly 1.000 with off-tick 0.000, all rows identical
+(the head's cold-start-zero determinism ends the frames' expectation
+lottery), half-formed within five approvals. The frames' context row
+reproduced July to the digit (18/24, 14/24) — instrument proven in
+the act of being overturned. Then the context rows delivered two
+findings bigger than their status: **V0** — the shipped composition
+with approval merely present — chains **24/24** (G3's cohort: 13/24)
+because this cohort's head learned through the demonstrations and
+entered free-run pre-trained: teaching the predictor erased the
+cold-start barrier. And **V+** — the approval-anticipation term —
+*hurts at every dose*: firings 572 vs 1,888 at κ₅ = 0.25 (23/24
+chains — capability intact, praise-earning taxed 70%), log-hoarding
+with zero sticks at κ₅ ≥ 1. Mechanism reading: the post-approval
+hangover — the verdict's decay is learned online per action, so the
+praised loop's familiar continuations all predict approval-loss and
+get taxed the moment praise lands, while the untried stays untaxed.
+Not sycophancy: avoidance. E3.1 reopens as the successor with a
+measured hazard list (reach, hangover, avoidant collapse) and one
+gift (demonstrations now transmit expectations, and expectation
+alone carries election to ceiling). Prediction ledger: P5-a in range
+at the top; P5-b **above** its range — the seventh under-prediction;
+the V+ "within ±2 chains" call was wrong in the informative
+direction.

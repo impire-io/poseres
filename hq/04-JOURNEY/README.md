@@ -63,7 +63,19 @@ v1.2.0): the event head is brain state (one config dial, snapshot-
 persisted, byte-identical off) and the completion itch is a shipped
 policy — with the G3 confirmatory reproduced on shipped components
 **row for row**, closing 0071's reversal condition at behavioral
-identity. Queue: G5 — approval revisited — is unblocked and next.
+identity. **And G5 — approval revisited — ran the same afternoon**
+([0073](0073-the-hangover.md)): July's parked refutation reversed at
+ceiling — the head expects the approval pulse **perfectly** (24/24 on
+both bars, expectation 1.000 at the tick, 0.000 off it; the frames'
+context row reproduced July's 18/24 and 14/24 to the digit) — while
+the context arms delivered two mechanism findings: teaching the
+predictor erased the cold-start barrier (the shipped composition
+chains 24/24 on the head-taught cohort, vs G3's 13/24), and wiring
+the *anticipated* approval into value backfires — the post-approval
+hangover taxes praise-earning 70% at the smallest dose and collapses
+into avoidance at larger ones. Sycophancy watch closed inverted:
+avoidance, not farming. Queue: E3.1 (the approval want, hazard list
+measured) awaits the owner's design conversation; G2/G4 stand.
 
 **The project's working structure moved into `hq/`**
 ([episode 0045](0045-the-hq-restructure.md)): GENESIS holds the vision,
@@ -514,3 +526,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0070 | [The first elected chains: hold + itch](0070-the-first-elected-chains.md) |
 | 0071 | [Wanting follows expecting: the event pathway restores the pass](0071-wanting-follows-expecting.md) |
 | 0072 | [The event pathway ships: the brain keeps its expectations](0072-the-event-pathway-ships.md) |
+| 0073 | [Expecting the well-done perfectly; wanting it, backwards](0073-the-hangover.md) |
