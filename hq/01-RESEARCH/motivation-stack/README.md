@@ -861,6 +861,60 @@ this dose — the layers conflict; measure which starves first.
 M2 PASS 22–24/24 surviving (V0 measured ~79 gain events/seed —
 orders above subsistence); miser watch quiet at this dose.
 
+## E3.1 outcome [measured, 2026-08-09] — T1 FAIL 0/24, T2 PASS 22/24: the label is inert, and reach formally blocks layer 5
+
+Cohort green (57 segments × 24 seeds: 45/45 wood crafts, every cobble
+segment exactly one gain + one firing, wood segments silent). Pilot
+published first: **zero cobblestone at every β** (0/8 × {0.5, 1, 2}),
+chains 8/8 everywhere; β\* = 0.5 by rule. The 24-seed arm confirms:
+
+- **Bar T1 — transmission: FAIL 0/24** (bar ≥ 12). Not one seed
+  gained one cobblestone; the farming row never existed to fire.
+- **Bar T2 — own goals: PASS 22/24** chains, 1,492 sticks — the
+  label is perfectly harmless; the hangover's mechanical exclusion
+  held (no dose did any damage, unlike the κ₅ term's −70%).
+
+**Per the frozen decision rule: the label cannot overcome one-step
+reach to the applauded context.** The mechanism is exactly the
+myopia the rule named `[mechanism-argument]`: the label pays only
+when the completion rule fires — one step from a finished mineral
+dig — and no term in the composition values the *walk* to the
+mineral face; the wood loop is a value-rich attractor the bot never
+leaves (dwell 100%). Approval's *expectation* is perfect (G5), its
+*label* is safe (this gate), and neither can steer without
+multi-step reach: **E2.1 — rollouts / means-ends / skills — now
+formally blocks layer 5**, upgraded from refinement to prerequisite.
+Prediction ledger: T1 predicted 14–20, measured 0 — the eighth miss,
+and the first *over*-prediction of a composed mechanism; the ledger's
+lesson inverts: composition is under-predicted, *reach* is
+over-predicted.
+
+## G4 outcome [measured, 2026-08-09] — M1 PASS, M2 FAIL: the meter bites, and the runway is shorter than learning
+
+Cohort green (45/45 crafts per seed, no deaths in teaching — the
+demos feed the learner). Both arms at 24 seeds:
+
+- **Bar M1 — the meter bites: PASS.** Frontier-alone starves on the
+  idle clock: median survival **2,001** ticks (bar < 3,000), dwell
+  < 1%, zero gains anywhere — E0's null now has a body count.
+- **Bar M2 — the stack feeds itself: FAIL 10/24 alive** — but
+  **24/24 working** (every seed gained logs; 1,905 sticks across the
+  arm; unique positions median 22, the miser twin silent). The
+  composition does not conflict with the floor — it loses a race
+  against it `[mechanism-argument]`: the energy runway from cold
+  start is ~2,000 ticks and the cohort's median time-to-first-chain
+  is ~2,300; the seeds that chain early live, the rest die
+  mid-effort, tools in hand.
+- The stack-level reading this measures `[judgment]`: layer 1 and
+  the upper layers couple through *time* — stakes punish slow
+  starters, and what covers that gap in every real creature is
+  **provisioning: the parent feeds the child until competence pays**.
+  Layer 5 and layer 1 are not independent rungs; the meter's honest
+  dose likely includes a provisioning phase, which is a design
+  decision for the owner, not a re-dose to sneak through.
+  Prediction ledger: M2 predicted 22–24 alive, measured 10 — the
+  ninth miss.
+
 ## Reversal condition
 
 The map is refuted in the best possible way if any single-layer gate

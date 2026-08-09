@@ -175,3 +175,19 @@ energy decays 0.0005/tick, +0.1 per pocket gain, death at zero;
 bars: frontier-alone starves (median < 3,000) while the composition
 feeds itself (≥ 18/24 survive AND work); the miser watched. H1 (the
 brain-side hold) runs in its own topic the same afternoon.
+
+**2026-08-09 evening — the parallel afternoon lands: three gates,
+three different verdicts.** H1 (own topic): both bars PASS — the
+brain-side hold works (98.22% dwell, 23/24 chains, no clone
+anywhere); the composition is deployable and c1d registrable. E3.1:
+T1 FAIL 0/24 at every dose with T2 PASS 22/24 — the label is
+perfectly safe and perfectly inert; one-step reach blocks the walk
+to the applauded context, so E2.1 upgrades from refinement to
+layer-5 prerequisite. The ledger's first over-prediction of a
+composed mechanism (T1 predicted 14–20, measured 0): composition
+keeps beating predictions, reach keeps losing to them. G4: M1 PASS
+(frontier starves at median 2,001 — E0's null has a body count),
+M2 FAIL-informative (10/24 alive but 24/24 working — the runway is
+shorter than time-to-first-chain; stakes race learning, and the gap
+is what provisioning exists for). Episodes 0074 (H1 graduation) and
+0075 record the afternoon.
