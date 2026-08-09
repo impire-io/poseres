@@ -149,6 +149,10 @@ function handleClient(socket) {
       })
       .catch((err) => console.error("request handling error:", err.message || err));
   });
+  // a vanished client must never take the bridge down (EPIPE reaches the
+  // readline Interface as an 'error' event; unhandled it kills the process)
+  socket.on("error", (err) => console.error("client socket error:", err.code || err.message));
+  lines.on("error", (err) => console.error("client stream error:", err.code || err.message));
   socket.on("close", () => {
     busy = false;
     clearControls();
