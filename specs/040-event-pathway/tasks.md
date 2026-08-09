@@ -60,15 +60,15 @@ shipped components reproduce Bar A at the G3 gate.
 **Independent Test**: The rerun consumes only shipped head/policy plus the
 existing harness instrumentation; bars recorded pass or fail.
 
-- [ ] T012 [US3] Write the rerun runner in the session scratchpad (arc convention — not the repo): the G3 confirmatory protocol (24 P0 graduates, κ = 0.25, H = 5,000) with `event_head_eta = 0.5` in the resumed config and shipped `CompletionItchPolicy` (clone-step hold injected via `potential_of`, λ = 0.25); execute it
-- [ ] T013 [US3] Record the rerun's three bars in `hq/01-RESEARCH/motivation-stack/README.md` (a "src closure" subsection under the G3 outcome) and a dated entry in `hq/01-RESEARCH/motivation-stack/JOURNEY.md` — pass or fail, same day
+- [x] T012 [US3] Write the rerun runner in the session scratchpad (arc convention — not the repo): the G3 confirmatory protocol (24 P0 graduates, κ = 0.25, H = 5,000) with `event_head_eta = 0.5` in the resumed config and shipped `CompletionItchPolicy` (clone-step hold injected via `potential_of`, λ = 0.25); execute it
+- [x] T013 [US3] Record the rerun's three bars in `hq/01-RESEARCH/motivation-stack/README.md` (a "src closure" subsection under the G3 outcome) and a dated entry in `hq/01-RESEARCH/motivation-stack/JOURNEY.md` — pass or fail, same day
 
 ## Phase 6: Polish & Cross-Cutting Concerns
 
 - [x] T014 Add surface entries to `tests/contract/surface_inventory.py` per contracts/surface.md (CompletionItchPolicy class; the two C1 index constants)
 - [x] T015 [P] Update design docs: `hq/02-DESIGN/0005-motivation-action.md` (the event pathway + CompletionItchPolicy sections, measured provenance), `hq/02-DESIGN/0007-configuration-reference.md` (`event_head_eta` row), `hq/02-DESIGN/0008-public-api-versioning.md` (1.2.0 additive-change note)
 - [x] T016 Bump version to 1.2.0 in `pyproject.toml` (verify `pra.__version__` follows; adjust its source if pinned elsewhere)
-- [ ] T017 Full quality gate green; journey episode via `/journey-log` (feature landed, committed with the work), roadmap ledger row; merge `040-event-pathway` → `main` and push
+- [x] T017 Full quality gate green; journey episode via `/journey-log` (feature landed, committed with the work), roadmap ledger row; merge `040-event-pathway` → `main` and push
 
 ## Dependencies & Execution Order
 

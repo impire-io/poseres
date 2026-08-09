@@ -99,3 +99,17 @@ watch: no stall (20 high abandons / 120k steps), no cobblestone at
 composition claim is restored, the src build is the owner's call,
 and G5 unblocks. Prediction ledger: sixth A-side under-prediction;
 B under-predicted too. Episode 0071 records the landmark.
+
+**2026-08-09 — the build lands and the closure is exact.** The owner's
+"build it for real": feature 040 through spec-kit (spec → plan → tasks →
+implementation, branch `040-event-pathway`, v1.2.0) ships the event head
+as brain state and the completion itch as a shipped policy — off by
+default and byte-identical, on by one config dial. The G3 confirmatory
+rerun on shipped components reproduced the prototype's rows **exactly**
+(every seed: same logs, same chain ticks, same MAE, same counters —
+identical floats), closing 0071's reversal condition at behavioral
+identity rather than bar level. The head now persists in snapshots: the
+next long run's brain keeps its learned expectations across restarts —
+the prototype relearned from zero each session. Queue standing: G5
+(approval revisited) is the unblocked next gate; G2/G4 behind it;
+E2.1 refinements now compete on top of a shipped mechanism.

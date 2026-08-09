@@ -57,9 +57,13 @@ head sharpens the brain's self-perception 7.5× (0.0612 → 0.0081),
 election returns 24/24 (303 logs), and chains hit **13/24, double
 the bar and double the oracle arm**, because the learned completion
 rule generalized to crafting where the hand-built oracle never
-reached. Wanting follows expecting. What it licenses: the src build
-of the event head + itch (spec-kit; the owner's call) and G5 —
-approval revisited — unblocked.
+reached. Wanting follows expecting. **And the next morning the build
+landed** ([0072](0072-the-event-pathway-ships.md), feature 040,
+v1.2.0): the event head is brain state (one config dial, snapshot-
+persisted, byte-identical off) and the completion itch is a shipped
+policy — with the G3 confirmatory reproduced on shipped components
+**row for row**, closing 0071's reversal condition at behavioral
+identity. Queue: G5 — approval revisited — is unblocked and next.
 
 **The project's working structure moved into `hq/`**
 ([episode 0045](0045-the-hq-restructure.md)): GENESIS holds the vision,
@@ -509,3 +513,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0069 | [Goal homing: presence solved, election isolated](0069-goal-homing.md) |
 | 0070 | [The first elected chains: hold + itch](0070-the-first-elected-chains.md) |
 | 0071 | [Wanting follows expecting: the event pathway restores the pass](0071-wanting-follows-expecting.md) |
+| 0072 | [The event pathway ships: the brain keeps its expectations](0072-the-event-pathway-ships.md) |
