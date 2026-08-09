@@ -135,6 +135,41 @@ When frames are empty or too immature for their transition predictions to be mea
 
 **[O] note:** one-step lookahead is myopic. Multi-step planning is a permitted, expected future replacement behind the same `Policy` interface; it is **out of scope** for the base build.
 
+### 4.4 The event pathway and the completion itch — **[O]** (feature 040, opt-in)
+
+Measured provenance: motivation-stack G3, episode 0071 — the one-step frame
+prediction reads fast, discrete channels too coarsely to rank actions on
+(pred error 0.0612 against a 0.083 one-tick signal), and election scales
+with progress-signal fidelity and nothing else (0/24 → 11/24 → 24/24 across
+the three measured arms).
+
+**The event head** (`Config.event_head_eta > 0`; Doc 07): a second,
+bottleneck-free prediction pathway beside the frames — per action, a linear
+model of the next-observation *delta* over all sensed channels, learned by
+normalized LMS (cold start zero, no RNG, one update per executed transition,
+including continuous-mode virtual episode boundaries). It is brain state: it
+lives with the frame store, travels in snapshots, and resizes with the
+anatomy (growth zero-initialized — "predicts no change"). The policy context
+exposes it as `predict_event_delta(action)`, `None` when off.
+
+**The completion itch** (`CompletionItchPolicy`): the 4.2 lookahead plus an
+optional caller-injected per-action term plus one new term,
+`κ · (progress_after − progress_now)`, where `progress_after` reads the event
+head with the learnable completion rule — a predicted pocket gain above the
+threshold counts progress as full, else clipped sensed progress + predicted
+delta. Same draw order, gates, candidate-skip, and tie-breaking as 4.2; the
+itch is inert when the head is off. Channel indices are anatomy knowledge
+(constructor parameters; the Minecraft anatomy exports
+`C1_MINING_INDEX`/`C1_POCKET_TOTAL_INDEX`). The measured operating point:
+η = 0.5, κ = 0.25, threshold half an item. The itch **composes** — itch
+without a hold measured 2/8 digging and 0/8 chains (G1's control arm) — and
+the policy ships bounded honesty counters (completions fired, false
+completions, progress prediction-error EMA) because the completion rule
+generalizes to any predicted acquisition (crafting became itchy in G3
+without being designed to). This section stays within §6's rule: the drive
+set is untouched — the itch is a policy-term reading of a *sensed* channel,
+never a modified drive.
+
 ---
 
 ## 5. Stability: counter-drives — **[D]** (optional, not in base build)

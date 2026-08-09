@@ -120,6 +120,17 @@ class Config:
     # (ceil(1/(1-beta)) samples), not a constant.
     channel_stats_decay: float = 0.995
 
+    # --- Event head (feature 040; motivation-stack G3, episode 0071).
+    # 0.0 = off: the pinned validated default — no head state, no float work,
+    # no RNG, byte-identical. η > 0 = a second, bottleneck-free prediction
+    # pathway beside the frames: per-action normalized-LMS linear models of
+    # the next-observation delta, cold-started at zero, learning once per
+    # executed transition (including continuous-mode virtual episode
+    # boundaries — the stream the measured instrument learned from). Stable
+    # for η < 2 (the NLMS bound); 0.5 is the G3-measured operating point
+    # (progress-channel pred error 0.0081 vs the frames' 0.0612). ---
+    event_head_eta: float = 0.0
+
     # --- Schedule ---
     warmup_episodes: int = 25
     n_cycles: int = 18
@@ -271,6 +282,10 @@ class Config:
         require(
             0.0 <= self.channel_stats_decay < 1.0,
             "channel_stats_decay must be in [0, 1)",
+        )
+        require(
+            0.0 <= self.event_head_eta < 2.0,
+            "event_head_eta must be in [0, 2) (0 = off; NLMS stability bound)",
         )
 
         require(self.warmup_episodes >= 0, "warmup_episodes must be >= 0")

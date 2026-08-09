@@ -91,6 +91,9 @@ SURFACE: tuple[SurfaceEntry, ...] = (
     E("pra.anatomy.minecraft.PROTOCOL_VERSION", "constant", "world-body", None),
     E("pra.anatomy.minecraft.C1_OBS_DIM", "constant", "world-body", None),
     E("pra.anatomy.minecraft.C1_N_ACTIONS", "constant", "world-body", None),
+    # the completion-itch policy's anatomy knowledge (feature 040)
+    E("pra.anatomy.minecraft.C1_MINING_INDEX", "constant", "world-body", None),
+    E("pra.anatomy.minecraft.C1_POCKET_TOTAL_INDEX", "constant", "world-body", None),
     E("pra.anatomy.minecraft.C1_SENSORS", "constant", "world-body", None),
     E("pra.anatomy.minecraft.C1_ACTUATORS", "constant", "world-body", None),
     E("pra.anatomy.ros2.Ros2Body", "class", "world-body", None),
@@ -114,6 +117,20 @@ SURFACE: tuple[SurfaceEntry, ...] = (
     E("pra.action.policy.PolicyContext", "dataclass", "drive", None),
     E("pra.action.policy.RandomPolicy", "class", "drive", None),
     E("pra.action.policy.CuriosityLookaheadPolicy", "class", "drive", None),
+    # the event pathway's shipped policy (feature 040; motivation-stack G3)
+    E(
+        "pra.action.policy.CompletionItchPolicy",
+        "class",
+        "drive",
+        (
+            "params",
+            "kappa",
+            "progress_index",
+            "pocket_index",
+            "completion_threshold",
+            "potential_of",
+        ),
+    ),
     E("pra.action.policy.PolicyParams", "dataclass", "drive", None),
     E("pra.motivation.drive.Drive", "protocol", "drive", None),
     E("pra.motivation.drive.CuriosityDrive", "class", "drive", None),

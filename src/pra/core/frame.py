@@ -391,6 +391,14 @@ class FrameStore:
             self._cw_beta = float(config.channel_stats_decay)
             self._cw_ready_at = math.ceil(1.0 / (1.0 - self._cw_beta))
             self._cw_init_stats(self.obs_dim)
+        # Event head (feature 040; motivation-stack G3, episode 0071): a
+        # second, bottleneck-free prediction pathway beside the frames.
+        # Off (eta == 0, the default): no state, no float work, no RNG —
+        # the pinned validated path, byte-identical.
+        self._eh_eta = float(config.event_head_eta)
+        self._eh_on = self._eh_eta > 0.0
+        if self._eh_on:
+            self._eh_init(self.obs_dim, self.n_actions)
 
     # ---- learned channel weighting (store-level: channel quality is a world
     # property, not a frame property; one estimator, one weight vector) -------
@@ -439,6 +447,36 @@ class FrameStore:
             "ready_channels": int((self._cw_n >= self._cw_ready_at).sum()),
             "final_weights": [round(float(x), 4) for x in self._cw_w],
         }
+
+    # ---- event head (feature 040: per-action normalized-LMS delta models —
+    # the G3 gate's measured mechanism. Store-level for the same reason the
+    # channel estimator is: brain-side learning state that must persist,
+    # resize, and outlive any injected policy. No RNG anywhere.) -------------
+    def _eh_init(self, obs_dim: int, n_actions: int) -> None:
+        # Cold start at zero = "predicts no change": wanting follows
+        # expecting, and expectations are earned from experience.
+        self._eh_W = np.zeros((n_actions, obs_dim, obs_dim + 1))
+        self._eh_updates = 0
+
+    @property
+    def event_head_on(self) -> bool:
+        return self._eh_on
+
+    def event_learn(self, prev_obs: np.ndarray, action: int, obs: np.ndarray) -> None:
+        """One NLMS update from one executed transition. The engine calls
+        this at its step-loop transition site — the only place that sees
+        every transition the policy witnesses, including continuous-mode
+        virtual episode boundaries (the stream the G3 instrument measured);
+        in episodic mode the site never spans a world reset."""
+        x = np.append(prev_obs, 1.0)
+        err = (obs - prev_obs) - self._eh_W[action] @ x
+        self._eh_W[action] += self._eh_eta * np.outer(err, x) / float(x @ x)
+        self._eh_updates += 1
+
+    def event_predict(self, obs: np.ndarray, action: int) -> np.ndarray:
+        """The predicted next-observation delta for ``action`` at ``obs``.
+        Read-only: never mutates weights or consumes RNG."""
+        return self._eh_W[action] @ np.append(obs, 1.0)
 
     # ---- population ----------------------------------------------------------
     @property
@@ -501,6 +539,18 @@ class FrameStore:
             elif d_obs < 0:
                 for name in ("_cw_m", "_cw_v", "_cw_cov", "_cw_n", "_cw_w"):
                     setattr(self, name, getattr(self, name)[: int(new_obs_dim)])
+        if self._eh_on:
+            # event head resize (feature 040): existing entries bit-for-bit,
+            # growth zero-initialized ("predicts no change" — the cold-start
+            # semantics), shrink truncated, no RNG drawn. The bias column
+            # stays the last input column at every width.
+            old = self._eh_W
+            a = min(old.shape[0], int(new_n_actions))
+            d = min(old.shape[1], int(new_obs_dim))
+            w = np.zeros((int(new_n_actions), int(new_obs_dim), int(new_obs_dim) + 1))
+            w[:a, :d, :d] = old[:a, :d, :d]
+            w[:a, :d, int(new_obs_dim)] = old[:a, :d, old.shape[1]]
+            self._eh_W = w
         self.obs_dim = int(new_obs_dim)
         self.n_actions = int(new_n_actions)
         self._lr = float(self.config.learning_rate * (OBS_DIM_REF / new_obs_dim) ** 1.5)
@@ -593,6 +643,13 @@ class FrameStore:
                 "n": np.array(self._cw_n, copy=True),
                 "w": np.array(self._cw_w, copy=True),
             }
+        if self._eh_on:
+            # event-head weights are behavior-affecting → snapshot state;
+            # written only when on (the channel_stats additive pattern).
+            state["event_head"] = {
+                "W": np.array(self._eh_W, copy=True),
+                "updates": self._eh_updates,
+            }
         return state
 
     def load_state_dict(self, state: dict) -> None:
@@ -628,6 +685,16 @@ class FrameStore:
                 # with the feature newly enabled: the estimator starts fresh
                 # from new data — stated openly (spec US3 scenario 2).
                 self._cw_init_stats(self.obs_dim)
+        if self._eh_on:
+            eh = state.get("event_head")
+            if eh is not None:
+                self._eh_W = np.array(eh["W"], copy=True)
+                self._eh_updates = int(eh["updates"])
+            else:
+                # pre-040 blob (or one written with the head off) resumed
+                # with the head newly enabled: cold start from new data —
+                # the stated-refill rule (feature 040 spec, edge cases).
+                self._eh_init(self.obs_dim, self.n_actions)
 
     def best_frame_predictor(self, scorer):
         """The current best frame's ``(age_cycles, predict_decoded)`` for the

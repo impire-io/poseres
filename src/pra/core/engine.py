@@ -28,6 +28,7 @@ from pra.action.policy import (
     PolicyContext,
     PolicyParams,
     RandomPolicy,
+    _no_event_delta,
 )
 from pra.config import Config
 from pra.core.bus import Bus, FrameProcessor, InMemorySyncBus
@@ -374,12 +375,22 @@ class Engine:
                     def _predict(action: int, _p=predictor, _obs=obs):
                         return None if _p is None else _p(_obs, action)
 
+                    if store.event_head_on:
+                        # event-head accessor (feature 040): the per-action
+                        # predicted observation delta at the current
+                        # observation — read-only, no RNG, mirrors _predict.
+                        def _event_delta(action: int, _s=store, _obs=obs) -> np.ndarray:
+                            return _s.event_predict(_obs, action)
+                    else:
+                        _event_delta = _no_event_delta
+
                     ctx = PolicyContext(
                         observation=obs,
                         n_actions=w.n_actions,
                         best_frame_age=age,
                         predict_decoded=_predict,
                         drive_value_of=_value_of,
+                        predict_event_delta=_event_delta,
                     )
 
                 prev_obs = obs
@@ -387,6 +398,13 @@ class Engine:
                 if agency is not None:
                     agency.record_step(policy, obs, mean_pred)
                 obs = w.step(prev_a)
+                if store.event_head_on:
+                    # Event pathway (feature 040): one NLMS update per executed
+                    # transition, at the only site that sees the boundary
+                    # transitions the measured instrument learned from
+                    # (continuous mode carries `obs` into the next virtual
+                    # episode; episodic mode never pairs across a reset here).
+                    store.event_learn(prev_obs, prev_a, obs)
             if continuous:
                 # The trailing observation (discarded in episodic mode, where
                 # the next reset supersedes it) becomes this stream's next

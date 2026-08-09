@@ -26,6 +26,13 @@ the gate. What this document adds is the *promise* around the list.
   newer release under Doc 0006's config-in-force rules. Anything
   beyond that is documented explicitly when it exists; silence means
   no promise.
+- **Release notes (additive minors)**: v1.2.0 (feature 040, the event
+  pathway) adds `Config.event_head_eta` (default 0.0 = off,
+  byte-identical), the defaulted `PolicyContext.predict_event_delta`
+  accessor, `CompletionItchPolicy`, and the two C1 channel-index
+  constants — keyword-only-legal additions under this policy; snapshot
+  blobs gain an additive-optional event-head key (head-off blobs stay
+  bit-identical).
 - **Internal by default**: everything not listed below. Internals stay
   importable — the research arcs' copy-patch instrument discipline
   depends on reaching them — but they are visibly outside the promise
@@ -90,8 +97,10 @@ subject-builder functions listed under Operational below.
 | `pra.anatomy.gymnasium_body.GymnasiumBody` | class | — |
 | `pra.anatomy.gymnasium_body.GymnasiumWorld` | class | — |
 | `pra.anatomy.minecraft.C1_ACTUATORS` | constant | — |
+| `pra.anatomy.minecraft.C1_MINING_INDEX` | constant | — |
 | `pra.anatomy.minecraft.C1_N_ACTIONS` | constant | — |
 | `pra.anatomy.minecraft.C1_OBS_DIM` | constant | — |
+| `pra.anatomy.minecraft.C1_POCKET_TOTAL_INDEX` | constant | — |
 | `pra.anatomy.minecraft.C1_SENSORS` | constant | — |
 | `pra.anatomy.minecraft.FakeBridge` | class | — |
 | `pra.anatomy.minecraft.MinecraftTransport` | class | — |
@@ -136,6 +145,7 @@ subject-builder functions listed under Operational below.
 
 | Element | Kind | Promised parameters |
 |---|---|---|
+| `pra.action.policy.CompletionItchPolicy` | class | params, kappa, progress_index, pocket_index, completion_threshold, potential_of |
 | `pra.action.policy.CuriosityLookaheadPolicy` | class | — |
 | `pra.action.policy.Policy` | protocol | — |
 | `pra.action.policy.PolicyContext` | dataclass | — |
