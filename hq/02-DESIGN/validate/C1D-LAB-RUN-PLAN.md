@@ -54,8 +54,14 @@ lab world's measured ~500–700 steps/s ≈ one weekend.
 ## Stop rules (frozen)
 
 1. **Death** — energy hits zero: the life ended; stop, full report.
-2. **Goal met (the owner's early-stop)** — ≥ 2,000 full chains before
-   target: graduation; stop, full report.
+2. **Goal met (the owner's early-stop)** — ≥ 2,000 full chains **and ≥
+   25M steps**: graduation; stop, full report. *(Amended openly
+   2026-08-09 before the rule fired, raw numbers recorded: segment 1
+   measured 131 chains per 50k steps under regrowth — the bare count
+   would have fired at ~1.5% of target with zero endurance readings,
+   the run's registered purpose. The chain bar was dosed against
+   pre-regrowth scarcity; the amendment gates graduation on the
+   deciles existing.)*
 3. **Futility** — zero chains across any consecutive 10M steps after
    childhood: stop, full report.
 4. **Manual** — the stop file (`c1d-STOP`) or the owner's word to the
