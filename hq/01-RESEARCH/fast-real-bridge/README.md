@@ -81,11 +81,36 @@ honest road to fast fidelity, per the ladder conversation.
   physics — the registered distortion, first measured in practice:
   17 brain-steps to cross a block at 10× vs 4 at 1×).
 
-**What stands `[measured]`:** the time machine itself is real — vanilla
-1.21.11 runs 10× with exact throughput and intact pacing. **What blocks
-c1e** `[judgment]`: not speed — dig reliability at any speed. Successor
-bars (a re-registration, not a quiet retry): B2′ as a *relative* bar
-(success rate at M within noise of the 1× reference, n ≥ 20 reps per
-arm) once the bridge's dig robustness question (its own small fix-and-
-gate: why mineflayer aborts mid-break, likely look/movement validation)
-is answered. Both are named work, neither started.
+**The dig question ANSWERED [measured, 2026-08-09 late night,
+delegated diagnosis]:** every abort was self-inflicted. `aheadColumn()`
+had been wrong since feature 027: mineflayer's yaw is π − notchian yaw
+(forward = (−sin, −cos)) but the bridge used +cos — mirroring z, naming
+the block BEHIND a z-facing body — and `Math.round` shifted it another
+half block onto a diagonal neighbour whose identity flips whenever a
+coordinate fraction crosses .5. Instrumented evidence: all 16 aborts in
+the gate repro traced to the bridge's own `stopDig()` (11 by design
+from harness walk commands, 5 from the flip renaming "ahead" 53 ms
+into a 3,000 ms break); the server never refused a break; the missing
+pickups were drops stranded off the walking axis. **c1c's 449 digs
+survived only because mineflayer's 5.1-block reach let the body
+quietly mine its diagonal-rear neighbour — the c1c record stands but
+was sensed on mirrored geometry.** The lab world is unaffected (its
+locomotion and _ahead share one formula — self-consistent; c1d and
+every gate stand).
+
+**The fix (landed f972181):** `floor(x − sin), floor(y), floor(z −
+cos)` + the held dig intention outlives momentary re-aims (the
+recomputed column no longer releases the block being broken). Probes,
+break and collect counted separately against server ground truth:
+stable 20/20+20/20 (was 20/20 break, 14/20 collect), drift arm
+10/10+10/10 (was 5/10+3/10), tick rate 100 (5×) 10/10+10/10 — zero
+aborts anywhere post-fix, ticks-to-break scaling exactly with wall
+time.
+
+**What remains for M\*:** the formal B2′ grid (relative bar, n ≥ 20
+per arm, wall-time-bounded dig holds, per-rep drop cleanup — the four
+probe-design corrections the diagnosis named) at M ∈ {2, 5, 10} on the
+fixed geometry; the probes already show 5× clean. Registration note
+for c1e: it registers on the FIXED geometry (blocks/dig/place all read
+the corrected column; the fake↔real convention difference is a
+transfer note, not a bug).

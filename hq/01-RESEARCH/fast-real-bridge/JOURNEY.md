@@ -17,3 +17,13 @@ route (EPIPE crash, rcon flag-parsing, the 180° yaw convention split,
 wall-clock walk displacement — the registered distortion measured for
 the first time). Successors named: the bridge dig-robustness fix, then
 B2′ as a relative bar at n ≥ 20.
+
+**2026-08-09 late night — the hands were never unreliable; the map
+was wrong.** Delegated diagnosis with instrumented digs: aheadColumn
+mirrored in z (+cos for −cos) and half-block-shifted (round for floor)
+since feature 027 — every abort was the bridge releasing its own dig
+when sub-block drift renamed "ahead"; c1c mined its diagonal-rear
+neighbour for 16 days on reach tolerance. Fix landed (f972181):
+20/20, 10/10 drift, 10/10 at 5× — zero aborts. The lab world is
+self-consistent and untouched. B2′ grid on fixed geometry is the
+remaining formality; c1e registers on the fixed map.
