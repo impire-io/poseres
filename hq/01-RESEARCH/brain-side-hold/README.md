@@ -62,4 +62,24 @@ topic's premise.
 
 ## Verdict
 
-<Empty until graduation.>
+**Both bars PASS [measured, 2026-08-09, 308 s for both arms]** — the
+clone-step Φ is replaced by the brain's own model, and the last piece of
+laboratory scaffolding in the stay/want/finish composition falls.
+
+- **H1a — the hold: PASS, median dwell 98.22%** (bar ≥ 20%; the clone
+  reference 99.98%). The online learning curve is the mechanism, visible:
+  median dwell 91.5% over the first 1,000 steps rising to **100.0%** over
+  the last 1,000 — the head's movement models (never shown forward/back in
+  teaching) converge from ε-exploration inside the first fifth of the run
+  and then hold at the clone's level `[measured]`.
+- **H1b — the composition: PASS 23/24 chains** (bar ≥ 6/24; the clone
+  reference on this cohort 24/24), 647 logs, 1,919 sticks. The full
+  composition — frames' drive, head-derived hold, head-driven completion
+  itch — runs with **no ground-truth access anywhere**: every term reads
+  the brain's own senses, memories, and learned predictions `[measured]`.
+- What this closes `[judgment]`: the deployability gap named at the
+  topic's opening. Every component of the measured behavior is shipped
+  (feature 040) or taught (the goal observation); a c1d long run of the
+  full composition is now registrable with zero scaffolding.
+
+Reversal condition standing as registered; nothing fired.
