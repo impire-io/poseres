@@ -108,3 +108,12 @@ obsessive as the binding twin and re-doses β before any successor.
 Reversal condition standing; nothing fired. Named successor (a new
 topic when licensed): recombination — recipes composed across taught
 fragments, the true means-ends question.
+
+**Src closure [measured, 2026-08-09 night]:** feature 041 (v1.3.0)
+promoted the mechanism — the label as keyword params on the shipped
+itch (read only inside fired completions), `RecipeMemory` +
+`RecipePolicy` in `pra.action.recipe` — and the 24-seed arm rerun on
+shipped classes reproduced the gate **row for row** (24/24 identical
+across dwell/chains/logs/sticks/cobble; R1 24/24, R2 18/24, 3,129
+events). The 040 standard, met again: the mechanism, not the
+instrument, carried the pass.

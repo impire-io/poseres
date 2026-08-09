@@ -33,6 +33,10 @@ the gate. What this document adds is the *promise* around the list.
   constants — keyword-only-legal additions under this policy; snapshot
   blobs gain an additive-optional event-head key (head-off blobs stay
   bit-identical).
+- **Release notes (additive minors)**: v1.3.0 (feature 041) adds the
+  praise label to `CompletionItchPolicy` (keyword-only, off by default,
+  bit-exact when off) and `pra.action.recipe` (Recipe, RecipeMemory,
+  RecipePolicy) — the measured recipe-reach mechanism as product.
 - **Internal by default**: everything not listed below. Internals stay
   importable — the research arcs' copy-patch instrument discipline
   depends on reaching them — but they are visibly outside the promise
@@ -145,7 +149,10 @@ subject-builder functions listed under Operational below.
 
 | Element | Kind | Promised parameters |
 |---|---|---|
-| `pra.action.policy.CompletionItchPolicy` | class | params, kappa, progress_index, pocket_index, completion_threshold, potential_of |
+| `pra.action.policy.CompletionItchPolicy` | class | params, kappa, progress_index, pocket_index, completion_threshold, potential_of, label_index, label_beta |
+| `pra.action.recipe.Recipe` | dataclass | — |
+| `pra.action.recipe.RecipeMemory` | class | pocket_index, label_index |
+| `pra.action.recipe.RecipePolicy` | class | params, memory, kappa, progress_index, pocket_index, lambda_r, position_indices, position_scale, completion_threshold, label_index, label_beta |
 | `pra.action.policy.CuriosityLookaheadPolicy` | class | — |
 | `pra.action.policy.Policy` | protocol | — |
 | `pra.action.policy.PolicyContext` | dataclass | — |

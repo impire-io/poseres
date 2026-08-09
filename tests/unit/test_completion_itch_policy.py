@@ -183,3 +183,43 @@ def test_c1_channel_constants_are_derived_from_the_specs():
         offset += spec.width
     assert C1_MINING_INDEX == expected[("mining", "progress")] == 14
     assert C1_POCKET_TOTAL_INDEX == expected[("pocket", "total")] == 15
+
+
+# --- the praise label (feature 041) ------------------------------------------
+
+
+def test_label_off_is_bit_exact_parity():
+    a = _policy()
+    b = _policy()  # label defaults off
+    obs = np.zeros(6)
+    fires = np.zeros(6)
+    fires[3] = 1.0
+    ra, rb = np.random.default_rng(9), np.random.default_rng(9)
+    for _ in range(50):
+        ctx = _ctx(obs=obs, event=lambda a_: fires)
+        assert a.select_action(ctx, ra) == b.select_action(ctx, rb)
+    assert ra.bit_generator.state == rb.bit_generator.state
+
+
+def test_label_counts_fired_completions_fuller():
+    # action 1 completes with applause predicted; action 0 completes without
+    deltas = {0: np.zeros(6), 1: np.zeros(6), 2: np.zeros(6)}
+    for k in (0, 1):
+        deltas[k][3] = 1.0  # both fire the completion rule
+    deltas[1][5] = 2.0  # predicted label delta (clipped to 1)
+    p = _policy(label_index=5, label_beta=0.5)
+    assert p.select_action(_ctx(event=lambda a: deltas[a]), np.random.default_rng(0)) == 1
+
+
+def test_label_never_read_outside_completions():
+    # huge label delta but NO pocket gain: the label must not influence value
+    deltas = {0: np.zeros(6), 1: np.zeros(6), 2: np.zeros(6)}
+    deltas[1][5] = 5.0
+    p = _policy(label_index=5, label_beta=10.0)
+    assert p.select_action(_ctx(event=lambda a: deltas[a]), np.random.default_rng(0)) == 0
+
+
+def test_label_index_validated():
+    p = _policy(label_index=99, label_beta=0.5)
+    with pytest.raises(ValueError, match="out of range"):
+        p.select_action(_ctx(), np.random.default_rng(0))
