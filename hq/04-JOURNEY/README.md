@@ -96,8 +96,13 @@ the obsessive bounded) — and the tapered childhood turns the meter's
 still starves on schedule. The recipe and label then SHIPPED as feature 041/v1.3.0
 ([0077](0077-the-recipe-ships.md)) with the closure exact again —
 24/24 rows identical on shipped classes; Doc 0010 holds the design.
-Open: recombination (true means-ends, a topic when licensed), the c1d
-readings (running), rung 2's bridge-hands fix.
+The bridge-hands question then fell ([0078](0078-the-mirrored-map.md)):
+the bridge's "ahead" had been mirrored and half-block-shifted since
+feature 027 — c1c mined its diagonal-rear neighbour for sixteen days on
+reach tolerance; the fix probes 20/20 clean through 5×, the lab world
+is self-consistent and untouched, and c1e registers on the fixed map.
+Open: recombination (a topic when licensed), the c1d readings
+(running), rung 2's B2′ formality, book ch 17.
 
 **The project's working structure moved into `hq/`**
 ([episode 0045](0045-the-hq-restructure.md)): GENESIS holds the vision,
@@ -553,3 +558,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0075 | [The label that couldn't reach and the floor that outran learning](0075-the-label-and-the-meter.md) |
 | 0076 | [The steps, not just the ingredients](0076-the-steps-not-just-the-ingredients.md) |
 | 0077 | [The recipe ships, and the closure is exact again](0077-the-recipe-ships.md) |
+| 0078 | [The mirrored map: sixteen days of mining the wrong block](0078-the-mirrored-map.md) |
