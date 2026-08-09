@@ -21,6 +21,7 @@ The system is a **continuously-learning machine intelligence** with a configurab
 | 07 | `0007-configuration-reference.md` | Every configuration parameter, defaults, ranges |
 | 08 | `0008-public-api-versioning.md` | The v1 public surface, semver promise, deprecation policy |
 | 09 | `0009-brain-side-hold.md` | The head-derived hold: the composition with zero scaffolding (graduated research, episode 0074) |
+| 10 | `0010-recipes-and-the-label.md` | Recipes and the praise label: taught reach as product (graduated research, episode 0077) |
 
 Read 01 first; it is the map. The rest may be read in any order, but 03 and 04 describe the validated core and are the natural place for an implementer to begin building.
 

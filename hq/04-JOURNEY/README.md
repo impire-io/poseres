@@ -93,9 +93,11 @@ the demonstrations, no hand ladder) carries 24/24 seeds to the
 applauded cobble the label alone couldn't reach (chains held at bar;
 the obsessive bounded) — and the tapered childhood turns the meter's
 10/24 survivors into 24/24 alive-and-working while frontier-alone
-still starves on schedule. Open: recombination (true means-ends, a
-new topic when licensed), c1d (unblocked since 0074), and the
-recipe/label src builds the passes license.
+still starves on schedule. The recipe and label then SHIPPED as feature 041/v1.3.0
+([0077](0077-the-recipe-ships.md)) with the closure exact again —
+24/24 rows identical on shipped classes; Doc 0010 holds the design.
+Open: recombination (true means-ends, a topic when licensed), the c1d
+readings (running), rung 2's bridge-hands fix.
 
 **The project's working structure moved into `hq/`**
 ([episode 0045](0045-the-hq-restructure.md)): GENESIS holds the vision,
@@ -550,3 +552,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0074 | [The last scaffold falls: the hold goes brain-side](0074-brain-side-hold.md) |
 | 0075 | [The label that couldn't reach and the floor that outran learning](0075-the-label-and-the-meter.md) |
 | 0076 | [The steps, not just the ingredients](0076-the-steps-not-just-the-ingredients.md) |
+| 0077 | [The recipe ships, and the closure is exact again](0077-the-recipe-ships.md) |
