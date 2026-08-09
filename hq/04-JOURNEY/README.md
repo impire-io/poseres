@@ -86,9 +86,16 @@ stakes work (frontier starves at tick 2,001) while exposing a timing
 coupling (24/24 seeds working, only 10/24 outliving a runway shorter
 than time-to-first-chain — the gap provisioning exists for). The
 stack's standing: expectation ✓, completion ✓, position ✓, floor
-✓-with-coupling, transmission ✗ on reach. **E2.1 — multi-step reach —
-is now the load-bearing prerequisite**, a design conversation; c1d and
-the provisioning dose are the owner's other open calls.
+✓-with-coupling, transmission ✗ on reach. **And the owner's design evening answered both open
+calls the same night** ([0076](0076-the-steps-not-just-the-ingredients.md)):
+reach was in the teaching all along — recipe memory (steps read from
+the demonstrations, no hand ladder) carries 24/24 seeds to the
+applauded cobble the label alone couldn't reach (chains held at bar;
+the obsessive bounded) — and the tapered childhood turns the meter's
+10/24 survivors into 24/24 alive-and-working while frontier-alone
+still starves on schedule. Open: recombination (true means-ends, a
+new topic when licensed), c1d (unblocked since 0074), and the
+recipe/label src builds the passes license.
 
 **The project's working structure moved into `hq/`**
 ([episode 0045](0045-the-hq-restructure.md)): GENESIS holds the vision,
@@ -542,3 +549,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0073 | [Expecting the well-done perfectly; wanting it, backwards](0073-the-hangover.md) |
 | 0074 | [The last scaffold falls: the hold goes brain-side](0074-brain-side-hold.md) |
 | 0075 | [The label that couldn't reach and the floor that outran learning](0075-the-label-and-the-meter.md) |
+| 0076 | [The steps, not just the ingredients](0076-the-steps-not-just-the-ingredients.md) |
