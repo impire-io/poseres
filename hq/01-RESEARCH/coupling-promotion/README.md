@@ -73,4 +73,27 @@ bars), the registration is inconsistent and returns to the owner.
 
 ## Verdict
 
-<Empty until graduation.>
+**ALL THREE BARS PASS [measured, 2026-08-10] — the deficit gate
+ships as feature 042 (v1.4.0).**
+
+- **P1 — closure by behavioral identity: PASS, exact.** The shipped
+  gate substituted for the instrument subclass in the unchanged
+  archived runners reproduces **all 24 rows of episode 0083's W1
+  arm and all 24 rows of episode 0084's T2 arm with zero
+  field-level mismatches** (closure runner + row files in the
+  session scratchpad) `[measured]`.
+- **P2 — timing-primary, C1 body: PASS** on the identical rows:
+  crisis-bin share 0.741 vs 0.334 = **2.22×** (bar 2×); survival
+  gap **4** (bar 4); sated rotation **22/24** (bar 12); chains
+  **24/24** (bar 18) `[measured]`.
+- **P3 — timing-primary, second body: PASS**: hungry-bin margin
+  **+0.216** (bar +0.15); deaths **0 vs 16** (bar ≤ half)
+  `[measured]`.
+
+Shipped surface: `deficit_index`/`deficit_kappa` keyword-only on
+`CompletionItchPolicy`/`RecipePolicy`, off-by-default bit-exact
+(proven with RNG-state equality), validation loud, no snapshot
+change; inventory + Doc 0008 + Doc 0005 + Doc 0010 updated; version
+1.4.0. The aggregate-share bar of episode 0083 remains failed and
+mis-targeted *on record* — this promotion is licensed by timing, as
+the owner directed.
