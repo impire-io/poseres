@@ -58,9 +58,12 @@ composition of the trade?
 - **Bar CV2 — worth restores sight:** V-worth seeds with ≥ 1 gem ≥
   **18/24**, trade-led (first gem while B is selected, after
   A-attributed crystals) in ≥ half of the gem-earning seeds.
-- **Bar CV3 — no regression on ordinary acquisition:** V-worth's
-  median crystal acquisition ≥ V-count's median (worth-keying must
-  not break plain collecting — collecting raises worth too).
+- **Bar CV3′ — no collapse of ordinary acquisition** *(amended
+  openly pre-arms; JOURNEY 2026-08-10 has the raw numbers: the
+  frozen form compared raw medians, but the worth arm spends three
+  crystals per trade — consumption is the economy working, not a
+  regression)*: V-worth's median crystal acquisition ≥ **half** of
+  V-count's median.
 
 ## Reversal condition
 
