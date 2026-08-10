@@ -83,4 +83,31 @@ successors, with these numbers as motivation.
 
 ## Verdict
 
-<Empty until graduation.>
+**ALL THREE BARS PASS at ceiling [measured, 2026-08-10, 24 seeds ×
+2 arms]: the body learns its own price book, and the learned sense
+carries the whole economy.**
+
+- **LW1 — ignorance and blindness measured: PASS.** The book is
+  born all-zero (naive capture peaks at worth 0.0625 — the tongue
+  learning mid-lesson); the count-keyed floor cannot extract the
+  trade lesson and earns **0/24** gems `[measured]`.
+- **LW2 — the learned sense works: PASS at ceiling.** Worth-keyed
+  on the *learned* channel: gems **24/24**, trade-led **24/24**,
+  dozens per life — episode 0088's result reproduced with no
+  published truth anywhere in the loop `[measured]`.
+- **LW3 — the book converges: PASS, exactly.** Median learned
+  prices: gem 1.000, crystal 0.100 — the α = 0.25 EMA saturates on
+  ~24 taught meals per item; the demonstrations bootstrap the
+  tongue exactly as they bootstrap the head `[measured]`.
+
+What it closes: worth need not be decreed — interoceptive EMA over
+felt meals is sufficient grounding at this world's stationarity, and
+the whole 0088 wiring (pocket_index = the worth sense) composes with
+it unchanged. What it opens (named, unlicensed): **the market** —
+moving prices, other agents, meals whose pay changes — where the
+EMA's stationarity assumption meets its real test, and where the
+head's tracking of a *drifting* sense becomes the reading that
+matters.
+
+Reversal condition unfired (the book converged and the sense
+worked).
