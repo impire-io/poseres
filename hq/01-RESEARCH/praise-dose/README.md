@@ -64,4 +64,23 @@ label becomes the named successor at Doc 0010's selection seam.
 
 ## Verdict
 
-<Empty until graduation.>
+**Bar D1 PASS at ceiling [measured, 2026-08-10, 24 seeds at β = 0.02]**
+— the nudge regime exists, and it is clean.
+
+- Praised recipe modal **24/24** (bar 14); monoculture **0/24**
+  (bar ≤ 6); chains **24/24** (bar 20 — one better than the β = 0
+  menu's 23/24). Praised-share median 0.49; dwell median 89.3%;
+  switch median 0.037 `[measured]`.
+- The dose curve (pilot, 8 seeds/dose): share 0.49 → 0.69 → 0.88 →
+  1.00 across β 0.02 / 0.05 / 0.1 / 0.2; monoculture 0 → 1 → 8 → 8
+  of 8. **The cliff sits between 0.05 and 0.1 — where the label
+  crosses the drive's terminal-value band (0.06–0.15)** `[measured]`;
+  the scale explanation is the same arithmetic measured in episode
+  0080 `[mechanism-argument]`.
+- Reversal condition unfired: the additive label CAN whisper — β
+  comparable to a third of the drive's value floor produces a
+  preference, not a command.
+
+Operating points of record: **β = 0.02 nudges** (favorite, menu
+alive, chains intact), **β = 0.5 commands** (monoculture, chains
+taxed). Doc 0010 carries both.

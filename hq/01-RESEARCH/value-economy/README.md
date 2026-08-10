@@ -91,4 +91,30 @@ is V1-vs-V0 within-cohort for exactly this reason.
 
 ## Verdict
 
-<Empty until graduation.>
+**The registered prediction is CONFIRMED [measured, 2026-08-10, 24
+seeds × 3 arms]: survival pressure alone does not re-price the menu.**
+
+- **Bar E2 — the repricing read: NO REPRICING.** Nourishing share
+  0.382 under the lean meter vs 0.366 under the flat control — ratio
+  1.04 against the registered 1.5× line. The drive cannot smell
+  calories: energy is sensed, but nothing links a terminal's worth
+  to what it feeds `[measured]`. The named successor is now
+  motivated with numbers: a deficit→value coupling — hunger must
+  reach wanting — is the missing layer.
+- **Bar E1′ (as amended openly pre-arms): PASS 24/24 alive** under
+  the lean table; chains **24/24 (E3 PASS)**. Honest ledger: the
+  *original* E1 energy-differential arithmetic fails (gap 0.015 vs
+  0.2) exactly as the pilot predicted — the amendment and its raw
+  numbers are in JOURNEY, recorded before any 24-seed arm ran.
+- **The decoupling, confirmed at power:** V2 (praise-commanded to
+  junk cobble at β 0.5) alive 24/24 — the selection pointer obeys
+  praise while the completion itch feeds the metabolism from
+  whatever the pocket holds. Praise commands the hands, not the
+  mouth `[measured]`.
+
+What this closes: recipe *choice* is not where survival pressure
+shows in the current composition. What it opens (the owner's
+"survival of the fittest" made precise): the deficit→value coupling
+as its own design question — the meter's deficit modulating either
+the drive's valuation of terminals or the label channel itself
+("hunger praises food").
