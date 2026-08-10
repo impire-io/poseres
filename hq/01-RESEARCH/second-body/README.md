@@ -99,4 +99,37 @@ a game result, not a generality result.
 
 ## Verdict
 
-<Empty until graduation.>
+**ALL THREE BARS PASS [measured, 2026-08-10, 24 seeds × 3 arms] —
+the motivation stack is general, not Minecraft-shaped.** Identical
+shipped classes, an alien body (absolute moves, no facing, 7
+actions, 16 channels, different indices and scales), zero changes
+to `src/pra`.
+
+- **S1 — election transfers: PASS 24/24** refined seeds (floor
+  2/24 — the drive alone barely ever completes the chain, the arc's
+  every floor reproduced on body #2) `[measured]`.
+- **S2 — taught order transfers: PASS 24/24** seeds acquiring at a
+  taught far station `[measured]`.
+- **S3′ (as amended openly pre-arms) — the appetite transfers:
+  PASS** — hungry-bin nourishing share 0.996 vs the uncoupled
+  0.780 (margin +0.216 ≥ 0.15); deaths **0/24 vs 16/24** (≤ half);
+  dial monotone 0.870 → 0.967 → 0.996 `[measured]`. The printed
+  runner line evaluates the superseded ratio form and reads FAIL;
+  the amended bar's arithmetic is stated here and in JOURNEY — the
+  amendment predates the arms, with the pilot's raw numbers.
+- **The survival ladder on body #2**: drive alone 24/24 dead
+  (G4's frontier-starvation reproduced on a second embodiment);
+  uncoupled composition 16/24 dead at the biting drain; coupled
+  composition **0/24 dead** `[measured]`. On this body the
+  emergency appetite is not +4 lives — it is the difference between
+  mostly dying and nobody dying.
+
+Honest gap recorded: the registered head-prediction-error reading
+was not instrumented in the rows; the head's learning of the alien
+body is evidenced behaviorally (the hold's far reaches and the
+itch's elections both require it) `[mechanism-argument]` — a future
+body-port should log the curve directly.
+
+Reversal condition unfired. The type-casting concern is answered
+with numbers: the stack's claims are embodiment-general as
+measured on two structurally disjoint bodies.
