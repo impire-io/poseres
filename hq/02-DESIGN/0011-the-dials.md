@@ -113,7 +113,11 @@ remembered as a lesson; 0/24 ever traded). Pointed at a sensed
 **worth** channel (Σ count·price, the world's price truth felt
 interoceptively), the identical machinery trades 24/24 and composes
 count-losing journeys. Choose deliberately per body; economies
-require the worth sense.
+require the worth sense. **The worth sense can be learned** (episode
+0089): a body-side price book — per-item EMA of felt pay, α = 0.25,
+born all-zero, carried across lessons — converges to metabolic truth
+on taught meals and carries the trade economy at ceiling; no
+published prices needed under stationary pay.
 
 ## What is deliberately NOT a dial
 

@@ -190,9 +190,19 @@ choice** — count-keyed, the trade lesson cannot even be remembered
 and 0/24 ever hold a gem; worth-keyed (one constructor index, zero
 source changes), 24/24 trade and compose the count-losing journey.
 `pocket_index` is which sense defines wealth (Doc 0011).
-Open: c1e on the fixed map (gated on rung 2's B2′ formality),
-learned worth (markets), the boundary hunt (when an embodiment
-demands it), book ch 17.
+**And worth then learned itself** ([0089](0089-the-tongue-learns.md),
+owner's "start the learned worth topic"): the body born with an
+all-zero price book — worth eaten into existence, an EMA of felt
+meals carried across lessons — converges to exact metabolic truth
+(gem 1.000, crystal 0.100) and carries the whole trade economy at
+ceiling (**24/24, trade-led 24/24**, count floor 0/24), no published
+price anywhere. Lessons compose through the world (0086), wealth is
+a sense (0088), and the sense can be learned (0089). The market —
+moving prices, other agents — is the named next territory, and it is
+where c1e naturally leads.
+Open: c1e on the fixed map (gated on rung 2's B2′ formality), the
+market, the boundary hunt (when an embodiment demands it), book
+ch 17.
 
 **The project's working structure moved into `hq/`**
 ([episode 0045](0045-the-hq-restructure.md)): GENESIS holds the vision,
@@ -659,3 +669,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0086 | [Composition for free: the fragments find each other](0086-composition-for-free.md) |
 | 0087 | [The ladder holds: free composition survives depth four](0087-the-ladder-holds.md) |
 | 0088 | [Worth, not count: the trade becomes visible](0088-worth-not-count.md) |
+| 0089 | [The tongue learns: worth without decree](0089-the-tongue-learns.md) |

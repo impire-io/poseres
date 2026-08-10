@@ -1,4 +1,4 @@
-# 10 — Recipes and the praise label (graduated research, episodes 0077, 0080–0088)
+# 10 — Recipes and the praise label (graduated research, episodes 0077, 0080–0089)
 
 **Status:** SHIPPED as feature 041 (v1.3.0); this document records the
 functional design the measurements license.
@@ -141,11 +141,21 @@ channel — the felt-meal precedent), the identical classes trade
 Callers MUST choose the wealth sense deliberately (Doc 0011's dial
 note).
 
+**Learned worth (episode 0089)** [V]: the worth sense need not be
+published — a body-side price book (per-item EMA of felt pay,
+α = 0.25, born all-zero, carried across lessons as body state)
+converges to the metabolic truth on taught meals alone and carries
+the full trade economy (24/24, trade-led 24/24, no decree anywhere).
+Demonstrations bootstrap the palate as they bootstrap the head. The
+EMA assumes stationary pay; markets with drifting prices are the
+named successor's territory.
+
 ## Named successors
 
 The boundary hunt (depth 5+, scarce inputs, adversarial geometry —
-when an embodiment demands it); **learned worth** (prices sensed
-from experience, for markets where prices move). A drive-side
-deficit coupling (deficit-modulated terminal valuation at Doc 0005's
-motivation seam) remains the named alternative if the label seam is
-ever refuted.
+when an embodiment demands it); **the market** (moving prices, other
+agents — where the learned book's stationarity assumption and the
+head's tracking of a drifting sense get their real test; the natural
+c1e continuation). A drive-side deficit coupling (deficit-modulated
+terminal valuation at Doc 0005's motivation seam) remains the named
+alternative if the label seam is ever refuted.
