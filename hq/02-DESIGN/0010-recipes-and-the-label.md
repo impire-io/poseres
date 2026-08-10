@@ -1,4 +1,4 @@
-# 10 — Recipes and the praise label (graduated research, episodes 0077, 0080–0084)
+# 10 — Recipes and the praise label (graduated research, episodes 0077, 0080–0086)
 
 **Status:** SHIPPED as feature 041 (v1.3.0); this document records the
 functional design the measurements license.
@@ -115,11 +115,27 @@ use the general vocabulary (acquisition channel, felt channel,
 meter) — the C1 names (pocket, praise, hunger) are one body's
 dressing.
 
+## Recombination (measured; topic recombination, episode 0086)
+
+One-seam composition is **emergent from the shipped stack** [V]: two
+fragments demonstrated separately (travel-and-collect; a
+handed-ingredient refine at a distinct station), the whole never
+shown, compose 24/24 at scale (median 387 first-leg acquisitions,
+hundreds of composed products per life; floor 1/24) with no planner
+— rotation moves the bot, the pocket carries state across the seam,
+and the terminal's attraction plus the itch finish the second leg
+when the precondition is met. **Bounds** [measured/judgment]: one
+seam, pocket-state bridge; deeper chains are unmeasured (the
+fragment-depth ladder is the named successor). **Structural limit,
+named**: the acquisition-keyed itch and extraction are blind to
+value-preserving conversions (a 1-for-1 transform never moves the
+pocket total); every measured chain *gains* — economies of pure
+transformation need a conversion-visibility term that does not
+exist **[O]**.
+
 ## Named successors
 
-Recombination — composing recipe fragments into never-demonstrated
-paths (true means-ends) — is its own research topic when licensed.
-The deficit→value coupling's promotion (timing-primary bar, above)
-is the economy's open door; a drive-side coupling (deficit-modulated
-terminal valuation at Doc 0005's motivation seam) remains the named
-alternative if the label seam is ever refuted.
+The fragment-depth ladder (3+ seams) and conversion-visibility, per
+the recombination bounds above. A drive-side deficit coupling
+(deficit-modulated terminal valuation at Doc 0005's motivation seam)
+remains the named alternative if the label seam is ever refuted.

@@ -168,8 +168,20 @@ timing-primary bars (crisis-diet 2.22×, survival gap 4, margin
 rows across both bodies** — the arc's third exact closure. The
 failed aggregate bar of 0083 stays failed on record; the promotion
 is licensed by timing, as directed.
-Open: c1e on the fixed map (gated on rung 2's B2′ formality),
-recombination (when licensed), book ch 17.
+**And recombination ran the same night**
+([0086](0086-composition-for-free.md), owner's "start the
+recombination topic"): fragments taught separately compose **24/24
+at ceiling** with no new mechanism — rotation moves the bot, the
+pocket bridges the seam, the itch finishes the second leg (floor
+1/24; fragment-led 23/24; hundreds of composed products per life).
+The splice was never needed at one-seam depth. Two named limits:
+the fragment-depth ladder (3+ seams, unmeasured) and
+**conversion-blindness** — the acquisition-keyed itch cannot see
+1-for-1 transformations (Doc 0010 [O]). The dials also got their
+reference (Doc 0011: every knob's meaning, the measured operating
+points, and the drive-band tuning protocol — the owner's docs call).
+Open: c1e on the fixed map (gated on rung 2's B2′ formality), the
+fragment-depth ladder, conversion-visibility, book ch 17.
 
 **The project's working structure moved into `hq/`**
 ([episode 0045](0045-the-hq-restructure.md)): GENESIS holds the vision,
@@ -633,3 +645,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0083 | [The emergency appetite: hunger reaches wanting, timing beats volume](0083-the-emergency-appetite.md) |
 | 0084 | [The second body: the stack is general, measured](0084-the-second-body.md) |
 | 0085 | [The appetite ships: promoted on timing, closure exact twice](0085-the-appetite-ships.md) |
+| 0086 | [Composition for free: the fragments find each other](0086-composition-for-free.md) |
