@@ -103,6 +103,18 @@ Choice responds to novelty, the label, and — through `deficit_kappa`
 — the meter. Survival responds to work rate and the economy. Keep
 those channels straight when tuning.
 
+## `pocket_index` — which sense defines wealth (episode 0088)
+
+Not a scalar dial but the stack's most consequential wiring choice:
+the completion itch and recipe extraction key on whatever channel
+`pocket_index` names. Pointed at a **count** sense, the brain hoards
+— and is provably blind to trades (a 3-for-1 exchange cannot even be
+remembered as a lesson; 0/24 ever traded). Pointed at a sensed
+**worth** channel (Σ count·price, the world's price truth felt
+interoceptively), the identical machinery trades 24/24 and composes
+count-losing journeys. Choose deliberately per body; economies
+require the worth sense.
+
 ## What is deliberately NOT a dial
 
 The drive itself (fixed and terminal, Doc 0005 §6 — no dial modulates

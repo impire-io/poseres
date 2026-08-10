@@ -180,8 +180,19 @@ the fragment-depth ladder (3+ seams, unmeasured) and
 1-for-1 transformations (Doc 0010 [O]). The dials also got their
 reference (Doc 0011: every knob's meaning, the measured operating
 points, and the drive-band tuning protocol — the owner's docs call).
-Open: c1e on the fixed map (gated on rung 2's B2′ formality), the
-fragment-depth ladder, conversion-visibility, book ch 17.
+**And both named limits fell the same night, in parallel**
+([0087](0087-the-ladder-holds.md), [0088](0088-worth-not-count.md),
+owner's "address both at the same time"): the ladder **holds to
+depth four** (24 → 22 → 21 → 20 across a four-material chain, no
+cliff, the splice never licensed — the boundary is beyond
+everything measured); and conversion-blindness closed as a **wiring
+choice** — count-keyed, the trade lesson cannot even be remembered
+and 0/24 ever hold a gem; worth-keyed (one constructor index, zero
+source changes), 24/24 trade and compose the count-losing journey.
+`pocket_index` is which sense defines wealth (Doc 0011).
+Open: c1e on the fixed map (gated on rung 2's B2′ formality),
+learned worth (markets), the boundary hunt (when an embodiment
+demands it), book ch 17.
 
 **The project's working structure moved into `hq/`**
 ([episode 0045](0045-the-hq-restructure.md)): GENESIS holds the vision,
@@ -646,3 +657,5 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0084 | [The second body: the stack is general, measured](0084-the-second-body.md) |
 | 0085 | [The appetite ships: promoted on timing, closure exact twice](0085-the-appetite-ships.md) |
 | 0086 | [Composition for free: the fragments find each other](0086-composition-for-free.md) |
+| 0087 | [The ladder holds: free composition survives depth four](0087-the-ladder-holds.md) |
+| 0088 | [Worth, not count: the trade becomes visible](0088-worth-not-count.md) |

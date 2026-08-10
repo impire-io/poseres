@@ -1,4 +1,4 @@
-# 10 — Recipes and the praise label (graduated research, episodes 0077, 0080–0086)
+# 10 — Recipes and the praise label (graduated research, episodes 0077, 0080–0088)
 
 **Status:** SHIPPED as feature 041 (v1.3.0); this document records the
 functional design the measurements license.
@@ -124,18 +124,28 @@ shown, compose 24/24 at scale (median 387 first-leg acquisitions,
 hundreds of composed products per life; floor 1/24) with no planner
 — rotation moves the bot, the pocket carries state across the seam,
 and the terminal's attraction plus the itch finish the second leg
-when the precondition is met. **Bounds** [measured/judgment]: one
-seam, pocket-state bridge; deeper chains are unmeasured (the
-fragment-depth ladder is the named successor). **Structural limit,
-named**: the acquisition-keyed itch and extraction are blind to
-value-preserving conversions (a 1-for-1 transform never moves the
-pocket total); every measured chain *gains* — economies of pure
-transformation need a conversion-visibility term that does not
-exist **[O]**.
+when the precondition is met. **Depth bound extended (episode
+0087)** [V]: the ladder holds through **four legs** — decay 24/24 →
+22 → 21 → 20 across a four-material process chain, roughly one seed
+per rung, no cliff; the splice/imagination layer stays unlicensed
+until a real embodiment finds the boundary (scarce inputs, longer
+legs, deeper chains).
+
+**Conversion visibility (episode 0088)** [V]: the 0086 blindness
+closed as a *wiring choice*. `pocket_index` is **which sense defines
+wealth**, not "which channel counts items": count-keyed, the trade
+lesson cannot even be extracted and 0/24 ever hold a gem;
+worth-keyed (the anatomy publishes Σ count·price as a sensed
+channel — the felt-meal precedent), the identical classes trade
+24/24 and compose the count-losing journey. Zero source changes.
+Callers MUST choose the wealth sense deliberately (Doc 0011's dial
+note).
 
 ## Named successors
 
-The fragment-depth ladder (3+ seams) and conversion-visibility, per
-the recombination bounds above. A drive-side deficit coupling
-(deficit-modulated terminal valuation at Doc 0005's motivation seam)
-remains the named alternative if the label seam is ever refuted.
+The boundary hunt (depth 5+, scarce inputs, adversarial geometry —
+when an embodiment demands it); **learned worth** (prices sensed
+from experience, for markets where prices move). A drive-side
+deficit coupling (deficit-modulated terminal valuation at Doc 0005's
+motivation seam) remains the named alternative if the label seam is
+ever refuted.
