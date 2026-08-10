@@ -1,4 +1,4 @@
-# 10 — Recipes and the praise label (graduated research, episode 0077)
+# 10 — Recipes and the praise label (graduated research, episodes 0077, 0080)
 
 **Status:** SHIPPED as feature 041 (v1.3.0); this document records the
 functional design the measurements license.
@@ -36,7 +36,31 @@ The obsessive (applauded work eclipsing owned goals): real, bounded at
 (steps out of context): ~2% of steps at the measured point. Both ship
 as counters, not hopes.
 
-## Named successor
+## Menu behavior (measured; topic recipe-choice, episode 0080)
+
+With ten distinct recipes in memory the per-step selection argmax is
+validated as shipped [V]:
+
+- **Rotation by boredom** — with the label off, the drive's novelty
+  decay turns the menu: 24/24 seeds spread completions over 5–7
+  recipes, ~5% per-step switch rate, no thrash, no fixation; output
+  matches or exceeds a single-recipe specialist in raw completions
+  (the specialist still wins on its own product's depth).
+- **Praise saturates at the measured dose** — β = 0.5 adds +0.5 to
+  one terminal while the drive's whole value scale spans ~0.06–0.15,
+  so the praised recipe becomes not the favorite but the *only*
+  selection (share 1.00, 24/24), with the obsessive twin at its
+  known strength (chains 18/24, dwell ~63%). A caller wanting a
+  nudge rather than a command MUST use a β comparable to the drive's
+  value scale; the intermediate dose curve is unmeasured **[O]**.
+- The `out_of_context` and `advance_events` counters are the
+  designed watch here too; attribution of gains to the selected
+  recipe is harness-side, not policy state.
+
+## Named successors
 
 Recombination — composing recipe fragments into never-demonstrated
 paths (true means-ends) — is its own research topic when licensed.
+The value-weighted economy — the meter with unequal yields, recipe
+choice priced by survival — is the named rung between the menu
+(episode 0080) and recombination.

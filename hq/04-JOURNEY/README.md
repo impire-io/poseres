@@ -110,8 +110,20 @@ rising), dwell ≥ 99.97% throughout, the head's error bounded across
 ~25M updates, the only energy dip exactly where G4b's ledger predicted
 (0.855, just past weaning), and not one chainless segment in 500. The
 gate-by-gate composition holds together for a lifetime.
-Open: c1e on the fixed map (gated on rung 2's B2′ formality),
-recombination (a topic when licensed), book ch 17.
+**And the menu question was asked and answered the same day**
+([0080](0080-the-menu.md), topic recipe-choice, owner's call): ten
+recipes taught to a fresh 24-seed cohort — with the label off the
+drive's boredom **rotates** the menu (24/24 seeds over 5–7 recipes,
+~5% switch rate, zero thrash, zero fixation; the menu *out-counts*
+the single-recipe specialist 170.5 vs 143.5 median completions);
+with praise at the measured β\* = 0.5 steering **saturates** into
+selection monoculture 24/24 (the +0.5 label dwarfs the 0.06–0.15
+drive scale — a command, not a nudge), with the obsessive twin at
+its known strength (chains 18/24, reproducing recipe-reach's exact
+number). Doc 0010 gains the menu-behavior section.
+Open: c1e on the fixed map (gated on rung 2's B2′ formality), the
+value-weighted economy (survival-priced choice — the named rung
+toward recombination), the β dose curve, book ch 17.
 
 **The project's working structure moved into `hq/`**
 ([episode 0045](0045-the-hq-restructure.md)): GENESIS holds the vision,
@@ -569,3 +581,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0077 | [The recipe ships, and the closure is exact again](0077-the-recipe-ships.md) |
 | 0078 | [The mirrored map: sixteen days of mining the wrong block](0078-the-mirrored-map.md) |
 | 0079 | [The provisioned life: the composition endures](0079-the-provisioned-life.md) |
+| 0080 | [The menu: boredom rotates it, praise commands it](0080-the-menu.md) |
