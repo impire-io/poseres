@@ -98,6 +98,8 @@ class RecipePolicy(CompletionItchPolicy):
         completion_threshold: float = 1.0 / 128.0,
         label_index: int | None = None,
         label_beta: float = 0.0,
+        deficit_index: int | None = None,
+        deficit_kappa: float = 0.0,
     ):
         super().__init__(
             params,
@@ -108,6 +110,8 @@ class RecipePolicy(CompletionItchPolicy):
             potential_of=None,
             label_index=label_index,
             label_beta=label_beta,
+            deficit_index=deficit_index,
+            deficit_kappa=deficit_kappa,
         )
         self.memory = memory
         self.lambda_r = float(lambda_r)
@@ -126,10 +130,11 @@ class RecipePolicy(CompletionItchPolicy):
 
     def _select_recipe(self, ctx: PolicyContext) -> Recipe | None:
         best, best_v = None, -np.inf
+        weight = 0.0 if self.label_index is None else self._label_weight(ctx.observation)
         for r in self.memory.recipes:
             v = ctx.drive_value_of(r.terminal)
             if self.label_index is not None:
-                v += self.label_beta * float(r.terminal[self.label_index])
+                v += weight * float(r.terminal[self.label_index])
             if v > best_v:
                 best, best_v = r, v
         return best

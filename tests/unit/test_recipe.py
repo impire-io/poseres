@@ -106,3 +106,16 @@ def test_empty_memory_degrades_to_parent():
     ra, rb = np.random.default_rng(1), np.random.default_rng(1)
     assert p.select_action(_ctx(o, event=ev), ra) == base.select_action(_ctx(o, event=ev), rb)
     assert ra.bit_generator.state == rb.bit_generator.state
+
+
+def test_deficit_gates_recipe_selection():
+    # feature 042: the pad channel doubles as the meter (index 5).
+    m = RecipeMemory(pocket_index=3, label_index=4)
+    first = m.add_demonstration(demo())
+    labeled = m.add_demonstration(demo(with_label_at=3))
+    p = _policy(m, label_beta=0.0, deficit_index=5, deficit_kappa=0.5)
+    sated = obs()
+    sated[5] = 1.0
+    hungry = obs()  # meter at 0.0 -> full deficit
+    assert p._select_recipe(_ctx(sated)) is first
+    assert p._select_recipe(_ctx(hungry)) is labeled

@@ -131,6 +131,8 @@ SURFACE: tuple[SurfaceEntry, ...] = (
             "potential_of",
             "label_index",
             "label_beta",
+            "deficit_index",
+            "deficit_kappa",
         ),
     ),
     # recipes: taught order as product (feature 041; recipe-reach, episode 0076)
@@ -152,6 +154,8 @@ SURFACE: tuple[SurfaceEntry, ...] = (
             "completion_threshold",
             "label_index",
             "label_beta",
+            "deficit_index",
+            "deficit_kappa",
         ),
     ),
     E("pra.action.policy.PolicyParams", "dataclass", "drive", None),
