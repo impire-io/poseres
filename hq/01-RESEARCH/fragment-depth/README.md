@@ -70,4 +70,23 @@ boundary as its licensing evidence.
 
 ## Verdict
 
-<Empty until graduation.>
+**ALL THREE RUNGS PASS [measured, 2026-08-10, 24 seeds]: the ladder
+holds to depth 4 — the boundary was not found.**
+
+- **Decay curve: m0 24/24 → m1 22/24 → m2 21/24 → m3 20/24** (bars
+  18/12/12). Twenty seeds walk the complete four-leg
+  never-demonstrated chain; production is real at every stage
+  (unit medians 279 / 54 / 38 / 20) `[measured]`.
+- **The splice (G2) was never licensed** — wander-and-carry with
+  the pocket as the state bridge loses roughly one seed per rung,
+  a gentle slope, not a cliff. The "luck runs out" intuition is
+  refuted at this depth and geometry `[measured]`.
+- Bounds, plainly: one geometry (8–16-step legs, inexhaustible
+  stations, yield-2 transforms), depth 4, H = 5,000. The boundary
+  exists somewhere — longer legs, scarcer inputs, or deeper chains
+  will find it — but it is beyond everything measured here
+  `[judgment]`.
+
+Reversal condition unfired. Successor named, unlicensed: the
+boundary hunt (depth 5+, scarce inputs, adversarial geometry) —
+worth running only when a real embodiment demands it.

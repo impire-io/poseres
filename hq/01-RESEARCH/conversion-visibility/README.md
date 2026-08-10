@@ -76,4 +76,33 @@ becomes the named successor — with these numbers as its motivation.
 
 ## Verdict
 
-<Empty until graduation.>
+**ALL BARS PASS [measured, 2026-08-10, 24 seeds × 2 arms]:
+conversion-blindness is a wiring choice, not a mechanism gap — the
+design bet held.**
+
+- **CV1 — the blindness measured: PASS.** Count-keyed extraction
+  returns no recipe for the trade lesson (it cannot be remembered),
+  and the count arm earns **0/24** gems in a world where trading is
+  the only way to hold one `[measured]`.
+- **CV2 — worth restores sight: PASS at ceiling.** The identical
+  shipped classes with one constructor change (`pocket_index` → the
+  sensed worth channel) earn gems **24/24**, trade-led 23/24,
+  dozens per life, first gems by ~step 600–900 `[measured]`. Zero
+  source changes.
+- **CV3′ (as amended openly pre-arms): PASS** — worth-arm crystal
+  median 405 vs the count arm's 538 hoard: ratio 0.75 ≥ the
+  half-line; the gap is crystals *spent on trades*, the economy
+  working. The printed runner line evaluates the superseded frozen
+  form and reads FAIL; the amendment predates the arms with the
+  pilot's raw numbers `[measured]`.
+
+What it teaches: `pocket_index` was never "which channel counts
+items" — it is **which sense defines wealth**, and that is anatomy
+knowledge. A body that grows a worth sense (Σ count·price, the
+world's price truth felt interoceptively — the felt-meal precedent)
+gives the unchanged machinery eyes for trade. Doc 0011 gains the
+dial note; Doc 0010's [O] closes as [V]-by-wiring.
+
+Reversal condition unfired. Successor named, unlicensed: *learned*
+worth (prices sensed from experience rather than published by the
+world) — the door to markets where prices move.
