@@ -95,4 +95,36 @@ named successor at Doc 0005's motivation seam.
 
 ## Verdict
 
-<Empty until graduation.>
+**MIXED [measured, 2026-08-10, 24 seeds × 3 arms]: H1 FAIL as
+frozen, H2 and H3 PASS — and the registered readings show the
+mechanism working exactly as designed.**
+
+- **H1 — aggregate repricing: FAIL.** W1 0.534 vs W0 0.378 — ratio
+  1.41 against the frozen 1.5× `[measured]`. Recorded without
+  re-litigation.
+- **H2 — survival: PASS.** W1 alive 20/24; death gap exactly 4
+  (8 uncoupled deaths vs 4 coupled) `[measured]`. Hunger reaching
+  wanting buys lives.
+- **H3 — sated curiosity: PASS at strength.** Rotation 22/24,
+  chains 24/24 `[measured]`. The coupling vanishes when fed, as
+  designed.
+- **The dial, measured (registered reading):** W1's nourishing
+  share rises monotonically with deficit — 0.431 sated → 0.546
+  mild → **0.741 hungry**, while the uncoupled brain's hungry-bin
+  share (0.334) equals its baseline: hunger changes nothing without
+  the coupling `[measured]`.
+- **Gating beats constant taste where it counts (registered
+  reading):** W2 (fixed β 0.02) posts a *higher aggregate* share
+  (0.561) yet dies as often as the control (8 deaths) — the
+  survival value of the coupling is *when* it eats, not how much on
+  average `[measured]`; the aggregate-share summary dilutes crisis
+  behavior with sated stretches where the coupling is designed to
+  vanish `[judgment, recorded in JOURNEY]`.
+
+Reversal-condition note, honest: the antecedent held (H1 failed
+with labels verified and the deficit biting) but its conclusion —
+that the label seam cannot carry hunger to wanting — is contradicted
+by the monotone binned curve. The seam works; the aggregate bar at
+1.5× is what it missed. Successor question named for any future
+registration: a timing-primary bar (crisis-bin share or
+survival-primary), frozen before that run, not this one.

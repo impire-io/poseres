@@ -36,3 +36,36 @@ Pilot (seeds 1–8, W0 uncoupled vs W1 gated), raw:
 
 Proceeding to the arms exactly as registered (no bar touched, no
 table touched): W0 / W1 / W2 × 24 seeds.
+
+## 2026-08-10 — the arms: one bar fails as frozen; the mechanism is measured inside the readings
+
+72 runs, raw:
+
+- **H1 (aggregate repricing ≥ 1.5×): FAIL** — W1 nourishing share
+  0.534 vs W0 0.378, ratio **1.41**. The bar stands as frozen; no
+  re-litigation.
+- **H2 (survival): PASS** — W1 alive 20/24 (bar 18), death gap
+  exactly 4 (W0 deaths 8: ticks 3,058–4,067, all shortly after the
+  drain reaches full rate; W1 deaths 4).
+- **H3 (sated curiosity): PASS** — rotation 22/24, chains 24/24.
+- **Registered reading — share as a function of deficit (W1):
+  0.431 sated → 0.546 mild → 0.741 hungry.** Monotone. The
+  state-dependent dial is measured working. Cross-arm at the same
+  bin: when genuinely hungry (deficit > 0.3), W0 eats nourishing
+  **0.334** (statistically its baseline — hunger changes nothing in
+  the uncoupled brain), W1 **0.741**, W2 **0.511**.
+- **Registered reading — gating vs constant taste:** W2 (fixed
+  β 0.02, ungated) reaches a *higher aggregate* share than W1
+  (0.561 vs 0.534) yet dies exactly as often as the uncoupled
+  control (8 deaths, alive 16/24). The coupling's survival value is
+  **when** it eats, not how much on average `[measured]`.
+
+Honest tension with the reversal condition, recorded: the reversal's
+antecedent (H1 fails, labels verified, deficit bites) holds, but its
+conclusion ("hunger cannot reach wanting through terminal taste")
+is contradicted by the monotone binned curve — hunger demonstrably
+reaches wanting through this seam; what failed is the *aggregate-
+share summary* at the frozen line. The aggregate dilutes the crisis
+behavior with sated stretches where the coupling is designed to
+vanish. That insight is `[judgment]` about bar design, recorded
+here, not used to flip any verdict.
