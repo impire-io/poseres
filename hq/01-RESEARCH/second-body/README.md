@@ -71,10 +71,15 @@ tapes?
   ≥ **12/24** T1 seeds to at least one *taught far station*
   acquisition (a station the drive alone never elected in T0),
   recipe-led readings published.
-- **Bar S3 — the appetite transfers, timing-primary** (the Doc 0010
-  mandate applied): T2's hungry-bin (deficit > 0.3) nourishing
-  share ≥ **1.5×** T1's hungry-bin share, with the dial's
-  monotonicity published.
+- **Bar S3′ — the appetite transfers, timing-primary** *(amended
+  openly pre-arms; JOURNEY 2026-08-10 holds the raw numbers: the
+  registered 1.5× ratio is ceiling-degenerate on this body — the
+  natural hungry-bin share is 0.742, so 1.5× exceeds 1.0)*: T2's
+  hungry-bin (deficit > 0.3) nourishing share ≥ **T1's + 0.15** AND
+  T2 deaths ≤ **half of T1's**, with the dial's monotonicity
+  published. *(Drain likewise recalibrated openly 0.0015 → 0.005:
+  the registered value never bit on a body with ~0.0066/tick
+  income.)*
 
 Registered readings: hold dwell at the taught station; rotation
 across stations; survival and death ticks per arm; switch rates;
