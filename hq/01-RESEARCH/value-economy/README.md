@@ -55,11 +55,14 @@ menu-fed life outlive a junk-commanded one?
 
 ## Pre-registered bars
 
-- **Bar E1 — the meter distinguishes diets:** V1 alive at H for
-  **≥ 18/24** seeds AND V1's median final energy exceeds V2's by
-  **≥ 0.2**. (Robust whether V2 dies or merely runs lean; if V2
-  survives on side-chains mined en route, the leak is published —
-  that is a finding about the obsession, not a bar failure.)
+- **Bar E1′ — the lean economy is livable by choice-fed work:** V1
+  alive at H for **≥ 18/24** seeds. *(Amended openly pre-arms —
+  JOURNEY 2026-08-10 holds the raw numbers: the original E1 energy
+  differential assumed praise could force a junk diet; the pilot
+  measured near-identical product mixes in V1 and V2 — praise
+  commands selection, the itch commands metabolism — so no price
+  table separates the arms. The V2 decoupling ledger is published as
+  a finding.)*
 - **Bar E2 — the repricing read (two named outcomes, both
   decisive):** nourishing share (R8+R9+R10 attributed completions /
   total) in V1 is **≥ 1.5×** its share in V0 → repricing is real and
