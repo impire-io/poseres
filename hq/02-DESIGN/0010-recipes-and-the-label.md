@@ -1,4 +1,4 @@
-# 10 — Recipes and the praise label (graduated research, episodes 0077, 0080–0082)
+# 10 — Recipes and the praise label (graduated research, episodes 0077, 0080–0083)
 
 **Status:** SHIPPED as feature 041 (v1.3.0); this document records the
 functional design the measurements license.
@@ -76,12 +76,32 @@ statistically unchanged from the flat control (nourishing share
   diet stayed alive 24/24 on side-chains). Diet cannot be forced
   through selection.
 
+## The deficit→value coupling (measured instrument-grade; episode 0083)
+
+The "body as the first teacher" shape was built and measured on
+shipped seams, no oracle: label channel = the felt meal
+(`clip(pay/0.15, 0, 1)`), hungry demonstrations give each recipe its
+own taste through the unchanged extraction, and the coupling is
+`β_eff = κ_h·(1 − energy)` at the label seam (κ_h = 0.1, sized from
+the episode-0081 dial).
+
+- **The dial works** [measured]: food share monotone in deficit
+  (0.431 sated → 0.741 starving) while the uncoupled brain's crisis
+  diet equals its baseline (hunger alone changes nothing); survival
+  20/24 vs 16/24 (+4 lives); sated rotation and chains intact.
+- **Timing beats volume** [measured]: an ungated constant taste
+  (β 0.02) reaches a higher *average* food share yet dies as often
+  as no coupling at all. State-dependence is the load-bearing part.
+- **Not shipped**: the aggregate repricing bar (1.5×) failed at
+  1.41×, so the coupling stays instrument-grade **[O]**. Any
+  promotion registration MUST use a timing-primary bar (crisis-bin
+  share or survival-primary), frozen before that run.
+
 ## Named successors
 
 Recombination — composing recipe fragments into never-demonstrated
 paths (true means-ends) — is its own research topic when licensed.
-The **deficit→value coupling** — hunger reaching wanting — is the
-economy's named missing layer **[O]**, motivated by episode 0082's
-numbers; candidate shapes: the meter's deficit modulating the
-drive's terminal valuation, or the deficit driving the label channel
-("hunger praises food").
+The deficit→value coupling's promotion (timing-primary bar, above)
+is the economy's open door; a drive-side coupling (deficit-modulated
+terminal valuation at Doc 0005's motivation seam) remains the named
+alternative if the label seam is ever refuted.

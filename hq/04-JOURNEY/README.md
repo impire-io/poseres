@@ -135,8 +135,23 @@ the pilot's decoupling finding recorded: **praise commands the
 hands, not the mouth** (a junk-commanded diet fed itself on
 side-chains). The deficit→value coupling — hunger reaching wanting —
 is now the named missing layer with numbers behind it (Doc 0010).
+**And the coupling itself was built and measured the same night**
+([0083](0083-the-emergency-appetite.md), owner's "build the
+deficit→value coupling gate"): the body as first teacher — felt
+meals on the label channel, hungry demonstrations, six lines of
+deficit-gating on the shipped policy — and the verdict is honestly
+split: the aggregate repricing bar **failed as frozen** (1.41× vs
+1.5×) while survival passed (+4 lives, 20/24 vs 16/24), sated
+curiosity passed (rotation 22/24, chains 24/24), and the registered
+readings caught the mechanism working — food share monotone in
+hunger (0.43 → 0.74) where the uncoupled brain never budges from
+baseline, and the constant-taste control eating *more on average*
+yet dying as often as no coupling at all. **Hunger does reach
+wanting; its value is timing, not volume.** The coupling stays
+instrument-grade; any promotion needs a timing-primary bar.
 Open: c1e on the fixed map (gated on rung 2's B2′ formality), the
-deficit→value coupling, recombination (when licensed), book ch 17.
+coupling's promotion registration (owner's call), recombination
+(when licensed), book ch 17.
 
 **The project's working structure moved into `hq/`**
 ([episode 0045](0045-the-hq-restructure.md)): GENESIS holds the vision,
@@ -597,3 +612,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0080 | [The menu: boredom rotates it, praise commands it](0080-the-menu.md) |
 | 0081 | [The whisper and the cliff: praise gets a dial](0081-the-whisper-and-the-cliff.md) |
 | 0082 | [The drive cannot smell calories](0082-the-drive-cannot-smell-calories.md) |
+| 0083 | [The emergency appetite: hunger reaches wanting, timing beats volume](0083-the-emergency-appetite.md) |
