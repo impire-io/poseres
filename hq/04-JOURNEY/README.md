@@ -149,6 +149,16 @@ baseline, and the constant-taste control eating *more on average*
 yet dying as often as no coupling at all. **Hunger does reach
 wanting; its value is timing, not volume.** The coupling stays
 instrument-grade; any promotion needs a timing-primary bar.
+**And the type-casting question was answered with numbers**
+([0084](0084-the-second-body.md), owner's concern made measurable):
+the identical shipped composition mounted on a deliberately alien
+body — absolute moves, no facing, 7 actions, 16 channels, no bridge
+— reproduces **election 24/24, taught order 24/24, and the
+emergency appetite at ceiling** (hungry diet 0.996 vs 0.780; deaths
+0/24 coupled vs 16/24 uncoupled vs 24/24 drive-alone; two open
+pre-arms amendments with pilot numbers). **The motivation stack is
+embodiment-general as measured on two structurally disjoint
+bodies.** Porting cost: one small anatomy plus teaching tapes.
 Open: c1e on the fixed map (gated on rung 2's B2′ formality), the
 coupling's promotion registration (owner's call), recombination
 (when licensed), book ch 17.
@@ -613,3 +623,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0081 | [The whisper and the cliff: praise gets a dial](0081-the-whisper-and-the-cliff.md) |
 | 0082 | [The drive cannot smell calories](0082-the-drive-cannot-smell-calories.md) |
 | 0083 | [The emergency appetite: hunger reaches wanting, timing beats volume](0083-the-emergency-appetite.md) |
+| 0084 | [The second body: the stack is general, measured](0084-the-second-body.md) |

@@ -1,4 +1,4 @@
-# 10 — Recipes and the praise label (graduated research, episodes 0077, 0080–0083)
+# 10 — Recipes and the praise label (graduated research, episodes 0077, 0080–0084)
 
 **Status:** SHIPPED as feature 041 (v1.3.0); this document records the
 functional design the measurements license.
@@ -96,6 +96,21 @@ the episode-0081 dial).
   1.41×, so the coupling stays instrument-grade **[O]**. Any
   promotion registration MUST use a timing-primary bar (crisis-bin
   share or survival-primary), frozen before that run.
+
+## Generality (measured; topic second-body, episode 0084)
+
+The whole stack of this document is **embodiment-general as
+measured** [V]: the identical shipped classes mounted on a second,
+structurally disjoint body (absolute moves, no facing, 7 actions, 16
+channels, different indices/scales, no bridge — the engine's world
+surface directly) reproduce election 24/24, taught order 24/24, and
+the emergency appetite at ceiling (hungry-bin share 0.996 vs 0.780;
+deaths 0/24 coupled vs 16/24 uncoupled vs 24/24 drive-alone). All
+body knowledge enters through constructor indices and teaching
+tapes; porting cost is one small anatomy plus tapes. Callers MUST
+use the general vocabulary (acquisition channel, felt channel,
+meter) — the C1 names (pocket, praise, hunger) are one body's
+dressing.
 
 ## Named successors
 
