@@ -121,9 +121,22 @@ selection monoculture 24/24 (the +0.5 label dwarfs the 0.06–0.15
 drive scale — a command, not a nudge), with the obsessive twin at
 its known strength (chains 18/24, reproducing recipe-reach's exact
 number). Doc 0010 gains the menu-behavior section.
+**And both successor doses ran in parallel the same evening**
+([0081](0081-the-whisper-and-the-cliff.md),
+[0082](0082-the-drive-cannot-smell-calories.md), owner's call): the
+**nudge regime exists** — β = 0.02 makes the praised recipe every
+seed's favorite (modal 24/24, monoculture 0, chains 24/24, share
+0.49) with the cliff to command measured at β ≈ 0.05–0.1, exactly
+where the label crosses the drive's value band; and the economy
+answered with its registered prediction **confirmed** — survival
+pressure alone does not re-price the menu (nourishing share 0.382
+lean vs 0.366 flat against a 1.5× line; everyone lives 24/24), with
+the pilot's decoupling finding recorded: **praise commands the
+hands, not the mouth** (a junk-commanded diet fed itself on
+side-chains). The deficit→value coupling — hunger reaching wanting —
+is now the named missing layer with numbers behind it (Doc 0010).
 Open: c1e on the fixed map (gated on rung 2's B2′ formality), the
-value-weighted economy (survival-priced choice — the named rung
-toward recombination), the β dose curve, book ch 17.
+deficit→value coupling, recombination (when licensed), book ch 17.
 
 **The project's working structure moved into `hq/`**
 ([episode 0045](0045-the-hq-restructure.md)): GENESIS holds the vision,
@@ -582,3 +595,5 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0078 | [The mirrored map: sixteen days of mining the wrong block](0078-the-mirrored-map.md) |
 | 0079 | [The provisioned life: the composition endures](0079-the-provisioned-life.md) |
 | 0080 | [The menu: boredom rotates it, praise commands it](0080-the-menu.md) |
+| 0081 | [The whisper and the cliff: praise gets a dial](0081-the-whisper-and-the-cliff.md) |
+| 0082 | [The drive cannot smell calories](0082-the-drive-cannot-smell-calories.md) |
