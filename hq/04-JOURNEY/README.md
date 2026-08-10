@@ -20,7 +20,7 @@ Episodes 0001–0044 were chapters of the original single-file `JOURNEY.md`
 "ch. NN" resolve to `00NN-*.md`). The recurring principles the journey keeps
 teaching moved to `../00-GENESIS/how-we-work.md`.
 
-## Where things stand (2026-08-08)
+## Where things stand (2026-08-10)
 
 **The multi-week run is over and read**
 ([episode 0068](0068-the-run-has-spoken.md)): `c1c` closed 2026-08-08
@@ -101,8 +101,17 @@ the bridge's "ahead" had been mirrored and half-block-shifted since
 feature 027 — c1c mined its diagonal-rear neighbour for sixteen days on
 reach tolerance; the fix probes 20/20 clean through 5×, the lab world
 is self-consistent and untouched, and c1e registers on the fixed map.
-Open: recombination (a topic when licensed), the c1d readings
-(running), rung 2's B2′ formality, book ch 17.
+**And the provisioned life is lived and read**
+([0079](0079-the-provisioned-life.md)): one brain, one continuous
+world, **75,359 full chains at 25M steps, zero deaths**, stopped by
+the pre-registered goal rule — endurance flat across every 5M-step
+fifth (15.2k / 15.5k / 15.3k / 14.5k / 14.8k chains, the last fifth
+rising), dwell ≥ 99.97% throughout, the head's error bounded across
+~25M updates, the only energy dip exactly where G4b's ledger predicted
+(0.855, just past weaning), and not one chainless segment in 500. The
+gate-by-gate composition holds together for a lifetime.
+Open: c1e on the fixed map (gated on rung 2's B2′ formality),
+recombination (a topic when licensed), book ch 17.
 
 **The project's working structure moved into `hq/`**
 ([episode 0045](0045-the-hq-restructure.md)): GENESIS holds the vision,
@@ -559,3 +568,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0076 | [The steps, not just the ingredients](0076-the-steps-not-just-the-ingredients.md) |
 | 0077 | [The recipe ships, and the closure is exact again](0077-the-recipe-ships.md) |
 | 0078 | [The mirrored map: sixteen days of mining the wrong block](0078-the-mirrored-map.md) |
+| 0079 | [The provisioned life: the composition endures](0079-the-provisioned-life.md) |

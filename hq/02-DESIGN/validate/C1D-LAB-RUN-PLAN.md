@@ -98,3 +98,51 @@ transport + mineflayer-at-speed calibration against vanilla 1.21.11's
   row 41 ≡ snapshot cycles 93,238); no readings lost. The wrapper now
   guards against double-launch, and the runner recycles its process
   every 20 segments as defense in depth.
+
+## Readings — the run complete (2026-08-10)
+
+Stopped by rule 2, the goal rule as openly amended above: **75,359 full
+chains at 25,003,001 steps** (the chain bar cleared 37× over; the stop
+fired the moment the amended step gate was crossed). 500 segments,
+launched 2026-08-09, ended 2026-08-10; pace min/median/max 57/738/775
+steps/s (the minimum is the suffocation incident journaled above). All
+numbers `[measured]` from `c1d-lab/c1d-status.jsonl`.
+
+- **R1 — endurance of election.** Full chains per 5M-step fifth:
+  **15,187 / 15,540 / 15,298 / 14,518 / 14,816** (mean 15,072; spread
+  max−min = 1,022 ≈ 6.8% of mean; the final fifth rose). The decile
+  trajectory neither decays nor grows — election is *flat* across the
+  life. Not one of the 500 segments was chainless (longest zero-chain
+  streak: 0 segments).
+- **R2 — hold drift.** Dwell per fifth: 99.976 / 99.980 / 99.981 /
+  99.977 / 99.972 %. No drift; episode 0074's reversal watch closes
+  unfired.
+- **R3 — head stability at horizon.** Progress-prediction-error EMA per
+  fifth (mean): 0.0623 / 0.0681 / 0.0653 / 0.0755 / 0.0660; lifetime
+  max of the per-segment EMA 0.157. Bounded wander, no divergence.
+  Update count per segment is identically the step count (the shipped
+  head updates on every executed transition — feature 040's invariant),
+  so ~25M NLMS updates total.
+- **R4 — the life itself.** Zero deaths. Lowest sampled energy 0.855,
+  in segment 2 — the young life just past weaning (taper ends at tick
+  3,000, inside segment 1) — and never below 0.92 in any later fifth;
+  final energy 0.993. After weaning the brain fed itself entirely by
+  its own work for ~25M steps.
+- **R5 — the miser watch.** Unique positions per fifth: 18.2 / 18.4 /
+  18.4 / 18.1 / 18.8 — no contraction under permanent stakes. Pocket
+  stocks (stocks, not counters — crafting consumes them): net log
+  growth accelerated across fifths (+6.8k → +10.0k per fifth) while net
+  stick growth eased (+14.8k → +11.5k) with chains flat; cobble held
+  0–1,820, ending at 1,321. A mild late-life tilt toward digging over
+  finishing — recorded as an observation, not a claim.
+
+**Recording caveats (honesty):** rows sample energy/dwell/EMA at segment
+boundaries (~50k steps), so intra-segment excursions are unobserved;
+the engine's own accumulators were trimmed between segments as
+registered above, so the per-segment rows are the record. The 50M-step
+registered horizon was *not* reached — the owner's early-stop is the
+rule that fired — so endurance beyond 25M steps is unmeasured.
+
+**Archive:** [`c1d-lab/`](c1d-lab/README.md) — runner, wrapper, all 500
+rows, the seed brain, and the final 25M-step brain (resumable).
+**Episode:** [0079](../../04-JOURNEY/0079-the-provisioned-life.md).
