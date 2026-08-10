@@ -89,4 +89,35 @@ with these numbers as its motivation.
 
 ## Verdict
 
-<Empty until graduation.>
+**Bar RC1 PASS at ceiling [measured, 2026-08-10, 24 seeds]: the
+shipped machinery composes — the splice (RC2) was never licensed.**
+
+- **RC1: 24/24** seeds gained refined (bar 12; floor 1/24), and not
+  marginally — median 387 crystals and hundreds of refined per
+  life, first refines typically within 500–900 steps. Composed-led
+  23/24 (the first refine occurs with fragment B selected, after an
+  A-attributed crystal) `[measured]`.
+- **RC3: PASS**, with a recorded weakness: the floor's crystal
+  median is 0 (drive + itch alone barely collect), so the bar as
+  frozen is trivially cleared; the substantive reading is that the
+  composing arm sustains first-leg work at scale (387 median) while
+  adding the second leg `[measured]`.
+- **How it composes** `[mechanism-argument]`: no planner appears —
+  rotation (novelty) carries the bot between fragment territories,
+  the pocket carries the *state* across the seam, and fragment B's
+  terminal only wins selection when its precondition happens to be
+  satisfied enough for progress. The fragments find each other
+  through the world, not through lookahead.
+- **Limits, stated plainly**: this is one-seam composition with
+  pocket state as the bridge. Deeper chains (3+ fragments),
+  non-pocket preconditions, and adversarial layouts are unmeasured.
+  And the arena surfaced a structural finding recorded pre-run:
+  **the acquisition-keyed itch is blind to value-preserving
+  conversions** (1-for-1 refine is invisible; the arena yields 2,
+  the C1 crafting precedent) — a named limit for any future economy
+  with pure transformations.
+
+Reversal condition unfired (both stages would have had to fail).
+Successors named, none licensed: fragment-depth ladder (3+ seams);
+conversion-visibility (an itch or extraction term for
+transformations, not just acquisitions).
