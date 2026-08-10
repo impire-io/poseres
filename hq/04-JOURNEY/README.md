@@ -159,9 +159,17 @@ emergency appetite at ceiling** (hungry diet 0.996 vs 0.780; deaths
 pre-arms amendments with pilot numbers). **The motivation stack is
 embodiment-general as measured on two structurally disjoint
 bodies.** Porting cost: one small anatomy plus teaching tapes.
-Open: c1e on the fixed map (gated on rung 2's B2′ formality), the
-coupling's promotion registration (owner's call), recombination
-(when licensed), book ch 17.
+**And the appetite then shipped** ([0085](0085-the-appetite-ships.md),
+owner's "promote the coupling with a timing-primary bar"): feature
+042 / **v1.4.0** — `deficit_index`/`deficit_kappa` on the shipped
+policies, off-by-default bit-exact, promoted on the frozen
+timing-primary bars (crisis-diet 2.22×, survival gap 4, margin
++0.216, 0 vs 16 deaths) with the closure **exact on all 48 archived
+rows across both bodies** — the arc's third exact closure. The
+failed aggregate bar of 0083 stays failed on record; the promotion
+is licensed by timing, as directed.
+Open: c1e on the fixed map (gated on rung 2's B2′ formality),
+recombination (when licensed), book ch 17.
 
 **The project's working structure moved into `hq/`**
 ([episode 0045](0045-the-hq-restructure.md)): GENESIS holds the vision,
@@ -624,3 +632,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0082 | [The drive cannot smell calories](0082-the-drive-cannot-smell-calories.md) |
 | 0083 | [The emergency appetite: hunger reaches wanting, timing beats volume](0083-the-emergency-appetite.md) |
 | 0084 | [The second body: the stack is general, measured](0084-the-second-body.md) |
+| 0085 | [The appetite ships: promoted on timing, closure exact twice](0085-the-appetite-ships.md) |

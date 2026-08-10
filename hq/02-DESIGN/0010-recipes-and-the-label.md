@@ -76,7 +76,7 @@ statistically unchanged from the flat control (nourishing share
   diet stayed alive 24/24 on side-chains). Diet cannot be forced
   through selection.
 
-## The deficit→value coupling (measured instrument-grade; episode 0083)
+## The deficit→value coupling (shipped as feature 042; episodes 0083–0084)
 
 The "body as the first teacher" shape was built and measured on
 shipped seams, no oracle: label channel = the felt meal
@@ -92,10 +92,13 @@ the episode-0081 dial).
 - **Timing beats volume** [measured]: an ungated constant taste
   (β 0.02) reaches a higher *average* food share yet dies as often
   as no coupling at all. State-dependence is the load-bearing part.
-- **Not shipped**: the aggregate repricing bar (1.5×) failed at
-  1.41×, so the coupling stays instrument-grade **[O]**. Any
-  promotion registration MUST use a timing-primary bar (crisis-bin
-  share or survival-primary), frozen before that run.
+- **Shipped as feature 042 (v1.4.0) [V]** — promoted by the
+  coupling-promotion topic on its timing-primary bars (the
+  aggregate-share bar of episode 0083 remains failed and mis-targeted
+  on record): `CompletionItchPolicy(deficit_index=…, deficit_kappa=…)`,
+  keyword-only, off by default bit-exact, closure row-for-row against
+  both archived instrument arms (Bar P1). Measured operating point of
+  record: κ_d = 0.1 against a [0, 1] meter.
 
 ## Generality (measured; topic second-body, episode 0084)
 

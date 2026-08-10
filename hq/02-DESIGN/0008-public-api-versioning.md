@@ -37,6 +37,12 @@ the gate. What this document adds is the *promise* around the list.
   praise label to `CompletionItchPolicy` (keyword-only, off by default,
   bit-exact when off) and `pra.action.recipe` (Recipe, RecipeMemory,
   RecipePolicy) — the measured recipe-reach mechanism as product.
+- **Release notes (additive minors)**: v1.4.0 (feature 042) adds the
+  deficit gate to `CompletionItchPolicy`/`RecipePolicy`
+  (`deficit_index`, `deficit_kappa`, keyword-only, off by default,
+  bit-exact when off): the effective label weight grows with the
+  sensed homeostatic deficit — the coupling-promotion topic's
+  timing-primary bars license it (episodes 0083/0084).
 - **Internal by default**: everything not listed below. Internals stay
   importable — the research arcs' copy-patch instrument discipline
   depends on reaching them — but they are visibly outside the promise
@@ -149,10 +155,10 @@ subject-builder functions listed under Operational below.
 
 | Element | Kind | Promised parameters |
 |---|---|---|
-| `pra.action.policy.CompletionItchPolicy` | class | params, kappa, progress_index, pocket_index, completion_threshold, potential_of, label_index, label_beta |
+| `pra.action.policy.CompletionItchPolicy` | class | params, kappa, progress_index, pocket_index, completion_threshold, potential_of, label_index, label_beta, deficit_index, deficit_kappa |
 | `pra.action.recipe.Recipe` | dataclass | — |
 | `pra.action.recipe.RecipeMemory` | class | pocket_index, label_index |
-| `pra.action.recipe.RecipePolicy` | class | params, memory, kappa, progress_index, pocket_index, lambda_r, position_indices, position_scale, completion_threshold, label_index, label_beta |
+| `pra.action.recipe.RecipePolicy` | class | params, memory, kappa, progress_index, pocket_index, lambda_r, position_indices, position_scale, completion_threshold, label_index, label_beta, deficit_index, deficit_kappa |
 | `pra.action.policy.CuriosityLookaheadPolicy` | class | — |
 | `pra.action.policy.Policy` | protocol | — |
 | `pra.action.policy.PolicyContext` | dataclass | — |

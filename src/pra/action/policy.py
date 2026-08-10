@@ -154,6 +154,8 @@ class CompletionItchPolicy:
         potential_of: Callable[[int], float] | None = None,
         label_index: int | None = None,
         label_beta: float = 0.0,
+        deficit_index: int | None = None,
+        deficit_kappa: float = 0.0,
     ):
         self.params = params
         self.kappa = float(kappa)
@@ -166,6 +168,17 @@ class CompletionItchPolicy:
         # None (default) = off: bit-exact v1.2.0 behavior.
         self.label_index = None if label_index is None else int(label_index)
         self.label_beta = float(label_beta)
+        # the deficit gate (feature 042; episodes 0083/0084 measured): the
+        # label weight grows with the sensed homeostatic deficit — sated
+        # silent, depleted insistent. None/0.0 (default) = bit-exact v1.3.0.
+        self.deficit_index = None if deficit_index is None else int(deficit_index)
+        self.deficit_kappa = float(deficit_kappa)
+        if self.deficit_index is not None and self.label_index is None:
+            raise ValueError("CompletionItchPolicy: deficit_index requires label_index")
+        if not np.isfinite(self.deficit_kappa) or self.deficit_kappa < 0.0:
+            raise ValueError(
+                f"CompletionItchPolicy: deficit_kappa {self.deficit_kappa} must be finite and >= 0"
+            )
         self.last_was_directed = False  # telemetry only; overwritten every step
         self.completions_fired = 0
         self.false_completions = 0
@@ -174,6 +187,17 @@ class CompletionItchPolicy:
         self._pending_delta: float | None = None
         self._pending_completion = False
         self._indices_checked = False
+
+    def _label_weight(self, obs: np.ndarray) -> float:
+        """The effective label weight (feature 042): the static ``label_beta``
+        plus ``deficit_kappa · clip(1 − obs[deficit_index], 0, 1)``. Disabled
+        (index ``None`` or gain 0) returns ``label_beta`` exactly, with no
+        observation read."""
+        beta = self.label_beta
+        if self.deficit_index is not None and self.deficit_kappa > 0.0:
+            deficit = min(max(1.0 - float(obs[self.deficit_index]), 0.0), 1.0)
+            beta += self.deficit_kappa * deficit
+        return beta
 
     def _settle_watch(self, obs: np.ndarray) -> None:
         """Resolve last step's predictions against the realized observation."""
@@ -194,8 +218,10 @@ class CompletionItchPolicy:
     def select_action(self, context: PolicyContext, rng: np.random.Generator) -> int:
         obs = context.observation
         if not self._indices_checked:
-            idxs = [self.progress_index, self.pocket_index] + (
-                [] if self.label_index is None else [self.label_index]
+            idxs = (
+                [self.progress_index, self.pocket_index]
+                + ([] if self.label_index is None else [self.label_index])
+                + ([] if self.deficit_index is None else [self.deficit_index])
             )
             hi = max(idxs)
             lo = min(idxs)
@@ -220,6 +246,7 @@ class CompletionItchPolicy:
             return int(rng.integers(context.n_actions))
 
         progress_now = float(obs[self.progress_index])
+        label_weight = self._label_weight(obs)  # one observation, one weight
         best_action = 0
         best_value = -np.inf
         best_delta: float | None = None
@@ -238,7 +265,7 @@ class CompletionItchPolicy:
                 if completion:
                     progress_after = 1.0
                     if self.label_index is not None:
-                        progress_after += self.label_beta * min(
+                        progress_after += label_weight * min(
                             max(float(delta[self.label_index]), 0.0), 1.0
                         )
                 else:

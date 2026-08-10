@@ -223,3 +223,62 @@ def test_label_index_validated():
     p = _policy(label_index=99, label_beta=0.5)
     with pytest.raises(ValueError, match="out of range"):
         p.select_action(_ctx(), np.random.default_rng(0))
+
+
+# --- the deficit gate (feature 042) ------------------------------------------
+
+
+def test_deficit_off_is_bit_exact_parity():
+    a = _policy(label_index=5, label_beta=0.5)
+    b = _policy(label_index=5, label_beta=0.5, deficit_index=4, deficit_kappa=0.0)
+    obs = np.zeros(6)
+    fires = np.zeros(6)
+    fires[3] = 1.0
+    fires[5] = 1.0
+    ra, rb = np.random.default_rng(9), np.random.default_rng(9)
+    for _ in range(50):
+        ctx = _ctx(obs=obs, event=lambda a_: fires)
+        assert a.select_action(ctx, ra) == b.select_action(ctx, rb)
+    assert ra.bit_generator.state == rb.bit_generator.state
+
+
+def test_deficit_weight_arithmetic():
+    p = _policy(label_index=5, label_beta=0.1, deficit_index=4, deficit_kappa=0.5)
+    obs = np.zeros(6)
+    obs[4] = 1.0
+    assert p._label_weight(obs) == pytest.approx(0.1)  # sated: the gate is silent
+    obs[4] = 0.6
+    assert p._label_weight(obs) == pytest.approx(0.1 + 0.5 * 0.4)
+    obs[4] = -0.2  # saturated meter: deficit clips to 1
+    assert p._label_weight(obs) == pytest.approx(0.1 + 0.5)
+    obs[4] = 1.4  # over-full meter: deficit clips to 0
+    assert p._label_weight(obs) == pytest.approx(0.1)
+
+
+def test_deficit_gates_the_completion_read():
+    # both actions complete; only action 1 predicts the label. Sated the tie
+    # breaks to 0; depleted the gated label term elects 1.
+    deltas = {0: np.zeros(6), 1: np.zeros(6), 2: np.zeros(6)}
+    for k in (0, 1):
+        deltas[k][3] = 1.0
+    deltas[1][5] = 1.0
+    p = _policy(label_index=5, label_beta=0.0, deficit_index=4, deficit_kappa=0.5)
+    sated = np.zeros(6)
+    sated[4] = 1.0
+    hungry = np.zeros(6)
+    hungry[4] = 0.2
+    rng = np.random.default_rng(0)
+    assert p.select_action(_ctx(obs=sated, event=lambda a: deltas[a]), rng) == 0
+    assert p.select_action(_ctx(obs=hungry, event=lambda a: deltas[a]), rng) == 1
+
+
+def test_deficit_validation():
+    with pytest.raises(ValueError, match="deficit_index requires label_index"):
+        _policy(deficit_index=4, deficit_kappa=0.1)
+    with pytest.raises(ValueError, match="deficit_kappa"):
+        _policy(label_index=5, deficit_index=4, deficit_kappa=-0.1)
+    with pytest.raises(ValueError, match="deficit_kappa"):
+        _policy(label_index=5, deficit_index=4, deficit_kappa=float("nan"))
+    p = _policy(label_index=5, deficit_index=99, deficit_kappa=0.1)
+    with pytest.raises(ValueError, match="out of range"):
+        p.select_action(_ctx(), np.random.default_rng(0))

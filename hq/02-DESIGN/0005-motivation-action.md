@@ -186,6 +186,18 @@ pointer), and lets the itch work each station. Measured: transmission
 24/24 against a 0/24 label-alone floor; watch counters ship (advance
 events; out-of-context — the parrot). §6's rule holds: drives untouched.
 
+**The deficit gate** — **[V]** (feature 042; episodes 0083/0084, the
+coupling-promotion bars): `deficit_index=…, deficit_kappa=…` makes the
+effective label weight `label_beta + κ_d·clip(1 − obs[deficit], 0, 1)`
+at both label sites — sated the gate is silent, depleted the felt
+value insists. General vocabulary: the deficit channel is any sensed
+homeostatic meter (energy, battery, budget). Off (the default) is
+bit-exact 1.3.0; validation requires a label channel. Measured on two
+bodies: choice share of nourishing outcomes monotone in deficit while
+the ungated brain never budges from baseline; survival +4 lives (C1)
+and 0 vs 16 deaths (sample field). §6's rule still holds — the drive
+itself is untouched; hunger reaches wanting through the label seam.
+
 ---
 
 ## 5. Stability: counter-drives — **[D]** (optional, not in base build)
