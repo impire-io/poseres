@@ -77,3 +77,24 @@ goal / stop lines and pushes a notification when one lands. Rung 2
 (registered intent, own gate before any run): the tick-synchronized
 transport + mineflayer-at-speed calibration against vanilla 1.21.11's
 `/tick rate`, then c1e in the full game at the measured multiplier.
+
+## Ops journal (honesty rows, the c1c precedent)
+
+- **2026-08-10 ~02:00 — the slow suffocation, diagnosed and fixed.** Pace
+  declined 501 → 57 steps/s over 40 segments. Two false leads recorded
+  (thermal throttling; brain growth — the population was 18 frames,
+  0.3 MB), then the profile: the segment config inherited
+  `snapshot_every_n_cycles = 1` from the teaching protocol, so the
+  engine took 2,273 snapshots per segment into the in-memory store, each
+  bloated by the agency's unbounded value logs (2M steps of history) —
+  measured 13 GB RSS. Fix: one snapshot per segment + the agency logs
+  join the between-segment accumulator trim (same stats-window caveat
+  already recorded above). Pace after: **753 steps/s at 248 MB** — above
+  segment 1, which had been paying the same hidden tax.
+- **Compounding incident, resolved:** a case-sensitive kill pattern left
+  the old leaked process alive beside its replacement — two writers on
+  one snapshot for ~25 minutes. The status lineage was verified
+  monotone and consistent with the surviving snapshot (41 rows kept,
+  row 41 ≡ snapshot cycles 93,238); no readings lost. The wrapper now
+  guards against double-launch, and the runner recycles its process
+  every 20 segments as defense in depth.
