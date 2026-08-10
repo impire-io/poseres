@@ -95,4 +95,30 @@ seam is the amendment site.
 
 ## Verdict
 
-<Empty until graduation.>
+**ALL THREE BARS PASS [measured, 2026-08-10, 24 seeds × 3 arms]** —
+the menu rotates, praise steers (totally), and choice costs nothing
+in raw output.
+
+- **Bar C1 — work survives a menu: PASS 24/24** (bar 18). Rotation
+  24/24, monoculture 0, thrash 0; median switch rate 0.0495; chains
+  23/24 `[measured]`.
+- **Bar C2 — praise steers: PASS 24/24 vs 0/24** (bar 14 and ≥2×
+  the β 0 count). Not a nudge: selection share 1.00 for every seed —
+  at the measured β\* = 0.5 the label (+0.5) dwarfs the drive's whole
+  value scale (0.06–0.15), so steering saturates into monoculture;
+  chains fall to 18/24 (recipe-reach's exact R2 number, reproduced)
+  and dwell to 62.6% `[measured]`; the dose explanation is
+  `[mechanism-argument]`, the between-dose curve unmeasured.
+- **Bar C3 — dither does not destroy output: PASS** — menu median
+  170.5 completions vs the specialist's 143.5: the menu *out-counts*
+  the single-recipe control outright. Caveat: counts, not value —
+  the specialist makes 73% more of the chain product `[measured]`.
+- **Why it rotates** `[measured]`: the registered value trace shows
+  novelty decay compressing terminal values (0.13–0.15 → ~0.10) as
+  recipes are practiced; the argmax moves because the drive gets
+  bored. The reversal condition (thrash) is unfired: per-step
+  re-selection is sticky in practice (~5% switches).
+
+Named successors (readings, not bars): the β dose curve between 0
+and 0.5; R2's shadowing by its near-twin R1; the value-weighted
+economy (meter with unequal yields) toward survival-priced choice.

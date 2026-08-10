@@ -60,3 +60,43 @@ proximity may shadow it. A reading, not a bar.
 
 Arms next: A (menu β 0), B (menu β 0.5), C (single-recipe control),
 24 seeds each, bars as registered.
+
+## 2026-08-10 — the arms: all three bars PASS, and praise is a cliff
+
+72 runs (24 seeds × 3 arms), 570 s. Raw:
+
+- **Arm A (menu, β 0):** 24/24 seeds complete (Bar C1 PASS, bar 18);
+  **rotation 24/24** — monoculture 0, thrash 0; median switch rate
+  0.0495; chains 23/24; median completions 170.5. Product mix across
+  the arm: 2,232 cobble / 542 logs / 1,482 planks / 1,030 sticks —
+  a genuinely mixed economy; dwell median 89.1% (the menu tours).
+  R5 (the praised station, label ignored at β 0) was modal for
+  0/24 seeds — median 5 completions.
+- **Arm B (menu, β 0.5):** the praised recipe is modal **24/24**
+  (Bar C2 PASS vs 0/24 in A — maximal separation), and it is not a
+  nudge: **selection monoculture 24/24** — share 1.00 for every
+  seed (min = median = max). Cobble 3,447 (+54% over A), logs 391
+  (−28%), dwell median falls to 62.62%, chains **18/24** — the
+  obsessive twin at exactly recipe-reach's measured R2 number,
+  independently reproduced on a different cohort and world protocol.
+  Median completions 229 (cobble digs are 3-tick).
+- **Arm C (single R9):** median completions 143.5, chains 23/24,
+  dwell 99.18%, sticks 1,783 — the specialist out-produces both arms
+  on the chain product by ~73% over A (1,030).
+- **Bar C3 PASS, inverted from the fear:** menu median 170.5 ≥
+  half of 143.5 — in fact the menu *out-counts* the specialist
+  outright. Caveat recorded: completions are counted, not
+  value-weighted; cobble (3-tick) is cheaper than a log (12-tick),
+  and arm C converts its narrower attention into 73% more sticks.
+
+Mechanism notes `[measured]`: novelty decay rotates the menu (the
+value-trace compression, pilot section); the β = 0.5 label (+0.5 on
+the terminal) sits 3–8× above the drive's whole value scale
+(0.06–0.15 in the traces), which is *why* steering saturates into
+monoculture at the measured operating point — praise at this dose is
+a command, not a preference `[mechanism-argument]`. Successor
+readings named, none run: the β dose curve between 0 and 0.5 (is
+there a nudge regime?); R2's shadowing by its nearby twin (0–4
+completions beside R1 everywhere); a value-weighted economy (the
+meter with unequal yields) as the next rung toward survival-priced
+choice.
