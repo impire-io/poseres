@@ -69,3 +69,42 @@ The c1d pattern: per-segment rows feed the tablet dashboard
 (private artifact, updated at decile boundaries and on request); a
 monitor watches MILESTONE / STOPPED / death / error lines and pushes
 on anything actionable.
+
+## Attempt 1 — death by rule 1, and amendment 1 (2026-08-11)
+
+**The run**: teaching passed 45/45 (every stick craft asserted). The
+life died at **life-tick 4250** — the exact zero-income death point
+(the taper's cumulative drain reaches 1.0 at precisely 4250):
+**not one pocket gain in the entire childhood** [measured]. Segment
+row: 10,011 steps, 2 chains (both post-death), 38 logs / 48 sticks
+at segment end, dwell 0.24, 14.8 steps/s, 1,163 instant dig aborts
+in the bridge log.
+
+**The post-mortem probe** (three arms against the still-live world,
+raw rows in `c1e-attempt1/c1e-probe.json`) [measured]:
+
+- Pinned pure dig hold: dug in **60 steps (3.11 s wall)**, 0 aborts.
+- Wild posture (offset stand + yaw error): dug in 61 steps, 0
+  aborts — **no posture penalty, no target-flap**.
+- The tape's own shape (14 digs + 8 idles, repeated): dug only after
+  3 cycles ≈ 60 dig-steps total.
+
+**Diagnosis**: a dig's duration is set by the *client* at wall-clock
+1× — ~3.0 s regardless of the world's `/tick rate`. The tape taught
+a **14-step dig run**: 3.5 s at teaching pace (250 ms — enough), but
+**0.7 s at life pace (50 ms) — under a quarter of what a dig needs**.
+The taught skill was unexpressable at the pace it was released into;
+the childhood earned nothing and the meter ran out. The 38 post-death
+logs are the completion itch *extending* runs to ~60 held steps once
+it locked onto the sensed mining-progress channel — the composition
+can do the work; the tape's temporal shape couldn't. This is R6 —
+reality's tax — delivered in segment 1.
+
+**Amendment 1 — one temporal fabric** (before attempt 2, fresh world
+and fresh brain): teaching moves into the life's own fabric (5×
+world, 50 ms steps, same as release); the dig run becomes **70
+consecutive held digs** (measured 60 + margin; the bridge releases a
+hold on any non-dig command, idles included); the craft tail keeps
+attempt 1's wall spacing (one op per 250 ms) as four idles after
+each op — tape 22 → 106 steps. Meter, wean, stop rules, target, and
+readings all unchanged.
