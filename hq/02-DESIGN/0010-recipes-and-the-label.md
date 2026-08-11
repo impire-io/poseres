@@ -1,4 +1,4 @@
-# 10 — Recipes and the praise label (graduated research, episodes 0077, 0080–0091)
+# 10 — Recipes and the praise label (graduated research, episodes 0077, 0080–0092)
 
 **Status:** SHIPPED as feature 041 (v1.3.0); this document records the
 functional design the measurements license.
@@ -170,12 +170,23 @@ the interaction; **per-seed online convergence is the bottleneck**
 (sharpness 0.874 < 0.90 — arbitration not implicated). The 0090
 license stands unexpended.
 
+**Consolidation, first dose (episode 0092)** [measured, FAIL]:
+surprise-prioritized replay (top-256 by residual, 4 passes per
+500-step rest) is refuted — both prioritization forms select
+locomotion over consequence (residual-based importance is the wrong
+signal under a churning head), and replay at η = 0.5 *amplifies*
+the churn (ruinous 0.293, sharpness down to 0.799). No collateral
+harm. The diagnosis after three gates: not representation, not
+arbitration, not replay volume — **the churn itself**.
+
 ## Named successors
 
-**The richer predictor, next regime** — the 0090 license with 0091's
-constraint: candidates are consolidation (the Doc 0004 offline loop
-replaying witnessed trades), feature normalization + lower head η,
-or targeted low-order context terms; its gate keeps 0091's bars and
-sharpness instrument. The boundary hunt (depth 5+, scarce inputs)
-when an embodiment demands it. A drive-side deficit coupling remains
-the named alternative if the label seam is ever refuted.
+**The richer predictor, next regime** — the 0090 license, twice
+constrained (0091: convergence, not representation; 0092: the churn,
+not replay volume): the ranked candidates are **feature
+normalization + a lower head η** (treat the disease), then targeted
+low-order context terms (shrink the space); the gate keeps 0091's
+bars and the sharpness + buffer instruments; a fresh consolidation
+dose needs a fresh registration. The boundary hunt when an
+embodiment demands it. A drive-side deficit coupling remains the
+named alternative if the label seam is ever refuted.

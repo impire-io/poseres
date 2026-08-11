@@ -223,8 +223,19 @@ the lottery** (sharpness 0.874 < 0.90 — arbitration not
 implicated). The license stands; the next regime is named
 (consolidation via Doc 0004's offline loop, normalization + lower
 η, or targeted terms).
-Open: the richer-predictor next regime (licensed, owner's call),
-c1e on the fixed map (gated on rung 2's B2′ formality), the
+**And the sleep cure failed too, informatively**
+([0092](0092-the-restless-sleep.md), owner's "go with
+consolidation"): surprise-prioritized replay consolidated *walking*
+— stale witness-time surprise and current-head surprise both select
+locomotion over consequence — and at power made refusal worse
+(0.293) while sharpness *fell* (0.799 vs 0.874): replay amplified
+the churn that is the disease. One amendment tried and withdrawn
+openly with its numbers; the registered reversal fired on its
+second clause. Diagnosis after three gates: not representation,
+not arbitration, not replay volume — **the churn itself**. Ranked
+next: normalization + lower head η, then targeted terms.
+Open: the richer-predictor next regime (normalization, owner's
+call), c1e on the fixed map (gated on rung 2's B2′ formality), the
 boundary hunt, book ch 17.
 
 **The project's working structure moved into `hq/`**
@@ -695,3 +706,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0089 | [The tongue learns: worth without decree](0089-the-tongue-learns.md) |
 | 0090 | [The tourist tax: the first edge of senses-first](0090-the-tourist-tax.md) |
 | 0091 | [The lottery head: the first licensed machinery fails its bar honestly](0091-the-lottery-head.md) |
+| 0092 | [The restless sleep: consolidation refuted, the diagnosis sharpens](0092-the-restless-sleep.md) |
