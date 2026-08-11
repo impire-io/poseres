@@ -251,6 +251,23 @@ readings plus reality's tax, stop rules frozen.
 Open: the c1e run (launching), the boundary hunt (when an embodiment
 demands it), book ch 17.
 
+**The dials directive opened three retirement topics in parallel**
+(the owner: magic numbers the brain should figure out). Two verdicts
+the same day: the learning-rate map ([0094](0094-head-churn.md)) —
+normalization refuted, no single η buys refusal + tracking + activity,
+the churn's remaining option (targeted low-order terms) is the owner's
+call; and κ-was-never-magic ([0095](0095-budget-arbitration.md)) —
+self-scaling works but the drive pipeline already normalizes the
+world's scale (×5 world-side push moves the witnessed spread ~1.4×),
+so the dial's portability is architectural. The third — provisioning
+(the childhood dose ends by demonstration, not by date) — is active:
+its pilot beat the calendar on the measured economy (weans at
+1023–1567 vs the hand 3000, cheaper stipends) and exposed both its
+own missing patience bound and a degenerate transfer economy; amended
+and re-piloting. Open additionally: arm A of the c1e two-arm run (the
+respawn frame; arm B died an honest pantry death), provisioning's
+confirmatory, book ch 17.
+
 **The project's working structure moved into `hq/`**
 ([episode 0045](0045-the-hq-restructure.md)): GENESIS holds the vision,
 constitution (wired into every spec-kit plan via symlink), and working
@@ -721,3 +738,5 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0091 | [The lottery head: the first licensed machinery fails its bar honestly](0091-the-lottery-head.md) |
 | 0092 | [The restless sleep: consolidation refuted, the diagnosis sharpens](0092-the-restless-sleep.md) |
 | 0093 | [The road to reality: M\* = 5, and c1e registers](0093-the-road-to-reality.md) |
+| 0094 | [The learning-rate map: no single η buys refusal, tracking, and activity](0094-head-churn.md) |
+| 0095 | [κ was never magic: the drive pipeline already normalizes the world](0095-budget-arbitration.md) |
