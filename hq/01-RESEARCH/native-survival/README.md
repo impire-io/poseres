@@ -32,9 +32,20 @@ the same brain without the deficit gate measurably fails to?
   fruit by the game's own growth — the world's renewal without one
   rcon call), planted at spawn plus at distance so foraging can move.
 - **Body**: one actuator gap is real and declared — the vocabulary has
-  no EAT. The topic adds an instrument-grade `eat` command (use the
-  held item if edible) to the bridge and anatomy; it ships as a
-  product feature only on promotion, like every instrument before it.
+  no way to consume. Refined at registration (the owner's point: eat
+  is an action *applied to an item*, and edibility is the item's
+  property): the new primitive is **`use_held`** — apply the held
+  item — mirroring how `place_ahead` applies the held item where it
+  affords placing. Edibility joins the hand channel as a sensed
+  affordance flag beside the existing placeability flag (feature-027
+  grammar, additive); nourishment is the *outcome* the event head
+  learns from the held signature. Eating takes ~1.6 wall-seconds of
+  continuous use, so `use_held` is a **held intention** in the bridge,
+  exactly like the dig hold — c1e's temporal-fabric lesson applied,
+  not relearned. Instrument-grade for this topic; ships only on
+  promotion. Named ablation to record (not a bar): drop the edible
+  flag and measure whether the head learns edibility from signatures
+  and outcomes alone — the fully classifier-free mouth.
 - **No harness meter anywhere.** No drain constant, no pay constant,
   no taper, no stipend, no steward. The run reads the world's own
   food/health channels and the world's own clock.
