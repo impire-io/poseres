@@ -11,6 +11,13 @@ things look different, nobody names them), digging progress is sensed
 (`mining`), and every channel carries its label. Categories are the
 brain's to form. ``crafting=False`` is the exact feature-027 body
 (obs_dim 14, n_actions 8) — the recorded reversal path.
+
+``survival=True`` is the **native-survival instrument** (research topic
+native-survival, 2026-08-11; ships into the default only on promotion):
+the hand channel widens to 7 with `edible` beside `placeable` (the
+game's own fact: the held item maps to a food), and `use_held` — apply
+the held item, a held intention like the dig — joins as action id 12
+(obs_dim 33, n_actions 13; every shipped id and offset unchanged).
 """
 
 from __future__ import annotations
@@ -81,16 +88,35 @@ _GRID_PRESETS: tuple[dict, ...] = (
     {"take_result": 1.0},
 )
 
+# The native-survival instrument (see module doc): the widened hand and the
+# mouth. Appended AFTER the shipped presets so ids 0–11 keep their meaning.
+_SURVIVAL_HAND = SensorSpec(
+    id="hand",
+    topic="hand",
+    width=7,
+    labels=("present", "placeable", "edible", "count", "sig0", "sig1", "sig2"),
+)
+_SURVIVAL_PRESETS: tuple[dict, ...] = ({"use_held": 1.0},)
 
-def c1_anatomy(crafting: bool = True) -> tuple[list[SensorSpec], list[ActuatorSpec]]:
+
+def c1_anatomy(
+    crafting: bool = True, survival: bool = False
+) -> tuple[list[SensorSpec], list[ActuatorSpec]]:
     """The (sensors, actuators) lists `Ros2Body.factory` expects.
 
     ``crafting=True`` (default): the property body — classifier-free
     senses, held intentions, the sensed staging grid.
     ``crafting=False``: the exact feature-027 body.
+    ``survival=True``: the native-survival instrument — the edible
+    affordance in the hand, `use_held` as the mouth (module doc).
     """
+    if survival and not crafting:
+        raise ValueError("survival needs the property body: the 027 body has no hand channel")
     sensors = list(_BASE_SENSORS) + (list(_PROPERTY_SENSORS) if crafting else [])
+    if survival:
+        sensors = [_SURVIVAL_HAND if s.id == "hand" else s for s in sensors]
     presets = _BASE_PRESETS + (_GRID_PRESETS if crafting else ())
+    presets += _SURVIVAL_PRESETS if survival else ()
     return sensors, [ActuatorSpec(id="control", topic="control", presets=presets)]
 
 

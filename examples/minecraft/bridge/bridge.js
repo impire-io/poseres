@@ -11,7 +11,15 @@
 // a ground-truth `view` (real item names) for the human-facing world view —
 // the brain never senses it.
 //
-// Env: MC_HOST (127.0.0.1), MC_PORT (25565), BOT_NAME (pra), BRIDGE_PORT (25580)
+// Native-survival instrument (research topic native-survival, 2026-08-11;
+// ships only on promotion): SURVIVAL=1 widens the hand channel by the edible
+// affordance (the game's own fact: the held item maps to a food) and adds
+// `use_held` — apply the held item, a held intention exactly the dig's shape:
+// one activation, the server's own consume runs (~1.61 s for food), any other
+// command releases it, a safety cap releases a use going nowhere.
+//
+// Env: MC_HOST (127.0.0.1), MC_PORT (25565), BOT_NAME (pra), BRIDGE_PORT (25580),
+//      SURVIVAL (unset; "1" = the native-survival instrument body)
 
 "use strict";
 
@@ -22,8 +30,20 @@ const mineflayer = require("mineflayer");
 const { Vec3 } = require("vec3");
 
 const VERSION = "pra-mc/1";
-const CHANNELS = { pose: 5, vitals: 2, env: 4, blocks: 3, mining: 1, pocket: 4, hand: 6, grid: 7 };
+const SURVIVAL = process.env.SURVIVAL === "1"; // the native-survival instrument body
+const CHANNELS = {
+  pose: 5,
+  vitals: 2,
+  env: 4,
+  blocks: 3,
+  mining: 1,
+  pocket: 4,
+  hand: SURVIVAL ? 7 : 6,
+  grid: 7,
+};
 const DIG_SAFETY_MS = 10000; // the owner's cap: a dig making no progress is released
+const USE_TOTAL_MS = 1610; // the game's own consume duration (32 game ticks)
+const USE_SAFETY_MS = 3000; // a use that produced nothing by then is released
 
 const MC_HOST = process.env.MC_HOST || "127.0.0.1";
 const MC_PORT = parseInt(process.env.MC_PORT || "25565", 10);
@@ -39,6 +59,8 @@ let grid = []; // <=4 staged item names, column-first (virtual staging, real flo
 let digTarget = null; // Vec3 of the block being broken (the held intention)
 let digStart = 0; // wall-clock ms when the intention began
 let digTotalMs = 1; // the game's own break time for the target
+let useHeld = false; // the use intention (survival): the held item is being applied
+let useStart = 0; // wall-clock ms when the use began
 let mcData = null; // loaded at spawn for placeability + recipes
 
 function itemSignature(name) {
@@ -49,6 +71,7 @@ function itemSignature(name) {
 }
 
 const isPlaceable = (name) => !!(mcData && mcData.blocksByName[name]);
+const isEdible = (name) => !!(mcData && mcData.foodsByName[name]);
 
 function pocketItems() {
   // name -> raw count from the REAL inventory (the world is the authority)
@@ -95,6 +118,17 @@ function stopDig() {
       /* already stopped */
     }
     digTarget = null;
+  }
+}
+
+function stopUse() {
+  if (useHeld) {
+    try {
+      bot.deactivateItem();
+    } catch (err) {
+      /* already inactive */
+    }
+    useHeld = false;
   }
 }
 
@@ -157,6 +191,7 @@ function handleClient(socket) {
     busy = false;
     clearControls();
     stopDig();
+    stopUse();
     console.log("client disconnected");
   });
 }
@@ -226,6 +261,7 @@ async function applyCommand(command, budget) {
   const name = names.length === 0 ? null : names[0];
   if (names.length > 1) throw new Error(`command carries ${names.length} keys, expected one`);
   if (name !== "dig_ahead") stopDig(); // releasing the intention (idle included)
+  if (name !== "use_held") stopUse(); // the use intention releases the same way
   if (name === null) return; // idle
   if (name === "forward" || name === "back") {
     bot.setControlState(name, true);
@@ -283,6 +319,22 @@ async function applyCommand(command, budget) {
         await bounded(bot.placeBlock(below, new Vec3(0, 1, 0)), budget);
       }
     }
+  } else if (SURVIVAL && name === "use_held") {
+    // apply the held item — no edibility check (the classifier-free mouth):
+    // one activation, then the SERVER runs whatever using this item means
+    // (a food consumes over ~1.6 s; most other items do nothing in air) —
+    // outcomes land in the world's own channels, never here
+    if (useHeld) {
+      if (Date.now() - useStart > USE_SAFETY_MS) stopUse();
+      return; // continuing the held intention
+    }
+    if (held === null || availableCount(held) === 0) return; // empty hand: world no-op
+    const item = bot.inventory.items().find((i) => i.name === held);
+    if (!item) return;
+    await bounded(bot.equip(item, "hand"), budget);
+    bot.activateItem();
+    useHeld = true;
+    useStart = Date.now();
   } else if (name === "hold_next") {
     const cycle = [null, ...kinds()];
     const index = cycle.findIndex((n) => n === held);
@@ -336,10 +388,17 @@ function sampleChannels() {
   const kindList = kinds();
 
   const heldAvailable = held === null ? 0 : availableCount(held);
+  // survival widens the hand by the edible affordance, beside placeability
   const hand =
     held !== null && heldAvailable > 0
-      ? [1, isPlaceable(held) ? 1 : 0, norm(heldAvailable), ...itemSignature(held)]
-      : [0, 0, 0, 0, 0, 0];
+      ? [
+          1,
+          isPlaceable(held) ? 1 : 0,
+          ...(SURVIVAL ? [isEdible(held) ? 1 : 0] : []),
+          norm(heldAvailable),
+          ...itemSignature(held),
+        ]
+      : new Array(CHANNELS.hand).fill(0);
 
   const offer = gridOffer();
   const gridChannel =
@@ -376,7 +435,7 @@ function sampleView() {
   // ground truth for humans (feature 033): real names, never sensed
   const p = bot.entity.position;
   const inventory = [...pocketItems().entries()].sort().map(([n, c]) => [n, c]);
-  return {
+  const view = {
     pos: [Math.round(p.x * 10) / 10, Math.round(p.y * 10) / 10, Math.round(p.z * 10) / 10],
     held,
     inventory,
@@ -385,4 +444,10 @@ function sampleView() {
     // lets the harness measure achieved TPS and game-ticks-per-brain-step
     age: bot.time.age,
   };
+  if (SURVIVAL) {
+    view.food = bot.food;
+    view.health = bot.health;
+    view.eating = useHeld ? Math.min((Date.now() - useStart) / USE_TOTAL_MS, 1) : 0;
+  }
+  return view;
 }

@@ -18,6 +18,17 @@ other command releases it (vanilla: letting go resets the cracks).
 ``state`` returns the complete world (pose, tick, time, edits, pocket,
 held kind, staging grid, mid-dig progress); ``load_state`` restores it
 exactly: fake-mode resume is class 1 (Doc 06 §5b), proven byte-for-byte.
+
+``survival=True`` is the native-survival instrument (research topic
+native-survival, 2026-08-11; ships only on promotion): the world gains
+its own metabolism — integer food/health points that the vitals channel
+reads live, a deterministic drain under the world's own clock, health
+following once food runs out (normal-difficulty floor: half a heart) —
+a melon column whose slices are the edible kind, the hand's edible
+affordance flag, and `use_held`: apply the held item, a held intention
+exactly the dig's shape (any other command releases it), consuming one
+held edible after its vanilla-proportioned duration when the body is
+hungry. All still pure arithmetic; the state seam carries it.
 """
 
 from __future__ import annotations
@@ -53,6 +64,22 @@ _PLACEABLE = frozenset({"cobblestone", "oak_log", "oak_planks"})  # stick is not
 _DIG_TICKS_MINERAL = 3
 _DIG_TICKS_WOOD = 12
 
+# native-survival instrument facts (survival worlds only): one melon column,
+# vanilla-proportioned at the 250 ms posture — the block breaks in ~1.5 s and
+# yields slices (deterministic 3, no drop RNG), a slice is edible and NOT
+# placeable, eating takes ~1.6 s and pays 2 of 20 food points; food drains
+# one point per drain interval, and once it is gone health follows down to
+# the normal-difficulty starvation floor (half a heart).
+_MELON_SOLIDS = frozenset({(0, -2)})
+_MELON_ITEM = "melon_slice"
+_MELON_YIELD = 3
+_EDIBLE = frozenset({_MELON_ITEM})
+_DIG_TICKS_MELON = 6
+_EAT_TICKS = 6
+_EAT_PAY = 2  # food points per consumed slice (vanilla melon)
+_FOOD_DRAIN_TICKS = 40  # one food point per interval (10 s at the 250 ms posture)
+_STARVATION_FLOOR = 1  # health points; normal difficulty stops at half a heart
+
 
 def item_signature(name: str) -> tuple[float, float, float]:
     """The appearance signature (feature 033, contract): sha256 of the item
@@ -65,7 +92,8 @@ def item_signature(name: str) -> tuple[float, float, float]:
 class _World:
     """The deterministic sketch. All mutable state lives here."""
 
-    def __init__(self) -> None:
+    def __init__(self, survival: bool = False) -> None:
+        self.survival = survival
         self.x = 0.0
         self.z = 0.0
         self.yaw = 0.0  # radians; 0 faces +z, matching the mineflayer convention
@@ -77,6 +105,9 @@ class _World:
         self.held: str | None = None  # the held kind (an item name)
         self.grid: list[str] = []  # <=4 staged item names, column-first
         self.digging: tuple[tuple[int, int], int] | None = None  # (column, progress ticks)
+        self.food = 20  # food points (vanilla's integers; survival worlds drain them)
+        self.health = 20  # health points; follows once food runs out
+        self.using: int | None = None  # ticks the use intention has been held
 
     # ---- geometry -------------------------------------------------------------
     def _ahead(self) -> tuple[int, int]:
@@ -86,6 +117,8 @@ class _World:
     def _feet_solid(self, column: tuple[int, int]) -> bool:
         if column in self.dug:
             return False
+        if self.survival and column in _MELON_SOLIDS:
+            return True
         return column in _FEET_SOLIDS or column in self.placed
 
     def _step_to(self, column: tuple[int, int]) -> None:
@@ -94,12 +127,16 @@ class _World:
     def _dig_ticks(self, column: tuple[int, int]) -> int:
         if column in self.placed:
             return _DIG_TICKS_MINERAL
-        return _DIG_TICKS_WOOD if column in _WOOD_SOLIDS else _DIG_TICKS_MINERAL
+        if column in _WOOD_SOLIDS:
+            return _DIG_TICKS_WOOD
+        return _DIG_TICKS_MELON if column in _MELON_SOLIDS else _DIG_TICKS_MINERAL
 
-    def _dig_yield(self, column: tuple[int, int]) -> str:
+    def _dig_yield(self, column: tuple[int, int]) -> tuple[str, int]:
         if column in self.placed:
-            return self.placed[column]
-        return _WOOD_ITEM if column in _WOOD_SOLIDS else _MINERAL_ITEM
+            return self.placed[column], 1
+        if column in _WOOD_SOLIDS:
+            return _WOOD_ITEM, 1
+        return (_MELON_ITEM, _MELON_YIELD) if column in _MELON_SOLIDS else (_MINERAL_ITEM, 1)
 
     def _kinds(self) -> list[str]:
         return sorted(name for name, count in self.inventory.items() if count > 0)
@@ -120,11 +157,13 @@ class _World:
             return "stick", 4
         return None
 
-    # ---- commands (the contract's twelve) --------------------------------------
+    # ---- commands (the contract's twelve; survival adds the mouth) ---------------
     def apply(self, command: dict) -> None:
         name = next(iter(command)) if command else None
         if name != "dig_ahead":
             self.digging = None  # releasing the intention resets the cracks
+        if name != "use_held":
+            self.using = None  # the use intention releases the same way
         if name is None:  # idle
             return
         if len(command) > 1:
@@ -153,7 +192,7 @@ class _World:
                 return
             progress = self.digging[1] + 1 if self.digging and self.digging[0] == ahead else 1
             if progress >= self._dig_ticks(ahead):
-                self._gain(self._dig_yield(ahead))
+                self._gain(*self._dig_yield(ahead))
                 if ahead in self.placed:
                     del self.placed[ahead]
                 else:
@@ -193,12 +232,34 @@ class _World:
             if offer is not None:
                 self.grid = []  # the offer's inputs are exactly the staging
                 self._gain(offer[0], offer[1])
+        elif name == "use_held" and self.survival:
+            # apply the held item — no edibility check in the actuator (the
+            # classifier-free mouth): only a held edible on a hungry body
+            # progresses; everything else is a world no-op, never an error
+            if (
+                self.held is None
+                or self.inventory.get(self.held, 0) == 0
+                or self.held not in _EDIBLE
+                or self.food >= 20
+            ):
+                self.using = None
+                return
+            self.using = (self.using or 0) + 1
+            if self.using >= _EAT_TICKS:
+                self.inventory[self.held] -= 1
+                self.food = min(20, self.food + _EAT_PAY)
+                self.using = None
         else:
             raise ValueError(f"unknown command {name!r}")
 
     def advance(self) -> None:
         self.tick += 1
         self.time = (self.time + _TIME_STEP) % 24000
+        if self.survival and self.tick % _FOOD_DRAIN_TICKS == 0:
+            if self.food > 0:
+                self.food -= 1
+            elif self.health > _STARVATION_FLOOR:
+                self.health -= 1  # starvation: health follows the empty bar
 
     # ---- the channel contract --------------------------------------------------
     def channels(self) -> dict[str, list[float]]:
@@ -209,15 +270,18 @@ class _World:
         kinds = self._kinds()
         placeable_count = sum(c for n, c in self.inventory.items() if n in _PLACEABLE)
         held_count = self.inventory.get(self.held, 0) if self.held else 0
+        hand_width = 7 if self.survival else 6
         if self.held is not None and held_count > 0:
             hand = [
                 1.0,
                 1.0 if self.held in _PLACEABLE else 0.0,
+                # the edible affordance sits beside placeability (survival)
+                *([1.0 if self.held in _EDIBLE else 0.0] if self.survival else []),
                 min(held_count, 64) / 64.0,
                 *item_signature(self.held),
             ]
         else:
-            hand = [0.0] * 6
+            hand = [0.0] * hand_width
         offer = self._offer()
         if offer is not None:
             offer_name, offer_count = offer
@@ -243,7 +307,7 @@ class _World:
                 math.sin(self.yaw),
                 math.cos(self.yaw),
             ],
-            "vitals": [1.0, 1.0],
+            "vitals": [self.health / 20.0, self.food / 20.0],
             "env": [1.0, math.sin(theta), math.cos(theta), 0.0],
             "blocks": [
                 1.0 if self._feet_solid(ahead) else 0.0,
@@ -263,17 +327,22 @@ class _World:
 
     def view(self) -> dict:
         """Ground truth for humans (feature 033): never sensed by the brain."""
-        return {
+        view = {
             "pos": [self.x, _GROUND_Y + 1.0, self.z],
             "held": self.held,
             "inventory": [
                 [n, self.inventory[n]] for n in sorted(self.inventory) if self.inventory[n] > 0
             ],
         }
+        if self.survival:
+            view["food"] = self.food
+            view["health"] = self.health
+            view["eating"] = min((self.using or 0) / _EAT_TICKS, 1.0)
+        return view
 
     # ---- the state seam ---------------------------------------------------------
     def state_dict(self) -> dict:
-        return {
+        state = {
             "x": self.x,
             "z": self.z,
             "yaw": self.yaw,
@@ -286,6 +355,11 @@ class _World:
             "grid": list(self.grid),
             "digging": [list(self.digging[0]), self.digging[1]] if self.digging else None,
         }
+        if self.survival:  # the metabolism rides the class-1 seam
+            state["food"] = self.food
+            state["health"] = self.health
+            state["using"] = self.using
+        return state
 
     def load_state_dict(self, state: dict) -> None:
         self.x = float(state["x"])
@@ -300,6 +374,10 @@ class _World:
         self.grid = list(state["grid"])
         digging = state["digging"]
         self.digging = (tuple(digging[0]), int(digging[1])) if digging else None
+        if self.survival:  # loud on a snapshot from the wrong mode (KeyError)
+            self.food = int(state["food"])
+            self.health = int(state["health"])
+            self.using = int(state["using"]) if state["using"] is not None else None
 
 
 class FakeBridge:
@@ -320,8 +398,13 @@ class FakeBridge:
         "grid": 7,
     }
 
-    def __init__(self) -> None:
-        self.world = _World()
+    def __init__(self, survival: bool = False) -> None:
+        # survival widens the hand by the edible affordance (instrument mode);
+        # the instance table shadows the shipped class table
+        self.CHANNELS = (
+            {**FakeBridge.CHANNELS, "hand": 7} if survival else dict(FakeBridge.CHANNELS)
+        )
+        self.world = _World(survival=survival)
         self._listener = socket.create_server(("127.0.0.1", 0))
         self._listener.settimeout(0.2)
         self.port = self._listener.getsockname()[1]

@@ -92,6 +92,22 @@ def test_c1_legacy_flag_is_the_exact_feature_027_body():
     assert meta["actuators"][-1]["label"] == "idle"
 
 
+def test_c1_survival_flag_is_the_native_survival_instrument():
+    # the mouth and the edible affordance (research topic native-survival);
+    # every shipped id and offset before the hand is unchanged
+    sensors, actuators = c1_anatomy(survival=True)
+    body = Ros2Body(sensors, actuators, FakeTransport(script={}))
+    meta = body.anatomy_meta()
+    _assert_invariants(meta)
+    assert (meta["obs_dim"], meta["n_actions"]) == (33, 13)
+    groups = {g["id"]: (g["start"], g["width"]) for g in meta["groups"]}
+    assert groups["hand"] == (19, 7)
+    assert groups["grid"] == (26, 7)
+    labels = {g["id"]: g.get("labels") for g in meta["groups"]}
+    assert labels["hand"] == ["present", "placeable", "edible", "count", "sig0", "sig1", "sig2"]
+    assert [a["label"] for a in meta["actuators"][12:]] == ["use_held"]
+
+
 def test_rover_meta_names_parts_and_actions():
     body = make_rover_body(Config(), np.random.default_rng(1))
     meta = body.anatomy_meta()

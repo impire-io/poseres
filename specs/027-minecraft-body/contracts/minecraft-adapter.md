@@ -102,3 +102,37 @@ channel for the *human* dashboard. The brain never senses it.
 **Legacy note**: the feature-027 body (14/8) on this bridge senses its
 four channels unchanged; with no way to hold a kind, its `place_ahead`
 is inert — the reversal path is watch/move/dig only (stated, spec 033).
+
+## Native-survival instrument (research topic native-survival, 2026-08-11)
+
+**Instrument-grade; folds into the tables above only on promotion.**
+Survival mode is opt-in on every surface — live bridge `SURVIVAL=1`,
+`FakeBridge(survival=True)`, `c1_anatomy(survival=True)` — and a
+mismatched stack fails loud at the existing handshake width check. The
+shipped 32/12 body is byte-identical with the mode off.
+
+- **`hand` widens to 7**: present; placeable; **edible** ? 1 : 0 — the
+  game's own fact (live: `minecraft-data` foods; fake: the melon
+  slice); min(count,64)/64; sig0..2. obs_dim 33; every shipped offset
+  before `hand` unchanged, `hand` [19:26], `grid` [26:33].
+- **`use_held` is command 13 (id 12)** — apply the held item, the
+  classifier-free mouth: no edibility check in the actuator; what using
+  the held item does is the world's to decide, and nourishment reaches
+  the brain only through `vitals`. It is a **held intention** with the
+  dig's exact grammar: the first `use_held` begins it, further ones
+  continue it, ANY other command (idle included) releases it. Live: one
+  `activateItem()` and the server's own consume runs (~1.61 s for
+  food); a 3 s safety cap releases a use going nowhere. Fake: a held
+  edible on a hungry body consumes after 6 ticks (vanilla-proportioned
+  ~1.6 s at the 250 ms posture), paying 2 of 20 food points; anything
+  else is a world no-op. An empty hand no-ops; unmet requirements
+  consume the tick — world facts, never protocol errors.
+- **The fake grows a native-shaped metabolism** (still pure
+  arithmetic): integer food/health points sensed live through
+  `vitals`; food drains one point every 40 ticks; once food is 0,
+  health follows to the normal-difficulty floor (half a heart); one
+  melon column at (0, −2) breaks in 6 ticks to `melon_slice` ×3
+  (edible, not placeable). The state seam carries `food`, `health`,
+  and the mid-use `using` counter (class 1, byte-exact).
+- **The view** gains `food`, `health`, `eating` (progress 0..1) in
+  survival mode — humans only, never sensed.
