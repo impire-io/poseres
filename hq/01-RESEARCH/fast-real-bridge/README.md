@@ -114,3 +114,22 @@ fixed geometry; the probes already show 5× clean. Registration note
 for c1e: it registers on the FIXED geometry (blocks/dig/place all read
 the corrected column; the fake↔real convention difference is a
 transfer note, not a bug).
+
+## B2′ — registered before the run (2026-08-11)
+
+Protocol: the same isolated vanilla 1.21.11 world; the **fixed**
+bridge (f972181); the arena column computed by the corrected formula
+(`floor(p − sin ψ), floor(p_z − cos ψ)` at the teleported facing);
+**n = 20 reps per arm**, M ∈ {1 (reference), 2, 5, 10}; each rep:
+`kill @e[type=item]` cleanup, rebuild the column, **wall-time-bounded
+dig hold** (the intention held to a 15 s wall budget), the
+collect-walk, one log → planks craft; short posture/TPS confirmation
+per arm (a reading — B1/B3 stand as measured).
+
+- **Bar B2′ (relative, per M > 1):** collected-log successes within
+  **2 of the same-day reference** (success_M ≥ success_ref − 2, of
+  20) AND craft conversion 20/20 of collected. **M\*** = the largest
+  M passing; c1e registers at M\*.
+
+Reversal as before: if M = 2 fails B2′ with the reference healthy,
+the wall-clock-physics distortion reopens the fork question.
