@@ -71,4 +71,27 @@ not a quiet retune.
 
 ## Verdict
 
-<Empty until graduation.>
+**CN1 FAIL · CN2 PASS · CN3 PASS [measured, 2026-08-11, 24 seeds ×
+2 arms] — surprise-prioritized consolidation is refuted at these
+constants, and the refutation sharpens the diagnosis again.**
+
+- **CN1 — refusal: FAIL at 0.293** — worse than both anchors
+  (linear 0.252, online-quad 0.278); pilot 1's encouraging 0.183
+  was eight-seed noise. Per-seed spread fully intact (0.00 → 1.00)
+  `[measured]`.
+- **CN2/CN3: PASS** (median rate 7; 24/24 life, 23/24 reactive
+  pacing) — sleep at least did no collateral harm `[measured]`.
+- **Sharpness fell: 0.799 vs the online head's 0.874** — the replay
+  actively interfered with trade knowledge `[measured]`. Both
+  prioritization forms (witness-time; re-evaluated per rest —
+  amendment 1, tried and withdrawn at pilot with raw numbers)
+  selected locomotion over consequence: residual-based importance
+  is the wrong signal in a churning-head regime, and replaying its
+  selections at η = 0.5 amplifies the churn that is the disease.
+
+The reversal fires on its second clause (sharpness < 0.90, spread
+persists): the remaining named regimes inherit the 0090 license —
+**feature normalization + a lower head η** (now the prime suspect:
+the churn itself, not replay volume, is the bottleneck) or targeted
+low-order context terms. Per this registration's own rule, any
+second consolidation dose needs a fresh registration, not a retune.
