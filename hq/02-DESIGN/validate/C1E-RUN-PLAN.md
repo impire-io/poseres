@@ -168,3 +168,45 @@ scaled by the ~3× wall-clock factor reality has shown everywhere —
 registered as amendment 2, fresh world and brain); (b) a diagnostic
 life with no meter death first, to measure expression delay
 precisely; (c) accept the double death as c1e's verdict and close.
+
+## Amendment 2 — the owner's design: lives versus provisioning (2026-08-11)
+
+The owner's call, verbatim intent: *"when we die, we need to respawn
+but keep the brain intact — that's the equivalent of playing games,
+and we will learn over time. Raising childhood optimizes for a
+one-shot, which might be valuable as well. Try out both and see what
+works best."* Two arms, registered before launch, fresh isolated
+worlds, fresh seed-1 brains, identical teaching (amendments 1/1b).
+
+**Arm A — respawn (the game frame)**: on energy zero the death is
+*recorded, not terminal*: the pocket is cleared and drops killed
+(death's price — wealth lost, knowledge kept), the body respawns at
+the stand (the bed), energy resets to 1.0, and a fresh per-life
+childhood begins (the lab taper, grace 1,500 / full drain at 3,000;
+zero-income corpse at life-tick 4,250 — every life gets the same
+allowance). The brain is never touched. Death does not stop the run.
+
+**Arm B — one-shot (the provisioned childhood)**: the taper is the
+lab dose scaled by reality's measured ~3× wall-clock factor — grace
+4,500, full drain at 9,000; zero-income corpse ≈ life-tick 8,743,
+comfortably past the measured ~5,000-step expression delay. Death
+stops the run, as originally registered.
+
+**Common stop rules** (both arms): goal (≥ 2,000 chains and ≥ 1M
+steps), futility (500,000 chainless steps past childhood — 3,000 /
+9,000 per arm), manual stop file, target 2,000,000 steps.
+
+**Frozen decision rule**: Arm A succeeds if it reaches goal or
+target with **zero deaths in its final 1,000,000 steps**. Arm B
+succeeds if it reaches goal or target without dying. If both
+succeed, the better design is the one with more full chains at
+stop (tie-break: fewer steps to 1,000 chains). If one succeeds, it
+is the design. If neither, both post-mortems return to design.
+
+**New reading R7 — lives** (arm A's signature): deaths, life
+lengths, and **first-income step per life** — the game frame
+predicts first-income falls across lives (learning survives death).
+Instrument fixes, same change-set: the dwell reading re-keyed to
+the grove (8.5, 8.5, Chebyshev ≤ 2 — R2's lab-coordinate fault
+struck above), first-income logged per life in every row, per-arm
+status/snapshot/log files (`c1e-a-*`, `c1e-b-*`).
