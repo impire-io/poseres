@@ -112,6 +112,17 @@ there); this is how they run day to day:
 
 ## Recurring principles (what the journey keeps teaching)
 
+- **Senses first.** When something new seems needed, the first question
+  is never "what mechanism do we add?" — it is "**what sense is
+  missing?**" (owner's rule, 2026-08-11). The measured record keeps
+  vindicating it: approval was a sense (the verdict channel, episodes
+  0057/0073), hunger reaching wanting was a sense plus six lines (the
+  felt meal, 0083), wealth was a sense (`pocket_index` names which one,
+  0088), and worth itself was a *learnable* sense (the tongue, 0089) —
+  while every mechanism-shaped alternative either failed its bars or was
+  never needed (the splice, 0086/0087). The brain stays generic; new
+  capability walks in through the body. Only when a sense-first design
+  measurably fails its gate is new machinery licensed.
 - **Diagnose before fixing; one variable at a time.** The true mechanism
   shows up only after the obvious story is refuted with data.
 - **Reference-preserving changes.** Every rule and layer keeps validated
