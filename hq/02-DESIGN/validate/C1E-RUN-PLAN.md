@@ -286,3 +286,54 @@ the pose channels at the stand (the taught work position, as the
 brain senses it) and writes the per-arm goal from them. A resumed
 run keeps its existing goal file. Everything else unchanged. Fresh
 worlds, fresh brains, run 3.
+
+## Run 3 — the hold holds, and three more defects surface (2026-08-11)
+
+Amendment 4 verified immediately [measured]: grove dwell went from
+1–3% to **98–100%** in both arms — the hold now holds at the true
+grove. And the first genuine lives-curve appeared: arm A first-income
+per life **[9, −1, 207]** — life 1 fed from its inherited pocket,
+life 2 (born poor) starved without earning, life 3 (born poor) fed
+itself within 207 ticks. Learning survives death — the game frame's
+signature, visible once the hold was aimed right.
+
+Then arm B died at exactly 8,743 *with* dwell 0.99 and first income
+at tick 70 — which exposed the next layer:
+
+- **The wealth sense saturates** [measured]: the bridge's pocket-
+  total channel is `min(n, 64)/64`. Arm B was born carrying the
+  teaching surplus; its true pocket read **155 items, channel
+  pinned at 1.0** — 51 real digs invisible to the meter, death at
+  the exact zero-income line. The rich starve because wealth blinds
+  the sense that pays them. (This also resolves the run-1/2 counter
+  puzzle in kind: derived counters and the meter disagreed because
+  the sense and the world diverge past 64.)
+- **The runner wiped the world each segment** [measured, mine]: the
+  per-segment resume nulled `world_state` — a boundary pattern
+  correct once (at release) hoisted wrongly into the loop — so
+  every segment granted a fresh childhood and erased the lives
+  ledger (segment 2's arithmetic: 4250+4250+1544 = exactly the
+  segment's steps). c1d's runner nulls only at the boundary.
+- **Snapshot cadence misaligned** [measured, mine]: a flat 81-cycle
+  cadence does not divide the post-teach offset (45 cycles), so
+  segment 1's only snapshot landed mid-segment and the resume
+  dropped 45 brain-cycles.
+- **The pedestal** [measured, behavior]: the bot placed planks in
+  its own stand cell and neighbors; each respawn then landed it on
+  top, one block up, where its own drops fall vertically out of
+  pickup range. Real 3-D behavior the lab never had — recorded as
+  R6 material.
+
+**Amendment 5 — the meter pays on the world's record**: the
+registered meter ("pocket-total gains") is paid from the world's
+own inventory count (unbounded), not the saturating sensed proxy —
+the world knows what you acquired; the sense may be myopic. The
+saturation itself stands as an R6/moving-senses finding: the
+brain's *wealth sense* still saturates at 64, and what that does to
+its behavior is part of what the run measures.
+
+**Runner repairs, same change-set**: world state rides the resume
+chain (the null stays only at the release boundary); snapshots land
+exactly on segment ends (`snapshot_every_n_cycles = n_cycles`); the
+world keeps the bed clear at each respawn (the steward's charter
+extended to the bed cell). Fresh worlds, fresh brains, run 4.
