@@ -211,8 +211,21 @@ the scalper too (25.2% ruinous trades vs the 10% bar). **Sensing
 motion is not timing it** — the rule's first measured boundary,
 which licenses the first new machinery of the arc: the richer
 predictor at the head's seam, by numbers rather than taste.
-Open: the richer-predictor gate (licensed), c1e on the fixed map
-(gated on rung 2's B2′ formality), the boundary hunt, book ch 17.
+**And the licensed machinery's first attempt failed its bar with a
+diagnosis sharper than success** ([0091](0091-the-lottery-head.md),
+owner's "build the richer predictor gate"): the quadratic head —
+same NLMS, pairwise-product features, replay-pretrained on the
+cohort's own lessons — leaves aggregate refusal unchanged (27.8% vs
+the 10% bar) while **six seeds refuse perfectly and four invert**:
+same world, same features, different online trajectories. The
+representation carries the interaction; **per-seed convergence is
+the lottery** (sharpness 0.874 < 0.90 — arbitration not
+implicated). The license stands; the next regime is named
+(consolidation via Doc 0004's offline loop, normalization + lower
+η, or targeted terms).
+Open: the richer-predictor next regime (licensed, owner's call),
+c1e on the fixed map (gated on rung 2's B2′ formality), the
+boundary hunt, book ch 17.
 
 **The project's working structure moved into `hq/`**
 ([episode 0045](0045-the-hq-restructure.md)): GENESIS holds the vision,
@@ -681,3 +694,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0088 | [Worth, not count: the trade becomes visible](0088-worth-not-count.md) |
 | 0089 | [The tongue learns: worth without decree](0089-the-tongue-learns.md) |
 | 0090 | [The tourist tax: the first edge of senses-first](0090-the-tourist-tax.md) |
+| 0091 | [The lottery head: the first licensed machinery fails its bar honestly](0091-the-lottery-head.md) |

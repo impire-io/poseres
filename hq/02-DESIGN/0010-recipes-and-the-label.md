@@ -1,4 +1,4 @@
-# 10 — Recipes and the praise label (graduated research, episodes 0077, 0080–0090)
+# 10 — Recipes and the praise label (graduated research, episodes 0077, 0080–0091)
 
 **Status:** SHIPPED as feature 041 (v1.3.0); this document records the
 functional design the measurements license.
@@ -160,12 +160,22 @@ not refuse ruin** (25.2% of trades at worth-destroying rates vs the
 10% bar). Sensing motion is not timing it: the senses-first rule's
 first measured boundary.
 
+**The richer predictor, first attempt (episode 0091)** [measured,
+FAIL with a precise diagnosis]: the quadratic head (same NLMS, 153
+pairwise-product features, replay-pretrained on the witnessed
+lessons) does **not** fix refusal in aggregate (27.8% ruinous vs the
+10% bar) — but six seeds achieve *perfect* refusal and four invert,
+identical worlds and features: the representation provably carries
+the interaction; **per-seed online convergence is the bottleneck**
+(sharpness 0.874 < 0.90 — arbitration not implicated). The 0090
+license stands unexpended.
+
 ## Named successors
 
-**The richer predictor** — context terms at the event head's seam
-(Doc 0005), licensed by episode 0090's numbers: the first machinery
-this arc has earned; its gate must show ruinous-trade refusal
-(≤ 10%) with the lean preserved. The boundary hunt (depth 5+,
-scarce inputs) when an embodiment demands it. A drive-side deficit
-coupling remains the named alternative if the label seam is ever
-refuted.
+**The richer predictor, next regime** — the 0090 license with 0091's
+constraint: candidates are consolidation (the Doc 0004 offline loop
+replaying witnessed trades), feature normalization + lower head η,
+or targeted low-order context terms; its gate keeps 0091's bars and
+sharpness instrument. The boundary hunt (depth 5+, scarce inputs)
+when an embodiment demands it. A drive-side deficit coupling remains
+the named alternative if the label seam is ever refuted.
