@@ -122,7 +122,10 @@ there); this is how they run day to day:
   while every mechanism-shaped alternative either failed its bars or was
   never needed (the splice, 0086/0087). The brain stays generic; new
   capability walks in through the body. Only when a sense-first design
-  measurably fails its gate is new machinery licensed.
+  measurably fails its gate is new machinery licensed — which happened
+  for the first time the day the rule was written down: sensing a moving
+  price is not timing it (episode 0090), and the richer predictor was
+  licensed by those numbers, exactly as the rule intends.
 - **Diagnose before fixing; one variable at a time.** The true mechanism
   shows up only after the obvious story is refuted with data.
 - **Reference-preserving changes.** Every rule and layer keeps validated

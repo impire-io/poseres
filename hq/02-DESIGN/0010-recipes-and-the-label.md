@@ -1,4 +1,4 @@
-# 10 — Recipes and the praise label (graduated research, episodes 0077, 0080–0089)
+# 10 — Recipes and the praise label (graduated research, episodes 0077, 0080–0090)
 
 **Status:** SHIPPED as feature 041 (v1.3.0); this document records the
 functional design the measurements license.
@@ -150,12 +150,22 @@ Demonstrations bootstrap the palate as they bootstrap the head. The
 EMA assumes stationary pay; markets with drifting prices are the
 named successor's territory.
 
+**Moving senses (episode 0090)** [measured, split]: senses that
+change outside the brain's control are **livable** (24/24 trade
+under a drifting rate) and **paceable** (21/24 sustain trading when
+every trade worsens the price — the world learning the brain back,
+handled), and the worth machinery leans toward bargains with no
+timing machinery (median rate 7 vs time-average 8) — but it **does
+not refuse ruin** (25.2% of trades at worth-destroying rates vs the
+10% bar). Sensing motion is not timing it: the senses-first rule's
+first measured boundary.
+
 ## Named successors
 
-The boundary hunt (depth 5+, scarce inputs, adversarial geometry —
-when an embodiment demands it); **the market** (moving prices, other
-agents — where the learned book's stationarity assumption and the
-head's tracking of a drifting sense get their real test; the natural
-c1e continuation). A drive-side deficit coupling (deficit-modulated
-terminal valuation at Doc 0005's motivation seam) remains the named
-alternative if the label seam is ever refuted.
+**The richer predictor** — context terms at the event head's seam
+(Doc 0005), licensed by episode 0090's numbers: the first machinery
+this arc has earned; its gate must show ruinous-trade refusal
+(≤ 10%) with the lean preserved. The boundary hunt (depth 5+,
+scarce inputs) when an embodiment demands it. A drive-side deficit
+coupling remains the named alternative if the label seam is ever
+refuted.
