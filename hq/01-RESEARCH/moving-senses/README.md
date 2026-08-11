@@ -82,4 +82,30 @@ licensed by these numbers.
 
 ## Verdict
 
-<Empty until graduation.>
+**MS1 PASS · MS2 SPLIT-FAIL · MS3 PASS [measured, 2026-08-11, 24
+seeds × 3 arms] — moving senses are livable and paceable; ruin is
+not yet refusable. The senses-first rule meets its first measured
+boundary.**
+
+- **MS1 — life under motion: PASS 24/24** (N0 fixed-rate anchor
+  22/24) `[measured]`.
+- **MS2 — timing: the cheap-lean clause PASSES, the refusal clause
+  FAILS.** Median rate paid **7** vs the time-average 8 — the brain
+  leans toward bargains with zero timing machinery — but ruinous
+  trades (r > 10, worth-destroying) are **25.2%** of all trades
+  against the 10% line. It shops the sales *and* pays the scalper
+  `[measured]`.
+- **MS3 — the world reacts, the brain paces: PASS 21/24** — under
+  self-worsening rates, sustained trading emerges with spacing no
+  lesson ever showed `[measured]`.
+
+The reversal condition fires as frozen: the rate channel is
+verified sensed, the teaching variety verified witnessed, and the
+refusal failure stands — at this horizon the linear event head
+carries the rate's *average* bearing on the trade (the lean) but
+not sharply enough to flip the completion's sign at ruinous rates
+(likely diluted by the mass of no-op trade attempts away from the
+trader `[mechanism-argument]`). **The richer predictor — context
+terms at the head's seam (Doc 0005) — is licensed by these
+numbers**: the first new machinery the senses-first rule has ever
+licensed, which is exactly how the rule is supposed to work.
