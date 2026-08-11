@@ -45,4 +45,22 @@ values and return the budget-layer question to the owner.
 
 ## Verdict
 
-<Empty until graduation.>
+- **Bar B1 — PASS** [measured]: self-scaled arbitration (k̂ = l̂ = 4.142,
+  calibrated once; scale = EMA of the witnessed per-step drive-value
+  spread) reaches parity on the sample-field cohort — 8/8 alive, refined
+  median 159 vs hand 160, gains median 466 vs 467; κ_eff self-lands at
+  0.19–0.21 against the hand 0.25.
+- **Bar B2 — PREMISE COLLAPSED** [measured]: under the registered ×5
+  felt-pay rescale the hand gains do NOT degrade (8/8 alive, refined
+  median 124 vs 159 — a dip, zero failures), because the witnessed drive
+  spread moved only ~1.4× under the 5× world-side push: **the drive
+  pipeline is already largely scale-invariant**. The bar's own escape
+  fires: κ is not the per-world magic number the premise assumed — which
+  is why the same 0.25 has worked across every body in the record
+  [mechanism-argument, corroborated by Doc 0011's cross-body table].
+- **Bar B3 — not reached** (moot with B2 collapsed; no pathology seen in
+  any pilot arm).
+
+Abandoned as registered. The finding stands: the dial's portability is a
+property of the drive normalization, not of luck — self-scaling works but
+solves a problem the composition does not have.

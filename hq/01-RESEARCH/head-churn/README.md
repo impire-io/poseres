@@ -47,4 +47,27 @@ to the owner, and this topic records which ingredient failed and how.
 
 ## Verdict
 
-<Empty until graduation.>
+- **Bar C1 — FAIL** [measured]: frozen recipe (raw features, η=0.02, no
+  normalization) at 24 seeds: aggregate ruinous share **0.161** vs the
+  0.10 bar (211 trades; lean preserved, rate median-of-medians 5). The
+  8-seed pilot's perfect 0.000 was the lottery drawing clean.
+- **Bar C2 — FAIL** [measured]: 17/24 seeds individually ≤15% (bar 20/24);
+  the convergence lottery survives low η.
+- **Bar C3 — PASS** [measured]: life 24/24 in both worlds; reactive
+  sustained trading 23/24; sharpness 0.997 ≥ 0.874.
+- **Bar C4 — PASS at pilot scale** [measured]: the completion-itch pathway
+  taught and lived at η=0.02 keeps working (gains 325–427 vs 416–478 at
+  0.5, all alive) — dense-event teaching tolerates a slow head.
+- **Normalization REFUTED** [measured]: worse in every pairing
+  (0.312 vs 0.253 at η=0.5; 0.241 vs 0.191 at η=0.1).
+- **The η dial mapped** [measured]: 0.5→0.253, 0.1→0.191, 0.05→0.177,
+  0.02→0.161 (lottery intact), 0→zero trades ever. Online learning is
+  what drives trading at all [measured]; slow heads go blind where the
+  world learns you back (react ruin 0.225 at η=0.02, 8 seeds)
+  [measured, named boundary].
+
+The registered reversal fires: no (normalization, η) recipe passes C1–C4.
+The churn diagnosis is incomplete; the remaining ranked option (targeted
+low-order terms) returns to the owner. [judgment: the tradeoff map itself
+— refusal, tracking, and activity cannot all be bought with one global
+learning rate — is this topic's real product.]
