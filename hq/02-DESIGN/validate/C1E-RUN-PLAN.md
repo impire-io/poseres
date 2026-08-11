@@ -135,3 +135,36 @@ follows the tape (the inherited config carried the old tape's 22 and
 silently truncated every 124-step lesson to its first 22 digs —
 caught before any brain was taught); life segments are 81 cycles
 (10,044 steps), keeping the registered ~10k-step segment size.
+
+## Attempt 2 — death by rule 1 again, at the same corpse line (2026-08-11)
+
+Teaching under amendments 1/1b passed **45/45 with zero repeated
+lessons**. The life died at **life-tick 4260** — attempt 1 died at
+4250, and 4250 is the exact zero-income corpse line — so this
+childhood, too, earned at most a sliver [measured]. Segment row:
+10,045 steps, 2 chains (post-death, last at step 7703), **46 logs
+and 21 stick-crafts gained** — nearly all in the post-death half,
+an income rate of roughly one gain per 86 steps there, more than
+twice break-even (one per 200).
+
+**Reading**: the taught skill is now expressable and the economy is
+sustainable — but the behavior takes ~5,000 steps to lock in, and
+the lab-calibrated childhood (taper 1500→3000, zero-income corpse at
+4250) ends ~1,500–2,000 steps too soon for reality. The lab's
+release-to-expression delay was ~zero; reality's is not. Both deaths
+are the same measurement.
+
+**Instrument fault found in the readings** [measured]: the dwell
+statistic computes distance from the LAB world's wood coordinates
+(−1, 0), not the grove (8.5, 8.5) — R2 dwell numbers from attempts
+1 and 2 (0.24, 0.0) are meaningless and are struck. Re-key before
+any attempt 3, and log the first-income step per segment.
+
+**The childhood dial in reality is the owner's call** (precedent:
+G4/G4b — "re-dose is a design decision, not autonomous"). Named
+options, none launched: (a) re-dose the wean from the measured
+expression delay (e.g., taper completing ~9,000 — the lab's 3,000
+scaled by the ~3× wall-clock factor reality has shown everywhere —
+registered as amendment 2, fresh world and brain); (b) a diagnostic
+life with no meter death first, to measure expression delay
+precisely; (c) accept the double death as c1e's verdict and close.
