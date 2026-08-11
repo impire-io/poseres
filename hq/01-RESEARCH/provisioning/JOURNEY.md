@@ -31,3 +31,32 @@
    incompetent ones exhaust the purse and the world decides. Purse and
    match constants are declared in units of drain-coverage time and
    explored at pilot; the confirmatory freezes one rule.
+
+## 2026-08-11 — amended re-pilot, and a pause
+
+Re-pilot under both amendments (DRAIN3 = 0.00075 measured; purse
+PURSE_T = 2,500 drain-units, K_MATCH = 3):
+
+- econ1 gated: 8/8 alive, weans 1023–1567, stipends 6.4–9.1 (calendar:
+  11.25) — the purse never binds for the competent. P1 shape holds.
+- floor econ1: **0/4 alive**, purses out at 2,741–4,250, stipends
+  13.7–21.3 — the infinite-welfare failure is fixed; P2 shape holds.
+- econ3 gated: 8/8, weans fire (1093–9582 — honest spread; slow
+  learners weaned late by demonstration, exactly the design).
+- **New degeneracy, recorded**: econ3 taper ALSO survives 8/8 now.
+  The margin-ratio recalibration guarantees steady-state income beats
+  full drain, and sample-field children reach steady income within a
+  few hundred ticks — there is no expression delay for a childhood
+  dose to bridge, so P3's contrast clause (the calendar must fail
+  where the rule survives) is unfalsifiable in this economy. The c1e
+  lethality that motivated P3 came from a ~5,000-step ramp-up the lab
+  world does not reproduce.
+
+**Paused here deliberately.** The owner has questioned the synthetic-
+metabolism scenario itself (the tangent conversation, same evening);
+whether P3 should be given teeth in a lab economy — or re-grounded in
+a world with a native metabolism and a real expression delay — is a
+direction call that belongs upstream. The findings that already stand:
+the demonstration gate beats the calendar on the measured economy;
+the un-recalibrated fixed dose fails a taxed economy exactly as c1e's
+corpse lines did; patience must be a purse, not a date.
