@@ -106,5 +106,32 @@ world, 50 ms steps, same as release); the dig run becomes **70
 consecutive held digs** (measured 60 + margin; the bridge releases a
 hold on any non-dig command, idles included); the craft tail keeps
 attempt 1's wall spacing (one op per 250 ms) as four idles after
-each op — tape 22 → 106 steps. Meter, wean, stop rules, target, and
-readings all unchanged.
+each op. Meter, wean, stop rules, target, and readings all
+unchanged.
+
+**Second finding, same post-mortem — the drop flies away at 5×**
+[measured]: the 106-step tape still failed teaching (0 stick crafts,
+3/3 attempts). A watched dig showed the break completing but the
+drop **far-scattering past pickup range** — resting up to 2.5 blocks
+away — then despawning (60 s wall at 5×). Grid: at `/tick rate 20`
+pickup while standing is **4/4**; at `/tick rate 100` it is **2/4**,
+with lost drops resting at z 10.2–10.6, x 8.0–9.9. At 1× the drop
+pops to the breaker's feet; at 5× it outruns the pickup box about
+half the time — more of reality's tax.
+
+**Amendment 1b — the tape teaches collection**: after the dig run,
+the lesson walks into the drop zone and back (9 forward + 9 back,
+~1.9 blocks — the probes' collect-walk); tape 22 → **124 steps**
+(70 digs, 18 collect-walk, 35 spaced craft ops, 1 idle), piloted
+green end-to-end (log by step 69, planks by 102, 4 sticks by 122).
+Because a drop can still rest outside the collect lane (~1 in 3 of
+the far-scatters), a lesson that fails its stick-craft assertion is
+**repeated, up to 3 attempts** — the parent demonstrating again; a
+failed attempt leaves no trace in the taught state. Teaching fails
+hard if any lesson needs more than 3.
+
+Runner mechanics, same change-set: the engine's episode length
+follows the tape (the inherited config carried the old tape's 22 and
+silently truncated every 124-step lesson to its first 22 digs —
+caught before any brain was taught); life segments are 81 cycles
+(10,044 steps), keeping the registered ~10k-step segment size.
