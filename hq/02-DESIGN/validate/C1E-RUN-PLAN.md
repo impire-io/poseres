@@ -210,3 +210,43 @@ Instrument fixes, same change-set: the dwell reading re-keyed to
 the grove (8.5, 8.5, Chebyshev ≤ 2 — R2's lab-coordinate fault
 struck above), first-income logged per life in every row, per-arm
 status/snapshot/log files (`c1e-a-*`, `c1e-b-*`).
+
+## Two-arm run 1 — the same corpse line four times, and the diagnosis (2026-08-11)
+
+First segments, both arms [measured]:
+
+- **Arm A**: deaths 2, life lengths [4250, 4250] — both at the
+  per-life zero-income corpse line; first-income per life
+  **[13, −1, −1]**: life 1 earned at birth (crafting the pocket
+  teaching left behind), lives 2 and 3 (respawned poor) earned
+  nothing at all. Grove dwell (re-keyed, now honest): **3%**.
+- **Arm B**: died at **exactly 8,743** — the tripled childhood's own
+  zero-income corpse line. First income at tick 7 (the same birth
+  burst), 48 log-gains and 12 stick-crafts across the segment —
+  concentrated at birth and *after* death (last chain step 9,721);
+  nothing in the entire drain window. Grove dwell 0%. Stopped by
+  rule 1; one-shot run 1 is over.
+
+**Diagnosis** [mechanism-argument, with the arc's own precedent]:
+every death in c1e so far sits at an exact zero-income line, and
+work reliably resumes when the energy channel stops moving (post-
+death in attempt 2 and arm B; never within arm A's short lives).
+Teaching runs every lesson at full energy — the brain has **never
+witnessed the meter move**. Once the drain starts, the energy
+channel walks out of the taught distribution and expression
+collapses; when the channel freezes again, the world reads familiar
+and the skill returns. This is episode 0083's hungry-teaching
+lesson and episode 0090's moving-senses rule — a sense that changes
+outside the brain's control must be in the witnessed variety — and
+this registration failed to carry hungry teaching over. Both arms
+share the defect, so run 1 was not the fair comparison the design
+calls for. Reversal condition: if hungry-taught arms still die at
+their exact corpse lines, this diagnosis is wrong and the childhood
+question returns to the owner.
+
+**Amendment 3 — hungry teaching, both arms** (the 0083 protocol,
+restored): lesson starting energy cycles **1.0 / 0.7 / 0.4** across
+the 45 lessons (15 each, interleaved); gains during a lesson raise
+the meter by its own rule, so eating-raises-energy is witnessed
+too. Everything else — arms, tapers, stop rules, decision rule,
+readings — unchanged. Fresh worlds, fresh brains, run 2.
