@@ -133,3 +133,28 @@ per arm (a reading — B1/B3 stand as measured).
 
 Reversal as before: if M = 2 fails B2′ with the reference healthy,
 the wall-clock-physics distortion reopens the fork question.
+
+## Verdict — B2′ measured, M\* = 5 (2026-08-11)
+
+**[measured, n = 20 per arm, fixed geometry, one continuous session]**
+
+| M | digs | crafts | TPS | posture | B2′ |
+|---|---|---|---|---|---|
+| 1 (ref) | **20/20** | 20 | 20.1 | 5.09 | — |
+| 2 | **20/20** | 20 | 39.9 | 5.09 | PASS |
+| 5 | **20/20** | 20 | 100.1 | 5.19 | PASS |
+| 10 | 10/20 | 10 | 199.3 | 5.34 | FAIL |
+
+- The fixed geometry cures the flake completely: the reference that
+  measured 3/5 on the mirrored column is **20/20** on the corrected
+  one — every abort of the first gate was the bridge's own doing, as
+  the diagnosis said.
+- Craft conversion is 100% of collected at every M.
+- 10× fails **honestly**: the registered wall-clock-physics
+  distortion (bot physics at wall speed against a world at 10×) is
+  the mechanism, arriving exactly where the first gate's collect-walk
+  measurements predicted trouble.
+- **M\* = 5**: the largest multiplier at which the real vanilla
+  world, the fixed bridge, and the primitives all hold. c1e registers
+  at 5× (tick_ms = 50, ~20 brain-steps/s, posture ~5.2).
+- Reversal unfired (M = 2 clean).
