@@ -250,3 +250,39 @@ the 45 lessons (15 each, interleaved); gains during a lesson raise
 the meter by its own rule, so eating-raises-energy is witnessed
 too. Everything else — arms, tapers, stop rules, decision rule,
 readings — unchanged. Fresh worlds, fresh brains, run 2.
+
+## Run 2 — the reversal fires, and the real fault is measured (2026-08-11)
+
+Run 2 under hungry teaching was **statistically identical to run 1**
+[measured]: arm A lives [4250, 4250], first-income [11, −1, −1],
+grove dwell 1%; arm B dead at exactly 8,743, dwell 0%. The
+registered reversal condition fired — the energy-channel diagnosis
+is refuted (amendment 3 stays: it is protocol-correct per 0083 and
+cost nothing, but it was not the disease).
+
+**The fault, measured on arm B's idle world**: the bridge's pose
+channels are *spawn-anchor-relative* — `(x − anchor.x)/64` with the
+anchor captured at the bot's first spawn — while the registered
+goal file was hand-computed as *absolute* `8.5/64`. Solving anchor
+from a live tick (true position vs pose channels): anchor ≈
+(−8.5, −7.5), so the goal the hold was given lands at world
+**(0, 1) — eleven blocks from the grove**. The bot was found parked
+at (1.3, 0.1): **the brain-side hold works; it was aimed wrong in
+every real run.** Every c1e death — attempts 1–2, runs 1–2, both
+arms — is one mechanism: the composition held its body faithfully
+eleven blocks from its only food. The childhood question dissolves;
+this is the mirrored-map family (episode 0078), a coordinate-frame
+fault at the seam.
+
+Open counter puzzle, flagged honestly: run-1/2 rows show 44–48
+oak_log gain events with dwell ≤3%, which cannot be grove
+dig-collect cycles; the inventory-event counters likely include
+held-item cycling or consumption artifacts [mechanism-argument] —
+resolve in run-3 readings before trusting logs/sticks columns.
+
+**Amendment 4 — the goal is the taught stand's own senses**: the
+goal file is no longer hand-computed; at release the runner reads
+the pose channels at the stand (the taught work position, as the
+brain senses it) and writes the per-arm goal from them. A resumed
+run keeps its existing goal file. Everything else unchanged. Fresh
+worlds, fresh brains, run 3.
