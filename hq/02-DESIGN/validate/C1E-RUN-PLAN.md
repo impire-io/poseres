@@ -1,5 +1,9 @@
 # C1E — the real life at 5×, pre-registered (2026-08-11, before launch)
 
+> **CLOSED 2026-08-11** by the owner's manual stop (arm A) after arm B's
+> death by rule; readings and the verdict in the closing section at the
+> bottom; the archive in `c1e-run/`; the story is episode 0096.
+
 The ladder's top rung ("yes, go with the ladder"; the road resumed:
 "go for B2′ → c1e"): the measured stay/want/finish composition living
 in the **real vanilla world** — full game rules, real physics, real
@@ -337,3 +341,52 @@ chain (the null stays only at the release boundary); snapshots land
 exactly on segment ends (`snapshot_every_n_cycles = n_cycles`); the
 world keeps the bed clear at each respawn (the steward's charter
 extended to the bed cell). Fresh worlds, fresh brains, run 4.
+
+## The close — readings against the registered set (2026-08-11)
+
+Run 4 (all five amendments live) is the measured run; earlier attempts
+are instrument history recorded above.
+
+- **R1 endurance**: arm B 9 chains in 20k steps (one life); arm A 10
+  chains, all inside the first ~97k of 140,617 steps — election
+  COLLAPSED after ~10 segments (segments 11–14: 0 chains, 2–4 logs).
+- **R2 hold drift** (re-keyed to the grove): **0.98–1.00 in every
+  segment of both arms** — the brain-side hold, once aimed by the
+  body's own senses, holds in reality exactly as it did in the lab.
+  The strongest positive result of the run.
+- **R3 head stability**: pred-error EMA 0.0018–0.0165 across all
+  segments — the shipped head models reality comfortably.
+- **R4 the life**: arm B dead at life-tick 14,398 (5,655 past its
+  zero-income line — an economic death: it crafted its stockpile
+  instead of digging, then starved; the pantry death). Arm A: 28
+  deaths in 140k steps, life lengths 4,250–5,105 (median ~4,635 —
+  each life earns 1–4 pays past the corpse line, then starves).
+- **R5 miser watch**: inverted — unique positions 4–20 per segment;
+  no roaming at all. The registered worry (wandering) was never the
+  disease; fixation was.
+- **R6 reality's tax** (the run's richest product, all measured):
+  digs are client-side wall-clock (~3.0 s at any /tick rate); drops
+  far-scatter past pickup at 5× (~half lost, despawning in 60 s
+  wall); pose channels are spawn-anchor-relative; the wealth sense
+  saturates at 64 items; the bot built a pedestal in its own bed
+  cell; item-drop physics, craft round-trips, and connection
+  lifecycle all differ from the lab. Process tax: two attempts, four
+  runs, five amendments to field one honest experiment.
+- **R7 lives** (the game frame's registered signature): first-income
+  per life NEVER trended down — [1611, 333, 140, 999, 9, 1217, 1973,
+  1695] over the last eight lives. Brain-intact respawn did not
+  accumulate competence: each death cleared the crafting stock, and
+  ~140k steps of online learning eroded the taught skill (the churn,
+  measured in reality). Arm A was heading to futility when stopped.
+
+**Decision rule**: neither arm succeeded → both post-mortems return
+to design, as frozen. The design conversation returned the deeper
+verdict (the owner's question, the same evening): the scenario was
+the tangent — a synthetic metabolism, hand-amended five times, in a
+world whose native survival economy (hunger, food, health, death,
+respawn) was deliberately switched off; a hold that made exploration
+the enemy in a world with nothing to explore. The composition's parts
+all worked (hold, head, itch, teaching); the life we asked them to
+live was the lab wearing reality's skin. Successor direction (owner's
+call, not registered here): the native-survival reframe — the world's
+own meter, food as pay, exploration as foraging.

@@ -263,10 +263,23 @@ so the dial's portability is architectural. The third — provisioning
 (the childhood dose ends by demonstration, not by date) — is active:
 its pilot beat the calendar on the measured economy (weans at
 1023–1567 vs the hand 3000, cheaper stipends) and exposed both its
-own missing patience bound and a degenerate transfer economy; amended
-and re-piloting. Open additionally: arm A of the c1e two-arm run (the
-respawn frame; arm B died an honest pantry death), provisioning's
-confirmatory, book ch 17.
+own missing patience bound and a degenerate transfer economy; amended,
+re-piloted green, then PAUSED pending the scenario direction.
+
+**c1e is closed and the scenario is the verdict**
+([0096](0096-the-lab-wearing-realitys-skin.md)): two attempts, four
+runs, five open amendments in one day; reality's tax fully itemized
+(wall-clock digs, far-scattering drops, anchor-relative pose, a
+saturating wealth sense, the pedestal); the composition's parts all
+worked (dwell 98–100% once the goal came from the taught senses) but
+neither life design survived — the one-shot died the pantry death,
+the respawn arm cycled 28 deaths with no learning-over-lives trend —
+and the owner's question ("have we been on a tangent?") closed it:
+the synthetic metabolism in a de-natured world was the tangent, not
+the architecture. Open: the native-survival reframe (the world's own
+meter, food as pay, exploration as foraging — owner's call to
+register), provisioning's confirmatory (paused on the same call),
+book ch 17.
 
 **The project's working structure moved into `hq/`**
 ([episode 0045](0045-the-hq-restructure.md)): GENESIS holds the vision,
@@ -740,3 +753,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0093 | [The road to reality: M\* = 5, and c1e registers](0093-the-road-to-reality.md) |
 | 0094 | [The learning-rate map: no single η buys refusal, tracking, and activity](0094-head-churn.md) |
 | 0095 | [κ was never magic: the drive pipeline already normalizes the world](0095-budget-arbitration.md) |
+| 0096 | [The lab wearing reality's skin: c1e closes, and the scenario is the verdict](0096-the-lab-wearing-realitys-skin.md) |
