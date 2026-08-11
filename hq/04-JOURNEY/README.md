@@ -239,8 +239,17 @@ call** (2026-08-11, recorded in Doc 0010): the capability claims
 all measured green; the failed clause was an imported optimality
 standard, and the correction — check the road after every gate, not
 the sharpest leftover question — is now standing working practice.
-Open: **B2′ → c1e** (the road), the boundary hunt (when an
-embodiment demands it), book ch 17.
+**And the road delivered the same day**
+([0093](0093-the-road-to-reality.md)): B2′ on the fixed geometry —
+reference **20/20** (the old 3/5 flake fully cured), 2× and 5×
+**20/20** with 100% craft conversion, 10× an honest 10/20 boundary
+(the registered wall-clock distortion, on schedule). **M\* = 5**;
+the fork question stays closed; fast-real-bridge graduates with the
+full grid; and **c1e is registered** (`C1E-RUN-PLAN.md`): the taught
+composition in the real vanilla world at 5×, 2M steps, the c1d
+readings plus reality's tax, stop rules frozen.
+Open: the c1e run (launching), the boundary hunt (when an embodiment
+demands it), book ch 17.
 
 **The project's working structure moved into `hq/`**
 ([episode 0045](0045-the-hq-restructure.md)): GENESIS holds the vision,
@@ -711,3 +720,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0090 | [The tourist tax: the first edge of senses-first](0090-the-tourist-tax.md) |
 | 0091 | [The lottery head: the first licensed machinery fails its bar honestly](0091-the-lottery-head.md) |
 | 0092 | [The restless sleep: consolidation refuted, the diagnosis sharpens](0092-the-restless-sleep.md) |
+| 0093 | [The road to reality: M\* = 5, and c1e registers](0093-the-road-to-reality.md) |
