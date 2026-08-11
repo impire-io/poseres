@@ -181,12 +181,17 @@ arbitration, not replay volume — **the churn itself**.
 
 ## Named successors
 
-**The richer predictor, next regime** — the 0090 license, twice
-constrained (0091: convergence, not representation; 0092: the churn,
-not replay volume): the ranked candidates are **feature
-normalization + a lower head η** (treat the disease), then targeted
-low-order context terms (shrink the space); the gate keeps 0091's
-bars and the sharpness + buffer instruments; a fresh consolidation
-dose needs a fresh registration. The boundary hunt when an
+**Trade-timing: PARKED as an optimality note (owner's call,
+2026-08-11).** The mission-level capabilities all measured green —
+moving worlds livable, reactive worlds paceable, a real bargain-lean
+with no timing machinery; the failed clause was an *optimality*
+standard nothing in the vision promises ("bad trades happen, even
+with humans"). The 0090→0092 diagnosis chain (representation proven;
+convergence lottery; the churn under η = 0.5 over rich correlated
+features, which replay amplifies) stays on record for whoever
+reopens this — **reopen only if a real embodiment shows the
+imperfection mattering** (a life lost to overpaying), and then with
+the twice-constrained regimes (normalization + lower η; targeted
+terms) and 0091/0092 as baselines. The boundary hunt when an
 embodiment demands it. A drive-side deficit coupling remains the
 named alternative if the label seam is ever refuted.

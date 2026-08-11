@@ -234,9 +234,13 @@ openly with its numbers; the registered reversal fired on its
 second clause. Diagnosis after three gates: not representation,
 not arbitration, not replay volume — **the churn itself**. Ranked
 next: normalization + lower head η, then targeted terms.
-Open: the richer-predictor next regime (normalization, owner's
-call), c1e on the fixed map (gated on rung 2's B2′ formality), the
-boundary hunt, book ch 17.
+Trade-timing then **parked as an optimality note by the owner's
+call** (2026-08-11, recorded in Doc 0010): the capability claims
+all measured green; the failed clause was an imported optimality
+standard, and the correction — check the road after every gate, not
+the sharpest leftover question — is now standing working practice.
+Open: **B2′ → c1e** (the road), the boundary hunt (when an
+embodiment demands it), book ch 17.
 
 **The project's working structure moved into `hq/`**
 ([episode 0045](0045-the-hq-restructure.md)): GENESIS holds the vision,
