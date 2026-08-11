@@ -80,4 +80,30 @@ arbitration (the completion rule's use of the prediction, Doc
 
 ## Verdict
 
-<Empty until graduation.>
+**RP1 FAIL · RP2 PASS · RP3 PASS [measured, 2026-08-11, 24 seeds ×
+2 arms] — the quadratic head does not fix refusal at this training
+regime; the licensed problem stays open, better understood.**
+
+- **RP1 — refusal: FAIL.** Ruinous share 0.278 vs the linear
+  anchor's 0.252 — statistically unchanged `[measured]`.
+- **RP2 — the lean: PASS**, slightly improved (median rate 6 vs the
+  anchor's 7). **RP3 — no collateral: PASS** (24/24 life; reactive
+  pacing 20/24) `[measured]`.
+- **The per-seed distribution is the finding**: ruinous shares span
+  0.00 → 1.00 — **six seeds achieve perfect refusal** (plus one at
+  0.03: 7/24 meet the bar individually) while **four invert** to
+  majority-ruinous. Same world, same lessons, same features; only
+  the online trajectory differs. The quadratic representation
+  provably carries refusal; per-seed NLMS convergence over 153
+  correlated features at η = 0.5 is a lottery `[measured]`.
+- **The reversal does NOT fire**: sharpness median 0.874 < the 0.90
+  line — prediction remains the bottleneck; arbitration is not
+  implicated. The bottleneck is *convergence*, not representation
+  and not the completion rule `[measured]`.
+
+The episode-0090 license stands unexpended. Named next regimes for
+a future registration (none run): consolidation — the offline
+learning loop Doc 0004 already reserves, replaying witnessed trades
+between segments; feature normalization / a lower head η for
+correlated quadratic features; or targeted low-order context terms.
+Doc 0010 records the constraint.
