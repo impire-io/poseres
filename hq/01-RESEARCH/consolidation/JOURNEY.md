@@ -37,3 +37,18 @@ numbers; per the registration's own no-quiet-retune rule, no third
 prioritization is tried. The arms run the ORIGINAL registered
 design (witness-time surprise, pilot 1's 0.183) so the registered
 constants get their 24-seed verdict.
+
+## 2026-08-11 — the arms: the registered design refuted at power
+
+CN1 FAIL: ruinous **0.293** — worse than both anchors (linear 0.252,
+online-quad 0.278); pilot 1's 0.183 was eight-seed noise. Spread
+intact (0.00 / 0.263 / 1.00). Sharpness **0.799, down from the
+online head's 0.874** — the replay actively interfered. CN2 PASS
+(median 7), CN3 PASS (24/24 life; reactive 23/24). The registered
+reversal fires on its second clause (sharpness < 0.90, spread
+persists): surprise-prioritized replay at these constants is
+refuted as the convergence fix. The mechanism sharpened one more
+notch: both prioritization forms select locomotion, and replaying
+it at η = 0.5 amplifies the very churn that is the disease — the
+bottleneck now points squarely at the learning dynamics themselves
+(normalization + lower η), not at replay volume.
