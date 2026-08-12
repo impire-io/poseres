@@ -1,0 +1,28 @@
+# The native-survival probe world (bar N1) — the DECLARED config:
+# vanilla, difficulty NORMAL (native hunger genuinely bites), mob
+# spawning off (predation deferred and named), superflat like C1 so
+# readings stay comparable. Port 25602; container n1-minecraft.
+# The VERSION pin moves with the bridge's mineflayer pin
+# (examples/minecraft/README.md).
+services:
+  minecraft:
+    image: itzg/minecraft-server:latest
+    container_name: n1-minecraft
+    environment:
+      EULA: "TRUE"
+      VERSION: "1.21.11"
+      TYPE: VANILLA
+      MODE: survival
+      DIFFICULTY: normal
+      LEVEL_TYPE: FLAT
+      SPAWN_MONSTERS: "FALSE"
+      ONLINE_MODE: "FALSE"
+      SPAWN_PROTECTION: "0"
+      VIEW_DISTANCE: "6"
+      SNOOPER_ENABLED: "FALSE"
+      MEMORY: 2G
+    ports:
+      - "25602:25565"
+    volumes:
+      - ./data:/data
+    restart: unless-stopped

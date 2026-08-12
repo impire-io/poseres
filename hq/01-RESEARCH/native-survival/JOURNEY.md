@@ -1,5 +1,23 @@
 # native-survival — journey (opened 2026-08-11)
 
+## 2026-08-12 — bar N1 MET: the native meter bites (N1-READING.md)
+
+The declared world was built (probe/ kit: compose, provision, probe —
+1.21.11 renamed the gamerules; `spawn_mobs` is this version's
+`doMobSpawning`) and the probe ran 6,036 ticks of never-eating work:
+saturation absorbs the first ~1,280 ticks, then the bar drains
+perfectly linearly (one point per ~213 ticks of jump work) to empty at
+5,336; health follows 15 ticks later — at food 0, not the registered
+"≤ 6/20" approximation (the game's rule; ≤ 6 only gates sprint, which
+this body cannot do) — and stops at the half-heart floor, held through
+a 400-tick reading. Bar judged on its intent: the meter is real, no
+reversal. Supplementary, after the reading: the live mouth verified
+end-to-end (melon dug → 6 slices, held slice reads edible=1, one
+use_held hold of 7 ticks consumed exactly one slice, food 0 → 2). The
+instrument N2's teaching stands on is now proven on the real server.
+Next: teach the P0-style lessons (dig melon, collect, eat) with the
+deficit gate keyed to the native food channel, and run N2/N3.
+
 ## 2026-08-11 — the mouth is built (instrument, both bridges)
 
 The declared actuator gap is closed at instrument grade: `use_held`
