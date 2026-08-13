@@ -23,6 +23,7 @@ The system is a **continuously-learning machine intelligence** with a configurab
 | 09 | `0009-brain-side-hold.md` | The head-derived hold: the composition with zero scaffolding (graduated research, episode 0074) |
 | 10 | `0010-recipes-and-the-label.md` | Recipes and the praise label: taught reach as product (graduated research, episode 0077) |
 | 11 | `0011-the-dials.md` | The dials: what every tuning knob represents, the measured operating points, and the drive-band tuning protocol |
+| 12 | `0012-anatomy-from-world.md` | Anatomy from world: the structured process for deriving a body from a target environment (skill: `/anatomy-mapping`) |
 
 Read 01 first; it is the map. The rest may be read in any order, but 03 and 04 describe the validated core and are the natural place for an implementer to begin building.
 
