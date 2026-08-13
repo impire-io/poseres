@@ -1,5 +1,32 @@
 # the-flood — journey (opened 2026-08-13)
 
+## 2026-08-14 — F campaign stopped honestly: the flood feeds a meal, luck still finds it (f-flooded-rows, diagnostic-rows)
+
+The flooded F arm read 1/6 where the pilot read 3/3, and the road to
+understanding why yielded three findings. (1) A bridge restart floats
+the pose anchor and silently re-aims every taught position — the third
+ep-0078 bite; SPAWN_ANCHOR now pins it (correct hygiene, committed) —
+but the anchored reteach STILL read 1/6, so the anchor was not the
+cause here. (2) The discriminating diagnostic INVERTED: the pilot-path
+life ate 0 while the wrapper-path life ate 7 with a full seen-forage
+chain and the fastest first-eat yet (2,011 < F1's 3,000) — the
+recording wrapper is exonerated and the taught brain provably carries
+the skill. (3) The mechanism of the gap is per-life VARIANCE: pooled
+flooded intrusive lives 5/13 (~38%) vs the no-flood floor 1/6 (~17%)
+— the flood roughly doubles expression and, once contact happens,
+reliably turns it into a full meal (every expressing life: 6–7 eats
+to satiation; F2 windows fail only on meal-finishing use-share ~31%
+vs the <10% bar, with action diversity and roaming green). But FIRST
+CONTACT is still spatial luck: stalling lives roam the taught lanes
+where no melons live; the flood cannot steer. F1 as registered FAILED
+(1/6); F3 not run (campaign stopped before the silenced arm). The
+sharp open thread for the design conversation: hunger now sustains
+eating and amplifies contact — nothing yet AIMS the hungry body at
+seen food. Candidate in the record's own grammar: the learned palate
+(0089's tongue) applied to glance signatures — worth-keyed approach —
+so the brain learns which distant appearances pay and walks toward
+them when the flood rises. Owner's call.
+
 ## 2026-08-13 — FLOOD REAL, then R-form: intrusion 3/3, gain 0/3 (R-FORM-READING.md)
 
 The instrument reading met all four live checks (silent sated, exact

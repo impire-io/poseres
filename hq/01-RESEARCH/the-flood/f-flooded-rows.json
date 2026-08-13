@@ -1,0 +1,70 @@
+[
+ {
+  "arm": "flooded",
+  "life": 1,
+  "chains": 0,
+  "distant_collects": 0,
+  "eats": 0,
+  "first_eat": null,
+  "f2_windows": [],
+  "food_max": 8
+ },
+ {
+  "arm": "flooded",
+  "life": 2,
+  "chains": 0,
+  "distant_collects": 0,
+  "eats": 6,
+  "first_eat": 3115,
+  "f2_windows": [
+   {
+    "at": 3229,
+    "max_share": 0.313,
+    "use_share": 0.313,
+    "unique": 47,
+    "pass": false
+   }
+  ],
+  "food_max": 19
+ },
+ {
+  "arm": "flooded",
+  "life": 3,
+  "chains": 0,
+  "distant_collects": 0,
+  "eats": 0,
+  "first_eat": null,
+  "f2_windows": [],
+  "food_max": 8
+ },
+ {
+  "arm": "flooded",
+  "life": 4,
+  "chains": 0,
+  "distant_collects": 0,
+  "eats": 0,
+  "first_eat": null,
+  "f2_windows": [],
+  "food_max": 8
+ },
+ {
+  "arm": "flooded",
+  "life": 5,
+  "chains": 0,
+  "distant_collects": 0,
+  "eats": 0,
+  "first_eat": null,
+  "f2_windows": [],
+  "food_max": 8
+ },
+ {
+  "arm": "flooded",
+  "life": 6,
+  "chains": 0,
+  "distant_collects": 0,
+  "eats": 0,
+  "first_eat": null,
+  "f2_windows": [],
+  "food_max": 8
+ }
+]
