@@ -1,4 +1,4 @@
-hq/01-RESEARCH/the-flood/*.bin
-hq/01-RESEARCH/the-flood/*-demos.json
-hq/01-RESEARCH/the-flood/*-progress.json
-hq/01-RESEARCH/the-flood/bridge.log
+*.bin
+*-demos.json
+*-progress.json
+bridge.log
