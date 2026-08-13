@@ -114,6 +114,35 @@ def rcon(*cmd: str) -> str:
     return (r.stdout or r.stderr).strip()
 
 
+def normalize_hand() -> None:
+    """One hold_next over an EMPTY pocket forces held -> null (the cycle is
+    [null] alone), killing the held-kind parity between lessons and arms.
+    Run only between engine sessions — the bridge serves one client."""
+    import socket as _socket
+
+    sock = _socket.create_connection(("127.0.0.1", BRIDGE_PORT), timeout=30)
+    buf = b""
+
+    def call(msg: dict) -> dict:
+        nonlocal buf
+        sock.sendall((json.dumps(msg) + "\n").encode())
+        while b"\n" not in buf:
+            chunk = sock.recv(65536)
+            if not chunk:
+                raise ConnectionError("bridge closed during hand normalization")
+            buf += chunk
+        line, buf = buf.split(b"\n", 1)
+        return json.loads(line)
+
+    assert call({"op": "hello", "version": "pra-mc/1"})["ok"]
+    r = call({"op": "tick", "tick_ms": TICK_MS, "commands": [{"hold_next": 1.0}]})
+    held = r["view"]["held"]
+    call({"op": "bye"})
+    sock.close()
+    if held is not None:
+        raise SystemExit(f"hand normalization failed: held={held!r} (pocket not empty?)")
+
+
 class TapeTeacher:
     """The parent's hands: replay the tape, remember what was seen."""
 
@@ -151,13 +180,18 @@ def slices_of(view: dict) -> int:
 
 
 def lesson_events(views: list[dict]) -> tuple[int, int]:
-    """(collects, genuine eats) across one lesson's views."""
+    """(collects, genuine eats). An eat is a slice drop with a food rise
+    within +/-2 views: at the 50 ms fabric the server's food and inventory
+    updates land on different bridge samples (measured, teach run 2 seg 30)."""
     collects = eats = 0
-    for prev, cur in zip(views, views[1:], strict=False):
-        d = slices_of(cur) - slices_of(prev)
+    foods = [v.get("food", 0) for v in views]
+    counts = [slices_of(v) for v in views]
+    rises = {i for i in range(1, len(foods)) if foods[i] > foods[i - 1]}
+    for i in range(1, len(counts)):
+        d = counts[i] - counts[i - 1]
         if d > 0:
             collects += 1
-        elif d < 0 and cur.get("food", 0) > prev.get("food", 0):
+        elif d < 0 and any(j in rises for j in range(i - 2, i + 3)):
             eats += 1
     return collects, eats
 
@@ -182,7 +216,13 @@ def trim(state):
 
 
 def classroom_live(k: int) -> None:
+    # amendment 2 — the parent empties the pupil's hands: pocket cleared AND
+    # held forced to null, so the tape's single hold_next lands on the dug
+    # slice deterministically (the held NAME survives a pocket clear and
+    # revalidates after the dig — measured in teach run 1's eats=0)
+    rcon("clear", "pra")
     rcon("kill", "@e[type=item]")
+    normalize_hand()
     rcon("setblock", *CLASSROOM_MELON, "minecraft:melon")
     rcon("tp", "pra", *STAND)
     sec, amp = HUNGER_DOSES[(k - 1) % len(HUNGER_DOSES)]
@@ -193,6 +233,9 @@ def classroom_live(k: int) -> None:
 
 def classroom_fake(bridge: FakeBridge, k: int) -> None:
     w = bridge.world
+    w.inventory = {}  # amendment 2: pocket cleared, hand emptied
+    w.held = None
+    w.grid = []
     w.dug.discard((0, -2))  # the classroom melon, restored
     w.x, w.z, w.yaw = 0.0, -1.0, math.pi  # the stand, facing it
     w.digging = None
@@ -204,9 +247,18 @@ def classroom_fake(bridge: FakeBridge, k: int) -> None:
 def teach(fake: FakeBridge | None, segs: int, make_transport) -> None:
     tape = FAKE_TAPE if fake else LIVE_TAPE
     cfg0 = dataclasses.replace(BASE, steps_per_episode=len(tape))
+    progress = OUT / (TAUGHT.stem + "-progress.json")
     state = None
     demos: list[list[list[float]]] = []
-    for k in range(1, segs + 1):
+    start = 1
+    if progress.exists() and TAUGHT.exists() and DEMOS.exists():
+        done = json.loads(progress.read_text())["segs"]
+        if done < segs:
+            state = decode(TAUGHT.read_bytes())
+            demos = json.loads(DEMOS.read_text())
+            start = done + 1
+            print(f"teach: resuming at seg {start} ({done} lessons kept)", flush=True)
+    for k in range(start, segs + 1):
         for attempt in range(1, 4):
             if fake:
                 classroom_fake(fake, k)
@@ -224,14 +276,22 @@ def teach(fake: FakeBridge | None, segs: int, make_transport) -> None:
             if collects >= 1 and eats >= 1:
                 break
             print(f"teach seg {k} attempt {attempt}: collects={collects} eats={eats}", flush=True)
+            for i, v in enumerate(views[-(len(tape) - 55) :]):  # the hold+use window
+                print(
+                    f"  t{i} held={v.get('held')} food={v.get('food')} "
+                    f"slices={slices_of(v)} eating={round(v.get('eating', 0), 2)}",
+                    flush=True,
+                )
         else:
             raise SystemExit(f"N2 TEACH FAIL seg {k}: no clean lesson in 3 attempts")
         state = decode(store.read(store.list()[0][0]))
         demos.append([o.tolist() for o in teacher.observations[-len(tape) :]])
+        # checkpoint every lesson: a failed seg never costs the taught chain
+        TAUGHT.write_bytes(encode(dataclasses.replace(trim(state), world_state=None)))
+        DEMOS.write_text(json.dumps(demos))
+        progress.write_text(json.dumps({"segs": k}))
         if k % 9 == 0:
             print(f"teach {k}/{segs}", flush=True)
-    TAUGHT.write_bytes(encode(dataclasses.replace(trim(state), world_state=None)))
-    DEMOS.write_text(json.dumps(demos))
     print(f"TEACHING COMPLETE: {segs} lessons, {len(demos)} demonstrations kept", flush=True)
 
 
@@ -247,6 +307,7 @@ def newborn_live() -> None:
     rcon("effect", "clear", "pra")
     rcon("clear", "pra")
     rcon("kill", "@e[type=item]")
+    normalize_hand()  # both arms are born with the same (empty) hand
     for cx, cz in PATCHES:
         provision.patch(cx, cz)
     rcon("kill", "@e[type=item]")

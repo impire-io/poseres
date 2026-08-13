@@ -108,3 +108,31 @@ pilot 1: the collect-event counter includes staging-grid churn
 (cosmetic — the eat counter requires a food rise and is immune); the
 lesson retry alternation predicted in the plan was observed exactly
 (attempt 1 fails on the held-kind cycle, attempt 2 recovers).
+
+## Amendment 2 — the parent empties the pupil's hands (teach run 1)
+
+Live teach run 1 failed at seg 3: every attempt collected and never
+ate. Measured cause: the held KIND is bridge-virtual state that
+survives across lessons and even across a pocket clear (the name
+revalidates the moment the dig refills the pocket), so the tape's
+single `hold_next` toggled the hand to *empty* whenever a lesson
+started with the slice still held — and retry parity did not reliably
+alternate. The fix is classroom hygiene, not tape surgery: every
+lesson (and each newborn) clears the pocket AND normalizes the hand —
+one `hold_next` issued over an empty pocket forces held → null (the
+cycle is [null] alone), making every lesson's toggle deterministic
+and both arms' birth-hands identical. Retries remain as drop-scatter
+insurance only.
+
+## Amendment 3 — the split sample (teach run 2, seg 30)
+
+Teach run 2 died at seg 30 with lessons that visibly ATE in the debug
+window: food 0 → 2 on one view, the slice leaving the pocket on the
+NEXT view. At the 50 ms fabric the server's food update and inventory
+update can land on different bridge samples; the eat detector had
+demanded both in the same view pair. Amended: an eat is a slice drop
+with a food rise within ±2 views (100 ms skew tolerance) — applied
+identically to lesson verification and to the lives' bar-N2 eat
+counter, and recorded here as measurement tolerance. Teaching also
+checkpoints per lesson now (a failed seg resumes, never re-teaching
+the chain). Teach run 3: 45/45 clean, zero retries at the milestones.
