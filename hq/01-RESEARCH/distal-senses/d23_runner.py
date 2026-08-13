@@ -82,8 +82,24 @@ D2_SEG_CYCLES, D2_SEGS = 67, 5  # 5 x 67 x 75 = 25,125 steps
 D3_CYCLES, D3_LIVES = 80, 3
 
 
+def repair_floor() -> None:
+    # lives dig; holes accumulate AND the patch water flows into them
+    # (measured: the stand cell became a puddle — the bot bobbed at -61).
+    # Repair air AND stray water in the ground layer, then rebuild the
+    # patches (their centers are legitimately water) — world admin
+    # between readings.
+    for what in ("minecraft:air", "minecraft:water"):
+        R.rcon("fill", "0", "-61", "0", "30", "-61", "30", "minecraft:grass_block", "replace", what)
+    sys.path.insert(0, str(OUT.parent / "native-survival" / "probe"))
+    import provision  # noqa: PLC0415 — the probe kit's patch builder
+
+    for cx, cz in ((5, 5), (28, 0), (0, 28)):
+        provision.patch(cx, cz)
+
+
 def classroom(k: int) -> None:
     v = VARIANTS[(k - 1) % len(VARIANTS)]
+    repair_floor()
     R.rcon("clear", "pra")
     R.rcon("kill", "@e[type=item]")
     R.normalize_hand()
@@ -149,6 +165,7 @@ def build_memory() -> RecipeMemory:
 
 
 def hungry_newborn() -> None:
+    repair_floor()
     R.newborn_live()
     for cell in MELON_CELLS:
         R.rcon("setblock", *cell, "minecraft:air")  # nearest food >= 2 blocks

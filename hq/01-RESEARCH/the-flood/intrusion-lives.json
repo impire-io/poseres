@@ -1,0 +1,38 @@
+[
+ {
+  "form": "intrusion",
+  "life": 1,
+  "chains": 0,
+  "distant_collects": 1,
+  "eats": 7,
+  "first_eat": 5167,
+  "completions": 98,
+  "false_completions": 72,
+  "food_min": 7,
+  "food_max": 20
+ },
+ {
+  "form": "intrusion",
+  "life": 2,
+  "chains": 2,
+  "distant_collects": 2,
+  "eats": 7,
+  "first_eat": 4315,
+  "completions": 92,
+  "false_completions": 61,
+  "food_min": 7,
+  "food_max": 20
+ },
+ {
+  "form": "intrusion",
+  "life": 3,
+  "chains": 0,
+  "distant_collects": 1,
+  "eats": 3,
+  "first_eat": 3839,
+  "completions": 111,
+  "false_completions": 73,
+  "food_min": 7,
+  "food_max": 13
+ }
+]
