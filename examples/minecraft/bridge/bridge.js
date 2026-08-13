@@ -324,6 +324,11 @@ async function applyCommand(command, budget) {
     // one activation, then the SERVER runs whatever using this item means
     // (a food consumes over ~1.6 s; most other items do nothing in air) —
     // outcomes land in the world's own channels, never here
+    if (useHeld && Date.now() - useStart > USE_TOTAL_MS + 200) {
+      // the consume has run its course: recycle so a still-held intention
+      // chains a fresh use (vanilla's continuous eating; fake parity)
+      stopUse();
+    }
     if (useHeld) {
       if (Date.now() - useStart > USE_SAFETY_MS) stopUse();
       return; // continuing the held intention
@@ -406,8 +411,15 @@ function sampleChannels() {
       ? [grid.length / 4, 1, isPlaceable(offer.name) ? 1 : 0, norm(offer.count), ...itemSignature(offer.name)]
       : [grid.length / 4, 0, 0, 0, 0, 0, 0];
 
+  // survival: the progress channel senses the HELD INTENTION's progress,
+  // whatever the intention — a dig reports its cracks, a use its chew
+  // (native-survival arms amendment 1)
   const mining =
-    digTarget !== null ? [Math.min((Date.now() - digStart) / digTotalMs, 1)] : [0];
+    digTarget !== null
+      ? [Math.min((Date.now() - digStart) / digTotalMs, 1)]
+      : SURVIVAL && useHeld
+        ? [Math.min((Date.now() - useStart) / USE_TOTAL_MS, 1)]
+        : [0];
 
   return {
     pose: [

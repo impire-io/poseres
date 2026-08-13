@@ -297,6 +297,11 @@ class _World:
         if self.digging is not None:
             column, progress = self.digging
             mining = [min(progress / self._dig_ticks(column), 1.0)]
+        elif self.using is not None:
+            # survival: the progress channel senses the HELD INTENTION's
+            # progress, whatever the intention — the chew has cracks too
+            # (native-survival arms amendment 1)
+            mining = [min(self.using / _EAT_TICKS, 1.0)]
         else:
             mining = [0.0]
         return {

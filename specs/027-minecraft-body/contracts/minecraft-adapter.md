@@ -136,3 +136,11 @@ shipped 32/12 body is byte-identical with the mode off.
   and the mid-use `using` counter (class 1, byte-exact).
 - **The view** gains `food`, `health`, `eating` (progress 0..1) in
   survival mode — humans only, never sensed.
+- **The progress channel senses the held intention, whatever it is**
+  (arms amendment 1): in survival mode `mining` reports a dig's cracks
+  OR a use's chew (live: elapsed/1.61 s; fake: held ticks/6) — one
+  held-intention grammar, so the completion itch can hold the eat
+  exactly as it holds the dig. A finished live use recycles (~1.81 s)
+  so a still-held intention chains a fresh consume (vanilla's
+  continuous eating; fake parity — the fake's `using` resets on
+  consume and a continued hold starts anew).

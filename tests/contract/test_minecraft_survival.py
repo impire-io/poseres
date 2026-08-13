@@ -156,6 +156,25 @@ def test_food_drains_and_eating_pays_from_the_pocket():
         body.close()
 
 
+def test_the_chew_has_cracks_the_progress_channel_senses_the_use():
+    # arms amendment 1: the progress channel senses the held intention,
+    # whatever it is — the itch can hold the eat only if the chew is sensed
+    with FakeBridge(survival=True) as bridge:
+        body = _body(bridge)
+        body.reset()
+        _pocket_a_melon(body)
+        _idle_to_drain_edge(body)
+        for i in range(5):
+            mid = body.step(USE)
+            assert mid[14] == pytest.approx((i + 1) / 6)  # the chew, sensed
+        done = body.step(USE)  # the sixth completes the consume
+        assert done[14] == 0.0  # progress clears with the intention
+        assert done[6] == pytest.approx(1.0)
+        released = body.step(IDLE)
+        assert released[14] == 0.0
+        body.close()
+
+
 def test_use_is_a_held_intention_released_by_any_other_command():
     with FakeBridge(survival=True) as bridge:
         body = _body(bridge)
