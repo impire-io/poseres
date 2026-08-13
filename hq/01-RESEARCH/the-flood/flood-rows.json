@@ -1,0 +1,48 @@
+{
+ "checks": [
+  {
+   "check": "sated: the flood is silent",
+   "pass": true,
+   "detail": {
+    "food": 20,
+    "flood": [
+     0,
+     0,
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "check": "starving: dim 0 follows the registered curve",
+   "pass": true,
+   "detail": {
+    "food": 0,
+    "f": 1,
+    "expected": 1.0
+   }
+  },
+  {
+   "check": "intrusion dims are f-scaled and change every sample",
+   "pass": true,
+   "detail": {
+    "distinct": 6,
+    "last": [
+     -0.2235,
+     -0.5373,
+     0.5216
+    ]
+   }
+  },
+  {
+   "check": "eating quiets the flood",
+   "pass": true,
+   "detail": {
+    "f_before": 1,
+    "f_after": 0,
+    "food": 16
+   }
+  }
+ ],
+ "verdict": "FLOOD REAL"
+}

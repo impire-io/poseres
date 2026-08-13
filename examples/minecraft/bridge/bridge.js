@@ -458,7 +458,10 @@ function sampleFlood(drops) {
   const d = Math.max(0, 1 - bot.food / 20);
   const f = d <= FLOOD_THETA ? 0 : ((d - FLOOD_THETA) / (1 - FLOOD_THETA)) ** 2;
   if (FLOOD === "intrusion") {
-    const n = itemSignature(String(Number(bot.time.age)));
+    // the world clock reaches the client only every 20 server ticks
+    // (measured: 2 distinct hashes in 6 samples at 50 ms) — the sample
+    // index joins the key so the intrusion changes every observation
+    const n = itemSignature(`${Number(bot.time.age)}:${tick}`);
     return [f, f * n[0], f * n[1], f * n[2]];
   }
   if (FLOOD === "gain") {
