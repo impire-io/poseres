@@ -167,7 +167,15 @@ let tick = 0;
 let busy = false;
 
 bot.once("spawn", () => {
-  spawnAnchor = bot.entity.position.clone();
+  // SPAWN_ANCHOR="x,z" pins the pose anchor across bridge restarts: the
+  // anchor otherwise floats to wherever the bot stood at boot, and a
+  // taught brain's positions silently re-aim (the ep-0078/amendment-4
+  // family — measured a third time when an F arm restarted the bridge)
+  const pinned = (process.env.SPAWN_ANCHOR || "").split(",");
+  spawnAnchor =
+    pinned.length === 2
+      ? new Vec3(parseFloat(pinned[0]), bot.entity.position.y, parseFloat(pinned[1]))
+      : bot.entity.position.clone();
   mcData = require("minecraft-data")(bot.version);
   const server = net.createServer(handleClient);
   server.listen(BRIDGE_PORT, "127.0.0.1", () =>
