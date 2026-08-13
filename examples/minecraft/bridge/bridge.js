@@ -41,6 +41,14 @@ const CHANNELS = {
   hand: SURVIVAL ? 7 : 6,
   grid: 7,
 };
+if (SURVIVAL) {
+  // the distal senses (research topic distal-senses): egocentric,
+  // properties + signatures — the world beyond the keyhole
+  CHANNELS.drops = 8;
+  CHANNELS.glance = 32;
+}
+const DROPS_RANGE = 8; // blocks; nearest ground item within this radius is sensed
+const GLANCE_RANGE = 16; // blocks; feet-level center-ray per 45-degree sector
 const DIG_SAFETY_MS = 10000; // the owner's cap: a dig making no progress is released
 const USE_TOTAL_MS = 1610; // the game's own consume duration (32 game ticks)
 const USE_SAFETY_MS = 3000; // a use that produced nothing by then is released
@@ -371,6 +379,63 @@ function clearControls() {
   for (const control of ["forward", "back", "jump"]) bot.setControlState(control, false);
 }
 
+function sampleDrops(p, yaw) {
+  // nearest ground item within DROPS_RANGE: presence, EGOCENTRIC bearing
+  // (sin positive toward the body's turn_left side), distance, count,
+  // appearance signature — the world's own item entities, never names
+  let best = null;
+  let count = 0;
+  for (const e of Object.values(bot.entities)) {
+    if (!e || e.name !== "item" || !e.position) continue;
+    const dx = e.position.x - p.x;
+    const dz = e.position.z - p.z;
+    const d = Math.hypot(dx, dz);
+    if (d > DROPS_RANGE) continue;
+    count += 1;
+    if (best === null || d < best.d) best = { e, dx, dz, d };
+  }
+  if (best === null) return [0, 0, 0, 0, 0, 0, 0, 0];
+  const fx = -Math.sin(yaw);
+  const fz = -Math.cos(yaw);
+  const ux = best.dx / (best.d || 1e-9);
+  const uz = best.dz / (best.d || 1e-9);
+  const item = best.e.getDroppedItem ? best.e.getDroppedItem() : null;
+  const sig = item ? itemSignature(item.name) : [0, 0, 0];
+  return [
+    1,
+    fx * uz - fz * ux, // sin(bearing): cross(forward, toward)
+    fx * ux + fz * uz, // cos(bearing): dot(forward, toward)
+    Math.min(best.d, DROPS_RANGE) / DROPS_RANGE,
+    Math.min(count, 8) / 8,
+    ...sig,
+  ];
+}
+
+function sampleGlance(p, yaw) {
+  // eight egocentric sectors (k * 45deg to the body's right of forward),
+  // one feet-level center-ray each to GLANCE_RANGE: distance to the first
+  // solid (1.0 = open) + that surface's appearance signature
+  const out = [];
+  const py = Math.floor(p.y);
+  for (let k = 0; k < 8; k++) {
+    const a = yaw - (k * Math.PI) / 4;
+    const dx = -Math.sin(a);
+    const dz = -Math.cos(a);
+    let dist = 1.0;
+    let sig = [0, 0, 0];
+    for (let i = 1; i <= GLANCE_RANGE; i++) {
+      const b = bot.blockAt(new Vec3(Math.floor(p.x + dx * i), py, Math.floor(p.z + dz * i)));
+      if (b && b.boundingBox === "block") {
+        dist = i / GLANCE_RANGE;
+        sig = itemSignature(b.name);
+        break;
+      }
+    }
+    out.push(dist, ...sig);
+  }
+  return out;
+}
+
 function sampleChannels() {
   const p = bot.entity.position;
   const yaw = bot.entity.yaw;
@@ -421,7 +486,10 @@ function sampleChannels() {
         ? [Math.min((Date.now() - useStart) / USE_TOTAL_MS, 1)]
         : [0];
 
+  const distal = SURVIVAL ? { drops: sampleDrops(p, yaw), glance: sampleGlance(p, yaw) } : {};
+
   return {
+    ...distal,
     pose: [
       clip((p.x - spawnAnchor.x) / 64),
       clip((p.z - spawnAnchor.z) / 64),

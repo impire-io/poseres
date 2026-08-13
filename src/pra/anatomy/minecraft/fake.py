@@ -138,6 +138,32 @@ class _World:
             return _WOOD_ITEM, 1
         return (_MELON_ITEM, _MELON_YIELD) if column in _MELON_SOLIDS else (_MINERAL_ITEM, 1)
 
+    def _block_name(self, column: tuple[int, int]) -> str:
+        """The sketch's SURFACE name (what a glance ray sees) — the block,
+        not its drop: the melon column is a `melon` block."""
+        if column in self.placed:
+            return self.placed[column]
+        if column in _WOOD_SOLIDS:
+            return _WOOD_ITEM
+        return "melon" if column in _MELON_SOLIDS else _MINERAL_ITEM
+
+    def _glance(self) -> list[float]:
+        """The glance's SHAPE over the sketch (distal-senses; the live
+        bridge is the evidence instrument — doctrine): eight egocentric
+        sectors, one feet-level ray each to 16, distance + signature."""
+        out: list[float] = []
+        for k in range(8):
+            a = self.yaw - k * math.pi / 4
+            dx, dz = -math.sin(a), math.cos(a)
+            dist, sig = 1.0, (0.0, 0.0, 0.0)
+            for i in range(1, 17):
+                column = (round(self.x + dx * i), round(self.z + dz * i))
+                if self._feet_solid(column):
+                    dist, sig = i / 16.0, item_signature(self._block_name(column))
+                    break
+            out.extend([dist, *sig])
+        return out
+
     def _kinds(self) -> list[str]:
         return sorted(name for name, count in self.inventory.items() if count > 0)
 
@@ -304,7 +330,7 @@ class _World:
             mining = [min(self.using / _EAT_TICKS, 1.0)]
         else:
             mining = [0.0]
-        return {
+        channels = {
             "pose": [
                 clip(self.x / 64.0),
                 clip(self.z / 64.0),
@@ -329,6 +355,12 @@ class _World:
             "hand": hand,
             "grid": grid,
         }
+        if self.survival:
+            # the sketch has no item entities: the drops channel is
+            # permanently empty here (declared); the glance is real shape
+            channels["drops"] = [0.0] * 8
+            channels["glance"] = self._glance()
+        return channels
 
     def view(self) -> dict:
         """Ground truth for humans (feature 033): never sensed by the brain."""
@@ -404,10 +436,13 @@ class FakeBridge:
     }
 
     def __init__(self, survival: bool = False) -> None:
-        # survival widens the hand by the edible affordance (instrument mode);
-        # the instance table shadows the shipped class table
+        # survival widens the hand by the edible affordance and appends the
+        # distal senses (instrument mode); the instance table shadows the
+        # shipped class table
         self.CHANNELS = (
-            {**FakeBridge.CHANNELS, "hand": 7} if survival else dict(FakeBridge.CHANNELS)
+            {**FakeBridge.CHANNELS, "hand": 7, "drops": 8, "glance": 32}
+            if survival
+            else dict(FakeBridge.CHANNELS)
         )
         self.world = _World(survival=survival)
         self._listener = socket.create_server(("127.0.0.1", 0))

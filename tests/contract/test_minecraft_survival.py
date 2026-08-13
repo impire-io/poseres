@@ -62,7 +62,7 @@ def _idle_to_drain_edge(body: Ros2Body) -> None:
 
 
 def test_survival_anatomy_matches_the_amendment():
-    assert sum(s.width for s in SENSORS) == 33
+    assert sum(s.width for s in SENSORS) == 73
     assert sum(len(a.presets) for a in ACTUATORS) == 13
     # the shipped default is byte-identical with the mode off
     assert C1_OBS_DIM == 32
@@ -106,7 +106,7 @@ def test_hand_senses_edibility_beside_placeability():
     with FakeBridge(survival=True) as bridge:
         body = _body(bridge)
         obs = body.reset()
-        assert obs.shape == (33,)
+        assert obs.shape == (73,)
         _pocket_a_melon(body)
         held = body.step(IDLE)
         assert held[19] == 1.0  # present
@@ -128,6 +128,32 @@ def test_hand_senses_edibility_beside_placeability():
         assert list(wood[23:26]) == list(item_signature("oak_log"))
         assert wood[20] == 1.0  # placeable (the game's own fact)
         assert wood[21] == 0.0  # and not edible
+        body.close()
+
+
+# ---- the distal senses (adapter shape only — the live-only doctrine) ----------------
+
+
+def test_the_glance_sees_the_sketch_and_drops_stay_empty():
+    # glance: 8 egocentric sectors x [dist, sig0..2] at [41:73]; sector k
+    # points k*45deg to the body's right of forward and rotates with yaw.
+    # drops [33:41]: the sketch has no item entities — permanently empty.
+    with FakeBridge(survival=True) as bridge:
+        body = _body(bridge)
+        obs = body.reset()
+        assert list(obs[33:41]) == [0.0] * 8  # no drops in the sketch
+        # spawn (0,0) facing +z: sector 0 is open to the horizon
+        assert obs[41] == 1.0 and list(obs[42:45]) == [0.0] * 3
+        # sector 2 (+x): the wall column at (3,0), three blocks out
+        assert obs[41 + 2 * 4] == pytest.approx(3 / 16)
+        assert list(obs[41 + 2 * 4 + 1 : 41 + 2 * 4 + 4]) == list(item_signature("cobblestone"))
+        # sector 4 (behind): the melon column at (0,-2), two blocks out
+        assert obs[41 + 4 * 4] == pytest.approx(2 / 16)
+        assert list(obs[41 + 4 * 4 + 1 : 41 + 4 * 4 + 4]) == list(item_signature("melon"))
+        for _ in range(4):
+            obs = body.step(TURN_LEFT)  # 180: the senses rotate with the body
+        assert obs[41] == pytest.approx(2 / 16)  # the melon is now ahead
+        assert list(obs[42:45]) == list(item_signature("melon"))
         body.close()
 
 

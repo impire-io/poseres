@@ -144,3 +144,17 @@ shipped 32/12 body is byte-identical with the mode off.
   so a still-held intention chains a fresh consume (vanilla's
   continuous eating; fake parity — the fake's `using` resets on
   consume and a continued hold starts anew).
+- **The distal senses** (topic distal-senses, 2026-08-13; appended
+  after `grid`, obs_dim 73, every prior offset unchanged):
+  - `drops` (8): the nearest ground item within 8 blocks — present;
+    sin/cos of the EGOCENTRIC bearing (cross/dot against the body's
+    own forward; sin positive toward the body's **turn_right** side —
+    measured at D1, mineflayer's yaw frame is left-handed); min(d,
+    8)/8; min(count, 8)/8; the item's appearance signature. Empty:
+    all zeros. The fake sketch has no item entities — its drops
+    channel is permanently empty (declared; shape only).
+  - `glance` (32): eight egocentric sectors, k·45° to the body's
+    right of forward, one FEET-LEVEL center-ray each out to 16
+    blocks: min-distance-to-solid/16 (1.0 = open) + that surface
+    block's appearance signature (zeros when open). A glance, not a
+    survey — one ray per sector, the sector centers rotate with yaw.

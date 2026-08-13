@@ -1,0 +1,156 @@
+{
+ "checks": [
+  {
+   "check": "glance: melon ahead at sector 0, one block",
+   "pass": true,
+   "detail": {
+    "dist": 0.0625,
+    "sig": [
+     0.309804,
+     -0.560784,
+     -0.247059
+    ]
+   }
+  },
+  {
+   "check": "glance: full row (context)",
+   "pass": true,
+   "detail": [
+    {
+     "dist": 0.0625,
+     "sig": [
+      0.309804,
+      -0.560784,
+      -0.247059
+     ]
+    },
+    {
+     "dist": 1,
+     "sig": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "dist": 1,
+     "sig": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "dist": 1,
+     "sig": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "dist": 1,
+     "sig": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "dist": 1,
+     "sig": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "dist": 1,
+     "sig": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "dist": 1,
+     "sig": [
+      0,
+      0,
+      0
+     ]
+    }
+   ]
+  },
+  {
+   "check": "glance rotates: after 180, the melon is in sector 4",
+   "pass": true,
+   "detail": {
+    "dist": 0.0625,
+    "sig": [
+     0.309804,
+     -0.560784,
+     -0.247059
+    ]
+   }
+  },
+  {
+   "check": "drops: a dug drop appears, roughly ahead, slice signature",
+   "pass": true,
+   "detail": {
+    "present": 1,
+    "sin_b": 0.107,
+    "cos_b": 0.994,
+    "dist": 0.138,
+    "count": 0.125,
+    "sig": [
+     -0.309804,
+     0.796078,
+     0.866667
+    ]
+   }
+  },
+  {
+   "check": "drops: a summoned drop four blocks ahead reads ahead at ~0.5 range",
+   "pass": true,
+   "detail": {
+    "present": 1,
+    "sin_b": -0.0,
+    "cos_b": 1,
+    "dist": 0.5,
+    "count": 0.125,
+    "sig": [
+     -0.309804,
+     0.796078,
+     0.866667
+    ]
+   }
+  },
+  {
+   "check": "drops bearing tracks a 90-degree right turn (sin NEGATIVE: the target is on the turn_left side; sin positive = turn_right side)",
+   "pass": true,
+   "detail": {
+    "present": 1,
+    "sin_b": -1,
+    "cos_b": 0.0,
+    "dist": 0.5,
+    "count": 0.125,
+    "sig": [
+     -0.309804,
+     0.796078,
+     0.866667
+    ]
+   }
+  },
+  {
+   "check": "drops: distance shrinks walking in; pickup empties the channel",
+   "pass": true,
+   "detail": {
+    "dist_before": 0.5,
+    "steps_to_pickup": 14,
+    "slices": 7
+   }
+  }
+ ],
+ "verdict": "D1 MET"
+}

@@ -99,12 +99,17 @@ def test_c1_survival_flag_is_the_native_survival_instrument():
     body = Ros2Body(sensors, actuators, FakeTransport(script={}))
     meta = body.anatomy_meta()
     _assert_invariants(meta)
-    assert (meta["obs_dim"], meta["n_actions"]) == (33, 13)
+    assert (meta["obs_dim"], meta["n_actions"]) == (73, 13)
     groups = {g["id"]: (g["start"], g["width"]) for g in meta["groups"]}
     assert groups["hand"] == (19, 7)
     assert groups["grid"] == (26, 7)
+    # the distal senses append after grid: every prior offset unchanged
+    assert groups["drops"] == (33, 8)
+    assert groups["glance"] == (41, 32)
     labels = {g["id"]: g.get("labels") for g in meta["groups"]}
     assert labels["hand"] == ["present", "placeable", "edible", "count", "sig0", "sig1", "sig2"]
+    assert labels["drops"][:5] == ["present", "sin_b", "cos_b", "dist", "count"]
+    assert labels["glance"][:4] == ["s0_dist", "s0_sig0", "s0_sig1", "s0_sig2"]
     assert [a["label"] for a in meta["actuators"][12:]] == ["use_held"]
 
 

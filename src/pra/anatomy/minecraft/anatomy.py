@@ -16,8 +16,13 @@ brain's to form. ``crafting=False`` is the exact feature-027 body
 native-survival, 2026-08-11; ships into the default only on promotion):
 the hand channel widens to 7 with `edible` beside `placeable` (the
 game's own fact: the held item maps to a food), and `use_held` — apply
-the held item, a held intention like the dig — joins as action id 12
-(obs_dim 33, n_actions 13; every shipped id and offset unchanged).
+the held item, a held intention like the dig — joins as action id 12.
+The distal senses (topic distal-senses, 2026-08-13) append after
+`grid`: `drops` (8 — nearest ground item: presence, egocentric
+bearing, distance, count, signature) and `glance` (32 — eight
+egocentric sectors of feet-level distance-to-surface + that surface's
+signature). obs_dim 73, n_actions 13; every shipped id and offset
+unchanged.
 """
 
 from __future__ import annotations
@@ -98,6 +103,24 @@ _SURVIVAL_HAND = SensorSpec(
 )
 _SURVIVAL_PRESETS: tuple[dict, ...] = ({"use_held": 1.0},)
 
+# The distal senses (research topic distal-senses, 2026-08-13): the drops
+# sense and the glance — egocentric, properties + signatures, appended
+# after `grid` so every shipped offset is unchanged.
+_SURVIVAL_DISTAL: tuple[SensorSpec, ...] = (
+    SensorSpec(
+        id="drops",
+        topic="drops",
+        width=8,
+        labels=("present", "sin_b", "cos_b", "dist", "count", "sig0", "sig1", "sig2"),
+    ),
+    SensorSpec(
+        id="glance",
+        topic="glance",
+        width=32,
+        labels=tuple(f"s{k}_{n}" for k in range(8) for n in ("dist", "sig0", "sig1", "sig2")),
+    ),
+)
+
 
 def c1_anatomy(
     crafting: bool = True, survival: bool = False
@@ -115,6 +138,7 @@ def c1_anatomy(
     sensors = list(_BASE_SENSORS) + (list(_PROPERTY_SENSORS) if crafting else [])
     if survival:
         sensors = [_SURVIVAL_HAND if s.id == "hand" else s for s in sensors]
+        sensors += list(_SURVIVAL_DISTAL)
     presets = _BASE_PRESETS + (_GRID_PRESETS if crafting else ())
     presets += _SURVIVAL_PRESETS if survival else ()
     return sensors, [ActuatorSpec(id="control", topic="control", presets=presets)]
