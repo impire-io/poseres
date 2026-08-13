@@ -25,3 +25,5 @@ Read 01 first; it is the map. 03 and 04 describe the validated core.
 | 09 | [The brain-side hold](0009-brain-side-hold.md) | The head-derived hold: the measured composition with zero scaffolding (episode 0074) |
 | 10 | [Recipes and the label](0010-recipes-and-the-label.md) | Taught reach as product: recipe memory, the recipe policy, the praise label (episode 0077) |
 | 11 | [The dials](0011-the-dials.md) | What every tuning knob represents, the measured operating points, and the drive-band tuning protocol |
+| 12 | [Anatomy from world](0012-anatomy-from-world.md) | The structured process for deriving a body from a target environment (skill: /anatomy-mapping) |
+| 12 | [Anatomy from world](0012-anatomy-from-world.md) | The structured process for deriving a body from a target environment (skill: /anatomy-mapping) |

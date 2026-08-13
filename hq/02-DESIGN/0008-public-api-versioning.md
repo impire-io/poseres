@@ -37,6 +37,15 @@ the gate. What this document adds is the *promise* around the list.
   praise label to `CompletionItchPolicy` (keyword-only, off by default,
   bit-exact when off) and `pra.action.recipe` (Recipe, RecipeMemory,
   RecipePolicy) — the measured recipe-reach mechanism as product.
+- **Release notes (major)**: v2.0.0 removes
+  `pra.anatomy.minecraft.FakeBridge` and the whole fake estate,
+  owner-directed and WITHOUT the deprecation grace ladder — the
+  no-fake integrity rule (GENESIS, 2026-08-13: "I don't want you to
+  fake anything anymore") supersedes the schedule, the doc's urgent
+  path applied. The adapter's proof is the live contract check
+  (`examples/minecraft/contract_check.py`);
+  `pra.anatomy.minecraft.protocol.item_signature` (module-level, not
+  package-exported) is the signature reference.
 - **Release notes (additive minors)**: v1.4.0 (feature 042) adds the
   deficit gate to `CompletionItchPolicy`/`RecipePolicy`
   (`deficit_index`, `deficit_kappa`, keyword-only, off by default,
@@ -112,7 +121,6 @@ subject-builder functions listed under Operational below.
 | `pra.anatomy.minecraft.C1_OBS_DIM` | constant | — |
 | `pra.anatomy.minecraft.C1_POCKET_TOTAL_INDEX` | constant | — |
 | `pra.anatomy.minecraft.C1_SENSORS` | constant | — |
-| `pra.anatomy.minecraft.FakeBridge` | class | — |
 | `pra.anatomy.minecraft.MinecraftTransport` | class | — |
 | `pra.anatomy.minecraft.PROTOCOL_VERSION` | constant | — |
 | `pra.anatomy.minecraft.c1_anatomy` | function | — |

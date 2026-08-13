@@ -191,8 +191,9 @@ snapshot exactness in
 
 A small self-hosted Minecraft server reached through a mineflayer
 bridge speaking the `pra-mc/1` protocol — a transport for the same
-declared-anatomy seam the ROS2 adapter built, with an in-repo
-`FakeBridge` carrying the whole test gate (no server needed to develop
+declared-anatomy seam the ROS2 adapter built, proven by a live
+contract check against the real server (nothing is faked — no fake
+bridge exists to develop
 against it). The body senses properties and appearance signatures
 rather than hand-named object classes, holds digging as an intention
 with sensed progress, and exposes crafting as a ladder of one-step

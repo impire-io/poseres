@@ -67,8 +67,9 @@ protocol, 0/3 gated), while releasing perception when sated?
   down-weights noisy channels by design; if enabled it may mute the
   intrusion. Recorded as reading R-launder (estimator off in the
   current BASE; verified and stated with the pilot).
-- Everything live-world (the GENESIS rule); the fake carries shape
-  only. The full shipped composition (RecipePolicy + the 042 gate at
+- Everything live-world; there is no fake side of anything anymore
+  (the owner's rule, hardened 2026-08-13: "I don't want you to fake
+  anything anymore"). The full shipped composition (RecipePolicy + the 042 gate at
   κ_d = 0.1) runs in every arm — the flood is additive to it.
 - Teaching: 45 sense-using lessons (the distal-senses curriculum)
   with the flood ON — the lessons must WITNESS the flood swelling

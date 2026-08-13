@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "poseres"
-version = "1.4.0"
+version = "2.0.0"
 description = "Pose Resolution Architecture — validation harness and batched in-memory core"
 readme = "README.md"
 # >=3.12 since feature 013: ROS 2 LTS containers bind rclpy to Ubuntu 24.04's

@@ -8,7 +8,6 @@ hungry dig->collect->eat lessons; both arms inherit the same taught
 brain and the same recipe demonstrations. N3 differs by exactly one
 number: `deficit_kappa 0.1 -> 0.0`.
 
-    python n23_runner.py pilot   # fake-bridge wiring pilot (no wall-clock)
     python n23_runner.py teach   # 45 live lessons -> n23-taught.bin + demos
     python n23_runner.py n2      # the gated life (100,500 steps)
     python n23_runner.py n3      # the ablation life (same brain, gate off)
@@ -18,7 +17,6 @@ from __future__ import annotations
 
 import dataclasses
 import json
-import math
 import subprocess
 import sys
 import time
@@ -31,7 +29,6 @@ from pra.action.recipe import RecipeMemory, RecipePolicy
 from pra.anatomy.minecraft import (
     C1_MINING_INDEX,
     C1_POCKET_TOTAL_INDEX,
-    FakeBridge,
     MinecraftTransport,
     c1_anatomy,
 )
@@ -69,7 +66,6 @@ USE = 12
 # dig is client-wall-clock (~1.5 s melon ~ 30 steps at 50 ms); the eat is
 # server-tick (32 game ticks ~ 7 steps at 5x) — the plan's stated asymmetry
 LIVE_TAPE = [DIG] * 40 + [FWD] * 9 + [BACK] * 9 + [HOLD] + [USE] * 12 + [IDLE] * 4
-FAKE_TAPE = [DIG] * 8 + [FWD] * 2 + [BACK] * 2 + [HOLD] + [USE] * 8 + [IDLE] * 3
 
 TEACH_SEGS = 45
 KD = 0.1  # deficit_kappa — episode 0085's measured point of record
@@ -231,21 +227,8 @@ def classroom_live(k: int) -> None:
     rcon("effect", "clear", "pra")
 
 
-def classroom_fake(bridge: FakeBridge, k: int) -> None:
-    w = bridge.world
-    w.inventory = {}  # amendment 2: pocket cleared, hand emptied
-    w.held = None
-    w.grid = []
-    w.dug.discard((0, -2))  # the classroom melon, restored
-    w.x, w.z, w.yaw = 0.0, -1.0, math.pi  # the stand, facing it
-    w.digging = None
-    w.using = None
-    w.health = 20
-    w.food = (0, 10, 15)[(k - 1) % 3]  # the hungry-teaching dose cycle
-
-
-def teach(fake: FakeBridge | None, segs: int, make_transport) -> None:
-    tape = FAKE_TAPE if fake else LIVE_TAPE
+def teach(segs: int, make_transport) -> None:
+    tape = LIVE_TAPE
     cfg0 = dataclasses.replace(BASE, steps_per_episode=len(tape))
     progress = OUT / (TAUGHT.stem + "-progress.json")
     state = None
@@ -260,10 +243,7 @@ def teach(fake: FakeBridge | None, segs: int, make_transport) -> None:
             print(f"teach: resuming at seg {start} ({done} lessons kept)", flush=True)
     for k in range(start, segs + 1):
         for attempt in range(1, 4):
-            if fake:
-                classroom_fake(fake, k)
-            else:
-                classroom_live(k)
+            classroom_live(k)
             views: list[dict] = []
             store = InMemorySnapshotStore()
             teacher = TapeTeacher(tape)
@@ -316,19 +296,6 @@ def newborn_live() -> None:
     rcon("effect", "give", "pra", "minecraft:instant_health", "1", "20")
     time.sleep(1.2)
     rcon("effect", "clear", "pra")
-
-
-def newborn_fake(bridge: FakeBridge) -> None:
-    w = bridge.world
-    w.inventory = {}
-    w.held = None
-    w.grid = []
-    w.dug.discard((0, -2))
-    w.x, w.z, w.yaw = 0.0, -1.0, math.pi
-    w.digging = None
-    w.using = None
-    w.food = 20
-    w.health = 20
 
 
 def build_memory() -> RecipeMemory:
@@ -393,7 +360,7 @@ def bars(cum) -> dict:
     }
 
 
-def life(arm: str, fake: FakeBridge | None, cycles: int, seg_cycles: int, make_transport):
+def life(arm: str, cycles: int, seg_cycles: int, make_transport):
     kd = 0.0 if arm.endswith("n3") else KD  # N3: exactly one number differs
     memory = build_memory()
     status = OUT / f"{arm}-status.jsonl"
@@ -416,10 +383,7 @@ def life(arm: str, fake: FakeBridge | None, cycles: int, seg_cycles: int, make_t
         state = decode(TAUGHT.read_bytes())
         cum = {"steps": 0, "ge12": 0, "eats": 0, "collects": 0, "starv": False}
         seg = 0
-        if fake:
-            newborn_fake(fake)
-        else:
-            newborn_live()
+        newborn_live()
     target = decode(TAUGHT.read_bytes()).cycles_done + cycles
     first_segment = seg == 0
     while state.cycles_done < target:
@@ -475,30 +439,16 @@ def live_transport(views: list) -> MinecraftTransport:
 
 
 def main() -> int:
-    global TAUGHT, DEMOS
     phase = sys.argv[1] if len(sys.argv) > 1 else ""
-    if phase == "pilot":
-        TAUGHT = OUT / "pilot-taught.bin"
-        DEMOS = OUT / "pilot-demos.json"
-        with FakeBridge(survival=True) as bridge:
-
-            def fake_transport(views: list) -> MinecraftTransport:
-                return MinecraftTransport(
-                    port=bridge.port, tick_ms=1, tick_budget=60.0, on_view=views.append
-                )
-
-            teach(bridge, 5, fake_transport)
-            life("pilot-n2", bridge, cycles=100, seg_cycles=50, make_transport=fake_transport)
-        return 0
     if phase == "teach":
         print("world:", rcon("tick", "rate", "100"), flush=True)
-        teach(None, TEACH_SEGS, live_transport)
+        teach(TEACH_SEGS, live_transport)
         return 0
     if phase in ("n2", "n3"):
         print("world:", rcon("tick", "rate", "100"), flush=True)
-        life(phase, None, cycles=LIFE_CYCLES, seg_cycles=SEG_CYCLES, make_transport=live_transport)
+        life(phase, cycles=LIFE_CYCLES, seg_cycles=SEG_CYCLES, make_transport=live_transport)
         return 0
-    raise SystemExit("usage: n23_runner.py pilot|teach|n2|n3")
+    raise SystemExit("usage: n23_runner.py teach|n2|n3")
 
 
 if __name__ == "__main__":

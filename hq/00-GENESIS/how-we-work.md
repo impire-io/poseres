@@ -49,12 +49,13 @@ happens.
   variable at a time (constitution III). Experiment scripts live in the
   session scratchpad; conclusions, documents, and principled code changes
   land in git.
-- **Evidence comes from the real world** (owner's rule, 2026-08-13): for
-  any C1/Minecraft-facing question, pilots and gates run against the live
-  server — never the fake bridge. A live pilot is cheap (a 1,500-step
+- **Evidence comes from the real world — and nothing is faked**
+  (owner's rule 2026-08-13, hardened the same day: "I don't want you to
+  fake anything anymore"): pilots, gates, and the adapter contract all
+  run against the live environment. A live pilot is cheap (a 1,500-step
   segment is ~2 minutes at the 5× fabric); a fake pass is not evidence.
-  The fake bridge remains ONLY the quality gate's instrument for the
-  adapter code path (protocol, framing, the state seam).
+  The FakeBridge estate was deleted outright — the adapter's proof is
+  the live contract check (`examples/minecraft/contract_check.py`).
 - **Always committed and pushed** — even work that will be abandoned. The
   point is a permanent trail; abandoned research keeps its full history in
   git after the folder is gone.
@@ -141,7 +142,9 @@ there); this is how they run day to day:
   pilot ate zero times live (the parked stomach, 2026-08-13). Behavioral
   evidence is live-world evidence, full stop. The fake bridge's only
   remaining job is the automated quality gate's adapter-code-path checks
-  — it is a protocol instrument, not a world.
+  — and the same day the owner hardened it to its clean form: no fake
+  anything, anywhere; the estate was deleted and the adapter's proof
+  moved to a live contract check.
 - **Diagnose before fixing; one variable at a time.** The true mechanism
   shows up only after the obvious story is refuted with data.
 - **Reference-preserving changes.** Every rule and layer keeps validated

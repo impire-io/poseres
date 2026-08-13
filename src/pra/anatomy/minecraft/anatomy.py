@@ -103,6 +103,14 @@ _SURVIVAL_HAND = SensorSpec(
 )
 _SURVIVAL_PRESETS: tuple[dict, ...] = ({"use_held": 1.0},)
 
+# The flood (research topic the-flood, 2026-08-13): the deficit expanded
+# nonlinearly into the observation — a width-4 channel appended LAST
+# (obs 77). Dim 0 is the flood level f; dims 1-3 carry the form's body
+# (intrusion pseudo-noise or f-scaled classifier-free food cues) — the
+# contract names the modes. The ablation body is the same anatomy with
+# the channel silenced at the bridge.
+_FLOOD = SensorSpec(id="flood", topic="flood", width=4, labels=("f", "f1", "f2", "f3"))
+
 # The distal senses (research topic distal-senses, 2026-08-13): the drops
 # sense and the glance — egocentric, properties + signatures, appended
 # after `grid` so every shipped offset is unchanged.
@@ -123,7 +131,7 @@ _SURVIVAL_DISTAL: tuple[SensorSpec, ...] = (
 
 
 def c1_anatomy(
-    crafting: bool = True, survival: bool = False
+    crafting: bool = True, survival: bool = False, flood: bool = False
 ) -> tuple[list[SensorSpec], list[ActuatorSpec]]:
     """The (sensors, actuators) lists `Ros2Body.factory` expects.
 
@@ -132,13 +140,19 @@ def c1_anatomy(
     ``crafting=False``: the exact feature-027 body.
     ``survival=True``: the native-survival instrument — the edible
     affordance in the hand, `use_held` as the mouth (module doc).
+    ``flood=True``: the-flood instrument — the deficit expanded into
+    the observation as a width-4 channel appended last (obs 77).
     """
     if survival and not crafting:
         raise ValueError("survival needs the property body: the 027 body has no hand channel")
+    if flood and not survival:
+        raise ValueError("the flood is a survival-instrument sense: it needs the meter body")
     sensors = list(_BASE_SENSORS) + (list(_PROPERTY_SENSORS) if crafting else [])
     if survival:
         sensors = [_SURVIVAL_HAND if s.id == "hand" else s for s in sensors]
         sensors += list(_SURVIVAL_DISTAL)
+    if flood:
+        sensors.append(_FLOOD)
     presets = _BASE_PRESETS + (_GRID_PRESETS if crafting else ())
     presets += _SURVIVAL_PRESETS if survival else ()
     return sensors, [ActuatorSpec(id="control", topic="control", presets=presets)]

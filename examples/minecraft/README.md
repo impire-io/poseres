@@ -89,7 +89,7 @@ Add `--nats nats://127.0.0.1:4222` (with a nats-server running; see
   rerun (FR-004).
 - The brain's state resumes byte-exactly; the *world* resumes wherever
   the live server is — stated openly (Doc 06 §5b class 4). In the
-  in-repo FakeBridge mode (the test suite), both resume exactly.
+  the world resumes wherever the server is (class 4, stated).
 
 ## Configuration notes (arc 026, C1SOAK-DIAGNOSIS)
 

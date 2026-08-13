@@ -96,13 +96,14 @@ CLEAR the drive band (0.06–0.15, Doc 0011). A sense that feeds a
 before eat-heavier teaching). If a signal must win sometimes, budget
 its taught magnitude like you budget the channel itself.
 
-### 7. Instrument-grade first; the sketch is not evidence
+### 7. Instrument-grade first; nothing is faked
 
 New anatomy lands as an opt-in mode; the handshake's width checks make
-mismatched stacks fail loudly at boot. A fake/sketch world may carry
-the SHAPE for adapter code-path tests — and nothing else: behavioral
-evidence comes from the live world only (GENESIS, owner's rule
-2026-08-13; three arcs of fake-blessed behavior broke live). Promotion
+mismatched stacks fail loudly at boot. There is NO fake world at any
+layer (the owner's rule, hardened 2026-08-13 after three arcs of
+fake-blessed behavior broke live): the adapter contract is proven by a
+live contract check against the real environment, and behavioral
+evidence comes from lives and probes in that environment. Promotion
 into the shipped default happens only on measured bars.
 
 ### 8. Teach what the senses afford

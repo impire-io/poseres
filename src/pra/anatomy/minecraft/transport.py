@@ -15,9 +15,10 @@ loudly, FR-004); a lost connection is an :class:`AnatomyError` at the
 next operation — the recovery path is resume-from-snapshot, stated in
 the runbook. A wall-clock budget per tick feeds ``overruns`` (the
 free-running honesty meter, 013 research R2); against the live server
-this mode is Doc 06 §5b **class 4, openly non-reproducible** — against
-the in-repo FakeBridge everything is deterministic and the state seam
-round-trips the full world (class 1, gate-proven).
+this mode is Doc 06 §5b **class 4, openly non-reproducible** — stated
+in the runbook, and the adapter contract is proven against the live
+bridge (`examples/minecraft/contract_check.py`; there is no fake side
+of this seam — the owner's rule, 2026-08-13).
 """
 
 from __future__ import annotations

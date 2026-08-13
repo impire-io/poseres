@@ -86,7 +86,6 @@ SURFACE: tuple[SurfaceEntry, ...] = (
     E("pra.anatomy.gymnasium_body.GymnasiumWorld", "class", "world-body", None),
     E("pra.anatomy.gymnasium_body.GymnasiumBody", "class", "world-body", None),
     E("pra.anatomy.minecraft.c1_anatomy", "function", "world-body", None),
-    E("pra.anatomy.minecraft.FakeBridge", "class", "world-body", None),
     E("pra.anatomy.minecraft.MinecraftTransport", "class", "world-body", None),
     E("pra.anatomy.minecraft.PROTOCOL_VERSION", "constant", "world-body", None),
     E("pra.anatomy.minecraft.C1_OBS_DIM", "constant", "world-body", None),

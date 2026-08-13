@@ -20,7 +20,18 @@ Episodes 0001–0044 were chapters of the original single-file `JOURNEY.md`
 "ch. NN" resolve to `00NN-*.md`). The recurring principles the journey keeps
 teaching moved to `../00-GENESIS/how-we-work.md`.
 
-## Where things stand (2026-08-10)
+## Where things stand (2026-08-13)
+
+**Nothing is faked anymore** ([episode 0097](0097-nothing-is-faked.md)):
+the FakeBridge estate is deleted at v2.0.0 on the owner's rule; the
+adapter is proven live (`examples/minecraft/contract_check.py`), and
+behavioral evidence comes only from the real world. The active
+research front is the native-survival line: N1 met, the mouth and the
+distal senses (drops + glance) built and D1-verified live, the arms'
+verdict "seeing is necessary, not sufficient" — initiation is the
+wall — and **the-flood** (deficits as perceptual floods, the owner's
+layer-2 intuition) is registered with bars frozen, pilot pending.
+
 
 **The multi-week run is over and read**
 ([episode 0068](0068-the-run-has-spoken.md)): `c1c` closed 2026-08-08
@@ -754,3 +765,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0094 | [The learning-rate map: no single η buys refusal, tracking, and activity](0094-head-churn.md) |
 | 0095 | [κ was never magic: the drive pipeline already normalizes the world](0095-budget-arbitration.md) |
 | 0096 | [The lab wearing reality's skin: c1e closes, and the scenario is the verdict](0096-the-lab-wearing-realitys-skin.md) |
+| 0097 | [Nothing is faked: the estate deleted, the proof goes live](0097-nothing-is-faked.md) |

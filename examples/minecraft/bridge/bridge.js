@@ -47,6 +47,12 @@ if (SURVIVAL) {
   CHANNELS.drops = 8;
   CHANNELS.glance = 32;
 }
+// the flood (research topic the-flood): the deficit expanded nonlinearly
+// into the observation. FLOOD=intrusion|gain|off; "off" keeps the channel
+// at zeros (the registered ablation body — same width, silenced).
+const FLOOD = process.env.FLOOD || "";
+if (SURVIVAL && FLOOD) CHANNELS.flood = 4;
+const FLOOD_THETA = 0.25; // silent above 15/20 food; f=((d-θ)/(1-θ))² below
 const DROPS_RANGE = 8; // blocks; nearest ground item within this radius is sensed
 const GLANCE_RANGE = 16; // blocks; feet-level center-ray per 45-degree sector
 const DIG_SAFETY_MS = 10000; // the owner's cap: a dig making no progress is released
@@ -441,6 +447,29 @@ function sampleGlance(p, yaw) {
   return out;
 }
 
+function sampleFlood(drops) {
+  // dim 0: the flood level f — the deficit past θ, squared (quiet, then
+  // present, then everywhere). dims 1-3 by form:
+  //   intrusion: f x per-game-tick pseudo-noise (sha of the world's own
+  //     clock) — a swelling, unpredictable signal the drives can hear
+  //   gain: f-scaled CLASSIFIER-FREE food cues (ground items + the
+  //     world's edibility fact; the glance may not contribute — 033)
+  //   off: zeros (the ablation body)
+  const d = Math.max(0, 1 - bot.food / 20);
+  const f = d <= FLOOD_THETA ? 0 : ((d - FLOOD_THETA) / (1 - FLOOD_THETA)) ** 2;
+  if (FLOOD === "intrusion") {
+    const n = itemSignature(String(Number(bot.time.age)));
+    return [f, f * n[0], f * n[1], f * n[2]];
+  }
+  if (FLOOD === "gain") {
+    const present = drops[0];
+    const near = present ? 1 - drops[3] : 0;
+    const edible = held !== null && availableCount(held) > 0 && isEdible(held) ? 1 : 0;
+    return [f, f * present, f * near, f * edible];
+  }
+  return [0, 0, 0, 0];
+}
+
 function sampleChannels() {
   const p = bot.entity.position;
   const yaw = bot.entity.yaw;
@@ -492,6 +521,7 @@ function sampleChannels() {
         : [0];
 
   const distal = SURVIVAL ? { drops: sampleDrops(p, yaw), glance: sampleGlance(p, yaw) } : {};
+  if (SURVIVAL && FLOOD) distal.flood = sampleFlood(distal.drops);
 
   return {
     ...distal,

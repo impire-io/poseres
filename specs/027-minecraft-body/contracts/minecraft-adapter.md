@@ -11,7 +11,7 @@ AnatomyError verbatim on the client).
 |---|---|---|
 | `hello` | `version` | `version`, `channels` (name → width), `spawn` (true once the bot is in the world) |
 | `tick` | `commands` (list of preset mappings, may be empty), `tick_ms` | `tick` (0-based index), `channels` (name → list of floats, every declared channel every tick) |
-| `state` | — | `world` (opaque JSON dict; FakeBridge: full world state; live bridge: `{"live": true, "tick": k}`) |
+| `state` | — | `world` (opaque JSON dict; the live bridge returns `{"live": true, "tick": k}` — class-4 semantics) |
 | `load_state` | `world` | — (live bridge accepts a `live` marker and restores nothing but the tick counter — stated class-4 semantics) |
 | `bye` | — | — (connection closes after the response) |
 
@@ -20,8 +20,10 @@ exactly one client at a time; a second connection is refused.
 
 ## Channel contract (the meaning of every observation dimension)
 
-Both bridges implement this table identically; changing it changes the
-anatomy (Doc 02 §3.3) and is a spec change.
+The bridge implements this table; changing it changes the anatomy
+(Doc 02 §3.3) and is a spec change. There is no fake side of this
+seam (owner's rule, 2026-08-13): the table is proven live by
+`examples/minecraft/contract_check.py`.
 
 | channel | width | values (all float64) |
 |---|---|---|
@@ -44,8 +46,8 @@ argument): identity reaches the brain only as *properties* — placeable
 = the item maps to a block, the game's own fact (logs, gravel, moss
 are placeable; sticks are not) — and as an *appearance signature*:
 sha256 of the item name (utf-8), digest bytes 0..2, each byte/127.5 − 1
-∈ [−1, 1]. Identical in both bridges by construction; stable,
-distinguishing, semantics-free. Categories are the brain's to form.
+∈ [−1, 1]. Stable, distinguishing, semantics-free
+(`pra.anatomy.minecraft.protocol.item_signature` is the reference). Categories are the brain's to form.
 A body that does not declare a channel ignores it (the transport reads
 declared topics only) — the protocol version stays `pra-mc/1`.
 
@@ -64,17 +66,15 @@ feature-027 body; **12 with the builder's body** (ids 0–7 are the
 027 set unchanged; 8 `hold_next`, 9 `grid_put`, 10 `grid_take`,
 11 `take_result`).
 
-Material rules (feature 033, both bridges): **digging is a held
+Material rules (feature 033): **digging is a held
 intention** — `dig_ahead` starts breaking the block ahead (or continues
 if it is already the target); ANY other command, idle included,
 releases the intention and resets the cracks (vanilla: letting go).
 `mining` senses the progress fraction; at 1.0 the block breaks and its
-item joins the pocket (fake: immediately; live: by the game's own drop
-physics — the pocket channel reads the truth either way). There is no
-behavior-shaping timeout: the world's own break times bound everything
-(fake, vanilla-proportioned at the 250 ms posture: mineral 3 ticks,
-wood 12); live, a 10 s no-progress safety cap releases an unbreakable
-target. `hold_next` cycles nothing → the pocket's distinct item kinds
+item joins the pocket by the game's own drop physics — the pocket
+channel reads the truth. There is no behavior-shaping timeout: the
+world's own break times bound everything; a 10 s no-progress safety
+cap releases an unbreakable target. `hold_next` cycles nothing → the pocket's distinct item kinds
 sorted by name → nothing (a ran-out kind reads as nothing and resets
 the cycle). `place_ahead` places one item of the **held kind** if the
 game says it is placeable; `grid_put` stages one item of the held kind
@@ -92,7 +92,6 @@ live, it is a bridge-side virtual structure whose material flows in
 and out of the *real* inventory are real and whose `take_result`
 executes the *real* craft, success confirmed by the world's own count
 delta (the world is the authority; mismatched reservations re-sync).
-Fake, the grid is world state in the class-1 seam.
 
 **The ground-truth view** (feature 033): every tick response carries a
 compact `view` — real position, held item name, real inventory names
@@ -106,14 +105,13 @@ is inert — the reversal path is watch/move/dig only (stated, spec 033).
 ## Native-survival instrument (research topic native-survival, 2026-08-11)
 
 **Instrument-grade; folds into the tables above only on promotion.**
-Survival mode is opt-in on every surface — live bridge `SURVIVAL=1`,
-`FakeBridge(survival=True)`, `c1_anatomy(survival=True)` — and a
+Survival mode is opt-in on every surface — bridge `SURVIVAL=1`,
+`c1_anatomy(survival=True)` — and a
 mismatched stack fails loud at the existing handshake width check. The
 shipped 32/12 body is byte-identical with the mode off.
 
 - **`hand` widens to 7**: present; placeable; **edible** ? 1 : 0 — the
-  game's own fact (live: `minecraft-data` foods; fake: the melon
-  slice); min(count,64)/64; sig0..2. obs_dim 33; every shipped offset
+  game's own fact (`minecraft-data` foods); min(count,64)/64; sig0..2. obs_dim 33; every shipped offset
   before `hand` unchanged, `hand` [19:26], `grid` [26:33].
 - **`use_held` is command 13 (id 12)** — apply the held item, the
   classifier-free mouth: no edibility check in the actuator; what using
@@ -122,23 +120,14 @@ shipped 32/12 body is byte-identical with the mode off.
   dig's exact grammar: the first `use_held` begins it, further ones
   continue it, ANY other command (idle included) releases it. Live: one
   `activateItem()` and the server's own consume runs (~1.61 s for
-  food); a 3 s safety cap releases a use going nowhere. Fake: a held
-  edible on a hungry body consumes after 6 ticks (vanilla-proportioned
-  ~1.6 s at the 250 ms posture), paying 2 of 20 food points; anything
-  else is a world no-op. An empty hand no-ops; unmet requirements
-  consume the tick — world facts, never protocol errors.
-- **The fake grows a native-shaped metabolism** (still pure
-  arithmetic): integer food/health points sensed live through
-  `vitals`; food drains one point every 40 ticks; once food is 0,
-  health follows to the normal-difficulty floor (half a heart); one
-  melon column at (0, −2) breaks in 6 ticks to `melon_slice` ×3
-  (edible, not placeable). The state seam carries `food`, `health`,
-  and the mid-use `using` counter (class 1, byte-exact).
+  food); the safety release is 120 game ticks. An empty hand no-ops;
+  unmet requirements consume the tick — world facts, never protocol
+  errors.
 - **The view** gains `food`, `health`, `eating` (progress 0..1) in
   survival mode — humans only, never sensed.
 - **The progress channel senses the held intention, whatever it is**
   (arms amendment 1): in survival mode `mining` reports a dig's cracks
-  OR a use's chew (live: elapsed/1.61 s; fake: held ticks/6) — one
+  OR a use's chew (game ticks/32) — one
   held-intention grammar, so the completion itch can hold the eat
   exactly as it holds the dig. **The chew's clock is the world's
   clock** (distal-senses reteach fix): a consume is 32 SERVER ticks,
@@ -146,8 +135,7 @@ shipped 32/12 body is byte-identical with the mode off.
   fresh consume, vanilla's continuous eating), and the safety release
   (120 ticks) key on the game-tick clock and stay honest at any
   `/tick rate`. Digs remain wall-paced (client-computed break times,
-  measured at c1e). Fake parity — the fake's `using` resets on
-  consume and a continued hold starts anew.
+  measured at c1e).
 - **The distal senses** (topic distal-senses, 2026-08-13; appended
   after `grid`, obs_dim 73, every prior offset unchanged):
   - `drops` (8): the nearest ground item within 8 blocks — present;
@@ -155,10 +143,21 @@ shipped 32/12 body is byte-identical with the mode off.
     own forward; sin positive toward the body's **turn_right** side —
     measured at D1, mineflayer's yaw frame is left-handed); min(d,
     8)/8; min(count, 8)/8; the item's appearance signature. Empty:
-    all zeros. The fake sketch has no item entities — its drops
-    channel is permanently empty (declared; shape only).
+    all zeros.
   - `glance` (32): eight egocentric sectors, k·45° to the body's
     right of forward, one FEET-LEVEL center-ray each out to 16
     blocks: min-distance-to-solid/16 (1.0 = open) + that surface
     block's appearance signature (zeros when open). A glance, not a
     survey — one ray per sector, the sector centers rotate with yaw.
+- **The flood** (topic the-flood, 2026-08-13; `FLOOD=intrusion|gain`
+  env beside SURVIVAL, appended last, obs_dim 77): the deficit
+  expanded nonlinearly into the observation. Dim 0 is the flood level
+  f = ((d − 0.25)/0.75)² for deficit d = 1 − food/20 above θ = 0.25,
+  else 0 — silent above 15/20 food, 1.0 at starvation. Dims 1–3 by
+  form: **intrusion** = f × per-game-tick pseudo-noise (the item
+  signature of the world clock's decimal string — deterministic,
+  unpredictable-to-a-linear-head); **gain** = f-scaled
+  classifier-free food cues [drops present, drops nearness, held
+  edible] — the glance may NOT contribute (naming food would be a
+  classifier, 033). FLOOD unset with the flood anatomy = the
+  registered ablation body: same width, channel at zeros.
