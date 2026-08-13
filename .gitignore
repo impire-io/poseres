@@ -34,3 +34,4 @@ hq/01-RESEARCH/native-survival/probe/n1-rows.jsonl
 hq/01-RESEARCH/native-survival/arms/*.bin
 hq/01-RESEARCH/native-survival/arms/*-demos.json
 hq/01-RESEARCH/native-survival/arms/*-progress.json
+hq/01-RESEARCH/native-survival/arms/bridge.log

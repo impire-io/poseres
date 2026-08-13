@@ -136,3 +136,32 @@ identically to lesson verification and to the lives' bar-N2 eat
 counter, and recorded here as measurement tolerance. Teaching also
 checkpoints per lesson now (a failed seg resumes, never re-teaching
 the chain). Teach run 3: 45/45 clean, zero retries at the milestones.
+
+## Run record and owner stop (2026-08-13)
+
+Teaching: 45/45 clean (run 3). N2 life stopped by the owner at seg 2
+(20,101 steps) as pointless-as-registered: food sat at 20/20
+throughout (`n2-status.jsonl` rows 1–2 stand as the record), so the
+deficit was zero everywhere and N2 ≡ N3 — the ablation could not
+distinguish anything. Vanilla's native metabolism drains only under
+work (N1's own arithmetic); a recipe-held life parks (dwell 0.82–0.87
+at the taught stand) and never works up an appetite.
+
+**Hungry-birth probe** (`hungry_probe.py`, instrument reading, not a
+bar): the same taught brain born STARVING (food 7–8/20, deficit ≈
+0.6), 1,500 steps, gate on vs gate off —
+`{eats 0, collects 0, dwell 0.98}` vs `{eats 0, collects 0, dwell
+0.94}`. **Indistinguishable.** The null is therefore NOT only "the
+deficit never arises": when the deficit is present, the composition
+still neither forages nor eats — the taught dig→collect→eat chain
+does not re-fire in the live fabric (contrast: the SAME wiring in the
+fake pilot life produced 5 genuine eats). The 042 gate amplifies
+label weight at completions and recipe selection, but no completions
+fire because the upstream dig→collect never happens live.
+
+Bars N2/N3: NOT MET (run stopped; recorded honestly). N1 stands MET.
+The sharpest open thread is the fake-vs-live contrast — candidate
+mechanism: the live fabric's delayed drop/pickup (seconds between
+break and pocket gain at 50 ms steps) starves the one-step event
+head's dig→gain pairing that the fake's instant-pay physics provides.
+Scenario direction is the owner's call from here.

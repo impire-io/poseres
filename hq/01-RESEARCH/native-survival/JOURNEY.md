@@ -1,5 +1,24 @@
 # native-survival — journey (opened 2026-08-11)
 
+## 2026-08-13 — arms stopped by the owner; the parked stomach (ARMS-PLAN run record)
+
+The arms ran under the frozen plan after three recorded amendments
+(the mouth's cracks; the parent empties the pupil's hands; the split
+sample) and a 45/45 clean teaching. The owner stopped N2 at seg 2
+(20,101 steps) as pointless-as-registered: food never left 20/20, so
+the deficit was zero everywhere and N2 ≡ N3 by construction. Vanilla
+drains hunger only under WORK — N1's meter bites the worker, and a
+recipe-held life parks (dwell 0.82–0.87). The hungry-birth probe then
+separated the attributions: born starving at deficit ≈ 0.6, gate on
+vs gate off are indistinguishable — zero eats, zero collects, parked.
+So the null is double: the world never makes the composition hungry,
+AND a hungry composition does not re-fire its taught dig→collect→eat
+chain live (the same wiring ate 5× in the fake pilot life). N1 stands
+MET; N2/N3 NOT MET, honestly partial. Sharpest open thread: the
+fake-vs-live contrast — the live fabric's delayed drop/pickup starves
+the event head's dig→gain pairing that the fake pays instantly.
+Scenario direction is the owner's call.
+
 ## 2026-08-12 — bar N1 MET: the native meter bites (N1-READING.md)
 
 The declared world was built (probe/ kit: compose, provision, probe —
