@@ -49,6 +49,12 @@ happens.
   variable at a time (constitution III). Experiment scripts live in the
   session scratchpad; conclusions, documents, and principled code changes
   land in git.
+- **Evidence comes from the real world** (owner's rule, 2026-08-13): for
+  any C1/Minecraft-facing question, pilots and gates run against the live
+  server — never the fake bridge. A live pilot is cheap (a 1,500-step
+  segment is ~2 minutes at the 5× fabric); a fake pass is not evidence.
+  The fake bridge remains ONLY the quality gate's instrument for the
+  adapter code path (protocol, framing, the state seam).
 - **Always committed and pushed** — even work that will be abandoned. The
   point is a permanent trail; abandoned research keeps its full history in
   git after the folder is gone.
@@ -126,6 +132,16 @@ there); this is how they run day to day:
   for the first time the day the rule was written down: sensing a moving
   price is not timing it (episode 0090), and the richer predictor was
   licensed by those numbers, exactly as the rule intends.
+- **The fake world convinces; the real one refutes.** (Owner's rule,
+  2026-08-13.) Three arcs in a row, effort was spent on behavior the fake
+  bridge blessed and Minecraft broke: c1e's digs are client-wall-clock and
+  its drops far-scatter (amendments 1/1b, 2026-08-11), teaching state
+  leaked through bridge-virtual hands and split samples (native-survival
+  amendments 2/3), and the same taught brain that ate 5× in the fake
+  pilot ate zero times live (the parked stomach, 2026-08-13). Behavioral
+  evidence is live-world evidence, full stop. The fake bridge's only
+  remaining job is the automated quality gate's adapter-code-path checks
+  — it is a protocol instrument, not a world.
 - **Diagnose before fixing; one variable at a time.** The true mechanism
   shows up only after the obvious story is refuted with data.
 - **Reference-preserving changes.** Every rule and layer keeps validated
