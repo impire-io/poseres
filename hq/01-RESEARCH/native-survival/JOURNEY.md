@@ -1,5 +1,22 @@
 # native-survival — journey (opened 2026-08-11)
 
+## 2026-08-13 — the head's testimony: dig learned true, chew too faint, wealth invisible (HEAD-READING.md)
+
+The owner's live-only rule applied: the taught head read at nine real
+patch contexts. Digging was learned WELL and truthfully (+0.43 cracks
+with a melon ahead, −0.017 at air — itch +0.108, above the drive
+band); the chew faintly (+0.034, 13× weaker, itch +0.007 — an order
+of magnitude below the band, so eating never surfaces even starving
+with food in hand); the pay not at all (use d_food ≈ 0/negative —
+split samples); and NO action in any context predicts a pocket gain
+above the completion threshold (max +0.0020 vs 1/128) because the
+live world pays the pocket seconds after the break — so completions
+never fire and the deficit gate is connected to nothing. One chain
+explains every arm reading: dig the classroom melon, then park.
+Senses-first question raised for the owner: the body cannot SEE food
+lying on the ground — a drops channel (033 grammar) plus eat-heavier
+teaching are the named candidates; direction not registered.
+
 ## 2026-08-13 — arms stopped by the owner; the parked stomach (ARMS-PLAN run record)
 
 The arms ran under the frozen plan after three recorded amendments

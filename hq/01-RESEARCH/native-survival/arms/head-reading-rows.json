@@ -1,0 +1,533 @@
+[
+ {
+  "context": "A sated, melon ahead, empty pocket",
+  "food": 20,
+  "held": null,
+  "progress": 0.0,
+  "deficit": 0.0,
+  "actions": {
+   "forward": {
+    "d_food": 0.0,
+    "d_prog": 0.0,
+    "d_pocket": 0.0013,
+    "completion": false,
+    "itch": 0.0
+   },
+   "back": {
+    "d_food": 0.0,
+    "d_prog": 0.0,
+    "d_pocket": 0.0,
+    "completion": false,
+    "itch": 0.0
+   },
+   "jump": {
+    "d_food": 0.0,
+    "d_prog": 0.0,
+    "d_pocket": 0.0,
+    "completion": false,
+    "itch": 0.0
+   },
+   "dig": {
+    "d_food": 0.0,
+    "d_prog": 0.4326,
+    "d_pocket": 0.002,
+    "completion": false,
+    "itch": 0.1081
+   },
+   "idle": {
+    "d_food": 0.0,
+    "d_prog": -0.0098,
+    "d_pocket": 0.0,
+    "completion": false,
+    "itch": 0.0
+   },
+   "hold": {
+    "d_food": 0.0,
+    "d_prog": 0.0,
+    "d_pocket": 0.0,
+    "completion": false,
+    "itch": 0.0
+   },
+   "use": {
+    "d_food": -0.0237,
+    "d_prog": 0.018,
+    "d_pocket": 0.0011,
+    "completion": false,
+    "itch": 0.0045
+   }
+  },
+  "itch_argmax": "dig"
+ },
+ {
+  "context": "B HUNGRY, melon ahead, empty pocket",
+  "food": 8,
+  "held": null,
+  "progress": 0.0,
+  "deficit": 0.6,
+  "actions": {
+   "forward": {
+    "d_food": 0.0,
+    "d_prog": 0.0,
+    "d_pocket": 0.0013,
+    "completion": false,
+    "itch": 0.0
+   },
+   "back": {
+    "d_food": 0.0,
+    "d_prog": 0.0,
+    "d_pocket": 0.0,
+    "completion": false,
+    "itch": 0.0
+   },
+   "jump": {
+    "d_food": 0.0,
+    "d_prog": 0.0,
+    "d_pocket": 0.0,
+    "completion": false,
+    "itch": 0.0
+   },
+   "dig": {
+    "d_food": 0.0,
+    "d_prog": 0.4325,
+    "d_pocket": 0.002,
+    "completion": false,
+    "itch": 0.1081
+   },
+   "idle": {
+    "d_food": 0.0,
+    "d_prog": -0.0096,
+    "d_pocket": 0.0,
+    "completion": false,
+    "itch": 0.0
+   },
+   "hold": {
+    "d_food": 0.0,
+    "d_prog": 0.0,
+    "d_pocket": 0.0,
+    "completion": false,
+    "itch": 0.0
+   },
+   "use": {
+    "d_food": -0.0072,
+    "d_prog": 0.0179,
+    "d_pocket": 0.0002,
+    "completion": false,
+    "itch": 0.0045
+   }
+  },
+  "itch_argmax": "dig"
+ },
+ {
+  "context": "C hungry, 5 slices pocketed, hand empty",
+  "food": 8,
+  "held": null,
+  "progress": 0.0,
+  "deficit": 0.6,
+  "actions": {
+   "forward": {
+    "d_food": 0.0,
+    "d_prog": 0.0,
+    "d_pocket": -0.0004,
+    "completion": false,
+    "itch": 0.0
+   },
+   "back": {
+    "d_food": 0.0,
+    "d_prog": 0.0,
+    "d_pocket": 0.0,
+    "completion": false,
+    "itch": 0.0
+   },
+   "jump": {
+    "d_food": 0.0,
+    "d_prog": 0.0,
+    "d_pocket": 0.0,
+    "completion": false,
+    "itch": 0.0
+   },
+   "dig": {
+    "d_food": 0.0,
+    "d_prog": 0.4298,
+    "d_pocket": -0.0056,
+    "completion": false,
+    "itch": 0.1075
+   },
+   "idle": {
+    "d_food": 0.0,
+    "d_prog": -0.0096,
+    "d_pocket": 0.0,
+    "completion": false,
+    "itch": 0.0
+   },
+   "hold": {
+    "d_food": 0.0,
+    "d_prog": 0.0,
+    "d_pocket": 0.0,
+    "completion": false,
+    "itch": 0.0
+   },
+   "use": {
+    "d_food": -0.0067,
+    "d_prog": 0.018,
+    "d_pocket": 0.0001,
+    "completion": false,
+    "itch": 0.0045
+   }
+  },
+  "itch_argmax": "dig"
+ },
+ {
+  "context": "D hungry, HOLDING a slice",
+  "food": 8,
+  "held": "melon_slice",
+  "progress": 0.0,
+  "deficit": 0.6,
+  "actions": {
+   "forward": {
+    "d_food": 0.0,
+    "d_prog": 0.0,
+    "d_pocket": -0.0004,
+    "completion": false,
+    "itch": 0.0
+   },
+   "back": {
+    "d_food": 0.0,
+    "d_prog": 0.0,
+    "d_pocket": 0.0,
+    "completion": false,
+    "itch": 0.0
+   },
+   "jump": {
+    "d_food": 0.0,
+    "d_prog": 0.0,
+    "d_pocket": 0.0,
+    "completion": false,
+    "itch": 0.0
+   },
+   "dig": {
+    "d_food": 0.0,
+    "d_prog": 0.4298,
+    "d_pocket": -0.0056,
+    "completion": false,
+    "itch": 0.1075
+   },
+   "idle": {
+    "d_food": 0.0,
+    "d_prog": -0.0173,
+    "d_pocket": 0.0,
+    "completion": false,
+    "itch": 0.0
+   },
+   "hold": {
+    "d_food": 0.0,
+    "d_prog": 0.0,
+    "d_pocket": 0.0,
+    "completion": false,
+    "itch": 0.0
+   },
+   "use": {
+    "d_food": -0.0025,
+    "d_prog": 0.034,
+    "d_pocket": -0.0005,
+    "completion": false,
+    "itch": 0.0085
+   }
+  },
+  "itch_argmax": "dig"
+ },
+ {
+  "context": "E hungry, MID-CHEW (use held 3 ticks)",
+  "food": 8,
+  "held": "melon_slice",
+  "progress": 0.09503105590062112,
+  "deficit": 0.6,
+  "actions": {
+   "forward": {
+    "d_food": 0.0,
+    "d_prog": 0.0,
+    "d_pocket": -0.0004,
+    "completion": false,
+    "itch": 0.0
+   },
+   "back": {
+    "d_food": 0.0,
+    "d_prog": 0.0,
+    "d_pocket": 0.0,
+    "completion": false,
+    "itch": 0.0
+   },
+   "jump": {
+    "d_food": 0.0,
+    "d_prog": 0.0,
+    "d_pocket": 0.0,
+    "completion": false,
+    "itch": 0.0
+   },
+   "dig": {
+    "d_food": 0.0,
+    "d_prog": 0.3377,
+    "d_pocket": -0.0056,
+    "completion": false,
+    "itch": 0.0844
+   },
+   "idle": {
+    "d_food": 0.0,
+    "d_prog": -0.0515,
+    "d_pocket": 0.0,
+    "completion": false,
+    "itch": -0.0129
+   },
+   "hold": {
+    "d_food": 0.0,
+    "d_prog": 0.0,
+    "d_pocket": 0.0,
+    "completion": false,
+    "itch": 0.0
+   },
+   "use": {
+    "d_food": -0.0037,
+    "d_prog": 0.0341,
+    "d_pocket": -0.0003,
+    "completion": false,
+    "itch": 0.0085
+   }
+  },
+  "itch_argmax": "dig"
+ },
+ {
+  "context": "F hungry, MID-DIG (dig held 4 ticks)",
+  "food": 8,
+  "held": "melon_slice",
+  "progress": 0.13466666666666666,
+  "deficit": 0.6,
+  "actions": {
+   "forward": {
+    "d_food": 0.0,
+    "d_prog": 0.0,
+    "d_pocket": -0.0004,
+    "completion": false,
+    "itch": 0.0
+   },
+   "back": {
+    "d_food": 0.0,
+    "d_prog": 0.0,
+    "d_pocket": 0.0,
+    "completion": false,
+    "itch": 0.0
+   },
+   "jump": {
+    "d_food": 0.0,
+    "d_prog": 0.0,
+    "d_pocket": 0.0,
+    "completion": false,
+    "itch": 0.0
+   },
+   "dig": {
+    "d_food": 0.0,
+    "d_prog": 0.2992,
+    "d_pocket": -0.0056,
+    "completion": false,
+    "itch": 0.0748
+   },
+   "idle": {
+    "d_food": 0.0,
+    "d_prog": -0.0657,
+    "d_pocket": 0.0,
+    "completion": false,
+    "itch": -0.0164
+   },
+   "hold": {
+    "d_food": 0.0,
+    "d_prog": 0.0,
+    "d_pocket": 0.0,
+    "completion": false,
+    "itch": 0.0
+   },
+   "use": {
+    "d_food": -0.0042,
+    "d_prog": 0.0341,
+    "d_pocket": -0.0002,
+    "completion": false,
+    "itch": 0.0085
+   }
+  },
+  "itch_argmax": "dig"
+ },
+ {
+  "context": "G SATED, holding a slice, melon ahead",
+  "food": 20,
+  "held": "melon_slice",
+  "progress": 0.0,
+  "deficit": 0.0,
+  "actions": {
+   "forward": {
+    "d_food": 0.0,
+    "d_prog": 0.0,
+    "d_pocket": -0.0005,
+    "completion": false,
+    "itch": 0.0
+   },
+   "back": {
+    "d_food": 0.0,
+    "d_prog": 0.0,
+    "d_pocket": 0.0,
+    "completion": false,
+    "itch": 0.0
+   },
+   "jump": {
+    "d_food": 0.0,
+    "d_prog": 0.0,
+    "d_pocket": 0.0,
+    "completion": false,
+    "itch": 0.0
+   },
+   "dig": {
+    "d_food": 0.0,
+    "d_prog": 0.4297,
+    "d_pocket": -0.0056,
+    "completion": false,
+    "itch": 0.1074
+   },
+   "idle": {
+    "d_food": 0.0,
+    "d_prog": -0.0173,
+    "d_pocket": 0.0,
+    "completion": false,
+    "itch": 0.0
+   },
+   "hold": {
+    "d_food": 0.0,
+    "d_prog": 0.0,
+    "d_pocket": 0.0,
+    "completion": false,
+    "itch": 0.0
+   },
+   "use": {
+    "d_food": -0.019,
+    "d_prog": 0.0339,
+    "d_pocket": 0.0005,
+    "completion": false,
+    "itch": 0.0085
+   }
+  },
+  "itch_argmax": "dig"
+ },
+ {
+  "context": "H hungry, NOTHING ahead (post-melon stand)",
+  "food": 8,
+  "held": "melon_slice",
+  "progress": 0.0,
+  "deficit": 0.6,
+  "actions": {
+   "forward": {
+    "d_food": 0.0,
+    "d_prog": 0.0,
+    "d_pocket": -0.0007,
+    "completion": false,
+    "itch": 0.0
+   },
+   "back": {
+    "d_food": 0.0,
+    "d_prog": 0.0,
+    "d_pocket": 0.0,
+    "completion": false,
+    "itch": 0.0
+   },
+   "jump": {
+    "d_food": 0.0,
+    "d_prog": 0.0,
+    "d_pocket": 0.0,
+    "completion": false,
+    "itch": 0.0
+   },
+   "dig": {
+    "d_food": 0.0,
+    "d_prog": -0.0168,
+    "d_pocket": -0.0013,
+    "completion": false,
+    "itch": 0.0
+   },
+   "idle": {
+    "d_food": 0.0,
+    "d_prog": -0.0134,
+    "d_pocket": 0.0,
+    "completion": false,
+    "itch": 0.0
+   },
+   "hold": {
+    "d_food": 0.0,
+    "d_prog": 0.0,
+    "d_pocket": 0.0,
+    "completion": false,
+    "itch": 0.0
+   },
+   "use": {
+    "d_food": -0.0027,
+    "d_prog": 0.0289,
+    "d_pocket": -0.0004,
+    "completion": false,
+    "itch": 0.0072
+   }
+  },
+  "itch_argmax": "use"
+ },
+ {
+  "context": "I sated, NOTHING ahead (the parked context)",
+  "food": 20,
+  "held": "melon_slice",
+  "progress": 0.0,
+  "deficit": 0.0,
+  "actions": {
+   "forward": {
+    "d_food": 0.0,
+    "d_prog": 0.0,
+    "d_pocket": -0.0007,
+    "completion": false,
+    "itch": 0.0
+   },
+   "back": {
+    "d_food": 0.0,
+    "d_prog": 0.0,
+    "d_pocket": 0.0,
+    "completion": false,
+    "itch": 0.0
+   },
+   "jump": {
+    "d_food": 0.0,
+    "d_prog": 0.0,
+    "d_pocket": 0.0,
+    "completion": false,
+    "itch": 0.0
+   },
+   "dig": {
+    "d_food": 0.0,
+    "d_prog": -0.0175,
+    "d_pocket": -0.0013,
+    "completion": false,
+    "itch": 0.0
+   },
+   "idle": {
+    "d_food": 0.0,
+    "d_prog": -0.0134,
+    "d_pocket": 0.0,
+    "completion": false,
+    "itch": 0.0
+   },
+   "hold": {
+    "d_food": 0.0,
+    "d_prog": 0.0,
+    "d_pocket": 0.0,
+    "completion": false,
+    "itch": 0.0
+   },
+   "use": {
+    "d_food": -0.0193,
+    "d_prog": 0.0288,
+    "d_pocket": 0.0005,
+    "completion": false,
+    "itch": 0.0072
+   }
+  },
+  "itch_argmax": "use"
+ }
+]
