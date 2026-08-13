@@ -1,0 +1,56 @@
+[
+ {
+  "life": 1,
+  "arm": "on",
+  "kd": 0.1,
+  "chains": 0,
+  "distant_collects": 0,
+  "eats": 0,
+  "first_eat": null
+ },
+ {
+  "life": 1,
+  "arm": "off",
+  "kd": 0.0,
+  "chains": 0,
+  "distant_collects": 0,
+  "eats": 0,
+  "first_eat": null
+ },
+ {
+  "life": 2,
+  "arm": "on",
+  "kd": 0.1,
+  "chains": 0,
+  "distant_collects": 0,
+  "eats": 0,
+  "first_eat": null
+ },
+ {
+  "life": 2,
+  "arm": "off",
+  "kd": 0.0,
+  "chains": 1,
+  "distant_collects": 1,
+  "eats": 6,
+  "first_eat": 1491
+ },
+ {
+  "life": 3,
+  "arm": "on",
+  "kd": 0.1,
+  "chains": 0,
+  "distant_collects": 0,
+  "eats": 0,
+  "first_eat": null
+ },
+ {
+  "life": 3,
+  "arm": "off",
+  "kd": 0.0,
+  "chains": 0,
+  "distant_collects": 0,
+  "eats": 0,
+  "first_eat": null
+ }
+]

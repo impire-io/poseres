@@ -50,8 +50,13 @@ if (SURVIVAL) {
 const DROPS_RANGE = 8; // blocks; nearest ground item within this radius is sensed
 const GLANCE_RANGE = 16; // blocks; feet-level center-ray per 45-degree sector
 const DIG_SAFETY_MS = 10000; // the owner's cap: a dig making no progress is released
-const USE_TOTAL_MS = 1610; // the game's own consume duration (32 game ticks)
-const USE_SAFETY_MS = 3000; // a use that produced nothing by then is released
+// The chew's clock is the WORLD's clock (distal-senses reteach fix): a
+// consume is 32 SERVER ticks, so at accelerated tick rates it completes
+// faster in wall time — progress, recycle, and safety key on bot.time.age.
+// Digs stay wall-paced (client-computed break times, measured at c1e).
+const USE_TOTAL_TICKS = 32; // the game's own consume duration
+const USE_RECYCLE_TICKS = 36; // a finished consume recycles so a held use chains
+const USE_SAFETY_TICKS = 120; // a use going nowhere is released
 
 const MC_HOST = process.env.MC_HOST || "127.0.0.1";
 const MC_PORT = parseInt(process.env.MC_PORT || "25565", 10);
@@ -68,7 +73,7 @@ let digTarget = null; // Vec3 of the block being broken (the held intention)
 let digStart = 0; // wall-clock ms when the intention began
 let digTotalMs = 1; // the game's own break time for the target
 let useHeld = false; // the use intention (survival): the held item is being applied
-let useStart = 0; // wall-clock ms when the use began
+let useStartAge = 0; // GAME tick (bot.time.age) when the use began
 let mcData = null; // loaded at spawn for placeability + recipes
 
 function itemSignature(name) {
@@ -332,13 +337,13 @@ async function applyCommand(command, budget) {
     // one activation, then the SERVER runs whatever using this item means
     // (a food consumes over ~1.6 s; most other items do nothing in air) —
     // outcomes land in the world's own channels, never here
-    if (useHeld && Date.now() - useStart > USE_TOTAL_MS + 200) {
+    if (useHeld && Number(bot.time.age) - useStartAge > USE_RECYCLE_TICKS) {
       // the consume has run its course: recycle so a still-held intention
       // chains a fresh use (vanilla's continuous eating; fake parity)
       stopUse();
     }
     if (useHeld) {
-      if (Date.now() - useStart > USE_SAFETY_MS) stopUse();
+      if (Number(bot.time.age) - useStartAge > USE_SAFETY_TICKS) stopUse();
       return; // continuing the held intention
     }
     if (held === null || availableCount(held) === 0) return; // empty hand: world no-op
@@ -347,7 +352,7 @@ async function applyCommand(command, budget) {
     await bounded(bot.equip(item, "hand"), budget);
     bot.activateItem();
     useHeld = true;
-    useStart = Date.now();
+    useStartAge = Number(bot.time.age);
   } else if (name === "hold_next") {
     const cycle = [null, ...kinds()];
     const index = cycle.findIndex((n) => n === held);
@@ -483,7 +488,7 @@ function sampleChannels() {
     digTarget !== null
       ? [Math.min((Date.now() - digStart) / digTotalMs, 1)]
       : SURVIVAL && useHeld
-        ? [Math.min((Date.now() - useStart) / USE_TOTAL_MS, 1)]
+        ? [Math.min((Number(bot.time.age) - useStartAge) / USE_TOTAL_TICKS, 1)]
         : [0];
 
   const distal = SURVIVAL ? { drops: sampleDrops(p, yaw), glance: sampleGlance(p, yaw) } : {};
@@ -527,7 +532,9 @@ function sampleView() {
   if (SURVIVAL) {
     view.food = bot.food;
     view.health = bot.health;
-    view.eating = useHeld ? Math.min((Date.now() - useStart) / USE_TOTAL_MS, 1) : 0;
+    view.eating = useHeld
+      ? Math.min((Number(bot.time.age) - useStartAge) / USE_TOTAL_TICKS, 1)
+      : 0;
   }
   return view;
 }

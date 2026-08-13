@@ -1,0 +1,5 @@
+{"seg": 1, "steps_cum": 5026, "chains": 0, "distant_collects": 1, "eats": 5, "first_eat": 3275, "completions": 82, "false_completions": 66, "food_min": 7, "advance": 376, "out_of_context": 2846}
+{"seg": 2, "steps_cum": 10051, "chains": 0, "distant_collects": 1, "eats": 5, "first_eat": 3275, "completions": 163, "false_completions": 102, "food_min": 17, "advance": 80, "out_of_context": 3269}
+{"seg": 3, "steps_cum": 15076, "chains": 0, "distant_collects": 1, "eats": 5, "first_eat": 3275, "completions": 283, "false_completions": 147, "food_min": 17, "advance": 108, "out_of_context": 3712}
+{"seg": 4, "steps_cum": 20101, "chains": 0, "distant_collects": 1, "eats": 5, "first_eat": 3275, "completions": 391, "false_completions": 177, "food_min": 17, "advance": 138, "out_of_context": 3640}
+{"seg": 5, "steps_cum": 25126, "chains": 0, "distant_collects": 1, "eats": 5, "first_eat": 3275, "completions": 446, "false_completions": 190, "food_min": 17, "advance": 104, "out_of_context": 3731}

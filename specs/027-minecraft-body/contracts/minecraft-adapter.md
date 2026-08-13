@@ -140,10 +140,14 @@ shipped 32/12 body is byte-identical with the mode off.
   (arms amendment 1): in survival mode `mining` reports a dig's cracks
   OR a use's chew (live: elapsed/1.61 s; fake: held ticks/6) — one
   held-intention grammar, so the completion itch can hold the eat
-  exactly as it holds the dig. A finished live use recycles (~1.81 s)
-  so a still-held intention chains a fresh consume (vanilla's
-  continuous eating; fake parity — the fake's `using` resets on
-  consume and a continued hold starts anew).
+  exactly as it holds the dig. **The chew's clock is the world's
+  clock** (distal-senses reteach fix): a consume is 32 SERVER ticks,
+  so progress, recycle (36 ticks — a still-held intention chains a
+  fresh consume, vanilla's continuous eating), and the safety release
+  (120 ticks) key on the game-tick clock and stay honest at any
+  `/tick rate`. Digs remain wall-paced (client-computed break times,
+  measured at c1e). Fake parity — the fake's `using` resets on
+  consume and a continued hold starts anew.
 - **The distal senses** (topic distal-senses, 2026-08-13; appended
   after `grid`, obs_dim 73, every prior offset unchanged):
   - `drops` (8): the nearest ground item within 8 blocks — present;

@@ -75,4 +75,14 @@ after all, and new machinery needs its own registration.
 
 ## Verdict
 
-<Empty until graduation.>
+**Recorded 2026-08-13 (graduation pending the owner's design
+conversation): D1 MET; D2 SPLIT (chains 0/5 FAIL, completions PASS
+with 256 realized); D3 FAIL (pairs [off, off, off]) — the registered
+reversal fires.** The senses moved "never eats in a life" to "2 of 7
+hungry-born lives forage completely" and made completions fire live
+for the first time — necessary, measurably real, not sufficient.
+Initiation is the wall: hunger reaches action selection only inside
+completions and recipe selection, never at the start of the chain,
+and a completion-site amplifier (κ_d = 0.1) is invisible against a
+~0.3 per-life expression probability. New machinery needs its own
+registration. Full numbers: D2-D3-READING.md.
