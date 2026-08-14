@@ -103,15 +103,18 @@ surface that no longer moves.
   deferral lifts on the owner's call; each showcase's video publishes
   with its honest telemetry (and the honest headline is "no emergence,
   one mined log").
-- **The book**: the long-form narrative (`book/` — four parts drafted;
-  contract in `book/STYLE.md`; decision recorded in
-  [episode 0047](../04-JOURNEY/0047-the-book-decision.md)). The drafts
-  are published on impire.io, draft-labeled
-  ([episode 0066](../04-JOURNEY/0066-book-draft-on-website.md)). Part 5
-  (teachers) waits on the teacher-world research candidate. *Exit:* every
-  chapter through the STYLE revision checklist, the REVISIT backlog
-  arbitrated by the maintainer, and the numbers audit re-verified against
-  the repo at publication date.
+- **The book**: the long-form narrative, now in its own repository
+  ([impire-io/poseres-book](https://github.com/impire-io/poseres-book),
+  rendered at <https://impire.io/poseres-book/> — six parts, sixteen
+  chapters drafted; decision recorded in
+  [episode 0047](../04-JOURNEY/0047-the-book-decision.md), the move in
+  [episode 0099](../04-JOURNEY/0099-the-book-moves-out.md)). The drafts
+  were first published on impire.io, draft-labeled
+  ([episode 0066](../04-JOURNEY/0066-book-draft-on-website.md)). The book
+  repo's `/sync-from-pra` skill + `SOURCES.lock` pin keep it honest
+  against this record. *Exit:* every chapter through the STYLE revision
+  checklist, the REVISIT backlog arbitrated by the maintainer, and the
+  numbers audit re-verified against the repo at publication date.
 
 ## Research candidates (gated; each becomes a `/research-start` topic when picked up)
 

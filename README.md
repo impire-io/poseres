@@ -69,6 +69,13 @@ repository by `.github/workflows/docs.yml`: the committed pages under
 explainer — the repo holds exactly one copy of each document, and
 `tests/unit/test_docs_site.py` guards every file the site references.
 
+The PRA book — the long-form telling of why frozen brains fail and what
+this architecture does about it — lives in its own repository,
+[impire-io/poseres-book](https://github.com/impire-io/poseres-book), and
+reads at **<https://impire.io/poseres-book/>**. Its chapters cite this
+repo's `hq/` record; the book repo's `/sync-from-pra` skill keeps the
+two in step.
+
 ## Public API & versioning
 
 From v1.0 the public surface is a promise: everything listed in

@@ -1,5 +1,0 @@
-{
-  "before: rays 0.61 0.44 0.30 0.51 0.72 compass 0.00 1.00 position 0.05 -0.32 bump 0": "One triplet, written out. The before reading: five ray numbers, zero point six one, zero point four four, zero point three zero, zero point five one, zero point seven two. A compass, reading zero and one. A position, zero point zero five and minus zero point three two. A bumper, reading zero. The action: forward. The after reading: the same five rays, now zero point five four, zero point three seven, zero point two two, zero point four four, zero point six five. The compass unchanged. The position, zero point zero five and minus zero point two four. The bumper, still zero.",
-
-  "_comment": "Spoken replacements for displayed blocks. Key = first line of the block, whitespace-collapsed, exactly as it appears in the manuscript. If a block's first line changes during revision the override silently stops applying, and build-narration.py falls back to the generic narrator note — which is the visible signal to update this file. Delete the _comment key freely; the builder ignores unmatched keys."
-}

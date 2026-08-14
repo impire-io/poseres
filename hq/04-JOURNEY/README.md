@@ -20,7 +20,16 @@ Episodes 0001–0044 were chapters of the original single-file `JOURNEY.md`
 "ch. NN" resolve to `00NN-*.md`). The recurring principles the journey keeps
 teaching moved to `../00-GENESIS/how-we-work.md`.
 
-## Where things stand (2026-08-13)
+## Where things stand (2026-08-14)
+
+**The book lives in its own repository**
+([episode 0099](0099-the-book-moves-out.md)): `book/` extracted with
+history into
+[impire-io/poseres-book](https://github.com/impire-io/poseres-book),
+rendered with mdBook at <https://impire.io/poseres-book/>. The tie back
+to this record is the book repo's `/sync-from-pra` skill and its
+`SOURCES.lock` pin — chapters keep citing `hq/` episodes, and drift
+lands in the book's REVISIT.md instead of riding along unnoticed.
 
 **Nothing is faked anymore** ([episode 0097](0097-nothing-is-faked.md)):
 the FakeBridge estate is deleted at v2.0.0 on the owner's rule; the
@@ -767,3 +776,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0096 | [The lab wearing reality's skin: c1e closes, and the scenario is the verdict](0096-the-lab-wearing-realitys-skin.md) |
 | 0097 | [Nothing is faked: the estate deleted, the proof goes live](0097-nothing-is-faked.md) |
 | 0098 | [The book clears its throat: voice rules land, REVISIT empties](0098-the-book-clears-its-throat.md) |
+| 0099 | [The book moves out: its own repo, mdBook, and a sync pin](0099-the-book-moves-out.md) |

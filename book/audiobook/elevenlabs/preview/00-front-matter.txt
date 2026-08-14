@@ -1,7 +1,0 @@
-«TITLE».
-
-Written and read by Daan Gerits.
-
-A word about this recording. The book it comes from has two layers. The story you are about to hear is one of them, and it is complete on its own. The other layer is a set of technical asides, the mathematics, the failure data, the exact measurements, printed in boxes that a reader can skip. They are not in this recording. Nothing in the story depends on them. If you want them, they are in the text edition, and they are worth your time.
-
-The book also asks you, in part four, to install the system and watch it learn on your own screen. You will find what you need at «URL». You do not need it to follow the story.
