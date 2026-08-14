@@ -27,7 +27,7 @@ enough.
 
 ## One triplet, in numbers
 
-Before going further I want to pin these words down, because the whole
+These words need pinning down before we go further, because the whole
 book stands on them and "sensed" is doing a lot of work.
 
 An *observation* is one simultaneous reading of every sensor the body
@@ -88,8 +88,8 @@ Those are kinds of content, and the triplet is about the structure of
 experience: it comes as before, act, after, and the middle belongs to
 you. Any content fits the shape. A rover's triplet holds laser ranges and
 wheel commands. A robot hand's holds finger pressures and motor currents.
-As promised in chapter 1, a conversation fits too: what I heard, what I
-said, what came back. The shape doesn't care what flows through it, and
+And a conversation fits, as chapter 1 promised: I heard something, I
+said something, something came back. The shape doesn't care what flows through it, and
 that indifference is what will let one mechanism serve every body in this
 book.
 
@@ -108,8 +108,9 @@ with every triplet, thousands of times a day, for free. A big surprise
 means your model of the world is wrong right here. No surprise means
 there's nothing left to learn in this corner today.
 
-When chapter 3 said PRA's models compete to predict well, this is the
-game they're competing at: smallest surprise on the next triplet. Every
+Remember the crowd of small rival models this book promised you early
+on?[^crowd] This is the
+game they compete at: smallest surprise on the next triplet. Every
 mechanism in Part 3 runs on prediction error as its fuel. Survival,
 eviction, even the discovery of size.
 
@@ -166,3 +167,5 @@ out understanding. Before we open that machine, though, there's an
 objection standing in the doorway: machines that seem to understand
 already exist, and you can talk to one today. The next chapter is about
 why this book isn't about them.
+
+[^crowd]: Chapter 2.

@@ -25,7 +25,7 @@ scanning chapter 8's error-against-size surface at several training
 budgets, the longest sixteen times the usual length. Frames
 of middle sizes (8 to 24 dimensions) got *worse* with the extra
 experience. Not noisier: worse, roughly doubling their honest prediction
-error between the standard budget and the long one, consistently, on
+error by the time the budget had quadrupled, consistently, on
 every seed.
 
 Sit with how wrong that is. Same frame, same world, same learning rule;
@@ -49,7 +49,7 @@ bound doing it, and a network with bloated weights turns rigid: its
 internal nonlinearities saturate, and the same step size that once tuned
 it now kicks it around. It doesn't forget what it knew. It loses the
 ability to be gently changed. For a brain defined by continuous change,
-that is death with the lights left on.
+that is the end of learning, even while its scores still look healthy.
 
 Capacity decides who rots. The smallest frames barely do; the largest
 frames don't either; the middle sizes, exactly the sizes chapter 8
@@ -89,7 +89,8 @@ honestly reporting sick frames.
 ## A cap, not a freezer
 
 The repair had to thread a needle. The obvious fixes all break the
-premise: freeze old frames (that's chapter 1), decay every weight toward
+premise: freeze old frames (that's the frozen brain of chapter 1 all
+over again), decay every weight toward
 zero (that punishes healthy frames too), lower the learning rate with
 age (that's freezing with extra steps: the frame's ability to respond
 to a changed world decays on a clock). The premise says: never
@@ -135,10 +136,13 @@ believe you've found the mechanism.
 
 ## What the promise costs
 
-One open edge, recorded here so the book doesn't overclaim: the
+One edge stayed open longer than the rest: the
 reference-scale worlds, with their shorter effective lifetimes, have
 never needed the cap. Whether very long reference-scale lives
-eventually would is a named open question, not a settled one.
+eventually would stayed an open question for a while. Then a
+five-hundred-thousand-step soak answered it: no rot, and the cap, left
+on the whole time, cost nothing measurable. The long runs later in
+this book keep it on.
 
 Here's what this chapter did to my understanding of the project's own
 slogan. "Never stops learning" turns out to be two claims wearing one

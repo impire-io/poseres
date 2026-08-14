@@ -112,8 +112,8 @@ hoarding. Run v3 forever and it hoards forever, while its own report card
 says everything is fine.
 
 That last part is the detail that changed how I work. Worse than the bloat
-was the cover-up: the system graded itself in a way that hid the bloat, and
-one of its tricks is worth a preview. Each little model measured how predictable
+was the cover-up: the system graded itself in a way that hid the bloat.
+One of its tricks went like this. Each little model measured how predictable
 the world was *in its own coordinates*. A model that has collapsed
 into a nearly-empty view of the world finds its own view very predictable.
 The most degenerate models were posting the best scores. Honest grading, in
@@ -133,7 +133,8 @@ system that can't cheat turned out to be most of the actual work.
 > bar that divides by crowding) are chapter 7's subject. Commits `8b8c802`
 > through `31dd186`.
 
-So the second cliff isn't a theoretical worry to me. It's the default. Any
+So the second cliff isn't a theoretical worry to me. It's a chart I can
+still pull up: one new model per cycle, a straight line, no plateau. Any
 system that's allowed to add machinery will add machinery, unless something
 makes adding *expensive*. And that something has to be built so the system
 can't argue its way around the price. Forgetting and hoarding turned out to

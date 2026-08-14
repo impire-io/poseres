@@ -38,15 +38,29 @@ sight on those knobs and predicting where they'll land next. (Ch 6)
 frame's reading of one moment, expressed in its own coordinates. Not the
 frame itself, and not the world. (Ch 6)
 
-**drive** — the fixed, unlearnable rule that scores which action looks
-worth taking; the system's wanting, kept outside the market. (Ch 9)
+**encoder** — the small network that reads one observation onto a
+frame's knobs: observation in, pose out. (Ch 6)
 
-**competence drive** — the shipped default want: prefer the familiar and
-the mastered, weighted by how well prediction is going there. (Ch 9)
+**decoder** — the encoder's mirror: pose in, reconstructed observation
+out, proving the frame's knobs can still express what it is looking at.
+(Ch 6)
+
+**drive** — the fixed, unlearnable rule that scores which action looks
+worth taking; the system's motivation, kept outside the market. (Ch 9)
+
+**competence drive** — the shipped default motivation: prefer the
+familiar and the mastered, weighted by how well prediction is going
+there. (Ch 9)
 
 **frontier drive** — the current edge: prefer places where prediction
 error has been falling, so noise and mastered ground both score zero.
 (Ch 9)
+
+## Part 4
+
+**snapshot** — the brain paused into a file: the complete learned state
+written out, so the same mind can be stopped, copied, moved, and resumed
+exactly. (Ch 11)
 
 ## Part 5
 

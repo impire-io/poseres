@@ -43,7 +43,65 @@ Concretely:
   challenges."
 - When something is unknown or unproven, say so in the main text, not in a
   footnote. The project marks claims [V]alidated / [D]esigned / [O]pen
-  internally; the book keeps that honesty even where it drops the tags.
+  internally; the book keeps that honesty even where it drops the tags —
+  but in passing, not as a proceeding (see "Told, not presented" below).
+
+## Told, not presented
+
+(Added 2026-08-13 at Daan's request. The book was reading like a careful
+presentation; it should read like a story told by someone who was there.)
+
+**Callbacks are retellings.** When a chapter leans on an earlier chapter's
+idea, don't cite it like a paper ("The reason is chapter 7's law, applied
+one level up"). Recall it the way you'd remind a friend: say what the law
+*was*, then make the connection. "Remember chapter 7's law: never let the
+system grade its own homework. This is the same law, one level up." The
+reader shouldn't have to flip back, and the retelling is a free rehearsal
+of the idea. Keep the canonical wording verbatim when you retell it.
+
+**Footnotes are pointers, never content** (added 2026-08-13, Daan's
+call). Where a retelling makes the chapter number ceremonial, move the
+number out of the prose into a footnote: "Remember the law: never let
+the system grade its own homework.[^homework-law]" with
+`[^homework-law]: Chapter 7.` at the bottom of the chapter file. Used
+sparingly — laws, refuted results, promised payoffs; a handful per
+chapter at most. The main text must stay complete with every footnote
+unread (the same guarantee the boxes give), so a footnote may locate an
+idea but never explain one. Forward hooks ("chapter 13 is that story")
+keep their numbers inline; the promise *is* the number. Cross-references
+that don't earn a footnote keep their inline chapter number as before.
+The narration build strips markers and definitions; footnotes are never
+read aloud.
+
+**Never announce your own virtues.** "I want to be precise about...",
+"I want to be clear that...", "to keep this honest...", "recorded without
+spin", "in the interest of accuracy" — all banned. Precision and honesty
+are things the reader concludes from the text; saying them is telling,
+and it's exactly how marketing talks. Replace the announcement with the
+moment that produced it: what bothered me, what I did about it. "It
+bothered me enough that I spent two days chasing it" does the work "I
+want to be honest" only claims to do. One warning: don't let the
+replacement harden into a formula. If every chapter has an "it really
+bothered me, so I dove in" beat, that's a new tell. Vary the moment, or
+cut it and let the work speak.
+
+**Loose ends get one line.** Unknowns and unproven claims still belong in
+the main text (the Voice rule stands), but as a pointer, not a status
+report: "one to come back to", "interesting, but not worth the detour
+right now". One sentence, then back to the story. The full accounting
+lives in the technical boxes and in `REVISIT.md`; the main text owes the
+reader honesty, not paperwork.
+
+**Verbs stay verbs.** (Added 2026-08-13.) Named components keep their
+names: the drive, the judge, the price. But running prose must not mint
+abstract nouns out of verbs. A system doesn't have "wants"; it wants
+things. Write "toward wanting something that is easy to satisfy", not
+"toward wants that are easy to satisfy"; "a drive to reach the far wall",
+not "a reaching drive". The test: could you say it across a table without
+sounding like a paper? Two exceptions, both narrow: a term at its
+italicized first definition, and a deliberate aphorism ("understanding
+proposes; wanting disposes") — one per chapter at most, and it has to
+earn it.
 
 ## The two lanes
 
@@ -94,6 +152,8 @@ today's world", "at its core", "stands as a testament", "plays a vital role",
   cut it.
 - Paragraph-final mini-conclusions that restate the paragraph. End on the last
   new fact instead.
+- Virtue announcements and bare citations: see "Told, not presented". Both
+  count as banned constructions for the checklist grep.
 - Section-final summaries and chapter-final "In this chapter we saw..."
   recaps. The reader was there.
 
@@ -107,7 +167,8 @@ today's world", "at its core", "stands as a testament", "plays a vital role",
   aside, or commas doing the work of structure, gets rewritten as two
   plain sentences. Flow beats rhythm tricks.
 - Bold: for terms at first definition only. Never for emphasis of ordinary
-  sentences.
+  sentences. Structural run-in labels (chapter 7's numbered cheats) count
+  as headings, not emphasis, and are allowed (ruled 2026-08-13).
 - Bullet lists: for genuinely enumerable things (rules, steps, options). Never
   as a substitute for a paragraph that should flow. A chapter with more list
   lines than prose lines is broken.
@@ -121,7 +182,8 @@ consecutive paragraphs have the same shape — topic sentence, two supports,
 wrap-up — rewrite the middle one.
 
 **Humor policy.** Dry, occasional, never signposted. No exclamation marks
-except in dialogue. No "fun fact!".
+except in dialogue or quoted machine output ("motors forward!" — ruled
+2026-08-13). No "fun fact!".
 
 **Register.** Clear is the goal; cute is a failure mode. The 11-year-old
 test measures whether the *explanation* is followable, not whether the
@@ -131,6 +193,14 @@ explanatory work the plain statement can't), used once, and dignified;
 if a metaphor is decoration, cut it and say the thing. Never talk down:
 no "you see," no rhetorical hand-holding, no exclaiming at how
 interesting something is. The reader decides what's interesting.
+
+The line between hand-holding and telling (2026-08-13): hand-holding is
+direct address that does *no work* — telling the reader what to notice,
+what to feel, how interesting this is. Direct address that carries real
+content is just how stories get told: "Remember chapter 7's law..."
+followed by an actual retelling is allowed and encouraged. The test is
+whether the sentence would survive with the "you" removed. If yes, it
+was decoration; cut it.
 
 ## Vocabulary mechanics for the young reader
 
@@ -156,7 +226,9 @@ interesting something is. The reader decides what's interesting.
    a person — break the symmetry.
 5. Find at least one real, dated, specific event from `hq/04-JOURNEY/` or the
    commit history in the chapter. A chapter with no specifics is a blog post.
-6. Read one page aloud. Anywhere you wouldn't say it to a friend, rewrite it.
+6. Read one page aloud. Anywhere you wouldn't say it to a friend, rewrite
+   it. Cross-references especially: a citation you'd never speak ("the
+   reason is chapter 7's law") gets retold, not cited.
 7. Verify every empirical claim against the current specs/measurements —
    numbers in this project have changed before and will again.
 

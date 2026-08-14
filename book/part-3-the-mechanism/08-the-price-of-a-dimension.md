@@ -16,7 +16,7 @@ been asking was itself wrong.
 
 The natural assumption, staring at "best_dim ≈ 1" on a 20-dimensional
 world, is that something is broken. Some component has a bug; find it, fix
-it, done. Months of measurement said otherwise. Every component was doing
+it, done. Weeks of measurement said otherwise. Every component was doing
 exactly what it was designed to do. The problem was that it had been
 designed, tuned, and validated in a world of true dimensionality 3 with
 ten observation channels. Half a dozen constants in the system were
@@ -37,8 +37,9 @@ as close as this kind of work gets to proof of mechanism.
 Six constants turned out to have the same disease: sensible at the
 reference, silently wrong at scale, each one masking the next. The
 learning rate diverged first and hid everything behind it. The world
-itself was distorting: the emission function saturated at high
-dimensionality, so a scaled run wasn't even testing the same kind of
+itself was distorting: the formula that turns the world's hidden state
+into sensor readings was saturating at high dimensionality, so a scaled
+run wasn't even testing the same kind of
 world (that one was a bug in my measuring instrument, not in the system).
 The initial weight scale saturated newborns. The linear complexity
 penalty, tuned against reference-scale error spans, overwhelmed the
@@ -50,7 +51,7 @@ reference scale (factor 1.0, bit-for-bit), so the validated behavior
 could not regress while the scaled behavior was being repaired. After the
 six: medians of 8, 10.5, and 9.5 discovered dimensions on worlds of true
 size 20, 35, and 50, with one run climbing to 18. Not the right numbers
-yet, but no collapse anywhere, and a conclusion worth stating carefully:
+yet, but no collapse anywhere, and one conclusion held everywhere:
 the structure-finding mechanism survives scale; what doesn't survive is
 the *rate* at which it converges within a budget.
 
@@ -101,8 +102,8 @@ landing to its measured value: medians of 10, 9, and 9.
 
 ## Ten is not twenty. The reason rewrote the question.
 
-Ten, on a world whose true size is 20. Nine on 35, nine on 50. After a
-year of removing every dishonesty I could find, the honest system lands
+Ten, on a world whose true size is 20. Nine on 35, nine on 50. After
+three weeks of removing every dishonesty I could find, the honest system lands
 at half the truth or less. The *reason* turned out to be the most
 useful thing this project has produced.
 

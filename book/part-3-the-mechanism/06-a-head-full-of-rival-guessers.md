@@ -36,9 +36,9 @@ reading of one observation, expressed in the frame's own coordinates.
 New sight, new pose, same frame.
 
 Second job: *predict*. Told the action (motors forward!), the frame
-predicts where its knobs will land next. Then the next sight arrives, and
-chapter 4's free teacher grades the prediction. Surprise, measured,
-delivered, logged.
+predicts where its knobs will land next. Then the real next sight
+arrives and does the grading itself, the free teacher chapter 4
+promised. Surprise, measured, delivered, logged.
 
 A frame with too few knobs can't help but blur things together. A
 one-knob frame watching a boat can track it east-west or north-south, but
@@ -52,7 +52,7 @@ settles it.
 
 The word "space" invites vague readings, so here is the complete
 inventory of one frame, the way a debugger would list it. Three small
-networks: the encoder (observation in, pose out), the decoder (pose in,
+networks: the *encoder* (observation in, pose out), the *decoder* (pose in,
 reconstructed observation out, which is how the frame proves its knobs
 can still express what it's looking at), and one transition model per
 action (pose in, predicted next pose out). Plus some bookkeeping: its
@@ -153,13 +153,12 @@ thirteen frames on three different runs of the same world) while the
 crowd's best answer for the world's size settles and steadies. No line in
 the code says "keep about sixteen frames." That number is negotiated,
 continuously, between the spawn rate and the bar, and it holds while
-individual frames come and go like employees at a company that has
-figured out its headcount.
+individual frames come and go.
 
-I want to flag what that means, because it's the quiet heart of this
+That sentence is the quiet heart of this
 book. The knowledge in PRA doesn't live in any frame. Frames are
 disposable: hired, tested, fired. What persists is the *population*: a
-shifting parliament of coordinate systems whose current majority opinion
+shifting collection of coordinate systems whose current consensus
 is the system's understanding of the world. Learning forever stops being
 "one model, carefully revised forever," which chapter 2 showed is a walk
 between two cliffs, and becomes something sturdier: a steady turnover of

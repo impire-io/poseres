@@ -62,7 +62,7 @@ to.
 At 13:11 the same day the record says "open G5," and the July gate
 this book has now mentioned twice got its rematch.
 
-The July result, precisely: a judge watching ground truth pulsed 1.0
+The July result: a judge watching ground truth pulsed 1.0
 onto a sensor channel on the exact tick a stick-craft landed,
 forty-five approvals per pupil, and the brain's predictions never
 reliably formed around it. Rising expectation, 18 of 24, met the bar
@@ -124,10 +124,11 @@ untested ground.
 
 ## What a teacher transmits
 
-No behavior bar was registered for G5, and the registration says why
-openly: July had already measured that one-step anticipation cannot
+No behavior bar was registered for G5, and the registration says why:
+July had already measured that one-step anticipation cannot
 start a twenty-step chain, so a want-bar would have been theater.
-Instead the wanting side ran as context rows at full power, to feed
+Instead the part of the brain that wants ran as context rows at full
+power, to feed
 the next design. The first row produced the finding I did not see
 coming.
 

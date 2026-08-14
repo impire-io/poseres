@@ -18,10 +18,10 @@ bias what the brain gets to see.
 
 But a real agent can't stay a coin flip. A brain that learns from its own
 actions gets to *choose* its experience, and choosing well ought to beat
-drifting. This chapter is about giving the system wants, and it contains
+drifting. This chapter is about making the system want things, and it contains
 the project's most instructive failure, so I'll say the conclusion up
-front: the obvious want, the one half the field and I both reached for
-first, measurably hurt.
+front: the obvious thing to make it want, the one half the field and I
+both reached for first, measurably hurt.
 
 ## The one part that doesn't learn
 
@@ -29,16 +29,18 @@ First, a design constraint that surprises people. In PRA, the drive, the
 rule that scores which action looks worth taking, is the one component
 that cannot learn. Its parameters are structurally immutable; there is no
 code path by which experience modifies them. In a book that has spent
-eight chapters replacing frozen things with learning things, the wanting
-is deliberately frozen.
+eight chapters replacing frozen things with learning things, the part
+that does the wanting is deliberately frozen.
 
-The reason is chapter 7's law, applied one level up. A drive defines what
+Remember the law: never, ever let the system grade its own
+homework.[^homework-law] This is the same law, applied one level up. A drive defines what
 counts as a good experience. If the system could learn its own drive, it
 would be choosing its own exam one final time. And the gradient points
-somewhere predictable: toward wants that are easy to satisfy. A system
-that can edit what it wants will drift toward wanting what it already
-has. So the wanting is fixed, small, and outside the market. Everything
-else competes; the thing that defines winning does not.
+somewhere predictable: toward wanting something that is easy to satisfy.
+A system that can edit what it wants will drift toward wanting what it
+already has. So what the system wants is fixed, small, and outside the
+market. Everything else competes; the thing that defines winning does
+not.
 
 What a drive gets to work with is the machinery already built. When an
 action is considered, the frames predict where the world would land
@@ -48,9 +50,9 @@ disposes. The two stay in the separate rooms chapter 4 promised.
 
 ## Curiosity, measured
 
-The default drive I built first was curiosity, and I want to be clear
-that it wasn't a straw man. It's the respectable choice, with a long
-research pedigree: prefer novelty, weighted by learning progress.
+The default drive I built first was curiosity. Not a straw man set up to
+fail: it's the respectable choice, with a long research pedigree. Prefer
+novelty, weighted by learning progress.
 Seek out what you haven't seen, especially where your predictions have
 been improving. It's also what I would have bet on.
 
@@ -66,8 +68,11 @@ percent of its actions were directed, all that direction was real, and
 the sum of it was negative. The system that wanted interesting things
 learned less than the system that wanted nothing.
 
-I ran five controlled experiments hunting the mechanism. Four
-hypotheses died in order: not the world's geometry saturating; not
+I couldn't leave it there. A policy doing exactly what it was designed
+to do, and learning less for it, either meant the measurement was lying
+or something real was hiding underneath, and I needed to know which. So
+I went hunting: five controlled experiments. Four hypotheses died in
+order: not the world's geometry saturating; not
 starvation of the mapping gate (the curious arm actually mapped
 *more*); not the mathematical shape of the preference; not a skew in
 the action distribution. The experiment that settled it was a control
@@ -103,9 +108,11 @@ and it held up later on worlds built specifically to punish it.
 > in 6/8. CompetenceDrive (mastery + familiarity): +0.064 scaled,
 > +0.027 reference, better in 6/8 at each: T7 PASS both scales.
 
-## Two honest wrinkles, and the current edge
+## Two wrinkles, and the current edge
 
-The story so far is too tidy, so here are the parts that keep it honest.
+I could stop the chapter here and it would read like a clean win. It
+would also be handwaving, and handwaving is the thing this whole project
+exists to refuse. So, two wrinkles.
 
 First: on worlds with mild non-uniformity, at these budgets, *nothing*
 directed beats random by a detectable margin. Resolving that took real
@@ -125,16 +132,18 @@ drive: score places by whether prediction error there has been
 regions read flat and score zero; mastered regions read flat and score
 zero; the frontier of improvement scores high. Measured at full power
 it works exactly as designed and, on worlds whose difficult regions are
-best simply avoided, it wins nothing over competence. That result is
-recorded without spin. The worlds where it should pay, worlds that change under a
-mastered policy, are named, instrumented, and not yet measured. That's
-the frontier in both senses.
+best simply avoided, it wins nothing over competence. The worlds where
+it should pay, worlds that change under a mastered policy, are named and
+instrumented but not yet measured: a loose end I'll come back to rather
+than a detour worth taking now. That's the frontier in both senses.
 
-I'll resist drawing life lessons from four hundred simulation runs,
+I'll resist drawing life lessons from a pile of simulation runs,
 except to note the shape of the result, because it will be familiar:
 chasing whatever glitters measured worse than doing nothing, and
 deliberate practice at the edge of what's working measured best. Make
-of that what you will.
+of that what you will, and hold it loosely: a far richer world is
+waiting a few chapters ahead, and what happens there will force me to
+take back part of this chapter's verdict. Chapter 13 is that story.
 
 Part 3 is complete: triplets in, a tournament of frames over them, a
 judge that can't be gamed, a price that sizes the structure, and a
@@ -143,3 +152,5 @@ book opened with: whether this actually buys learning that *lasts*.
 Part 4 begins with the discovery that, for a while, it quietly didn't:
 the frames that lived longest were rotting from the inside, and every
 number in this part of the book was downstream of it before the fix.
+
+[^homework-law]: Chapter 7, where the law earned its name.

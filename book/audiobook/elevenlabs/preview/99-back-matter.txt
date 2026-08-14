@@ -1,0 +1,7 @@
+«TITLE», written and read by Daan Gerits.
+
+The system described in this book is open source. You can find it, run it, and check every claim in it at «URL».
+
+«Publisher or production credit, if any.»
+
+«Copyright line — year and rights holder.»

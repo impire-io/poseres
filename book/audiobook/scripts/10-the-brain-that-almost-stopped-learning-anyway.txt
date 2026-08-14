@@ -1,0 +1,59 @@
+[PART OPENING — read, then pause 3 seconds]
+Part Four. The continuity guarantee.
+
+[PAUSE 3]
+
+Chapter 10. The brain that almost stopped learning anyway.
+
+[PAUSE 2]
+
+Part 1 promised a brain that never stops learning. Parts 2 and 3 built one. This chapter is about the day I measured whether the promise was actually being kept, and found that it wasn't. Not because anything froze. Because of something I had no name for yet, and now call rot.
+
+The book's claim from here on is not "I designed a system that learns forever." It's the more useful one: learning forever fails by default, even in a system built for it, and here is the failure and the repair, measured.
+
+[PAUSE 2]
+[SECTION — lift and re-set] More experience made it worse.
+
+The discovery was a byproduct of asking a different question. I was scanning chapter 8's error-against-size surface at several training budgets, the longest sixteen times the usual length. Frames of middle sizes (8 to 24 dimensions) got worse with the extra experience. Not noisier: worse, roughly doubling their honest prediction error between the standard budget and the long one, consistently, on every seed.
+
+Sit with how wrong that is. Same frame, same world, same learning rule; the only added ingredient is more life. A system whose entire premise is "every moment is a lesson" had components for which, past a certain age, every lesson made them worse.
+
+The probe that found the mechanism watched two numbers together over a long life: a frame's honest error, and the total size of its weights (the magnitudes of all the numbers inside it). The two turn in lockstep. For its first few hundred cycles a frame is healthy: error falls, and the weights actually compress, their total size drifting down as the frame finds economical ways to express the world. Then, at an onset around four to eight hundred cycles, the weight size turns and begins to climb. Honest error turns with it, at the same moment, and never comes back.
+
+The learning rule keeps running exactly as designed. Each step still reduces today's error on today's data. But the weights grow without bound doing it, and a network with bloated weights turns rigid: its internal nonlinearities saturate, and the same step size that once tuned it now kicks it around. It doesn't forget what it knew. It loses the ability to be gently changed. For a brain defined by continuous change, that is death with the lights left on.
+
+Capacity decides who rots. The smallest frames barely do; the largest frames don't either; the middle sizes, exactly the sizes chapter 8 found to be worth paying for, rot on schedule.
+
+[PAUSE 2]
+[SECTION — lift and re-set] The ecology was selecting for the wrong thing.
+
+Rot alone would be a component-level disease. What made it project-threatening is what the selection tournament did with it.
+
+Recall that eviction never stops. A frame that rots gets worse, scores worse, and is eventually replaced. The ecology responds to rot, which sounds like the system working. But look at what it selects for. In a population where mid-sized frames sicken with age and small frames don't, the long game belongs to the small and rot-proof, regardless of how well they model the world. Rereading the old census data against the rot profile confirmed it: the long-lived resident frames in every scaled run sat at dimensions 4 to 8 (precisely the rot-resistant sizes) at ages deep inside the rot zone for anything bigger. The tournament I'd spent chapter 7 making honest was being decided by a variable I didn't know existed. Not "who understands the world best" but "who can survive their own old age." Every scaled result I had was downstream of that, and no amount of honest scoring could fix it, because the scores were honestly reporting sick frames.
+
+[BOX OMITTED FROM AUDIO: the longevity probe]
+
+[PAUSE 2]
+[SECTION — lift and re-set] A cap, not a freezer.
+
+The repair had to thread a needle. The obvious fixes all break the premise: freeze old frames (that's chapter 1), decay every weight toward zero (that punishes healthy frames too), lower the learning rate with age (that's freezing with extra steps: the frame's ability to respond to a changed world decays on a clock). The premise says: never trained-then-frozen. The mechanism says: the disease is weight magnitude, and only magnitude.
+
+So the fix touches only magnitude. Each weight tensor gets a ceiling, set modestly above its size at birth. Whenever learning pushes a tensor's total size past the ceiling, it gets scaled back down onto it: direction untouched, learning never paused, no age term anywhere. A frame under the cap can still change any belief at any time, at full speed, forever. What it cannot do is inflate.
+
+The dose–response came out as clean as an experiment gets. No cap: rot, as before. A loose ceiling: rot attenuated but present. The shipped ceiling: rot eliminated. Frames end a sixteen-times-length life at their best-ever error, still learning, and the sizes that never rotted are measurably untouched. That matters, because a treatment that taxes the healthy would just be a new disease.
+
+Then the payoff, and it's the cleanest intervention-grade result in the project. Changing nothing but this one mechanism, the scaled landing at true-size 20 rose from median 6 to median 10, from the rot-resistant sizes onto the price-optimal ones from chapter 8, with resident frames now holding tenure for nearly the entire run. And the lift across the three world sizes ordered itself exactly by measured rot exposure: biggest where rot bit hardest, smallest where the slower effective learning rate had delayed onset past the horizon. When an intervention's effect sorts by the mechanism's measured exposure, you're allowed to believe you've found the mechanism.
+
+[BOX OMITTED FROM AUDIO: the cap]
+
+[PAUSE 2]
+[SECTION — lift and re-set] What the promise costs.
+
+One open edge, recorded here so the book doesn't overclaim: the reference-scale worlds, with their shorter effective lifetimes, have never needed the cap. Whether very long reference-scale lives eventually would is a named open question, not a settled one.
+
+Here's what this chapter did to my understanding of the project's own slogan. "Never stops learning" turns out to be two claims wearing one phrase. The first, that the learning rule keeps running, is trivial; v3 satisfied it while hoarding, and a rotting frame satisfies it while dying. The second, that the system remains changeable by experience at full capability indefinitely, is the real promise. It is not implied by the first, and it failed silently in a system I had built specifically to keep it. It took a deliberate long-horizon measurement to notice. That's the pattern worth exporting: continuity isn't a property you design in once; it's a property you have to keep measuring for, because its failure modes don't announce themselves. They just quietly select for smaller minds.
+
+So what does the system hold onto, if not scrapbooks of the past and not frozen weights? That's the next chapter's subject: what "memory" even means in a brain that keeps nothing but structure.
+
+[PAUSE 3]
+[END OF CHAPTER]

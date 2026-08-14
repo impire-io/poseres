@@ -107,8 +107,8 @@ the entire world were a swing.
 > scale question was recorded as formally open rather than explained away.
 > Commits `7387bd7` → `d17354c`.
 
-I want to be precise about what this result was, because it shaped the next
-several months. It was not a bug, in the usual sense: the code did what it
+This result shaped the next several weeks, so it matters what it was and
+what it wasn't. It was not a bug, in the usual sense: the code did what it
 was written to do, and did it reproducibly (the engine is deterministic: the
 same run, re-run, produces the same bytes, which is what let me trust any
 of these readings at all). And it was not the old cheating; v4's scoring

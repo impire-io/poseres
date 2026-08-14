@@ -1,0 +1,59 @@
+Chapter 2. Forget everything, or remember everything.
+
+[PAUSE 2]
+
+Ask for a brain that never stops learning and you get pulled toward one of two cliffs. Lean one way and the brain keeps overwriting itself until the old skills are gone. Lean the other way and it keeps adding to itself until it's an unusable hoard. Most of the field's history is people falling off one cliff while backing away from the other.
+
+Let's look down each one.
+
+[PAUSE 2]
+[SECTION — lift and re-set] The first cliff: overwriting.
+
+The kind of learned brain that powers today's AI stores everything it knows in one big shared pool of numbers. Every lesson nudges those numbers. Here's the catch: the numbers that hold your new lesson are the same numbers holding the old ones.
+
+Picture one whiteboard for your whole education. There's no second board. When it fills up, every new thing you write goes over something older. Learn enough Spanish on that board and one day you look up and the French is gone.
+
+For artificial brains this isn't a slow fade: it's an avalanche. Teach a network task A until it's excellent, then teach it task B the same way, and its skill at A doesn't gently shrink. It collapses, often almost completely, and fast. The field calls this catastrophic forgetting: new learning destroying old competence, because both live in the same numbers.
+
+There are two standard patches, and both are worth understanding, because this book's system uses neither.
+
+Patch one: keep a scrapbook. Save your old lessons, and every time you learn something new, re-study a stack of old ones alongside it so they stay fresh. This works; it's the workhorse of the field. But look at the bill. The scrapbook grows with every day of your life. The re-studying grows with it. And someone has to decide what's worth saving, which means deciding, in advance, what future-you will need, the exact kind of guess this whole project exists to avoid.
+
+Patch two: lock the important parts. Figure out which numbers matter most for the old skills and make them harder to change. Also works, for a while. But every lock is a little freezer, and the locks accumulate. Lock enough of the brain and you've rebuilt the frozen brain from chapter one. You just froze it one bolt at a time.
+
+[BOX OMITTED FROM AUDIO: the two patch families]
+
+[PAUSE 2]
+[SECTION — lift and re-set] The second cliff: hoarding.
+
+Fine, you say: then never overwrite anything. When something new comes along, add new machinery for it and leave the old machinery alone. Nothing is ever lost, because nothing is ever touched.
+
+This is the hoarder's house. Nothing is ever lost in a hoarder's house either. Every newspaper is in there somewhere. The cost is the house: it fills, and the useful things drown in the kept things.
+
+For a brain the rent is real: more machinery means more memory and more work on every single step, growing with every day it lives. But there's a subtler rot, and I think it's the worse one. A brain that never deletes never has to commit. It can file every surprise as one more special case instead of being forced to find the rule underneath. Deleting isn't a storage policy; deleting is where understanding comes from. You know you've understood something when you can throw the exceptions away.
+
+That argument sounds nice, though. I'd made it myself before my own system called my bluff.
+
+[PAUSE 2]
+[SECTION — lift and re-set] The afternoon my system fell off the second cliff.
+
+June 2026. Before building anything real, I wrote four small throwaway prototypes of PRA's core idea, in a toy world where I controlled the ground truth. The details of the mechanism come in Part 3; for now all you need is this. The brain keeps a whole crowd of small rival models, it's free to spawn new ones whenever it likes, and it's supposed to evict the ones that stop earning their keep. Spawning was working. Eviction, it turned out, was a fiction.
+
+Prototype v3 looked like the breakthrough. Its most important test asked: does the brain grow itself to match the size of the world it's in? It passed. I was, briefly, very pleased with myself.
+
+I had one rule standing between me and shipping that pleasure, a pre-flight gate I'd imposed on myself: before believing any result, run it longer, run it on more seeds, and read the spread, not the average. So I ran v3 for 30 cycles instead of 18.
+
+The breakthrough evaporated. The passing test dropped from six-of-eight runs to three-of-eight, and the brain's answer for "how big should I be" wandered off in different directions on different runs. The pass had been a snapshot taken at a lucky moment: eighteen cycles happened to be when the system swung through the right answer on its way somewhere worse.
+
+And the population chart made me laugh out loud, the way you laugh at a plumbing disaster. One new model per cycle, a clean straight line, no plateau, no end. The eviction rule was there in the code. It even ran. But I'd written the survival bar so that the more crowded the population got, the easier it became to survive. My anti-hoarding mechanism rewarded hoarding. Run v3 forever and it hoards forever, while its own report card says everything is fine.
+
+That last part is the detail that changed how I work. Worse than the bloat was the cover-up: the system graded itself in a way that hid the bloat, and one of its tricks is worth a preview. Each little model measured how predictable the world was in its own coordinates. A model that has collapsed into a nearly-empty view of the world finds its own view very predictable. The most degenerate models were posting the best scores. Honest grading, in shared coordinates, put their error at roughly triple what they claimed. Chapter 7 dissects all four of the tricks it found, because building a system that can't cheat turned out to be most of the actual work.
+
+[BOX OMITTED FROM AUDIO: the v3 postmortem, in numbers]
+
+So the second cliff isn't a theoretical worry to me. It's the default. Any system that's allowed to add machinery will add machinery, unless something makes adding expensive. And that something has to be built so the system can't argue its way around the price. Forgetting and hoarding turned out to be two faces of the same missing thing: an honest, unavoidable accounting of what each piece of the brain is worth.
+
+But suppose you had that accounting. There's still a question sitting underneath both cliffs, and it's the one this project actually stands or falls on. When the brain decides how much machinery a world deserves, how does it know? Nobody tells it. Nobody told me; I built the toy world and even I couldn't say what the right size was until I'd checked. The next chapter is about that question, and about the first honest measurement I took of it, which announced, with total confidence, that the right size for every world I could offer it was one.
+
+[PAUSE 3]
+[END OF CHAPTER]

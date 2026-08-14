@@ -195,7 +195,7 @@ races learning and wins by three hundred ticks. The pupils that
 chained early lived off their own work; the rest died in the middle
 of it, having done everything right and slowly.
 
-Which left two honest options. I could re-dose the decay until the
+Which left two options. I could re-dose the decay until the
 numbers passed, which is cheating with extra arithmetic. Or I could
 look at the shape of the gap: a stretch of early life where the
 creature is competent enough to learn and not yet competent enough to
@@ -210,7 +210,8 @@ involves the steps, not just the ingredients.*
 
 The two roads I could see were both expensive. I could hand the brain
 a ladder of subgoals, which means declaring the order myself, which
-is chapter 3's quiet freezing wearing a new hat. Or I could build
+is an old disease wearing a new hat: the designer answering a
+question the brain is supposed to answer for itself.[^disease] Or I could build
 learned decomposition, planning over imagined rollouts, a research
 program measured in months.
 
@@ -398,9 +399,10 @@ crosses the millionth step counts 1,400 cobblestone beside 1,651 logs
 and 5,544 sticks, each of those figures net of what crafting consumed.
 There is no recipe memory in this run and no label. What there is, is
 an itch that pays for finishing anything finishable and a meter that
-counts any pocket gain as food. My reading, offered as a reading:
+counts any pocket gain as food. My reading:
 somewhere in the first half-million steps the bot found the stone face
-and added it to the rotation, and chapter 14's grinding twin has
+and added it to the rotation, and chapter 14's grinding twin, the
+learner that cannot quit a paying loop, has
 turned up here as a hobby that pays for itself.
 
 The run is still going as I write this. The deciles that answer the
@@ -520,3 +522,6 @@ digs in five, and that is where the next chapter starts.
 > bot's physics are wall-clock, so at M = 10 a collect-walk took 17
 > brain steps to cross a block against 4 at M = 1, and the bot slows
 > by 1/M relative to mobs, crops, and daylight.
+
+[^disease]: Chapter 3: the brain must discover its own size, with
+    nobody telling it.

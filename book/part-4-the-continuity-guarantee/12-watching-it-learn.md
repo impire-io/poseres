@@ -21,7 +21,9 @@ pra-rover
 A browser page opens. In it, a small rover wanders a walled arena with
 five obstacles, reading a five-beam rangefinder, a compass, a position
 beacon, and a bumper. The rover's movements are, and remain, random.
-Chapter 9 explained why the coin flip is the honest baseline. The point
+The coin flip is the honest baseline, for a reason measured the hard
+way: random has no preferences to bias what the brain gets to
+see.[^coin] The point
 of the demo isn't the driving. It's the three quantities moving beside
 the arena, because by now you know what each one of them is.
 
@@ -36,11 +38,12 @@ without any line of code naming that number.
 And best_dim settles, usually at 2, run after run. The rover's physical
 state is three or four numbers (position, heading). Two is chapter 8's
 price-optimal answer for what this sensor stream will pay for at this
-budget. You are watching the book's central argument happen in about
-four minutes.
+budget. You are watching the book's central argument happen in well
+under five minutes.
 
 One discipline behind the screen deserves its paragraph, because it's
-chapter 7's law wearing its last disguise. The viewer *observes without
+the homework law (never let the system grade its own homework) wearing
+its last disguise.[^homework-law] The viewer *observes without
 perturbing*: a run with the browser page open is byte-identical to the
 same run with no one watching. A paced, watchable run is byte-identical
 to an unthrottled one. That's tested, not assumed. An
@@ -103,7 +106,7 @@ recognizable.
 > sensor timing is the world's to control. Stated up front rather than
 > discovered by a disappointed user.
 
-## The first real sensor drew blood
+## The first real sensor broke my assumptions
 
 The Gazebo worked example (a simulated diff-drive rover with a real
 lidar stack, the dress rehearsal for physical hardware) earned its
@@ -111,8 +114,8 @@ place in this book on its first run. The summary printed `nan early →
 nan late` while the exit code reported success. A lidar reports
 infinity for "no hit" and negative infinity for "below minimum range."
 Those non-finite values marched straight through the pipeline and
-poisoned every accumulated error statistic. The instrument smiled;
-the numbers were garbage.
+poisoned every accumulated error statistic. The dashboard looked
+healthy; the numbers were garbage.
 
 The fix was boring in the best way: the adapter now rejects non-finite
 deliveries loudly, and the example clamps its lidar to the sensor's own
@@ -123,15 +126,25 @@ Chapter 8's worlds were clean. Real sensors are not: they saturate,
 they drop out, they carry channels of pure noise. A measured result
 from the complexity-ladder work says exactly where that bites: strong
 static on half the channels collapses structure discovery. The named
-remedy, learned channel weighting, is on the bench as I write this,
-and it explicitly gates the physical-robot showcase. The continuity
+remedy, learned channel weighting, has since landed: switched on, the
+noise test passes at full statistical power, and the failing default
+stays in the record as the reference point. The showcase robot itself
+is parked for now, a sequencing call rather than a wall: its gates were
+met before the decision and stay met after it. The continuity
 guarantee of this part of the book holds where it has been measured.
-Between here and a robot in your garage stands one named, sized, open
-problem. That's the most honest sentence a systems book can end a part
-on.
+Between here and a robot in your garage stands work that is named and
+sized, not a mystery.
 
-What's left is the frontier the whole book has been walking toward. The
-worlds so far answer pokes with physics. There's one more kind of world:
-one that answers with *intent*, that notices what you're trying to do
-and replies in a way meant to change you. A teacher. Part 5 asks what
-this architecture becomes when the world teaches back.
+What's left is the frontier the whole book has been walking toward, and
+it arrives in two steps. First the long run: everything so far was
+measured in short lives, and Part 5 is the story of finally letting one
+brain live a long one, in a world rich enough to push back. Past that
+waits one more kind of world: one that answers with *intent*, that
+notices what you're trying to do and replies in a way meant to change
+you. A teacher. Part 6 asks what this architecture becomes when the
+world teaches back.
+
+[^coin]: Chapter 9, where the directed drives had to beat it and mostly
+    didn't.
+
+[^homework-law]: Chapter 7.

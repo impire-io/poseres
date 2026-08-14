@@ -78,7 +78,8 @@ any new result did. The gate runners live in a scratchpad and
 get rebuilt from the committed record when a topic reopens. The
 first rebuild matched every coarse anchor in the record and produced
 zero chains where the record held two. One configuration number was
-wrong: chapter 10's weight cap, 0.0 where the run posture said 1.2.
+wrong: the weight cap installed against rot,[^cap] 0.0 where the
+run posture said 1.2.
 The registered criterion that caught it demanded identity, not
 resemblance: the rebuilt instrument had to reproduce July's two
 recorded chains at their exact recorded ticks, seed 6 at tick 706
@@ -172,8 +173,8 @@ Twenty-four of 24 gained a log, 286 logs across the arm. The same
 graduates, under the same hold, without the itch: zero logs in 24
 runs. One term separates a statue from a woodcutter.
 
-And six of 24 ran the full chain. Exactly at the bar, not above it,
-and I report it as what it is, a pass at the line. But the entire
+And six of 24 ran the full chain. Exactly at the bar, not above it:
+a pass at the line. But the entire
 prior record held two chains, both existence-level flukes from a
 failing gate. These six were the first bar-level deliberate chains
 in the project's history.
@@ -284,7 +285,7 @@ about digs, because I was only thinking about digs when I wrote it.
 Learning generalized where the scaffold couldn't, because the
 scaffold could only contain what its author foresaw.
 
-The roughness gets reported with the trophy. The learned rule is
+The trophy comes with roughness attached. The learned rule is
 noisy: 812 of its 1,957 completion firings came with no realized
 gain, and that noisy rule still carried three passing bars. No
 cobblestone appeared at the confirmed dose; the grinding twin stayed
@@ -325,3 +326,5 @@ prototype with one crutch left in it: the hold that keeps the bot at
 the workshop still reads the position oracle, because nothing
 brain-side holds position yet. A prototype is not a brain. The next
 morning's work was making it one.
+
+[^cap]: Chapter 10.

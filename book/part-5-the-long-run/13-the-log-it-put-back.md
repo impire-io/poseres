@@ -171,10 +171,12 @@ measurement rather than its answer.
 
 ## The part where my equipment failed and the brain didn't
 
-An honest run report includes the operator. In 17 days the brain
+The operator belongs in the run report too, because he turned out to
+be its least reliable component. In 17 days the brain
 process crashed zero times. It was restarted twice, deliberately, and
 both times it resumed from its latest snapshot, replaying 1,712 and
-5,038 steps, exactly as chapter 11 promised it would.
+5,038 steps to land byte-identical, exactly the paused-not-lost
+guarantee this book made earlier.[^pause]
 
 My side of the table did worse. The telemetry pipeline's small
 flushing service crash-looped 14 times over the last week (a timeout
@@ -185,7 +187,7 @@ nowhere durable to land, and the stream's buffer only holds one hour.
 57,219 steps of the record aged out and are gone. The final 56 minutes
 survived because we pulled them off the buffer minutes before they
 expired. The hole is visible in the archive's sequence numbers, on
-purpose: this system records its gaps rather than papering over them.
+purpose.
 
 The subject outlived the instruments. I keep rediscovering that the
 observer is part of the experiment, and this time it cost 57,219
@@ -232,3 +234,6 @@ Somewhere on that server, in a hillside the bot rearranged in late
 July, there is an oak log it mined on day four and set back into the
 ground on the same afternoon. The next arc of this project is about
 building the part of a mind that would have kept it.
+
+[^pause]: Chapter 11: a snapshot is the brain paused, not the brain
+    remembering.

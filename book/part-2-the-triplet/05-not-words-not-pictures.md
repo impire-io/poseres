@@ -1,6 +1,6 @@
 <!-- Draws on: journey 0010 (positioning: competes with frozen intelligence,
      not with LLMs on language; non-goals include language/knowledge
-     competition and benchmark theater). Part 5 hook: teacher-as-world.
+     competition and benchmark theater). Part 6 hook: teacher-as-world.
      No empirical numbers in this chapter. -->
 
 # Not words, not pictures
@@ -18,11 +18,12 @@ forever, and learning true.
 
 ## The ultimate watcher
 
-Chapter 4 gave us the tool for this. A language model's training life,
-described honestly, has a familiar shape: given everything so far, guess
+Chapter 4 handed us the tool for this: hold any learning life up and
+read it as before, action, after. A language model's training life
+has a familiar shape: given everything so far, guess
 the next word, then see the real next word and be corrected by the gap.
 Before, guess, after. It's prediction-error learning, the same fuel PRA
-runs on, and I want to be fair about that, because it's exactly why these
+runs on, and that shared fuel is exactly why these
 systems got so good.
 
 But hold the two side by side and look at the middle.
@@ -105,11 +106,11 @@ as naturally as a motor command does. I said something, and the other
 person answered. That reply is a real consequence of a real act, because
 this time the world I poked was a person, and a person reacts. A person
 can be surprised by what I say, push back, correct me. A conversation
-partner has everything a pile of text lacks. That is the door Part 5
+partner has everything a pile of text lacks. That is the door Part 6
 walks through: to this brain, a teacher is simply another world to learn
-from, one that talks back. I don't yet know whether that door leads
-where I hope. The record hasn't answered, and when we get there I'll say
-exactly what has been measured and what is still a bet.
+from, one that talks back. Whether that door leads where I hoped is no
+longer a guess; the first measurements are in, they carry a twist, and
+they wait at the far end of the book.
 
 That closes the case this half of the book was building. The raw material
 is settled: triplets, streams of them, firsthand. Now comes the machine

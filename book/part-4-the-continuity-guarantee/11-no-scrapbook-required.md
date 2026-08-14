@@ -17,9 +17,10 @@ load-bearing. Lose it and the next lesson starts destroying old
 competence again.
 
 PRA's inventory is shorter. The population of frames: their sizes, their
-weights, their running scores. That's the whole estate. Not one triplet
-is retained; every observation is used in the moment, shapes whatever it
-shapes, and is gone. The brain's memory footprint on day one thousand is
+weights, their running scores. That's the whole estate. Outside a small
+fixed window of recent observations the drive layer keeps for its
+bookkeeping, not one triplet is retained; every observation is used in
+the moment, shapes whatever it shapes, and is gone. The brain's memory footprint on day one thousand is
 the same as on day one, bounded by the population cap, not by the length
 of the life. Ask it about a specific afternoon last month and there is
 nothing there to answer with. It keeps what ten thousand hours of
@@ -28,9 +29,8 @@ built.
 
 ## Why losing the past is affordable
 
-Throwing away experience sounds reckless, so it's worth being precise
-about which jobs the scrapbook was doing in other systems, and what does
-those jobs here.
+Throwing away experience sounds reckless, so here are the jobs the
+scrapbook was doing in other systems, and what does each of them here.
 
 Replay's first job is protecting old skills from new lessons. In a
 single shared network, the only way to keep yesterday's competence from
@@ -41,11 +41,11 @@ exposed to new gradients in the first place. Structural protection where
 replay uses rehearsal.
 
 Replay's second job is remembering rare-but-important situations.
-Here the honest answer is: PRA handles this differently, and less
+Here PRA does the job differently, and less
 completely. A situation matters to this brain exactly as long as the
 structure it shaped keeps earning its place in prediction. A one-time
 event whose lesson stops paying rent will eventually be competed away.
-That's a real limitation, stated plainly: this is a brain, not a log. If
+That's a real limitation: this is a brain, not a log. If
 your application needs an archive (an incident record, an audit trail),
 keep one; the claim of this chapter is only that *learning continually*
 doesn't require it, not that archives are useless.
@@ -71,13 +71,13 @@ never stopped. Not similar. Identical, to the last bit of every
 number, provable by re-running both.
 
 A snapshot isn't the brain remembering; it's the brain *paused*. But the
-consequence is worth a moment of awe, because it's something biological
-brains flatly cannot do: this brain is a file. It can be stopped,
+consequence is something biological brains flatly cannot do: this brain
+is a file. It can be stopped,
 copied, moved to another machine, resumed mid-thought. Two people can
 run the same mind forward from the same moment and compare what happens.
 A learned lifetime can be handed to someone else. That is the seed of
-something Part 5 will want: if a brain is a file, a *trained* brain is a
-shareable artifact.
+something this book will come back to: if a brain is a file, a *trained*
+brain is a shareable artifact.
 
 > **Under the hood: the snapshot contract.** Feature 003: the full
 > learned state (frame tensors, drive bookkeeping, counters, summary
@@ -91,18 +91,18 @@ shareable artifact.
 > re-attaches.
 > Snapshots are opt-in; validated modes stay byte-frozen and file-free.
 
-## One bit, five features, and what "identical" costs
+## One bit, six features, and what "identical" costs
 
 I want to tell you about the smallest bug I have ever hunted, because
 nothing else in the project says as much about what the byte-identity
 standard actually demands.
 
-Five features after snapshots shipped, a test in a later feature caught
-a resumed run differing from its uninterrupted twin in one telemetry
-number: by one ULP. A ULP is the smallest step a computer's numbers can
+Six features shipped after snapshots without a wobble; then a test in
+the seventh caught a resumed run differing from its uninterrupted twin
+in one telemetry number: by one ULP. A ULP is the smallest step a computer's numbers can
 take; this was a disagreement in the very last bit of one
 floating-point value. Every earlier schedule, every mode, every test
-across five features had shown perfect equality. One new test
+across those six features had shown perfect equality. One new test
 configuration, and there it was: the tiniest representable crack in the
 guarantee.
 
@@ -114,8 +114,10 @@ order. Computers add floating-point numbers in sequence, and addition
 order changes the rounding in the last bit. So a restored population,
 identical in every value but iterated in a different order, summed its
 per-step arithmetic infinitesimally differently. The fix records the
-order as lived. The lesson earned a place next to chapter 7's rules:
-*sorting is a mutation.* A byte-identity claim is only as strong as the
+order as lived. The lesson earned a place next to the project's
+constitutional rules (read the spread, judge at several horizons,
+never let the system grade its own homework)[^rules]: *sorting is a
+mutation.* A byte-identity claim is only as strong as the
 orders it preserves, and "the same numbers" is not the same as "the
 same computation".
 
@@ -125,11 +127,14 @@ hypothesis, every dose–response, every "moved only this and the landing
 rose") rests on runs being *exactly* reproducible, so that any
 difference between two runs is caused by the one thing deliberately
 changed. A standard of "close enough" would have dissolved chapter 10's
-lockstep turns and chapter 9's paired margins into plausible noise. One
+lockstep rot-and-repair turns and chapter 9's paired drive margins into
+plausible noise. One
 ULP today is an unexplained mechanism tomorrow. The project pays for
-its certainties in this currency, and I've come to think the price is
-the whole reason there's anything in this book worth telling.
+its certainties in this currency, and I've come to think that price is
+a large part of why any number in this book can be trusted at all.
 
 The guarantee, then, in one sentence: nothing of the past is kept, and
 nothing of the present is lost. The next chapter is where you stop
 taking my word for any of it: the part of the book you can run.
+
+[^rules]: Chapter 7, where a week of sealed cheats produced them.

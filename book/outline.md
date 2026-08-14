@@ -7,10 +7,24 @@ docs). Beats are prompts, not sentences — the prose decides.
 Status: working draft, 2026-08-09. Chapter count will move as drafting
 reveals what merges and what splits.
 
+## Front matter
+
+**00 · A note before we start** *(drafted 2026-08-13, unnumbered)*
+Who is talking: geek and tinkerer; day job is technical AI foundations
+for organizations; data platforms, front of event-driven architectures,
+Synadia (event-driven AI on NATS); conviction since the big data years
+(~2012) that the world is inherently event-driven, and the brain as the
+most event-driven system there is. No PhD and no apology for it. The book as a concrete
+human–AI collaboration (dialogue for theory, drafting with the human
+deciding what's true, literature translated on demand, pre-registered
+experiments as referee). Not out to prove anything; smarter takes are
+welcome and will be fed into an AI until understandable. Hands off to
+ch 1's lawnmower.
+
 ## Part 1 — The problem
 
 **01 · The brain in the freezer** *(drafted — calibration chapter)*
-A robot vacuum that never learns the chair leg. How machine brains are made
+A robot mower that never learns the tree trunk. How machine brains are made
 today: study, then freeze. Why frozen
 mostly works, and exactly when it breaks (world changes, task changes, body
 changes). Why "just retrain" isn't learning. What I actually want: every

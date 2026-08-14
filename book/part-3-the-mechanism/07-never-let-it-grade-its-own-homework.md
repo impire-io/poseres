@@ -82,7 +82,7 @@ little more of whatever passed by recently, including the noise. The
 creep is small, but it's relentless, and if the survival score is
 error alone, then "slightly bigger is slightly better" never stops
 being true. The crowd inflates one justified-looking knob at a time:
-chapter 2's hoard in slow motion, with paperwork. Better grading can't
+the straight-line hoard again, in slow motion, with paperwork.[^hoard] Better grading can't
 fix this, because the extra knobs genuinely do reduce measured error.
 The fix has to make them unprofitable instead. Every knob charges a
 flat fee against its frame's score, so a knob earns its place only
@@ -111,8 +111,7 @@ chart that had been a straight line became a curve that rises, rolls
 over, and levels off at a number the mechanism negotiates on its own.
 
 All four sealed, v4 passed the full suite honestly: at short horizons
-and long ones, across all eight seeds, with the population leveling off
-instead of climbing. Out of that week came three rules I've treated as
+and long ones, with the population leveling off instead of climbing. Out of that week came three rules I've treated as
 constitutional ever since. Read the spread across runs, never the average.
 Judge at several horizons, never one snapshot. And never, ever let the
 system grade its own homework. They'll keep reappearing to the last page
@@ -143,7 +142,7 @@ What transfers to a new context counts; what you were tracking a second
 ago doesn't. Learning itself still runs on every step. Only the *judging*
 moved.
 
-And then the twist that makes this my favorite result in the project: the
+And then the twist: the
 fair judge, alone, made everything *worse*. Honest scores are naturally
 higher than flattered ones (of course they are), so with the old survival
 bar in place, nothing could pass it anymore. No frame ever matured;
@@ -175,7 +174,7 @@ and I have the failed single-fix runs on record to prove it.
 Step back and look at what accumulated here, because it changed how I
 think about this whole field. The frames (the clever part, the learning
 part) are small and almost boring: three little networks each. Nearly
-all the real design effort, the months of it, went into the *judge*: what
+all the real design effort, the weeks of it, went into the *judge*: what
 counts, when it counts, in whose coordinates, at what price, against what
 bar. I came into this project believing the hard problem was building
 something that learns. The record says otherwise. Learning was cheap.
@@ -192,3 +191,6 @@ I told you every knob costs a fee, and I owe you what happens when that
 fee meets a world whose true size nobody knows, because what it does is
 quietly rewrite the question this entire project asked at the start. That's
 chapter 8.
+
+[^hoard]: Chapter 2's v3 population chart: one new model per cycle, no
+    plateau.
