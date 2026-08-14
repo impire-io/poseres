@@ -766,3 +766,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0095 | [κ was never magic: the drive pipeline already normalizes the world](0095-budget-arbitration.md) |
 | 0096 | [The lab wearing reality's skin: c1e closes, and the scenario is the verdict](0096-the-lab-wearing-realitys-skin.md) |
 | 0097 | [Nothing is faked: the estate deleted, the proof goes live](0097-nothing-is-faked.md) |
+| 0098 | [The book clears its throat: voice rules land, REVISIT empties](0098-the-book-clears-its-throat.md) |
