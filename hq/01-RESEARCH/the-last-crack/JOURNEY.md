@@ -1,5 +1,21 @@
 # the-last-crack — journey (opened 2026-08-15)
 
+## 2026-08-15 — L2 PASS, L3 green: the chain pays itself (L2-READING.md)
+
+The powered pair (3 repeats per arm): baseline 0 breaks in 4,500
+parked steps — the shipped vote cannot finish a live dig in this
+geometry, ever — committed 10 breaks, 11 collects, and repeat 3 ran
+the WHOLE chain: steered contact → committed dig → break → collect →
+6 eats to full satiation (food 8 → 20), **first eat at step 333** —
+an order of magnitude faster than anything in the record (best 1,119;
+flood era 3.8k–5.2k). L3 green: the full gate with the flags off,
+byte-frozen suite included. All three bars met. The topic's question
+answers YES with the mechanism named: the dig quit because the vote
+is a knife-edge re-fought every frame — commitment (incumbency while
+progress advances, dying with its intention) plus exploration that
+defers to a live hold closes the crack. Promotion into the shipped
+default is a spec-kit feature decision, deliberately not taken here.
+
 ## 2026-08-15 — L1: the knife-edge convicted; the fix built; the twin measured (L1-READING.md)
 
 The trace acquitted the clip (0/4 directed releases in its band,
