@@ -1,0 +1,162 @@
+[
+  {
+    "check": "W0 handshake: aim channel width 9",
+    "pass": true,
+    "detail": {
+      "pose": 5,
+      "vitals": 2,
+      "env": 4,
+      "blocks": 3,
+      "mining": 1,
+      "pocket": 4,
+      "hand": 7,
+      "grid": 7,
+      "drops": 8,
+      "glance": 32,
+      "aim": 9
+    }
+  },
+  {
+    "check": "W1 naive book: the melon is SEEN yet reads zero worth",
+    "pass": true,
+    "detail": {
+      "glance_s0": [
+        0.0625,
+        0.30980392156862746,
+        -0.5607843137254902,
+        -0.24705882352941178
+      ],
+      "aim": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  },
+  {
+    "check": "W-meal: one scripted meal prices the chain (melon + melon_slice)",
+    "pass": true,
+    "detail": {
+      "food_before": 8,
+      "food_after": 16,
+      "palate": {
+        "melon_slice": 0.068,
+        "melon": 0.068
+      }
+    }
+  },
+  {
+    "check": "W-guard: the saturation dose paid nothing (no held use)",
+    "pass": true,
+    "detail": {
+      "palate": {
+        "melon_slice": 0.068,
+        "melon": 0.068
+      }
+    }
+  },
+  {
+    "check": "W2 priced vs unpriced in one sample: melon sector 1.0, stone 0",
+    "pass": true,
+    "detail": {
+      "aim": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  },
+  {
+    "check": "W3 plain and ungained: worth identical hungry, senses unfaded",
+    "pass": true,
+    "detail": {
+      "food": 8,
+      "aim_s0": 1,
+      "stone_sector_drift": 0.0
+    }
+  },
+  {
+    "check": "W4 the drop slot prices: stick 0, melon_slice 1.0",
+    "pass": true,
+    "detail": {
+      "stick": 0,
+      "melon_slice": 1
+    }
+  },
+  {
+    "check": "S0 persistence: no aim channel, the book survived the restart",
+    "pass": true,
+    "detail": {
+      "channels": {
+        "pose": 5,
+        "vitals": 2,
+        "env": 4,
+        "blocks": 3,
+        "mining": 1,
+        "pocket": 4,
+        "hand": 7,
+        "grid": 7,
+        "drops": 8,
+        "glance": 32
+      },
+      "palate": {
+        "melon_slice": 0.068,
+        "melon": 0.068
+      }
+    }
+  },
+  {
+    "check": "S1 sated everything is plain: melon AND stone fully visible",
+    "pass": true,
+    "detail": {
+      "melon_s0": [
+        0.0625,
+        0.30980392156862746,
+        -0.5607843137254902,
+        -0.24705882352941178
+      ],
+      "stone_s4": [
+        0.0625,
+        0.7254901960784315,
+        -0.5215686274509803,
+        -0.37254901960784315
+      ]
+    }
+  },
+  {
+    "check": "S2 hungry: the priced melon stays, the unpriced stone fades by 1-f",
+    "pass": true,
+    "detail": {
+      "food": 8,
+      "f": 0.2178,
+      "melon_drift": 0.0,
+      "stone_dist": [
+        0.0625,
+        0.2666666666666666
+      ],
+      "dist_err": 0.0,
+      "sig_err": 0.0
+    }
+  },
+  {
+    "check": "S3 the drop fades by its price: stick presence 1-f, slice 1",
+    "pass": true,
+    "detail": {
+      "f": 0.2178,
+      "stick_present": 0.7822222222222223,
+      "slice_present": 1
+    }
+  }
+]

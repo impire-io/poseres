@@ -1,5 +1,27 @@
 # the-aim — journey (opened 2026-08-15)
 
+## 2026-08-15 — bar A1 MET: the aim is real, both forms (A1-READING.md)
+
+11/11 live checks on the first run. The naive book sees the melon and
+prices it zero; ONE scripted meal (food 8 → 16, four chained slices)
+prices the whole chain — melon and melon_slice land at 0.068, which is
+the EMA's own arithmetic (0.1·(1−0.75⁴)) confirming the instrument
+computes exactly what it declares. The worth form then reads priced vs
+unpriced in one sample (aim [1.0, …, 0, …]: melon sector 1.0, stone
+sector 0), stays byte-identical hungry (ungained), and prices the drop
+slot (stick 0, slice 1.0). The salience form, reading the SAME book
+through a fresh bridge process (PALATE_FILE — the tongue is body
+state, proven across forms), is plain sated and fades hungry exactly
+by g = 1−f: at food 8 (f 0.2178) the unpriced stone's dist moves
+0.0625 → 0.2667 with dist_err 0.0 and sig_err 0.0, the priced melon
+sector drifts 0.0, and a summoned stick's presence reads 0.7822 = 1−f
+to the float while the slice's reads 1.0. One structural gift
+measured: block and item are paid by the same meals, so the glance leg
+and the drops leg are both armed by one meal — the whole chain lights
+up together. The saturation-dose guard held (book unchanged through a
+refill). Next: the head-to-head pilot — 45 sense-using lessons per
+form on the flood body, then hungry-born lives, the-flood's method.
+
 ## 2026-08-15 — the instrument is built (both forms, one palate)
 
 The palate lands at the body seam (bridge): a name → price book, EMA
