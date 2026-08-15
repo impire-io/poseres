@@ -1,0 +1,1016 @@
+world: Set the target tick rate to 100.0 per second
+rcon setblock 5 -61 5 minecraft:water -> Changed the block at 5, -61, 5
+rcon setblock 4 -61 4 minecraft:farmland[moisture=7] -> Changed the block at 4, -61, 4
+rcon setblock 4 -61 5 minecraft:farmland[moisture=7] -> Changed the block at 4, -61, 5
+rcon setblock 4 -61 6 minecraft:farmland[moisture=7] -> Changed the block at 4, -61, 6
+rcon setblock 5 -61 4 minecraft:farmland[moisture=7] -> Changed the block at 5, -61, 4
+rcon setblock 5 -61 6 minecraft:farmland[moisture=7] -> Changed the block at 5, -61, 6
+rcon setblock 6 -61 4 minecraft:farmland[moisture=7] -> Changed the block at 6, -61, 4
+rcon setblock 6 -61 5 minecraft:farmland[moisture=7] -> Changed the block at 6, -61, 5
+rcon setblock 6 -61 6 minecraft:farmland[moisture=7] -> Changed the block at 6, -61, 6
+rcon setblock 4 -60 5 minecraft:melon_stem[age=7] -> Changed the block at 4, -60, 5
+rcon setblock 6 -60 5 minecraft:melon_stem[age=7] -> Changed the block at 6, -60, 5
+rcon setblock 5 -60 4 minecraft:melon_stem[age=7] -> Changed the block at 5, -60, 4
+rcon setblock 5 -60 6 minecraft:melon_stem[age=7] -> Changed the block at 5, -60, 6
+rcon setblock 3 -60 5 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 5 minecraft:melon -> Changed the block at 7, -60, 5
+rcon setblock 5 -60 3 minecraft:melon -> Changed the block at 5, -60, 3
+rcon setblock 5 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 3 -60 3 minecraft:melon -> Could not set the block
+rcon setblock 3 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 3 minecraft:melon -> Changed the block at 7, -60, 3
+rcon setblock 7 -60 7 minecraft:melon -> Changed the block at 7, -60, 7
+rcon setblock 28 -61 0 minecraft:water -> Changed the block at 28, -61, 0
+rcon setblock 27 -61 -1 minecraft:farmland[moisture=7] -> Changed the block at 27, -61, -1
+rcon setblock 27 -61 0 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 27 -61 1 minecraft:farmland[moisture=7] -> Changed the block at 27, -61, 1
+rcon setblock 28 -61 -1 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 28 -61 1 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 29 -61 -1 minecraft:farmland[moisture=7] -> Changed the block at 29, -61, -1
+rcon setblock 29 -61 0 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 29 -61 1 minecraft:farmland[moisture=7] -> Changed the block at 29, -61, 1
+rcon setblock 27 -60 0 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 29 -60 0 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 28 -60 -1 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 28 -60 1 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 26 -60 0 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 0 minecraft:melon -> Could not set the block
+rcon setblock 28 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 28 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 26 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 26 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 0 -61 28 minecraft:water -> Changed the block at 0, -61, 28
+rcon setblock -1 -61 27 minecraft:farmland[moisture=7] -> Changed the block at -1, -61, 27
+rcon setblock -1 -61 28 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock -1 -61 29 minecraft:farmland[moisture=7] -> Changed the block at -1, -61, 29
+rcon setblock 0 -61 27 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 0 -61 29 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 1 -61 27 minecraft:farmland[moisture=7] -> Changed the block at 1, -61, 27
+rcon setblock 1 -61 28 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 1 -61 29 minecraft:farmland[moisture=7] -> Changed the block at 1, -61, 29
+rcon setblock -1 -60 28 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 1 -60 28 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 0 -60 27 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 0 -60 29 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock -2 -60 28 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 28 minecraft:melon -> Could not set the block
+rcon setblock 0 -60 26 minecraft:melon -> Could not set the block
+rcon setblock 0 -60 30 minecraft:melon -> Could not set the block
+rcon setblock -2 -60 26 minecraft:melon -> Could not set the block
+rcon setblock -2 -60 30 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 26 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 30 minecraft:melon -> Could not set the block
+rcon setblock 5 -61 5 minecraft:water -> Could not set the block
+rcon setblock 4 -61 4 minecraft:farmland[moisture=7] -> Changed the block at 4, -61, 4
+rcon setblock 4 -61 5 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 4 -61 6 minecraft:farmland[moisture=7] -> Changed the block at 4, -61, 6
+rcon setblock 5 -61 4 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 5 -61 6 minecraft:farmland[moisture=7] -> Changed the block at 5, -61, 6
+rcon setblock 6 -61 4 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 6 -61 5 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 6 -61 6 minecraft:farmland[moisture=7] -> Changed the block at 6, -61, 6
+rcon setblock 4 -60 5 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 6 -60 5 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 5 -60 4 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 5 -60 6 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 3 -60 5 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 5 minecraft:melon -> Could not set the block
+rcon setblock 5 -60 3 minecraft:melon -> Could not set the block
+rcon setblock 5 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 3 -60 3 minecraft:melon -> Could not set the block
+rcon setblock 3 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 3 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 28 -61 0 minecraft:water -> Could not set the block
+rcon setblock 27 -61 -1 minecraft:farmland[moisture=7] -> Changed the block at 27, -61, -1
+rcon setblock 27 -61 0 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 27 -61 1 minecraft:farmland[moisture=7] -> Changed the block at 27, -61, 1
+rcon setblock 28 -61 -1 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 28 -61 1 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 29 -61 -1 minecraft:farmland[moisture=7] -> Changed the block at 29, -61, -1
+rcon setblock 29 -61 0 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 29 -61 1 minecraft:farmland[moisture=7] -> Changed the block at 29, -61, 1
+rcon setblock 27 -60 0 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 29 -60 0 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 28 -60 -1 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 28 -60 1 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 26 -60 0 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 0 minecraft:melon -> Could not set the block
+rcon setblock 28 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 28 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 26 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 26 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 0 -61 28 minecraft:water -> Could not set the block
+rcon setblock -1 -61 27 minecraft:farmland[moisture=7] -> Changed the block at -1, -61, 27
+rcon setblock -1 -61 28 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock -1 -61 29 minecraft:farmland[moisture=7] -> Changed the block at -1, -61, 29
+rcon setblock 0 -61 27 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 0 -61 29 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 1 -61 27 minecraft:farmland[moisture=7] -> Changed the block at 1, -61, 27
+rcon setblock 1 -61 28 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 1 -61 29 minecraft:farmland[moisture=7] -> Changed the block at 1, -61, 29
+rcon setblock -1 -60 28 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 1 -60 28 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 0 -60 27 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 0 -60 29 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock -2 -60 28 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 28 minecraft:melon -> Could not set the block
+rcon setblock 0 -60 26 minecraft:melon -> Could not set the block
+rcon setblock 0 -60 30 minecraft:melon -> Could not set the block
+rcon setblock -2 -60 26 minecraft:melon -> Could not set the block
+rcon setblock -2 -60 30 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 26 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 30 minecraft:melon -> Could not set the block
+LIFE {"arm": "decree", "life": 1, "chains": 0, "distant_collects": 0, "eats": 0, "first_eat": null, "satiated": false, "expressed": false, "drops_leg": false, "steered": 45, "delegated": 10005, "food_min": 6, "food_max": 8, "columns": 52, "reach": 8.2}
+rcon setblock 5 -61 5 minecraft:water -> Changed the block at 5, -61, 5
+rcon setblock 4 -61 4 minecraft:farmland[moisture=7] -> Changed the block at 4, -61, 4
+rcon setblock 4 -61 5 minecraft:farmland[moisture=7] -> Changed the block at 4, -61, 5
+rcon setblock 4 -61 6 minecraft:farmland[moisture=7] -> Changed the block at 4, -61, 6
+rcon setblock 5 -61 4 minecraft:farmland[moisture=7] -> Changed the block at 5, -61, 4
+rcon setblock 5 -61 6 minecraft:farmland[moisture=7] -> Changed the block at 5, -61, 6
+rcon setblock 6 -61 4 minecraft:farmland[moisture=7] -> Changed the block at 6, -61, 4
+rcon setblock 6 -61 5 minecraft:farmland[moisture=7] -> Changed the block at 6, -61, 5
+rcon setblock 6 -61 6 minecraft:farmland[moisture=7] -> Changed the block at 6, -61, 6
+rcon setblock 4 -60 5 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 6 -60 5 minecraft:melon_stem[age=7] -> Changed the block at 6, -60, 5
+rcon setblock 5 -60 4 minecraft:melon_stem[age=7] -> Changed the block at 5, -60, 4
+rcon setblock 5 -60 6 minecraft:melon_stem[age=7] -> Changed the block at 5, -60, 6
+rcon setblock 3 -60 5 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 5 minecraft:melon -> Could not set the block
+rcon setblock 5 -60 3 minecraft:melon -> Changed the block at 5, -60, 3
+rcon setblock 5 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 3 -60 3 minecraft:melon -> Could not set the block
+rcon setblock 3 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 3 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 28 -61 0 minecraft:water -> Changed the block at 28, -61, 0
+rcon setblock 27 -61 -1 minecraft:farmland[moisture=7] -> Changed the block at 27, -61, -1
+rcon setblock 27 -61 0 minecraft:farmland[moisture=7] -> Changed the block at 27, -61, 0
+rcon setblock 27 -61 1 minecraft:farmland[moisture=7] -> Changed the block at 27, -61, 1
+rcon setblock 28 -61 -1 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 28 -61 1 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 29 -61 -1 minecraft:farmland[moisture=7] -> Changed the block at 29, -61, -1
+rcon setblock 29 -61 0 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 29 -61 1 minecraft:farmland[moisture=7] -> Changed the block at 29, -61, 1
+rcon setblock 27 -60 0 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 29 -60 0 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 28 -60 -1 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 28 -60 1 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 26 -60 0 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 0 minecraft:melon -> Could not set the block
+rcon setblock 28 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 28 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 26 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 26 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 0 -61 28 minecraft:water -> Changed the block at 0, -61, 28
+rcon setblock -1 -61 27 minecraft:farmland[moisture=7] -> Changed the block at -1, -61, 27
+rcon setblock -1 -61 28 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock -1 -61 29 minecraft:farmland[moisture=7] -> Changed the block at -1, -61, 29
+rcon setblock 0 -61 27 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 0 -61 29 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 1 -61 27 minecraft:farmland[moisture=7] -> Changed the block at 1, -61, 27
+rcon setblock 1 -61 28 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 1 -61 29 minecraft:farmland[moisture=7] -> Changed the block at 1, -61, 29
+rcon setblock -1 -60 28 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 1 -60 28 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 0 -60 27 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 0 -60 29 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock -2 -60 28 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 28 minecraft:melon -> Could not set the block
+rcon setblock 0 -60 26 minecraft:melon -> Could not set the block
+rcon setblock 0 -60 30 minecraft:melon -> Could not set the block
+rcon setblock -2 -60 26 minecraft:melon -> Could not set the block
+rcon setblock -2 -60 30 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 26 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 30 minecraft:melon -> Could not set the block
+rcon setblock 5 -61 5 minecraft:water -> Could not set the block
+rcon setblock 4 -61 4 minecraft:farmland[moisture=7] -> Changed the block at 4, -61, 4
+rcon setblock 4 -61 5 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 4 -61 6 minecraft:farmland[moisture=7] -> Changed the block at 4, -61, 6
+rcon setblock 5 -61 4 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 5 -61 6 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 6 -61 4 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 6 -61 5 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 6 -61 6 minecraft:farmland[moisture=7] -> Changed the block at 6, -61, 6
+rcon setblock 4 -60 5 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 6 -60 5 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 5 -60 4 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 5 -60 6 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 3 -60 5 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 5 minecraft:melon -> Could not set the block
+rcon setblock 5 -60 3 minecraft:melon -> Could not set the block
+rcon setblock 5 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 3 -60 3 minecraft:melon -> Could not set the block
+rcon setblock 3 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 3 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 28 -61 0 minecraft:water -> Could not set the block
+rcon setblock 27 -61 -1 minecraft:farmland[moisture=7] -> Changed the block at 27, -61, -1
+rcon setblock 27 -61 0 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 27 -61 1 minecraft:farmland[moisture=7] -> Changed the block at 27, -61, 1
+rcon setblock 28 -61 -1 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 28 -61 1 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 29 -61 -1 minecraft:farmland[moisture=7] -> Changed the block at 29, -61, -1
+rcon setblock 29 -61 0 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 29 -61 1 minecraft:farmland[moisture=7] -> Changed the block at 29, -61, 1
+rcon setblock 27 -60 0 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 29 -60 0 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 28 -60 -1 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 28 -60 1 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 26 -60 0 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 0 minecraft:melon -> Could not set the block
+rcon setblock 28 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 28 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 26 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 26 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 0 -61 28 minecraft:water -> Could not set the block
+rcon setblock -1 -61 27 minecraft:farmland[moisture=7] -> Changed the block at -1, -61, 27
+rcon setblock -1 -61 28 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock -1 -61 29 minecraft:farmland[moisture=7] -> Changed the block at -1, -61, 29
+rcon setblock 0 -61 27 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 0 -61 29 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 1 -61 27 minecraft:farmland[moisture=7] -> Changed the block at 1, -61, 27
+rcon setblock 1 -61 28 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 1 -61 29 minecraft:farmland[moisture=7] -> Changed the block at 1, -61, 29
+rcon setblock -1 -60 28 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 1 -60 28 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 0 -60 27 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 0 -60 29 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock -2 -60 28 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 28 minecraft:melon -> Could not set the block
+rcon setblock 0 -60 26 minecraft:melon -> Could not set the block
+rcon setblock 0 -60 30 minecraft:melon -> Could not set the block
+rcon setblock -2 -60 26 minecraft:melon -> Could not set the block
+rcon setblock -2 -60 30 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 26 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 30 minecraft:melon -> Could not set the block
+world: Set the target tick rate to 100.0 per second
+rcon setblock 5 -61 5 minecraft:water -> Changed the block at 5, -61, 5
+rcon setblock 4 -61 4 minecraft:farmland[moisture=7] -> Changed the block at 4, -61, 4
+rcon setblock 4 -61 5 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 4 -61 6 minecraft:farmland[moisture=7] -> Changed the block at 4, -61, 6
+rcon setblock 5 -61 4 minecraft:farmland[moisture=7] -> Changed the block at 5, -61, 4
+rcon setblock 5 -61 6 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 6 -61 4 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 6 -61 5 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 6 -61 6 minecraft:farmland[moisture=7] -> Changed the block at 6, -61, 6
+rcon setblock 4 -60 5 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 6 -60 5 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 5 -60 4 minecraft:melon_stem[age=7] -> Changed the block at 5, -60, 4
+rcon setblock 5 -60 6 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 3 -60 5 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 5 minecraft:melon -> Could not set the block
+rcon setblock 5 -60 3 minecraft:melon -> Changed the block at 5, -60, 3
+rcon setblock 5 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 3 -60 3 minecraft:melon -> Could not set the block
+rcon setblock 3 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 3 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 28 -61 0 minecraft:water -> Changed the block at 28, -61, 0
+rcon setblock 27 -61 -1 minecraft:farmland[moisture=7] -> Changed the block at 27, -61, -1
+rcon setblock 27 -61 0 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 27 -61 1 minecraft:farmland[moisture=7] -> Changed the block at 27, -61, 1
+rcon setblock 28 -61 -1 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 28 -61 1 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 29 -61 -1 minecraft:farmland[moisture=7] -> Changed the block at 29, -61, -1
+rcon setblock 29 -61 0 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 29 -61 1 minecraft:farmland[moisture=7] -> Changed the block at 29, -61, 1
+rcon setblock 27 -60 0 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 29 -60 0 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 28 -60 -1 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 28 -60 1 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 26 -60 0 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 0 minecraft:melon -> Could not set the block
+rcon setblock 28 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 28 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 26 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 26 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 0 -61 28 minecraft:water -> Changed the block at 0, -61, 28
+rcon setblock -1 -61 27 minecraft:farmland[moisture=7] -> Changed the block at -1, -61, 27
+rcon setblock -1 -61 28 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock -1 -61 29 minecraft:farmland[moisture=7] -> Changed the block at -1, -61, 29
+rcon setblock 0 -61 27 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 0 -61 29 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 1 -61 27 minecraft:farmland[moisture=7] -> Changed the block at 1, -61, 27
+rcon setblock 1 -61 28 minecraft:farmland[moisture=7] -> Changed the block at 1, -61, 28
+rcon setblock 1 -61 29 minecraft:farmland[moisture=7] -> Changed the block at 1, -61, 29
+rcon setblock -1 -60 28 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 1 -60 28 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 0 -60 27 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 0 -60 29 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock -2 -60 28 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 28 minecraft:melon -> Could not set the block
+rcon setblock 0 -60 26 minecraft:melon -> Could not set the block
+rcon setblock 0 -60 30 minecraft:melon -> Could not set the block
+rcon setblock -2 -60 26 minecraft:melon -> Could not set the block
+rcon setblock -2 -60 30 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 26 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 30 minecraft:melon -> Could not set the block
+rcon setblock 5 -61 5 minecraft:water -> Could not set the block
+rcon setblock 4 -61 4 minecraft:farmland[moisture=7] -> Changed the block at 4, -61, 4
+rcon setblock 4 -61 5 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 4 -61 6 minecraft:farmland[moisture=7] -> Changed the block at 4, -61, 6
+rcon setblock 5 -61 4 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 5 -61 6 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 6 -61 4 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 6 -61 5 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 6 -61 6 minecraft:farmland[moisture=7] -> Changed the block at 6, -61, 6
+rcon setblock 4 -60 5 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 6 -60 5 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 5 -60 4 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 5 -60 6 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 3 -60 5 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 5 minecraft:melon -> Could not set the block
+rcon setblock 5 -60 3 minecraft:melon -> Could not set the block
+rcon setblock 5 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 3 -60 3 minecraft:melon -> Could not set the block
+rcon setblock 3 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 3 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 28 -61 0 minecraft:water -> Could not set the block
+rcon setblock 27 -61 -1 minecraft:farmland[moisture=7] -> Changed the block at 27, -61, -1
+rcon setblock 27 -61 0 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 27 -61 1 minecraft:farmland[moisture=7] -> Changed the block at 27, -61, 1
+rcon setblock 28 -61 -1 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 28 -61 1 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 29 -61 -1 minecraft:farmland[moisture=7] -> Changed the block at 29, -61, -1
+rcon setblock 29 -61 0 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 29 -61 1 minecraft:farmland[moisture=7] -> Changed the block at 29, -61, 1
+rcon setblock 27 -60 0 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 29 -60 0 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 28 -60 -1 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 28 -60 1 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 26 -60 0 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 0 minecraft:melon -> Could not set the block
+rcon setblock 28 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 28 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 26 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 26 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 0 -61 28 minecraft:water -> Could not set the block
+rcon setblock -1 -61 27 minecraft:farmland[moisture=7] -> Changed the block at -1, -61, 27
+rcon setblock -1 -61 28 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock -1 -61 29 minecraft:farmland[moisture=7] -> Changed the block at -1, -61, 29
+rcon setblock 0 -61 27 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 0 -61 29 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 1 -61 27 minecraft:farmland[moisture=7] -> Changed the block at 1, -61, 27
+rcon setblock 1 -61 28 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 1 -61 29 minecraft:farmland[moisture=7] -> Changed the block at 1, -61, 29
+rcon setblock -1 -60 28 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 1 -60 28 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 0 -60 27 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 0 -60 29 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock -2 -60 28 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 28 minecraft:melon -> Could not set the block
+rcon setblock 0 -60 26 minecraft:melon -> Could not set the block
+rcon setblock 0 -60 30 minecraft:melon -> Could not set the block
+rcon setblock -2 -60 26 minecraft:melon -> Could not set the block
+rcon setblock -2 -60 30 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 26 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 30 minecraft:melon -> Could not set the block
+LIFE {"arm": "decree", "life": 1, "chains": 0, "distant_collects": 0, "eats": 0, "first_eat": null, "satiated": false, "expressed": false, "drops_leg": false, "steered": 14, "delegated": 10036, "food_min": 6, "food_max": 8, "columns": 81, "reach": 12.3}
+rcon setblock 5 -61 5 minecraft:water -> Changed the block at 5, -61, 5
+rcon setblock 4 -61 4 minecraft:farmland[moisture=7] -> Changed the block at 4, -61, 4
+rcon setblock 4 -61 5 minecraft:farmland[moisture=7] -> Changed the block at 4, -61, 5
+rcon setblock 4 -61 6 minecraft:farmland[moisture=7] -> Changed the block at 4, -61, 6
+rcon setblock 5 -61 4 minecraft:farmland[moisture=7] -> Changed the block at 5, -61, 4
+rcon setblock 5 -61 6 minecraft:farmland[moisture=7] -> Changed the block at 5, -61, 6
+rcon setblock 6 -61 4 minecraft:farmland[moisture=7] -> Changed the block at 6, -61, 4
+rcon setblock 6 -61 5 minecraft:farmland[moisture=7] -> Changed the block at 6, -61, 5
+rcon setblock 6 -61 6 minecraft:farmland[moisture=7] -> Changed the block at 6, -61, 6
+rcon setblock 4 -60 5 minecraft:melon_stem[age=7] -> Changed the block at 4, -60, 5
+rcon setblock 6 -60 5 minecraft:melon_stem[age=7] -> Changed the block at 6, -60, 5
+rcon setblock 5 -60 4 minecraft:melon_stem[age=7] -> Changed the block at 5, -60, 4
+rcon setblock 5 -60 6 minecraft:melon_stem[age=7] -> Changed the block at 5, -60, 6
+rcon setblock 3 -60 5 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 5 minecraft:melon -> Could not set the block
+rcon setblock 5 -60 3 minecraft:melon -> Changed the block at 5, -60, 3
+rcon setblock 5 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 3 -60 3 minecraft:melon -> Could not set the block
+rcon setblock 3 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 3 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 28 -61 0 minecraft:water -> Changed the block at 28, -61, 0
+rcon setblock 27 -61 -1 minecraft:farmland[moisture=7] -> Changed the block at 27, -61, -1
+rcon setblock 27 -61 0 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 27 -61 1 minecraft:farmland[moisture=7] -> Changed the block at 27, -61, 1
+rcon setblock 28 -61 -1 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 28 -61 1 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 29 -61 -1 minecraft:farmland[moisture=7] -> Changed the block at 29, -61, -1
+rcon setblock 29 -61 0 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 29 -61 1 minecraft:farmland[moisture=7] -> Changed the block at 29, -61, 1
+rcon setblock 27 -60 0 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 29 -60 0 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 28 -60 -1 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 28 -60 1 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 26 -60 0 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 0 minecraft:melon -> Could not set the block
+rcon setblock 28 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 28 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 26 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 26 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 0 -61 28 minecraft:water -> Changed the block at 0, -61, 28
+rcon setblock -1 -61 27 minecraft:farmland[moisture=7] -> Changed the block at -1, -61, 27
+rcon setblock -1 -61 28 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock -1 -61 29 minecraft:farmland[moisture=7] -> Changed the block at -1, -61, 29
+rcon setblock 0 -61 27 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 0 -61 29 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 1 -61 27 minecraft:farmland[moisture=7] -> Changed the block at 1, -61, 27
+rcon setblock 1 -61 28 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 1 -61 29 minecraft:farmland[moisture=7] -> Changed the block at 1, -61, 29
+rcon setblock -1 -60 28 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 1 -60 28 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 0 -60 27 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 0 -60 29 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock -2 -60 28 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 28 minecraft:melon -> Could not set the block
+rcon setblock 0 -60 26 minecraft:melon -> Could not set the block
+rcon setblock 0 -60 30 minecraft:melon -> Could not set the block
+rcon setblock -2 -60 26 minecraft:melon -> Could not set the block
+rcon setblock -2 -60 30 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 26 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 30 minecraft:melon -> Could not set the block
+rcon setblock 5 -61 5 minecraft:water -> Could not set the block
+rcon setblock 4 -61 4 minecraft:farmland[moisture=7] -> Changed the block at 4, -61, 4
+rcon setblock 4 -61 5 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 4 -61 6 minecraft:farmland[moisture=7] -> Changed the block at 4, -61, 6
+rcon setblock 5 -61 4 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 5 -61 6 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 6 -61 4 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 6 -61 5 minecraft:farmland[moisture=7] -> Changed the block at 6, -61, 5
+rcon setblock 6 -61 6 minecraft:farmland[moisture=7] -> Changed the block at 6, -61, 6
+rcon setblock 4 -60 5 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 6 -60 5 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 5 -60 4 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 5 -60 6 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 3 -60 5 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 5 minecraft:melon -> Could not set the block
+rcon setblock 5 -60 3 minecraft:melon -> Could not set the block
+rcon setblock 5 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 3 -60 3 minecraft:melon -> Could not set the block
+rcon setblock 3 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 3 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 28 -61 0 minecraft:water -> Could not set the block
+rcon setblock 27 -61 -1 minecraft:farmland[moisture=7] -> Changed the block at 27, -61, -1
+rcon setblock 27 -61 0 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 27 -61 1 minecraft:farmland[moisture=7] -> Changed the block at 27, -61, 1
+rcon setblock 28 -61 -1 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 28 -61 1 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 29 -61 -1 minecraft:farmland[moisture=7] -> Changed the block at 29, -61, -1
+rcon setblock 29 -61 0 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 29 -61 1 minecraft:farmland[moisture=7] -> Changed the block at 29, -61, 1
+rcon setblock 27 -60 0 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 29 -60 0 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 28 -60 -1 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 28 -60 1 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 26 -60 0 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 0 minecraft:melon -> Could not set the block
+rcon setblock 28 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 28 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 26 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 26 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 0 -61 28 minecraft:water -> Could not set the block
+rcon setblock -1 -61 27 minecraft:farmland[moisture=7] -> Changed the block at -1, -61, 27
+rcon setblock -1 -61 28 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock -1 -61 29 minecraft:farmland[moisture=7] -> Changed the block at -1, -61, 29
+rcon setblock 0 -61 27 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 0 -61 29 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 1 -61 27 minecraft:farmland[moisture=7] -> Changed the block at 1, -61, 27
+rcon setblock 1 -61 28 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 1 -61 29 minecraft:farmland[moisture=7] -> Changed the block at 1, -61, 29
+rcon setblock -1 -60 28 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 1 -60 28 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 0 -60 27 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 0 -60 29 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock -2 -60 28 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 28 minecraft:melon -> Could not set the block
+rcon setblock 0 -60 26 minecraft:melon -> Could not set the block
+rcon setblock 0 -60 30 minecraft:melon -> Could not set the block
+rcon setblock -2 -60 26 minecraft:melon -> Could not set the block
+rcon setblock -2 -60 30 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 26 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 30 minecraft:melon -> Could not set the block
+world: Set the target tick rate to 100.0 per second
+rcon setblock 5 -61 5 minecraft:water -> Changed the block at 5, -61, 5
+rcon setblock 4 -61 4 minecraft:farmland[moisture=7] -> Changed the block at 4, -61, 4
+rcon setblock 4 -61 5 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 4 -61 6 minecraft:farmland[moisture=7] -> Changed the block at 4, -61, 6
+rcon setblock 5 -61 4 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 5 -61 6 minecraft:farmland[moisture=7] -> Changed the block at 5, -61, 6
+rcon setblock 6 -61 4 minecraft:farmland[moisture=7] -> Changed the block at 6, -61, 4
+rcon setblock 6 -61 5 minecraft:farmland[moisture=7] -> Changed the block at 6, -61, 5
+rcon setblock 6 -61 6 minecraft:farmland[moisture=7] -> Changed the block at 6, -61, 6
+rcon setblock 4 -60 5 minecraft:melon_stem[age=7] -> Changed the block at 4, -60, 5
+rcon setblock 6 -60 5 minecraft:melon_stem[age=7] -> Changed the block at 6, -60, 5
+rcon setblock 5 -60 4 minecraft:melon_stem[age=7] -> Changed the block at 5, -60, 4
+rcon setblock 5 -60 6 minecraft:melon_stem[age=7] -> Changed the block at 5, -60, 6
+rcon setblock 3 -60 5 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 5 minecraft:melon -> Could not set the block
+rcon setblock 5 -60 3 minecraft:melon -> Changed the block at 5, -60, 3
+rcon setblock 5 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 3 -60 3 minecraft:melon -> Could not set the block
+rcon setblock 3 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 3 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 28 -61 0 minecraft:water -> Changed the block at 28, -61, 0
+rcon setblock 27 -61 -1 minecraft:farmland[moisture=7] -> Changed the block at 27, -61, -1
+rcon setblock 27 -61 0 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 27 -61 1 minecraft:farmland[moisture=7] -> Changed the block at 27, -61, 1
+rcon setblock 28 -61 -1 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 28 -61 1 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 29 -61 -1 minecraft:farmland[moisture=7] -> Changed the block at 29, -61, -1
+rcon setblock 29 -61 0 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 29 -61 1 minecraft:farmland[moisture=7] -> Changed the block at 29, -61, 1
+rcon setblock 27 -60 0 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 29 -60 0 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 28 -60 -1 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 28 -60 1 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 26 -60 0 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 0 minecraft:melon -> Could not set the block
+rcon setblock 28 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 28 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 26 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 26 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 0 -61 28 minecraft:water -> Changed the block at 0, -61, 28
+rcon setblock -1 -61 27 minecraft:farmland[moisture=7] -> Changed the block at -1, -61, 27
+rcon setblock -1 -61 28 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock -1 -61 29 minecraft:farmland[moisture=7] -> Changed the block at -1, -61, 29
+rcon setblock 0 -61 27 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 0 -61 29 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 1 -61 27 minecraft:farmland[moisture=7] -> Changed the block at 1, -61, 27
+rcon setblock 1 -61 28 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 1 -61 29 minecraft:farmland[moisture=7] -> Changed the block at 1, -61, 29
+rcon setblock -1 -60 28 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 1 -60 28 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 0 -60 27 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 0 -60 29 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock -2 -60 28 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 28 minecraft:melon -> Could not set the block
+rcon setblock 0 -60 26 minecraft:melon -> Could not set the block
+rcon setblock 0 -60 30 minecraft:melon -> Could not set the block
+rcon setblock -2 -60 26 minecraft:melon -> Could not set the block
+rcon setblock -2 -60 30 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 26 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 30 minecraft:melon -> Could not set the block
+rcon setblock 5 -61 5 minecraft:water -> Could not set the block
+rcon setblock 4 -61 4 minecraft:farmland[moisture=7] -> Changed the block at 4, -61, 4
+rcon setblock 4 -61 5 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 4 -61 6 minecraft:farmland[moisture=7] -> Changed the block at 4, -61, 6
+rcon setblock 5 -61 4 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 5 -61 6 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 6 -61 4 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 6 -61 5 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 6 -61 6 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 4 -60 5 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 6 -60 5 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 5 -60 4 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 5 -60 6 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 3 -60 5 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 5 minecraft:melon -> Could not set the block
+rcon setblock 5 -60 3 minecraft:melon -> Could not set the block
+rcon setblock 5 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 3 -60 3 minecraft:melon -> Could not set the block
+rcon setblock 3 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 3 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 28 -61 0 minecraft:water -> Could not set the block
+rcon setblock 27 -61 -1 minecraft:farmland[moisture=7] -> Changed the block at 27, -61, -1
+rcon setblock 27 -61 0 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 27 -61 1 minecraft:farmland[moisture=7] -> Changed the block at 27, -61, 1
+rcon setblock 28 -61 -1 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 28 -61 1 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 29 -61 -1 minecraft:farmland[moisture=7] -> Changed the block at 29, -61, -1
+rcon setblock 29 -61 0 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 29 -61 1 minecraft:farmland[moisture=7] -> Changed the block at 29, -61, 1
+rcon setblock 27 -60 0 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 29 -60 0 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 28 -60 -1 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 28 -60 1 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 26 -60 0 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 0 minecraft:melon -> Could not set the block
+rcon setblock 28 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 28 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 26 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 26 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 0 -61 28 minecraft:water -> Could not set the block
+rcon setblock -1 -61 27 minecraft:farmland[moisture=7] -> Changed the block at -1, -61, 27
+rcon setblock -1 -61 28 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock -1 -61 29 minecraft:farmland[moisture=7] -> Changed the block at -1, -61, 29
+rcon setblock 0 -61 27 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 0 -61 29 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 1 -61 27 minecraft:farmland[moisture=7] -> Changed the block at 1, -61, 27
+rcon setblock 1 -61 28 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 1 -61 29 minecraft:farmland[moisture=7] -> Changed the block at 1, -61, 29
+rcon setblock -1 -60 28 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 1 -60 28 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 0 -60 27 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 0 -60 29 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock -2 -60 28 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 28 minecraft:melon -> Could not set the block
+rcon setblock 0 -60 26 minecraft:melon -> Could not set the block
+rcon setblock 0 -60 30 minecraft:melon -> Could not set the block
+rcon setblock -2 -60 26 minecraft:melon -> Could not set the block
+rcon setblock -2 -60 30 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 26 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 30 minecraft:melon -> Could not set the block
+LIFE {"arm": "decree", "life": 1, "chains": 0, "distant_collects": 0, "eats": 0, "first_eat": null, "satiated": false, "expressed": false, "drops_leg": false, "steered": 8975, "delegated": 1075, "food_min": 7, "food_max": 8, "columns": 30, "reach": 5.8}
+rcon setblock 5 -61 5 minecraft:water -> Changed the block at 5, -61, 5
+rcon setblock 4 -61 4 minecraft:farmland[moisture=7] -> Changed the block at 4, -61, 4
+rcon setblock 4 -61 5 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 4 -61 6 minecraft:farmland[moisture=7] -> Changed the block at 4, -61, 6
+rcon setblock 5 -61 4 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 5 -61 6 minecraft:farmland[moisture=7] -> Changed the block at 5, -61, 6
+rcon setblock 6 -61 4 minecraft:farmland[moisture=7] -> Changed the block at 6, -61, 4
+rcon setblock 6 -61 5 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 6 -61 6 minecraft:farmland[moisture=7] -> Changed the block at 6, -61, 6
+rcon setblock 4 -60 5 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 6 -60 5 minecraft:melon_stem[age=7] -> Changed the block at 6, -60, 5
+rcon setblock 5 -60 4 minecraft:melon_stem[age=7] -> Changed the block at 5, -60, 4
+rcon setblock 5 -60 6 minecraft:melon_stem[age=7] -> Changed the block at 5, -60, 6
+rcon setblock 3 -60 5 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 5 minecraft:melon -> Could not set the block
+rcon setblock 5 -60 3 minecraft:melon -> Changed the block at 5, -60, 3
+rcon setblock 5 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 3 -60 3 minecraft:melon -> Could not set the block
+rcon setblock 3 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 3 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 28 -61 0 minecraft:water -> Changed the block at 28, -61, 0
+rcon setblock 27 -61 -1 minecraft:farmland[moisture=7] -> Changed the block at 27, -61, -1
+rcon setblock 27 -61 0 minecraft:farmland[moisture=7] -> Changed the block at 27, -61, 0
+rcon setblock 27 -61 1 minecraft:farmland[moisture=7] -> Changed the block at 27, -61, 1
+rcon setblock 28 -61 -1 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 28 -61 1 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 29 -61 -1 minecraft:farmland[moisture=7] -> Changed the block at 29, -61, -1
+rcon setblock 29 -61 0 minecraft:farmland[moisture=7] -> Changed the block at 29, -61, 0
+rcon setblock 29 -61 1 minecraft:farmland[moisture=7] -> Changed the block at 29, -61, 1
+rcon setblock 27 -60 0 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 29 -60 0 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 28 -60 -1 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 28 -60 1 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 26 -60 0 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 0 minecraft:melon -> Could not set the block
+rcon setblock 28 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 28 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 26 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 26 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 0 -61 28 minecraft:water -> Changed the block at 0, -61, 28
+rcon setblock -1 -61 27 minecraft:farmland[moisture=7] -> Changed the block at -1, -61, 27
+rcon setblock -1 -61 28 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock -1 -61 29 minecraft:farmland[moisture=7] -> Changed the block at -1, -61, 29
+rcon setblock 0 -61 27 minecraft:farmland[moisture=7] -> Changed the block at 0, -61, 27
+rcon setblock 0 -61 29 minecraft:farmland[moisture=7] -> Changed the block at 0, -61, 29
+rcon setblock 1 -61 27 minecraft:farmland[moisture=7] -> Changed the block at 1, -61, 27
+rcon setblock 1 -61 28 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 1 -61 29 minecraft:farmland[moisture=7] -> Changed the block at 1, -61, 29
+rcon setblock -1 -60 28 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 1 -60 28 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 0 -60 27 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 0 -60 29 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock -2 -60 28 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 28 minecraft:melon -> Could not set the block
+rcon setblock 0 -60 26 minecraft:melon -> Could not set the block
+rcon setblock 0 -60 30 minecraft:melon -> Could not set the block
+rcon setblock -2 -60 26 minecraft:melon -> Could not set the block
+rcon setblock -2 -60 30 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 26 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 30 minecraft:melon -> Could not set the block
+rcon setblock 5 -61 5 minecraft:water -> Could not set the block
+rcon setblock 4 -61 4 minecraft:farmland[moisture=7] -> Changed the block at 4, -61, 4
+rcon setblock 4 -61 5 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 4 -61 6 minecraft:farmland[moisture=7] -> Changed the block at 4, -61, 6
+rcon setblock 5 -61 4 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 5 -61 6 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 6 -61 4 minecraft:farmland[moisture=7] -> Changed the block at 6, -61, 4
+rcon setblock 6 -61 5 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 6 -61 6 minecraft:farmland[moisture=7] -> Changed the block at 6, -61, 6
+rcon setblock 4 -60 5 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 6 -60 5 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 5 -60 4 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 5 -60 6 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 3 -60 5 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 5 minecraft:melon -> Could not set the block
+rcon setblock 5 -60 3 minecraft:melon -> Could not set the block
+rcon setblock 5 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 3 -60 3 minecraft:melon -> Could not set the block
+rcon setblock 3 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 3 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 28 -61 0 minecraft:water -> Could not set the block
+rcon setblock 27 -61 -1 minecraft:farmland[moisture=7] -> Changed the block at 27, -61, -1
+rcon setblock 27 -61 0 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 27 -61 1 minecraft:farmland[moisture=7] -> Changed the block at 27, -61, 1
+rcon setblock 28 -61 -1 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 28 -61 1 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 29 -61 -1 minecraft:farmland[moisture=7] -> Changed the block at 29, -61, -1
+rcon setblock 29 -61 0 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 29 -61 1 minecraft:farmland[moisture=7] -> Changed the block at 29, -61, 1
+rcon setblock 27 -60 0 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 29 -60 0 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 28 -60 -1 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 28 -60 1 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 26 -60 0 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 0 minecraft:melon -> Could not set the block
+rcon setblock 28 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 28 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 26 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 26 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 0 -61 28 minecraft:water -> Could not set the block
+rcon setblock -1 -61 27 minecraft:farmland[moisture=7] -> Changed the block at -1, -61, 27
+rcon setblock -1 -61 28 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock -1 -61 29 minecraft:farmland[moisture=7] -> Changed the block at -1, -61, 29
+rcon setblock 0 -61 27 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 0 -61 29 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 1 -61 27 minecraft:farmland[moisture=7] -> Changed the block at 1, -61, 27
+rcon setblock 1 -61 28 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 1 -61 29 minecraft:farmland[moisture=7] -> Changed the block at 1, -61, 29
+rcon setblock -1 -60 28 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 1 -60 28 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 0 -60 27 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 0 -60 29 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock -2 -60 28 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 28 minecraft:melon -> Could not set the block
+rcon setblock 0 -60 26 minecraft:melon -> Could not set the block
+rcon setblock 0 -60 30 minecraft:melon -> Could not set the block
+rcon setblock -2 -60 26 minecraft:melon -> Could not set the block
+rcon setblock -2 -60 30 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 26 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 30 minecraft:melon -> Could not set the block
+world: Set the target tick rate to 100.0 per second
+rcon setblock 5 -61 5 minecraft:water -> Changed the block at 5, -61, 5
+rcon setblock 4 -61 4 minecraft:farmland[moisture=7] -> Changed the block at 4, -61, 4
+rcon setblock 4 -61 5 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 4 -61 6 minecraft:farmland[moisture=7] -> Changed the block at 4, -61, 6
+rcon setblock 5 -61 4 minecraft:farmland[moisture=7] -> Changed the block at 5, -61, 4
+rcon setblock 5 -61 6 minecraft:farmland[moisture=7] -> Changed the block at 5, -61, 6
+rcon setblock 6 -61 4 minecraft:farmland[moisture=7] -> Changed the block at 6, -61, 4
+rcon setblock 6 -61 5 minecraft:farmland[moisture=7] -> Changed the block at 6, -61, 5
+rcon setblock 6 -61 6 minecraft:farmland[moisture=7] -> Changed the block at 6, -61, 6
+rcon setblock 4 -60 5 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 6 -60 5 minecraft:melon_stem[age=7] -> Changed the block at 6, -60, 5
+rcon setblock 5 -60 4 minecraft:melon_stem[age=7] -> Changed the block at 5, -60, 4
+rcon setblock 5 -60 6 minecraft:melon_stem[age=7] -> Changed the block at 5, -60, 6
+rcon setblock 3 -60 5 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 5 minecraft:melon -> Could not set the block
+rcon setblock 5 -60 3 minecraft:melon -> Changed the block at 5, -60, 3
+rcon setblock 5 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 3 -60 3 minecraft:melon -> Could not set the block
+rcon setblock 3 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 3 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 28 -61 0 minecraft:water -> Changed the block at 28, -61, 0
+rcon setblock 27 -61 -1 minecraft:farmland[moisture=7] -> Changed the block at 27, -61, -1
+rcon setblock 27 -61 0 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 27 -61 1 minecraft:farmland[moisture=7] -> Changed the block at 27, -61, 1
+rcon setblock 28 -61 -1 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 28 -61 1 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 29 -61 -1 minecraft:farmland[moisture=7] -> Changed the block at 29, -61, -1
+rcon setblock 29 -61 0 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 29 -61 1 minecraft:farmland[moisture=7] -> Changed the block at 29, -61, 1
+rcon setblock 27 -60 0 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 29 -60 0 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 28 -60 -1 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 28 -60 1 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 26 -60 0 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 0 minecraft:melon -> Could not set the block
+rcon setblock 28 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 28 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 26 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 26 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 0 -61 28 minecraft:water -> Changed the block at 0, -61, 28
+rcon setblock -1 -61 27 minecraft:farmland[moisture=7] -> Changed the block at -1, -61, 27
+rcon setblock -1 -61 28 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock -1 -61 29 minecraft:farmland[moisture=7] -> Changed the block at -1, -61, 29
+rcon setblock 0 -61 27 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 0 -61 29 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 1 -61 27 minecraft:farmland[moisture=7] -> Changed the block at 1, -61, 27
+rcon setblock 1 -61 28 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 1 -61 29 minecraft:farmland[moisture=7] -> Changed the block at 1, -61, 29
+rcon setblock -1 -60 28 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 1 -60 28 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 0 -60 27 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 0 -60 29 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock -2 -60 28 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 28 minecraft:melon -> Could not set the block
+rcon setblock 0 -60 26 minecraft:melon -> Could not set the block
+rcon setblock 0 -60 30 minecraft:melon -> Could not set the block
+rcon setblock -2 -60 26 minecraft:melon -> Could not set the block
+rcon setblock -2 -60 30 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 26 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 30 minecraft:melon -> Could not set the block
+rcon setblock 5 -61 5 minecraft:water -> Could not set the block
+rcon setblock 4 -61 4 minecraft:farmland[moisture=7] -> Changed the block at 4, -61, 4
+rcon setblock 4 -61 5 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 4 -61 6 minecraft:farmland[moisture=7] -> Changed the block at 4, -61, 6
+rcon setblock 5 -61 4 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 5 -61 6 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 6 -61 4 minecraft:farmland[moisture=7] -> Changed the block at 6, -61, 4
+rcon setblock 6 -61 5 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 6 -61 6 minecraft:farmland[moisture=7] -> Changed the block at 6, -61, 6
+rcon setblock 4 -60 5 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 6 -60 5 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 5 -60 4 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 5 -60 6 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 3 -60 5 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 5 minecraft:melon -> Could not set the block
+rcon setblock 5 -60 3 minecraft:melon -> Could not set the block
+rcon setblock 5 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 3 -60 3 minecraft:melon -> Could not set the block
+rcon setblock 3 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 3 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 28 -61 0 minecraft:water -> Could not set the block
+rcon setblock 27 -61 -1 minecraft:farmland[moisture=7] -> Changed the block at 27, -61, -1
+rcon setblock 27 -61 0 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 27 -61 1 minecraft:farmland[moisture=7] -> Changed the block at 27, -61, 1
+rcon setblock 28 -61 -1 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 28 -61 1 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 29 -61 -1 minecraft:farmland[moisture=7] -> Changed the block at 29, -61, -1
+rcon setblock 29 -61 0 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 29 -61 1 minecraft:farmland[moisture=7] -> Changed the block at 29, -61, 1
+rcon setblock 27 -60 0 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 29 -60 0 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 28 -60 -1 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 28 -60 1 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 26 -60 0 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 0 minecraft:melon -> Could not set the block
+rcon setblock 28 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 28 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 26 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 26 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 0 -61 28 minecraft:water -> Could not set the block
+rcon setblock -1 -61 27 minecraft:farmland[moisture=7] -> Changed the block at -1, -61, 27
+rcon setblock -1 -61 28 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock -1 -61 29 minecraft:farmland[moisture=7] -> Changed the block at -1, -61, 29
+rcon setblock 0 -61 27 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 0 -61 29 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 1 -61 27 minecraft:farmland[moisture=7] -> Changed the block at 1, -61, 27
+rcon setblock 1 -61 28 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 1 -61 29 minecraft:farmland[moisture=7] -> Changed the block at 1, -61, 29
+rcon setblock -1 -60 28 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 1 -60 28 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 0 -60 27 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 0 -60 29 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock -2 -60 28 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 28 minecraft:melon -> Could not set the block
+rcon setblock 0 -60 26 minecraft:melon -> Could not set the block
+rcon setblock 0 -60 30 minecraft:melon -> Could not set the block
+rcon setblock -2 -60 26 minecraft:melon -> Could not set the block
+rcon setblock -2 -60 30 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 26 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 30 minecraft:melon -> Could not set the block
+LIFE {"arm": "decree", "life": 1, "chains": 0, "distant_collects": 0, "eats": 0, "first_eat": null, "satiated": false, "expressed": false, "drops_leg": false, "steered": 5571, "delegated": 4479, "food_min": 0, "food_max": 8, "columns": 11, "reach": 4.2}
+rcon setblock 5 -61 5 minecraft:water -> Changed the block at 5, -61, 5
+rcon setblock 4 -61 4 minecraft:farmland[moisture=7] -> Changed the block at 4, -61, 4
+rcon setblock 4 -61 5 minecraft:farmland[moisture=7] -> Changed the block at 4, -61, 5
+rcon setblock 4 -61 6 minecraft:farmland[moisture=7] -> Changed the block at 4, -61, 6
+rcon setblock 5 -61 4 minecraft:farmland[moisture=7] -> Changed the block at 5, -61, 4
+rcon setblock 5 -61 6 minecraft:farmland[moisture=7] -> Changed the block at 5, -61, 6
+rcon setblock 6 -61 4 minecraft:farmland[moisture=7] -> Changed the block at 6, -61, 4
+rcon setblock 6 -61 5 minecraft:farmland[moisture=7] -> Changed the block at 6, -61, 5
+rcon setblock 6 -61 6 minecraft:farmland[moisture=7] -> Changed the block at 6, -61, 6
+rcon setblock 4 -60 5 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 6 -60 5 minecraft:melon_stem[age=7] -> Changed the block at 6, -60, 5
+rcon setblock 5 -60 4 minecraft:melon_stem[age=7] -> Changed the block at 5, -60, 4
+rcon setblock 5 -60 6 minecraft:melon_stem[age=7] -> Changed the block at 5, -60, 6
+rcon setblock 3 -60 5 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 5 minecraft:melon -> Could not set the block
+rcon setblock 5 -60 3 minecraft:melon -> Changed the block at 5, -60, 3
+rcon setblock 5 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 3 -60 3 minecraft:melon -> Could not set the block
+rcon setblock 3 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 3 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 28 -61 0 minecraft:water -> Changed the block at 28, -61, 0
+rcon setblock 27 -61 -1 minecraft:farmland[moisture=7] -> Changed the block at 27, -61, -1
+rcon setblock 27 -61 0 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 27 -61 1 minecraft:farmland[moisture=7] -> Changed the block at 27, -61, 1
+rcon setblock 28 -61 -1 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 28 -61 1 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 29 -61 -1 minecraft:farmland[moisture=7] -> Changed the block at 29, -61, -1
+rcon setblock 29 -61 0 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 29 -61 1 minecraft:farmland[moisture=7] -> Changed the block at 29, -61, 1
+rcon setblock 27 -60 0 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 29 -60 0 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 28 -60 -1 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 28 -60 1 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 26 -60 0 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 0 minecraft:melon -> Could not set the block
+rcon setblock 28 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 28 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 26 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 26 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 0 -61 28 minecraft:water -> Changed the block at 0, -61, 28
+rcon setblock -1 -61 27 minecraft:farmland[moisture=7] -> Changed the block at -1, -61, 27
+rcon setblock -1 -61 28 minecraft:farmland[moisture=7] -> Changed the block at -1, -61, 28
+rcon setblock -1 -61 29 minecraft:farmland[moisture=7] -> Changed the block at -1, -61, 29
+rcon setblock 0 -61 27 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 0 -61 29 minecraft:farmland[moisture=7] -> Changed the block at 0, -61, 29
+rcon setblock 1 -61 27 minecraft:farmland[moisture=7] -> Changed the block at 1, -61, 27
+rcon setblock 1 -61 28 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 1 -61 29 minecraft:farmland[moisture=7] -> Changed the block at 1, -61, 29
+rcon setblock -1 -60 28 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 1 -60 28 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 0 -60 27 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 0 -60 29 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock -2 -60 28 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 28 minecraft:melon -> Could not set the block
+rcon setblock 0 -60 26 minecraft:melon -> Could not set the block
+rcon setblock 0 -60 30 minecraft:melon -> Could not set the block
+rcon setblock -2 -60 26 minecraft:melon -> Could not set the block
+rcon setblock -2 -60 30 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 26 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 30 minecraft:melon -> Could not set the block
+rcon setblock 5 -61 5 minecraft:water -> Could not set the block
+rcon setblock 4 -61 4 minecraft:farmland[moisture=7] -> Changed the block at 4, -61, 4
+rcon setblock 4 -61 5 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 4 -61 6 minecraft:farmland[moisture=7] -> Changed the block at 4, -61, 6
+rcon setblock 5 -61 4 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 5 -61 6 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 6 -61 4 minecraft:farmland[moisture=7] -> Changed the block at 6, -61, 4
+rcon setblock 6 -61 5 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 6 -61 6 minecraft:farmland[moisture=7] -> Changed the block at 6, -61, 6
+rcon setblock 4 -60 5 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 6 -60 5 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 5 -60 4 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 5 -60 6 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 3 -60 5 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 5 minecraft:melon -> Could not set the block
+rcon setblock 5 -60 3 minecraft:melon -> Could not set the block
+rcon setblock 5 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 3 -60 3 minecraft:melon -> Could not set the block
+rcon setblock 3 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 3 minecraft:melon -> Could not set the block
+rcon setblock 7 -60 7 minecraft:melon -> Could not set the block
+rcon setblock 28 -61 0 minecraft:water -> Could not set the block
+rcon setblock 27 -61 -1 minecraft:farmland[moisture=7] -> Changed the block at 27, -61, -1
+rcon setblock 27 -61 0 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 27 -61 1 minecraft:farmland[moisture=7] -> Changed the block at 27, -61, 1
+rcon setblock 28 -61 -1 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 28 -61 1 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 29 -61 -1 minecraft:farmland[moisture=7] -> Changed the block at 29, -61, -1
+rcon setblock 29 -61 0 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 29 -61 1 minecraft:farmland[moisture=7] -> Changed the block at 29, -61, 1
+rcon setblock 27 -60 0 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 29 -60 0 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 28 -60 -1 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 28 -60 1 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 26 -60 0 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 0 minecraft:melon -> Could not set the block
+rcon setblock 28 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 28 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 26 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 26 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 -2 minecraft:melon -> Could not set the block
+rcon setblock 30 -60 2 minecraft:melon -> Could not set the block
+rcon setblock 0 -61 28 minecraft:water -> Could not set the block
+rcon setblock -1 -61 27 minecraft:farmland[moisture=7] -> Changed the block at -1, -61, 27
+rcon setblock -1 -61 28 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock -1 -61 29 minecraft:farmland[moisture=7] -> Changed the block at -1, -61, 29
+rcon setblock 0 -61 27 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 0 -61 29 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 1 -61 27 minecraft:farmland[moisture=7] -> Changed the block at 1, -61, 27
+rcon setblock 1 -61 28 minecraft:farmland[moisture=7] -> Could not set the block
+rcon setblock 1 -61 29 minecraft:farmland[moisture=7] -> Changed the block at 1, -61, 29
+rcon setblock -1 -60 28 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 1 -60 28 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 0 -60 27 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock 0 -60 29 minecraft:melon_stem[age=7] -> Could not set the block
+rcon setblock -2 -60 28 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 28 minecraft:melon -> Could not set the block
+rcon setblock 0 -60 26 minecraft:melon -> Could not set the block
+rcon setblock 0 -60 30 minecraft:melon -> Could not set the block
+rcon setblock -2 -60 26 minecraft:melon -> Could not set the block
+rcon setblock -2 -60 30 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 26 minecraft:melon -> Could not set the block
+rcon setblock 2 -60 30 minecraft:melon -> Could not set the block

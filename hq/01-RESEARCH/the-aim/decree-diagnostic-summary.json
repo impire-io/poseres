@@ -1,0 +1,26 @@
+{
+ "steps": 1500,
+ "at_melon_frames": 389,
+ "head_at_melon": 389,
+ "head_digs_at_melon": 211,
+ "longest_dig_run": 29,
+ "mining_max": 0.97,
+ "decree_frames_breaking_a_dig": 4,
+ "head_action_histogram": {
+  "0": 34,
+  "1": 88,
+  "2": 9,
+  "3": 26,
+  "4": 20,
+  "5": 237,
+  "6": 21,
+  "7": 14,
+  "8": 32,
+  "9": 18,
+  "10": 29,
+  "11": 25,
+  "12": 141
+ },
+ "eats": 0,
+ "food_final": 8
+}

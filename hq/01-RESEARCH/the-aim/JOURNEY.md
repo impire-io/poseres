@@ -1,5 +1,29 @@
 # the-aim — journey (opened 2026-08-15)
 
+## 2026-08-15 — the decree exposes the real blocker: the dig's last 3% (DECREE-READING.md)
+
+v4 parked the hungry body at the melon — 389 at-melon frames, all
+correctly delegated — and food still hit 0. The 1,500-step per-frame
+diagnostic measured why: the head dug 211 of those frames, its
+longest hold ran 29 consecutive digs to mining progress 0.97, and NO
+dig ever completed; the decree broke only 4 dig frames. The taught
+hold is systematically ~1 frame short of the melon's ~30-step live
+break time, and vanilla resets block damage on release — the last 3%
+is never paid. Free-roaming eats (A2 13, A3 29) were the variance of
+longer holds; the decree's exact one-block geometry made the
+under-hold deterministic. So the registered discriminator resolved
+one layer down: hand-wired aiming CREATES contact reliably (position
+— the flood era's "spatial luck" — is solved by steering on the
+palate's prices), and expression still fails inside the skill. The
+reversal's second branch fires with a mechanism attached: the gap is
+not aim. The remaining five control lives were not run — they would
+have measured the same defect five more times; stopped and recorded.
+Successor named for registration (owner's call): "the last crack" —
+why the recipe's hold releases at ~97%, and whether completion should
+key on the world's own break (the drop) instead of the sensed
+progress estimate. Every "skill expresses with variance" reading
+since c1e inherits a correction from this measurement.
+
 ## 2026-08-15 — decree amendment 3: arrived is ONE block (the ep-0078 family again)
 
 v3 inverted the engagement — steered 8,975 of 10,050 — and still ate
