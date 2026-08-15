@@ -54,17 +54,24 @@ HUNGRY = 0.75  # food < 15/20 — the flood's own theta, the decree's trigger
 
 
 HOLD_STEPS = 24  # ~5 blocks of pursuit on a lost ray before giving up
+POCKET_GRACE = 400  # steps the taught chain gets to eat what it pocketed
 
 
 class DecreePolicy:
     """The hand-wired aim over the taught skills. Records the drops
     slice (drops-leg detection) and how often the decree steered.
 
-    Amendment 1 (recorded in JOURNEY.md): v1 acted only on frames where
-    the single feet-level ray held the target and steered 45 of 10,050
-    steps — instrument miscalibration, not a test of aiming. v2 holds
-    the chosen heading for up to HOLD_STEPS after the ray loses it; a
-    fresh priced view re-aims and re-arms the hold."""
+    Amendment 1 (JOURNEY.md): v1 acted only on frames where the single
+    feet-level ray held the target — 45 of 10,050 steps steered. v2
+    added the held heading. Amendment 2: v2 still steered only 14
+    steps, because the blanket engagement guards gave the taught head
+    the turn on nearly every frame — it holds digs most of a life
+    (~100–200 completions), and one pickup silenced the decree
+    forever. v3 delegates only when the engagement is FOOD-relevant:
+    priced food adjacent (the taught dig/collect/eat takes it), or a
+    bounded grace while the pocket is non-empty (the taught eat gets
+    its window); pointless digs are the decree's to interrupt —
+    contact with food is precisely what it exists to force."""
 
     def __init__(self, inner):
         self.inner = inner
@@ -72,11 +79,23 @@ class DecreePolicy:
         self.steered = 0
         self.delegated = 0
         self.heading = 0  # remaining held-pursuit steps
+        self.pocket_grace = POCKET_GRACE
 
     def _steer(self, o) -> int | None:
-        if o[FOOD] >= HUNGRY or o[MINING] > 0.02 or o[POCKET] > 0.001:
+        if o[FOOD] >= HUNGRY:
             self.heading = 0
-            return None  # sated, engaged, or holding food: the taught chain knows
+            return None  # sated: the decree is silent
+        if o[POCKET] > 0.001:
+            self.pocket_grace -= 1
+            if self.pocket_grace > 0:
+                return None  # the taught chain gets its eating window
+            # grace spent, still pocketed and still hungry: not food —
+            # the decree resumes steering
+        else:
+            self.pocket_grace = POCKET_GRACE
+        if o[AIM_S[0]] > 0 and o[GLANCE_D[0]] <= 0.13:
+            self.heading = 0
+            return None  # priced food adjacent: the taught dig takes it
         # a priced drop first (the collect leg), by its sensed bearing —
         # sin_b positive toward the body's turn_RIGHT side (measured, D1)
         if o[DROP_PRESENT] > 0.5 and o[AIM_DROP] > 0:
@@ -89,9 +108,6 @@ class DecreePolicy:
         # else the highest-priced SEEN glance sector
         k = max(range(8), key=lambda i: o[AIM_S[i]])
         if o[AIM_S[k]] > 0 and o[GLANCE_D[k]] < 1.0:
-            if k == 0 and o[GLANCE_D[0]] <= 0.13:
-                self.heading = 0
-                return None  # arrived (<= ~2 blocks): the taught dig takes it
             self.heading = HOLD_STEPS
             if k == 0:
                 return JUMP if o[SOLID_AHEAD] > 0.5 else FWD

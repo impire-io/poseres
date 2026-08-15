@@ -1,5 +1,23 @@
 # the-aim — journey (opened 2026-08-15)
 
+## 2026-08-15 — decree amendment 2: the guards were the blocker, and that is itself a finding
+
+v2's life 1 steered 14 of 10,050 steps — FEWER than v1. The held
+heading was not the blocker: the blanket engagement guards were. The
+taught head holds digs most of a life (~100–200 completions ≈
+thousands of held frames), and one pickup put pocket > 0 for good —
+between them the decree almost never got the turn. v3 narrows
+delegation to FOOD-relevant engagement only: priced food adjacent
+(the taught dig/collect/eat takes it) and a bounded 400-step grace
+while the pocket is non-empty; pointless digs are now the decree's
+to interrupt. Recorded as a finding, not just a fix: under this
+sensorium and this taught head, even HAND-WIRED aiming needs
+persistence (the quantized single ray loses off-axis targets on
+every move) AND interruption authority (the head's own busy-work
+crowds steering out) before it can act at all — a measure of how far
+"walk toward what pays" sits from this body's native repertoire.
+Life 1 of v2 discarded whole (log kept); re-running from life 1.
+
 ## 2026-08-15 — decree v1 discarded as instrument miscalibration; amendment 1
 
 The positive control's first life steered 45 of 10,050 steps and read
