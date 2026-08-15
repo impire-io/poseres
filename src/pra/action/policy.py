@@ -156,6 +156,8 @@ class CompletionItchPolicy:
         label_beta: float = 0.0,
         deficit_index: int | None = None,
         deficit_kappa: float = 0.0,
+        commit_kappa: float = 0.0,
+        explore_defers_holds: bool = False,
     ):
         self.params = params
         self.kappa = float(kappa)
@@ -179,6 +181,22 @@ class CompletionItchPolicy:
             raise ValueError(
                 f"CompletionItchPolicy: deficit_kappa {self.deficit_kappa} must be finite and >= 0"
             )
+        # commitment (research topic the-last-crack, 2026-08-15 — instrument
+        # grade, ships only on promotion): the L1 trace measured the hold's
+        # per-step margin (κ·Δ̂ ≈ 0.008) thinner than frame-to-frame drive
+        # noise (release margins 0.00002–0.069), and the ε-gate killing
+        # WINNING holds (one at progress 0.994) — a 30-frame live dig must
+        # win 30 near-coin-flips in a row. ``commit_kappa`` pays repeating
+        # the previous action while sensed progress advances (hysteresis
+        # against the noise); ``explore_defers_holds`` makes the ε-gate
+        # defer while progress advances. 0.0/False (default) = bit-exact
+        # shipped behavior, RNG stream included.
+        self.commit_kappa = float(commit_kappa)
+        self.explore_defers_holds = bool(explore_defers_holds)
+        if not np.isfinite(self.commit_kappa) or self.commit_kappa < 0.0:
+            raise ValueError(
+                f"CompletionItchPolicy: commit_kappa {self.commit_kappa} must be finite and >= 0"
+            )
         self.last_was_directed = False  # telemetry only; overwritten every step
         self.completions_fired = 0
         self.false_completions = 0
@@ -187,6 +205,7 @@ class CompletionItchPolicy:
         self._pending_delta: float | None = None
         self._pending_completion = False
         self._indices_checked = False
+        self._last_action: int | None = None
 
     def _label_weight(self, obs: np.ndarray) -> float:
         """The effective label weight (feature 042): the static ``label_beta``
@@ -232,18 +251,43 @@ class CompletionItchPolicy:
                 )
             self._indices_checked = True
         self._settle_watch(obs)
+        # incumbency dies with its intention (the L2 pair measured the twin:
+        # without this boundary the committed vote locked DIG for 517
+        # consecutive frames across breaks — perseveration): a progress
+        # collapse is the world's own completion/reset, and the next vote
+        # runs fresh
+        if (
+            self._prev_obs is not None
+            and float(self._prev_obs[self.progress_index]) - float(obs[self.progress_index]) > 0.5
+        ):
+            self._last_action = None
+        # a held intention is advancing when sensed progress rose since the
+        # previous frame (or sits pinned at the top awaiting the world's own
+        # confirmation) — read BEFORE _prev_obs is overwritten
+        advancing = (
+            self._last_action is not None
+            and self._prev_obs is not None
+            and (
+                float(obs[self.progress_index]) > float(self._prev_obs[self.progress_index]) + 1e-9
+                or float(obs[self.progress_index]) >= 0.995
+            )
+        )
         self._prev_obs = np.array(obs, copy=True)
         # Fixed draw order (research R3, identical to CuriosityLookaheadPolicy):
         # one uniform for the ε-gate, then one integer draw only on the random
         # path. Exploit draws nothing further.
         explore = rng.random() < self.params.exploration_epsilon
+        if explore and self.explore_defers_holds and advancing:
+            explore = False  # the-last-crack: exploration defers to a live hold
         immature = (
             context.best_frame_age is None
             or context.best_frame_age < self.params.lookahead_min_age_cycles
         )
         if explore or immature:
             self.last_was_directed = False
-            return int(rng.integers(context.n_actions))
+            action = int(rng.integers(context.n_actions))
+            self._last_action = action
+            return action
 
         progress_now = float(obs[self.progress_index])
         label_weight = self._label_weight(obs)  # one observation, one weight
@@ -273,6 +317,8 @@ class CompletionItchPolicy:
                         max(progress_now + float(delta[self.progress_index]), 0.0), 1.0
                     )
                 value += self.kappa * (progress_after - progress_now)
+            if self.commit_kappa > 0.0 and action == self._last_action and advancing:
+                value += self.commit_kappa  # the-last-crack: incumbency holds
             if value > best_value:
                 best_value = value
                 best_action = action
@@ -283,4 +329,5 @@ class CompletionItchPolicy:
         if best_completion:
             self.completions_fired += 1
             self._pending_completion = True
+        self._last_action = best_action
         return best_action

@@ -282,3 +282,92 @@ def test_deficit_validation():
     p = _policy(label_index=5, deficit_index=99, deficit_kappa=0.1)
     with pytest.raises(ValueError, match="out of range"):
         p.select_action(_ctx(), np.random.default_rng(0))
+
+
+# --- the-last-crack: commitment and deferring exploration (opt-in) -----------
+
+
+def test_commit_kappa_holds_a_knife_edge_vote():
+    # action 1 nudges ahead of action 0 by less than the commitment bonus
+    # (the L1-measured release margins were 0.00002-0.069). Without the
+    # bonus the vote flips; with it, the advancing incumbent (chosen last
+    # frame, progress rose) holds.
+    drive = lambda o: float(o[0])  # noqa: E731 - one-line stub
+    preds = {0: np.zeros(6), 1: np.zeros(6), 2: np.full(6, -1.0)}
+    preds[1][0] = 0.05  # the rival's edge, thinner than commit_kappa 0.1
+    obs0 = np.zeros(6)
+    obs1 = np.zeros(6)
+    obs1[2] = 0.4  # progress rose since the previous frame: a live hold
+    rng = np.random.default_rng(0)
+    plain = _policy()
+    plain.select_action(_ctx(obs=obs0, predict=lambda a: preds[a], drive=drive), rng)
+    assert plain.select_action(_ctx(obs=obs1, predict=lambda a: preds[a], drive=drive), rng) == 1
+    committed = _policy(commit_kappa=0.1)
+    first = committed.select_action(_ctx(obs=obs0, predict=lambda a: preds[a], drive=drive), rng)
+    assert first == 1  # no history yet: the rival wins the first vote
+    assert (
+        committed.select_action(_ctx(obs=obs1, predict=lambda a: preds[a], drive=drive), rng) == 1
+    )
+    # now make 0 the incumbent with progress STILL rising: it must hold
+    obs2 = np.zeros(6)
+    obs2[2] = 0.5  # rose again vs the previous frame's 0.4
+    committed._last_action = 0
+    assert (
+        committed.select_action(_ctx(obs=obs2, predict=lambda a: preds[a], drive=drive), rng) == 0
+    )
+
+
+def test_commit_kappa_needs_advancing_progress():
+    drive = lambda o: float(o[0])  # noqa: E731 - one-line stub
+    preds = {0: np.zeros(6), 1: np.zeros(6), 2: np.full(6, -1.0)}
+    preds[1][0] = 0.05
+    flat = np.zeros(6)  # progress did not rise: no incumbency
+    p = _policy(commit_kappa=0.1)
+    rng = np.random.default_rng(0)
+    p.select_action(_ctx(obs=flat, predict=lambda a: preds[a], drive=drive), rng)
+    p._last_action = 0
+    assert p.select_action(_ctx(obs=flat, predict=lambda a: preds[a], drive=drive), rng) == 1
+
+
+def test_explore_defers_while_a_hold_advances():
+    # epsilon 1.0 randomizes every frame — unless the hold is advancing and
+    # the deferral flag is on, in which case the directed path runs.
+    params = PolicyParams(exploration_epsilon=1.0, lookahead_min_age_cycles=2)
+    obs0 = np.zeros(6)
+    obs1 = np.zeros(6)
+    obs1[2] = 0.4
+    p = CompletionItchPolicy(
+        params, kappa=0.25, progress_index=2, pocket_index=3, explore_defers_holds=True
+    )
+    rng = np.random.default_rng(0)
+    p.select_action(_ctx(obs=obs0), rng)
+    assert p.last_was_directed is False  # nothing advancing: the gate explores
+    p.select_action(_ctx(obs=obs1), rng)
+    assert p.last_was_directed is True  # a live hold: exploration deferred
+
+
+def test_commit_validation():
+    with pytest.raises(ValueError, match="commit_kappa"):
+        _policy(commit_kappa=-0.1)
+    with pytest.raises(ValueError, match="commit_kappa"):
+        _policy(commit_kappa=float("nan"))
+
+
+def test_incumbency_dies_at_the_intention_boundary():
+    # a progress collapse (the world's own completion/reset) clears the
+    # incumbent: the next vote runs fresh — commitment is a hold-completion
+    # mechanism, not an addiction (the L2-measured 517-frame lock).
+    drive = lambda o: float(o[0])  # noqa: E731 - one-line stub
+    preds = {0: np.zeros(6), 1: np.zeros(6), 2: np.full(6, -1.0)}
+    preds[1][0] = 0.05
+    rising = np.zeros(6)
+    rising[2] = 0.9
+    reset = np.zeros(6)  # progress collapsed 0.9 -> 0.0: intention over
+    reset[2] = 0.0
+    p = _policy(commit_kappa=0.1)
+    rng = np.random.default_rng(0)
+    p.select_action(_ctx(obs=np.zeros(6), predict=lambda a: preds[a], drive=drive), rng)
+    p._last_action = 0
+    assert p.select_action(_ctx(obs=rising, predict=lambda a: preds[a], drive=drive), rng) == 0
+    assert p.select_action(_ctx(obs=reset, predict=lambda a: preds[a], drive=drive), rng) == 1
+    assert p._last_action == 1  # the fresh vote's winner, no held-over incumbent

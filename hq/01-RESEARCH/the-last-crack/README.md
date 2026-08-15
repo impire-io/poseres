@@ -44,20 +44,30 @@ Live-world evidence only; the parked-decree geometry (the-aim v4) is
 the instrument — it makes the under-hold deterministic.
 
 - **Bar L1 (the mechanism is measured, before any fix):** a per-frame
-  value trace in the parked geometry shows, at the release frames, the
-  DIG action's total value crossing below the chosen competitor's
-  exactly in the clip's predicted band (progress_now ≥ 1 − Δ̂ − 0.05,
-  with Δ̂ read from the head's own predicted delta), on ≥ 3 distinct
-  releases in one 1,500-step trace. If releases scatter uniformly over
-  progress instead, the mechanism hypothesis is wrong and the fix does
-  not run.
-- **Bar L2 (the fix closes the crack, instrument grade):** the same
-  parked geometry, same taught brain, itch unclipped (opt-in flag,
-  everything else byte-identical): ≥ 5 digs run to the world's own
-  break (progress reset + drop appears) in one 1,500-step trace where
-  the clipped run completed 0, and ≥ 1 full dig → collect → eat chain
-  fires. The discriminating pair (flag off vs on) runs back-to-back on
-  the same classroom.
+  value trace in the parked geometry classifies every dig release as
+  DIRECTED (the value crossover) or EXPLORE (the ε-gate's random
+  frame; ε = 0.1 shipped, which alone gives a 30-frame hold only a
+  ~0.9³⁰ ≈ 4% survival — a second candidate mechanism named before
+  the run, sharpened by the live world's own rule that block damage
+  resets on release, which the lab world never enforced). The bar:
+  the attribution is decisive — either directed releases concentrate
+  in the clip's predicted band (progress_now ≥ 1 − Δ̂ − 0.05, Δ̂ from
+  the head's own predicted delta, ≥ 3 such releases) confirming the
+  clip, or ≥ 80% of releases are explore-frames convicting ε — and
+  the fix that runs is the one the measurement convicts. If neither
+  pattern holds, the topic returns to diagnosis with the trace
+  published.
+- **Bar L2 (the convicted fix closes the crack, instrument grade):**
+  the same parked geometry, same taught brain, the L1-convicted fix
+  applied as an opt-in flag (everything else byte-identical) — clip
+  convicted → `progress_after` unclipped (the prediction is a value,
+  not a sensor reading); ε convicted → exploration defers while a
+  held intention is advancing (progress rising last step): ≥ 5 digs
+  run to the world's own break (progress reset + drop appears) in one
+  1,500-step trace where the baseline run completed 0, and ≥ 1 full
+  dig → collect → eat chain fires. The discriminating pair (flag off
+  vs on) runs back-to-back on the same classroom. If BOTH mechanisms
+  are convicted, both flags land and the pair runs the composition.
 - **Bar L3 (nothing else moves):** flag off is byte-identical — the
   frozen T1–T6 suite and the whole quality gate green, zero skips; the
   042 deficit-gate and 041 recipe tests untouched.

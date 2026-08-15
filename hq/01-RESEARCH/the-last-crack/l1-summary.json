@@ -1,0 +1,20 @@
+{
+ "steps": 1500,
+ "releases": 7,
+ "explore_releases": 3,
+ "directed_releases": 4,
+ "decree_releases": 0,
+ "directed_in_clip_band": 0,
+ "directed_release_progress": [
+  0.011,
+  0.546,
+  0.387,
+  0.227
+ ],
+ "explore_release_progress": [
+  0.842,
+  0.994,
+  0.418
+ ],
+ "eats": 0
+}

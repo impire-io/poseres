@@ -100,6 +100,8 @@ class RecipePolicy(CompletionItchPolicy):
         label_beta: float = 0.0,
         deficit_index: int | None = None,
         deficit_kappa: float = 0.0,
+        commit_kappa: float = 0.0,
+        explore_defers_holds: bool = False,
     ):
         super().__init__(
             params,
@@ -112,6 +114,8 @@ class RecipePolicy(CompletionItchPolicy):
             label_beta=label_beta,
             deficit_index=deficit_index,
             deficit_kappa=deficit_kappa,
+            commit_kappa=commit_kappa,
+            explore_defers_holds=explore_defers_holds,
         )
         self.memory = memory
         self.lambda_r = float(lambda_r)
