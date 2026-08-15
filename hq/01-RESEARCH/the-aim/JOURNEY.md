@@ -1,5 +1,19 @@
 # the-aim — journey (opened 2026-08-15)
 
+## 2026-08-15 — decree v1 discarded as instrument miscalibration; amendment 1
+
+The positive control's first life steered 45 of 10,050 steps and read
+zero eats — the v1 decree acted only on frames where the single
+feet-level ray held the target, and the 45°-quantized glance loses an
+off-axis melon the moment the body moves. That is not a test of
+aiming; it is a broken instrument (the D3-attempt-1 precedent: a
+protocol shorter than the phenomenon). Life 1 discarded whole
+(decree-rows reset; the v1 row survives in decree-run.log), the
+instrument amended openly: v2 holds the chosen heading up to 24 steps
+(~5 blocks) after the ray loses it, a fresh priced view re-aims and
+re-arms the hold, and any engagement/satiation/pocket clears it.
+Re-running from life 1.
+
 ## 2026-08-15 — arms: A2 FAILED, the ablation reads better — the lookup is not the carrier (A23-READING.md)
 
 The registered arms ran (6 × 10,050-step hungry-born lives per arm,

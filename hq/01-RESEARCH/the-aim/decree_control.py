@@ -53,24 +53,34 @@ ARM_LIVES = 6
 HUNGRY = 0.75  # food < 15/20 — the flood's own theta, the decree's trigger
 
 
+HOLD_STEPS = 24  # ~5 blocks of pursuit on a lost ray before giving up
+
+
 class DecreePolicy:
     """The hand-wired aim over the taught skills. Records the drops
-    slice (drops-leg detection) and how often the decree steered."""
+    slice (drops-leg detection) and how often the decree steered.
+
+    Amendment 1 (recorded in JOURNEY.md): v1 acted only on frames where
+    the single feet-level ray held the target and steered 45 of 10,050
+    steps — instrument miscalibration, not a test of aiming. v2 holds
+    the chosen heading for up to HOLD_STEPS after the ray loses it; a
+    fresh priced view re-aims and re-arms the hold."""
 
     def __init__(self, inner):
         self.inner = inner
         self.drops: list[tuple[float, float]] = []
         self.steered = 0
         self.delegated = 0
+        self.heading = 0  # remaining held-pursuit steps
 
     def _steer(self, o) -> int | None:
-        if o[FOOD] >= HUNGRY:
-            return None  # sated: the decree is silent
-        if o[MINING] > 0.02 or o[POCKET] > 0.001:
-            return None  # engaged, or holding food: the taught chain knows
+        if o[FOOD] >= HUNGRY or o[MINING] > 0.02 or o[POCKET] > 0.001:
+            self.heading = 0
+            return None  # sated, engaged, or holding food: the taught chain knows
         # a priced drop first (the collect leg), by its sensed bearing —
         # sin_b positive toward the body's turn_RIGHT side (measured, D1)
         if o[DROP_PRESENT] > 0.5 and o[AIM_DROP] > 0:
+            self.heading = HOLD_STEPS
             if o[DROP_SIN] > 0.3:
                 return TR
             if o[DROP_SIN] < -0.3:
@@ -78,13 +88,20 @@ class DecreePolicy:
             return JUMP if o[SOLID_AHEAD] > 0.5 else FWD
         # else the highest-priced SEEN glance sector
         k = max(range(8), key=lambda i: o[AIM_S[i]])
-        if o[AIM_S[k]] <= 0 or o[GLANCE_D[k]] >= 1.0:
-            return None  # nothing priced in view: the decree has no opinion
-        if k == 0:
-            if o[GLANCE_D[0]] <= 0.13:
+        if o[AIM_S[k]] > 0 and o[GLANCE_D[k]] < 1.0:
+            if k == 0 and o[GLANCE_D[0]] <= 0.13:
+                self.heading = 0
                 return None  # arrived (<= ~2 blocks): the taught dig takes it
+            self.heading = HOLD_STEPS
+            if k == 0:
+                return JUMP if o[SOLID_AHEAD] > 0.5 else FWD
+            return TR if k <= 4 else TL  # sectors count to the body's right
+        if self.heading > 0:
+            # blind but pursuing: the ray is single and quantized — keep
+            # walking the held heading until it expires or a view returns
+            self.heading -= 1
             return JUMP if o[SOLID_AHEAD] > 0.5 else FWD
-        return TR if k <= 4 else TL  # sectors count to the body's right
+        return None  # nothing priced in view, no pursuit: no opinion
 
     def select_action(self, context, rng) -> int:
         o = context.observation
