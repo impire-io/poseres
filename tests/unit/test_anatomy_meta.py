@@ -6,6 +6,7 @@ from __future__ import annotations
 
 import gymnasium
 import numpy as np
+import pytest
 
 from pra.anatomy.gymnasium_body import GymnasiumWorld
 from pra.anatomy.minecraft import c1_anatomy
@@ -111,6 +112,29 @@ def test_c1_survival_flag_is_the_native_survival_instrument():
     assert labels["drops"][:5] == ["present", "sin_b", "cos_b", "dist", "count"]
     assert labels["glance"][:4] == ["s0_dist", "s0_sig0", "s0_sig1", "s0_sig2"]
     assert [a["label"] for a in meta["actuators"][12:]] == ["use_held"]
+
+
+def test_c1_aim_worth_form_appends_last_and_salience_changes_nothing():
+    # the-aim (research topic, 2026-08-15): only the worth form widens
+    # the declaration — 9 relative prices appended LAST; the salience
+    # form is bridge behavior on the byte-identical declaration
+    sensors, actuators = c1_anatomy(survival=True, flood=True, aim="worth")
+    body = Ros2Body(sensors, actuators, FakeTransport(script={}))
+    meta = body.anatomy_meta()
+    _assert_invariants(meta)
+    assert (meta["obs_dim"], meta["n_actions"]) == (86, 13)
+    groups = {g["id"]: (g["start"], g["width"]) for g in meta["groups"]}
+    assert groups["flood"] == (73, 4)  # every prior offset unchanged
+    assert groups["aim"] == (77, 9)
+    labels = {g["id"]: g.get("labels") for g in meta["groups"]}
+    assert labels["aim"] == [f"s{k}" for k in range(8)] + ["drop"]
+    plain = c1_anatomy(survival=True)
+    assert c1_anatomy(survival=True, aim="salience") == plain
+    assert sum(s.width for s in c1_anatomy(survival=True, aim="worth")[0]) == 82
+    with pytest.raises(ValueError):
+        c1_anatomy(aim="worth")  # the aim needs the distal body
+    with pytest.raises(ValueError):
+        c1_anatomy(survival=True, aim="wish")  # unknown form fails loud
 
 
 def test_rover_meta_names_parts_and_actions():

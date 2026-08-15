@@ -23,6 +23,12 @@ bearing, distance, count, signature) and `glance` (32 — eight
 egocentric sectors of feet-level distance-to-surface + that surface's
 signature). obs_dim 73, n_actions 13; every shipped id and offset
 unchanged.
+
+The aim (research topic the-aim, 2026-08-15) is the palate — worth
+eaten into existence (episode 0089's EMA) — read at the distance. Its
+worth form appends `aim` (9 — one relative price per glance sector +
+the sensed drop's) LAST; its salience form changes no declaration at
+all (hungry, unpriced appearances fade at the bridge).
 """
 
 from __future__ import annotations
@@ -129,9 +135,22 @@ _SURVIVAL_DISTAL: tuple[SensorSpec, ...] = (
     ),
 )
 
+# The aim (research topic the-aim, 2026-08-15): the palate's learned,
+# relative prices read at the distance. Only the worth form widens the
+# declaration — one worth per glance sector plus the sensed drop's,
+# appended LAST so every prior offset (flood included) is unchanged.
+# The salience form is bridge behavior on the same declaration: hungry,
+# unpriced appearances fade toward each sense's own "nothing" reading.
+_AIM = SensorSpec(
+    id="aim",
+    topic="aim",
+    width=9,
+    labels=tuple(f"s{k}" for k in range(8)) + ("drop",),
+)
+
 
 def c1_anatomy(
-    crafting: bool = True, survival: bool = False, flood: bool = False
+    crafting: bool = True, survival: bool = False, flood: bool = False, aim: str = ""
 ) -> tuple[list[SensorSpec], list[ActuatorSpec]]:
     """The (sensors, actuators) lists `Ros2Body.factory` expects.
 
@@ -142,17 +161,27 @@ def c1_anatomy(
     affordance in the hand, `use_held` as the mouth (module doc).
     ``flood=True``: the-flood instrument — the deficit expanded into
     the observation as a width-4 channel appended last (obs 77).
+    ``aim="worth"``: the-aim's worth form — the palate's relative
+    prices beside the distal senses, width 9 appended last.
+    ``aim="salience"``: the-aim's salience form — bridge behavior
+    only, the declaration is byte-identical to ``aim=""``.
     """
     if survival and not crafting:
         raise ValueError("survival needs the property body: the 027 body has no hand channel")
     if flood and not survival:
         raise ValueError("the flood is a survival-instrument sense: it needs the meter body")
+    if aim not in ("", "salience", "worth"):
+        raise ValueError(f"unknown aim form {aim!r}: expected '', 'salience', or 'worth'")
+    if aim and not survival:
+        raise ValueError("the aim is a survival-instrument sense: it needs the distal body")
     sensors = list(_BASE_SENSORS) + (list(_PROPERTY_SENSORS) if crafting else [])
     if survival:
         sensors = [_SURVIVAL_HAND if s.id == "hand" else s for s in sensors]
         sensors += list(_SURVIVAL_DISTAL)
     if flood:
         sensors.append(_FLOOD)
+    if aim == "worth":
+        sensors.append(_AIM)
     presets = _BASE_PRESETS + (_GRID_PRESETS if crafting else ())
     presets += _SURVIVAL_PRESETS if survival else ()
     return sensors, [ActuatorSpec(id="control", topic="control", presets=presets)]

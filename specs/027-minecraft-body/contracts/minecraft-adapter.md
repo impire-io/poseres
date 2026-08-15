@@ -161,3 +161,35 @@ shipped 32/12 body is byte-identical with the mode off.
   edible] — the glance may NOT contribute (naming food would be a
   classifier, 033). FLOOD unset with the flood anatomy = the
   registered ablation body: same width, channel at zeros.
+- **The aim** (topic the-aim, 2026-08-15; `AIM=salience|worth` env
+  beside SURVIVAL): the palate — worth eaten into existence (episode
+  0089's EMA, α = 0.25) — read at the distance. The bridge-held
+  **book** maps item/block names to learned prices; names stay
+  internal, the senses expose prices keyed by appearance only. A
+  **meal** is food rising during a held use; its pay (Δfood/20)
+  updates the held name plus every name the chain touched within 600
+  game ticks (**the trace**: dig completions and drop pickups) —
+  necessary because the world's naming separates the appearance dug
+  (`melon`) from the meal eaten (`melon_slice`); coincidental
+  contacts are the tongue's superstition, washed out by the EMA.
+  Lookups return **relative** worth (price / best-known price —
+  scale-free, no magic constants; naive book reads 0).
+  `PALATE_FILE` persists the book across restarts (the tongue is
+  body state); `AIM_ABLATE=1` keeps the palate learning but returns
+  naive prices at the lookup (bar A3's decoupling). Forms:
+  - **salience** (no declaration change, obs 73/77): hungry, an
+    unpriced appearance fades toward its sense's own "nothing"
+    reading — gain g = (1−f) + f·relPrice per glance sector / the
+    sensed drop, glance dist fading toward open (1.0) and sigs
+    toward absent, the drops entry toward all-zeros; sated (f = 0)
+    everything is plain. Never a fade toward literal zero — a zeroed
+    glance dist would read "pressed against a wall". The flood
+    channel, when present, hears the world raw. Recorded limit: the
+    drops sense still selects the NEAREST item, faded or not.
+  - **worth** (`aim` channel width 9 appended LAST, obs 82/86):
+    one relative price per glance sector + the sensed drop's, plain
+    and ungained by hunger — the head learns what to do with it.
+  The view gains `palate` (real names + learned prices) — humans
+  only, never sensed. Recorded limit: an rcon saturation dose
+  landing mid-chew would pay the trace; classroom hygiene keeps
+  doses outside a held use.

@@ -18,12 +18,22 @@
 // one activation, the server's own consume runs (~1.61 s for food), any other
 // command releases it, a safety cap releases a use going nowhere.
 //
+// The aim instrument (research topic the-aim, 2026-08-15): the palate —
+// worth eaten into existence (episode 0089's EMA) — read at the distance.
+// AIM=salience fades hungry, unpriced appearances toward each sense's own
+// "nothing" reading (no declaration change); AIM=worth appends an `aim`
+// channel (9: one relative price per glance sector + the sensed drop's),
+// plain and ungained. AIM_ABLATE=1 keeps the palate learning but returns
+// naive prices at the lookup (bar A3's decoupling). PALATE_FILE persists
+// the book across bridge restarts — the tongue is body state.
+//
 // Env: MC_HOST (127.0.0.1), MC_PORT (25565), BOT_NAME (pra), BRIDGE_PORT (25580),
 //      SURVIVAL (unset; "1" = the native-survival instrument body)
 
 "use strict";
 
 const crypto = require("crypto");
+const fs = require("fs");
 const net = require("net");
 const readline = require("readline");
 const mineflayer = require("mineflayer");
@@ -52,6 +62,18 @@ if (SURVIVAL) {
 // at zeros (the registered ablation body — same width, silenced).
 const FLOOD = process.env.FLOOD || "";
 if (SURVIVAL && FLOOD) CHANNELS.flood = 4;
+// the aim (research topic the-aim): the palate read at the distance.
+// Only the worth form widens the handshake; salience is behavior-only.
+const AIM = process.env.AIM || "";
+if (AIM && AIM !== "salience" && AIM !== "worth") {
+  console.error(`unknown AIM form '${AIM}': expected 'salience' or 'worth'`);
+  process.exit(1);
+}
+const AIM_ABLATE = process.env.AIM_ABLATE === "1"; // naive book at the lookup (A3)
+if (SURVIVAL && AIM === "worth") CHANNELS.aim = 9;
+const PALATE_FILE = process.env.PALATE_FILE || "";
+const PALATE_ALPHA = 0.25; // 0089's constant: the EMA toward the felt pay
+const TRACE_TICKS = 600; // 30 s game time: the meal pays what the chain touched
 const FLOOD_THETA = 0.25; // silent above 15/20 food; f=((d-θ)/(1-θ))² below
 const DROPS_RANGE = 8; // blocks; nearest ground item within this radius is sensed
 const GLANCE_RANGE = 16; // blocks; feet-level center-ray per 45-degree sector
@@ -80,7 +102,61 @@ let digStart = 0; // wall-clock ms when the intention began
 let digTotalMs = 1; // the game's own break time for the target
 let useHeld = false; // the use intention (survival): the held item is being applied
 let useStartAge = 0; // GAME tick (bot.time.age) when the use began
+let digBlockName = null; // the held dig's block name — a palate contact on completion
 let mcData = null; // loaded at spawn for placeability + recipes
+
+// ---- the palate (the aim instrument) ----------------------------------------
+// name -> learned price: an EMA (alpha 0.25) toward the felt pay d_food/20.
+// Names stay internal — the senses expose prices keyed by appearance only.
+// The trace: a meal pays every name the chain touched within TRACE_TICKS
+// (the dug block, the picked drop, the held item) — necessary because the
+// world's own naming separates the appearance dug ("melon") from the meal
+// eaten ("melon_slice"); a mouth-only tongue could never light the glance.
+// Coincidental contacts get paid too — the tongue's superstition, honest
+// credit-assignment noise the EMA washes out over meals.
+let book = new Map(); // name -> price (body state; PALATE_FILE carries it)
+let contacts = new Map(); // name -> game tick of last contact
+let lastFood = 20; // meal detection: food rising during a held use
+if (PALATE_FILE && fs.existsSync(PALATE_FILE)) {
+  book = new Map(Object.entries(JSON.parse(fs.readFileSync(PALATE_FILE, "utf8"))));
+}
+
+function savePalate() {
+  if (PALATE_FILE) fs.writeFileSync(PALATE_FILE, JSON.stringify(Object.fromEntries(book)));
+}
+
+function touchContact(name) {
+  if (AIM && name) contacts.set(name, Number(bot.time.age));
+}
+
+function relPrice(name) {
+  // RELATIVE worth — price over the best-known meal's price, scale-free
+  // (never a magic constant; the budget-arb lesson). Naive book: 0.
+  if (AIM_ABLATE || !name) return 0;
+  let max = 0;
+  for (const v of book.values()) max = Math.max(max, v);
+  return max > 0 ? (book.get(name) || 0) / max : 0;
+}
+
+function payMeal(dFood) {
+  // one pay, the metabolic truth: d_food on a consume, normalized by the
+  // meter's own scale. Distinct traced names update once per meal.
+  const pay = Math.max(0, dFood) / 20;
+  const now = Number(bot.time.age);
+  const paid = new Set(held !== null ? [held] : []);
+  for (const [name, age] of contacts) {
+    if (now - age <= TRACE_TICKS) paid.add(name);
+  }
+  for (const name of paid) {
+    book.set(name, (book.get(name) || 0) + PALATE_ALPHA * (pay - (book.get(name) || 0)));
+  }
+  savePalate();
+}
+
+function floodLevel() {
+  const d = Math.max(0, 1 - bot.food / 20);
+  return d <= FLOOD_THETA ? 0 : ((d - FLOOD_THETA) / (1 - FLOOD_THETA)) ** 2;
+}
 
 function itemSignature(name) {
   // the contract's appearance signature: sha256 bytes 0..2 -> [-1, 1];
@@ -162,6 +238,22 @@ bot.on("end", () => {
 });
 process.on("unhandledRejection", (err) => console.error("unhandled:", err && err.message));
 
+// the palate's ears: a meal is food RISING during a held use — never an
+// rcon dose (classroom saturation resets land outside a use; recorded
+// limit: a dose landing mid-chew would pay the trace)
+bot.on("health", () => {
+  const food = bot.food;
+  if (AIM && useHeld && food > lastFood) payMeal(food - lastFood);
+  lastFood = food;
+});
+
+// the picked drop joins the trace (the collect leg of the chain)
+bot.on("playerCollect", (collector, collected) => {
+  if (!AIM || !bot.entity || collector.id !== bot.entity.id) return;
+  const item = collected.getDroppedItem ? collected.getDroppedItem() : null;
+  if (item) touchContact(item.name);
+});
+
 let spawnAnchor = null;
 let tick = 0;
 let busy = false;
@@ -177,6 +269,7 @@ bot.once("spawn", () => {
       ? new Vec3(parseFloat(pinned[0]), bot.entity.position.y, parseFloat(pinned[1]))
       : bot.entity.position.clone();
   mcData = require("minecraft-data")(bot.version);
+  lastFood = bot.food;
   const server = net.createServer(handleClient);
   server.listen(BRIDGE_PORT, "127.0.0.1", () =>
     console.log(`pra-mc/1 bridge: bot '${BOT_NAME}' spawned, listening on 127.0.0.1:${BRIDGE_PORT}`)
@@ -324,6 +417,7 @@ async function applyCommand(command, budget) {
     digTarget = target.clone();
     digStart = Date.now();
     digTotalMs = Math.max(1, bot.digTime(block));
+    digBlockName = block.name;
     // NOT awaited: the dig runs across ticks while the brain keeps sensing;
     // forceLook 'ignore' — a mid-dig look counts as movement and aborts the
     // dig (measured live: forceLook=true self-aborted at one tick)
@@ -331,6 +425,7 @@ async function applyCommand(command, budget) {
       .dig(block, "ignore")
       .then(() => {
         digTarget = null; // broken — the drop lands by the game's own physics
+        touchContact(digBlockName); // the dug appearance joins the trace
       })
       .catch((err) => {
         console.error("dig ended early:", err && err.message, "after", Date.now() - digStart, "ms");
@@ -413,14 +508,14 @@ function sampleDrops(p, yaw) {
     count += 1;
     if (best === null || d < best.d) best = { e, dx, dz, d };
   }
-  if (best === null) return [0, 0, 0, 0, 0, 0, 0, 0];
+  if (best === null) return { vec: [0, 0, 0, 0, 0, 0, 0, 0], name: null };
   const fx = -Math.sin(yaw);
   const fz = -Math.cos(yaw);
   const ux = best.dx / (best.d || 1e-9);
   const uz = best.dz / (best.d || 1e-9);
   const item = best.e.getDroppedItem ? best.e.getDroppedItem() : null;
   const sig = item ? itemSignature(item.name) : [0, 0, 0];
-  return [
+  const vec = [
     1,
     fx * uz - fz * ux, // sin(bearing): cross(forward, toward)
     fx * ux + fz * uz, // cos(bearing): dot(forward, toward)
@@ -428,6 +523,7 @@ function sampleDrops(p, yaw) {
     Math.min(count, 8) / 8,
     ...sig,
   ];
+  return { vec, name: item ? item.name : null };
 }
 
 function sampleGlance(p, yaw) {
@@ -435,6 +531,7 @@ function sampleGlance(p, yaw) {
   // one feet-level center-ray each to GLANCE_RANGE: distance to the first
   // solid (1.0 = open) + that surface's appearance signature
   const out = [];
+  const names = [];
   const py = Math.floor(p.y);
   for (let k = 0; k < 8; k++) {
     const a = yaw - (k * Math.PI) / 4;
@@ -442,17 +539,20 @@ function sampleGlance(p, yaw) {
     const dz = -Math.cos(a);
     let dist = 1.0;
     let sig = [0, 0, 0];
+    let name = null;
     for (let i = 1; i <= GLANCE_RANGE; i++) {
       const b = bot.blockAt(new Vec3(Math.floor(p.x + dx * i), py, Math.floor(p.z + dz * i)));
       if (b && b.boundingBox === "block") {
         dist = i / GLANCE_RANGE;
         sig = itemSignature(b.name);
+        name = b.name;
         break;
       }
     }
     out.push(dist, ...sig);
+    names.push(name);
   }
-  return out;
+  return { vec: out, names };
 }
 
 function sampleFlood(drops) {
@@ -463,8 +563,7 @@ function sampleFlood(drops) {
   //   gain: f-scaled CLASSIFIER-FREE food cues (ground items + the
   //     world's edibility fact; the glance may not contribute — 033)
   //   off: zeros (the ablation body)
-  const d = Math.max(0, 1 - bot.food / 20);
-  const f = d <= FLOOD_THETA ? 0 : ((d - FLOOD_THETA) / (1 - FLOOD_THETA)) ** 2;
+  const f = floodLevel();
   if (FLOOD === "intrusion") {
     // the world clock reaches the client only every 20 server ticks
     // (measured: 2 distinct hashes in 6 samples at 50 ms) — the sample
@@ -531,8 +630,39 @@ function sampleChannels() {
         ? [Math.min((Number(bot.time.age) - useStartAge) / USE_TOTAL_TICKS, 1)]
         : [0];
 
-  const distal = SURVIVAL ? { drops: sampleDrops(p, yaw), glance: sampleGlance(p, yaw) } : {};
-  if (SURVIVAL && FLOOD) distal.flood = sampleFlood(distal.drops);
+  const distal = {};
+  if (SURVIVAL) {
+    const drops = sampleDrops(p, yaw);
+    const glance = sampleGlance(p, yaw);
+    distal.drops = drops.vec;
+    distal.glance = glance.vec;
+    // the flood hears the world raw — it is its own instrument
+    if (FLOOD) distal.flood = sampleFlood(drops.vec);
+    if (AIM === "salience") {
+      // hungry, unpriced appearances fade toward each sense's own
+      // "nothing" reading — never toward literal zero (a zeroed glance
+      // dist would read "pressed against a wall", inverting meaning).
+      // gain g = (1-f) + f*relPrice: sated everything is plain; starving
+      // only what the tongue prices remains.
+      const f = floodLevel();
+      if (f > 0) {
+        const gDrop = 1 - f + f * relPrice(drops.name);
+        distal.drops = drops.vec.map((v) => gDrop * v); // zeros = absent
+        const faded = glance.vec.slice();
+        for (let k = 0; k < 8; k++) {
+          const g = 1 - f + f * relPrice(glance.names[k]);
+          faded[4 * k] = 1 - g * (1 - faded[4 * k]); // dist fades toward open
+          for (let j = 1; j < 4; j++) faded[4 * k + j] *= g; // sig toward absent
+        }
+        distal.glance = faded;
+      }
+    }
+    if (AIM === "worth") {
+      // plain and ungained: the palate's relative price of each seen
+      // appearance, beside the senses — the head learns what to do with it
+      distal.aim = [...glance.names.map((n) => relPrice(n)), relPrice(drops.name)];
+    }
+  }
 
   return {
     ...distal,
@@ -576,6 +706,13 @@ function sampleView() {
     view.eating = useHeld
       ? Math.min((Number(bot.time.age) - useStartAge) / USE_TOTAL_TICKS, 1)
       : 0;
+  }
+  if (AIM) {
+    // the book, ground truth for humans (real names + learned prices) —
+    // the brain only ever senses relative prices keyed by appearance
+    view.palate = Object.fromEntries(
+      [...book.entries()].map(([n, v]) => [n, Math.round(v * 1000) / 1000])
+    );
   }
   return view;
 }
