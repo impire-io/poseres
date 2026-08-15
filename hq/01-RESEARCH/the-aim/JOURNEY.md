@@ -1,5 +1,29 @@
 # the-aim — journey (opened 2026-08-15)
 
+## 2026-08-15 — arms: A2 FAILED, the ablation reads better — the lookup is not the carrier (A23-READING.md)
+
+The registered arms ran (6 × 10,050-step hungry-born lives per arm,
+taught brain + taught tongue restored per life). A2: 1/6 expressing
+(bar ≥ 4/6), median first-eat 4,312 (bar ≤ 3,000) — though the one
+expressing life carried the registered drops leg, the first ever
+measured from the body's own channel. A3, the sharp result: the
+decoupled arm read same-or-better on EVERY foraging measure —
+eats-at-all 5/6 vs 3/6, total eats 29 vs 13, satiated lives 3 vs 1 —
+so the worth lookup at life-time is not the carrier of anything
+measured; the A3 formula's "pass" is recorded as vacuous. What did
+transform vs the flood era is roaming: every life in both arms
+covered ~70–129 columns at reach 9–13 where flood-era stalls paced
+taught lanes — property of the shared stack (sense-using teaching +
+flood + horizon), explicitly not attributable to the lookup; the
+teach-time contribution of the aim channel is scoped as unseparated
+(both brains taught with it present). One interruption recorded
+honestly: a server keepalive stall killed the first attempt at A3
+life 4 mid-run; the life was discarded whole and re-run fresh. Both
+forms have now failed to beat the floor (salience at pilot, worth at
+arms) — the registration's positive control is triggered: the
+hand-wired decree runs next, deciding between "real but not
+learnable in this grammar" and "not the gap at all".
+
 ## 2026-08-15 — pilot: worth wins the head-to-head; the latency signal (PILOT-READING.md)
 
 Both forms taught clean (45/45 sense-using lessons each; both tongues
