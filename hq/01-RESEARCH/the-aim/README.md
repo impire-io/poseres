@@ -106,4 +106,30 @@ floor.
 
 ## Verdict
 
-<Empty until graduation.>
+- **Bar A1 — PASS** `[measured]`: 11/11 live checks first run
+  (A1-READING.md). The palate is real on both forms: one meal prices
+  the chain at the EMA's own arithmetic (0.068 = 0.1·(1−0.75⁴)); the
+  salience fade obeys g = 1−f to the float (dist_err 0.0); the book is
+  form-independent body state across bridge restarts.
+- **Bar A2 — FAIL** `[measured]`: 1/6 expressing (bar ≥ 4/6); median
+  first-eat among eaters 4,312 (bar ≤ 3,000). The drops-leg clause was
+  met by the one expressing life — drop seen → approached → pocketed →
+  eaten, the first ever measured from the body's own channel.
+- **Bar A3 — formula-pass, recorded vacuous** `[judgment]` (its clause
+  presupposed an A2 pass). What it measured `[measured]`: the
+  decoupled arm read same-or-better on EVERY foraging measure
+  (eats-at-all 5/6 vs 3/6, total eats 29 vs 13, satiated 3 vs 1) —
+  the worth lookup at life-time is not the carrier.
+- **Reversal, second branch, fired with a mechanism attached**: both
+  forms fell below the floor (salience 1/3 at pilot, worth at arms);
+  the registered positive control (the decree, three open amendments)
+  created contact reliably — position, the flood era's "spatial
+  luck", is solved by steering on the palate's prices `[measured]` —
+  and expression STILL failed inside the skill: the taught dig
+  releases at mining 0.97, and vanilla resets block damage
+  `[measured]`. **The gap is not aim.** The successor topic
+  the-last-crack was registered and solved the same day (commitment;
+  its L2 chain first-ate at step 333 through this topic's decree).
+- What stands: the palate at the body seam (design 0013), the worth
+  form as substrate, the decree as a research instrument. What fell:
+  aim-as-lookup and aim-as-salience as carriers of first contact.

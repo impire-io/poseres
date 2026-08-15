@@ -85,4 +85,31 @@ becomes the next candidate, its own registration.
 
 ## Verdict
 
-<Empty until graduation.>
+- **Bar L1 — the attribution, decisive** `[measured]`: neither
+  registered pattern alone. The clip acquitted (0/4 directed releases
+  in its band; releases at progress 0.011–0.546). Convicted: the
+  KNIFE-EDGE — directed release margins 0.00002–0.069 against a hold
+  margin of κ·Δ̂ ≈ 0.008 — with the ε-gate as accomplice (all three
+  explore releases had DIG WINNING the value table, one at progress
+  0.994). Amended openly pre-run to an attribution bar (ε joined the
+  suspect list from code reading); amended post-trace to the third
+  mechanism with the raw margins recorded in JOURNEY.md.
+- **Bar L2 — PASS** `[measured]` (powered to 3 repeats per arm after
+  7-vs-1 single-arm variance, amendment recorded): baseline 0 breaks
+  in 4,500 parked steps; committed 10 breaks, 11 collects, and one
+  repeat ran the whole chain — steered contact → committed dig →
+  break → collect → 6 eats to full satiation (food 8 → 20), **first
+  eat at step 333**, an order of magnitude faster than the record's
+  previous best (1,119). En route the mechanism's degenerate twin was
+  measured on schedule — a 517-frame DIG lock (perseveration) —
+  closed by the intention boundary.
+- **Bar L3 — PASS** `[measured]`: flags off is bit-exact (RNG streams
+  included) — the full gate green, byte-frozen T1–T6 suite included;
+  25 policy unit tests cover the new mechanisms.
+- The question answers **YES** with the mechanism named
+  `[mechanism-argument on measured margins]`: the dig quit because
+  the vote is a knife-edge re-fought every frame; commitment
+  (incumbency while progress advances, dying with its intention at a
+  progress collapse) plus exploration deferring to a live hold pays
+  the final stroke. Promotion into the shipped default is a spec-kit
+  feature decision, deliberately not taken here (design 0014).
