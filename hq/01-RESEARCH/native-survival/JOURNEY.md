@@ -1,5 +1,26 @@
 # native-survival — journey (opened 2026-08-11)
 
+## 2026-08-15 — amendment 2: the arms re-run on the completed stack (n23_committed.py)
+
+The 2026-08-13 stop left N2/N3 honestly partial on a double null; the
+record has since moved through it: the palate body exists (design
+0013 — worth channel, flood, distal senses; episode 0100), and the
+dig-quit defect was diagnosed and CLOSED (design 0014 — commitment;
+episode 0101, whose proof chain first-ate at step 333). The
+registered N2/N3 bars stand UNCHANGED; what re-runs is the stack
+under them: the pilot record's sense-using taught brain
+(worth-taught.bin, restored from the-aim's trail at commit 2b16fcd —
+the same brain the decree and L2 readings measured) with the taught
+tongue at birth, free roam (no decree), and design 0014's commitment
+flags on in BOTH arms at life-time (commit_kappa 0.1,
+explore_defers_holds — teaching is tape-driven, so flags change
+nothing there). N2 kd=0.1 vs N3 kd=0.0 stays the registered
+single-number difference. One life per arm, 100,500 steps in 10
+segments, world admin at birth only — the melons regrow by the
+game's own stems. This run doubles as design 0014's promotion
+checklist reading: does commitment lift completed digs and eats in
+free roam, where the decree isn't holding the body's hand?
+
 ## 2026-08-13 — the head's testimony: dig learned true, chew too faint, wealth invisible (HEAD-READING.md)
 
 The owner's live-only rule applied: the taught head read at nine real
