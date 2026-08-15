@@ -1,5 +1,26 @@
 # the-aim — journey (opened 2026-08-15)
 
+## 2026-08-15 — pilot: worth wins the head-to-head; the latency signal (PILOT-READING.md)
+
+Both forms taught clean (45/45 sense-using lessons each; both tongues
+converged to exactly the chain — melon and melon_slice at the EMA's
+fixed point, ZERO superstition entries after 45 lessons of digging
+and eating). Lives: worth expressed 2/3 (first-eats 4,566 and 2,110),
+salience 1/3 — but salience's one expression first-ate at **1,119**,
+the fastest in the record. Pooled aim expression 3/6 (50%) vs the
+flooded band ~38% and the no-flood floor ~17%; every expressing aim
+life's first-eat ≤ 4,566 with median 2,110 where the flood era read
+3.8k–5.2k. Expressing lives feed to satiation — the flood's
+meal-finishing carries over. The judgment, recorded openly: worth
+advances on the registered criterion (expression count); salience's
+stalled lives sat food-pinned with the fade active and melons the
+only unfaded appearance — seen, priced, unapproached — so perceptual
+filtering alone does not create initiation, while the plain worth
+channel the head can learn from expressed twice. Hygiene for the
+arms: pilot lives mutated the palate file in-life; the arms restore
+the taught snapshot per life (the brain resets per life, the body
+state resets with it).
+
 ## 2026-08-15 — bar A1 MET: the aim is real, both forms (A1-READING.md)
 
 11/11 live checks on the first run. The naive book sees the melon and

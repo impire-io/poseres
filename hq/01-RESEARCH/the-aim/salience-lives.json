@@ -1,0 +1,50 @@
+[
+ {
+  "form": "salience",
+  "life": 1,
+  "chains": 0,
+  "distant_collects": 0,
+  "eats": 0,
+  "first_eat": null,
+  "completions": 34,
+  "false_completions": 28,
+  "food_min": 5,
+  "food_max": 8,
+  "palate": {
+   "melon_slice": 0.095,
+   "melon": 0.095
+  }
+ },
+ {
+  "form": "salience",
+  "life": 2,
+  "chains": 1,
+  "distant_collects": 1,
+  "eats": 5,
+  "first_eat": 1119,
+  "completions": 117,
+  "false_completions": 77,
+  "food_min": 7,
+  "food_max": 17,
+  "palate": {
+   "melon_slice": 0.099,
+   "melon": 0.095
+  }
+ },
+ {
+  "form": "salience",
+  "life": 3,
+  "chains": 0,
+  "distant_collects": 0,
+  "eats": 0,
+  "first_eat": null,
+  "completions": 51,
+  "false_completions": 38,
+  "food_min": 5,
+  "food_max": 8,
+  "palate": {
+   "melon_slice": 0.099,
+   "melon": 0.095
+  }
+ }
+]
