@@ -26,4 +26,5 @@ Read 01 first; it is the map. 03 and 04 describe the validated core.
 | 10 | [Recipes and the label](0010-recipes-and-the-label.md) | Taught reach as product: recipe memory, the recipe policy, the praise label (episode 0077) |
 | 11 | [The dials](0011-the-dials.md) | What every tuning knob represents, the measured operating points, and the drive-band tuning protocol |
 | 12 | [Anatomy from world](0012-anatomy-from-world.md) | The structured process for deriving a body from a target environment (skill: /anatomy-mapping) |
-| 12 | [Anatomy from world](0012-anatomy-from-world.md) | The structured process for deriving a body from a target environment (skill: /anatomy-mapping) |
+| 13 | [The palate](0013-the-aim.md) | Worth eaten into existence at the body seam, read at the distance (episode 0100; steering refuted, substrate stands) |
+| 14 | [Commitment](0014-the-last-crack.md) | The hold that finishes: incumbency while progress advances, dying with its intention (episode 0101) |

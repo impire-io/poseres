@@ -20,7 +20,27 @@ Episodes 0001–0044 were chapters of the original single-file `JOURNEY.md`
 "ch. NN" resolve to `00NN-*.md`). The recurring principles the journey keeps
 teaching moved to `../00-GENESIS/how-we-work.md`.
 
-## Where things stand (2026-08-14)
+## Where things stand (2026-08-15)
+
+**The dig finishes now — commitment is the missing rung** ([episode
+0100](0100-the-aim.md) / [0101](0101-the-last-crack.md), one day,
+both topics registered, measured, and graduated): the-aim built the
+palate live (worth eaten into existence at the body seam, A1 11/11)
+and honestly refuted steering as the carrier of first contact — the
+decree parked the hungry body AT the melon and it still starved,
+because the taught dig released its own hold at mining 0.97 every
+time. The successor topic convicted the real mechanism (the vote is a
+knife-edge re-fought every frame: release margins 0.00002–0.069 vs a
+hold margin of ~0.008, with ε killing winning holds at 0.994) and
+closed it with commitment — incumbency while progress advances, dying
+with its intention, exploration deferring to a live hold — all
+opt-in, bit-exact off. The proof chain ran contact → dig → break →
+collect → six eats to satiation with **first eat at step 333** (the
+record's previous best: 1,119). Designs
+[0013](../02-DESIGN/0013-the-aim.md) (the palate) and
+[0014](../02-DESIGN/0014-the-last-crack.md) (commitment); next: the
+native-survival N2/N3 re-run on a skill that finishes — the
+free-roam reading design 0014's promotion checklist names.
 
 **The book lives in its own repository**
 ([episode 0099](0099-the-book-moves-out.md)): `book/` extracted with
@@ -777,3 +797,5 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0097 | [Nothing is faked: the estate deleted, the proof goes live](0097-nothing-is-faked.md) |
 | 0098 | [The book clears its throat: voice rules land, REVISIT empties](0098-the-book-clears-its-throat.md) |
 | 0099 | [The book moves out: its own repo, mdBook, and a sync pin](0099-the-book-moves-out.md) |
+| 0100 | [The aim: the palate is real, steering was not the gap](0100-the-aim.md) |
+| 0101 | [The last crack: commitment pays the final stroke](0101-the-last-crack.md) |
