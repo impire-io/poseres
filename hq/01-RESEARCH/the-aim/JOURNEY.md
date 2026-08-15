@@ -1,5 +1,16 @@
 # the-aim — journey (opened 2026-08-15)
 
+## 2026-08-15 — decree amendment 3: arrived is ONE block (the ep-0078 family again)
+
+v3 inverted the engagement — steered 8,975 of 10,050 — and still ate
+zero, orbiting the patch (30 columns, reach 5.8). The arrived
+threshold was 0.13 glance-dist = TWO blocks, but `dig_ahead` reaches
+exactly one: the decree walked to two blocks out, declared arrival,
+delegated; the head's dig hit the intervening air cell; the melon
+stayed at 0.125; loop. Hand-computed geometry vs the body's own —
+the ep-0078 family's fourth bite in this record. Threshold now 0.07
+(one block, float slack). v3 life 1 discarded whole (log kept).
+
 ## 2026-08-15 — decree amendment 2: the guards were the blocker, and that is itself a finding
 
 v2's life 1 steered 14 of 10,050 steps — FEWER than v1. The held

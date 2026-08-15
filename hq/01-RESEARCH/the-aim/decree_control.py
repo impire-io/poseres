@@ -93,7 +93,10 @@ class DecreePolicy:
             # the decree resumes steering
         else:
             self.pocket_grace = POCKET_GRACE
-        if o[AIM_S[0]] > 0 and o[GLANCE_D[0]] <= 0.13:
+        # arrived means ONE block (glance dist 1/16) — the dig's actual
+        # reach; amendment 3: 0.13 (two blocks) stopped the walk one
+        # block short and the head's dig hit the air cell between
+        if o[AIM_S[0]] > 0 and o[GLANCE_D[0]] <= 0.07:
             self.heading = 0
             return None  # priced food adjacent: the taught dig takes it
         # a priced drop first (the collect leg), by its sensed bearing —
