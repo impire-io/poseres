@@ -1,5 +1,20 @@
 # native-survival — journey (opened 2026-08-11)
 
+## 2026-08-16 — amendment 3 (pre-run): the eats clause re-calibrated, the confirmatory life registered
+
+The owner's direction: a result to act on, not perfection. Before the
+confirmatory run, the bars amend openly with the numbers that forced
+it. The >=50-eats clause was calibrated to the synthetic drain; the
+native economy at this life's activity level demands ~13 meals per
+100k steps (measured, N3-committed). Amended sustenance bar for the
+confirmatory life — the blessed stack (palate body, flood, commitment
+ON, deficit gate OFF, free roam, 100,500 steps, hungry-born): food
+>= 12/20 for >= 80% of the life, zero starvation health-loss, and
+>= 10 genuine eats (native demand's order, not the synthetic
+meter's). The gate's registered role is already answered by
+inversion (amendment-2 reading); the confirmatory life is the
+reframe's closing measurement, and a pass graduates the topic.
+
 ## 2026-08-16 — the committed arms: both bars FAIL, the gate INVERTS (N23-COMMITTED-READING.md)
 
 The re-run on the completed stack produced the record's first

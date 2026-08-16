@@ -70,7 +70,7 @@ PALATE = OUT / "worth-palate.json"
 SEGS = 10
 SEG_CYCLES = 134  # x 75 x 10 = 100,500 >= the registered 100k
 COMMIT_KAPPA = 0.1  # design 0014's measured point
-KD = {"n2": R.KD, "n3": 0.0}  # the registered single-number difference
+KD = {"n2": R.KD, "n3": 0.0, "confirm": 0.0}  # confirm = the blessed gate-free stack
 
 
 def start_bridge(name: str) -> subprocess.Popen:
@@ -207,7 +207,7 @@ def main() -> int:
         verdict()
         return 0
     if phase not in KD:
-        raise SystemExit("usage: n23_committed.py n2|n3|verdict")
+        raise SystemExit("usage: n23_committed.py n2|n3|confirm|verdict")
     print("world:", R.rcon("tick", "rate", "100"), flush=True)
     arm(phase)
     return 0
