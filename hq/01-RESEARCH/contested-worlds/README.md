@@ -139,6 +139,37 @@ than the rung's verdict.
 
 ## Verdict
 
-<Empty until graduation. Filled by /research-graduate: PASS/FAIL per bar with
-the honest numbers, each load-bearing claim tagged [measured] /
-[mechanism-argument] / [judgment].>
+Graduated **abandoned**, 2026-08-16 — both registered reversals fired
+on honest margins; an abandoned topic is a result.
+
+- **Bar 1 (generous peer) — FAIL** [measured]: solo mean 0.021921,
+  paired mean 0.013615, rise **−37.9%** (−30.2/−37.2/−44.9 per
+  segment) against a +25% pass bar. The peer *improved* the subject's
+  event-head prediction error and its life (food ≥ 12: 97.2% vs 72.2%
+  of steps).
+- **Bar 1a (Amendment 1, adversarial peer) — FAIL** [measured]:
+  hostile mean 0.016374, rise **−25.3%** (−24.6/−23.4/−27.5). The
+  charitable single-channel reading fails too: mining, the one
+  directly contended channel, rose +12.9% mean (+26.7/+6.0/+6.1) —
+  under the bar even alone.
+- **Reversal (original) — FIRED** [measured]; **Reversal (amended) —
+  FIRED** [measured]: every hostile segment's rise < 10% (all large
+  negatives).
+- **Bars 2–4 (rung 2, attribution sense) — NOT RUN**: unlicensed by
+  the rung-1 gate per the senses-first rule [judgment, per the
+  registered licensing rule]. The instrument that would have run Bar 2
+  (`peers_reading.py`) is in the trail.
+- **Bars 5–6 (rung 3, outcome contention) — NOT RUN**: never reached;
+  the learnability premise died first.
+
+Load-bearing claims: a second body in this world does not degrade
+event-head learnability — both peer configurations improved it
+[measured]. World-quieting is *sufficient* for the improvement — the
+hostile subject collected 2 drops in 15,075 steps yet still read
+−25.3% [measured]. Windfall commensalism accounts for the forager's
+deeper drop [mechanism-argument — inferred from the arm difference,
+not isolated]. Genuine unattributable interference exists on the
+contended channel (mining) but is an order too small to clear any
+registered bar [measured]. Confounds as recorded in JOURNEY.md:
+sequential arms on one world, one life per arm-configuration, the
+world-quieting/contention entanglement inherent to a consuming peer.
