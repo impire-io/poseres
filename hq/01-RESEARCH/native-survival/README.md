@@ -86,4 +86,31 @@ stands as the honest cost of a world without a usable metabolism.
 
 ## Verdict
 
-<Empty until graduation.>
+- **Bar N1 — PASS** `[measured]` (2026-08-12): the native meter bites —
+  saturation absorbs ~1,280 ticks, then the bar drains linearly (one
+  point per ~213 ticks of work) to empty at 5,336; health follows 15
+  ticks later at food 0 and stops at the half-heart floor. The mouth
+  (`use_held` + edible affordance) verified end-to-end live.
+- **Bar N2 as registered — FAIL, twice, honestly** `[measured]`: the
+  pre-distal stack was stopped as pointless-as-registered (the world
+  never made the composition hungry; N2 ≡ N3 by construction); the
+  committed stack under the gate burst 5 eats in the first 10k then
+  never re-fired and starved (54.8% vs the 80% bar).
+- **Bar N3 as registered — direction REVERSED** `[measured, n=1/arm]`:
+  the gate-off arm outlived and out-ate the gated arm on every
+  measure (below-12 time 0.007 vs 0.452) — consistent with every
+  ablation of the arc. The deficit gate is refuted as the live
+  carrier; it stays available, off, with its inversion on record.
+- **The amended sustenance bar — PASS, replicated** `[measured]`
+  (amendment 3, frozen pre-run; eats clause re-calibrated to the
+  native demand the world itself measured, ~13/100k): the blessed
+  stack (palate body + flood + commitment, gate OFF, free roam)
+  sustained TWO independent 100,501-step lives — 99.3% fed / 13 eats
+  and 98.1% fed / 12 eats — zero starvation loss, food floors 6 and
+  8, first-eats 573 and 1,878 unaided. **The topic's question
+  answers YES: the composition lives on the world's own metabolism.**
+  The harness-meter layer (drain, pay, taper, stipend, steward) is
+  retired in one move — the world defines them, as registered.
+- Reversal clause check: the meter bit (N1) and the actuator landed
+  without invasive anatomy changes — the registered reversal never
+  fired.
