@@ -30,13 +30,15 @@ Per-channel-group means are recorded for diagnosis alongside the
 honest food/eat outcomes.
 
     python rung1.py solo      # 3 segments x 5,025 steps
-    python rung1.py paired    # same, with the peer
+    python rung1.py paired    # same, with the forager peer (commensal control)
+    python rung1.py hostile   # same, with the adversarial peer (Amendment 1)
     python rung1.py verdict
 """
 
 from __future__ import annotations
 
 import dataclasses
+import gzip
 import json
 import os
 import shutil
@@ -161,7 +163,8 @@ def start_bridge(name: str) -> subprocess.Popen:
 
 
 def start_peer(name: str) -> subprocess.Popen:
-    env = {**os.environ, "MC_PORT": str(MC_PORT), "PEER_NAME": "rook"}
+    mode = "hostile" if name == "hostile" else "forager"
+    env = {**os.environ, "MC_PORT": str(MC_PORT), "PEER_NAME": "rook", "PEER_MODE": mode}
     log = open(RIG / f"{name}-peer.log", "a")
     proc = subprocess.Popen(
         ["node", str(RIG / "peer.js")], env=env, stdout=log, stderr=subprocess.STDOUT
@@ -214,12 +217,16 @@ def arm(name: str) -> None:
     peer = None
     try:
         D.hungry_newborn()
-        if name == "paired":
+        if name in ("paired", "hostile"):
             peer = start_peer(name)  # after birth admin, before segment 1
         state = decode(D.TAUGHT.read_bytes())
         all_views: list[dict] = []
         for seg in range(1, SEGS + 1):
             state, views, inner, rec = run_segment(state)
+            with gzip.open(RIG / f"{name}-views-seg{seg}.jsonl.gz", "wt") as vf:
+                for v in views:
+                    vf.write(json.dumps(v) + "\n")
+            seg_collects, seg_eats = R.lesson_events(views)
             all_views.extend(views)
             foods = [v.get("food", 0) for v in all_views]
             healths = [v.get("health", 20) for v in all_views]
@@ -233,6 +240,8 @@ def arm(name: str) -> None:
                 "progress_pred_ema": round(inner.progress_pred_error_ema, 4),
                 "food_ge12_frac": round(sum(1 for f in foods if f >= 12) / len(foods), 4),
                 "eats": len(eats_of(all_views)),
+                "collects_seg": seg_collects,
+                "eats_seg": seg_eats,
                 "food_min": min(foods),
                 "health_min": min(healths),
             }
@@ -261,30 +270,31 @@ def eats_of(views: list[dict]) -> list[int]:
 
 def verdict() -> None:
     rows = {}
-    for name in ("solo", "paired"):
-        lines = (RIG / f"{name}-status.jsonl").read_text().splitlines()
-        rows[name] = [json.loads(x) for x in lines]
+    for p in RIG.glob("*-status.jsonl"):
+        rows[p.name.removesuffix("-status.jsonl")] = [
+            json.loads(x) for x in p.read_text().splitlines()
+        ]
     solo = [r["pred_err_all"] for r in rows["solo"]]
-    paired = [r["pred_err_all"] for r in rows["paired"]]
     solo_mean = sum(solo) / len(solo)
-    paired_mean = sum(paired) / len(paired)
-    rise = (paired_mean - solo_mean) / solo_mean
-    per_seg_rise = [(p - s) / s for s, p in zip(solo, paired, strict=True)]
-    print(
-        json.dumps(
-            {
-                "solo_segs": solo,
-                "paired_segs": paired,
-                "solo_mean": round(solo_mean, 6),
-                "paired_mean": round(paired_mean, 6),
-                "rise": round(rise, 4),
-                "per_seg_rise": [round(x, 4) for x in per_seg_rise],
-                "bar1_pass": rise >= 0.25,
-                "reversal_fired": all(x < 0.10 for x in per_seg_rise),
-            },
-            indent=1,
-        )
-    )
+    out: dict = {"solo_segs": solo, "solo_mean": round(solo_mean, 6)}
+    for name in ("paired", "hostile"):
+        if name not in rows:
+            continue
+        segs = [r["pred_err_all"] for r in rows[name]]
+        mean = sum(segs) / len(segs)
+        per = [(x - s) / s for s, x in zip(solo, segs, strict=True)]
+        out[name] = {
+            "segs": segs,
+            "mean": round(mean, 6),
+            "rise": round((mean - solo_mean) / solo_mean, 4),
+            "per_seg_rise": [round(x, 4) for x in per],
+        }
+    if "paired" in out:
+        out["bar1_pass"] = out["paired"]["rise"] >= 0.25  # original letter, kept for the record
+    if "hostile" in out:
+        out["bar1a_pass"] = out["hostile"]["rise"] >= 0.25  # Amendment 1's gate
+        out["reversal_amended_fired"] = all(x < 0.10 for x in out["hostile"]["per_seg_rise"])
+    print(json.dumps(out, indent=1))
 
 
 def main() -> int:
@@ -292,8 +302,8 @@ def main() -> int:
     if phase == "verdict":
         verdict()
         return 0
-    if phase not in ("solo", "paired"):
-        raise SystemExit("usage: rung1.py solo|paired|verdict")
+    if phase not in ("solo", "paired", "hostile"):
+        raise SystemExit("usage: rung1.py solo|paired|hostile|verdict")
     arm(phase)
     return 0
 

@@ -109,6 +109,34 @@ controlled while the subject brain is the variable.
   doing to each other enters JOURNEY.md without a channel reading behind
   it.
 
+## Amendment 1 (2026-08-16, registered before the hostile arm runs)
+
+Rung 1 ran with a generous forager and produced the *opposite* of the
+premise — the degenerate raw numbers, per the open-amendment rule, are
+in JOURNEY.md: solo 0.021921, paired 0.013615, rise **−37.9%**
+(−30/−37/−45 per segment). Bar 1 FAILED as registered and the original
+reversal's letter fired — but that reversal was written for a null
+("within noise") and did not anticipate a large *benefit*. The owner
+delegated the fork ("continue as you see fit", 2026-08-16); the open
+amendment: rung 1 gains an **adversarial peer configuration**, and the
+generous result stands as the measured **commensal control** rather
+than the rung's verdict.
+
+- **Bar 1a — hostile cost (replaces Bar 1 as rung 1's gate):** with
+  the adversarial peer — shadows the subject, takes drops near the
+  subject, digs the melon nearest the subject; fixed non-adaptive
+  policy, every act logged — the subject's prediction error (same
+  operationalization, same solo baseline) rises ≥ 25%. PASS licenses
+  rung 2.
+- **Reversal (amended):** hostile rise < 10% on every segment →
+  co-habitation without attribution costs less than the premise
+  assumed even under deliberate contention → the attribution sense is
+  unlicensed and the topic graduates abandoned carrying *both*
+  measured results (the gift and the null).
+- **Views persist from this run on** — the first run could not
+  discriminate windfall-commensalism from world-quieting because
+  per-step views were discarded; that instrument gap closes now.
+
 ## Verdict
 
 <Empty until graduation. Filled by /research-graduate: PASS/FAIL per bar with
