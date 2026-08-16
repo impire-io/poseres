@@ -40,7 +40,11 @@ const mineflayer = require("mineflayer");
 const { Vec3 } = require("vec3");
 
 const VERSION = "pra-mc/1";
-const SURVIVAL = process.env.SURVIVAL === "1"; // the native-survival instrument body
+// Feature 044: the survival body is the DEFAULT wire (design 0015's
+// operating point) — SURVIVAL=0 opts back to the pre-044 property body;
+// FLOOD/AIM default to the blessed stack (intrusion/worth) when unset
+// and keep their explicit values (including "off"/"") when set.
+const SURVIVAL = process.env.SURVIVAL !== "0";
 const CHANNELS = {
   pose: 5,
   vitals: 2,
@@ -60,11 +64,11 @@ if (SURVIVAL) {
 // the flood (research topic the-flood): the deficit expanded nonlinearly
 // into the observation. FLOOD=intrusion|gain|off; "off" keeps the channel
 // at zeros (the registered ablation body — same width, silenced).
-const FLOOD = process.env.FLOOD || "";
+const FLOOD = process.env.FLOOD === undefined ? (SURVIVAL ? "intrusion" : "") : process.env.FLOOD;
 if (SURVIVAL && FLOOD) CHANNELS.flood = 4;
 // the aim (research topic the-aim): the palate read at the distance.
 // Only the worth form widens the handshake; salience is behavior-only.
-const AIM = process.env.AIM || "";
+const AIM = process.env.AIM === undefined ? (SURVIVAL ? "worth" : "") : process.env.AIM;
 if (AIM && AIM !== "salience" && AIM !== "worth") {
   console.error(`unknown AIM form '${AIM}': expected 'salience' or 'worth'`);
   process.exit(1);

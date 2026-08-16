@@ -818,3 +818,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0101 | [The last crack: commitment pays the final stroke](0101-the-last-crack.md) |
 | 0102 | [Commitment ships: feature 043 / v2.1.0](0102-the-commitment-ships.md) |
 | 0103 | [Native survival: the composition lives on the world's own metabolism](0103-native-survival.md) |
+| 0104 | [The body that lives is the default: feature 044 / v2.2.0](0104-the-body-that-lives-is-the-default.md) |

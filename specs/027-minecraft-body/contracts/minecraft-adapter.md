@@ -104,6 +104,15 @@ is inert — the reversal path is watch/move/dig only (stated, spec 033).
 
 ## Native-survival instrument (research topic native-survival, 2026-08-11)
 
+**PROMOTED (feature 044, 2026-08-16)**: the survival body IS the
+default — `c1_anatomy()` returns obs_dim 86 / n_actions 13 (survival
++ flood + worth channel), and the bridge defaults SURVIVAL on with
+FLOOD=intrusion, AIM=worth when unset (design 0015's measured
+operating point, episode 0103's replicated self-feeding lives).
+`SURVIVAL=0` / `c1_anatomy(survival=False)` opt back to the pre-044
+property body (32/12); every explicit flag keeps its exact prior
+meaning; the sections below remain the per-sense contract.
+
 **Instrument-grade; folds into the tables above only on promotion.**
 Survival mode is opt-in on every surface — bridge `SURVIVAL=1`,
 `c1_anatomy(survival=True)` — and a

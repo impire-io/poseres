@@ -8,6 +8,19 @@ the surface guard (`tests/contract/test_public_surface.py`).
 
 ## [Unreleased]
 
+## [2.2.0] — 2026-08-16
+
+### Changed
+
+- **The survival body is the default anatomy** (feature 044; episode
+  0104, design 0015): `c1_anatomy()` now returns the measured
+  operating point that lives — the property body plus the mouth,
+  distal senses, flood, and worth channel (obs 86 / 13 actions) —
+  and the bridge wire defaults to match (SURVIVAL on,
+  FLOOD=intrusion, AIM=worth when unset). Every explicit flag keeps
+  its exact prior meaning; `survival=False` / `SURVIVAL=0` is the
+  pre-044 property body (the feature-033 default-change precedent).
+
 ## [2.1.0] — 2026-08-16
 
 ### Added
