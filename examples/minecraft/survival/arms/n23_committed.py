@@ -45,7 +45,7 @@ from pathlib import Path
 
 OUT = Path(__file__).parent
 sys.path.insert(0, str(OUT))
-sys.path.insert(0, str(OUT.parent.parent.parent.parent / "hq" / "01-RESEARCH" / "distal-senses"))
+sys.path.insert(0, str(OUT))  # d23_runner is co-located in the rig
 import d23_runner as D  # noqa: E402 — classroom/life machinery
 import n23_runner as R  # noqa: E402 — engine helpers, rcon
 

@@ -22,6 +22,23 @@ teaching moved to `../00-GENESIS/how-we-work.md`.
 
 ## Where things stand (2026-08-16)
 
+**The research board is CLEAR — every topic graduated, the arc is
+closed** ([episodes 0103](0103-native-survival.md)–[0108](0108-provisioning.md)):
+native-survival answered YES and graduated (design 0015); commitment
+shipped (043/v2.1.0) and the survival body became the DEFAULT anatomy
+(044/v2.2.0 — `c1_anatomy()` is now the body that lives);
+distal-senses and the-flood graduated to artifact (their senses ride
+in the default body; the sense-using curriculum lives with the rig at
+`examples/minecraft/survival/`); the motivation stack graduated to
+design ([0016](../02-DESIGN/0016-motivation-stack.md) — the measured
+map: layers compose, twins arrive on schedule, sensation beats
+valuation at the seam); provisioning graduated abandoned — its
+premise dissolved with the synthetic meter, its purse-not-date wisdom
+recorded for the day an expression delay returns. Open doors, each a
+fresh registration: the gate-inversion mechanism, G2 option-value,
+deeper imagination, predation, the market — and the book, which this
+arc owes chapters.
+
 **The composition lives on the world's own metabolism** ([episode
 0103](0103-native-survival.md)): native-survival graduated with its
 question answered YES — the blessed stack (palate body + flood +
@@ -819,3 +836,7 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0102 | [Commitment ships: feature 043 / v2.1.0](0102-the-commitment-ships.md) |
 | 0103 | [Native survival: the composition lives on the world's own metabolism](0103-native-survival.md) |
 | 0104 | [The body that lives is the default: feature 044 / v2.2.0](0104-the-body-that-lives-is-the-default.md) |
+| 0105 | [Distal senses: seeing was necessary, not sufficient](0105-distal-senses.md) |
+| 0106 | [The flood: the drives can hear hunger, and hearing is half](0106-the-flood.md) |
+| 0107 | [The motivation stack: the map that ran the arc](0107-motivation-stack.md) |
+| 0108 | [Provisioning: the premise dissolved, and that is the result](0108-provisioning.md) |
