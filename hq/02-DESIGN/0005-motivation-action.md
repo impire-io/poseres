@@ -198,6 +198,18 @@ the ungated brain never budges from baseline; survival +4 lives (C1)
 and 0 vs 16 deaths (sample field). §6's rule still holds — the drive
 itself is untouched; hunger reaches wanting through the label seam.
 
+**Commitment** — **[V]** (feature 043; episode 0101, design 0014):
+`commit_kappa=…, explore_defers_holds=…` makes a started multi-frame
+intention survive the per-frame vote: the candidate repeating the
+previous emitted action earns `+commit_kappa` while sensed progress
+advances (rose since the last frame, or pinned ≥ 0.995 awaiting the
+world's confirmation); the ε-gate defers to a live hold; a progress
+collapse (> 0.5) clears the incumbent — incumbency dies with its
+intention (the anti-perseveration boundary; its absence measured as a
+517-frame lock). Measured point κ_c = 0.1, above the largest observed
+value-flip margin (0.069). Off (0.0/False) is bit-exact, RNG stream
+included.
+
 ---
 
 ## 5. Stability: counter-drives — **[D]** (optional, not in base build)

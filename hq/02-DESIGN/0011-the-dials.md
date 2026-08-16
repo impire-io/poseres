@@ -37,7 +37,21 @@ condition).
 | `completion_threshold` | `CompletionItchPolicy` | **1/128** | The smallest predicted acquisition that counts as a real completion; below it is prediction noise. |
 | `label_beta` | `CompletionItchPolicy` / `RecipePolicy` | **0.02** or **0.5** | The *social* weight: how loudly a teacher's label speaks. |
 | `deficit_kappa` | `CompletionItchPolicy` / `RecipePolicy` | **0.1** | The *body's* weight: how strongly depletion amplifies remembered felt value. |
+| `commit_kappa` | `CompletionItchPolicy` / `RecipePolicy` | **0.1** | Incumbency: how firmly a started, advancing intention holds against per-frame vote noise. |
+| `explore_defers_holds` | `CompletionItchPolicy` / `RecipePolicy` | **True** (survival bodies) | Whether the ε-gate yields while a held intention advances. |
 | `exploration_epsilon`, `lookahead_min_age_cycles` | `PolicyParams` | per-protocol | The undirected floor: how often the policy acts randomly, and how mature a frame must be before directed selection trusts it. |
+
+### `commit_kappa` — the hold that finishes (episode 0101)
+
+κ_c = 0.1 sits above the largest measured value-flip margin (0.069,
+the-last-crack L1) and below the drive band — it settles knife-edge
+re-votes without overruling a genuinely better option. **Failure mode
+at the high end, measured in kind:** without the intention boundary
+the mechanism is an addiction machine (a 517-frame DIG lock across
+completions); the boundary is part of the dial's definition, not an
+option. Set `explore_defers_holds=True` wherever actions take many
+frames and the world resets progress on interruption (live digs,
+chews); ε returns in full at every intention boundary.
 
 ### `kappa` — the itch (episodes 0070–0072)
 

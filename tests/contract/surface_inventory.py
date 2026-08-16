@@ -132,6 +132,8 @@ SURFACE: tuple[SurfaceEntry, ...] = (
             "label_beta",
             "deficit_index",
             "deficit_kappa",
+            "commit_kappa",
+            "explore_defers_holds",
         ),
     ),
     # recipes: taught order as product (feature 041; recipe-reach, episode 0076)
@@ -155,6 +157,8 @@ SURFACE: tuple[SurfaceEntry, ...] = (
             "label_beta",
             "deficit_index",
             "deficit_kappa",
+            "commit_kappa",
+            "explore_defers_holds",
         ),
     ),
     E("pra.action.policy.PolicyParams", "dataclass", "drive", None),

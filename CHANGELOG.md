@@ -8,6 +8,20 @@ the surface guard (`tests/contract/test_public_surface.py`).
 
 ## [Unreleased]
 
+## [2.1.0] — 2026-08-16
+
+### Added
+
+- **Commitment** (feature 043; episode 0101, design 0014):
+  `commit_kappa` / `explore_defers_holds` on
+  `CompletionItchPolicy`/`RecipePolicy` — incumbency while sensed
+  progress advances (dying with its intention at a progress
+  collapse) and exploration deferring to a live hold. Defaults
+  off, bit-exact with v2.0.0 (RNG stream included). Measured: the
+  parked-geometry pair went 0 → 10 completed digs with a full
+  forage chain first-eating at step 333; free-roam, the committed
+  stack produced the record's first sustained self-feeding life.
+
 ### Changed
 
 - **License**: MIT → [Sustainable Use License](LICENSE) (fair-code).
