@@ -46,7 +46,13 @@ the gate. What this document adds is the *promise* around the list.
   (`examples/minecraft/contract_check.py`);
   `pra.anatomy.minecraft.protocol.item_signature` (module-level, not
   package-exported) is the signature reference.
-- **Release notes (additive minors)**: v1.4.0 (feature 042) adds the
+- **Release notes (additive minors)**: v2.1.0 (feature 043) adds
+  commitment to `CompletionItchPolicy`/`RecipePolicy` (`commit_kappa`,
+  `explore_defers_holds`, keyword-only, off by default, bit-exact off
+  RNG included): incumbency while sensed progress advances, dying with
+  its intention at a progress collapse; exploration deferring to a
+  live hold — the-last-crack's measured mechanism (episode 0101,
+  design 0014). v1.4.0 (feature 042) adds the
   deficit gate to `CompletionItchPolicy`/`RecipePolicy`
   (`deficit_index`, `deficit_kappa`, keyword-only, off by default,
   bit-exact when off): the effective label weight grows with the
@@ -163,10 +169,10 @@ subject-builder functions listed under Operational below.
 
 | Element | Kind | Promised parameters |
 |---|---|---|
-| `pra.action.policy.CompletionItchPolicy` | class | params, kappa, progress_index, pocket_index, completion_threshold, potential_of, label_index, label_beta, deficit_index, deficit_kappa |
+| `pra.action.policy.CompletionItchPolicy` | class | params, kappa, progress_index, pocket_index, completion_threshold, potential_of, label_index, label_beta, deficit_index, deficit_kappa, commit_kappa, explore_defers_holds |
 | `pra.action.recipe.Recipe` | dataclass | — |
 | `pra.action.recipe.RecipeMemory` | class | pocket_index, label_index |
-| `pra.action.recipe.RecipePolicy` | class | params, memory, kappa, progress_index, pocket_index, lambda_r, position_indices, position_scale, completion_threshold, label_index, label_beta, deficit_index, deficit_kappa |
+| `pra.action.recipe.RecipePolicy` | class | params, memory, kappa, progress_index, pocket_index, lambda_r, position_indices, position_scale, completion_threshold, label_index, label_beta, deficit_index, deficit_kappa, commit_kappa, explore_defers_holds |
 | `pra.action.policy.CuriosityLookaheadPolicy` | class | — |
 | `pra.action.policy.Policy` | protocol | — |
 | `pra.action.policy.PolicyContext` | dataclass | — |

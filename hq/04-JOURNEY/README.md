@@ -799,3 +799,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0099 | [The book moves out: its own repo, mdBook, and a sync pin](0099-the-book-moves-out.md) |
 | 0100 | [The aim: the palate is real, steering was not the gap](0100-the-aim.md) |
 | 0101 | [The last crack: commitment pays the final stroke](0101-the-last-crack.md) |
+| 0102 | [Commitment ships: feature 043 / v2.1.0](0102-the-commitment-ships.md) |
