@@ -50,4 +50,21 @@ with the measured forms and where each broke.
 
 ## Verdict
 
-<Empty until graduation.>
+- **Bars P1/P2 — shapes held at pilot** `[measured]`: the
+  demonstration gate beat the calendar on the measured economy (8/8
+  alive, weans 1023–1567 vs the hand date 3,000, cheaper stipends);
+  the purse amendment fixed infinite welfare (floor seeds 0/4, purses
+  exhausted — as designed); the un-recalibrated fixed dose failed the
+  taxed economy exactly as c1e's corpse lines predicted.
+- **Bar P3 — unfalsifiable in the lab, then MOOT** `[measured]`: the
+  recalibrated economy erased the expression delay a childhood dose
+  exists to bridge (both rules survive 8/8), and the topic paused for
+  re-grounding in a native world. Native-survival then retired the
+  ENTIRE stipend layer (episode 0103): the blessed stack's lives are
+  born hungry with no parental dose and first-eat unaided within ~2k
+  steps — there is no synthetic wean to gate.
+- Outcome: **abandoned — the premise dissolved, and that is the
+  result.** What stands as parental design wisdom, recorded: the
+  demonstration gate beats the calendar where both exist; patience
+  is a purse, not a date; a dose exists only where an expression
+  delay does.

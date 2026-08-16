@@ -86,3 +86,14 @@ completions and recipe selection, never at the start of the chain,
 and a completion-site amplifier (κ_d = 0.1) is invisible against a
 ~0.3 per-life expression probability. New machinery needs its own
 registration. Full numbers: D2-D3-READING.md.
+
+**Closure (2026-08-16, graduation):** the machinery the reversal
+demanded was registered and measured downstream — the flood
+(initiation, intrusion form), the palate + aim (steering refuted),
+commitment (the skill's last frames; episode 0101) — and the arc
+ended with these senses shipping in the DEFAULT body (feature 044)
+inside the stack that sustains two replicated 100k self-feeding
+lives (episode 0103). Outcome: **artifact** — the drops + glance
+senses in the default anatomy and their contract sections; the
+curriculum (`d23_runner.py`) moves to the rig's living home at
+`examples/minecraft/survival/arms/`.

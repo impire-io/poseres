@@ -107,4 +107,29 @@ is never this topic's fallback (the old-brain fence).
 
 ## Verdict
 
-<Empty until graduation.>
+- **Instrument reading — MET** `[measured]` (2026-08-13): silent sated,
+  the exact registered curve f = ((d − 0.25)/0.75)², per-sample
+  f-scaled noise, eating quiets 1.0 → 0; two instrument fixes recorded
+  openly (the 20-tick client clock, the saturation buffer).
+- **The form head-to-head — decisive** `[measured]`: intrusion
+  expressed in EVERY hungry-born pilot life (7/7/3 eats) while the
+  gain form expressed in none — the drives cannot smell calories;
+  they can hear the flood.
+- **Bar F1 — FAIL as registered** `[measured]`: the flooded arm read
+  1/6 (pilot 3/3 did not reproduce); pooled flooded lives 5/13 (~38%)
+  vs the no-flood floor 1/6 — the flood roughly DOUBLES expression
+  and, once contact happens, reliably turns it into a full meal
+  (every expressing life 6–7 eats to satiation), but first contact
+  remained spatial luck. **Bar F2** — windows failed only on
+  meal-finishing use-share (~31% vs < 10%), diversity and roaming
+  green. **Bar F3 — not run** (campaign stopped honestly before the
+  silenced arm).
+- Resolution downstream `[measured]`: the "cannot steer" residual was
+  the-aim's question (steering refuted) and the-last-crack's answer
+  (the skill could not finish); with commitment landed, the flood
+  rides in the DEFAULT body (feature 044, intrusion the form of
+  record) inside the stack that sustains replicated self-feeding
+  lives (episode 0103).
+- Outcome: **artifact** — the flood channel in the default anatomy,
+  its contract section, and the fence (subcortical sense at the body
+  seam; cortical machinery generic) held throughout.
