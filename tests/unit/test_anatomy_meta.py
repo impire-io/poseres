@@ -45,9 +45,30 @@ def test_ros2_body_meta_groups_and_preset_labels():
     assert all(a["id"] == "drive" for a in meta["actuators"])
 
 
-def test_c1_minecraft_meta_matches_the_channel_contract():
-    # the property body (feature 033) is the C1 default: 32 / 12, labeled
+def test_c1_default_is_the_survival_body():
+    # feature 044: the zero-argument default is design 0015's operating
+    # point — the survival body, obs 86 / 13, worth channel last
     sensors, actuators = c1_anatomy()
+    body = Ros2Body(sensors, actuators, FakeTransport(script={}))
+    meta = body.anatomy_meta()
+    _assert_invariants(meta)
+    assert (meta["obs_dim"], meta["n_actions"]) == (86, 13)
+    groups = {g["id"]: (g["start"], g["width"]) for g in meta["groups"]}
+    assert groups["hand"] == (19, 7)
+    assert groups["drops"] == (33, 8)
+    assert groups["glance"] == (41, 32)
+    assert groups["flood"] == (73, 4)
+    assert groups["aim"] == (77, 9)
+    assert [a["label"] for a in meta["actuators"][12:]] == ["use_held"]
+    # explicit flags keep their exact pre-044 meaning
+    assert sum(s.width for s in c1_anatomy(survival=True)[0]) == 73
+    assert sum(s.width for s in c1_anatomy(survival=True, flood=True)[0]) == 77
+
+
+def test_c1_minecraft_meta_matches_the_channel_contract():
+    # the property body (feature 033) — the pre-044 default, via the
+    # explicit opt-out: 32 / 12, labeled
+    sensors, actuators = c1_anatomy(survival=False)
     body = Ros2Body(sensors, actuators, FakeTransport(script={}))
     meta = body.anatomy_meta()
     _assert_invariants(meta)
@@ -132,7 +153,7 @@ def test_c1_aim_worth_form_appends_last_and_salience_changes_nothing():
     assert c1_anatomy(survival=True, aim="salience") == plain
     assert sum(s.width for s in c1_anatomy(survival=True, aim="worth")[0]) == 82
     with pytest.raises(ValueError):
-        c1_anatomy(aim="worth")  # the aim needs the distal body
+        c1_anatomy(survival=False, aim="worth")  # the aim needs the distal body
     with pytest.raises(ValueError):
         c1_anatomy(survival=True, aim="wish")  # unknown form fails loud
 

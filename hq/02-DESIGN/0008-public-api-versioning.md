@@ -46,7 +46,13 @@ the gate. What this document adds is the *promise* around the list.
   (`examples/minecraft/contract_check.py`);
   `pra.anatomy.minecraft.protocol.item_signature` (module-level, not
   package-exported) is the signature reference.
-- **Release notes (additive minors)**: v2.1.0 (feature 043) adds
+- **Release notes (additive minors)**: v2.2.0 (feature 044) makes
+  the survival body the C1 default — `c1_anatomy()` and the bridge
+  wire resolve to design 0015's measured operating point (obs 86/13;
+  SURVIVAL default-on, FLOOD=intrusion, AIM=worth when unset) with
+  every explicit flag keeping its exact prior meaning and
+  `survival=False`/`SURVIVAL=0` as the pre-044 opt-out (the
+  feature-033 default-change precedent). v2.1.0 (feature 043) adds
   commitment to `CompletionItchPolicy`/`RecipePolicy` (`commit_kappa`,
   `explore_defers_holds`, keyword-only, off by default, bit-exact off
   RNG included): incumbency while sensed progress advances, dying with

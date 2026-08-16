@@ -65,10 +65,11 @@ def main() -> int:
     # anatomy declaration for that mode
     survival = table.get("hand") == 7
     flood = "flood" in table
-    sensors, actuators = c1_anatomy(survival=survival, flood=flood)
+    aim = "worth" if "aim" in table else ""
+    sensors, actuators = c1_anatomy(survival=survival, flood=flood, aim=aim)
     declared = {s_.topic: s_.width for s_ in sensors}
     check(
-        f"channel table matches c1_anatomy(survival={survival}, flood={flood})",
+        f"channel table matches c1_anatomy(survival={survival}, flood={flood}, aim={aim!r})",
         table == declared,
         f"bridge={table} anatomy={declared}" if table != declared else "",
     )

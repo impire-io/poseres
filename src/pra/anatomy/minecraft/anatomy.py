@@ -1,16 +1,17 @@
-"""The C1 anatomy declaration (features 027 + 030 + 031 + 033).
+"""The C1 anatomy declaration (features 027 + 030 + 031 + 033 + 044).
 
 Declaration is configuration (013 SC-006): the body is these lists, and
 the channel contract in specs/027-minecraft-body/contracts/ (as amended
-by 030/031/033) is the meaning of every dimension. The default is the
-**property body** — obs_dim 32, n_actions 12: no material classifiers
-anywhere (owner's argument, feature 033) — the pocket senses aggregates,
-the hand and the grid's offer sense world-mechanical *properties*
-(placeable, counts) plus a stable *appearance signature* (sha256-derived;
-things look different, nobody names them), digging progress is sensed
-(`mining`), and every channel carries its label. Categories are the
-brain's to form. ``crafting=False`` is the exact feature-027 body
-(obs_dim 14, n_actions 8) — the recorded reversal path.
+by 030/031/033 and the survival sections) is the meaning of every
+dimension. **The default is the survival body** — obs_dim 86,
+n_actions 13 (feature 044, design 0015's measured operating point):
+the property body of feature 033 (classifier-free senses, appearance
+signatures, held intentions, the sensed staging grid) plus the mouth
+(`use_held`, edible affordance), the distal senses (drops + glance),
+the flood channel, and the palate's worth channel. ``survival=False``
+gives the pre-044 property body (obs_dim 32, n_actions 12);
+``crafting=False`` is the exact feature-027 body (obs_dim 14,
+n_actions 8) — the recorded reversal path.
 
 ``survival=True`` is the **native-survival instrument** (research topic
 native-survival, 2026-08-11; ships into the default only on promotion):
@@ -150,22 +151,36 @@ _AIM = SensorSpec(
 
 
 def c1_anatomy(
-    crafting: bool = True, survival: bool = False, flood: bool = False, aim: str = ""
+    crafting: bool = True,
+    survival: bool | None = None,
+    flood: bool | None = None,
+    aim: str | None = None,
 ) -> tuple[list[SensorSpec], list[ActuatorSpec]]:
     """The (sensors, actuators) lists `Ros2Body.factory` expects.
 
-    ``crafting=True`` (default): the property body — classifier-free
-    senses, held intentions, the sensed staging grid.
-    ``crafting=False``: the exact feature-027 body.
-    ``survival=True``: the native-survival instrument — the edible
-    affordance in the hand, `use_held` as the mouth (module doc).
-    ``flood=True``: the-flood instrument — the deficit expanded into
-    the observation as a width-4 channel appended last (obs 77).
-    ``aim="worth"``: the-aim's worth form — the palate's relative
-    prices beside the distal senses, width 9 appended last.
-    ``aim="salience"``: the-aim's salience form — bridge behavior
-    only, the declaration is byte-identical to ``aim=""``.
+    **The default is the survival body** (feature 044, promoted from
+    design 0015's measured operating point): the property body plus
+    the mouth, the distal senses, the flood, and the worth channel —
+    obs_dim 86, n_actions 13. Every EXPLICIT flag keeps its exact
+    pre-044 meaning; only the zero-argument default changed.
+    ``survival=False``: the pre-044 default (the property body, 32/12).
+    ``crafting=False``: the exact feature-027 body (14/8).
+    ``flood=True``/``aim="worth"``: the instrument senses individually
+    (module doc); ``aim="salience"`` is bridge behavior only, the
+    declaration byte-identical to ``aim=""``.
     """
+    if survival is None:
+        blessed = crafting  # the zero-override default: design 0015's stack
+        survival = blessed
+        if flood is None:
+            flood = blessed
+        if aim is None:
+            aim = "worth" if blessed else ""
+    else:
+        if flood is None:
+            flood = False
+        if aim is None:
+            aim = ""
     if survival and not crafting:
         raise ValueError("survival needs the property body: the 027 body has no hand channel")
     if flood and not survival:
