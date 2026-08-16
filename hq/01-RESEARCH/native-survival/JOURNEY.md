@@ -1,5 +1,28 @@
 # native-survival — journey (opened 2026-08-11)
 
+## 2026-08-16 — the committed arms: both bars FAIL, the gate INVERTS (N23-COMMITTED-READING.md)
+
+The re-run on the completed stack produced the record's first
+sustained self-feeding life — in the ABLATION arm. N3 (gate off): fed
+99.3% of 100,501 steps, 13 genuine eats at the world's own demand
+(one per ~7-8k steps), first-eat 573 free-roam, food never below 6,
+zero starvation loss, the palate clean. N2 (gate on, kd=0.1 the only
+difference): one burst of 5 eats in the first 10k, then never again —
+slid from 97.7% to 54.8% and starved to the half-heart floor (19
+starvation-loss events). The registered N3 direction is not merely
+unmet, it is REVERSED (below-12 time 0.452 gated vs 0.007 ablated),
+and the pattern now spans every ablation this arc has run. Also
+measured against its own assumption: the >=50-eats clause was written
+for a synthetic drain — the native economy at this activity level
+demands ~13 meals per 100k, and N3 held the bar's substance while
+missing its letter. Commitment's free-roam promotion reading (design
+0014's checklist) is banked either way: both arms first-ate faster
+free-roaming than anything pre-commitment managed with steering help.
+Next is the owner's direction call: the gate's role re-registered
+(why does kd=0.1 coincide with re-expression dying? cheap first
+probe: repeat both arms), the eats clause amended against the native
+drain, or both.
+
 ## 2026-08-15 — amendment 2: the arms re-run on the completed stack (n23_committed.py)
 
 The 2026-08-13 stop left N2/N3 honestly partial on a double null; the
