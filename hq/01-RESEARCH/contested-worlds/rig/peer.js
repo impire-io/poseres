@@ -9,6 +9,9 @@
 //   the subject, take drops NEAR THE SUBJECT, dig the melon nearest
 //   the subject. Same escape ladder, same logging.
 //
+//   PEER_MODE=idle — stand still and exist: the stationary target the
+//   rung-2 instrument reading places at known bearings and distances.
+//
 // It issues no admin command and reads nothing of the subject's
 // internals (the shadow reads the subject's world-visible avatar
 // position — a world fact any body can see); it perturbs the shared
@@ -274,6 +277,7 @@ async function hostileStep(pos) {
 
 async function step() {
   if (busy || !bot.entity) return;
+  if (MODE === "idle") return;
   stuckWatch();
   const pos = bot.entity.position;
   if (MODE === "hostile") await hostileStep(pos);

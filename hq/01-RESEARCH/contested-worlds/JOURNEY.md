@@ -133,3 +133,52 @@ only openly, with the degenerate raw numbers recorded here) would be
 to re-scope rung 1's premise around peer *hostility* — e.g. a peer
 that takes drops near the subject rather than gifting them — before
 any attribution-sense work is licensed. Owner's call.
+
+*(The owner delegated the fork the same evening — "continue as you
+see fit" — and Amendment 1 was registered and committed before the
+hostile arm ran.)*
+
+## 2026-08-16 — the hostile arm settles Bar 1a: the adversary helps too
+
+Same protocol, PEER_MODE=hostile (shadow the subject, steal drops
+near it, dig the melon nearest it). Peer record
+(hostile-peer-acts.jsonl): 41 melons dug, 0 failures, 0 deaths,
+0 kicks, 42 stuck-jumps (shadowing is harder navigation), 3 abandons,
+and again 0 drop-chases (drops at its feet, swallowed instantly).
+
+| seg | pred_err_all | vs solo | mining | glance | drops | collects_seg | eats_seg |
+|----:|-------------:|--------:|-------:|-------:|------:|---:|---:|
+| 1 | 0.015351 | −24.6% | 0.1768 | 0.0209 | 0.0168 | 1 | 5 |
+| 2 | 0.016171 | −23.4% | 0.1967 | 0.0261 | 0.0220 | 0 | 0 |
+| 3 | 0.017599 | −27.5% | 0.2142 | 0.0307 | 0.0171 | 1 | 0 |
+
+Verdict (rung1.py verdict): hostile mean **0.016374**, rise
+**−25.3%**. **Bar 1a FAILS; the amended reversal FIRES** (< 10% on
+every segment — all three are large negatives). The charitable
+single-channel reading fails too: mining, the most-affected channel,
+rose +26.7/+6.0/+6.1% — mean +12.9%, under the 25% bar even alone.
+
+**The mechanism, now discriminated** (the views persisted this time):
+the hostile subject collected essentially nothing — 2 collects in
+15,075 steps — yet its error still dropped 25%. Windfall commensalism
+is therefore NOT necessary for the drop; **world-quieting is
+sufficient**: a peer that strips the standing world leaves the distal
+senses reading mostly nothing, and nothing is easy to predict. The
+forager's deeper drop (−37.9%) is quieting plus windfall. The
+subject's life stayed healthy in both peer arms (hostile: food ≥ 12
+for 96.5% of steps, 5 eats, no health loss — it ate early, then the
+emptied world had little to offer OR demand).
+
+**Both registered reversals have now fired on honest margins.** Per
+Amendment 1, registered before the arm ran: the attribution sense is
+unlicensed by the senses-first rule at this rung, and the topic
+graduates abandoned carrying both measured results — the gift
+(−37.9%) and the adversarial null-that-is-also-a-gift (−25.3%) —
+with the interference fingerprint (mining +12.9% mean, swamped) on
+the record for whoever reopens this. Bars 2–6 (rungs 2–3) were never
+licensed and did not run. What a successor topic would need to
+reopen the question: a premise about *outcome* contention rather
+than learnability (rung 3's territory — scarce, non-renewable
+resources where the meters, not the head, pay the price), or a world
+where the peer's acts create structured surprise the subject must
+predict to survive rather than an emptier, quieter field.
