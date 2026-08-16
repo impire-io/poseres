@@ -52,7 +52,7 @@ def main() -> int:
 
     r = tick(IDLE)
     print("start:", r["view"], flush=True)
-    for i in range(40):  # the melon ahead breaks in ~1.5 s bare-handed
+    for i in range(40):  # noqa: B007 — read after the loop (dig-tick count)
         r = tick(DIG)
         if slices(r) > 0:
             break
@@ -69,7 +69,7 @@ def main() -> int:
     assert hand[2] == 1, "the edible affordance must read 1 for a held slice"
 
     food_before, n_before = r["view"]["food"], slices(r)
-    for i in range(16):  # ~1.61 s of continuous use, then slack
+    for i in range(16):  # noqa: B007 — read after the loop (use-tick count)
         r = tick(USE)
         if r["view"]["food"] > food_before:
             break

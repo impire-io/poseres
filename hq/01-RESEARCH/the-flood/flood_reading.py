@@ -14,7 +14,7 @@ import sys
 import time
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).parent.parent / "native-survival" / "arms"))
+sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent / "examples" / "minecraft" / "survival" / "arms"))
 import n23_runner as R  # noqa: E402 — rcon + the bridge session helpers live here
 
 

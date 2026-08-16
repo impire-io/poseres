@@ -20,7 +20,24 @@ Episodes 0001–0044 were chapters of the original single-file `JOURNEY.md`
 "ch. NN" resolve to `00NN-*.md`). The recurring principles the journey keeps
 teaching moved to `../00-GENESIS/how-we-work.md`.
 
-## Where things stand (2026-08-15)
+## Where things stand (2026-08-16)
+
+**The composition lives on the world's own metabolism** ([episode
+0103](0103-native-survival.md)): native-survival graduated with its
+question answered YES — the blessed stack (palate body + flood +
+commitment, deficit gate OFF, free roam) sustained two independent
+100,501-step lives (99.3% / 98.1% fed, 13 / 12 eats at the world's
+own demand, zero starvation loss), and the whole harness-meter layer
+is retired — the world defines drain and pay now. The gate's
+registered role INVERTED in its head-to-head (the gated life starved
+where the ablated one thrived) and is parked off, mechanism
+deliberately unchased. Commitment shipped as feature 043 / v2.1.0
+([episode 0102](0102-the-commitment-ships.md)); the survival rig
+lives on at `examples/minecraft/survival/`; design
+[0015](../02-DESIGN/0015-native-survival.md) is the operating point.
+Open doors, each a fresh registration: the gate's mechanism,
+promotion of the survival body into the default anatomy, predation,
+the market.
 
 **The dig finishes now — commitment is the missing rung** ([episode
 0100](0100-the-aim.md) / [0101](0101-the-last-crack.md), one day,
@@ -800,3 +817,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0100 | [The aim: the palate is real, steering was not the gap](0100-the-aim.md) |
 | 0101 | [The last crack: commitment pays the final stroke](0101-the-last-crack.md) |
 | 0102 | [Commitment ships: feature 043 / v2.1.0](0102-the-commitment-ships.md) |
+| 0103 | [Native survival: the composition lives on the world's own metabolism](0103-native-survival.md) |

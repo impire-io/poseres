@@ -17,7 +17,7 @@ import sys
 from pathlib import Path
 
 OUT = Path(__file__).parent
-sys.path.insert(0, str(OUT.parent / "native-survival" / "arms"))
+sys.path.insert(0, str(OUT.parent.parent.parent / "examples" / "minecraft" / "survival" / "arms"))
 sys.path.insert(0, str(OUT.parent / "distal-senses"))
 import d23_runner as D  # noqa: E402
 import flood_arms as FA  # noqa: E402 — brings FP patching + RecordingPolicy

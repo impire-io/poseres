@@ -29,7 +29,7 @@ from pathlib import Path
 import numpy as np
 
 OUT = Path(__file__).parent
-sys.path.insert(0, str(OUT.parent / "native-survival" / "arms"))
+sys.path.insert(0, str(OUT.parent.parent.parent / "examples" / "minecraft" / "survival" / "arms"))
 import n23_runner as R  # noqa: E402  — the shared teach/life machinery
 
 from pra.action.policy import PolicyParams  # noqa: E402
@@ -90,7 +90,7 @@ def repair_floor() -> None:
     # between readings.
     for what in ("minecraft:air", "minecraft:water"):
         R.rcon("fill", "0", "-61", "0", "30", "-61", "30", "minecraft:grass_block", "replace", what)
-    sys.path.insert(0, str(OUT.parent / "native-survival" / "probe"))
+    sys.path.insert(0, str(OUT.parent.parent.parent / "examples" / "minecraft" / "survival" / "probe"))
     import provision  # noqa: PLC0415 — the probe kit's patch builder
 
     for cx, cz in ((5, 5), (28, 0), (0, 28)):

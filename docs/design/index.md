@@ -28,3 +28,4 @@ Read 01 first; it is the map. 03 and 04 describe the validated core.
 | 12 | [Anatomy from world](0012-anatomy-from-world.md) | The structured process for deriving a body from a target environment (skill: /anatomy-mapping) |
 | 13 | [The palate](0013-the-aim.md) | Worth eaten into existence at the body seam, read at the distance (episode 0100; steering refuted, substrate stands) |
 | 14 | [Commitment](0014-the-last-crack.md) | The hold that finishes: incumbency while progress advances, dying with its intention (episode 0101) |
+| 15 | [The survival stack](0015-native-survival.md) | The operating point that lives: palate body + flood + commitment, gate off, on the world's own economy (episode 0103) |

@@ -45,7 +45,7 @@ from pathlib import Path
 
 OUT = Path(__file__).parent
 sys.path.insert(0, str(OUT))
-sys.path.insert(0, str(OUT.parent.parent / "distal-senses"))
+sys.path.insert(0, str(OUT.parent.parent.parent.parent / "hq" / "01-RESEARCH" / "distal-senses"))
 import d23_runner as D  # noqa: E402 — classroom/life machinery
 import n23_runner as R  # noqa: E402 — engine helpers, rcon
 
@@ -55,7 +55,7 @@ from pra.anatomy.minecraft import C1_MINING_INDEX, C1_POCKET_TOTAL_INDEX, c1_ana
 from pra.persistence.snapshot import decode  # noqa: E402
 from pra.persistence.store import InMemorySnapshotStore  # noqa: E402
 
-BRIDGE_JS = OUT.parent.parent.parent.parent / "examples" / "minecraft" / "bridge" / "bridge.js"
+BRIDGE_JS = OUT.parent.parent / "bridge" / "bridge.js"
 
 # the palate body (design 0013)
 R.SENSORS, R.ACTUATORS = c1_anatomy(survival=True, flood=True, aim="worth")
