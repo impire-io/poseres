@@ -175,6 +175,32 @@ not information — the machinery conversation (what world geometry or
 body speed makes information worth anything) is licensed by these
 numbers.
 
+## 2026-08-17 — the knife edge lands: all-or-nothing, four rungs deep
+
+C-0.5-hostile (86, blind): seg 1 six eats and ge12 0.950, segs 2–3
+coast at 1.000 — below-12 steady-state **0.000**, no starvation. The
+complete hostile-86 scarcity table:
+
+| melons (non-renewing) | below-12 ss | eats |
+|---:|---:|---:|
+| 2 | **1.000** | 0 |
+| 3 | 0.000 | 6 |
+| 4 | 0.000 | 6 |
+
+The flip from total loss to no loss happens entirely between 2 and 3
+melons. Amendment 2's registered routing applies on its exact
+trigger: **the recoverable middle does not exist** at this peer
+speed and world geometry — contests are all-or-nothing, decided by
+race, not information. L3 signs FAILED (unmeasurable-as-failed on
+this geometry, per the amendment's registered language), and the
+L3-after-L1 reversal routes the topic **to design**: the sense was
+instrument-grade (L2 27/27), alive and learning in every hostile arm
+(peers err 0.0036–0.0065, falling), and bought zero meters — because
+there were never meters for sale. What the design doc must answer,
+licensed by these numbers: what world geometry, body speed, or
+teaching (no lesson ever showed this brain a peer) makes information
+about another body WORTH something in outcomes.
+
 ## 2026-08-17 — C-1-hostile94: total loss again; the slack guard FIRES
 
 All three segments ge12 = 0.000, 0 eats, 0 collects — below-12

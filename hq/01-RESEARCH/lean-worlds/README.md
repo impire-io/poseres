@@ -91,6 +91,48 @@ abundant world). "Below-12" = fraction of window steps with food
 
 ## Verdict
 
-<Empty until graduation. Filled by /research-graduate: PASS/FAIL per bar with
-the honest numbers, each load-bearing claim tagged [measured] /
-[mechanism-argument] / [judgment].>
+Graduated **to design**, 2026-08-17, on the registered L3-after-L1
+reversal — the licensed moment for machinery.
+
+- **Bar L0 — PASS** [measured]: every declared rung coasted at
+  steady-state below-12 = 0.000 (solo hunger is unreachable at this
+  life length — a meter fact); C-1 (2 melons, no renewal) froze as
+  the leanest passer at the exact eat minimum (3).
+- **Bar L1 — PASS** [measured]: hostile below-12 steady-state
+  **1.000** vs solo 0.000 on C-1 (the ≥ 0.90 clause; ratio-floor
+  amendment registered pre-arm). The peer's whole act log: 2 digs in
+  the birth minute. The first measured co-habitation cost in two
+  topics — and prediction error stayed unremarkable ex-flood while
+  the meters lost everything (0109's dissociation, completed).
+- **Bar L2 — PASS 27/27** [measured]: the self-locating reading —
+  after the first edition (9/16) caught its own assumption (the
+  subject was 2.3 blocks from where tp claimed; solved displacement
+  matched the channel to three decimals). Bearings within 0.006,
+  distances within 0.002, signatures sha256-exact, stable across
+  reconnects, distinct across names; east sign declared from
+  measurement (−1 facing +z, the drops convention).
+- **Bar L3 — FAIL** (unmeasurable-as-failed on this geometry, per
+  Amendment 2's pre-registered routing) [measured]: the sense bought
+  zero meters at every rung because no rung sold any. C-1: total
+  loss both bodies (0 eats, 0 collects; the slack guard fired as
+  registered). C0: no gap for anyone (blind 0.000/6 eats, sensing
+  0.000/3, solo94 0.000/6). C-0.5 (Amendment 2, the 3-melon knife
+  edge): blind 0.000/6 — the flip from total to none happens
+  entirely between 2 and 3 melons. The peers channel was alive and
+  learning in every hostile arm (err 0.0036–0.0065, falling) and
+  never touched an outcome.
+
+Load-bearing claims: contests over fast, non-renewable resources are
+**all-or-nothing — decided by race, not information** [measured,
+this peer speed and world geometry]. A sense pays only where
+behavior has slack; scarcity at this life length offers a band
+between "no war" and "war over before expression" too thin to
+measure — the flip sits between 2 and 3 melons [measured].
+Expression latency decides birth-minute wars (the 94 draw blanked
+segment 1 solo and wasted half its larder; the 86 draw expressed
+early and won every race it was in) [measured]. Teaching never
+showed the brain a peer — whatever a peers sense could pay through
+taught dynamics is unexplored [judgment — the design doc's first
+question]. Confounds as journaled: one life per arm, sequential
+arms on one world, two teach draws with different expression
+latencies.
