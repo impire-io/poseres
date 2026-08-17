@@ -22,21 +22,27 @@ teaching moved to `../00-GENESIS/how-we-work.md`.
 
 ## Where things stand (2026-08-16)
 
-**The first multi-body question is asked and answered — presence
-alone is not conflict** ([episode 0109](0109-contested-worlds.md)):
-contested-worlds opened on the owner's co-habitation question,
-pre-registered a four-rung ladder, and died honestly on rung 1 twice
-in one day — a scripted peer improved the subject's event-head
-prediction error whether it foraged generously (−37.9%) or
-adversarially shadowed, stole, and contested (−25.3%), while the
-subject's meters stayed healthy; world-quieting measured sufficient
-(2 collects in 15k steps, error still down), and the only genuine
-interference (mining, the contended channel, +12.9% mean) was an
-order too small for any bar. The attribution sense stays unlicensed;
-the topic graduated abandoned carrying both results, its two-body
-rig and never-licensed rung-2 instrument (`peers_reading.py`) in the
-trail for the successor premise: outcome contention on scarce,
-non-renewable worlds.
+**The multi-body arc: presence is not conflict, and race beats
+information** ([0109](0109-contested-worlds.md) /
+[0110](0110-lean-worlds.md), two topics in two days, both landed on
+their registered reversals): contested-worlds refuted the
+learnability premise — a scripted peer, generous or adversarial,
+made the subject's world MORE predictable (−37.9% / −25.3%) while
+its meters stayed healthy — and its reopening evidence arrived the
+next day by design: lean-worlds measured the first real
+co-habitation cost (two non-renewing melons: below-12 steady-state
+1.000 vs solo 0.000, the war over in the peer's first 2 digs), built
+the peers sense in the house grammar (opt-in 94/13, Bar L2 27/27 on
+a self-locating reading), and then measured the sense buying zero
+meters at every scarcity rung — the flip from total loss to no loss
+sits entirely between 2 and 3 melons; contests at script speed are
+decided by race, not information. Graduated to design
+[0017](../02-DESIGN/0017-lean-worlds.md): what world geometry,
+teaching, or body parity makes another body worth sensing — with
+the partial-gap world (hostile-86 below-12 in 0.10–0.90) as the
+gate any follow-up must find first. The peers sense stays an
+instrument flag; its reading and the three-mode scripted peer live
+on at `examples/minecraft/survival/arms/`.
 
 **The research board is CLEAR — every topic graduated, the arc is
 closed** ([episodes 0103](0103-native-survival.md)–[0108](0108-provisioning.md)):
@@ -857,3 +863,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0107 | [The motivation stack: the map that ran the arc](0107-motivation-stack.md) |
 | 0108 | [Provisioning: the premise dissolved, and that is the result](0108-provisioning.md) |
 | 0109 | [Contested worlds: the rival that made the world easier](0109-contested-worlds.md) |
+| 0110 | [Lean worlds: race beats information](0110-lean-worlds.md) |

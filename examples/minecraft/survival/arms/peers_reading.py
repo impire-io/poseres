@@ -13,8 +13,9 @@ rotates with the body's own frame, count counts, signatures stable
 across reconnects, distinct across names, sha256-exact); the east
 bearing SIGN is measured and printed for declaration, never assumed.
 
-Usage: python peers_reading.py
-  (lw1 up; PEERS=1 bridge up on 25592 with subject 'pra' spawned;
+Usage: python peers_reading.py   (ported from the lean-worlds trail)
+  (world + PEERS=1 bridge up with subject 'pra' spawned; targets the
+   arms rig by default, override MC_CONTAINER/BRIDGE_PORT/MC_PORT;
    no peers in-world — the script starts/stops its own idle peers)
 """
 
@@ -35,9 +36,9 @@ REPO = RIG.parents[3]
 sys.path.insert(0, str(REPO / "examples" / "minecraft" / "survival" / "arms"))
 import n23_runner as R  # noqa: E402 — rcon + bridge session machinery
 
-R.CONTAINER = "lw1-minecraft"
-R.BRIDGE_PORT = 25592
-MC_PORT = 25604
+R.CONTAINER = os.environ.get("MC_CONTAINER", "n1-minecraft")
+R.BRIDGE_PORT = int(os.environ.get("BRIDGE_PORT", "25590"))
+MC_PORT = int(os.environ.get("MC_PORT", "25602"))
 FAR = ("60", "-60", "60")  # > 16 blocks from anywhere the subject stands
 
 PASSES = []
