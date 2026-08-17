@@ -366,8 +366,11 @@ def verdict() -> None:
                 "ratio": round(ratio, 2),
                 "hostile_starv": host["starv"],
                 "solo_starv": solo["starv"],
+                # the ratio clause carries an absolute floor (JOURNEY
+                # 2026-08-17, registered before the hostile arm): solo
+                # landed at exactly 0.0 and 3x0 is degenerate
                 "L1_pass": (
-                    ratio >= 3.0
+                    (ratio >= 3.0 and host["below12_ss"] >= 0.10)
                     or host["below12_ss"] >= 0.90
                     or (host["starv"] > 0 and solo["starv"] == 0)
                 ),
