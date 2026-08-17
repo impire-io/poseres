@@ -86,6 +86,25 @@ CONFIGS = {
     "C-1": {"patches": ((5, 5),), "melons": 2, "stems": 0},
 }
 FROZEN = RIG / "FROZEN.json"
+PEERS94 = False
+
+
+def rebind94() -> None:
+    """The L3 arms: the 94-dim peers body over a PEERS=1 bridge, the
+    fresh-taught brain (teach94.py). Same machinery otherwise."""
+    global PEERS94, GROUPS
+    PEERS94 = True
+    R.SENSORS, R.ACTUATORS = c1_anatomy(survival=True, flood=True, aim="worth", peers=True)
+    R.OBS_DIM = sum(s.width for s in R.SENSORS)  # 94
+    R.N_ACTIONS = sum(len(a.presets) for a in R.ACTUATORS)
+    R.BASE = dataclasses.replace(R.BASE, obs_dim=R.OBS_DIM, n_actions=R.N_ACTIONS)
+    D.TAUGHT = RIG / "peers-taught.bin"
+    D.DEMOS = RIG / "peers-demos.json"
+    GROUPS = []
+    off = 0
+    for s in R.SENSORS:
+        GROUPS.append((s.id, off, s.width))
+        off += s.width
 
 
 # ---- world building ---------------------------------------------------------
@@ -202,6 +221,7 @@ def start_bridge(name: str) -> subprocess.Popen:
         "FLOOD": "intrusion",
         "AIM": "worth",
         "AIM_ABLATE": "",
+        "PEERS": "1" if PEERS94 else "0",
         "PALATE_FILE": str(PALATE),
         "SPAWN_ANCHOR": "0,0",
         "MC_PORT": str(MC_PORT),
@@ -356,6 +376,16 @@ def verdict() -> None:
         m["L0_pass"] = m["starv"] == 0 and m["eats"] >= 3 and m["below12_ss"] <= 0.30
         out["L0"][name] = m
     if out["frozen"]:
+        solo94 = out["L0"].get(f"{out['frozen']}-solo94")
+        host94 = out["L0"].get(f"{out['frozen']}-hostile94")
+        if solo94 and host94 and "below12_ss" in solo94 and "below12_ss" in host94:
+            out["L3"] = {
+                "solo94_below12_ss": solo94["below12_ss"],
+                "solo94_L0_pass": solo94["L0_pass"],
+                "hostile94_below12_ss": host94["below12_ss"],
+                "hostile94_eats": host94["eats"],
+                "L3_pass": solo94["L0_pass"] and host94["below12_ss"] <= 0.50,
+            }
         solo = out["L0"].get(f"{out['frozen']}-solo")
         host = out["L0"].get(f"{out['frozen']}-hostile")
         if solo and host and "below12_ss" in solo and "below12_ss" in host:
@@ -389,13 +419,19 @@ def main() -> int:
             raise SystemExit(f"usage: lean.py solo {'|'.join(CONFIGS)}")
         arm(f"{key}-solo", CONFIGS[key], hostile=False)
         return 0
-    if phase == "hostile":
-        if not FROZEN.exists():
-            raise SystemExit("no FROZEN.json — the walk freezes a config first (Bar L0)")
-        key = json.loads(FROZEN.read_text())["config"]
-        arm(f"{key}-hostile", CONFIGS[key], hostile=True)
+    if phase in ("hostile", "solo94", "hostile94"):
+        if phase.endswith("94"):
+            rebind94()
+        key = sys.argv[2] if len(sys.argv) > 2 else ""
+        if not key:
+            if not FROZEN.exists():
+                raise SystemExit("no FROZEN.json — the walk freezes a config first (Bar L0)")
+            key = json.loads(FROZEN.read_text())["config"]
+        if key not in CONFIGS:
+            raise SystemExit(f"unknown config {key!r}")
+        arm(f"{key}-{phase}", CONFIGS[key], hostile=phase.startswith("hostile"))
         return 0
-    raise SystemExit("usage: lean.py solo <config>|hostile|verdict")
+    raise SystemExit("usage: lean.py solo <config>|hostile|solo94|hostile94|verdict")
 
 
 if __name__ == "__main__":
