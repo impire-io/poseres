@@ -149,12 +149,26 @@ _AIM = SensorSpec(
     labels=tuple(f"s{k}" for k in range(8)) + ("drop",),
 )
 
+# The peers sense (research topic lean-worlds, licensed by Bar L1,
+# 2026-08-17): the nearest OTHER body, in the drops sense's exact
+# grammar — presence, egocentric bearing, distance, count, and the
+# appearance signature of the world's own username (identity as
+# property; hashed, never parsed). Opt-in; appended LAST so every
+# shipped offset is unchanged.
+_PEERS = SensorSpec(
+    id="peers",
+    topic="peers",
+    width=8,
+    labels=("present", "sin_b", "cos_b", "dist", "count", "sig0", "sig1", "sig2"),
+)
+
 
 def c1_anatomy(
     crafting: bool = True,
     survival: bool | None = None,
     flood: bool | None = None,
     aim: str | None = None,
+    peers: bool = False,
 ) -> tuple[list[SensorSpec], list[ActuatorSpec]]:
     """The (sensors, actuators) lists `Ros2Body.factory` expects.
 
@@ -167,7 +181,9 @@ def c1_anatomy(
     ``crafting=False``: the exact feature-027 body (14/8).
     ``flood=True``/``aim="worth"``: the instrument senses individually
     (module doc); ``aim="salience"`` is bridge behavior only, the
-    declaration byte-identical to ``aim=""``.
+    declaration byte-identical to ``aim=""``. ``peers=True`` appends
+    the peers sense LAST (research topic lean-worlds; ships into the
+    default only on promotion) — the 94/13 instrument body.
     """
     if survival is None:
         blessed = crafting  # the zero-override default: design 0015's stack
@@ -189,6 +205,8 @@ def c1_anatomy(
         raise ValueError(f"unknown aim form {aim!r}: expected '', 'salience', or 'worth'")
     if aim and not survival:
         raise ValueError("the aim is a survival-instrument sense: it needs the distal body")
+    if peers and not survival:
+        raise ValueError("the peers sense is a survival-instrument sense: it needs the distal body")
     sensors = list(_BASE_SENSORS) + (list(_PROPERTY_SENSORS) if crafting else [])
     if survival:
         sensors = [_SURVIVAL_HAND if s.id == "hand" else s for s in sensors]
@@ -197,6 +215,8 @@ def c1_anatomy(
         sensors.append(_FLOOD)
     if aim == "worth":
         sensors.append(_AIM)
+    if peers:
+        sensors.append(_PEERS)
     presets = _BASE_PRESETS + (_GRID_PRESETS if crafting else ())
     presets += _SURVIVAL_PRESETS if survival else ()
     return sensors, [ActuatorSpec(id="control", topic="control", presets=presets)]

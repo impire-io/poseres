@@ -75,12 +75,20 @@ if (AIM && AIM !== "salience" && AIM !== "worth") {
 }
 const AIM_ABLATE = process.env.AIM_ABLATE === "1"; // naive book at the lookup (A3)
 if (SURVIVAL && AIM === "worth") CHANNELS.aim = 9;
+// the peers sense (research topic lean-worlds, licensed by Bar L1):
+// nearest OTHER player, in the drops sense's exact grammar — presence,
+// egocentric bearing, distance, count, appearance signature (sha256 of
+// the username: identity as property, hashed, never parsed). Opt-in;
+// appended LAST so every shipped offset is unchanged.
+const PEERS = process.env.PEERS === "1";
+if (SURVIVAL && PEERS) CHANNELS.peers = 8;
 const PALATE_FILE = process.env.PALATE_FILE || "";
 const PALATE_ALPHA = 0.25; // 0089's constant: the EMA toward the felt pay
 const TRACE_TICKS = 600; // 30 s game time: the meal pays what the chain touched
 const FLOOD_THETA = 0.25; // silent above 15/20 food; f=((d-θ)/(1-θ))² below
 const DROPS_RANGE = 8; // blocks; nearest ground item within this radius is sensed
 const GLANCE_RANGE = 16; // blocks; feet-level center-ray per 45-degree sector
+const PEERS_RANGE = 16; // blocks; nearest other player within this radius is sensed
 const DIG_SAFETY_MS = 10000; // the owner's cap: a dig making no progress is released
 // The chew's clock is the WORLD's clock (distal-senses reteach fix): a
 // consume is 32 SERVER ticks, so at accelerated tick rates it completes
@@ -530,6 +538,38 @@ function sampleDrops(p, yaw) {
   return { vec, name: item ? item.name : null };
 }
 
+function samplePeers(p, yaw) {
+  // nearest OTHER player within PEERS_RANGE: presence, EGOCENTRIC
+  // bearing (same convention as sampleDrops), distance, count,
+  // appearance signature of the username — never the name itself
+  let best = null;
+  let count = 0;
+  for (const e of Object.values(bot.entities)) {
+    if (!e || e.type !== "player" || !e.position) continue;
+    if (bot.entity && e.id === bot.entity.id) continue;
+    const dx = e.position.x - p.x;
+    const dz = e.position.z - p.z;
+    const d = Math.hypot(dx, dz);
+    if (d > PEERS_RANGE) continue;
+    count += 1;
+    if (best === null || d < best.d) best = { e, dx, dz, d };
+  }
+  if (best === null) return [0, 0, 0, 0, 0, 0, 0, 0];
+  const fx = -Math.sin(yaw);
+  const fz = -Math.cos(yaw);
+  const ux = best.dx / (best.d || 1e-9);
+  const uz = best.dz / (best.d || 1e-9);
+  const sig = itemSignature(best.e.username || "");
+  return [
+    1,
+    fx * uz - fz * ux,
+    fx * ux + fz * uz,
+    Math.min(best.d, PEERS_RANGE) / PEERS_RANGE,
+    Math.min(count, 8) / 8,
+    ...sig,
+  ];
+}
+
 function sampleGlance(p, yaw) {
   // eight egocentric sectors (k * 45deg to the body's right of forward),
   // one feet-level center-ray each to GLANCE_RANGE: distance to the first
@@ -666,6 +706,7 @@ function sampleChannels() {
       // appearance, beside the senses — the head learns what to do with it
       distal.aim = [...glance.names.map((n) => relPrice(n)), relPrice(drops.name)];
     }
+    if (PEERS) distal.peers = samplePeers(p, yaw);
   }
 
   return {

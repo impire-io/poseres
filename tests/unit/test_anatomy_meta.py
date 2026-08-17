@@ -158,6 +158,26 @@ def test_c1_aim_worth_form_appends_last_and_salience_changes_nothing():
         c1_anatomy(survival=True, aim="wish")  # unknown form fails loud
 
 
+def test_c1_peers_flag_appends_last():
+    # lean-worlds (research topic, licensed by Bar L1, 2026-08-17): the
+    # peers sense in the drops sense's grammar, appended LAST — the
+    # 94/13 instrument body; every blessed-default offset unchanged
+    sensors, actuators = c1_anatomy(survival=True, flood=True, aim="worth", peers=True)
+    body = Ros2Body(sensors, actuators, FakeTransport(script={}))
+    meta = body.anatomy_meta()
+    _assert_invariants(meta)
+    assert (meta["obs_dim"], meta["n_actions"]) == (94, 13)
+    groups = {g["id"]: (g["start"], g["width"]) for g in meta["groups"]}
+    assert groups["flood"] == (73, 4)  # every prior offset unchanged
+    assert groups["aim"] == (77, 9)
+    assert groups["peers"] == (86, 8)
+    labels = {g["id"]: g.get("labels") for g in meta["groups"]}
+    assert labels["peers"] == ["present", "sin_b", "cos_b", "dist", "count", "sig0", "sig1", "sig2"]
+    assert c1_anatomy(peers=False) == c1_anatomy()  # the default is untouched
+    with pytest.raises(ValueError):
+        c1_anatomy(survival=False, peers=True)  # peers needs the distal body
+
+
 def test_rover_meta_names_parts_and_actions():
     body = make_rover_body(Config(), np.random.default_rng(1))
     meta = body.anatomy_meta()

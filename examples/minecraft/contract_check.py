@@ -66,10 +66,12 @@ def main() -> int:
     survival = table.get("hand") == 7
     flood = "flood" in table
     aim = "worth" if "aim" in table else ""
-    sensors, actuators = c1_anatomy(survival=survival, flood=flood, aim=aim)
+    peers = "peers" in table
+    sensors, actuators = c1_anatomy(survival=survival, flood=flood, aim=aim, peers=peers)
     declared = {s_.topic: s_.width for s_ in sensors}
     check(
-        f"channel table matches c1_anatomy(survival={survival}, flood={flood}, aim={aim!r})",
+        f"channel table matches c1_anatomy(survival={survival}, flood={flood}, "
+        f"aim={aim!r}, peers={peers})",
         table == declared,
         f"bridge={table} anatomy={declared}" if table != declared else "",
     )
