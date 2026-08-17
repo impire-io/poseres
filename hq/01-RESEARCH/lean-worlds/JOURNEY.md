@@ -107,3 +107,38 @@ right one.
   BEFORE the L3 verdict is signed — a 1.0-gap world that saturates
   behavior would measure the world, not the sense. This guard
   sharpens the protocol; the L3 bar itself is unchanged.
+
+## 2026-08-17 — rung 2 built: the sense, its proof, the brain, the baseline
+
+**Bar L2 PASSES 27/27** — on the *second edition* of the reading.
+The first edition read 9/16 and the instrument caught its own
+assumption: every bearing/distance failure reverse-engineered to a
+~2.3-block subject displacement (the script trusted that pra stood
+where rcon tp sent it; solved positions matched the read channel to
+three decimals). The reading is now SELF-LOCATING — expectations
+derive from the world's own measured facts (bridge view position,
+pose yaw, `data get entity` for the peer) — and passes with bearings
+within 0.006, distances within 0.002, signatures sha256-exact and
+stable across reconnects, the range cap honest, and the bearing
+frame rotating with the body's own turn. East sign declared from
+measurement: −1 facing +z (the drops convention, same formula).
+The sense itself: bridge `PEERS=1` + `c1_anatomy(peers=True)` →
+94/13, appended last, default untouched (pinned), contract check
+green, full pytest suite green.
+
+**The 94-dim brain**: 45/45 lessons, zero retries, same recipe, no
+peer in any classroom (the channel read zeros throughout — the head
+has NO learned dynamics for peers ≠ 0; whatever the sense pays in
+the hostile arm, it pays through within-life learning). Born tongue
+reused (worth-palate-taught.json) to remove the palate confound.
+
+**C-1-solo94 passes L0** — below-12 steady-state **0.0912**, 6 eats,
+0 starvation — but the record keeps the wobble honest: segment 1 was
+a total blank (0 eats, ge12 0.000; it dug floor, held dirt 3,075 of
+5,026 steps, destroyed melon B without pocketing a slice), then
+competence expressed in segment 2 (6 eats off melon A, ge12 0.818,
+seg 3 coast at 1.000). Expression latency in the D3-measured band —
+a different teach draw expresses later than the 86 brain did, and it
+wasted half the larder learning. Baseline for L3 is therefore 0.0912
+(not the 86's 0.000); the L3 bar as registered: hostile-94 below-12
+steady-state ≤ 0.50 with this baseline passing L0 — it does.
