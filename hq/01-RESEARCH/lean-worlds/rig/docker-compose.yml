@@ -1,0 +1,28 @@
+# The lean-worlds rig world — the N1 probe world's DECLARED
+# config, unchanged (vanilla, difficulty NORMAL, mob spawning off,
+# superflat), on its own container and port so the C1 and N1 worlds are
+# never touched. Port 25604; container lw1-minecraft.
+# The VERSION pin moves with the bridge's mineflayer pin
+# (examples/minecraft/README.md).
+services:
+  minecraft:
+    image: itzg/minecraft-server:latest
+    container_name: lw1-minecraft
+    environment:
+      EULA: "TRUE"
+      VERSION: "1.21.11"
+      TYPE: VANILLA
+      MODE: survival
+      DIFFICULTY: normal
+      LEVEL_TYPE: FLAT
+      SPAWN_MONSTERS: "FALSE"
+      ONLINE_MODE: "FALSE"
+      SPAWN_PROTECTION: "0"
+      VIEW_DISTANCE: "6"
+      SNOOPER_ENABLED: "FALSE"
+      MEMORY: 2G
+    ports:
+      - "25604:25565"
+    volumes:
+      - ./data:/data
+    restart: unless-stopped
