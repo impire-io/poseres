@@ -83,6 +83,7 @@ CONFIGS = {
     "C2": {"patches": ((5, 5),), "melons": 8, "stems": 4},
     "C1": {"patches": ((5, 5),), "melons": 4, "stems": 2},
     "C0": {"patches": ((5, 5),), "melons": 4, "stems": 0},
+    "C-0.5": {"patches": ((5, 5),), "melons": 3, "stems": 0},  # Amendment 2: the knife edge
     "C-1": {"patches": ((5, 5),), "melons": 2, "stems": 0},
 }
 FROZEN = RIG / "FROZEN.json"

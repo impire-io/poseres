@@ -143,6 +143,38 @@ wasted half the larder learning. Baseline for L3 is therefore 0.0912
 (not the 86's 0.000); the L3 bar as registered: hostile-94 below-12
 steady-state ≤ 0.50 with this baseline passing L0 — it does.
 
+## 2026-08-17 — the C0 auxiliary: no gap for anyone; Amendment 2 (the knife edge)
+
+The C0 pair plus comparator, measured:
+
+| arm | below12_ss | eats | starv |
+|-----|-----------:|-----:|------:|
+| C0-solo94 | 0.000 | 6 | 0 |
+| C0-hostile94 (the sense) | 0.000 | 3 | 0 |
+| C0-hostile (86, blind) | 0.000 | 6 | 0 |
+
+Four melons is enough for both bodies — the blind brain ate *more*
+than the sensing one against the same adversary. So the meter cost
+lives on a razor-thin band: at 2 melons the war ends before either
+brain expresses (total, unrecoverable — measured both bodies), at 4
+there is no war at all (measured both bodies). **Amendment 2,
+registered before it runs**: one finer rung, C-0.5 (one patch,
+**3 melons**, 0 stems), decides whether a *recoverable* middle
+exists. Protocol: C-0.5-hostile (86) runs first to establish the
+gap; its solo-86 baseline is stated by inference, not measurement —
+a 3-melon world is strictly richer than the measured C-1 solo
+(0.000), so 0.000 bounds it. If the 86 gap lands partial (below-12
+ss in (0.10, 0.90)), the 94 pair runs and L3 signs on C-0.5 (same
+bar: hostile94 at or under half the 86 gap, solo94 passing L0). If
+the gap lands at 0.000 or ~1.000 again, the all-or-nothing dynamic
+is confirmed across three scarcity rungs, L3 is honestly
+unmeasurable-as-failed on this geometry, and the registered
+L3-after-L1 reversal routes the topic to design: with a fast
+adversary on non-renewable resources, contests are decided by race,
+not information — the machinery conversation (what world geometry or
+body speed makes information worth anything) is licensed by these
+numbers.
+
 ## 2026-08-17 — C-1-hostile94: total loss again; the slack guard FIRES
 
 All three segments ge12 = 0.000, 0 eats, 0 collects — below-12
