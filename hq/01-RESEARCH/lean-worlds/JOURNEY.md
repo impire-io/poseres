@@ -142,3 +142,21 @@ a different teach draw expresses later than the 86 brain did, and it
 wasted half the larder learning. Baseline for L3 is therefore 0.0912
 (not the 86's 0.000); the L3 bar as registered: hostile-94 below-12
 steady-state ≤ 0.50 with this baseline passing L0 — it does.
+
+## 2026-08-17 — C-1-hostile94: total loss again; the slack guard FIRES
+
+All three segments ge12 = 0.000, 0 eats, 0 collects — below-12
+steady-state **1.000**, the identical signature to the 86 arm. The
+peers channel was alive and learning (err 0.0036 → 0.0063 across
+segments — the head's first-ever nonzero peer signal), and it made
+no difference to the meters, because there was nothing left to
+sense one's way toward: the peer's act log reads **2 digs** in the
+birth minute, again. The registered interpretive guard fires on its
+exact trigger (identical total-loss signature): the L3 verdict is
+NOT signed on C-1. The auxiliary C0 pair runs first — C0-solo94
+(the wider baseline), C0-hostile94, and C0-hostile (the 86
+comparator) — because a world with zero behavioral slack measures
+the world, not the sense. The L3 bar itself stands unchanged; on
+C0 it reads: hostile94 recovers ≥ 50% of the C0 gap (C0-hostile-86
+vs C0-solo94's own baseline), i.e. below-12 steady-state at or
+under the midpoint of those two, with C0-solo94 passing L0.
