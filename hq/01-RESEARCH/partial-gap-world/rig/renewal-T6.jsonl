@@ -1,0 +1,14 @@
+{"rung": "T6", "event": 1, "wall_s": 34.4, "cell": [4, -60, 6]}
+{"rung": "T6", "event": 2, "wall_s": 53.7, "cell": [4, -60, 4]}
+{"rung": "T6", "event": 3, "wall_s": 56.4, "cell": [6, -60, 4]}
+{"rung": "T6", "event": 4, "wall_s": 73.4, "cell": [4, -60, 6]}
+{"rung": "T6", "event": 5, "wall_s": 80.8, "cell": [4, -60, 6]}
+{"rung": "T6", "event": 6, "wall_s": 88.1, "cell": [4, -60, 4]}
+{"rung": "T6", "event": 7, "wall_s": 129.7, "cell": [7, -60, 5]}
+{"rung": "T6", "event": 8, "wall_s": 132.2, "cell": [6, -60, 4]}
+{"rung": "T6", "event": 9, "wall_s": 146.6, "cell": [3, -60, 5]}
+{"rung": "T6", "event": 10, "wall_s": 149.2, "cell": [7, -60, 5]}
+{"rung": "T6", "event": 11, "wall_s": 151.7, "cell": [4, -60, 6]}
+{"rung": "T6", "event": 12, "wall_s": 185.9, "cell": [6, -60, 6]}
+{"rung": "T6", "event": 13, "wall_s": 244.4, "cell": [6, -60, 4]}
+{"rung": "T6", "tick_speed": 6, "events": 13, "wall_s": 300.1, "game_ticks": 30009, "per_life_equiv": 32.65}

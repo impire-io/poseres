@@ -89,3 +89,27 @@ instrument's own assumption, the 0110 L2 lesson one rung deeper
 presence, no acts) stands in the world during the reading as the
 ticking presence; everything else unchanged. I0 remains
 interpretive, never a bar.
+
+## 2026-08-18 — I0 second edition: the rungs priced, the walk may start
+
+With the ticking presence in place, the world grows [measured]
+(300 wall-s per rung at tick rate 100, ~30,100 game ticks each,
+both stems slot-free throughout; rows in `rig/renewal-<rung>.jsonl`):
+
+| rung | events | melons per life-equivalent (75,375 game ticks) |
+|------|--------|------------------------------------------------|
+| T12  | 23     | 57.5 |
+| T6   | 13     | 32.7 |
+| T3   | 5      | 12.5 |
+| T1   | 3      | 7.5  |
+
+Roughly linear in tick speed, as the mechanic predicts. Reading
+honestly: these are **ceiling** rates — the instrument keeps both
+fruit slots free, while in an arm a slot re-opens only when its
+melon is consumed, so effective renewal in a life sits at or below
+these numbers. Against the consumption record (subject minimum 3
+eats/life; the 0110 peer's opening theft 2 digs), even T1's ceiling
+(7.5/life) feeds one body, and T12's (57.5/life) drowns any war —
+consistent with the registered expectation that the band, if it
+exists, sits in the middle rungs. The walk starts downward from T12
+per the declaration: solo P0 screen, then hostile.
