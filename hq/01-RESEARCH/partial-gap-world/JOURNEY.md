@@ -66,3 +66,26 @@ first 2 digs; the solo-86 life needed ≥ 3 eats) the band, if it
 exists on this axis, is expected between T1 and T6 — fast renewal
 out-runs the peer's digging (no war), zero renewal is the measured
 total war.
+
+## 2026-08-18 — I0 first edition read zero everywhere; the instrument caught the server, not the world
+
+The playerless I0 read **0 events at every speed** (T12/T6/T3/T1,
+300 wall-s each at tick rate 100, ~30,190 game ticks per reading —
+rows kept as `rig/renewal-*-playerless.jsonl`). Diagnosis, one
+variable at a time [measured]: stems, age=7 state, and farmland all
+verified in place by block checks; at `random_tick_speed 255` in a
+forceloaded chunk a fresh `wheat[age=0]` sat unmoved for 60 s
+(~9,000 game ticks — random ticks were not happening at all); the
+moment one idle player joined, the same wheat raced to age 7 and two
+melons fruited inside 60 s. **This 1.21.11 server random-ticks only
+chunks near an online player; forceload keeps chunks loaded, not
+randomly ticked.** Every real arm has the subject online, so the
+world's renewal is untouched — the zero was the playerless
+instrument's own assumption, the 0110 L2 lesson one rung deeper
+(expectations from the world's measured facts).
+
+**I0 second edition, before any re-reading:** the idle peer
+(`peer.js` PEER_MODE=idle, name `lamp` — the rig's stationary
+presence, no acts) stands in the world during the reading as the
+ticking presence; everything else unchanged. I0 remains
+interpretive, never a bar.

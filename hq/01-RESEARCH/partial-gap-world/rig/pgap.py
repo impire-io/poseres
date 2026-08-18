@@ -125,9 +125,9 @@ def build_lean_patch(cx: int, cz: int, melons: int, stems: int) -> None:
         R.rcon("setblock", str(cx + dx), str(GROUND + 1), str(cz + dz), "minecraft:melon")
 
 
-def lean_newborn(cfg: dict) -> None:
-    """Birth admin: repair the floor, erase every patch site, build the
-    declared config only, then the 0109 newborn sequence."""
+def reset_sites(cfg: dict) -> None:
+    """World-only reset: repair the floor, erase every patch site, build
+    the declared config, clear dropped items. No player, no bridge."""
     for what in ("minecraft:air", "minecraft:water"):
         R.rcon(
             "fill",
@@ -154,13 +154,19 @@ def lean_newborn(cfg: dict) -> None:
         )
     for cell in D.MELON_CELLS:  # the teaching variants' classroom cells
         R.rcon("setblock", *cell, "minecraft:air")
-    R.rcon("effect", "clear", "pra")
-    R.rcon("clear", "pra")
     R.rcon("kill", "@e[type=item]")
-    R.normalize_hand()
     for cx, cz in cfg["patches"]:
         build_lean_patch(cx, cz, cfg["melons"], cfg["stems"])
     R.rcon("kill", "@e[type=item]")
+
+
+def lean_newborn(cfg: dict) -> None:
+    """Birth admin: the world reset, then the 0109 newborn sequence
+    (needs the bridge up — normalize_hand dials it)."""
+    R.rcon("effect", "clear", "pra")
+    R.rcon("clear", "pra")
+    R.normalize_hand()
+    reset_sites(cfg)
     R.rcon("tp", "pra", *STAND)
     R.rcon("effect", "give", "pra", "minecraft:saturation", "2", "255")
     R.rcon("effect", "give", "pra", "minecraft:instant_health", "1", "20")
@@ -177,17 +183,21 @@ def lean_newborn(cfg: dict) -> None:
 def renewal_instrument(rung: str, wall_s: int) -> None:
     """Free both stems (no pre-grown melons), then harvest-loop: poll
     the six fruit cells, log and remove every melon the world grows.
-    Pure world measurement — the rate each rung actually delivers."""
+    Second edition: the first read zeros at every speed and the
+    diagnosis (wheat frozen at age 0 under speed 255, forceloaded)
+    showed this server random-ticks only near an online player — so
+    the idle peer stands in as the ticking presence, exactly the body
+    every real arm has. Pure world measurement otherwise."""
     out = RIG / f"renewal-{rung}.jsonl"
     if out.exists():
         raise SystemExit(f"{out} exists — one reading per rung; move it aside to re-run")
     print("world:", R.rcon("tick", "rate", "100"), flush=True)
     set_renewal(rung)
     cx, cz = LARDER["patches"][0]
-    # the patch chunk must stay loaded with no player in the world
     R.rcon("forceload", "add", str(cx - 8), str(cz - 8), str(cx + 8), str(cz + 8))
+    peer = start_peer(f"renewal-{rung}", peer="lamp", mode="idle")
     try:
-        lean_newborn({"patches": LARDER["patches"], "melons": 0, "stems": 2})
+        reset_sites({"patches": LARDER["patches"], "melons": 0, "stems": 2})
         cells = [(cx + dx, GROUND + 1, cz + dz) for dx, dz in FRUIT_CELLS]
         t0 = time.monotonic()
         events = 0
@@ -222,6 +232,8 @@ def renewal_instrument(rung: str, wall_s: int) -> None:
             f.write(json.dumps(summary) + "\n")
             print(f"I0 {json.dumps(summary)}", flush=True)
     finally:
+        peer.terminate()
+        peer.wait(timeout=10)
         R.rcon("forceload", "remove", "all")
 
 
@@ -293,8 +305,8 @@ def start_bridge(name: str) -> subprocess.Popen:
     raise SystemExit(f"bridge never listened — see {name}-bridge.log")
 
 
-def start_peer(name: str) -> subprocess.Popen:
-    env = {**os.environ, "MC_PORT": str(MC_PORT), "PEER_NAME": "rook", "PEER_MODE": "hostile"}
+def start_peer(name: str, peer: str = "rook", mode: str = "hostile") -> subprocess.Popen:
+    env = {**os.environ, "MC_PORT": str(MC_PORT), "PEER_NAME": peer, "PEER_MODE": mode}
     log = open(RIG / f"{name}-peer.log", "a")
     proc = subprocess.Popen(
         ["node", str(RIG / "peer.js")], env=env, stdout=log, stderr=subprocess.STDOUT
