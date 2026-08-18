@@ -142,3 +142,46 @@ The walk continues downward as declared (T6, T3, T1 — solo screen
 then hostile), now mechanized in `rig/walk.py`: the declared
 decision rule verbatim — hostile only on a P0 pass, stop on the
 first hostile reading in 0.10–0.90.
+
+## 2026-08-18 — the walk completes: total war at every renewal rate; the reversal fires
+
+The remaining rungs, mechanized and read [measured]:
+
+| rung | solo below-12 ss (eats) | P0 | hostile below-12 ss (eats) | peer digs |
+|------|-------------------------|-----|----------------------------|-----------|
+| T12  | 0.000 (6) | PASS | 1.000 (0) | 21 |
+| T6   | 0.000 (5) | PASS | 1.000 (0) | 7  |
+| T3   | 0.000 (7) | PASS | 1.000 (0) | 13 |
+| T1   | 0.000 (7) | PASS | 1.000 (0) | 10 |
+
+Every rung passes its solo screen with room to spare — the renewing
+larder feeds one body at every declared rate, T1's solo eating more
+(7) than C-1's non-renewing minimum ever allowed (3). And every
+hostile arm reads **1.000 — not a band, not a knife edge, the same
+total loss at every renewal rate**. The channel readings behind the
+claim (the standing guard): the peer's act logs show digs at every
+rung — 21/7/13/10 — with late-life activity in each log (the peer
+alive and patrolling to the end; its position trace sits on the
+patch square throughout). The subject: zero eats, zero collects, in
+every hostile arm, at every rate.
+
+The mechanism note from T12 is now the axis's measured story: the
+hostile peer shadows the subject, the subject forages the one patch,
+so the peer camps exactly where renewal lands and converts the whole
+regrowth stream into its own harvest. Standing stock never exceeds
+the two fruit slots; supply rate never matters because every unit of
+supply is contested at script speed the moment it exists, and the
+subject loses every race (0110's verdict, now measured to hold at
+every renewal rate on this geometry). T0 stays unrun per the
+declaration — its trigger clause (every renewing rung < 0.10) never
+fired, and C-1's 1.000 (0110) already anchors the no-renewal floor.
+
+**The registered reversal fires as written:** no declared rung lands
+in 0.10–0.90 after P0 screening. The all-or-nothing verdict
+generalizes from larder size to renewal rate; the topic heads to its
+registered routing — graduated abandoned, carrying the second null
+on axis 2's cheapest arm. What the walk adds to design 0017's
+question: a partial gap needs the rival to be somewhere else some of
+the time (spatially separated patches, so WHERE the rival is decides
+what is contested) or a rival that races at a comparable speed
+(axis 3) — supply rate alone cannot open a middle against a camper.

@@ -81,6 +81,41 @@ patch separation is NOT walked here (see reversal).
 
 ## Verdict
 
-<Empty until graduation. Filled by /research-graduate: PASS/FAIL per
-bar with the honest numbers, each load-bearing claim tagged
-[measured] / [mechanism-argument] / [judgment].>
+The registered reversal fired, 2026-08-18: no declared rung landed
+in the band. Routing per the pre-registration: **graduated
+abandoned**, the second null on design 0017's axis 2.
+
+- **Bar P0 — PASS at every rung** [measured]: solo below-12
+  steady-state 0.000 at T12/T6/T3/T1 with 6/5/7/7 eats, zero
+  starvation everywhere — a renewing 2-melon larder feeds one body
+  at every declared rate (T1's solo out-ate C-1's non-renewing
+  minimum, 7 vs 3).
+- **Bar P1 — FAIL: the band is empty** [measured]: hostile-86
+  below-12 steady-state **1.000 at every rung** — 0 eats, 0
+  collects in every hostile arm. The instrument reading behind the
+  supply claim (I0, second edition, idle-peer ticking presence):
+  renewal ceilings 57.5/32.7/12.5/7.5 melons per life-equivalent,
+  linear in tick speed. The act logs behind the war claim: the peer
+  dug 21/7/13/10 melons per arm, alive and on the patch square to
+  the end; every unit of regrowth was contested and taken at script
+  speed. T0 unrun per the declaration (its trigger clause never
+  fired; C-1's 1.000 from 0110 anchors the floor).
+- **Bar P2 — not reached** (no config froze; nothing to replicate).
+
+Load-bearing claims: **supply rate cannot open a middle against a
+camper** — the hostile peer shadows the subject, the subject
+forages the one patch, so renewal lands exactly where the peer
+stands and the standing stock never exceeds the two fruit slots
+[measured, this geometry and peer speed]. The registered
+middle-rung expectation (fast renewal drowns the war) was refuted
+at the top rung first [measured]. A partial gap, if it exists,
+needs the rival to be elsewhere some of the time (separated
+patches — WHERE the rival is deciding what is contested) or a
+rival at comparable speed (axis 3) [judgment — design 0017's
+remaining candidates]. Instrument legacy: this server random-ticks
+only near an online player; forceload loads without ticking — the
+playerless I0 first edition read zero everywhere and was amended
+openly before any rung ran [measured]. Confounds as journaled: one
+life per arm across the walk; the same taught 86 draw in every
+arm; renewal timing is the world's own stochasticity, outside
+engine seed 1.
