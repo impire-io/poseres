@@ -1,1 +1,68 @@
 # Journey — partial-gap-world (started 2026-08-18)
+
+## 2026-08-18 — the rig and the declared renewal ladder, before the walk
+
+The 0110 rig restored from its trail (f05827f) onto its own world
+(`pgw1-minecraft`, port 25605, bridge 25593): `rig/pgap.py` carries
+the meter instruments unchanged (steady-state below-12 on segments
+2–3, eats, starvation; the RecordingPolicy as trail), `rig/peer.js`
+is byte-identical to the arms copy, and the world builder is 0110's
+with the larder FROZEN at C-1's total-war shape — one patch, 2
+pre-grown melons — plus 2 age-7 stems. The two pre-grown melons sit
+on the stems' cardinal fruit cells, so both stems are blocked at
+birth: **regrowth begins only when a melon is consumed** — renewal
+is re-contested by construction, the design's "regrowth slower than
+joint consumption" made mechanical.
+
+**The one walked variable** is the world's `random_tick_speed`
+gamerule, set on the record before every birth. Declared rungs,
+name → tick speed:
+
+| rung | random_tick_speed | note |
+|------|-------------------|------|
+| T12  | 12                | 4× the game's default renewal |
+| T6   | 6                 | 2× default |
+| T3   | 3                 | the game's own default — C2/C1's regrowth rate (0110) |
+| T1   | 1                 | ⅓ default |
+| T0   | 0                 | no renewal: C-1 plus two inert stem blocks |
+
+**Walk order, declared:** downward from T12. At each rung: solo-86
+first (the Bar P0 screen; a rung failing P0 is disqualified and gets
+no hostile arm), then the hostile-86 arm (the Bar P1 hunt). The walk
+stops at the first hostile reading in 0.10–0.90: that rung freezes
+(`FROZEN.json`, a hand act journaled here) and Bar P2's `hostile2`
+replicate runs on it. If two adjacent rungs straddle the band (one
+< 0.10, the next > 0.90), intermediate tick speeds (e.g. T2, T4)
+may be added as rungs — declared here before they run, the 0110
+knife-edge probe's precedent made a standing rule. T0 runs only if
+every renewing rung reads < 0.10, to re-anchor the floor before any
+abandoned verdict; otherwise 0110's C-1 reading (1.000) stands as
+the no-renewal record.
+
+**I0 — the renewal-rate instrument, declared before the walk:** a
+pure world reading, no subject and no peer (`pgap.py renewal
+<rung>`): both stems freed, the six fruit cells harvest-polled every
+2 s for 300 wall-seconds at tick rate 100 (30,000 game ticks ≈ 0.4
+life-equivalents), every growth event logged and the summary row
+reporting melons per life-equivalent (one life = 75,375 game ticks).
+One reading per renewing rung, run before any arm. I0 is
+interpretive — it prices the rungs in melons-per-life so the walk's
+verdict can say how renewal compares to joint consumption — and
+carries no bar.
+
+**Journaled confounds, accepted going in:** random ticks are the
+world's own stochasticity — the renewal *timing* is not under engine
+seed 1 (the subject's stream is; live-world evidence, as
+everywhere). `random_tick_speed` also scales farmland-moisture and
+grass-spread checks; the patch is water-hydrated (moisture pinned at
+7 by construction each birth) and the floor is grass on superflat,
+so the accepted side effect is cosmetic. One life per arm remains
+the walk's economy — that is what Bar P2 exists for at the only rung
+that matters.
+
+**Registered expectation (mechanism note, not a bar):** by 0110's
+consumption record (the hostile peer took the 2-melon larder in its
+first 2 digs; the solo-86 life needed ≥ 3 eats) the band, if it
+exists on this axis, is expected between T1 and T6 — fast renewal
+out-runs the peer's digging (no war), zero renewal is the measured
+total war.
