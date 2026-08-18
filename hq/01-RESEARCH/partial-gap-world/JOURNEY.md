@@ -113,3 +113,32 @@ eats/life; the 0110 peer's opening theft 2 digs), even T1's ceiling
 consistent with the registered expectation that the band, if it
 exists, sits in the middle rungs. The walk starts downward from T12
 per the declaration: solo P0 screen, then hostile.
+
+## 2026-08-18 — T12: solo P0 clean; the hostile arm refutes the expectation at the top rung
+
+**T12-solo — Bar P0 PASS** [measured]: below-12 steady-state
+**0.000** (segments 2–3 food ≥ 12 fraction 1.000 / 1.000), 6 eats
+(all in the hungry-born segment 1 — satiation reached and held),
+starvation 0, life food-min 8 (segment 1 only). The renewing world
+feeds one body with room to spare.
+
+**T12-hostile — 1.000, total war at the FASTEST rung** [measured]:
+food ≥ 12 fraction 0.000 in every segment, **0 eats, 0 collects**,
+food walked down to 3 by segment 3 (no starvation health-loss —
+hunger stops at the edge, 0110's signature). The channel reading
+behind the claim (the standing guard): the peer's act log shows
+**21 dig events over the 731-s life** — renewal ran near its priced
+ceiling and the peer won all 21 re-contests at script speed; the
+subject took nothing from any of them. The registered expectation
+(fast renewal drowns the war) is REFUTED at T12: renewal does not
+buy the subject a race it can win, it feeds the peer on schedule.
+Mechanism note [judgment, to be tested by the remaining rungs]: the
+two fruit slots cap standing stock at 2, so no renewal rate
+accumulates a surplus the script-speed peer cannot clear — if true,
+every slower rung reads total war too and the reversal's "second
+null" clause is where this walk is heading.
+
+The walk continues downward as declared (T6, T3, T1 — solo screen
+then hostile), now mechanized in `rig/walk.py`: the declared
+decision rule verbatim — hostile only on a P0 pass, stop on the
+first hostile reading in 0.10–0.90.
