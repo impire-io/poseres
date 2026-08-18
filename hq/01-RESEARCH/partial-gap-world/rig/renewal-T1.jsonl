@@ -1,4 +1,0 @@
-{"rung": "T1", "event": 1, "wall_s": 223.7, "cell": [3, -60, 5]}
-{"rung": "T1", "event": 2, "wall_s": 243.3, "cell": [7, -60, 5]}
-{"rung": "T1", "event": 3, "wall_s": 260.3, "cell": [4, -60, 4]}
-{"rung": "T1", "tick_speed": 1, "events": 3, "wall_s": 301.5, "game_ticks": 30154, "per_life_equiv": 7.5}

@@ -1,6 +1,0 @@
-{"rung": "T3", "event": 1, "wall_s": 7.5, "cell": [4, -60, 4]}
-{"rung": "T3", "event": 2, "wall_s": 65.8, "cell": [4, -60, 4]}
-{"rung": "T3", "event": 3, "wall_s": 148.6, "cell": [7, -60, 5]}
-{"rung": "T3", "event": 4, "wall_s": 219.3, "cell": [6, -60, 4]}
-{"rung": "T3", "event": 5, "wall_s": 241.2, "cell": [7, -60, 5]}
-{"rung": "T3", "tick_speed": 3, "events": 5, "wall_s": 301.7, "game_ticks": 30172, "per_life_equiv": 12.49}

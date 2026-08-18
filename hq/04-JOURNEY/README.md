@@ -20,29 +20,33 @@ Episodes 0001–0044 were chapters of the original single-file `JOURNEY.md`
 "ch. NN" resolve to `00NN-*.md`). The recurring principles the journey keeps
 teaching moved to `../00-GENESIS/how-we-work.md`.
 
-## Where things stand (2026-08-16)
+## Where things stand (2026-08-18)
 
-**The multi-body arc: presence is not conflict, and race beats
-information** ([0109](0109-contested-worlds.md) /
-[0110](0110-lean-worlds.md), two topics in two days, both landed on
-their registered reversals): contested-worlds refuted the
+**The multi-body arc: presence is not conflict, race beats
+information, and supply cannot outrun a camper**
+([0109](0109-contested-worlds.md) / [0110](0110-lean-worlds.md) /
+[0111](0111-partial-gap-world.md), three topics in three days, all
+landed on their registered reversals): contested-worlds refuted the
 learnability premise — a scripted peer, generous or adversarial,
 made the subject's world MORE predictable (−37.9% / −25.3%) while
-its meters stayed healthy — and its reopening evidence arrived the
-next day by design: lean-worlds measured the first real
+its meters stayed healthy; lean-worlds measured the first real
 co-habitation cost (two non-renewing melons: below-12 steady-state
-1.000 vs solo 0.000, the war over in the peer's first 2 digs), built
-the peers sense in the house grammar (opt-in 94/13, Bar L2 27/27 on
-a self-locating reading), and then measured the sense buying zero
-meters at every scarcity rung — the flip from total loss to no loss
-sits entirely between 2 and 3 melons; contests at script speed are
-decided by race, not information. Graduated to design
-[0017](../02-DESIGN/0017-lean-worlds.md): what world geometry,
-teaching, or body parity makes another body worth sensing — with
-the partial-gap world (hostile-86 below-12 in 0.10–0.90) as the
-gate any follow-up must find first. The peers sense stays an
+1.000 vs solo 0.000), built the peers sense in the house grammar
+(opt-in 94/13, Bar L2 27/27), and measured it buying zero meters at
+every scarcity rung — graduating to design
+[0017](../02-DESIGN/0017-lean-worlds.md) with the partial-gap world
+(hostile-86 below-12 in 0.10–0.90) as the gate any follow-up must
+find first. Partial-gap-world then ran the design's cheapest axis
+(renewal rate: a 2-melon larder with consumption-triggered
+regrowth, tick-speed ladder declared before the walk) and returned
+the second null: solo passes at every rate (renewal feeds one
+body), hostile reads 1.000 at every rate — the peer camps where
+renewal lands and takes every unit at script speed. A partial gap,
+if it exists, needs the rival elsewhere some of the time (separated
+patches) or a rival at comparable speed. The peers sense stays an
 instrument flag; its reading and the three-mode scripted peer live
-on at `examples/minecraft/survival/arms/`.
+on at `examples/minecraft/survival/arms/`; the board is clear
+again.
 
 **The research board is CLEAR — every topic graduated, the arc is
 closed** ([episodes 0103](0103-native-survival.md)–[0108](0108-provisioning.md)):
@@ -864,3 +868,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0108 | [Provisioning: the premise dissolved, and that is the result](0108-provisioning.md) |
 | 0109 | [Contested worlds: the rival that made the world easier](0109-contested-worlds.md) |
 | 0110 | [Lean worlds: race beats information](0110-lean-worlds.md) |
+| 0111 | [Partial-gap world: supply cannot outrun a camper](0111-partial-gap-world.md) |
