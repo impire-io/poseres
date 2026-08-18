@@ -24,6 +24,12 @@ The system is a **continuously-learning machine intelligence** with a configurab
 | 10 | `0010-recipes-and-the-label.md` | Recipes and the praise label: taught reach as product (graduated research, episode 0077) |
 | 11 | `0011-the-dials.md` | The dials: what every tuning knob represents, the measured operating points, and the drive-band tuning protocol |
 | 12 | `0012-anatomy-from-world.md` | Anatomy from world: the structured process for deriving a body from a target environment (skill: `/anatomy-mapping`) |
+| 13 | `0013-the-aim.md` | The palate: worth eaten into existence at the body seam, read at the distance (episode 0100; steering refuted, substrate stands) |
+| 14 | `0014-the-last-crack.md` | Commitment: the hold that finishes — incumbency while progress advances, dying with its intention (episode 0101) |
+| 15 | `0015-native-survival.md` | The survival stack: the operating point that lives — palate body + flood + commitment, gate off, on the world's own economy (episode 0103) |
+| 16 | `0016-motivation-stack.md` | The motivation stack: the measured map — eight layers, their twins, their evidence, their shipped forms (episode 0107) |
+| 17 | `0017-lean-worlds.md` | Lean worlds: when is another body worth sensing — race beats information; the partial-gap world gates every follow-up (episodes 0109–0110) |
+| 18 | `0018-brain-anatomy.md` | Brain anatomy: the zones of the learner, visually — what each part holds and where knowledge lives |
 
 Read 01 first; it is the map. The rest may be read in any order, but 03 and 04 describe the validated core and are the natural place for an implementer to begin building.
 

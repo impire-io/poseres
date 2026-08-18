@@ -31,3 +31,4 @@ Read 01 first; it is the map. 03 and 04 describe the validated core.
 | 15 | [The survival stack](0015-native-survival.md) | The operating point that lives: palate body + flood + commitment, gate off, on the world's own economy (episode 0103) |
 | 16 | [The motivation stack](0016-motivation-stack.md) | The measured map: eight layers, their twins, their evidence, their shipped forms (episode 0107) |
 | 17 | [Lean worlds](0017-lean-worlds.md) | When is another body worth sensing: race beats information; the partial-gap world gates every follow-up (episodes 0109–0110) |
+| 18 | [Brain anatomy](0018-brain-anatomy.md) | The zones of the learner, visually: what each part holds and where knowledge lives |
