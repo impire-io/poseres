@@ -58,3 +58,29 @@ Machinery for the variant arms (shared transition conditioned on an
 action vector; anchors `[structure of d ; scaled p]`; opt-in config;
 off bit-exact) gets its own journaled entry when built — before any
 variant arm runs.
+
+## 2026-08-21 — the variant machinery declared, before it is built
+
+The variant lives **rig-side, zero src changes** (the second-body
+precedent, stronger here: the frozen suite cannot even see the
+machinery). `rig/embed.py`: `EmbeddedFrameGroup(FrameGroup)`
+replaces the per-action transition slices `T1 (F,A,H,D)` /
+`T2 (F,A,D,H)` with bilinear forms over an action embedding
+`e_a ∈ R^E` — `W1e (F,H,D,E)`, `W2e (F,D,H,E)`, biases likewise —
+so parameters are O(E), every executed act trains the shared
+tensors (the starvation axis under test), and similar acts share
+gradients. The store subclass carries the event-head variant the
+same way (`(E, obs, obs+1)` instead of `(A, obs, obs+1)`) and the
+anchor table `e_a = [onehot₄(d); p scaled]` (E = 5): **frozen** arm
+= table constant; **learned** arm = table receives gradient too.
+Wiring: the rig rebinds the engine's module-level `FrameStore` name
+for variant runs — instrument code, on the trail like every runner.
+
+Declared self-test, built before any variant arm: with **one-hot
+anchors (E = A)** the bilinear form reduces exactly to per-action
+slice selection, so the embedded machinery must reproduce the flat
+kernel's structure — the rig's internal parity check that the new
+math is the old math when the embedding carries no structure.
+Selection stays exact brute-force argmax (the Doc 06 seam decision:
+no index until a profile demands one); F3's mask is a candidate
+filter at the policy seam.
