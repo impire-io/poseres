@@ -129,3 +129,25 @@ with m, which is the ladder's whole point.
 Arm order, declared: F0 first (m=3 frozen + learned) — no larger
 rung runs for a variant until its parity passes; flat's rungs
 (m=16, 64, 256) may run any time after this freeze.
+
+## 2026-08-21 — Bar F0: both variants PASS; the anchors help before they scale
+
+Against the frozen thresholds (median ≥ 10.385, min > 6.923,
+pred_late ≤ 0.803), 24 seeds each [measured]:
+
+| arm | reach/1k: min / median / max | pred_late | F0 |
+|---|---|---|---|
+| flat (the calibration read) | 8.308 / 12.615 / 17.077 | 0.6423 | — |
+| **frozen** | 11.538 / **14.462** / 21.077 | 0.5642 | **PASS** |
+| **learned** | 8.308 / **10.615** / 12.154 | 0.5246 | **PASS** (median by 0.23) |
+
+Two early readings worth naming. The frozen arm does not merely
+match flat — its whole distribution sits above (worst seed 11.5 vs
+flat's median 12.6): compositional anchors pay at twelve acts
+already, where the shared tensors see every act's experience. And
+the learned arm is WORSE than frozen here (10.6 vs 14.5): gradient
+on an anchor table that was already correct is pure drift cost at
+this scale — the 0091–0094 churn lesson showing up exactly where
+theory put it. Whether learning earns its keep is F4's question
+(exceptions), not this rung's. Both variants licensed to scale per
+the declared order.

@@ -1,0 +1,25 @@
+{"seed": 0, "m": 3, "A": 12, "steps": 13000, "reaches": 122, "reaches_back": 62, "reach_per_1k_back": 9.538, "pred_late": 0.47802172431198814, "map_frac": 0.7998, "population": 5, "arm": "learned"}
+{"seed": 1, "m": 3, "A": 12, "steps": 13000, "reaches": 145, "reaches_back": 72, "reach_per_1k_back": 11.077, "pred_late": 0.4737926041044329, "map_frac": 0.8441, "population": 7, "arm": "learned"}
+{"seed": 2, "m": 3, "A": 12, "steps": 13000, "reaches": 127, "reaches_back": 69, "reach_per_1k_back": 10.615, "pred_late": 0.4011612729102015, "map_frac": 0.8126, "population": 10, "arm": "learned"}
+{"seed": 3, "m": 3, "A": 12, "steps": 13000, "reaches": 144, "reaches_back": 74, "reach_per_1k_back": 11.385, "pred_late": 0.5004876871236729, "map_frac": 0.7728, "population": 10, "arm": "learned"}
+{"seed": 4, "m": 3, "A": 12, "steps": 13000, "reaches": 136, "reaches_back": 70, "reach_per_1k_back": 10.769, "pred_late": 0.508937060410187, "map_frac": 0.7961, "population": 9, "arm": "learned"}
+{"seed": 5, "m": 3, "A": 12, "steps": 13000, "reaches": 123, "reaches_back": 54, "reach_per_1k_back": 8.308, "pred_late": 0.5380345044868261, "map_frac": 0.8368, "population": 6, "arm": "learned"}
+{"seed": 6, "m": 3, "A": 12, "steps": 13000, "reaches": 134, "reaches_back": 64, "reach_per_1k_back": 9.846, "pred_late": 0.5218831922946872, "map_frac": 0.8473, "population": 7, "arm": "learned"}
+{"seed": 7, "m": 3, "A": 12, "steps": 13000, "reaches": 124, "reaches_back": 54, "reach_per_1k_back": 8.308, "pred_late": 0.4967763461161181, "map_frac": 0.7999, "population": 3, "arm": "learned"}
+{"seed": 8, "m": 3, "A": 12, "steps": 13000, "reaches": 117, "reaches_back": 54, "reach_per_1k_back": 8.308, "pred_late": 0.5183352080061987, "map_frac": 0.8179, "population": 7, "arm": "learned"}
+{"seed": 9, "m": 3, "A": 12, "steps": 13000, "reaches": 134, "reaches_back": 72, "reach_per_1k_back": 11.077, "pred_late": 0.5183746307327496, "map_frac": 0.8662, "population": 5, "arm": "learned"}
+{"seed": 10, "m": 3, "A": 12, "steps": 13000, "reaches": 131, "reaches_back": 64, "reach_per_1k_back": 9.846, "pred_late": 0.5460527118339255, "map_frac": 0.8979, "population": 5, "arm": "learned"}
+{"seed": 11, "m": 3, "A": 12, "steps": 13000, "reaches": 133, "reaches_back": 74, "reach_per_1k_back": 11.385, "pred_late": 0.5273923522424302, "map_frac": 0.8378, "population": 6, "arm": "learned"}
+{"seed": 12, "m": 3, "A": 12, "steps": 13000, "reaches": 109, "reaches_back": 56, "reach_per_1k_back": 8.615, "pred_late": 0.5292513999428663, "map_frac": 0.8518, "population": 10, "arm": "learned"}
+{"seed": 13, "m": 3, "A": 12, "steps": 13000, "reaches": 120, "reaches_back": 62, "reach_per_1k_back": 9.538, "pred_late": 0.4674860851553398, "map_frac": 0.8303, "population": 8, "arm": "learned"}
+{"seed": 14, "m": 3, "A": 12, "steps": 13000, "reaches": 115, "reaches_back": 60, "reach_per_1k_back": 9.231, "pred_late": 0.6333269310199549, "map_frac": 0.7787, "population": 8, "arm": "learned"}
+{"seed": 15, "m": 3, "A": 12, "steps": 13000, "reaches": 118, "reaches_back": 73, "reach_per_1k_back": 11.231, "pred_late": 0.41779053691137236, "map_frac": 0.8324, "population": 7, "arm": "learned"}
+{"seed": 16, "m": 3, "A": 12, "steps": 13000, "reaches": 136, "reaches_back": 67, "reach_per_1k_back": 10.308, "pred_late": 0.5605652789286419, "map_frac": 0.8145, "population": 4, "arm": "learned"}
+{"seed": 17, "m": 3, "A": 12, "steps": 13000, "reaches": 137, "reaches_back": 78, "reach_per_1k_back": 12.0, "pred_late": 0.5163406408735348, "map_frac": 0.8242, "population": 6, "arm": "learned"}
+{"seed": 18, "m": 3, "A": 12, "steps": 13000, "reaches": 156, "reaches_back": 76, "reach_per_1k_back": 11.692, "pred_late": 0.5819009333507371, "map_frac": 0.887, "population": 9, "arm": "learned"}
+{"seed": 19, "m": 3, "A": 12, "steps": 13000, "reaches": 130, "reaches_back": 72, "reach_per_1k_back": 11.077, "pred_late": 0.5615877410496153, "map_frac": 0.8764, "population": 10, "arm": "learned"}
+{"seed": 20, "m": 3, "A": 12, "steps": 13000, "reaches": 126, "reaches_back": 69, "reach_per_1k_back": 10.615, "pred_late": 0.5339034561949311, "map_frac": 0.8432, "population": 8, "arm": "learned"}
+{"seed": 21, "m": 3, "A": 12, "steps": 13000, "reaches": 137, "reaches_back": 64, "reach_per_1k_back": 9.846, "pred_late": 0.5566759613313602, "map_frac": 0.8478, "population": 9, "arm": "learned"}
+{"seed": 22, "m": 3, "A": 12, "steps": 13000, "reaches": 126, "reaches_back": 70, "reach_per_1k_back": 10.769, "pred_late": 0.5696990156996407, "map_frac": 0.8112, "population": 6, "arm": "learned"}
+{"seed": 23, "m": 3, "A": 12, "steps": 13000, "reaches": 124, "reaches_back": 79, "reach_per_1k_back": 12.154, "pred_late": 0.5743175570246514, "map_frac": 0.7902, "population": 4, "arm": "learned"}
+{"arm": "learned", "m": 3, "n_cycles": 18, "seeds": 24, "reach_per_1k_back_min": 8.308, "reach_per_1k_back_median": 10.615, "reach_per_1k_back_max": 12.154, "seeds_with_back_reaches": 24}
