@@ -1,0 +1,25 @@
+{"seed": 0, "m": 16, "A": 64, "steps": 13000, "reaches": 12, "reaches_back": 8, "reach_per_1k_back": 1.231, "pred_late": 0.6308536842273551, "map_frac": 0.9255, "population": 6}
+{"seed": 1, "m": 16, "A": 64, "steps": 13000, "reaches": 4, "reaches_back": 3, "reach_per_1k_back": 0.462, "pred_late": 0.5703896654462024, "map_frac": 0.954, "population": 9}
+{"seed": 2, "m": 16, "A": 64, "steps": 13000, "reaches": 11, "reaches_back": 11, "reach_per_1k_back": 1.692, "pred_late": 0.565248888652885, "map_frac": 0.9718, "population": 8}
+{"seed": 3, "m": 16, "A": 64, "steps": 13000, "reaches": 13, "reaches_back": 10, "reach_per_1k_back": 1.538, "pred_late": 0.5213343511104073, "map_frac": 0.9597, "population": 8}
+{"seed": 4, "m": 16, "A": 64, "steps": 13000, "reaches": 19, "reaches_back": 12, "reach_per_1k_back": 1.846, "pred_late": 0.5519306363497734, "map_frac": 0.9579, "population": 9}
+{"seed": 5, "m": 16, "A": 64, "steps": 13000, "reaches": 11, "reaches_back": 10, "reach_per_1k_back": 1.538, "pred_late": 0.4475631197883723, "map_frac": 0.9646, "population": 10}
+{"seed": 6, "m": 16, "A": 64, "steps": 13000, "reaches": 9, "reaches_back": 9, "reach_per_1k_back": 1.385, "pred_late": 0.46661039595873943, "map_frac": 0.9681, "population": 12}
+{"seed": 7, "m": 16, "A": 64, "steps": 13000, "reaches": 8, "reaches_back": 4, "reach_per_1k_back": 0.615, "pred_late": 0.4827842606758365, "map_frac": 0.9639, "population": 11}
+{"seed": 8, "m": 16, "A": 64, "steps": 13000, "reaches": 16, "reaches_back": 12, "reach_per_1k_back": 1.846, "pred_late": 0.5692827358877598, "map_frac": 0.9471, "population": 7}
+{"seed": 9, "m": 16, "A": 64, "steps": 13000, "reaches": 22, "reaches_back": 16, "reach_per_1k_back": 2.462, "pred_late": 0.5122855610481497, "map_frac": 0.9723, "population": 11}
+{"seed": 10, "m": 16, "A": 64, "steps": 13000, "reaches": 15, "reaches_back": 10, "reach_per_1k_back": 1.538, "pred_late": 0.48428377042990106, "map_frac": 0.9759, "population": 10}
+{"seed": 11, "m": 16, "A": 64, "steps": 13000, "reaches": 15, "reaches_back": 11, "reach_per_1k_back": 1.692, "pred_late": 0.48448458234091585, "map_frac": 0.9608, "population": 10}
+{"seed": 12, "m": 16, "A": 64, "steps": 13000, "reaches": 19, "reaches_back": 11, "reach_per_1k_back": 1.692, "pred_late": 0.4343545122805743, "map_frac": 0.9779, "population": 11}
+{"seed": 13, "m": 16, "A": 64, "steps": 13000, "reaches": 12, "reaches_back": 11, "reach_per_1k_back": 1.692, "pred_late": 0.5128172629866089, "map_frac": 0.9439, "population": 8}
+{"seed": 14, "m": 16, "A": 64, "steps": 13000, "reaches": 11, "reaches_back": 6, "reach_per_1k_back": 0.923, "pred_late": 0.5029543864991173, "map_frac": 0.9773, "population": 9}
+{"seed": 15, "m": 16, "A": 64, "steps": 13000, "reaches": 5, "reaches_back": 2, "reach_per_1k_back": 0.308, "pred_late": 0.5490029620467269, "map_frac": 0.9547, "population": 10}
+{"seed": 16, "m": 16, "A": 64, "steps": 13000, "reaches": 12, "reaches_back": 10, "reach_per_1k_back": 1.538, "pred_late": 0.44876388517928845, "map_frac": 0.9685, "population": 7}
+{"seed": 17, "m": 16, "A": 64, "steps": 13000, "reaches": 2, "reaches_back": 1, "reach_per_1k_back": 0.154, "pred_late": 0.4625882631781937, "map_frac": 0.9513, "population": 14}
+{"seed": 18, "m": 16, "A": 64, "steps": 13000, "reaches": 17, "reaches_back": 12, "reach_per_1k_back": 1.846, "pred_late": 0.46561056529758177, "map_frac": 0.9683, "population": 10}
+{"seed": 19, "m": 16, "A": 64, "steps": 13000, "reaches": 12, "reaches_back": 10, "reach_per_1k_back": 1.538, "pred_late": 0.4988467611915901, "map_frac": 0.9677, "population": 9}
+{"seed": 20, "m": 16, "A": 64, "steps": 13000, "reaches": 8, "reaches_back": 8, "reach_per_1k_back": 1.231, "pred_late": 0.5069901826214469, "map_frac": 0.9755, "population": 10}
+{"seed": 21, "m": 16, "A": 64, "steps": 13000, "reaches": 24, "reaches_back": 18, "reach_per_1k_back": 2.769, "pred_late": 0.5400281174055123, "map_frac": 0.9621, "population": 7}
+{"seed": 22, "m": 16, "A": 64, "steps": 13000, "reaches": 8, "reaches_back": 7, "reach_per_1k_back": 1.077, "pred_late": 0.5287202465767392, "map_frac": 0.9677, "population": 9}
+{"seed": 23, "m": 16, "A": 64, "steps": 13000, "reaches": 12, "reaches_back": 10, "reach_per_1k_back": 1.538, "pred_late": 0.5303985652394285, "map_frac": 0.9617, "population": 8}
+{"arm": "flat", "m": 16, "n_cycles": 18, "seeds": 24, "reach_per_1k_back_min": 0.154, "reach_per_1k_back_median": 1.538, "reach_per_1k_back_max": 2.769, "seeds_with_back_reaches": 24}

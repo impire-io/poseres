@@ -103,11 +103,30 @@ class DialWorld:
         self.reach_steps = list(state["reach_steps"])
 
 
+class OraclePolicy:
+    """The ceiling instrument (trail, never a bar): perfect world
+    knowledge, no learning — at each step set the first mismatched
+    dial to its target. Reads the achievable reach rate per rung so
+    arm retention can be judged against the world's own ceiling."""
+
+    def __init__(self, m: int):
+        self.m = m
+
+    def select_action(self, context, rng) -> int:
+        obs = np.asarray(context.observation)
+        pos = np.rint((obs[0:B] + 1.0) * (self.m - 1) / 2.0).astype(int)
+        tgt = np.rint((obs[B : 2 * B] + 1.0) * (self.m - 1) / 2.0).astype(int)
+        for d in range(B):
+            if pos[d] != tgt[d]:
+                return d * self.m + int(tgt[d])
+        return int(rng.integers(B * self.m))
+
+
 def run_flat(seed: int, m: int, n_cycles: int, policy_mode: str = "curiosity") -> dict:
     cfg = Config(
         obs_dim=3 * B,
         n_actions=B * m,
-        policy_mode=policy_mode,
+        policy_mode="random" if policy_mode == "oracle" else policy_mode,
         episode_mode="continuous",
         n_cycles=n_cycles,
     )
@@ -118,7 +137,8 @@ def run_flat(seed: int, m: int, n_cycles: int, policy_mode: str = "curiosity") -
         worlds.append(w)
         return w
 
-    summary = Engine(cfg, world_factory=factory).run(seed)
+    policy = OraclePolicy(m) if policy_mode == "oracle" else None
+    summary = Engine(cfg, world_factory=factory, policy=policy).run(seed)
     w = worlds[0]
     half = w.total_steps // 2
     back = sum(1 for s in w.reach_steps if s > half)
