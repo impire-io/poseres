@@ -183,6 +183,25 @@ m=16 to m=256** — the world stays exactly as winnable while the
 learners starve. Flat's collapse is knowledge starvation, not task
 scaling.
 
+## 2026-08-21 — the m=64 variants land: frozen is terminal, learned survives starving
+
+The mid-ladder completes, 24 seeds each [measured]: frozen at m=64
+reads 0.000 / 0.000 / 0.000 with **0/24 seeds ever reaching** — the
+pinned-anchor collapse is terminal, not a dip. Learned reads 0.000 /
+**0.308** / 0.923 with **21/24 seeds reaching** — starving (6× down
+from its own m=16 while the ceiling holds flat) but alive where flat
+is dead (8/24) and frozen is gone. The full mid-ladder ordering:
+learned > flat > frozen from m=16 on, the exact inversion of m=3.
+
+Read against the amended F2 honestly, before m=256 reports: learned
+already sits far below 0.8× its m=16 anchor at m=64, so F2′ is
+heading toward FAIL even for the survivor — the mechanism as built
+buys *survival and relative advantage*, not retention, at the frozen
+budget. The bar reads as registered when the 1024 rows land; no
+re-anchoring. What the mechanism is actually worth then hangs on
+Bar F3: predicting acts never taken, the property none of this
+reach-counting can substitute for.
+
 ## 2026-08-21 — F3/F4 instrumentation built; the completable-target rule
 
 Built while the m=256 F1/F2 chain runs, smoke-tested at m=3, no
