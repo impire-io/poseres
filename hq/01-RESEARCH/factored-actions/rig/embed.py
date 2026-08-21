@@ -262,15 +262,83 @@ def selftest() -> None:
     print("SELFTEST PASS: one-hot embedded == flat (transition + event head)")
 
 
-def run_arm(seed: int, m: int, n_cycles: int, learn_anchors: bool) -> dict:
+def run_arm(
+    seed: int,
+    m: int,
+    n_cycles: int,
+    learn_anchors: bool,
+    masked: bool = False,
+    irregular: bool = False,
+    event_head_eta: float = 0.0,
+    capture: list | None = None,
+) -> dict:
     """One variant life: the stock engine over the embedded store."""
     import dial
 
     anchors = Anchors(factored_anchors(m), learn=learn_anchors)
     with rebound_store(anchors):
-        row = dial.run_flat(seed, m, n_cycles)
+        row = dial.run_flat(
+            seed,
+            m,
+            n_cycles,
+            masked=masked,
+            irregular=irregular,
+            event_head_eta=event_head_eta,
+            capture=capture,
+        )
     row["arm"] = "learned" if learn_anchors else "frozen"
     return row
+
+
+def probe_acts(
+    store, seed: int, m: int, acts: list[int], irregular: bool, n_states: int = 20
+) -> dict:
+    """Score the trained consequence models on given acts against the
+    world's analytic truth, from seeded sampled states. Event head is
+    the primary reading when on; the best-fit frame's decoded one-step
+    prediction rides as trail. States where the act would complete the
+    pattern are rejected (the redraw would randomize the truth)."""
+    import dial
+
+    _, irr = dial.draw_specials(seed, m)
+    rng = np.random.default_rng(2_000_000 + seed)
+    eh_errs, fr_errs = [], []
+    for a in acts:
+        d, p = divmod(int(a), m)
+        p_eff = irr.get(int(a), p) if irregular else p
+        eh_a, fr_a = [], []
+        while len(eh_a) < n_states:
+            pos = rng.integers(0, m, size=B)
+            tgt = rng.integers(0, m, size=B)
+            nxt = pos.copy()
+            nxt[d] = p_eff
+            if np.array_equal(nxt, tgt) or np.array_equal(pos, tgt):
+                continue
+            obs = dial.build_obs(pos, tgt, m)
+            true_next = dial.build_obs(nxt, tgt, m)
+            if store.event_head_on:
+                eh_a.append(float(np.abs(store.event_predict(obs, a) - (true_next - obs)).mean()))
+            else:
+                eh_a.append(np.nan)
+            best_err, best_pred = np.inf, None
+            for g in store._groups.values():
+                if g.size == 0:
+                    continue
+                fit, *_ = g.fit_quality(obs)
+                i = int(np.argmin(fit))
+                if fit[i] < best_err:
+                    best_err = float(fit[i])
+                    best_pred = g.predicted_obs(obs, a)[i]
+            fr_a.append(
+                float(np.abs(best_pred - true_next).mean()) if best_pred is not None else np.nan
+            )
+        eh_errs.append(float(np.nanmean(eh_a)))
+        fr_errs.append(float(np.mean(fr_a)))
+    return {
+        "n_acts": len(acts),
+        "eh_mae_median": round(float(np.nanmedian(eh_errs)), 6),
+        "frames_mae_median": round(float(np.nanmedian(fr_errs)), 6),
+    }
 
 
 def arm_sweep(arm: str, m: int, n_cycles: int) -> None:

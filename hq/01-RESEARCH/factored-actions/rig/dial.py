@@ -36,7 +36,13 @@ class DialWorld:
     something to do).
     """
 
-    def __init__(self, config: Config, rng: np.random.Generator):
+    def __init__(
+        self,
+        config: Config,
+        rng: np.random.Generator,
+        irregular: dict[int, int] | None = None,
+        mask: frozenset[int] | None = None,
+    ):
         self.m = config.n_actions // B
         if config.n_actions != B * self.m or config.obs_dim != 3 * B:
             raise ValueError(
@@ -44,6 +50,22 @@ class DialWorld:
                 f"got n_actions={config.n_actions}, obs_dim={config.obs_dim}"
             )
         self._rng = rng
+        self._irr = irregular or {}
+        # the world draws only completable targets: per dial, the pool is
+        # the IMAGE of the allowed acts under their real effects (an
+        # irregular act lands on π(p), a masked act lands nowhere) — a
+        # target outside that image could never be matched and would stall
+        # the world on an impossible pattern (declared with the F3/F4
+        # protocol; the plain world's pool is every position, untouched)
+        self._tgt_pool: list[np.ndarray] = []
+        for d in range(B):
+            pool: set[int] = set()
+            for p in range(self.m):
+                a = d * self.m + p
+                if mask is not None and a in mask:
+                    continue
+                pool.add(int(self._irr.get(a, p)))
+            self._tgt_pool.append(np.array(sorted(pool), dtype=np.int64))
         self._pos = np.zeros(B, dtype=np.int64)
         self._target = np.zeros(B, dtype=np.int64)
         self.total_steps = 0
@@ -66,7 +88,9 @@ class DialWorld:
 
     def _redraw_target(self) -> None:
         while True:
-            t = self._rng.integers(0, self.m, size=B)
+            t = np.array(
+                [pool[self._rng.integers(len(pool))] for pool in self._tgt_pool], dtype=np.int64
+            )
             if not np.array_equal(t, self._pos):
                 self._target = t
                 return
@@ -78,7 +102,7 @@ class DialWorld:
 
     def step(self, action: int) -> np.ndarray:
         d, p = divmod(int(action), self.m)
-        self._pos[d] = p
+        self._pos[d] = self._irr.get(int(action), p)
         self.total_steps += 1
         if np.array_equal(self._pos, self._target):
             self.reach_steps.append(self.total_steps)
@@ -103,6 +127,66 @@ class DialWorld:
         self.reach_steps = list(state["reach_steps"])
 
 
+def build_obs(pos: np.ndarray, tgt: np.ndarray, m: int) -> np.ndarray:
+    """The world's observation for a given state (the probe's mirror of
+    DialWorld._obs — kept in one place would couple the probe to a live
+    world; the formula is the declared spec)."""
+    scale = lambda v: 2.0 * np.asarray(v, dtype=float) / (m - 1) - 1.0  # noqa: E731
+    match = np.where(np.asarray(pos) == np.asarray(tgt), 1.0, -1.0)
+    return np.concatenate([scale(pos), scale(tgt), match])
+
+
+def draw_specials(seed: int, m: int, frac: float = 0.10) -> tuple[frozenset[int], dict[int, int]]:
+    """The registered special sets, per seed: 10% of acts held out from
+    selection (Bar F3), a disjoint 10% given exceptional consequences
+    π(p) ≠ p (Bar F4). Drawn from a dedicated stream so arm RNG is
+    untouched."""
+    A = B * m
+    rng = np.random.default_rng(1_000_000 + seed)
+    acts = rng.permutation(A)
+    k = int(round(A * frac))
+    mask = frozenset(int(x) for x in acts[:k])
+    irr: dict[int, int] = {}
+    for a in acts[k : 2 * k]:
+        _, p = divmod(int(a), m)
+        q = int(rng.integers(m - 1))
+        irr[int(a)] = q if q < p else q + 1  # π(p) != p by construction
+    return mask, irr
+
+
+class MaskedCuriosityPolicy:
+    """CuriosityLookaheadPolicy over a restricted candidate set: held-out
+    acts are excluded from BOTH the exploit argmax and the ε/immature
+    random path, so a masked act is never executed during training."""
+
+    def __init__(self, params, allowed: list[int]):
+        self.params = params
+        self.allowed = sorted(allowed)
+        self.last_was_directed = False
+
+    def select_action(self, context, rng: np.random.Generator) -> int:
+        explore = rng.random() < self.params.exploration_epsilon
+        immature = (
+            context.best_frame_age is None
+            or context.best_frame_age < self.params.lookahead_min_age_cycles
+        )
+        if explore or immature:
+            self.last_was_directed = False
+            return self.allowed[int(rng.integers(len(self.allowed)))]
+        best_action = self.allowed[0]
+        best_value = -np.inf
+        for action in self.allowed:
+            predicted = context.predict_decoded(action)
+            if predicted is None:
+                continue
+            value = context.drive_value_of(predicted)
+            if value > best_value:
+                best_value = value
+                best_action = action
+        self.last_was_directed = True
+        return best_action
+
+
 class OraclePolicy:
     """The ceiling instrument (trail, never a bar): perfect world
     knowledge, no learning — at each step set the first mismatched
@@ -122,23 +206,60 @@ class OraclePolicy:
         return int(rng.integers(B * self.m))
 
 
-def run_flat(seed: int, m: int, n_cycles: int, policy_mode: str = "curiosity") -> dict:
+def run_flat(
+    seed: int,
+    m: int,
+    n_cycles: int,
+    policy_mode: str = "curiosity",
+    masked: bool = False,
+    irregular: bool = False,
+    event_head_eta: float = 0.0,
+    capture: list | None = None,
+) -> dict:
+    from pra.action.policy import PolicyParams
+
     cfg = Config(
         obs_dim=3 * B,
         n_actions=B * m,
         policy_mode="random" if policy_mode == "oracle" else policy_mode,
         episode_mode="continuous",
         n_cycles=n_cycles,
+        event_head_eta=event_head_eta,
     )
+    mask, irr = draw_specials(seed, m) if (masked or irregular) else (frozenset(), {})
     worlds: list[DialWorld] = []
 
     def factory(config: Config, rng: np.random.Generator) -> DialWorld:
-        w = DialWorld(config, rng)
+        w = DialWorld(
+            config,
+            rng,
+            irregular=irr if irregular else None,
+            mask=mask if masked else None,
+        )
         worlds.append(w)
         return w
 
     policy = OraclePolicy(m) if policy_mode == "oracle" else None
-    summary = Engine(cfg, world_factory=factory, policy=policy).run(seed)
+    if masked:
+        allowed = [a for a in range(B * m) if a not in mask]
+        policy = MaskedCuriosityPolicy(PolicyParams.from_config(cfg), allowed)
+    if capture is not None:
+        import pra.core.engine as engine_mod
+
+        orig = engine_mod.FrameStore
+
+        def capturing(c, r):
+            s = orig(c, r)
+            capture.append(s)
+            return s
+
+        engine_mod.FrameStore = capturing
+        try:
+            summary = Engine(cfg, world_factory=factory, policy=policy).run(seed)
+        finally:
+            engine_mod.FrameStore = orig
+    else:
+        summary = Engine(cfg, world_factory=factory, policy=policy).run(seed)
     w = worlds[0]
     half = w.total_steps // 2
     back = sum(1 for s in w.reach_steps if s > half)

@@ -183,6 +183,30 @@ m=16 to m=256** — the world stays exactly as winnable while the
 learners starve. Flat's collapse is knowledge starvation, not task
 scaling.
 
+## 2026-08-21 — F3/F4 instrumentation built; the completable-target rule
+
+Built while the m=256 F1/F2 chain runs, smoke-tested at m=3, no
+special arm run yet: the seeded special sets (10% held-out, 10%
+disjoint irregular with π(p) ≠ p, drawn from a dedicated stream),
+`MaskedCuriosityPolicy` (held-out acts excluded from exploit argmax
+AND the ε/immature random path — a masked act is never executed),
+irregular effects in the world, store capture, and the probe
+(event head primary when on, best-fit frame's decoded prediction as
+trail, scored against the world's analytic truth from seeded states,
+rejecting states where the act would complete the pattern and
+randomize the truth).
+
+The smoke caught a world bug worth the record: masking an act also
+made targets REQUIRING it uncompletable — the world stalled chasing
+impossible patterns (flat-3 masked: 7 reaches vs 132 unmasked), and
+irregulars had the mirror problem (a position no act's real effect
+lands on). **The completable-target rule, now part of the declared
+F3/F4 world config:** per dial, the target pool is the image of the
+allowed acts under their real effects; the plain world's pool is
+untouched. Post-fix smoke: masked and masked+irregular arms run
+healthy. Exact F3/F4 arm protocol (event-head eta, probe state
+count, which arms) will be declared here before those arms run.
+
 **Amendment 1 — Bar F2's denominator, registered BEFORE any m=256
 arm runs.** As registered, F2 normalizes the A=1024 reading to the
 arm's own A=12 median. The numbers above show that anchor is
