@@ -33,6 +33,19 @@ mechanics, v1:
   compositional rule broken by exception, the is/was/went miniature.
   Off at calibration; on only in F4 arms.
 
+**Ladder revision, before the rig exists (2026-08-21, same day):**
+the declared ladder grew B and m together ((3,4)→(32,32)), which
+confounds the axis under test — more dials is a longer assembly
+horizon for ANY mechanism, so a reach collapse at A=1024 could be
+horizon difficulty wearing the vocabulary's clothes. Revised:
+**B = 4 dials at every rung, m ∈ {3, 16, 64, 256}** → A ∈
+{12, 64, 256, 1024} exactly, obs_dim = 12 at every rung. Across the
+whole ladder the world, the observation, and the task horizon are
+identical; the single thing that changes is the size of the act
+inventory. The factored anchor becomes `[onehot₄(d); p scaled]`,
+dimension 5, constant across rungs. Nothing had run when this
+revision landed.
+
 **Calibration phase, declared:** flat at A=12 must first *perform*
 on this world — one-step lookahead chasing redraws is not guaranteed
 viable, and if flat-12 cannot work the world is miscalibrated, not
