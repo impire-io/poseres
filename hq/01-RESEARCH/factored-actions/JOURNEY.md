@@ -151,3 +151,50 @@ this scale — the 0091–0094 churn lesson showing up exactly where
 theory put it. Whether learning earns its keep is F4's question
 (exceptions), not this rung's. Both variants licensed to scale per
 the declared order.
+
+## 2026-08-21 — the middle rungs: the inversion, flat's collapse, and the ceiling that stays up
+
+The m=16 (A=64) grid, 24 seeds each [measured]:
+
+| arm | reach/1k: min / median / max | reaching |
+|---|---|---|
+| flat | 0.154 / 1.538 / 2.769 | 24/24 |
+| frozen | 0.000 / **0.000** / 0.154 | 4/24 |
+| learned | 0.615 / **1.846** / 3.077 | 24/24 |
+
+**The m=3 picture inverts.** The frozen arm COLLAPSES at sixteen
+positions: the hand-declared anchor (position as one scalar) makes
+the effective transition linear along an axis the encoder's pose
+geometry evidently is not, and with the table pinned nothing can
+bend to fit. The learned arm — same anchors at birth, gradient on —
+now LEADS the rung (median 1.85, every seed reaching, its worst
+seed above flat's floor): learning the embedding earns its keep two
+rungs before F4 was supposed to ask. Flat drops 8× from its own
+m=3 reading (203 samples per slice). At m=64 (A=256) flat is
+effectively dead [measured]: median 0.000, 8/24 seeds ever reach,
+51 samples per slice — collapse two rungs before the registered
+F1 test.
+
+**The ceiling instrument** (perfect-knowledge oracle, trail):
+370.0 / 267.1 / 254.2 / 251.1 median reaches per 1k at
+m = 3/16/64/256, spreads within ±2%. One drop from m=3 (the
+small-inventory luck component) and then **flat within 6% from
+m=16 to m=256** — the world stays exactly as winnable while the
+learners starve. Flat's collapse is knowledge starvation, not task
+scaling.
+
+**Amendment 1 — Bar F2's denominator, registered BEFORE any m=256
+arm runs.** As registered, F2 normalizes the A=1024 reading to the
+arm's own A=12 median. The numbers above show that anchor is
+degenerate: the m=3 rung's reach is dominated by the luck component
+the oracle exposes (ceiling 370 there vs ~253 everywhere else), and
+every learning arm drops ≥ 6× crossing to m=16 while the ceiling
+drops 1.4× — demanding 0.8× the m=3 reading at m=256 asks for
+3.4% of ceiling from mechanisms whose best scaled showing is 0.7%.
+The 0110 precedent (the degenerate ratio clause, floored pre-arm)
+applies. **F2 as amended: at m=256, a variant's median reach ≥
+0.8× its own m=16 median, valid only while the oracle ceiling at
+m=256 is within 10% of its m=16 reading (measured: −6%, valid), and
+flat at m=256 must fail the same retention.** The original F2 stays
+on the record and will be reported at graduation beside the amended
+form. Nothing at m=256 has run when this lands.
