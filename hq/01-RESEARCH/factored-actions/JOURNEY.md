@@ -226,6 +226,43 @@ untouched. Post-fix smoke: masked and masked+irregular arms run
 healthy. Exact F3/F4 arm protocol (event-head eta, probe state
 count, which arms) will be declared here before those arms run.
 
+## 2026-08-22 — the top rung: F1 PASS, F2 FAIL both forms; the F3/F4 protocol declared
+
+The A=1024 triple, 24 seeds each, the frozen 13,000-step budget
+[measured]:
+
+| arm | reach/1k: min / median / max | reaching |
+|---|---|---|
+| flat | 0.000 / **0.000** / 0.000 | **0/24** |
+| frozen | 0.000 / 0.000 / 0.000 | 0/24 |
+| learned | 0.000 / 0.000 / 0.308 | **9/24** |
+
+**Bar F1 PASS** [measured]: flat at A=1024 reads 0.000 against the
+6.31 line — total collapse at ~12.7 samples per slice, the
+starvation premise confirmed at its registered site. **Bar F2 FAIL,
+amended and original alike** [measured]: learned is the only arm
+with any life at the top rung (9/24 seeds, max 0.308) but its median
+is 0.000 against F2′'s 1.477 line. The registered reversal (F0+F2
+failing for both variants) does NOT fire — F0 passed. The reach
+story closes here: the embedding buys survival and relative
+advantage at every scaled rung, never retention, at this budget.
+What remains is the topic's substantial claim, which reach cannot
+measure: prediction.
+
+**The F3/F4 arm protocol, declared before those arms run:** event
+head ON at the shipped operating point (η = 0.5, Doc 0011) in all
+special arms; mask 10% with the completable-target rule; probe = 20
+seeded states per act (completion states rejected), event-head MAE
+against the world's analytic truth primary, best-fit frame's
+decoded prediction as trail; per-act error arrays kept for the
+registered per-seed pairing; a seeded 100-act regular sample per
+seed as the reference error level. Arms at m=256, 24 seeds each:
+**f3-flat** and **f3-learned** (mask only — the F3 pair; flat's
+held-out slices are untrained by construction, its probe IS the
+cold-start baseline); **f4-learned** and **f4-frozen** (mask +
+disjoint 10% irregulars — the F4 pair, where a pinned anchor
+cannot move to fit an exception and a learned one can).
+
 **Amendment 1 — Bar F2's denominator, registered BEFORE any m=256
 arm runs.** As registered, F2 normalizes the A=1024 reading to the
 arm's own A=12 median. The numbers above show that anchor is

@@ -1,0 +1,25 @@
+{"seed": 0, "m": 256, "A": 1024, "steps": 13000, "reaches": 2, "reaches_back": 2, "reach_per_1k_back": 0.308, "pred_late": 0.21684184184467303, "map_frac": 0.939, "population": 12, "arm": "learned"}
+{"seed": 1, "m": 256, "A": 1024, "steps": 13000, "reaches": 1, "reaches_back": 0, "reach_per_1k_back": 0.0, "pred_late": 0.18611031288097235, "map_frac": 0.9569, "population": 21, "arm": "learned"}
+{"seed": 2, "m": 256, "A": 1024, "steps": 13000, "reaches": 1, "reaches_back": 1, "reach_per_1k_back": 0.154, "pred_late": 0.21923565465343542, "map_frac": 0.9781, "population": 18, "arm": "learned"}
+{"seed": 3, "m": 256, "A": 1024, "steps": 13000, "reaches": 0, "reaches_back": 0, "reach_per_1k_back": 0.0, "pred_late": 0.2604990490018043, "map_frac": 0.993, "population": 17, "arm": "learned"}
+{"seed": 4, "m": 256, "A": 1024, "steps": 13000, "reaches": 1, "reaches_back": 0, "reach_per_1k_back": 0.0, "pred_late": 0.19385282675878146, "map_frac": 0.9339, "population": 17, "arm": "learned"}
+{"seed": 5, "m": 256, "A": 1024, "steps": 13000, "reaches": 1, "reaches_back": 1, "reach_per_1k_back": 0.154, "pred_late": 0.3581605352073872, "map_frac": 0.9745, "population": 8, "arm": "learned"}
+{"seed": 6, "m": 256, "A": 1024, "steps": 13000, "reaches": 2, "reaches_back": 1, "reach_per_1k_back": 0.154, "pred_late": 0.4370250139914785, "map_frac": 0.9645, "population": 11, "arm": "learned"}
+{"seed": 7, "m": 256, "A": 1024, "steps": 13000, "reaches": 0, "reaches_back": 0, "reach_per_1k_back": 0.0, "pred_late": 0.19740851822218963, "map_frac": 0.9767, "population": 19, "arm": "learned"}
+{"seed": 8, "m": 256, "A": 1024, "steps": 13000, "reaches": 0, "reaches_back": 0, "reach_per_1k_back": 0.0, "pred_late": 0.21701008347459846, "map_frac": 0.9739, "population": 21, "arm": "learned"}
+{"seed": 9, "m": 256, "A": 1024, "steps": 13000, "reaches": 1, "reaches_back": 1, "reach_per_1k_back": 0.154, "pred_late": 0.29471802071153524, "map_frac": 0.9268, "population": 20, "arm": "learned"}
+{"seed": 10, "m": 256, "A": 1024, "steps": 13000, "reaches": 0, "reaches_back": 0, "reach_per_1k_back": 0.0, "pred_late": 0.16556290650971686, "map_frac": 0.9522, "population": 21, "arm": "learned"}
+{"seed": 11, "m": 256, "A": 1024, "steps": 13000, "reaches": 1, "reaches_back": 0, "reach_per_1k_back": 0.0, "pred_late": 0.1873425915942333, "map_frac": 0.9859, "population": 22, "arm": "learned"}
+{"seed": 12, "m": 256, "A": 1024, "steps": 13000, "reaches": 1, "reaches_back": 1, "reach_per_1k_back": 0.154, "pred_late": 0.23968156368631413, "map_frac": 0.9515, "population": 20, "arm": "learned"}
+{"seed": 13, "m": 256, "A": 1024, "steps": 13000, "reaches": 0, "reaches_back": 0, "reach_per_1k_back": 0.0, "pred_late": 0.183373423542735, "map_frac": 0.987, "population": 24, "arm": "learned"}
+{"seed": 14, "m": 256, "A": 1024, "steps": 13000, "reaches": 1, "reaches_back": 0, "reach_per_1k_back": 0.0, "pred_late": 0.20547240033751765, "map_frac": 0.9843, "population": 20, "arm": "learned"}
+{"seed": 15, "m": 256, "A": 1024, "steps": 13000, "reaches": 0, "reaches_back": 0, "reach_per_1k_back": 0.0, "pred_late": 0.20211880489301784, "map_frac": 0.9796, "population": 16, "arm": "learned"}
+{"seed": 16, "m": 256, "A": 1024, "steps": 13000, "reaches": 0, "reaches_back": 0, "reach_per_1k_back": 0.0, "pred_late": 0.23738544396306074, "map_frac": 0.9887, "population": 14, "arm": "learned"}
+{"seed": 17, "m": 256, "A": 1024, "steps": 13000, "reaches": 0, "reaches_back": 0, "reach_per_1k_back": 0.0, "pred_late": 0.47563593328611103, "map_frac": 0.9688, "population": 6, "arm": "learned"}
+{"seed": 18, "m": 256, "A": 1024, "steps": 13000, "reaches": 1, "reaches_back": 1, "reach_per_1k_back": 0.154, "pred_late": 0.19623544059815606, "map_frac": 0.9861, "population": 21, "arm": "learned"}
+{"seed": 19, "m": 256, "A": 1024, "steps": 13000, "reaches": 0, "reaches_back": 0, "reach_per_1k_back": 0.0, "pred_late": 0.19242523180513557, "map_frac": 0.9886, "population": 21, "arm": "learned"}
+{"seed": 20, "m": 256, "A": 1024, "steps": 13000, "reaches": 1, "reaches_back": 1, "reach_per_1k_back": 0.154, "pred_late": 0.21438041199671537, "map_frac": 0.9583, "population": 19, "arm": "learned"}
+{"seed": 21, "m": 256, "A": 1024, "steps": 13000, "reaches": 0, "reaches_back": 0, "reach_per_1k_back": 0.0, "pred_late": 0.29031265401596157, "map_frac": 0.9715, "population": 17, "arm": "learned"}
+{"seed": 22, "m": 256, "A": 1024, "steps": 13000, "reaches": 1, "reaches_back": 0, "reach_per_1k_back": 0.0, "pred_late": 0.17938863498768107, "map_frac": 0.979, "population": 27, "arm": "learned"}
+{"seed": 23, "m": 256, "A": 1024, "steps": 13000, "reaches": 2, "reaches_back": 1, "reach_per_1k_back": 0.154, "pred_late": 0.309637069308697, "map_frac": 0.9014, "population": 13, "arm": "learned"}
+{"arm": "learned", "m": 256, "n_cycles": 18, "seeds": 24, "reach_per_1k_back_min": 0.0, "reach_per_1k_back_median": 0.0, "reach_per_1k_back_max": 0.308, "seeds_with_back_reaches": 9}

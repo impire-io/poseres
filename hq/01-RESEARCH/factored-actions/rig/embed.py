@@ -336,6 +336,9 @@ def probe_acts(
         fr_errs.append(float(np.mean(fr_a)))
     return {
         "n_acts": len(acts),
+        "acts": [int(a) for a in acts],
+        "eh_mae": [round(x, 6) for x in eh_errs],
+        "frames_mae": [round(x, 6) for x in fr_errs],
         "eh_mae_median": round(float(np.nanmedian(eh_errs)), 6),
         "frames_mae_median": round(float(np.nanmedian(fr_errs)), 6),
     }
@@ -374,6 +377,79 @@ def arm_sweep(arm: str, m: int, n_cycles: int) -> None:
     print(f"CALIB {_json.dumps(summary)}", flush=True)
 
 
+SPECIAL_ARMS = {
+    # label -> (variant arm or "flat", irregular)
+    "f3-flat": ("flat", False),
+    "f3-learned": ("learned", False),
+    "f4-learned": ("learned", True),
+    "f4-frozen": ("frozen", True),
+}
+ETA = 0.5  # the shipped event-head operating point (Doc 0011)
+
+
+def special_sweep(label: str, m: int, n_cycles: int) -> None:
+    """F3/F4 arms: masked (+irregular for f4-*), event head at the
+    shipped eta, store captured and probed per seed — held-out acts,
+    a seeded 100-act regular reference, and the irregular set when on."""
+    import json as _json
+    from pathlib import Path
+
+    import dial
+
+    arm, irregular = SPECIAL_ARMS[label]
+    out = Path(__file__).parent / f"{label}-m{m}-c{n_cycles}.jsonl"
+    if out.exists():
+        raise SystemExit(f"{out} exists — one reading per config; move it aside to re-run")
+    with out.open("a") as f:
+        for seed in range(dial.SEEDS):
+            cap: list = []
+            if arm == "flat":
+                row = dial.run_flat(
+                    seed,
+                    m,
+                    n_cycles,
+                    masked=True,
+                    irregular=irregular,
+                    event_head_eta=ETA,
+                    capture=cap,
+                )
+                row["arm"] = "flat"
+            else:
+                row = run_arm(
+                    seed,
+                    m,
+                    n_cycles,
+                    learn_anchors=(arm == "learned"),
+                    masked=True,
+                    irregular=irregular,
+                    event_head_eta=ETA,
+                    capture=cap,
+                )
+            store = cap[0]
+            mask, irr = dial.draw_specials(seed, m)
+            special = mask | frozenset(irr)
+            reg_rng = np.random.default_rng(3_000_000 + seed)
+            regular_pool = [a for a in range(B * m) if a not in special]
+            reg_sample = sorted(
+                int(a)
+                for a in reg_rng.choice(
+                    regular_pool, size=min(100, len(regular_pool)), replace=False
+                )
+            )
+            row["probe_heldout"] = probe_acts(store, seed, m, sorted(mask), irregular=irregular)
+            row["probe_regular"] = probe_acts(store, seed, m, reg_sample, irregular=irregular)
+            if irregular:
+                row["probe_irregular"] = probe_acts(store, seed, m, sorted(irr), irregular=True)
+            f.write(_json.dumps(row) + "\n")
+            print(
+                f"{label} seed {seed}: heldout eh {row['probe_heldout']['eh_mae_median']} "
+                f"regular eh {row['probe_regular']['eh_mae_median']}"
+                + (f" irregular eh {row['probe_irregular']['eh_mae_median']}" if irregular else ""),
+                flush=True,
+            )
+    print(f"{label.upper()}_COMPLETE", flush=True)
+
+
 def main() -> int:
     phase = sys.argv[1] if len(sys.argv) > 1 else ""
     if phase == "selftest":
@@ -384,7 +460,14 @@ def main() -> int:
         n_cycles = int(sys.argv[3]) if len(sys.argv) > 3 else 18
         arm_sweep(phase, m, n_cycles)
         return 0
-    raise SystemExit("usage: embed.py selftest | frozen <m> [c] | learned <m> [c]")
+    if phase in SPECIAL_ARMS:
+        m = int(sys.argv[2]) if len(sys.argv) > 2 else 256
+        n_cycles = int(sys.argv[3]) if len(sys.argv) > 3 else 18
+        special_sweep(phase, m, n_cycles)
+        return 0
+    raise SystemExit(
+        "usage: embed.py selftest | frozen <m> [c] | learned <m> [c] | " + " | ".join(SPECIAL_ARMS)
+    )
 
 
 if __name__ == "__main__":
