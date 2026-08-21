@@ -262,12 +262,61 @@ def selftest() -> None:
     print("SELFTEST PASS: one-hot embedded == flat (transition + event head)")
 
 
+def run_arm(seed: int, m: int, n_cycles: int, learn_anchors: bool) -> dict:
+    """One variant life: the stock engine over the embedded store."""
+    import dial
+
+    anchors = Anchors(factored_anchors(m), learn=learn_anchors)
+    with rebound_store(anchors):
+        row = dial.run_flat(seed, m, n_cycles)
+    row["arm"] = "learned" if learn_anchors else "frozen"
+    return row
+
+
+def arm_sweep(arm: str, m: int, n_cycles: int) -> None:
+    import json as _json
+    from pathlib import Path
+
+    import dial
+
+    out = Path(__file__).parent / f"calib-{arm}-m{m}-c{n_cycles}.jsonl"
+    if out.exists():
+        raise SystemExit(f"{out} exists — one reading per config; move it aside to re-run")
+    rows = []
+    with out.open("a") as f:
+        for seed in range(dial.SEEDS):
+            row = run_arm(seed, m, n_cycles, learn_anchors=(arm == "learned"))
+            rows.append(row)
+            f.write(_json.dumps(row) + "\n")
+            print(_json.dumps(row), flush=True)
+    rates = sorted(r["reach_per_1k_back"] for r in rows)
+    n = len(rows)
+    summary = {
+        "arm": arm,
+        "m": m,
+        "n_cycles": n_cycles,
+        "seeds": n,
+        "reach_per_1k_back_min": rates[0],
+        "reach_per_1k_back_median": rates[n // 2],
+        "reach_per_1k_back_max": rates[-1],
+        "seeds_with_back_reaches": sum(1 for r in rows if r["reaches_back"] > 0),
+    }
+    with out.open("a") as f:
+        f.write(_json.dumps(summary) + "\n")
+    print(f"CALIB {_json.dumps(summary)}", flush=True)
+
+
 def main() -> int:
     phase = sys.argv[1] if len(sys.argv) > 1 else ""
     if phase == "selftest":
         selftest()
         return 0
-    raise SystemExit("usage: embed.py selftest")
+    if phase in ("frozen", "learned"):
+        m = int(sys.argv[2]) if len(sys.argv) > 2 else 3
+        n_cycles = int(sys.argv[3]) if len(sys.argv) > 3 else 18
+        arm_sweep(phase, m, n_cycles)
+        return 0
+    raise SystemExit("usage: embed.py selftest | frozen <m> [c] | learned <m> [c]")
 
 
 if __name__ == "__main__":

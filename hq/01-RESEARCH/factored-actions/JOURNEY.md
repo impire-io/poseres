@@ -84,3 +84,48 @@ math is the old math when the embedding carries no structure.
 Selection stays exact brute-force argmax (the Doc 06 seam decision:
 no index until a profile demands one); F3's mask is a candidate
 filter at the policy seam.
+
+**Self-test result [measured]:** PASS — one-hot embedded equals flat
+to machine precision after 200 interleaved updates (transition) and
+300 (event head), all actions checked.
+
+## 2026-08-21 — THE FREEZE: world, budget, and F0 thresholds, before any comparison arm
+
+Calibration read at m=3 (A=12), 24 seeds each, one budget
+[measured]:
+
+| arm | reach/1k back-half: min / median / max | seeds reaching |
+|---|---|---|
+| flat (curiosity) | 8.308 / **12.615** / 17.077 | 24/24 |
+| random floor | 5.385 / **6.923** / 9.385 | 24/24 |
+
+Flat performs: median ≥ 1.5× the random median (12.615 vs 10.385
+required) and flat's minimum seed (8.308) clears the random median —
+the directed policy's whole distribution sits above the floor's
+center. Frames' pred_error_late median 0.6423; populations alive
+(median 6). The modest margin is the tiny inventory: at m=3 chance
+assembles patterns often; the knowledge component of reach grows
+with m, which is the ladder's whole point.
+
+**Frozen, from this line on (no comparison arm before this counts):**
+
+- **World:** the declared dial world v1 with the revised ladder
+  (B=4; m ∈ {3, 16, 64, 256}; obs 12; reach = redraw; rejection
+  redraw). No further world revision without a journaled amendment.
+- **Budget:** 13,000 world steps per run (nominal n_cycles=18; the
+  horizon-checkpoint floor of 50 effective cycles — measured
+  identical across all 48 calibration runs). Same budget at every
+  rung: at A=1024 that is ~12.7 executed acts per flat slice, the
+  starvation regime F1 exists to read.
+- **F0 parity thresholds (variant arms at m=3, 24 seeds):** PASS iff
+  back-half reach median ≥ **10.385** (1.5× random median, the same
+  clause flat met), minimum seed > **6.923** (random median, mirror
+  of flat's own showing), and frames' pred_error_late median ≤
+  **0.803** (1.25× flat's 0.6423).
+- **F1 baseline:** flat's own A=12 reach median **12.615** — F1
+  requires flat at A=1024 median < **6.31** (0.5×).
+- **F2:** a variant at A=1024 retains ≥ 0.8× its own A=12 median.
+
+Arm order, declared: F0 first (m=3 frozen + learned) — no larger
+rung runs for a variant until its parity passes; flat's rungs
+(m=16, 64, 256) may run any time after this freeze.
