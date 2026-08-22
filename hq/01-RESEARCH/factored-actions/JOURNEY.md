@@ -345,6 +345,16 @@ The topic's remaining live question is carried entirely by
 frozen-v2: reach up the ladder, and F3 — prediction of acts never
 taken, from declared structure alone.
 
+## 2026-08-22 — F4 v1 trail: uniformly blind, as the rank cap predicts
+
+The first-edition F4 pair, trail only [measured]: learned reads
+0.136/0.139/0.137 (regular/irregular/held-out event-head MAE) and
+frozen 0.093/0.108/0.096 — errors uniformly high with irr/reg
+ratios of 1.00 and 1.09. No discrimination, and none possible: a
+machinery that cannot represent the lawful majority pays nothing
+extra for exceptions. The flat error profile corroborates the rank
+diagnosis from the other side.
+
 **Amendment 1 — Bar F2's denominator, registered BEFORE any m=256
 arm runs.** As registered, F2 normalizes the A=1024 reading to the
 arm's own A=12 median. The numbers above show that anchor is
