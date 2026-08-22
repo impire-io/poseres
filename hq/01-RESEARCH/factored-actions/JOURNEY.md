@@ -355,6 +355,35 @@ machinery that cannot represent the lawful majority pays nothing
 extra for exceptions. The flat error profile corroborates the rank
 diagnosis from the other side.
 
+## 2026-08-22 — frozen-v2 dies at m=16 exactly like v1: reach and representation come apart
+
+Frozen-v2 at m=16 [measured]: 0.000 / 0.000 / 0.154, 4/24 reaching —
+row-for-row the v1 collapse, with anchors the rank argument says are
+exact. So the rank cap explains the PREDICTION failure (F3-v1's
+uniform blindness, F4-v1's flat profile) but NOT the reach death:
+rank-broken learned-v1 reached 1.85 at this rung while both frozen
+editions die. Reach correlates with learning-on, not with anchor
+quality — prediction and behavior dissociate, the 0109 lesson at a
+new seam.
+
+Working hypothesis [judgment, discriminator named]: anchor jitter is
+per-act symmetry breaking. With a shared transition and a pinned
+table, candidate predictions move in lockstep and the argmax goes
+degenerate (lowest-index tie-breaking, the 0101 knife edge with no
+per-act texture to vote on); the learned arm's anchor movement
+supplies exactly that texture — costing parity where knowledge
+suffices (the m=3 drift tax) and functioning as exploration where
+the argmax is degenerate (m≥16). One coin, two rungs. The
+discriminating probe, if it is ever worth running: per-arm executed-
+act histograms (the degenerate argmax predicts index-heavy spam in
+frozen arms). Not run now — the reach bars are already decided
+(F1 PASS, F2 FAIL all arms), and the topic's substantial claim
+never lived in reach. It lives in the probe at the end of the
+running chain: **frozen-v2's F3 — whether exact declared structure
+predicts acts never taken.** The event head is linear, the rank
+argument applies to it without caveat, and prediction needs no
+reach.
+
 **Amendment 1 — Bar F2's denominator, registered BEFORE any m=256
 arm runs.** As registered, F2 normalizes the A=1024 reading to the
 arm's own A=12 median. The numbers above show that anchor is
