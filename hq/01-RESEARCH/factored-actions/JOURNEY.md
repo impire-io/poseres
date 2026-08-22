@@ -318,6 +318,33 @@ anchor lr 0.001 — mobility priced for a world where the table
 starts correct; F4's exceptions remain the place mobility must pay.
 Nothing else changes. Learned-v3 re-enters at F0 per the order.
 
+## 2026-08-22 — learned-v3 F0 FAIL by 0.077: the mobility wall, and no fourth edition
+
+Learned-v3 (anchor lr 0.001): 7.077 / **10.308** / 14.769,
+pred_late 0.553 — the median misses the unchanged 10.385 line by
+0.077 [measured]. Three editions of the learned arm now bracket the
+same wall (v1 +0.23, v2 −0.23, v3 −0.08) while every frozen sibling
+reads 14.5–15.5. The 10× rate cut recovered only 0.154 of the ~5/1k
+gap, which retires the simple drift-noise story: **even near-zero
+anchor mobility costs parity in a lawful world** [measured, three
+editions]. Suspected micro-mechanism [judgment]: v2/v3 anchors start
+exactly on the rank-exact product structure; any movement blurs
+predictions enough to flip near-threshold action votes — the 0101
+knife-edge, one seam deeper.
+
+No fourth edition. An lr low enough to pass parity is
+indistinguishable from frozen and buys F4 nothing; the tension is
+the finding. Consequence for the bars, stated plainly: the declared
+order blocks every learned edition from scaling, so **Bar F4 has no
+licensed arm** — it will be reported as blocked-by-measured-tension
+(mobility, which exceptions require, versus lawful parity, which
+the order requires), a named open door for a mechanism that moves
+anchors only on accumulated surprise rather than every gradient.
+The v1 F4 pair still in flight lands as first-edition trail only.
+The topic's remaining live question is carried entirely by
+frozen-v2: reach up the ladder, and F3 — prediction of acts never
+taken, from declared structure alone.
+
 **Amendment 1 — Bar F2's denominator, registered BEFORE any m=256
 arm runs.** As registered, F2 normalizes the A=1024 reading to the
 arm's own A=12 median. The numbers above show that anchor is
