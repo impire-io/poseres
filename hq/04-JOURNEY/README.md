@@ -20,7 +20,29 @@ Episodes 0001–0044 were chapters of the original single-file `JOURNEY.md`
 "ch. NN" resolve to `00NN-*.md`). The recurring principles the journey keeps
 teaching moved to `../00-GENESIS/how-we-work.md`.
 
-## Where things stand (2026-08-18)
+## Where things stand (2026-08-22)
+
+**The action side is measured — untried equals practiced, and the
+interaction is the factoring** ([0112](0112-factored-actions.md),
+the language gate's second prerequisite, opened and graduated in
+two days on the owner's substance-before-showcase call): the flat
+per-action kernel is refuted at vocabulary scale (0/24 at A=1024,
+~12.7 samples per slice, against an oracle ceiling flat within
+6%), naive concatenated anchors are provably rank-deficient (the
+2.49×-worse-than-blank reading that diagnosed itself), and the
+product anchor delivered the property language requires: a
+never-executed act predicts exactly as well as a constantly
+executed one (0.0409 ≡ 0.0414, matching flat-after-training). The
+bars read honestly — F1 PASS, F2 FAIL every arm (survival, never
+retention), F3 FAIL-as-registered with the property measured (the
+0.5×-cold clause demanded more than trained knowledge itself
+achieves), F4 blocked by the measured mobility–parity tension
+(three learned editions bracketing one line) with surprise-gated
+anchor movement as the named door. Design
+[0019](../02-DESIGN/0019-factored-actions.md) carries the
+constraint map; prediction-behavior dissociation at the action
+seam is on the record with its discriminator named. The board is
+clear again.
 
 **The multi-body arc: presence is not conflict, race beats
 information, and supply cannot outrun a camper**
@@ -869,3 +891,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0109 | [Contested worlds: the rival that made the world easier](0109-contested-worlds.md) |
 | 0110 | [Lean worlds: race beats information](0110-lean-worlds.md) |
 | 0111 | [Partial-gap world: supply cannot outrun a camper](0111-partial-gap-world.md) |
+| 0112 | [Factored actions: untried equals practiced, and the interaction is the factoring](0112-factored-actions.md) |
