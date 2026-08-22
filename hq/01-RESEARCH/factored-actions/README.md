@@ -120,6 +120,55 @@ churn lessons watching the new learned representation).
 
 ## Verdict
 
-<Empty until graduation. Filled by /research-graduate: PASS/FAIL per
-bar with the honest numbers, each load-bearing claim tagged
-[measured] / [mechanism-argument] / [judgment].>
+Graduated **to design**, 2026-08-22, on the owner's call — neither
+registered reversal fired; the topic closed with its bars read and
+its mechanisms mapped. Design
+[0019](../../02-DESIGN/0019-factored-actions.md).
+
+- **Bar F0 — PASS for the licensing arms** [measured]: frozen-v1
+  14.462, frozen-v2 15.538, learned-v1 10.615 against the frozen
+  10.385/6.923/0.803 clauses. Learned-v2 (10.154) and learned-v3
+  (10.308, anchor lr 0.001) FAIL the median clause — three editions
+  bracketing one line while every frozen sibling reads 14.5–15.5:
+  the mobility wall. Even near-zero anchor movement costs parity in
+  a lawful world [measured, three editions].
+- **Bar F1 — PASS** [measured]: flat at A=1024 reads 0.000 (0/24
+  seeds, ~12.7 samples per slice) against the 6.31 line. The
+  per-action kernel cannot carry a vocabulary at this budget.
+- **Bar F2 — FAIL, original and amended, every arm** [measured]:
+  best top-rung showing learned-v1's 9/24 seeds at max 0.308,
+  median 0.000 vs the amended 1.477 line. The embedding buys
+  survival and relative advantage (learned > flat > frozen from
+  m=16 on), never retention.
+- **Bar F3 — FAIL as registered, both editions; the property
+  measured in v2** [measured]: v1 read 2.49× WORSE than cold —
+  diagnosed as rank, not starvation (the linear-in-embedding family
+  over [onehot(d); p] spans rank B+1 where the world's action
+  family needs 2B [mechanism-argument, corroborated by the v1 F4
+  pair's uniformly flat errors]). v2 (the product anchor
+  [onehot(d); onehot(d)·p]): held-out 0.0409 ≡ regular 0.0414 ≈
+  flat-trained 0.0375 — an untried act predicts exactly as well as
+  a practiced one — at 0.779× cold with 86% median per-act wins,
+  against clauses (0.5×, 80% every seed) that flat's own trained
+  slices (0.69× cold) could not pass: measured overreach in the
+  registered margin, reported, not amended post-hoc.
+- **Bar F4 — BLOCKED** [measured]: no mobility edition passed the
+  F0 gate the declared order requires; the v1 pair rode as trail
+  and read uniformly blind (irr/reg 1.00–1.09), as the rank cap
+  predicts. The mobility–parity tension is the finding;
+  surprise-gated anchor movement is the named door.
+
+Load-bearing claims: per-act experience starves as 1/A and kills
+flat exactly on schedule [measured]; **the interaction term is what
+"factored" means** — concatenated slot+value anchors are provably
+rank-deficient, product anchors span the family exactly
+[mechanism-argument + measured]; **structure transfers completely**
+— never-executed ≡ constantly-executed under exact anchors
+[measured]; prediction and behavior dissociate — the arm that
+predicts perfectly wins no races, and reach correlates with
+learning-on, not anchor quality (jitter-as-exploration hypothesis
+[judgment], discriminator named, unrun); margins for generalization
+bars must be set against trained-knowledge ceilings, not cold
+baselines [measured — the F3 lesson]. Confounds as journaled: one
+world geometry; the oracle-flat ceiling from m=16 up; 13,000-step
+budget frozen throughout.
