@@ -263,6 +263,42 @@ cold-start baseline); **f4-learned** and **f4-frozen** (mask +
 disjoint 10% irregulars — the F4 pair, where a pinned anchor
 cannot move to fit an exception and a learned one can).
 
+## 2026-08-22 — Bar F3 v1: FAIL, 0/24 on both clauses — and the failure names its mechanism
+
+The F3 pair read [measured]: flat's cold baseline on held-out acts
+0.054 MAE (zero-prediction is strong here — most channels do not
+move); the learned arm 0.136 held-out, ratio 2.49 median per seed
+(worst 3.41), per-act paired wins **0.0 median** — 0/24 seeds pass
+either clause. The tell that turns a fail into a finding: learned
+reads 0.132 **on regular acts it executed constantly**, versus
+flat's trained 0.037 — the embedded consequence models are worse
+than predicting nothing, everywhere, uniformly.
+
+That signature is not starvation; it is **rank** [mechanism-argument,
+checkable]: act (d,p)'s true consequence is an interaction — channel
+d moves to value p — and the family of maps the linear-in-embedding
+head spans over the v1 anchor `[onehot(d); p]` has rank E=5, while
+the world's action family needs rank 2B=8 (a −x_d term and a bias
+term per dial). No setting of shared weights OR per-act rows can
+express it; the v1 arms measured a machinery that could not
+represent the world's action semantics at any budget. This
+plausibly also explains the frozen arm's ladder collapse and the
+variants' reach starvation — the same effective-transition family
+is rank-limited the same way.
+
+**Anchors, second edition — declared before any v2 arm runs:**
+`e_(d,p) = [onehot_B(d); onehot_B(d) · p_scaled]`, E = 2B = 8,
+constant across rungs — the dial × position PRODUCT made explicit,
+spanning the needed family exactly even with the table frozen. The
+naive concatenation factoring lacked the interaction term; product
+factoring is what "factored" must mean (the stem × inflection
+lesson, one level down). Everything else unchanged: same world,
+same budget, same frozen thresholds, same bars. Per the declared
+order the v2 walk re-starts at F0 (m=3 parity, both variants) and
+climbs only on a pass; v1 rows stay on the record as the first
+edition's honest reading. Flat's F3 arm is edition-independent (its
+baseline has no anchors) and stands.
+
 **Amendment 1 — Bar F2's denominator, registered BEFORE any m=256
 arm runs.** As registered, F2 normalizes the A=1024 reading to the
 arm's own A=12 median. The numbers above show that anchor is

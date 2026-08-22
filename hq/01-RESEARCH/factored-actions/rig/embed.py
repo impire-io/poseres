@@ -43,13 +43,28 @@ class Anchors:
 
 
 def factored_anchors(m: int) -> np.ndarray:
-    """The declared anchor: [onehot_B(d); position scaled to [-1,1]]."""
+    """The v1 anchor (first edition, measured rank-deficient — JOURNEY
+    2026-08-22): [onehot_B(d); position scaled to [-1,1]]. Kept for the
+    record; the arms run factored_anchors_v2."""
     rows = []
     for d in range(B):
         for p in range(m):
             one = np.zeros(B)
             one[d] = 1.0
             rows.append(np.append(one, 2.0 * p / (m - 1) - 1.0))
+    return np.array(rows)
+
+
+def factored_anchors_v2(m: int) -> np.ndarray:
+    """The second edition: [onehot_B(d); onehot_B(d) * p_scaled] — the
+    dial x position PRODUCT explicit (E = 2B), spanning the world's
+    action family exactly even frozen."""
+    rows = []
+    for d in range(B):
+        for p in range(m):
+            one = np.zeros(B)
+            one[d] = 1.0
+            rows.append(np.concatenate([one, one * (2.0 * p / (m - 1) - 1.0)]))
     return np.array(rows)
 
 
@@ -271,11 +286,13 @@ def run_arm(
     irregular: bool = False,
     event_head_eta: float = 0.0,
     capture: list | None = None,
+    edition: int = 2,
 ) -> dict:
     """One variant life: the stock engine over the embedded store."""
     import dial
 
-    anchors = Anchors(factored_anchors(m), learn=learn_anchors)
+    table = factored_anchors_v2(m) if edition == 2 else factored_anchors(m)
+    anchors = Anchors(table, learn=learn_anchors)
     with rebound_store(anchors):
         row = dial.run_flat(
             seed,
@@ -344,19 +361,20 @@ def probe_acts(
     }
 
 
-def arm_sweep(arm: str, m: int, n_cycles: int) -> None:
+def arm_sweep(arm: str, m: int, n_cycles: int, edition: int = 2) -> None:
     import json as _json
     from pathlib import Path
 
     import dial
 
-    out = Path(__file__).parent / f"calib-{arm}-m{m}-c{n_cycles}.jsonl"
+    tag = f"{arm}-v2" if edition == 2 else arm
+    out = Path(__file__).parent / f"calib-{tag}-m{m}-c{n_cycles}.jsonl"
     if out.exists():
         raise SystemExit(f"{out} exists — one reading per config; move it aside to re-run")
     rows = []
     with out.open("a") as f:
         for seed in range(dial.SEEDS):
-            row = run_arm(seed, m, n_cycles, learn_anchors=(arm == "learned"))
+            row = run_arm(seed, m, n_cycles, learn_anchors=(arm == "learned"), edition=edition)
             rows.append(row)
             f.write(_json.dumps(row) + "\n")
             print(_json.dumps(row), flush=True)
@@ -387,7 +405,7 @@ SPECIAL_ARMS = {
 ETA = 0.5  # the shipped event-head operating point (Doc 0011)
 
 
-def special_sweep(label: str, m: int, n_cycles: int) -> None:
+def special_sweep(label: str, m: int, n_cycles: int, edition: int = 2) -> None:
     """F3/F4 arms: masked (+irregular for f4-*), event head at the
     shipped eta, store captured and probed per seed — held-out acts,
     a seeded 100-act regular reference, and the irregular set when on."""
@@ -397,7 +415,8 @@ def special_sweep(label: str, m: int, n_cycles: int) -> None:
     import dial
 
     arm, irregular = SPECIAL_ARMS[label]
-    out = Path(__file__).parent / f"{label}-m{m}-c{n_cycles}.jsonl"
+    tag = f"{label}-v2" if edition == 2 else label
+    out = Path(__file__).parent / f"{tag}-m{m}-c{n_cycles}.jsonl"
     if out.exists():
         raise SystemExit(f"{out} exists — one reading per config; move it aside to re-run")
     with out.open("a") as f:
@@ -424,6 +443,7 @@ def special_sweep(label: str, m: int, n_cycles: int) -> None:
                     irregular=irregular,
                     event_head_eta=ETA,
                     capture=cap,
+                    edition=edition,
                 )
             store = cap[0]
             mask, irr = dial.draw_specials(seed, m)
@@ -458,12 +478,14 @@ def main() -> int:
     if phase in ("frozen", "learned"):
         m = int(sys.argv[2]) if len(sys.argv) > 2 else 3
         n_cycles = int(sys.argv[3]) if len(sys.argv) > 3 else 18
-        arm_sweep(phase, m, n_cycles)
+        edition = int(sys.argv[4]) if len(sys.argv) > 4 else 2
+        arm_sweep(phase, m, n_cycles, edition)
         return 0
     if phase in SPECIAL_ARMS:
         m = int(sys.argv[2]) if len(sys.argv) > 2 else 256
         n_cycles = int(sys.argv[3]) if len(sys.argv) > 3 else 18
-        special_sweep(phase, m, n_cycles)
+        edition = int(sys.argv[4]) if len(sys.argv) > 4 else 2
+        special_sweep(phase, m, n_cycles, edition)
         return 0
     raise SystemExit(
         "usage: embed.py selftest | frozen <m> [c] | learned <m> [c] | " + " | ".join(SPECIAL_ARMS)
