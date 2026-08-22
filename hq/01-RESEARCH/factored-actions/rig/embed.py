@@ -291,8 +291,10 @@ def run_arm(
     """One variant life: the stock engine over the embedded store."""
     import dial
 
-    table = factored_anchors_v2(m) if edition == 2 else factored_anchors(m)
-    anchors = Anchors(table, learn=learn_anchors)
+    table = factored_anchors(m) if edition == 1 else factored_anchors_v2(m)
+    lr = 0.001 if edition == 3 else 0.01  # edition 3: mobility priced for
+    # a world whose anchors start at the optimum (JOURNEY 2026-08-22)
+    anchors = Anchors(table, learn=learn_anchors, lr=lr)
     with rebound_store(anchors):
         row = dial.run_flat(
             seed,
@@ -367,7 +369,7 @@ def arm_sweep(arm: str, m: int, n_cycles: int, edition: int = 2) -> None:
 
     import dial
 
-    tag = f"{arm}-v2" if edition == 2 else arm
+    tag = arm if edition == 1 else f"{arm}-v{edition}"
     out = Path(__file__).parent / f"calib-{tag}-m{m}-c{n_cycles}.jsonl"
     if out.exists():
         raise SystemExit(f"{out} exists — one reading per config; move it aside to re-run")
@@ -398,6 +400,7 @@ def arm_sweep(arm: str, m: int, n_cycles: int, edition: int = 2) -> None:
 SPECIAL_ARMS = {
     # label -> (variant arm or "flat", irregular)
     "f3-flat": ("flat", False),
+    "f3-frozen": ("frozen", False),
     "f3-learned": ("learned", False),
     "f4-learned": ("learned", True),
     "f4-frozen": ("frozen", True),
@@ -415,7 +418,7 @@ def special_sweep(label: str, m: int, n_cycles: int, edition: int = 2) -> None:
     import dial
 
     arm, irregular = SPECIAL_ARMS[label]
-    tag = f"{label}-v2" if edition == 2 else label
+    tag = label if edition == 1 else f"{label}-v{edition}"
     out = Path(__file__).parent / f"{tag}-m{m}-c{n_cycles}.jsonl"
     if out.exists():
         raise SystemExit(f"{out} exists — one reading per config; move it aside to re-run")

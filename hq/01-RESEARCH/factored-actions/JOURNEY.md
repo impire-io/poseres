@@ -299,6 +299,25 @@ climbs only on a pass; v1 rows stay on the record as the first
 edition's honest reading. Flat's F3 arm is edition-independent (its
 baseline has no anchors) and stands.
 
+## 2026-08-22 — F0 v2: frozen PASSES above its v1 self; learned FAILS by 0.231 — the drift tax, measured a third time
+
+Against the unchanged frozen thresholds [measured]: **frozen-v2
+PASS** — 10.308 / 15.538 / 24.0, pred_late 0.571, above its v1
+reading (14.462) — licensed to climb. **Learned-v2 FAIL** — 8.923 /
+10.154 / 14.154 against the 10.385 median line (min and pred_late
+clauses pass); per the declared order it is blocked from scaling.
+The pattern is now three measurements old: the learned arm sits
+~4 reaches/1k under its frozen sibling wherever the anchors are
+already right (v1: 10.6 vs 14.5; v2: 10.2 vs 15.5). Mechanism: v2
+anchors initialize AT the representational optimum for a lawful
+world, so anchor gradient at the never-tuned lr = 0.01 is noise
+injection with no possible upside until exceptions exist.
+
+**Third edition, declared before it runs:** v2 anchors unchanged,
+anchor lr 0.001 — mobility priced for a world where the table
+starts correct; F4's exceptions remain the place mobility must pay.
+Nothing else changes. Learned-v3 re-enters at F0 per the order.
+
 **Amendment 1 — Bar F2's denominator, registered BEFORE any m=256
 arm runs.** As registered, F2 normalizes the A=1024 reading to the
 arm's own A=12 median. The numbers above show that anchor is
