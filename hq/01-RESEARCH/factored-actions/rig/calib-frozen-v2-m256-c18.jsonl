@@ -1,0 +1,25 @@
+{"seed": 0, "m": 256, "A": 1024, "steps": 13000, "reaches": 0, "reaches_back": 0, "reach_per_1k_back": 0.0, "pred_late": 0.1349753294686508, "map_frac": 0.9609, "population": 30, "arm": "frozen"}
+{"seed": 1, "m": 256, "A": 1024, "steps": 13000, "reaches": 0, "reaches_back": 0, "reach_per_1k_back": 0.0, "pred_late": 0.13094197239516506, "map_frac": 0.9854, "population": 27, "arm": "frozen"}
+{"seed": 2, "m": 256, "A": 1024, "steps": 13000, "reaches": 0, "reaches_back": 0, "reach_per_1k_back": 0.0, "pred_late": 0.1200546555675212, "map_frac": 0.9427, "population": 28, "arm": "frozen"}
+{"seed": 3, "m": 256, "A": 1024, "steps": 13000, "reaches": 0, "reaches_back": 0, "reach_per_1k_back": 0.0, "pred_late": 0.20807227231768363, "map_frac": 0.9665, "population": 12, "arm": "frozen"}
+{"seed": 4, "m": 256, "A": 1024, "steps": 13000, "reaches": 0, "reaches_back": 0, "reach_per_1k_back": 0.0, "pred_late": 0.09290272494034778, "map_frac": 0.9683, "population": 34, "arm": "frozen"}
+{"seed": 5, "m": 256, "A": 1024, "steps": 13000, "reaches": 0, "reaches_back": 0, "reach_per_1k_back": 0.0, "pred_late": 0.12014554277887093, "map_frac": 0.9689, "population": 33, "arm": "frozen"}
+{"seed": 6, "m": 256, "A": 1024, "steps": 13000, "reaches": 0, "reaches_back": 0, "reach_per_1k_back": 0.0, "pred_late": 0.1123614395559026, "map_frac": 0.9813, "population": 33, "arm": "frozen"}
+{"seed": 7, "m": 256, "A": 1024, "steps": 13000, "reaches": 0, "reaches_back": 0, "reach_per_1k_back": 0.0, "pred_late": 0.13390291882237007, "map_frac": 0.9824, "population": 29, "arm": "frozen"}
+{"seed": 8, "m": 256, "A": 1024, "steps": 13000, "reaches": 0, "reaches_back": 0, "reach_per_1k_back": 0.0, "pred_late": 0.139677338005182, "map_frac": 0.9551, "population": 32, "arm": "frozen"}
+{"seed": 9, "m": 256, "A": 1024, "steps": 13000, "reaches": 0, "reaches_back": 0, "reach_per_1k_back": 0.0, "pred_late": 0.17425400216003034, "map_frac": 0.8827, "population": 13, "arm": "frozen"}
+{"seed": 10, "m": 256, "A": 1024, "steps": 13000, "reaches": 0, "reaches_back": 0, "reach_per_1k_back": 0.0, "pred_late": 0.13735202505051128, "map_frac": 0.952, "population": 31, "arm": "frozen"}
+{"seed": 11, "m": 256, "A": 1024, "steps": 13000, "reaches": 0, "reaches_back": 0, "reach_per_1k_back": 0.0, "pred_late": 0.24482392755643154, "map_frac": 0.9703, "population": 7, "arm": "frozen"}
+{"seed": 12, "m": 256, "A": 1024, "steps": 13000, "reaches": 0, "reaches_back": 0, "reach_per_1k_back": 0.0, "pred_late": 0.15217843007920936, "map_frac": 0.9311, "population": 19, "arm": "frozen"}
+{"seed": 13, "m": 256, "A": 1024, "steps": 13000, "reaches": 0, "reaches_back": 0, "reach_per_1k_back": 0.0, "pred_late": 0.12101436544983044, "map_frac": 0.9732, "population": 33, "arm": "frozen"}
+{"seed": 14, "m": 256, "A": 1024, "steps": 13000, "reaches": 0, "reaches_back": 0, "reach_per_1k_back": 0.0, "pred_late": 0.12901142519904188, "map_frac": 0.9883, "population": 36, "arm": "frozen"}
+{"seed": 15, "m": 256, "A": 1024, "steps": 13000, "reaches": 0, "reaches_back": 0, "reach_per_1k_back": 0.0, "pred_late": 0.14659157732299255, "map_frac": 0.9616, "population": 14, "arm": "frozen"}
+{"seed": 16, "m": 256, "A": 1024, "steps": 13000, "reaches": 0, "reaches_back": 0, "reach_per_1k_back": 0.0, "pred_late": 0.15875845579377856, "map_frac": 0.9681, "population": 30, "arm": "frozen"}
+{"seed": 17, "m": 256, "A": 1024, "steps": 13000, "reaches": 0, "reaches_back": 0, "reach_per_1k_back": 0.0, "pred_late": 0.2040772265559886, "map_frac": 0.9711, "population": 29, "arm": "frozen"}
+{"seed": 18, "m": 256, "A": 1024, "steps": 13000, "reaches": 0, "reaches_back": 0, "reach_per_1k_back": 0.0, "pred_late": 0.09637807943399174, "map_frac": 0.9835, "population": 33, "arm": "frozen"}
+{"seed": 19, "m": 256, "A": 1024, "steps": 13000, "reaches": 0, "reaches_back": 0, "reach_per_1k_back": 0.0, "pred_late": 0.12888267263399944, "map_frac": 0.9837, "population": 32, "arm": "frozen"}
+{"seed": 20, "m": 256, "A": 1024, "steps": 13000, "reaches": 0, "reaches_back": 0, "reach_per_1k_back": 0.0, "pred_late": 0.15364075222950072, "map_frac": 0.9502, "population": 31, "arm": "frozen"}
+{"seed": 21, "m": 256, "A": 1024, "steps": 13000, "reaches": 0, "reaches_back": 0, "reach_per_1k_back": 0.0, "pred_late": 0.1401083750517757, "map_frac": 0.971, "population": 36, "arm": "frozen"}
+{"seed": 22, "m": 256, "A": 1024, "steps": 13000, "reaches": 0, "reaches_back": 0, "reach_per_1k_back": 0.0, "pred_late": 0.17356890150602652, "map_frac": 0.9919, "population": 33, "arm": "frozen"}
+{"seed": 23, "m": 256, "A": 1024, "steps": 13000, "reaches": 0, "reaches_back": 0, "reach_per_1k_back": 0.0, "pred_late": 0.17060216489120683, "map_frac": 0.9353, "population": 25, "arm": "frozen"}
+{"arm": "frozen", "m": 256, "n_cycles": 18, "seeds": 24, "reach_per_1k_back_min": 0.0, "reach_per_1k_back_median": 0.0, "reach_per_1k_back_max": 0.0, "seeds_with_back_reaches": 0}

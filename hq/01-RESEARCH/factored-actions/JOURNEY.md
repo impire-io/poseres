@@ -384,6 +384,32 @@ predicts acts never taken.** The event head is linear, the rank
 argument applies to it without caveat, and prediction needs no
 reach.
 
+## 2026-08-22 — F3 v2: the property is real, the bar fails as registered; every bar now read
+
+Frozen-v2's F3 probe at A=1024 [measured]: held-out event-head MAE
+**0.0409** vs its own regular-act **0.0414** — a never-executed act
+predicts exactly as well as a constantly-executed one; structure
+transferred completely. Against flat's cold baseline (0.0544):
+per-seed ratio median 0.779, per-act paired wins median 0.858. The
+registered clauses still fail — ≤ 0.5× passes 2/24, ≥ 80% wins
+passes 15/24 — and the context that explains without excusing:
+flat's own TRAINED slices reach only 0.69× of the cold baseline, so
+the 0.5× clause demanded more than trained per-act knowledge itself
+achieves at this budget. Reported as measured overreach in the
+margin, not amended — those arms had run. Frozen-v2's upper-rung
+reach stayed 0/24 at m=64 and m=256, completing the dissociation.
+
+The board, all bars read: **F0** PASS (frozen, both editions; the
+learned editions bracket the line and fail it — the mobility wall).
+**F1** PASS — flat cannot carry 10³ acts, total collapse at its
+registered site. **F2** FAIL, original and amended, every arm —
+survival without retention. **F3** FAIL as registered in both
+editions, with the qualitative property (held-out ≡ regular ≡
+flat-trained; 86% median per-act wins over cold) measured and real
+in v2. **F4** blocked — no mobility edition passed parity; the
+tension is the finding; surprise-gated anchor movement is the named
+door.
+
 **Amendment 1 — Bar F2's denominator, registered BEFORE any m=256
 arm runs.** As registered, F2 normalizes the A=1024 reading to the
 arm's own A=12 median. The numbers above show that anchor is
