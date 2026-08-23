@@ -47,3 +47,36 @@ the rung that matters); the same taught 86 draw in every arm; the
 peer's pathing at distance is the 0109 straight-line walker with
 its stuck-escape ladder — its act log tells whether it commuted or
 camped.
+## 2026-08-23 — the walk completes: 1.000 at every distance; the war is at the birth minute, not between the patches
+
+The mechanized walk, one life per arm [measured]:
+
+| rung | solo below-12 ss (eats) | S0 | hostile below-12 ss (eats) | peer digs |
+|------|-------------------------|-----|----------------------------|-----------|
+| D12  | 0.000 (6) | PASS | 1.000 (0) | 4 |
+| D24  | 0.000 (7) | PASS | 1.000 (0) | 4 |
+| D48  | 0.000 (3) | PASS | 1.000 (0) | **2** |
+
+Every rung passes its solo screen — at D48 the blind body found and
+used a larder two glance-horizons away, at exactly the 3-eat
+minimum. Every hostile arm reads 1.000. The act logs behind the
+claim (the standing guard): at D12 and D24 the peer's four digs
+consumed the entire split larder; at D48 the peer dug **only patch
+A's two melons — patch B's larder stood untouched for the whole
+life — and the subject still ate nothing** (0 eats, 0 collects,
+food to 2, health untouched: hunger's edge, 0110's signature).
+
+Distance does not open the middle, and the act logs say why
+[measured + mechanism-argument]: the war is decided in the birth
+minute at the near patch, exactly as in 0110 and 0111 — and a
+hungry-born subject that lost its opening never expresses the
+far-patch journey, even when nothing contests it. The D48 solo's
+3-eat knife edge shows the journey is marginal even undisturbed;
+any birth-minute disruption kills it. The middle was never between
+the patches because the contest never leaves the first one.
+
+**The registered reversal fires:** no rung in the band after S0
+screening. Axis 2 closes on both its arms — rate (0111) and
+separation (here) — the third null, and design 0017's last
+standing candidate is comparable-speed bodies. Routing per the
+pre-registration: graduate abandoned.

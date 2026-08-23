@@ -70,6 +70,35 @@ the 0111 trail.
 
 ## Verdict
 
-<Empty until graduation. Filled by /research-graduate: PASS/FAIL per
-bar with the honest numbers, each load-bearing claim tagged
-[measured] / [mechanism-argument] / [judgment].>
+The registered reversal fired, 2026-08-23: no declared rung landed
+in the band. Routing per the pre-registration: **graduated
+abandoned** — the third null, closing design 0017's axis 2 on both
+its arms.
+
+- **Bar S0 — PASS at every rung** [measured]: solo below-12
+  steady-state 0.000 at D12/D24/D48 with 6/7/3 eats, zero
+  starvation. At D48 the blind body found and used a larder two
+  glance-horizons away — at exactly the 3-eat minimum, the
+  journey's own knife edge.
+- **Bar S1 — FAIL: the band is empty** [measured]: hostile-86
+  below-12 steady-state **1.000 at every distance**, 0 eats, 0
+  collects in every hostile arm. The act logs behind the claim: at
+  D12/D24 the peer's four digs consumed the whole split larder; at
+  D48 the peer dug only patch A's two melons and **patch B stood
+  untouched for the entire life while the subject ate nothing**
+  (food to 2, health 20 — hunger's edge, the 0110 signature).
+- **Bar S2 — not reached** (no config froze).
+
+Load-bearing claims: **the war is decided in the birth minute at
+the near patch, and a subject that lost its opening never expresses
+the far journey — even uncontested** [measured: the D48 standing
+larder]; distance cannot open a middle that the birth minute
+closes; the D48 solo's 3-eat minimum shows the far journey is
+marginal even undisturbed [measured]. With rate (0111) and
+separation (here) both null, the all-or-nothing verdict holds
+wherever a script-speed shadower meets this taught brain on this
+protocol, and design 0017's last candidate axis is
+comparable-speed bodies [judgment — the design's own list,
+measured down to one]. Confounds as journaled: one life per arm;
+the same taught 86 draw; the hungry-born transient is load-bearing
+in the mechanism story.
