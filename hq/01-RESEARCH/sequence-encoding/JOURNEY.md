@@ -68,3 +68,34 @@ all. **Bar Q0 PASS.**
   are trail, the floor feeds the rule.
 - **World v1 frozen as declared** — no revision was needed;
   feedback shaping stays unused on the record.
+
+## 2026-08-23 — Bar Q1 INVERTS: the wall is not the window; diagnosis open
+
+The R-family ladder, 24 seeds per arm, frozen rule [measured]:
+R(4) — every arm FAILS the 2.0 line (best: W2 at 0.462 median,
+22/24 touching; W4, with a window wide enough by construction,
+reads 0.0 median, 10/24); R(8) and R(16) — **0/24 for every arm**,
+floors at 0.0, oracles at their exact arithmetic (125.1 / 62.5 /
+31.2). W-K fails P ≤ K: the registered Q1-inversion clause fires —
+the window arithmetic is not what binds, and no Q2/Q3 claim may be
+made before the mechanism is diagnosed.
+
+What the rows already show beneath the dark meter [measured]:
+violations per step — random reads 0.750 at every rung (the
+guessing arithmetic, 1 − 1/m, exactly); curiosity arms read
+0.531–0.678 at every rung INCLUDING R(16). The kernel is learning
+real structure everywhere; the acceptance meter demands 2P
+consecutive corrects with reset-on-violation — fidelity exponential
+in T — and partial competence reads as zero. The whole-obs
+pred_late column cannot arbitrate encodings (it falls with obs
+width and with violation-frozen worlds: W1 reads best everywhere for
+the wrong reason); the registered pulse-channel reading needs a
+per-channel instrument the rig does not yet carry.
+
+Diagnosis in flight, one variable at a time: the budget
+discriminator (W4/W2 at R(4), ~24k steps, 8 seeds) separates
+"learning is slow" from "learning plateaus" — the amendment differs
+accordingly (per-rung budget scaling vs a graded meter: violation
+rate against its exact floor 0.750 and ceiling 0.0, plus the
+pulse-channel prediction instrument). Any amendment lands here with
+these numbers before any rung re-runs.
