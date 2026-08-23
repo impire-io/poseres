@@ -150,3 +150,29 @@ cost repeats (6.0); WD middles (10.0). C(4): dark for every arm
 cliff exactly where the R(4) diagnosis put it; Q3 as originally
 registered reads FAIL on acceptance, and the amended Q3′ pulse
 reading is in flight.
+
+## 2026-08-23 — THE PULSE FREEZE: R(2) baselines and the difference-in-differences clauses
+
+R(2) record block, 24 seeds per arm [measured]: pulse-error medians
+W1 0.2297, W2 0.2782, W4 0.3480, W8 0.3718, DK 0.2985, WD 0.3457 —
+the width cost appears in anticipation too. Stated confound, on the
+record before any claim: pulse dynamics are behavior-coupled (each
+arm's own violations make its own pulse stream), so raw cross-arm
+levels are not clean; every amended clause reads a CHANGE in
+advantage or degradation, anchored at each arm's own R(2)/C(2)
+baseline. Margin 0.03 ≈ half the R(2) seed-spread width, frozen.
+
+**Frozen clauses (no ladder claim before this line):**
+
+- **Q1′ (the window edge, within arm):** for W4 — [pulse(R8) −
+  pulse(R4)] must exceed [pulse(R4) − pulse(R2)] by ≥ 0.03; for W8 —
+  [pulse(R16) − pulse(R8)] must exceed [pulse(R8) − pulse(R4)] by
+  ≥ 0.03. The degradation must STEP at the arm's own window edge,
+  same arm, same width throughout. (W2's edge has no covered pair —
+  trail only.)
+- **Q2′ (beyond-window, phase):** DK's advantage over W8,
+  A = pulse(W8) − pulse(DK), must satisfy A(R16) ≥ A(R2) + 0.03 —
+  the narrower, longer-horizon sense must GAIN advantage exactly
+  where the period outgrows every window.
+- **Q3′ (beyond-window, counting):** [pulse(W4) − pulse(DK)] at
+  C(4) must exceed the same difference at C(2) by ≥ 0.03.
