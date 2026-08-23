@@ -133,8 +133,13 @@ next experiment each one is gated behind.
   ([episode 0114](../04-JOURNEY/0114-surprise-gated-anchors.md)):
   surprise-gated anchor mobility passes lawful parity and absorbs
   slot-breaking irregulars, both carried in design
-  [0019](../02-DESIGN/0019-factored-actions.md). Still open:
-  observation encoding for unbounded sequences
+  [0019](../02-DESIGN/0019-factored-actions.md); and **sequence
+  encoding** ([episode 0115](../04-JOURNEY/0115-sequence-encoding.md),
+  design [0020](../02-DESIGN/0020-sequence-encoding.md)) — the sense
+  was never the binder: narrow structure-matched encodings suffice,
+  the competence envelope is the wall, and the discriminating
+  successor (drive-alignment vs frame-capacity on the frozen
+  echo-teacher world) is the named next registration
   (competence-drive-vs-approval was substantially mapped by the
   praise arc).
   Pre-registered prediction in 0042: the current kernel plateaus

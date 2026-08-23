@@ -22,6 +22,25 @@ teaching moved to `../00-GENESIS/how-we-work.md`.
 
 ## Where things stand (2026-08-23)
 
+**The language gate's prerequisites are all measured — the road now
+leads through the competence envelope**
+([0115](0115-sequence-encoding.md), closing the arc 0112→0114→0115
+in three days): the kernel learns sequence worlds through
+body-declared senses unmodified; encodings discriminate by
+structure affinity at comparable competence (the soft-counter
+leads counting, windows lead phase) and width costs more than
+information; but the binder is the competence envelope — behavior
+plateaus budget-invariantly on long dependencies regardless of
+encoding, and every meter dies with it. Design
+[0020](../02-DESIGN/0020-sequence-encoding.md) scopes the
+teacher-world's sense and curriculum and names the discriminating
+successor: whose envelope is it — the drive's (run the shipped
+completion/commitment stack on the frozen echo-teacher world) or
+the frames' (hierarchical state, 0042's named gate)? With 0112
+(actions), 0114 (exceptions), and 0115 (encoding) on the record,
+the teacher-world experiment is runnable the moment the envelope
+question answers — or accepted as bounded-context from the start.
+
 **Axis 2 is closed; the multi-body line waits on a fair race**
 ([0113](0113-separated-patches.md), the parallel autonomous thread,
 one day): with the larder split across two patches the hostile arm
@@ -918,3 +937,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0112 | [Factored actions: untried equals practiced, and the interaction is the factoring](0112-factored-actions.md) |
 | 0113 | [Separated patches: the war is at the birth minute, not between the patches](0113-separated-patches.md) |
 | 0114 | [Surprise-gated anchors: mobility priced by evidence passes the wall](0114-surprise-gated-anchors.md) |
+| 0115 | [Sequence encoding: the sense was never the binder](0115-sequence-encoding.md) |

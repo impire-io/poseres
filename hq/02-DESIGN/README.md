@@ -31,6 +31,7 @@ The system is a **continuously-learning machine intelligence** with a configurab
 | 17 | `0017-lean-worlds.md` | Lean worlds: when is another body worth sensing — race beats information; the partial-gap world gates every follow-up (episodes 0109–0110) |
 | 18 | `0018-brain-anatomy.md` | Brain anatomy: the zones of the learner, visually — what each part holds and where knowledge lives |
 | 19 | `0019-factored-actions.md` | Factored actions: the action side at vocabulary scale — flat's measured ceiling, the product-factoring requirement, the mobility–parity tension (episode 0112) |
+| 20 | `0020-sequence-encoding.md` | Sequence worlds and the fixed-width sense: encoding guidance, the competence envelope as the real wall, meter lessons (episode 0115) |
 
 Read 01 first; it is the map. The rest may be read in any order, but 03 and 04 describe the validated core and are the natural place for an implementer to begin building.
 
