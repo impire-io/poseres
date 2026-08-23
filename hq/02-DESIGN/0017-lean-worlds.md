@@ -52,16 +52,18 @@ build order:
    a peer-taught brain re-runs the hostile arms of a partial-gap
    world and must close ≥ 50% of the blind gap. Prerequisite: a
    partial-gap world exists (axis 2 supplies it).
-2. **World geometry (the world, not the brain).** The unexplored
-   middle: spatially separated patches so WHERE the rival is changes
-   WHERE to forage; coordination artifacts as world facts (claims —
-   deferred from 0109) belong here. Functional requirement: a
-   declared config whose hostile-86 below-12 steady-state lands in
-   **0.10–0.90**. *The renewal-rate arm is measured down* (episode
-   0111, 2026-08-18): on the one-patch geometry, regrowth at every
-   declared rate read 1.000 — the shadowing peer camps where renewal
-   lands, so supply cannot open a middle; what remains of this axis
-   is separation, not rate.
+2. **World geometry (the world, not the brain).** *Closed on both
+   arms.* The renewal-rate arm measured down (episode 0111,
+   2026-08-18): regrowth at every declared rate read 1.000 — the
+   shadowing peer camps where renewal lands. The separation arm
+   measured down (episode 0113, 2026-08-23): 1.000 at every
+   distance, and at D48 the far larder stood untouched while the
+   subject ate nothing — the war is decided in the birth minute at
+   the near patch, and geometry cannot open a middle that the birth
+   minute closes. Coordination artifacts (claims, deferred from
+   0109) remain unexplored but inherit the same birth-minute
+   problem; a fed-born or mid-life-window protocol, registered
+   fresh, is the named way back into this axis.
 3. **Comparable-speed bodies.** The scripted adversary acts at
    script speed against a taught brain's reaction time; two brains
    (a C1-style pair) make races fair without faking anything. This

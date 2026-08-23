@@ -20,7 +20,24 @@ Episodes 0001–0044 were chapters of the original single-file `JOURNEY.md`
 "ch. NN" resolve to `00NN-*.md`). The recurring principles the journey keeps
 teaching moved to `../00-GENESIS/how-we-work.md`.
 
-## Where things stand (2026-08-22)
+## Where things stand (2026-08-23)
+
+**Axis 2 is closed; the multi-body line waits on a fair race**
+([0113](0113-separated-patches.md), the parallel autonomous thread,
+one day): with the larder split across two patches the hostile arm
+read 1.000 at every distance, and D48's act log carried the
+mechanism — the far larder stood untouched all life while the
+subject ate nothing. The war is decided in the birth minute at the
+near patch; geometry cannot open a middle the birth minute closes.
+With rate (0111) and separation (0113) both null, design
+[0017](../02-DESIGN/0017-lean-worlds.md)'s last candidate is
+comparable-speed bodies; a fed-born or mid-life-window protocol is
+the named fresh-registration way back into geometry. Meanwhile the
+language road advanced live: **surprise-gated anchors passed SG0**
+— mobility priced by evidence reads 15.077 at the frozen arm's own
+level, where step-priced mobility failed three times ([topic
+surprise-gated-anchors](../01-RESEARCH/surprise-gated-anchors/README.md),
+in flight: SG1/SG2 exception arms at m=256).
 
 **The action side is measured — untried equals practiced, and the
 interaction is the factoring** ([0112](0112-factored-actions.md),
@@ -892,3 +909,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0110 | [Lean worlds: race beats information](0110-lean-worlds.md) |
 | 0111 | [Partial-gap world: supply cannot outrun a camper](0111-partial-gap-world.md) |
 | 0112 | [Factored actions: untried equals practiced, and the interaction is the factoring](0112-factored-actions.md) |
+| 0113 | [Separated patches: the war is at the birth minute, not between the patches](0113-separated-patches.md) |
