@@ -194,3 +194,18 @@ competence — where DK's counting advantage is real [measured].
 Q1′/Q2′ read next against the same expectation when the R(8)/R(16)
 block lands; the same collapse mechanics likely apply, and the
 clauses read as frozen either way.
+
+## 2026-08-23 — Q1′/Q2′ read; the topic's measuring is done
+
+The R(8)/R(16) pulse block [measured]: every narrow arm collapses
+to ~0.12 at hard rungs (the trivial-stream artifact, as at C(4));
+W8 alone stays high (0.29). **Q1′ FAIL as frozen** — no window-edge
+step is visible through the collapse (W4's apparent step-excess is
+the artifact's sign; W8's is negative). **Q2′ PASS as frozen** —
+DK's advantage over W8 grows +0.1001 (0.0732 → 0.1733) against the
+0.03 clause — with the interpretation caveat stated: the growth
+measures width-under-load at least as much as horizon, since W8 is
+the one arm the collapse does not make trivially predictable. No
+further instrument editions: a third probe fitted to these
+dynamics would be instrument-fishing, and the world has said what
+it can say.

@@ -112,6 +112,45 @@ secondary reading.
 
 ## Verdict
 
-<Empty until graduation. Filled by /research-graduate: PASS/FAIL per
-bar with the honest numbers, each load-bearing claim tagged
-[measured] / [mechanism-argument] / [judgment].>
+Measuring complete 2026-08-23; graduation routing is the owner's
+call. The bars, as registered and as amended:
+
+- **Bar Q0 — PASS** [measured]: every encoding performs on R(2)
+  (medians 10.0–19.8 vs floor 3.077, oracle exact 250); the kernel
+  learns sequence worlds through body-declared senses, unmodified.
+- **Bar Q1 — INVERTED, diagnosed** [measured]: W4 failed its own
+  covered rung; the acceptance meter demands 2P consecutive
+  corrects (exp(T) fidelity) while learning plateaus
+  budget-invariantly at 0.53–0.68 violations/step (2× budget moved
+  it ≤ 0.003). The wall was never the window.
+- **Bar Q1′ (amended) — FAIL as frozen** [measured]: pulse errors
+  fall at harder rungs because collapsed behavior trivializes the
+  stream; no window-edge step is visible through the artifact.
+- **Bar Q2′ (amended) — PASS as frozen, caveat stated** [measured]:
+  DK-over-W8 advantage grows +0.1001 (clause 0.03) to R(16); the
+  growth reads width-under-load at least as much as horizon.
+- **Bar Q3 / Q3′ — FAIL both forms** [measured]: C(4) dark on
+  acceptance for every arm; the pulse comparison void by the same
+  collapse (advantage growth −0.0497). At comparable competence the
+  counting signal is real: DK leads C(2) outright — behavior 25.5
+  vs W2's 19.7 (8.3× floor), pulse advantage +0.0522 over W4, while
+  mid-field on phase structure.
+
+Load-bearing claims: **the encoding was never the binder — the
+competence envelope is** [measured: every encoding works inside it;
+behavior collapses beyond it regardless of encoding capacity];
+**structure–encoding affinity is real at comparable competence**
+(the soft-counter leads counting, windows lead phase) [measured];
+**width costs more than information at this scale** — narrower beat
+wider on behavior, conformity, and anticipation at nearly every
+rung [measured]; **the plateau is the kernel-and-drive's, not the
+sense's** — one-step curiosity sustains partial conformity
+(0.53–0.68 violations vs random's exact 0.750) and no meter
+survives past it [measured; the mechanism split between drive
+alignment and frame capacity is undiagnosed — a named successor,
+not a claim]. Instrument lessons banked for the teacher-world:
+acceptance-style meters die exponentially in sequence length;
+anticipation probes are behavior-coupled and arbitrate only at
+comparable competence [measured]. Confounds as journaled: one
+world, m=4, one drive configuration; the plateau's mechanism
+unattributed.
