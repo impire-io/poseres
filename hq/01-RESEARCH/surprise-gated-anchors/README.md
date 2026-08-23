@@ -82,6 +82,41 @@ disjoint irregular 10% at m=256, probes with per-act arrays).
 
 ## Verdict
 
-<Empty until graduation. Filled by /research-graduate: PASS/FAIL per
-bar with the honest numbers, each load-bearing claim tagged
-[measured] / [mechanism-argument] / [judgment].>
+Graduated **to design**, 2026-08-23, on the owner's call — all
+three bars PASS; the mechanism folds into design
+[0019](../../02-DESIGN/0019-factored-actions.md) as constraint 2's
+measured answer. Episode 0114.
+
+- **Bar SG0 — PASS** [measured]: gated 11.692 / 15.077 / 22.769,
+  pred_late 0.566 against the frozen thresholds — at the frozen
+  arm's own level (15.538), where three step-priced editions
+  bracketed 10.2–10.6. Gate moves median 23.5 per lawful life: the
+  anchors freeze themselves where the world is lawful.
+- **Bar SG1 (amended) — PASS 24/24 on both clauses** [measured]:
+  on the slot-breaking world, irregular/regular median 1.559 (max
+  1.905, every seed ≤ 2×); held-out/regular median 1.002 (max
+  1.154, every seed ≤ 1.25×) — exceptions absorbed with untried ≡
+  practiced intact. Gate moves median 1,104: mobility spent where
+  surprise accumulates.
+- **Bar SG2 (amended) — PASS** [measured]: the frozen-v2 control
+  fails the irregular clause 21/24 (irr/reg median 2.379) with its
+  lawful transfer intact — the discrimination is the gate's, not
+  the world's. Amendment 1 (slot-breaking exceptions) was
+  registered with the first edition's numbers before any amended
+  arm ran: the original exceptions were absorbable by
+  channel-dilution and mean-shift (frozen irr/reg 1.573, 19/24
+  inside the clause it had to fail); the first-edition pair is
+  trail (-exc1 files).
+
+Load-bearing claims: **mobility priced by evidence passes the wall
+that mobility priced by step could not** — same anchors, same lr,
+the gate alone differs [measured]; the gate's economy is the
+mechanism: ~23 moves per lawful life vs ~1,100 on the exception
+world [measured]; the absolute mobility premium persists (gated
+lawful error 0.110 vs frozen 0.060, ~1.8×) and is stated beside
+the relative bars, which are margined against own error per the
+0112 lesson [measured]; exception difficulty must break the SLOT to
+discriminate mechanisms — value-only exceptions dilute into
+channel averages [measured, Amendment 1's justification]. Confounds
+as journaled: one world geometry; dials α=0.1, θ=2 as declared and
+never swept; the premium unchased (a named door, not a bar).
