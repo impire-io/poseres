@@ -50,3 +50,16 @@ remaining fully learnable by anchor movement (the true anchor is
 Fraction (10%), protocol, thresholds, and both clauses unchanged.
 The SG1 arm currently in flight ran the old exceptions and lands as
 trail; SG1′ and SG2′ re-run on the amended world.
+
+## 2026-08-23 — Bar SG2′ PASS: on slot-breaking exceptions, pinned anchors finally fail
+
+The frozen-v2 control on the amended world [measured]: regular
+0.0602, irregular **0.1441**, held-out 0.0627 — irr/reg median
+**2.379** (min 1.76), only 3/24 seeds inside the 2× clause. The
+control fails the irregular clause as the bar requires, while its
+lawful structure transfer holds (held-out 1.04× regular). Amendment
+1 did what it was registered to do: the exception now lives where
+no channel-averaging dilutes it and no mean-shift absorbs it, and a
+table that cannot move cannot fit it. The discrimination is real;
+Bar SG2 (amended) PASS. Everything now rides on SG1′ — whether the
+gate opens exactly there.
