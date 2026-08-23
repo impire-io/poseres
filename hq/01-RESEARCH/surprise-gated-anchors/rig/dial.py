@@ -60,11 +60,14 @@ class DialWorld:
         self._tgt_pool: list[np.ndarray] = []
         for d in range(B):
             pool: set[int] = set()
-            for p in range(self.m):
-                a = d * self.m + p
-                if mask is not None and a in mask:
-                    continue
-                pool.add(int(self._irr.get(a, p)))
+            for src_d in range(B):
+                for p in range(self.m):
+                    a = src_d * self.m + p
+                    if mask is not None and a in mask:
+                        continue
+                    eff_d, eff_p = self._irr.get(a, (src_d, p))
+                    if eff_d == d:
+                        pool.add(int(eff_p))
             self._tgt_pool.append(np.array(sorted(pool), dtype=np.int64))
         self._pos = np.zeros(B, dtype=np.int64)
         self._target = np.zeros(B, dtype=np.int64)
@@ -102,7 +105,8 @@ class DialWorld:
 
     def step(self, action: int) -> np.ndarray:
         d, p = divmod(int(action), self.m)
-        self._pos[d] = self._irr.get(int(action), p)
+        eff_d, eff_p = self._irr.get(int(action), (d, p))
+        self._pos[eff_d] = eff_p
         self.total_steps += 1
         if np.array_equal(self._pos, self._target):
             self.reach_steps.append(self.total_steps)
@@ -146,11 +150,14 @@ def draw_specials(seed: int, m: int, frac: float = 0.10) -> tuple[frozenset[int]
     acts = rng.permutation(A)
     k = int(round(A * frac))
     mask = frozenset(int(x) for x in acts[:k])
-    irr: dict[int, int] = {}
+    irr: dict[int, tuple[int, int]] = {}
     for a in acts[k : 2 * k]:
-        _, p = divmod(int(a), m)
+        d, p = divmod(int(a), m)
         q = int(rng.integers(m - 1))
-        irr[int(a)] = q if q < p else q + 1  # π(p) != p by construction
+        q = q if q < p else q + 1  # π(p) != p by construction
+        dh = int(rng.integers(B - 1))
+        dh = dh if dh < d else dh + 1  # d̂ != d (Amendment 1: the slot breaks)
+        irr[int(a)] = (dh, q)
     return mask, irr
 
 

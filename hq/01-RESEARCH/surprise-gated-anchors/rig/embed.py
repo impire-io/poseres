@@ -371,13 +371,13 @@ def probe_acts(
     eh_errs, fr_errs = [], []
     for a in acts:
         d, p = divmod(int(a), m)
-        p_eff = irr.get(int(a), p) if irregular else p
+        d_eff, p_eff = irr.get(int(a), (d, p)) if irregular else (d, p)
         eh_a, fr_a = [], []
         while len(eh_a) < n_states:
             pos = rng.integers(0, m, size=B)
             tgt = rng.integers(0, m, size=B)
             nxt = pos.copy()
-            nxt[d] = p_eff
+            nxt[d_eff] = p_eff
             if np.array_equal(nxt, tgt) or np.array_equal(pos, tgt):
                 continue
             obs = dial.build_obs(pos, tgt, m)
