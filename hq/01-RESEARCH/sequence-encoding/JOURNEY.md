@@ -135,3 +135,18 @@ before any rung re-runs:**
   within-arm and DK-vs-window comparisons. Exact thresholds frozen
   from the re-run's R(2) block before the ladder rungs are read
   (the standing pattern).
+
+## 2026-08-23 — the counting family, original meter: the decay summary leads the structure it matches
+
+C(2), 24 seeds per arm, frozen rule [measured]: every arm passes
+(floor 3.077, oracle 250 exact) and **DK leads the whole field at
+25.538** — above W2 (19.692) and W4 (18.769), 8.3× floor — while
+the same DK placed mid-field on phase structure (12.0 at R(2)).
+The count-holding encoding leads the count-requiring structure:
+the first cross-arm encoding discrimination in the topic's data,
+on behavior, before the pulse instrument even reads. W8's width
+cost repeats (6.0); WD middles (10.0). C(4): dark for every arm
+(best 0.615 against the 2.0 line, floor 0.000) — the T=8 meter
+cliff exactly where the R(4) diagnosis put it; Q3 as originally
+registered reads FAIL on acceptance, and the amended Q3′ pulse
+reading is in flight.
