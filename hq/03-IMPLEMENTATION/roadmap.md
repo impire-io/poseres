@@ -126,14 +126,17 @@ next experiment each one is gated behind.
   ([episode 0042](../04-JOURNEY/0042-the-vision-re-broadened.md)):
   observation = sentence-so-far + teacher feedback as world state, action =
   emit token, an LLM as the interactive teacher. Of the three prerequisite
-  decisions, one is now measured: **factored/embedded actions**
-  ([episode 0112](../04-JOURNEY/0112-factored-actions.md), design
-  [0019](../02-DESIGN/0019-factored-actions.md)) — flat refuted at 10³
-  acts, product-factored anchors demonstrated untried-equals-practiced
-  prediction; a successor mechanism must clear the mobility–parity
-  tension (surprise-gated anchors, the named door) before wiring in.
-  Still open: competence-drive-vs-approval (substantially mapped by the
-  praise arc), and observation encoding for unbounded sequences.
+  decisions, two are now measured: **factored/embedded actions**
+  ([episode 0112](../04-JOURNEY/0112-factored-actions.md)) — flat
+  refuted at 10³ acts, product-factored anchors demonstrated
+  untried-equals-practiced prediction — and **the exception mechanism**
+  ([episode 0114](../04-JOURNEY/0114-surprise-gated-anchors.md)):
+  surprise-gated anchor mobility passes lawful parity and absorbs
+  slot-breaking irregulars, both carried in design
+  [0019](../02-DESIGN/0019-factored-actions.md). Still open:
+  observation encoding for unbounded sequences
+  (competence-drive-vs-approval was substantially mapped by the
+  praise arc).
   Pre-registered prediction in 0042: the current kernel plateaus
   short of syntax. No language showcase before the gate reads.
 - **Staleness detection — closed, passive and active**

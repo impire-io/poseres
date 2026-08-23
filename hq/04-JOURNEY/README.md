@@ -32,12 +32,19 @@ near patch; geometry cannot open a middle the birth minute closes.
 With rate (0111) and separation (0113) both null, design
 [0017](../02-DESIGN/0017-lean-worlds.md)'s last candidate is
 comparable-speed bodies; a fed-born or mid-life-window protocol is
-the named fresh-registration way back into geometry. Meanwhile the
-language road advanced live: **surprise-gated anchors passed SG0**
-— mobility priced by evidence reads 15.077 at the frozen arm's own
-level, where step-priced mobility failed three times ([topic
-surprise-gated-anchors](../01-RESEARCH/surprise-gated-anchors/README.md),
-in flight: SG1/SG2 exception arms at m=256).
+the named fresh-registration way back into geometry. And the language
+road closed its weekend with a full pass
+([0114](0114-surprise-gated-anchors.md)): **mobility priced by
+evidence passes the wall** — lawful parity at the frozen arm's own
+level, slot-breaking exceptions absorbed at 1.559× own error with
+untried ≡ practiced intact (24/24 both clauses) while the pinned
+control fails at 2.379; the gate's economy is the mechanism (~23
+moves per lawful life, ~1,100 where the world breaks its rules).
+Design [0019](../02-DESIGN/0019-factored-actions.md) now carries
+the measured mechanism in place of the named candidate; the
+teacher-world experiment's action side is no longer hypothetical,
+and its last open prerequisite is sequence observation encoding.
+The research board is clear again.
 
 **The action side is measured — untried equals practiced, and the
 interaction is the factoring** ([0112](0112-factored-actions.md),
@@ -910,3 +917,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0111 | [Partial-gap world: supply cannot outrun a camper](0111-partial-gap-world.md) |
 | 0112 | [Factored actions: untried equals practiced, and the interaction is the factoring](0112-factored-actions.md) |
 | 0113 | [Separated patches: the war is at the birth minute, not between the patches](0113-separated-patches.md) |
+| 0114 | [Surprise-gated anchors: mobility priced by evidence passes the wall](0114-surprise-gated-anchors.md) |

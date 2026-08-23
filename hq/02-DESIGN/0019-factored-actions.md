@@ -65,14 +65,23 @@ satisfy:
    inflection side by side. Declared structure is body/anatomy
    territory (properties-not-names extends to acts: the body
    declares the slots and values the world's own grammar exposes).
-2. **Mobility priced by evidence, not by step.** Exceptions
-   (irregulars) require anchors that can move; lawful parity
-   requires that they mostly don't. The named candidate:
-   surprise-gated anchor movement — the table moves only on
-   accumulated prediction surprise for that act, not on every
-   gradient. Its gate: pass the F0-style lawful parity AND absorb a
-   registered fraction of exceptional acts (the blocked Bar F4,
-   re-registered fresh).
+2. **Mobility priced by evidence, not by step — MEASURED (episode
+   0114).** The mechanism: a per-act prediction-error EMA `E_a`
+   (α = 0.1) beside the store's global EMA `G`; the anchor row
+   receives its clipped gradient only while `E_a > θ·G` (θ = 2).
+   Measured: lawful parity at the frozen arm's own level (SG0
+   15.077 vs the wall's 10.2–10.6), slot-breaking exceptions
+   absorbed at 1.559× own lawful error with untried ≡ practiced at
+   1.002 — 24/24 seeds on both clauses — while the pinned control
+   fails the same clause at 2.379. Gate economy: ~23 moves per
+   lawful life vs ~1,100 on the exception world. Known cost, open
+   door: the gated arm's absolute lawful error runs ~1.8× the
+   frozen control's; hysteresis, per-slot gates, or post-move
+   re-freezing are the named candidates, and the dials (α, θ) were
+   never swept. Protocol inheritance: exception worlds must break
+   the SLOT (claimed slot ≠ acted slot) — value-only exceptions
+   dilute into channel averages and cannot discriminate mechanisms
+   (0114 Amendment 1).
 3. **Prediction and behavior measured separately.** A mechanism's
    consequence model and its action selection can succeed and fail
    independently; bars must read both, and a selection-side account
@@ -87,15 +96,17 @@ satisfy:
 
 ## Definition of done (functional; a follow-up specs from here)
 
-1. A mechanism satisfying constraints 1–2 passes lawful parity
-   (F0-style, thresholds frozen at calibration) with mobility ON.
-2. On a declared exceptional fraction, it fits the exceptions
+1. ~~A mechanism satisfying constraints 1–2 passes lawful parity
+   with mobility ON~~ — **met** (episode 0114, Bar SG0).
+2. ~~On a declared exceptional fraction, it fits the exceptions
    within a registered factor of its lawful error while held-out
-   lawful generalization holds (the F4 question, finally
-   measurable).
+   lawful generalization holds~~ — **met** (episode 0114, Bars
+   SG1′/SG2′, 24/24 both clauses against a failing pinned control).
 3. Generalization margins registered against the trained-knowledge
-   ceiling of the same world and budget.
-4. Only then does wiring into the teacher-world experiment
-   (episode 0042's remaining prerequisites: sequence observation
-   encoding; competence-vs-approval already substantially mapped by
-   the praise arc) become a feature question.
+   ceiling of the same world and budget — a standing rule for every
+   successor registration, not a one-time gate.
+4. Wiring into the teacher-world experiment is now gated only on
+   episode 0042's remaining prerequisite — observation encoding for
+   unbounded sequences (competence-vs-approval was substantially
+   mapped by the praise arc). The mobility premium (~1.8× lawful
+   error) is a named optimization door, not a blocker.
