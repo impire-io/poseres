@@ -38,8 +38,4 @@ examples/minecraft/survival/arms/bridge.log
 hq/01-RESEARCH/distal-senses/*.bin
 hq/01-RESEARCH/distal-senses/*-demos.json
 hq/01-RESEARCH/distal-senses/*-progress.json
-hq/01-RESEARCH/separated-patches/rig/data/
-hq/01-RESEARCH/separated-patches/rig/*.log
-hq/01-RESEARCH/separated-patches/rig/palate.json
-hq/01-RESEARCH/separated-patches/rig/*-views-seg*.jsonl.gz
 hq/01-RESEARCH/surprise-gated-anchors/rig/*.log
