@@ -63,3 +63,23 @@ no channel-averaging dilutes it and no mean-shift absorbs it, and a
 table that cannot move cannot fit it. The discrimination is real;
 Bar SG2 (amended) PASS. Everything now rides on SG1′ — whether the
 gate opens exactly there.
+
+## 2026-08-23 — Bar SG1′ PASS 24/24 on both clauses: the gate opens exactly where the world breaks its rules
+
+The gated arm on the amended world [measured]: regular 0.1096,
+irregular 0.1686, held-out 0.1105. Irregular/regular median
+**1.559** (max 1.905) — **24/24 seeds inside the 2× clause** the
+frozen control fails at 2.379; held-out/regular median **1.002**
+(max 1.154) — **24/24 inside 1.25×**, untried ≡ practiced intact
+under exceptions. Gate moves median 1,104: mobility spent where
+surprise accumulates, withheld where the world is lawful (23 moves
+per lawful life at SG0). On the record beside the ratios: the gated
+arm's absolute lawful error (0.110) runs ~1.8× the frozen control's
+(0.060) — mobility's absolute price persists and the bars, margined
+against own error per the 0112 lesson, pass with that stated.
+
+**The board: SG0 PASS, SG1 (amended) PASS, SG2 (amended) PASS.**
+Evidence-priced mobility passes the wall step-pricing hit three
+times, absorbs the exceptions pinned anchors cannot, and keeps the
+structure-transfer property whole. The mechanism design 0019's
+constraint 2 named is measured.
