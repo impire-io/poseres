@@ -41,3 +41,30 @@ makes random acceptance collapse fast with P (floor ≈ (1/m)^T per
 attempt), so if no arm performs at R(2), feedback shaping (e.g., a
 partial-credit progress pulse) is the declared first revision
 candidate — teacher pedagogy, not kernel surgery.
+
+## 2026-08-23 — Bar Q0 PASS; THE FREEZE: budget, pass rule, instruments-per-rung
+
+R(2), 24 seeds per arm [measured]: curiosity arms W1/W2/W4/W8/DK/WD
+read medians 10.0 / 19.7 / 19.8 / 12.0 / 12.0 / 15.7 accepts per 1k
+(back half), every arm 24/24 seeds accepting, against a random
+floor of 3.077 and an oracle ceiling of exactly 250 (its
+arithmetic, zero violations). Every encoding performs; W2/W4 lead;
+W8 already shows the width cost (channels without information); the
+decay summary learns real structure with no positional window at
+all. **Bar Q0 PASS.**
+
+**Frozen from this line on (no ladder rung before this counts):**
+
+- **Budget:** 13,000 world steps per run (nominal n_cycles=18, the
+  checkpoint floor), every rung, every family.
+- **The pass rule, per rung:** an arm PASSES a rung iff its median
+  accept-per-1k (back half, 24 seeds) ≥ **max(3× that rung's
+  measured random-floor median, 2.0 absolute)** — the absolute
+  floor guarding degenerate 3×~0 floors (the 0110 lesson). An arm
+  that does not pass, fails: Q1's two sides read against this one
+  line.
+- **Instruments per rung:** the random floor and the oracle
+  ceiling run at every rung before or beside its arms; readings
+  are trail, the floor feeds the rule.
+- **World v1 frozen as declared** — no revision was needed;
+  feedback shaping stays unused on the record.
