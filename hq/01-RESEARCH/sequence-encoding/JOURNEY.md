@@ -176,3 +176,21 @@ baseline. Margin 0.03 ≈ half the R(2) seed-spread width, frozen.
   where the period outgrows every window.
 - **Q3′ (beyond-window, counting):** [pulse(W4) − pulse(DK)] at
   C(4) must exceed the same difference at C(2) by ≥ 0.03.
+
+## 2026-08-23 — Q3′ FAILS as frozen, and the failure names the instrument's limit
+
+The counting pulse block [measured]: at C(2), DK's advantage over
+W4 is 0.0522 (pulse 0.2437 vs 0.2959) — the largest cross-arm gap
+in the data, matching DK's behavioral lead. At C(4) every arm's
+pulse error COLLAPSES (W1 0.069, W2 0.060, DK 0.085, W4 0.088, WD
+0.080, W8 0.199): a subject violating ~65% of steps makes a pulse
+stream that is mostly "violation again" — trivially predictable.
+Advantage growth reads −0.0497 against the +0.03 clause: **FAIL as
+frozen**, with the mechanism visible: the behavior-coupling
+confound named at the freeze does not tint hard rungs, it DOMINATES
+them. Anticipation probes cannot arbitrate encodings across gross
+behavior differences; they read cleanly only at comparable
+competence — where DK's counting advantage is real [measured].
+Q1′/Q2′ read next against the same expectation when the R(8)/R(16)
+block lands; the same collapse mechanics likely apply, and the
+clauses read as frozen either way.
