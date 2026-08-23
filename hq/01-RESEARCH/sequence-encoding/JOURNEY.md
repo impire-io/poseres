@@ -99,3 +99,39 @@ accordingly (per-rung budget scaling vs a graded meter: violation
 rate against its exact floor 0.750 and ceiling 0.0, plus the
 pulse-channel prediction instrument). Any amendment lands here with
 these numbers before any rung re-runs.
+
+## 2026-08-23 — the diagnosis lands: plateau, not budget; width, not window — Amendment 1
+
+The budget discriminator [measured]: at ~25,000 steps (≈2× budget),
+W4@R(4) reads violations/step 0.654 vs 0.656 at 13k — unchanged —
+and acceptance 0.04; W2 reads 0.575 vs 0.601, acceptance 0.68.
+**Learning plateaus**; the budget is not the binder. And the width
+reading holds everywhere: W2 beats W4 at R(4) on both meters, W1/W2
+lead every rung, W8 trails every rung — **the kernel pays more for
+observation width than it gains from positional sufficiency at this
+scale.** Three measured facts now compose the diagnosis: the
+acceptance meter demands exp(T) fidelity (partial competence reads
+zero); learning plateaus at 0.53–0.68 violations/step; width
+dominates information content in cross-arm comparisons.
+
+**Amendment 1 — the instrument, registered with these numbers,
+before any rung re-runs:**
+
+- **Graded meter:** conformity = 1 − violations/step, exact floor
+  0.250 (random's arithmetic), ceiling 1.0 (the oracle's measured
+  zero). Acceptance stays reported where it reads (R(2), C(2)).
+- **The pulse instrument:** a rig-side recording wrapper (the
+  Minecraft RecordingPolicy pattern) captures the frames'
+  per-channel one-step prediction error; the PULSE channel's error —
+  anticipating the teacher's answer — is the encoding-information
+  probe, independent of task completion.
+- **Bars restated on the amended instrument, the width confound
+  killed by design:** Q1′ — within-arm, cross-rung: W-K's pulse
+  error rises from P ≤ K to P > K (same arm, same width, only the
+  dependency grows past the window); Q2′ — DK (m+2 channels,
+  unbounded horizon) beats W8 (K+2 = 10 channels, bounded) on pulse
+  error at R(16) — narrower AND longer-horizon, both axes honest;
+  Q3′ — the counting reading on pulse error at C(n), same
+  within-arm and DK-vs-window comparisons. Exact thresholds frozen
+  from the re-run's R(2) block before the ladder rungs are read
+  (the standing pattern).
