@@ -159,6 +159,35 @@ class EchoWorld:
         self.violations = int(state["violations"])
 
 
+class SeqRecordingPolicy:
+    """The pulse instrument (Amendment 1): wraps the curiosity policy
+    and records the frames' per-channel one-step prediction error —
+    the PULSE channel's error is the encoding-information probe,
+    independent of task completion. Read-only; the inner policy's
+    draw order is untouched."""
+
+    def __init__(self, inner, obs_dim: int):
+        self.inner = inner
+        self._pred: np.ndarray | None = None
+        self.err_sum = np.zeros(obs_dim)
+        self.n = 0
+        self.n_missing = 0
+
+    def select_action(self, context, rng) -> int:
+        obs = np.asarray(context.observation, dtype=float)
+        if self._pred is not None:
+            self.err_sum += np.abs(self._pred - obs)
+            self.n += 1
+        a = self.inner.select_action(context, rng)
+        pred = context.predict_decoded(a)
+        if pred is None:
+            self._pred = None
+            self.n_missing += 1
+        else:
+            self._pred = np.array(pred, dtype=float, copy=True)
+        return a
+
+
 class OracleProducer:
     """The ceiling instrument: emits the phase-correct token, reading
     the target from the world instance itself (never from the subject's
@@ -182,7 +211,9 @@ def run_arm(
     cfg = Config(
         obs_dim=obs_dim_of(encoding),
         n_actions=M,
-        policy_mode="random" if policy_mode in ("oracle", "random") else policy_mode,
+        policy_mode="curiosity"
+        if policy_mode == "record"
+        else ("random" if policy_mode in ("oracle", "random") else policy_mode),
         episode_mode="continuous",
         n_cycles=n_cycles,
     )
@@ -194,6 +225,14 @@ def run_arm(
         return w
 
     policy = OracleProducer(worlds) if policy_mode == "oracle" else None
+    rec = None
+    if policy_mode == "record":
+        from pra.action.policy import CuriosityLookaheadPolicy, PolicyParams
+
+        rec = SeqRecordingPolicy(
+            CuriosityLookaheadPolicy(PolicyParams.from_config(cfg)), cfg.obs_dim
+        )
+        policy = rec
     summary = Engine(cfg, world_factory=factory, policy=policy).run(seed)
     w = worlds[0]
     half = w.total_steps // 2
@@ -211,6 +250,16 @@ def run_arm(
         "violations": w.violations,
         "pred_late": summary.pred_error_late,
         "population": summary.final_population,
+        **(
+            {
+                "pulse_err": round(float(rec.err_sum[-1] / max(rec.n, 1)), 6),
+                "progress_err": round(float(rec.err_sum[-2] / max(rec.n, 1)), 6),
+                "enc_err": round(float(rec.err_sum[:-2].mean() / max(rec.n, 1)), 6),
+                "rec_n": rec.n,
+            }
+            if rec is not None
+            else {}
+        ),
     }
 
 
