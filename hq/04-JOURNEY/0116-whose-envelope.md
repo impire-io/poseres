@@ -42,9 +42,9 @@ Episode 0042's pre-registered prediction — "the current kernel
 plateaus short of syntax, because nothing in it composes;
 hierarchical frames become the next named gate" — receives its full
 measured confirmation at its named location, closing a
-prediction-to-evidence arc thirteen months of episodes wide: 0112
-(actions), 0114 (exceptions), 0115 (encoding), 0116 (the
-attribution).
+prediction-to-evidence arc five weeks after the prediction was
+registered (2026-07-19 → 2026-08-24): 0112 (actions), 0114
+(exceptions), 0115 (encoding), 0116 (the attribution).
 
 What it opened: **hierarchical frames is now the measured gate**,
 not the predicted one — kernel research, the vision's named next
