@@ -145,11 +145,13 @@ next experiment each one is gated behind.
   The envelope attribution ([episode 0116](../04-JOURNEY/0116-whose-envelope.md)):
   shared — the itch without incumbency is a free win, and the frames
   hold the wall. **0042's plateau prediction is confirmed at its
-  named location**: hierarchical frames is the measured gate. The
-  teacher-world may run bounded-context inside the measured envelope
-  (design 0020's runnable configuration) or wait on hierarchical
-  frames (kernel research). No language showcase before that gate
-  reads.
+  named location**, and the gate is shaped by the owner's direction
+  ([episode 0117](../04-JOURNEY/0117-compositional-frames.md)):
+  **compositional frames — references between frames**, hierarchy
+  emergent, reference contents the open research. The teacher-world
+  may run bounded-context inside the measured envelope (design
+  0020's runnable configuration) or wait on that gate. No language
+  showcase before it reads.
 - **Staleness detection — closed, passive and active**
   ([episode 0059](../04-JOURNEY/0059-scheduled-probing.md)): scheduled
   probing, the active successor, failed its registered gate — the benign

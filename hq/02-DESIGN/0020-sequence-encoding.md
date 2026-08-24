@@ -63,9 +63,16 @@ acceptance at R(2)) and moves every interior meter beyond it
 misalignment repaired, the wall stands (R(4) acceptance 1.7× plain,
 still under the frozen line; R(8) at the deepest conformity in the
 record with not one full sequence). What remains when the drive
-wants to finish and cannot is representational: **hierarchical
-frames is the measured gate** (0042's prediction confirmed at its
-named location).
+wants to finish and cannot is representational: the compositional
+gate is measured (0042's prediction confirmed at its named
+location) — and **shaped by the owner's direction (episode 0117) as
+references between frames**, hierarchy an emergent special case,
+never an imposed architecture. What a reference carries (pose,
+prediction, learned binding) is the open core of that research; the
+lifecycle costs (credit through references, dangling references at
+eviction, topology in the snapshot, pricing references in the
+survival score) are named in 0117 for the registration that picks
+it up.
 
 Two mechanism lessons ride with the attribution (0116, measured by
 ablation): **incumbency taxes token switches** — commitment as
@@ -82,9 +89,9 @@ encoding (this document's guidance), the completion itch on the
 world's progress channel with commitment OFF, event head at the
 shipped η, curriculum within the envelope (dependencies ≤ the
 measured edge), graded conformity meters. Beyond the envelope:
-hierarchical frames — kernel research, the vision's named next
-mountain, now with its evidence chain (0112, 0114, 0115, 0116)
-instead of a prediction.
+compositional frames — references between frames (episode 0117),
+kernel research, the vision's named next mountain, now with its
+evidence chain (0112, 0114, 0115, 0116) instead of a prediction.
 
 ## Constraints carried forward
 

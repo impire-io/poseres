@@ -57,9 +57,10 @@ experiment each ambition is gated behind is tracked in
 - **Language as a learnable world.** Under the founding bet, language is a
   world to learn, not a rival's turf. Gated behind the teacher-world
   experiment and three prerequisite decisions, with a pre-registered
-  prediction that the current kernel plateaus short of syntax — if that
-  prediction is wrong, the vision gets much cheaper; if right, hierarchical
-  frames become the next named gate.
+  prediction that the current kernel plateaus short of syntax — confirmed
+  measured at its named location five weeks later (episode 0116); the gate
+  is shaped as compositional frames — references between frames, hierarchy
+  emergent where it earns it (episode 0117).
 - **Tool self-invention, richer senses.** Open problems named honestly: the
   registration seam exists, the inventing mechanism is unsolved research;
   vision/high-dimensional input waits until the research earns it.

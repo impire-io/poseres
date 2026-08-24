@@ -22,8 +22,8 @@ teaching moved to `../00-GENESIS/how-we-work.md`.
 
 ## Where things stand (2026-08-24)
 
-**The language road is fully mapped — hierarchical frames is now
-the measured gate** ([0116](0116-whose-envelope.md), closing the
+**The language road is fully mapped — the compositional gate is
+measured, and shaped as references between frames** ([0116](0116-whose-envelope.md), closing the
 arc 0112→0116 in four days): the envelope question answered by
 ablation and discrimination — the drive's misalignment was real
 and fixable (the itch without incumbency beats plain inside the
@@ -956,3 +956,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0114 | [Surprise-gated anchors: mobility priced by evidence passes the wall](0114-surprise-gated-anchors.md) |
 | 0115 | [Sequence encoding: the sense was never the binder](0115-sequence-encoding.md) |
 | 0116 | [Whose envelope? Shared — and the frames hold the wall](0116-whose-envelope.md) |
+| 0117 | [The gate reshaped: references between frames, hierarchy where it earns it](0117-compositional-frames.md) |
