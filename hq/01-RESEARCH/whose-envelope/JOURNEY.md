@@ -64,3 +64,28 @@ dying with its intention — the token switch punishes; a boundary-
 releasing hold is the shape a sequence-commitment would need
 [mechanism-argument, named for design 0020]. Per the declared
 ladder, stack-nc carries E1 (R4/W2) and E2 (R8/W2, C4/DK).
+
+## 2026-08-24 — E1 FAILS as registered: the drive owned a share, the frames hold the wall
+
+stack-nc on the ladder, 24 seeds [measured]: R(4) acceptance 0.769
+median (plain 0.462; 22/24 seeds accepting vs 16; max 2.0) with
+violations 0.483 (−0.118, the conformity clause met) — but the
+frozen 2.0 acceptance line stands unmet: **Bar E1 FAIL** (one
+clause of two). R(8): 0/24 accepting at violations 0.458 (plain
+0.627 — the deepest conformity in the topic, and not one full
+sequence). C(4): 0.615, 23/24 touching (plain 0.462). **Bar E2**
+reads as the moved interior: conformity −0.10 to −0.17 at every
+edge rung, acceptance shifted but never past a line.
+
+The attribution, exactly as the registration was built to
+discriminate: **shared, with the frames holding the wall.** The
+drive's misalignment was real and fixable — the itch without
+incumbency beats plain everywhere inside the envelope and moves
+every interior meter beyond it — and with that misalignment
+removed, the wall stands. What remains when the drive wants to
+finish and still cannot is representational: the frames do not
+carry deep sequential state. Episode 0042's pre-registered
+prediction ("the current kernel plateaus short of syntax, because
+nothing in it composes — hierarchical frames become the next named
+gate") receives its full measured confirmation at its named
+location, three prerequisites and one attribution later.

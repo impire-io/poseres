@@ -84,6 +84,37 @@ time, before any arm runs.
 
 ## Verdict
 
-<Empty until graduation. Filled by /research-graduate: PASS/FAIL per
-bar with the honest numbers, each load-bearing claim tagged
-[measured] / [mechanism-argument] / [judgment].>
+Measuring complete 2026-08-24; the discriminating design answered.
+
+- **Bar E0 — PASS at stack-nc, via the declared dose ladder**
+  [measured]: the shipped dose failed E0 (C2 slashed 3.6×, false
+  completions 35–52%); the ablation separated the components —
+  commitment OFF, itch full: R2 25.846 (+32% over plain), C2
+  23.385 (plain's level), clauses cleared. Incumbency, not the
+  itch, taxed the token switch [measured by ablation]; a
+  boundary-releasing hold is the sequence-commitment shape, named
+  for design 0020.
+- **Bar E1 — FAIL as registered** [measured]: R(4) acceptance
+  0.769 vs the frozen 2.0 line (plain 0.462; 22/24 accepting, up
+  from 16); the conformity clause met (−0.118). The wall moved
+  interior meters and did not fall.
+- **Bar E2 — the moved interior** [measured]: R(8) violations
+  0.458 (plain 0.627) with 0/24 accepting; C(4) 0.615 with 23/24
+  touching. Conformity −0.10 to −0.17 at every edge rung.
+
+Load-bearing claims: **the envelope is shared, and the frames hold
+the wall** — the drive's misalignment was real and fixable (itch
+without incumbency beats plain inside the envelope, moves every
+interior meter beyond it), and with it removed the wall stands: the
+residual is representational [measured — the discriminating
+design's intended read]; **the itch is a free win for sequence
+worlds** (+32% inside the envelope, licensed for the teacher-world's
+bounded-context configuration) [measured]; **incumbency taxes
+switches** — 0101's lesson runs backward in sequence worlds
+[measured by ablation]; **0042's plateau prediction is confirmed at
+its named location** — hierarchical frames is now the measured
+gate [measured chain: 0112 actions, 0114 exceptions, 0115
+encoding, this topic's attribution]. Confounds as journaled: one
+world; the frozen 2.0 line inherits 0115's meter (partial
+competence reads conservatively); dose ladder limited to the two
+declared configurations.
