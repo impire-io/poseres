@@ -81,6 +81,40 @@ verdict lands in the journey with the raw numbers.
 
 ## Verdict
 
-<Empty until graduation. Filled by /research-graduate: PASS/FAIL per bar
-with the honest numbers, each load-bearing claim tagged [measured] /
-[mechanism-argument] / [judgment].>
+- **T0 PASS** [measured]: the tower's 24-seed record landed before any
+  reference arm's measurement — R(4) mean 1.109 (rig median 1.231,
+  24/24 accepting), R(8) zero, conformity within thousandths of flat.
+  A real rival, not a straw man.
+- **R0 FAIL** [measured]: no reference variant beats the tower beyond
+  seed spread at R(4) — ref-pose −0.154, ref-pred −0.115, bind-pred
+  (identity-bound, the 0117 primitive proper) +0.128 ± 0.138 SE
+  (t = +0.93, 13/24 seeds ahead). The interior clause held for every
+  arm. The "more seeds accepting" clause proved degenerate against a
+  24/24 tower and is recorded, not leaned on; the mean-beyond-spread
+  reading fails on its own. Per the registered reversal and 0117's
+  own condition, the simpler tower wins on parsimony and the gate's
+  shape reverts to hierarchy-as-built.
+- **W0 PASS, with the measured answer** [measured]: what a reference
+  carries does not matter at this world and scale — pose vs
+  prediction are inside seed spread with rung-dependent sign flips
+  (pred +0.039 at R(4), pose +0.090 at C(4)); identity-vs-slot
+  binding is suggestive at best (+0.244 at R(4), t = +1.49, inside
+  spread).
+- **L0 NOT RUN** [judgment]: mooted by R0's FAIL — there is no winning
+  reference configuration to lifecycle-test. Incidental telemetry
+  from bind-pred (median 7 orphan events per run, 4 dangling
+  references at end, populations healthy under graceful degradation)
+  is the partial answer 0117's lifecycle question receives.
+- **R1 FAIL** [measured]: the frozen 2.0 line at R(4) is unmet at
+  every arm's median (1.231 at best; 1–2 individual seeds over);
+  R(8) is exactly zero everywhere. The wall stands — 0116's
+  attribution intact, the compositional gate still open.
+
+Mechanism account [mechanism-argument]: the echo world's progress
+channel hands sequence position to the senses, so the observation is
+nearly Markov-sufficient given the current template — template
+knowledge lives in fast weights, not carried state. Composition
+therefore pays as capacity (the tower's consistent interior shift,
++0.23–0.26, t ≈ 1.6, suggestive), not as memory. A world that hides
+position is where carried references could earn their keep; that is
+a successor topic, not this verdict.

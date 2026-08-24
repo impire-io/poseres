@@ -197,3 +197,62 @@ template — and template knowledge lives in fast weights, not in
 state. If that reading is right, no carried-state mechanism beats
 capacity on this world, and the reversal is the true verdict, not a
 miss.
+
+## 2026-08-25 — Phase B read and the verdict: nothing a reference carries beats capacity; the reversal fires
+
+Bind-pred (identity-bound, the primitive proper), 24 seeds, five
+rungs, with the lifecycle genuinely exercised (median 7 orphan
+events per R(4) run, 4 references dangling at end, populations
+healthy under graceful degradation, arbiter share median 0.52)
+[measured]:
+
+The full factorial, R(4) means (rig medians / seeds accepting):
+
+| arm | R(2) | R(4) | R(8) | C(2) | C(4) |
+|---|---|---|---|---|---|
+| flat stack-nc | 25.48 (25.85/24) | 0.878 (0.769/22) | 0 | 22.14 | 0.737 (0.615/23) |
+| tower (slot, same-step) | 26.28 (26.46/24) | 1.109 (1.231/24) | 0 | 21.47 | 0.993 (0.923/24) |
+| ref-pose (slot, carried) | 26.89 | 0.955 (0.923/22) | 0 | 21.35 | 1.090 |
+| ref-pred (slot, carried) | 25.51 | 0.994 (1.077/23) | 0 | 22.64 | 1.000 |
+| bind-pred (identity, carried) | 25.32 | 1.237 (1.231/24) | 0 | 22.24 | 0.962 |
+
+Paired against the tower at R(4): bind-pred +0.128 ± 0.138 SE
+(t = +0.93, 13/24 seeds ahead) — inside seed spread; ref-pose and
+ref-pred below it. The R(2) interior clause holds for every arm
+(bind-pred's −0.961 is t = −1.43, inside spread). Identity-vs-slot
+within the pred content: +0.244 at R(4) (t = +1.49) — suggestive,
+inside spread, on the record. R(8): exactly zero for every arm. The
+frozen 2.0 line: unmet at every arm's median (bind-pred and the
+tower each put 1–2 individual seeds over it). Tower vs flat interior
+shift: +0.231 at R(4) (t = +1.56) and +0.256 at C(4) (t = +1.66) —
+consistently positive, individually inside spread: the earlier T0
+headline softens to "suggestive," stated so here.
+
+Bind-pose was not run: pose was the weaker content at the
+discriminating rung in Phase A, and the stronger content's
+identity-bound form failed to beat the tower beyond spread — no
+mechanism story survives for pose leaping past both [judgment].
+
+One registered clause proved degenerate and is recorded, not
+leaned on: R0's "more seeds accepting" is unsatisfiable against a
+tower at 24/24; the verdict rests on the mean-beyond-spread reading,
+which fails on its own.
+
+**Verdicts as registered: T0 PASS. R0 FAIL — no reference variant
+(slot or identity, pose or prediction) beats the plain stacked tower
+beyond seed spread anywhere on the frozen world. W0 PASS with a
+measured answer: what a reference carries does not matter at this
+world and scale — pose vs prediction inside spread with
+rung-dependent sign flips; identity binding suggestive at best. R1
+FAIL for every arm — the wall stands, 0116's attribution intact. L0
+NOT RUN — mooted by R0's FAIL (no winning configuration to
+lifecycle-test); the incidental dangling telemetry above is the
+partial answer 0117's lifecycle question gets.**
+
+Per the pre-registration and 0117's own reversal condition: **the
+simpler tower wins on parsimony, and the gate's shape reverts to
+hierarchy-as-built.** The compositional gate itself stays open —
+nothing tested here clears R(4)'s frozen line at the median or
+scores once at R(8). The Markov-sufficiency reading stands as the
+best mechanism account: this world hands position to the senses, so
+composition pays as capacity, not as memory.
