@@ -70,3 +70,58 @@ the effective window by chaining state across steps — if the wall is
 information-starved, carried beats same-step; if it is
 representation-starved, the tower suffices and 0117's reversal
 fires.
+
+## 2026-08-24 — the pilot kills scaffolding v1; v2 registered: the reference lives in the transition
+
+The registered 3-seed instrument pilots did their job. **v1
+(observation-augmentation, `aug_obs = [obs, z]`) is dead on its
+instruments** [measured, rows in the scratchpad rig]: the arbiter
+share never exceeded 0.005 in any arm (R2 tower 0.0005–0.0029; R4
+tower 0.0002–0.0018; R4 ref-pose ≤ 0.0004 — even after amending the
+arbiter to task-channel error, where tier-2 still read 3–5× worse
+than base), so no mechanism could express itself and R0 would have
+compared seed noise to seed noise. Matching tier-2's effective
+learning rate to base's (the kernel's scale rule had slowed it 3.6×)
+made it worse: populations ballooned 26–52 and churned, map rate
+fell to 0.93, the best-by-scorer was perpetually a newborn.
+Diagnosis: obs-augmentation makes tier-2 reconstruct and predict the
+8-channel carrier block alongside the world — every loss diluted
+14/6, the carrier's dynamics an unlearnable target, and the scale
+rules treating carrier as world. No symmetric knob fixes a
+wrong-shaped seam.
+
+**v2, registered before any 24-seed run: the reference enters the
+frame's TRANSITION, not its observation.** A tier-2 frame is a plain
+obs-space frame — encoder, decoder, losses, channels, and effective
+learning rate identical to base — and only its per-action transition
+reads `[own pose, z]` (width D+8): another frame's state as a
+constituent of this frame's dynamics. Sequence state is a dynamics
+problem; appearance never needed the reference. This is 0112's rank
+lesson relocated — the interaction between two factors made
+explicit. The tower/reference split stays a one-variable switch
+inside the transition: tower `z` = base best's pose at obs(t)
+(same-step — representation, no information); ref-pose `z` = base
+best's pose at obs(t−1) (carried); ref-pred `z` = base's expectation
+of t made at t−1. Transition training uses the z the mode would have
+had at the sample's origin; the z chain breaks at episode boundaries
+exactly where the transition chain does. The cross-tier arbiter is
+now the kernel's own survival score (both tiers' EMAs computed by
+identical obs-space arithmetic); task-channel EMAs remain telemetry
+only. Tier-2 keeps its own generator (spawn_key 7000) and mirrored
+lifecycle.
+
+**v2 pilot instruments (3 seeds, R4): healthy.** Map rate 0.9995,
+populations 10–19 and stable, arbiter share 0.19–0.61 — the tiers
+genuinely compete and a mechanism can now win or lose on its merits.
+Scaffolding frozen.
+
+Openness note for T0's verdict: 3-seed ref-pose instrument pilots
+ran during scaffolding validation, before the tower's 24-seed
+record. They were read for map rates, populations, and arbiter
+shares — n=3 acceptance is noise and shaped nothing — but the order
+is on the record.
+
+A design lesson that stands whatever R0 says: in this kernel,
+input-space composition fails on loss dilution and carrier-as-world
+scale rules, not on capacity; the transition is the seam where a
+reference enters without touching placement.
