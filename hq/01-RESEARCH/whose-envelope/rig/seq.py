@@ -212,11 +212,11 @@ def run_arm(
         obs_dim=obs_dim_of(encoding),
         n_actions=M,
         policy_mode="curiosity"
-        if policy_mode in ("record", "stack")
+        if policy_mode in ("record", "stack", "stack-lo", "stack-nc")
         else ("random" if policy_mode in ("oracle", "random") else policy_mode),
         episode_mode="continuous",
         n_cycles=n_cycles,
-        event_head_eta=0.5 if policy_mode == "stack" else 0.0,
+        event_head_eta=0.5 if policy_mode.startswith("stack") else 0.0,
     )
     worlds: list[EchoWorld] = []
 
@@ -235,16 +235,18 @@ def run_arm(
             CuriosityLookaheadPolicy(PolicyParams.from_config(cfg)), cfg.obs_dim
         )
         policy = rec
-    if policy_mode == "stack":
+    if policy_mode.startswith("stack"):
         from pra.action.policy import CompletionItchPolicy, PolicyParams
 
+        kappa = 0.05 if policy_mode == "stack-lo" else 0.25
+        kc = 0.0 if policy_mode == "stack-nc" else 0.1
         inner = CompletionItchPolicy(
             PolicyParams.from_config(cfg),
-            kappa=0.25,
+            kappa=kappa,
             progress_index=cfg.obs_dim - 2,
             pocket_index=cfg.obs_dim - 1,
-            commit_kappa=0.1,
-            explore_defers_holds=True,
+            commit_kappa=kc,
+            explore_defers_holds=kc > 0.0,
         )
         rec = SeqRecordingPolicy(inner, cfg.obs_dim)
         policy = rec
