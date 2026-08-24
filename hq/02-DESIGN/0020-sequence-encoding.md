@@ -65,14 +65,18 @@ still under the frozen line; R(8) at the deepest conformity in the
 record with not one full sequence). What remains when the drive
 wants to finish and cannot is representational: the compositional
 gate is measured (0042's prediction confirmed at its named
-location) — and **shaped by the owner's direction (episode 0117) as
-references between frames**, hierarchy an emergent special case,
-never an imposed architecture. What a reference carries (pose,
-prediction, learned binding) is the open core of that research; the
-lifecycle costs (credit through references, dangling references at
-eviction, topology in the snapshot, pricing references in the
-survival score) are named in 0117 for the registration that picks
-it up.
+location). The gate's shape was set by the owner (episode 0117) as
+references between frames — and **reversed by that decision's own
+condition (episode 0118)**: measured on the frozen world, no
+reference variant (slot or identity-bound, carrying pose or
+prediction) beats a plain stacked tower beyond seed spread (best:
+identity-bound prediction, +0.128 ± 0.138 SE at R(4)), while the
+tower itself is a real rival (R(4) median 0.769 → 1.231, 22→24
+seeds accepting). **Hierarchy-as-built is the gate's preferred
+shape on parsimony.** The mechanism account: this world's progress
+channel hands sequence position to the senses, so composition pays
+as capacity, not memory; a position-hiding world is where carried
+references could earn their keep (0118's reversal condition).
 
 Two mechanism lessons ride with the attribution (0116, measured by
 ablation): **incumbency taxes token switches** — commitment as
@@ -82,16 +86,22 @@ sequence-commitment shape a successor must have. And **the itch
 without incumbency is a free win for sequence worlds**, licensed
 for the teacher-world's bounded-context configuration.
 
-## The teacher-world's runnable configuration (as of 0116)
+## The teacher-world's runnable configuration (as of 0118)
 
 Inside the measured envelope, today: narrow structure-matched
 encoding (this document's guidance), the completion itch on the
 world's progress channel with commitment OFF, event head at the
 shipped η, curriculum within the envelope (dependencies ≤ the
-measured edge), graded conformity meters. Beyond the envelope:
-compositional frames — references between frames (episode 0117),
-kernel research, the vision's named next mountain, now with its
-evidence chain (0112, 0114, 0115, 0116) instead of a prediction.
+measured edge), graded conformity meters. Beyond the envelope: the
+compositional gate stays open — no configuration tested in 0118
+(flat, stacked, or referencing) clears R(4)'s frozen line or scores
+at R(8). When the gate is next attacked, the measured shape to
+build on is **hierarchy-as-built** (a stacked second tier whose
+transitions read the tier below — 0118's tower, the parsimony
+winner); references between frames re-enter only on a world that
+hides sequence position, per 0118's reversal condition. The
+transition — not the observation — is the seam where composition
+enters a frame (0118's scaffolding lesson, measured).
 
 ## Constraints carried forward
 

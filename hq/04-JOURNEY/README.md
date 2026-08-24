@@ -20,10 +20,29 @@ Episodes 0001–0044 were chapters of the original single-file `JOURNEY.md`
 "ch. NN" resolve to `00NN-*.md`). The recurring principles the journey keeps
 teaching moved to `../00-GENESIS/how-we-work.md`.
 
-## Where things stand (2026-08-24)
+## Where things stand (2026-08-25)
+
+**The compositional gate's shape is measured: hierarchy-as-built
+wins on parsimony — 0117's reversal fired by its own condition**
+([0118](0118-compositional-frames.md), the research 0117
+commissioned, opened and closed in a day): on the frozen
+echo-teacher world, no reference variant — slot or identity-bound,
+carrying pose or prediction — beats a plain stacked tower beyond
+seed spread (best +0.128 ± 0.138 SE at R(4)), while the tower is a
+real rival (R(4) median 0.769 → 1.231, every seed accepting). The
+scaffolding taught its own lesson first: composition enters a frame
+through the **transition**, not the observation (input-augmentation
+died on its pilot instruments). The mechanism account: this world
+hands sequence position to the senses, so composition pays as
+capacity, not memory — a position-hiding world is where references
+could earn their keep, and that is 0118's reversal condition. The
+gate itself stays open: nothing clears R(4)'s frozen 2.0 line or
+scores at R(8); design
+[0020](../02-DESIGN/0020-sequence-encoding.md) carries the shape,
+the seam lesson, and the runnable teacher-world configuration.
 
 **The language road is fully mapped — the compositional gate is
-measured, and shaped as references between frames** ([0116](0116-whose-envelope.md), closing the
+measured** ([0116](0116-whose-envelope.md), closing the
 arc 0112→0116 in four days): the envelope question answered by
 ablation and discrimination — the drive's misalignment was real
 and fixable (the itch without incumbency beats plain inside the
@@ -957,3 +976,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0115 | [Sequence encoding: the sense was never the binder](0115-sequence-encoding.md) |
 | 0116 | [Whose envelope? Shared — and the frames hold the wall](0116-whose-envelope.md) |
 | 0117 | [The gate reshaped: references between frames, hierarchy where it earns it](0117-compositional-frames.md) |
+| 0118 | [Compositional frames: nothing a reference carries beats the tower — the reversal fires by its own condition](0118-compositional-frames.md) |
