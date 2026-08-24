@@ -51,19 +51,40 @@ enough for the next registration.
    against exact floors/ceilings, and use anticipation probes only
    between arms of comparable behavior.
 
-## The open question (the next registration on the language road)
+## The attribution — ANSWERED (episode 0116)
 
-**Whose envelope is it?** One-step curiosity has no structural
-reason to finish long sequences (the completion machinery of
-designs 0014/0016 exists for exactly this shape); alternatively the
-frames may lack capacity for deep sequential state (hierarchical
-frames — 0042's named next gate if the plateau prediction holds).
-The discriminating registration: the same frozen echo-teacher
-world with (a) the shipped completion/commitment stack enabled
-versus (b) the plain drive, reading whether the plateau moves —
-drive-alignment and frame-capacity make opposite predictions, one
-variable, cheap. Until that verdict, the plateau's mechanism is
-deliberately unattributed (0115's honest scope).
+**The envelope is shared, and the frames hold the wall.** The
+discriminating registration ran the day after this document named
+it: the drive's misalignment was real and fixable — the completion
+itch mapped to the world's own progress channel, WITHOUT
+commitment, beats the plain drive inside the envelope (+32%
+acceptance at R(2)) and moves every interior meter beyond it
+(conformity −0.10 to −0.17 at every edge rung) — and with the
+misalignment repaired, the wall stands (R(4) acceptance 1.7× plain,
+still under the frozen line; R(8) at the deepest conformity in the
+record with not one full sequence). What remains when the drive
+wants to finish and cannot is representational: **hierarchical
+frames is the measured gate** (0042's prediction confirmed at its
+named location).
+
+Two mechanism lessons ride with the attribution (0116, measured by
+ablation): **incumbency taxes token switches** — commitment as
+shipped (dying with its intention) punishes exactly what sequence
+worlds require at boundaries; a *boundary-releasing hold* is the
+sequence-commitment shape a successor must have. And **the itch
+without incumbency is a free win for sequence worlds**, licensed
+for the teacher-world's bounded-context configuration.
+
+## The teacher-world's runnable configuration (as of 0116)
+
+Inside the measured envelope, today: narrow structure-matched
+encoding (this document's guidance), the completion itch on the
+world's progress channel with commitment OFF, event head at the
+shipped η, curriculum within the envelope (dependencies ≤ the
+measured edge), graded conformity meters. Beyond the envelope:
+hierarchical frames — kernel research, the vision's named next
+mountain, now with its evidence chain (0112, 0114, 0115, 0116)
+instead of a prediction.
 
 ## Constraints carried forward
 

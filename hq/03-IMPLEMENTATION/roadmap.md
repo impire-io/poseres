@@ -142,8 +142,14 @@ next experiment each one is gated behind.
   echo-teacher world) is the named next registration
   (competence-drive-vs-approval was substantially mapped by the
   praise arc).
-  Pre-registered prediction in 0042: the current kernel plateaus
-  short of syntax. No language showcase before the gate reads.
+  The envelope attribution ([episode 0116](../04-JOURNEY/0116-whose-envelope.md)):
+  shared — the itch without incumbency is a free win, and the frames
+  hold the wall. **0042's plateau prediction is confirmed at its
+  named location**: hierarchical frames is the measured gate. The
+  teacher-world may run bounded-context inside the measured envelope
+  (design 0020's runnable configuration) or wait on hierarchical
+  frames (kernel research). No language showcase before that gate
+  reads.
 - **Staleness detection — closed, passive and active**
   ([episode 0059](../04-JOURNEY/0059-scheduled-probing.md)): scheduled
   probing, the active successor, failed its registered gate — the benign

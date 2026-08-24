@@ -20,7 +20,24 @@ Episodes 0001–0044 were chapters of the original single-file `JOURNEY.md`
 "ch. NN" resolve to `00NN-*.md`). The recurring principles the journey keeps
 teaching moved to `../00-GENESIS/how-we-work.md`.
 
-## Where things stand (2026-08-23)
+## Where things stand (2026-08-24)
+
+**The language road is fully mapped — hierarchical frames is now
+the measured gate** ([0116](0116-whose-envelope.md), closing the
+arc 0112→0116 in four days): the envelope question answered by
+ablation and discrimination — the drive's misalignment was real
+and fixable (the itch without incumbency beats plain inside the
+envelope; incumbency taxes token switches, 0101's lesson running
+backward), and with it repaired the wall stands: the frames do not
+carry deep sequential state. Episode 0042's pre-registered plateau
+prediction is confirmed at its named location with a four-episode
+evidence chain. Design
+[0020](../02-DESIGN/0020-sequence-encoding.md) now carries the
+attribution, the boundary-releasing-hold successor shape, and the
+teacher-world's runnable bounded-context configuration — the
+experiment can run today inside the measured envelope, or wait on
+hierarchical frames (kernel research, the vision's named next
+mountain) for the open horizon.
 
 **The language gate's prerequisites are all measured — the road now
 leads through the competence envelope**
@@ -938,3 +955,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0113 | [Separated patches: the war is at the birth minute, not between the patches](0113-separated-patches.md) |
 | 0114 | [Surprise-gated anchors: mobility priced by evidence passes the wall](0114-surprise-gated-anchors.md) |
 | 0115 | [Sequence encoding: the sense was never the binder](0115-sequence-encoding.md) |
+| 0116 | [Whose envelope? Shared — and the frames hold the wall](0116-whose-envelope.md) |
