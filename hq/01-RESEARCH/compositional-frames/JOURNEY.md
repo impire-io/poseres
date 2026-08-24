@@ -153,3 +153,47 @@ median and R(8) stays at exactly zero. Hierarchy-as-built is not a
 straw man on this world; R0 now asks whether carried state beats a
 rival that visibly works. (Both arms sit fully inside 0116's
 attribution: interior meters move, the wall stands.)
+
+## 2026-08-24 — Phase A read: slot-carried references LOSE to the tower at the wall; Phase B (identity binding) registered
+
+The 24-seed reference arms, against the tower's frozen record
+[measured]:
+
+- **R(4), the discriminating rung:** tower mean 1.109 (rig median
+  1.231, 24/24 accepting) vs ref-pose 0.955 (0.923, 22/24) and
+  ref-pred 0.994 (1.077, 23/24). Paired per-seed: ref-pose ahead in
+  8/24 (mean diff −0.154), ref-pred in 9/24 (−0.115). Neither
+  carried variant beats the tower; the bar's letter (higher mean AND
+  more seeds accepting) is unreachable against 24/24.
+- **R(2), the interior clause:** parity — tower 26.28, ref-pose
+  26.89, ref-pred 25.51 (sd ≈ 1.5–2.2); nobody loses the envelope.
+- **C(4):** refs nominally ahead (+0.096 pose, +0.007 pred) — inside
+  seed noise (sd/√24 ≈ 0.09). **R(8): zero for every arm.** R1's
+  frozen 2.0 line: unmet by every arm at the median.
+- **W0 within carried contents:** near-equivalence; pred weakly
+  ahead at R(4) (0.994 vs 0.955, 23 vs 22 seeds), pose ahead at C(4)
+  (1.090 vs 1.000) — ordering flips by rung. The discriminating rung
+  picks pred as Phase B's content, the flip on the record.
+
+**Why R0 does not fail yet:** Phase A's references were SLOT
+references — z follows "whoever is best now," so the referent's
+identity switches with score churn and tier-2's transitions chase a
+moving target; the staleness cost is paid but the binding benefit
+never arrives. 0117's primitive is a frame *owning* its referent.
+Phase B, registered now: **bind-pred** — each tier-2 frame binds at
+birth to the then-best base frame's id; its z is that frame's
+prediction, carried; an evicted referent degrades the z to zeros
+(graceful degradation, the registered dangling-reference stance —
+telemetry counts it). One variable from its slot twin. If bind-pred
+beats the tower, the deciding control is identity × same-step
+(bind-tower) to separate binding from memory; if it does not, R0
+fails with the full factorial's diagonal on the record and 0117's
+reversal fires honestly.
+
+A mechanism note for the record, stated before Phase B runs: the
+world's progress channel already carries the sequence position j, so
+the observation is nearly Markov-sufficient GIVEN the current
+template — and template knowledge lives in fast weights, not in
+state. If that reading is right, no carried-state mechanism beats
+capacity on this world, and the reversal is the true verdict, not a
+miss.
