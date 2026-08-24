@@ -125,3 +125,31 @@ A design lesson that stands whatever R0 says: in this kernel,
 input-space composition fails on loss dilution and carrier-as-world
 scale rules, not on capacity; the transition is the seam where a
 reference enters without touching placement.
+
+## 2026-08-24 — Bar T0 PASS: the tower's record lands first, and it is a real rival
+
+The plain stacked-frame tower, 24 seeds, all five rungs, before any
+reference arm's 24-seed measurement [measured; rig median = upper
+middle of 24, the frozen rows' own convention]:
+
+| rung | tower acc/1k back (min–med–max) | seeds | flat stack-nc med (seeds) |
+|---|---|---|---|
+| R(2) | 22.6 – 26.5 – 29.4 | 24/24 | 25.8 (24/24) |
+| R(4) | 0.154 – 1.231 – 2.154 | 24/24 | 0.769 (22/24) |
+| R(8) | 0 – 0 – 0 | 0/24 | 0.0 (0/24) |
+| C(2) | 12.2 – 23.4 – 28.3 | 24/24 | 23.2 (24/24) |
+| C(4) | 0.308 – 0.923 – 1.692 | 24/24 | 0.538 (23/24) |
+
+Conformity medians (violations/step): R(2) 0.582, R(4) 0.480, R(8)
+0.467, C(2) 0.499, C(4) 0.429 — inside a few thousandths of the flat
+arm at every rung. Tier-2 instruments: map ≥ 0.9985, populations
+7–17, arbiter share medians 0.33–0.70 — the tower's frames genuinely
+hold the predictor a third to two-thirds of directed steps.
+
+The honest headline: **same-step capacity alone already moves
+R(4)** — median 0.769 → 1.231, every seed accepting (22→24), one
+seed touching 2.154 — while the frozen 2.0 line stands unmet at the
+median and R(8) stays at exactly zero. Hierarchy-as-built is not a
+straw man on this world; R0 now asks whether carried state beats a
+rival that visibly works. (Both arms sit fully inside 0116's
+attribution: interior meters move, the wall stands.)
