@@ -15,3 +15,28 @@ fires exactly on a predicted acceptance (+1 from 0/−1 clears the
 threshold by construction). The recording wrapper rides unchanged;
 stack rows add the honesty counters (completions_fired,
 false_completions, progress_pred_error_ema).
+
+## 2026-08-24 — the shipped dose: conformity moves everywhere, acceptance pays at the switch; E0 FAIL routes the dose ladder
+
+Stack vs the inherited plain baselines, 24 seeds [measured]:
+violations/step improve at EVERY rung and the improvement GROWS
+with difficulty (−0.015 / −0.067 / −0.063 / −0.131 / −0.187 at
+R2/C2/R4/R8/C4 — C4 lands at 0.353, far below the plain plateau)
+— the stack gives the drive a reason to stay on pattern, and it
+does. But acceptance: R2 16.0 (passes its 9.23 line), C2 **6.769
+vs 24.615 plain** — slashed 3.6×, failing its line — R4 0.0. **Bar
+E0 FAIL at the shipped dose**, per its registered path: the dose
+may be amended openly before any E1 claim. The honesty counters
+carry the suspect [measured]: false completions 35–52% (peaking at
+C4's 2,796 median), and the C-family is where sequences SWITCH
+tokens at the boundary — commitment's incumbency fighting the
+switch is the named mechanism [mechanism-argument].
+
+**The dose ladder, declared before it runs:** two amended
+configurations, one component each — (a) κ = 0.05, κ_c = 0.1 (the
+praise-cliff lesson: small doses nudge); (b) κ = 0.25, κ_c = 0
+(commitment ablated: does incumbency, not the itch, cost the
+switch?). Both on the E0 rungs only (R2/W2, C2/DK); an
+E0-passing configuration, if any, carries E1/E2; if none passes,
+the registered no-dose-passes routing (a design 0016 boundary
+finding) takes the verdict.
