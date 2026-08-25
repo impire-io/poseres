@@ -151,13 +151,23 @@ next experiment each one is gated behind.
   **reversed by that decision's own condition**
   ([episode 0118](../04-JOURNEY/0118-compositional-frames.md)): no
   reference variant beats a plain stacked tower beyond seed spread
-  on the frozen world — **hierarchy-as-built is the measured
-  shape**, composition enters a frame through the transition seam,
-  and references re-enter only on a position-hiding world (0118's
-  reversal condition). The gate itself stays open (nothing clears
-  the frozen line). The teacher-world may run bounded-context inside
-  the measured envelope (design 0020's runnable configuration) or
-  wait on that gate. No language showcase before it reads.
+  on the frozen world — hierarchy-as-built the lab's measured shape,
+  composition entering a frame through the transition seam. **The
+  wild immediately bounded that verdict**
+  ([episode 0119](../04-JOURNEY/0119-the-opaque-world.md)): on live
+  Minecraft's position-opaque forage protocol, composition in either
+  shape is indistinguishable from flat frames and the lab's winner
+  ran nominally last — the gate's shape is NOT to be built into the
+  kernel on the lab ordering alone. The gate itself stays open
+  (nothing clears the frozen line anywhere); its deciding arena is a
+  **position-opaque long-horizon protocol** (chains beyond the
+  policy scaffolding's reach), not yet built — the named next
+  registration. The lifecycle costs 0117 feared price out benign
+  live (dangling references under graceful degradation; snapshot
+  topology payable as blob+sidecar). The teacher-world may run
+  bounded-context inside the measured envelope (design 0020's
+  runnable configuration) or wait on that gate. No language showcase
+  before it reads.
 - **Staleness detection — closed, passive and active**
   ([episode 0059](../04-JOURNEY/0059-scheduled-probing.md)): scheduled
   probing, the active successor, failed its registered gate — the benign

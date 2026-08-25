@@ -22,8 +22,29 @@ teaching moved to `../00-GENESIS/how-we-work.md`.
 
 ## Where things stand (2026-08-25)
 
-**The compositional gate's shape is measured: hierarchy-as-built
-wins on parsimony — 0117's reversal fired by its own condition**
+**The wild bounds the lab: composition is indistinguishable from
+flat frames on live Minecraft, and the lab's winner ran nominally
+last** ([0119](0119-the-opaque-world.md), the owner's correction to
+0118's scope run to its pre-locked verdict the same day): on the
+position-opaque probe world — 16 taught forage lives per arm,
+nothing faked — flat 41 eats, tower 25, bind-pred 38, every
+pairwise difference inside spread; the transparent world's
+parsimony winner last on every behavioral meter, sub-spread,
+recorded and not leaned on. What DID resolve: the 0118 scaffolding
+is live-real at C1 scale (arbiter share 31–52% of predictor calls),
+0117's lifecycle costs price out benign (~74 dangling-reference
+events per life, population healthy under graceful degradation),
+and snapshot topology is payable as a blob+sidecar pair. The
+compositional gate's deciding arena is now precisely named: a
+position-opaque LONG-HORIZON protocol — chains beyond the policy
+scaffolding's reach — which does not exist yet; design
+[0020](../02-DESIGN/0020-sequence-encoding.md) carries the caution
+(do not build the gate's shape into the kernel on the lab ordering
+alone) beside the runnable teacher-world configuration.
+
+**The compositional gate's shape is measured on the lab world:
+hierarchy-as-built wins on parsimony — 0117's reversal fired by its
+own condition**
 ([0118](0118-compositional-frames.md), the research 0117
 commissioned, opened and closed in a day): on the frozen
 echo-teacher world, no reference variant — slot or identity-bound,
@@ -977,3 +998,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0116 | [Whose envelope? Shared — and the frames hold the wall](0116-whose-envelope.md) |
 | 0117 | [The gate reshaped: references between frames, hierarchy where it earns it](0117-compositional-frames.md) |
 | 0118 | [Compositional frames: nothing a reference carries beats the tower — the reversal fires by its own condition](0118-compositional-frames.md) |
+| 0119 | [The opaque world: composition indistinguishable in the wild, the lab's winner nominally last, the lifecycle benign](0119-the-opaque-world.md) |

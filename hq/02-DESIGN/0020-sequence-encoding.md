@@ -86,7 +86,7 @@ sequence-commitment shape a successor must have. And **the itch
 without incumbency is a free win for sequence worlds**, licensed
 for the teacher-world's bounded-context configuration.
 
-## The teacher-world's runnable configuration (as of 0118)
+## The teacher-world's runnable configuration (as of 0119)
 
 Inside the measured envelope, today: narrow structure-matched
 encoding (this document's guidance), the completion itch on the
@@ -95,13 +95,27 @@ shipped η, curriculum within the envelope (dependencies ≤ the
 measured edge), graded conformity meters. Beyond the envelope: the
 compositional gate stays open — no configuration tested in 0118
 (flat, stacked, or referencing) clears R(4)'s frozen line or scores
-at R(8). When the gate is next attacked, the measured shape to
-build on is **hierarchy-as-built** (a stacked second tier whose
-transitions read the tier below — 0118's tower, the parsimony
-winner); references between frames re-enter only on a world that
-hides sequence position, per 0118's reversal condition. The
-transition — not the observation — is the seam where composition
-enters a frame (0118's scaffolding lesson, measured).
+at R(8). The transition — not the observation — is the seam where
+composition enters a frame (0118's scaffolding lesson, measured).
+
+**The wild reading (episode 0119) bounds the lab one.** On live
+Minecraft — position-opaque, the survival rig's probe world, 16
+lives per arm — composition in either shape is
+measured-indistinguishable from flat frames (flat 41 eats, tower
+25, bind-pred 38; every pairwise difference inside spread), and the
+lab's parsimony winner ran nominally LAST on every behavioral
+meter. So hierarchy-as-built holds its 0118 status only where it
+was measured: **do not build the gate's shape into the kernel on
+the lab ordering alone** — the deciding arena is a position-opaque
+LONG-HORIZON protocol (chains beyond the policy scaffolding's
+reach), which does not exist yet and is the gate's named next
+registration. Two facts from 0119 stand for whoever builds it: the
+composed scaffolding is live-real at C1 scale (arbiter share
+31–52%, map ≥ 0.9986), and 0117's lifecycle costs price out benign
+— ~74 dangling-reference events per life under graceful
+degradation with the population healthy; snapshot topology is
+payable as a sidecar pair, with the kernel-native single-blob form
+the open design item.
 
 ## Constraints carried forward
 
