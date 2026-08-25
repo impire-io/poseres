@@ -72,3 +72,43 @@ nominal ordering at n = 8 is bind-pred > flat > tower — the OPPOSITE
 sign from the transparent world — and bind-pred leads every
 compound meter (chains, distant collects, first-eat at every rank);
 all inside spread, none of it leaned on.
+
+## 2026-08-25 — rounds 9–16 land; the verdict as locked: indistinguishable at protocol scale, with the lab's winner nominally last
+
+The full n = 16 record [measured]: flat 41 eats (9/16 lives eating,
+mean 2.56 sd 2.61, 3 chains, 6 distant collects); tower 25 (4/16,
+mean 1.56 sd 2.83, 1 chain, 5); bind-pred 38 (8/16, mean 2.38 sd
+2.78, 6 chains, 9). Zero starvation anywhere. Paired by round:
+bind − tower +0.81 ± 0.91 SE (t = +0.89; 8 wins, 2 losses, 6 ties);
+bind − flat −0.19 ± 0.64 (t = −0.29; dead even); tower − flat
+−1.00 ± 0.78 (t = −1.28). Every pairwise difference inside spread —
+**the verdict is the one locked before the data: composition is
+measured-indistinguishable from flat at this protocol scale on the
+real position-opaque world.** Neither M1's transfer nor M2's
+reference-over-tower separation is demonstrated; neither is
+refuted beyond spread.
+
+What IS on the record beyond the null, stated as sub-spread
+observations and not leaned on: the transparent world's parsimony
+winner — the tower — is nominally LAST on every behavioral meter
+(4/16 lives eating vs 8–9/16; total eats 25 vs 38–41; 1 chain), and
+bind-pred doubles flat's forage chains (6 vs 3) and leads distant
+collects (9 vs 6). The lab ordering did not transfer; if anything
+it inverted, inside noise.
+
+The lifecycle reading is a real result [measured]: every bind-pred
+life churned ~74 orphan events (median) with ~26 of ~39 tier-2
+frames dangling at end, map rate never below 0.999, foraging and
+vitals intact — 0117's eviction fear is benign under graceful
+degradation at this scale, in the real world.
+
+Mechanism account for the null [judgment]: in the wild, behavior is
+carried by the recipe/itch stack and the event head; the frames
+speak only through drive valuation of one-step predictions, and the
+composed tiers changed WHO holds that predictor (35–40% of calls)
+without changing what the life does. And the forage chain, though
+position-opaque, is short-horizon per chain (~60–100 steps) with
+heavy policy scaffolding — the deep-sequence demand that motivated
+the gate (R(8)-class structure) never binds these meters. The
+position-opaque LONG-horizon world remains unbuilt; that is the
+successor, named in the episode's reversal condition.

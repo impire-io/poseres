@@ -84,6 +84,36 @@ lab-bound to measured-in-the-wild.
 
 ## Verdict
 
-<Empty until graduation. Filled by /research-graduate: PASS/FAIL per
-bar with the honest numbers, each load-bearing claim tagged
-[measured] / [mechanism-argument] / [judgment].>
+- **M0 PASS** [measured]: tier-2 map rate ≥ 0.9986 through 135
+  lessons and 32 composed lives; the arbiter held the predictor
+  31–52% of calls in every composed life (clause asked 5% once); the
+  composed state (blob + sidecar) resumed byte-exactly on the cheap
+  world and round-tripped byte-identically at all 90 composed lesson
+  checkpoints. The lifecycle rode along as a result: ~74 orphan
+  events per bind-pred life, ~26 of ~39 references dangling at end,
+  population never destabilized — 0117's eviction fear measured
+  benign under graceful degradation.
+- **M1 FAIL to demonstrate, precisely: indistinguishable**
+  [measured]: at the locked n = 16, no composed arm beats flat on
+  total eats (flat 41, bind-pred 38, tower 25); bind − flat is dead
+  even (−0.19 ± 0.64 SE). Composition neither helps nor hurts the
+  wild forage life detectably at this dose.
+- **M2 FAIL as registered, verdict as locked: indistinguishable at
+  protocol scale** [measured]: bind − tower +0.81 ± 0.91 SE
+  (t = +0.89, 8 wins / 2 losses / 6 ties paired) — no beyond-spread
+  separation. Recorded alongside, sub-spread and not leaned on: the
+  transparent world's winner is nominally LAST on every behavioral
+  meter (tower 4/16 lives eating vs 8–9/16), and bind-pred doubles
+  flat's forage chains (6 vs 3). The lab ordering did not transfer.
+- The noise clause fired once at n = 8 and the protocol scaled to
+  n = 16 as registered; the n = 16 verdict landed as locked, with
+  the raw rows in the rig.
+
+Mechanism account [judgment]: wild behavior is carried by the
+recipe/itch stack and the event head; frames speak only through
+drive valuation of one-step predictions, so the composed tiers
+changed who holds the predictor without changing the life. The
+forage chain is position-opaque but short-horizon (~60–100 steps
+per chain) under heavy policy scaffolding — the deep-sequence
+demand that motivated the gate never binds these meters. The
+position-opaque long-horizon world is the named successor.
