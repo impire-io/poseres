@@ -32,8 +32,10 @@ condition predicts it could?
 ## Pre-registered bars
 
 Protocol common to every arm: the survival rig's probe world and
-machinery exactly (`examples/minecraft/survival/` — the blessed stack,
-design 0015's body at obs 86 / 13 actions, the d23 curriculum: 45
+machinery exactly (`examples/minecraft/survival/` — the rig's declared
+survival body, `c1_anatomy(survival=True)`, dims as the rig computes
+them; deficit gate OFF per 0103's blessed stack, identical across
+arms; the d23 curriculum: 45
 interleaved V0/V1/V2 lessons, hungry-born lives of 6,000 steps — the
 d23-calibrated length, 2× the measured expression latency — at the
 rig's 5× fabric). Arms: **flat** (the rig unmodified), **tower**
