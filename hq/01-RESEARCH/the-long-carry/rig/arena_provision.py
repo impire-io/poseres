@@ -227,6 +227,15 @@ def main() -> int:
         rcon("difficulty", "normal")
     rcon("gamerule", "spawn_mobs", "false")  # 1.21.11 snake_case rule names
     rcon("gamerule", "command_block_output", "false")
+    # the design theorem extended (first decode-probe read, 2026-08-28):
+    # any monotone exogenous SENSED signal is a progress channel — the
+    # day clock (env.sin/cos_time) and rain (env.rain) decoded the lap
+    # index beyond the chance band. The arena pins both; the channels
+    # become constants and carry nothing.
+    rcon("gamerule", "advance_time", "false")
+    rcon("gamerule", "advance_weather", "false")
+    rcon("time", "set", "6000")
+    rcon("weather", "clear")
     rcon("setworldspawn", "2", "-60", "0")
     rcon("forceload", "add", "-16", "-16", "48", "48")
     carve()

@@ -110,23 +110,24 @@ pathing to the clear north row and west column.
 | Sense (width) | Reading across laps | Verdict |
 |---|---|---|
 | pose (5) | identical each lap by loop construction | opaque by design |
-| vitals (2) | food declines slowly with elapsed time → weak stage correlate within a chain | WATCH — the shuffled-label control decides |
-| env (4) | lighting uniform by construction; sin/cos day clock is a global time correlate | WATCH — chain starts spread across day phases decorrelate it |
+| vitals (2) | food declines slowly with elapsed time → weak stage correlate within a chain | WATCH — the shuffled-label control decides; measured small (junction gap 0.04) |
+| env (4) | lighting uniform by construction; the day clock and weather WERE global time correlates | the WATCH row FIRED (first probe read: sin_time gap 1.12, rain 0.84) — the arena now PINS time and weather (amendment 3): the channels are constants |
 | blocks (3) | same corridor geometry every lap | opaque |
 | mining (1) | no digging anywhere on the course (bedrock); active only in the larder, post-gate | opaque on the probe span |
 | pocket (4), hand (7), grid (7) | the chain is pure locomotion — nothing is collected, held, or staged until the larder | opaque on the probe span |
 | drops (8) | no ground items on the course (item-kill hygiene between lives as in the rig) | opaque |
 | glance (32) | same walls every lap; the gate shielded from J by the bend; larder shielded entirely | opaque by geometry — verified empirically, not assumed |
 
-The two WATCH rows are honest global time correlates that exist in
+The two WATCH rows were honest global time correlates that exist in
 ANY live arena (hunger and the day clock advance with every step).
-They are exactly what the shuffled-label control in the probe is
-for: if stage decodes only as well as it decodes from relabeled
-time, position is not being sensed — time is. The probe's verdict
-rule below handles this; if they alone push decode beyond the
-control spread, the reading and the numbers go to JOURNEY.md and the
-bar is amended openly (a food-frozen classroom variant of the probe
-is the named fallback instrument).
+The env row fired on the first probe read and was resolved by world
+config, not by probe surgery — the design theorem extended: **any
+monotone exogenous sensed signal is a progress channel** (the day
+clock decodes a within-chain ordinal exactly the way the echo
+world's progress channel handed over position, just through the
+sky), so the arena pins `advance_time` and `advance_weather` false.
+The vitals row read small under the pinned sky (junction gap 0.04)
+and remains under the control's arbitration.
 
 ## The probe span, registered now
 
@@ -141,13 +142,23 @@ not a leak). Aliasing exhibit alongside the probe: the per-channel
 mean gap between junction-window observations on lap 1 vs lap N−1
 vs lap N, reported raw.
 
-Probe form: multinomial linear readout, observation → lap index
-(1..N), fit on recorded flat-rig lives with ground-truth lap labels
-from the world's own scoreboard (runner telemetry via rcon, logged
-beside the rows, never fed to the body). Verdict: PASS if held-out
-accuracy sits within the spread of the same probe fit on 5
-lap-label shuffles (the chance band); the raw accuracies are
-recorded either way.
+Probe form as amended (trail in JOURNEY.md, each amendment
+registered before its read): rows come from the scripted walker
+driving real chains through the live body (amendment 2 — the flat
+pilots carried no label variety; opacity is a world+body property,
+policy-independent); labels are crossings-since-entry + 1 uncapped
+to 4 (amendment 4 — the gate opens at crossings ≥ 3, so the aliased
+junction decision is crossings 2 vs 3, which a cap at 3 conflates);
+the verdict reads on the two aliased decision pairs (2v3, 3v4) as
+binary linear readouts restricted to the cell support both labels
+visit, each against a 20-draw within-chain label-permutation chance
+band, PASS = within band per pair. The full multi-class read is
+reported as context: its excess over control is the half-ring
+topology of label 1 (the exit drop lands mid-ring), explained and
+on record. **First full read (2026-08-28): PASS — 2v3 true 0.5039
+vs control 0.5036 ± 0.063; 3v4 true 0.518 vs 0.5016 ± 0.0113;
+the full-ring laps are chance-indistinguishable to a linear
+readout on the decision span.**
 
 ## The sibling sense (H0(c))
 

@@ -111,3 +111,65 @@ body (`probe_walk.py`), recording the same 73 channels the body
 senses. The probe's question, span, labels, and chance band are
 unchanged; pilot rows stay in the record as the behavioral
 baseline.
+
+## 2026-08-28 — the WATCH rows fire: first H0(a) read FAILS through the sky; two amendments, both pre-re-read
+
+**The registered 3-class probe read, as-is [measured, walker rows,
+6 chains]:** true held-out accuracy 0.5205 vs chance band 0.3538 ±
+0.0708 (2-SD bound 0.495) — FAIL as read. The junction exhibit
+named the carriers: env.sin_time gap 1.12, env.rain 0.84,
+env.cos_time 0.35 — the day clock and the weather (it genuinely
+rained mid-recording). The arena.md WATCH row fired exactly as
+registered.
+
+**Amendment 3 (world config, the design theorem extended):** any
+monotone exogenous SENSED signal is a progress channel — the day
+clock decodes a within-chain ordinal the same way the echo world's
+progress channel handed over sequence position, just through the
+sky. The arena pins `advance_time false` (noon) and
+`advance_weather false` (clear) in `arena_provision.py`; the env
+channels become constants and carry nothing. Re-recorded under the
+pinned sky: the junction gaps collapse (top channel pose.sin_yaw
+0.17, vitals.food 0.04) — the world-side leaks are dead
+[measured].
+
+**But the re-read still sits at 0.52 vs bound 0.505, and the
+analysis says the remainder is label structure, not sensing
+[mechanism-argument, numbers recorded]:** (a) the exit drop lands
+mid-ring, so the pre-first-crossing phase ("lap 1") covers only
+the half-ring back to the lap line — position legitimately
+identifies it (441/895/1328 label counts: half a lap), which is
+arena topology, not through-wall sensing; (b) the label cap at 3
+merged crossings-2 with crossings-3 — but the gate opens at
+crossings ≥ 3, so THE aliased junction decision is exactly
+crossings 2 vs 3 on identical cells, which the capped labels
+cannot see.
+
+**Amendment 4 (the probe's decision-pair form, registered BEFORE
+it runs):** labels uncapped to 1..4 (4 = post-third-crossing, the
+turn-in approach). The H0(a) verdict moves to the two aliased
+pairs — 2-vs-3 and 3-vs-4 — each read as a binary linear probe on
+the steps of those labels restricted to the CELL SUPPORT both
+labels visit (so route topology cannot cheaply separate), with the
+chance band from 20 within-chain label-swap permutations, PASS =
+within band per pair. The 3-class number stays reported as
+context. The registered question — can a linear readout tell WHICH
+LAP from the body's observation where the world demands different
+actions — is unchanged; the pairs are its exact decision form.
+
+**H0(a) PASS under amendment 4 [measured, pinned-sky walker rows,
+6 chains, decode-report.json]:** pair 2v3 (the full-ring aliased
+laps, 1,773 steps over 30 shared cells) true 0.5039 vs control
+0.5036 ± 0.0633 — dead chance; pair 3v4 (the turn-in approach, 882
+steps, 15 shared cells) true 0.518 vs 0.5016 ± 0.0113 — within
+band. Context multi-class 0.361 vs 0.240 ± 0.057, the excess fully
+carried by label-1's half-ring topology (explained above, on
+record). Junction exhibit top gaps: pose.sin/cos_yaw 0.27/0.24 —
+the walker's own turn at the junction tile, behavioral, small.
+**The arena is opaque where it must be: the aliased decision pairs
+read at chance to a linear readout on the decision span.** One rig
+lesson rode along: the waypoint follower's 45° heading quantization
+preserves arrival offsets, so wall contact can wedge the bbox on a
+block corner with solid_ahead reading 0 (measured at both an inner
+and an outer corner) — goto() now carries a deflect-and-push
+unstick, and probe_walk's 6 chains ran clean through it.

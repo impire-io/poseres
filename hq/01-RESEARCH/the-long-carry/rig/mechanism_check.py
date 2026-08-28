@@ -143,8 +143,19 @@ class Walker:
     def goto(self, wx: float, wz: float, timeout_steps: int = 800) -> dict:
         """Waypoint follower: turn in 45-degree steps until roughly aligned,
         then walk, jumping when a block stands ahead. Arrival is horizontal
-        (the drop tile 'arrives' mid-fall by design)."""
+        (the drop tile 'arrives' mid-fall by design).
+
+        Unstick: the 45-degree heading quantization preserves whatever
+        lateral offset the body arrived with, so wall contact can wedge
+        the bbox on a block's corner point with solid_ahead reading 0
+        (measured twice, both inner and outer corners). On no-progress
+        while trying to move, deflect 45 degrees and push a few steps,
+        alternating sides; the normal re-aim then corrects the heading."""
         start = self.steps
+        stuck = 0
+        nudge = 0
+        side = 1
+        last_xz: tuple[float, float] | None = None
         channels, view = self.tick(IDLE)
         while True:
             x, _, z = view["pos"]
@@ -156,12 +167,26 @@ class Walker:
             yaw = yaw_of(channels)
             want = math.atan2(-dx, -dz)  # mineflayer forward is (-sin, -cos)
             err = (want - yaw + math.pi) % (2 * math.pi) - math.pi
-            if abs(err) > math.pi / 8 + 0.05:
+            if nudge > 0:
+                nudge -= 1
+                command = FWD
+            elif stuck >= 6:
+                command = LEFT if side > 0 else RIGHT
+                side = -side
+                nudge = 5
+                stuck = 0
+            elif abs(err) > math.pi / 8 + 0.05:
                 command = LEFT if err > 0 else RIGHT
             elif solid_ahead(channels) > 0.5:
                 command = JUMP
             else:
                 command = FWD
+            if command in (FWD, JUMP):
+                if last_xz is not None and abs(x - last_xz[0]) + abs(z - last_xz[1]) < 0.02:
+                    stuck += 1
+                else:
+                    stuck = 0
+            last_xz = (x, z)
             channels, view = self.tick(command)
 
     def face(self, wx: float, wz: float) -> None:

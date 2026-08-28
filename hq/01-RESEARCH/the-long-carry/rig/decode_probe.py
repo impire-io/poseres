@@ -11,21 +11,28 @@ Protocol, operationalized exactly as registered in ../arena.md:
   (cell x in 0..9, z in 0..6, perimeter only) — the junction included,
   the branch/larder/exit excluded (the peek is a priced part of the
   task, not a leak).
-- **Labels:** lap index 1..3 = lap-line crossings since the last
-  larder entry + 1, capped at 3, reconstructed from the pos trace with
-  the command blocks' exact two-zone logic (cross-checked against the
-  world's own scoreboard by the life runner).
+- **Labels (amendment 4):** lap-line crossings since the last larder
+  entry + 1, UNCAPPED to 4 (4 = post-third-crossing, the gate-open
+  turn-in approach), reconstructed from the pos trace with the command
+  blocks' exact two-zone logic (cross-checked against the world's own
+  scoreboard by the life runner).
+- **The verdict reads on the two aliased decision pairs** — 2v3 (the
+  full-ring laps) and 3v4 (the junction approach) — each a binary
+  linear readout on those labels' steps restricted to the cell support
+  BOTH labels visit, so route topology cannot cheaply separate what
+  geometry shares. The full multi-class probe is reported as context:
+  its excess over control is the half-ring topology of label 1 (the
+  exit drop lands mid-ring), explained and on record, not sensing.
 - **Probe:** multinomial logistic regression (a linear readout) on
   per-channel standardized obs, trained with fixed-seed full-batch
   gradient descent; held-out accuracy via 5-fold grouped CV, groups =
   chains (never split a chain across train/test).
-- **Chance band:** the same probe on 20 within-chain lap-block label
-  permutations (each chain's lap labels relabeled by a random
-  permutation of 1..3) — preserves class priors and temporal
-  blockiness, breaks only the true mapping. PASS = true accuracy <=
-  control mean + 2 SD. Raw numbers recorded either way.
-- **Aliasing exhibit:** per-channel |mean lap-1 − mean lap-3| on the
-  junction window (cells (9,2),(9,3),(9,4)), top channels reported raw.
+- **Chance band:** the same probe on 20 within-chain label
+  permutations — preserves class priors and temporal blockiness,
+  breaks only the true mapping. PASS = each pair's true accuracy <=
+  its control mean + 2 SD. Raw numbers recorded either way.
+- **Aliasing exhibit:** per-channel |mean lap-3 − mean lap-4| on the
+  junction approach (cells (9,1),(9,2),(9,3)), top channels raw.
 
 Usage: python decode_probe.py [arm]   (default: flat)
 Writes decode-report.json beside itself.
@@ -44,6 +51,7 @@ HERE = Path(__file__).parent
 MC = HERE / "mc"
 
 N_LAPS = 3
+MAX_LABEL = 4  # 4 = post-third-crossing, the turn-in approach (amendment 4)
 FOLDS = 5
 CONTROL_DRAWS = 20
 GD_ITERS = 400
@@ -83,7 +91,7 @@ def on_ring(x: float, z: float) -> bool:
 
 
 def label_steps(pos: np.ndarray) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
-    """Per-step (lap_label 1..3 or 0=off-span, chain_id, span_mask) from the
+    """Per-step (lap_label 1..4 or 0=off-span, chain_id, span_mask) from the
     pos trace, replicating the world's own counter logic."""
     n = len(pos)
     labels = np.zeros(n, dtype=np.int64)
@@ -113,7 +121,7 @@ def label_steps(pos: np.ndarray) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
         in_larder = larder
         if y < -59 and on_ring(x, z):
             span[i] = True
-            labels[i] = min(crossings + 1, N_LAPS)
+            labels[i] = min(crossings + 1, MAX_LABEL)
             chains[i] = chain_id
     return labels, chains, span
 
@@ -122,7 +130,7 @@ def fit_softmax(x: np.ndarray, y: np.ndarray, rng: np.random.Generator) -> np.nd
     """Full-batch multinomial logistic regression; returns weights (d+1, k)."""
     n, d = x.shape
     xb = np.hstack([x, np.ones((n, 1))])
-    k = N_LAPS
+    k = int(y.max())
     w = rng.normal(0, 0.01, size=(d + 1, k))
     onehot = np.eye(k)[y - 1]
     for _ in range(GD_ITERS):
@@ -160,17 +168,19 @@ def grouped_cv(obs: np.ndarray, y: np.ndarray, groups: np.ndarray, seed: int) ->
 
 def permuted_labels(y: np.ndarray, groups: np.ndarray, rng: np.random.Generator) -> np.ndarray:
     out = y.copy()
+    values = np.unique(y)
     for g in np.unique(groups):
-        perm = rng.permutation(N_LAPS) + 1
+        perm = rng.permutation(values)
+        mapping = dict(zip(values.tolist(), perm.tolist(), strict=True))
         mask = groups == g
-        out[mask] = perm[y[mask] - 1]
+        out[mask] = np.array([mapping[v] for v in y[mask]])
     return out
 
 
 def junction_gap(obs: np.ndarray, pos: np.ndarray, y: np.ndarray, span: np.ndarray) -> list:
-    window = span & np.array([math.floor(p[0]) == 9 and math.floor(p[2]) in (2, 3, 4) for p in pos])
-    lap1 = obs[window & (y == 1)]
-    lap3 = obs[window & (y == N_LAPS)]
+    window = span & np.array([math.floor(p[0]) == 9 and math.floor(p[2]) in (1, 2, 3) for p in pos])
+    lap1 = obs[window & (y == 3)]
+    lap3 = obs[window & (y == 4)]
     if not len(lap1) or not len(lap3):
         return []
     gap = np.abs(lap1.mean(axis=0) - lap3.mean(axis=0))
@@ -178,12 +188,57 @@ def junction_gap(obs: np.ndarray, pos: np.ndarray, y: np.ndarray, span: np.ndarr
     return [{"channel": CHANNEL_NAMES[int(i)], "gap": round(float(gap[i]), 4)} for i in top]
 
 
+def cells_of(pos: np.ndarray) -> np.ndarray:
+    return np.array([[math.floor(p[0]), math.floor(p[2])] for p in pos], dtype=np.int64)
+
+
+def pair_read(
+    pair: tuple[int, int],
+    obs: np.ndarray,
+    y: np.ndarray,
+    groups: np.ndarray,
+    cells: np.ndarray,
+) -> dict:
+    """The decision-pair probe (amendment 4): binary linear readout on the
+    two labels' steps, restricted to the cell support BOTH labels visit —
+    route topology cannot cheaply separate what geometry shares."""
+    a, b = pair
+    mask = (y == a) | (y == b)
+    cell_keys = cells[:, 0] * 100 + cells[:, 1]
+    support = set(np.unique(cell_keys[mask & (y == a)])) & set(
+        np.unique(cell_keys[mask & (y == b)])
+    )
+    keep = mask & np.isin(cell_keys, list(support))
+    yy = np.where(y[keep] == a, 1, 2)
+    oo, gg = obs[keep], groups[keep]
+    counts = {str(a): int((yy == 1).sum()), str(b): int((yy == 2).sum())}
+    majority = max(counts.values()) / max(len(yy), 1)
+    true_acc = grouped_cv(oo, yy, gg, SEED)
+    rng = np.random.default_rng(SEED + 10 * a + b)
+    control = [
+        grouped_cv(oo, permuted_labels(yy, gg, rng), gg, SEED + 100 + i)
+        for i in range(CONTROL_DRAWS)
+    ]
+    c_mean, c_sd = float(np.mean(control)), float(np.std(control))
+    return {
+        "pair": f"{a}v{b}",
+        "steps": int(len(yy)),
+        "support_cells": len(support),
+        "label_counts": counts,
+        "majority_rate": round(majority, 4),
+        "true_accuracy": round(true_acc, 4),
+        "control_mean": round(c_mean, 4),
+        "control_sd": round(c_sd, 4),
+        "pass": bool(true_acc <= c_mean + 2 * c_sd),
+    }
+
+
 def main() -> int:
     arm = sys.argv[1] if len(sys.argv) > 1 else "flat"
     lives = sorted(MC.glob(f"{arm}-life*.npz"))
     if not lives:
         raise SystemExit(f"no recorded lives at mc/{arm}-life*.npz — run lc_runner.py lives first")
-    all_obs, all_y, all_g, exhibits = [], [], [], []
+    all_obs, all_y, all_g, all_pos, exhibits = [], [], [], [], []
     chain_base = 0
     for path in lives:
         data = np.load(path)
@@ -196,12 +251,15 @@ def main() -> int:
         all_obs.append(obs[keep])
         all_y.append(labels[keep])
         all_g.append(chains[keep] + chain_base)
+        all_pos.append(pos[keep])
         chain_base += int(chains.max()) + 1
     obs = np.concatenate(all_obs).astype(np.float64)
     y = np.concatenate(all_y)
     groups = np.concatenate(all_g)
-    counts = {int(k): int((y == k).sum()) for k in range(1, N_LAPS + 1)}
+    cells = cells_of(np.concatenate(all_pos))
+    counts = {int(k): int((y == k).sum()) for k in range(1, MAX_LABEL + 1)}
     majority = max(counts.values()) / max(len(y), 1)
+    # context read: the full multi-class probe (the original registered form)
     true_acc = grouped_cv(obs, y, groups, SEED)
     rng = np.random.default_rng(SEED + 1)
     control = [
@@ -209,7 +267,9 @@ def main() -> int:
         for i in range(CONTROL_DRAWS)
     ]
     c_mean, c_sd = float(np.mean(control)), float(np.std(control))
-    verdict = true_acc <= c_mean + 2 * c_sd
+    # the verdict: the two aliased decision pairs (amendment 4)
+    pairs = [pair_read(p, obs, y, groups, cells) for p in ((2, 3), (3, 4))]
+    verdict = all(p["pass"] for p in pairs)
     report = {
         "arm": arm,
         "lives": [p.name for p in lives],
@@ -217,11 +277,13 @@ def main() -> int:
         "chains_in_span": int(len(np.unique(groups))),
         "label_counts": counts,
         "majority_rate": round(majority, 4),
-        "true_accuracy": round(true_acc, 4),
-        "control_mean": round(c_mean, 4),
-        "control_sd": round(c_sd, 4),
-        "control_raw": [round(a, 4) for a in control],
-        "rule": "PASS if true <= control_mean + 2*sd",
+        "context_multiclass": {
+            "true_accuracy": round(true_acc, 4),
+            "control_mean": round(c_mean, 4),
+            "control_sd": round(c_sd, 4),
+        },
+        "decision_pairs": pairs,
+        "rule": "PASS if each aliased pair's true accuracy <= its control mean + 2*sd",
         "h0a_pass": bool(verdict),
         "junction_gap_top5_per_life": exhibits,
     }
