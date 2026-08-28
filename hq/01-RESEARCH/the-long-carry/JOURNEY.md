@@ -335,3 +335,61 @@ futile": a dying recipe's stalled subgoal poisons every recipe
 currently pointing there. Both are rig-prototypable; both are, if
 they pay, kernel feature candidates in the recipe head's own
 grain.
+
+## 2026-08-28 — the registered n = 8 complete: no separation anywhere; what the whole arc taught
+
+**The full H0(c) read [measured, rounds 1–8 paired, layer-fatigue
+stack, pinned sky]:** flat crossings (1,0,0,0,0,0,0,0), peeks
+(0,3,2,0,0,2,7,3); sib crossings (1,0,0,0,1,0,0,0), peeks
+(0,2,0,3,1,0,5,1); chains and eats identically ZERO in all 16
+lives. Paired by round, sib − flat: crossings +0.12 ± 0.12 SE,
+peeks −0.62 ± 0.65, disengagements −0.50 ± 0.27, dead_steps
+−538 ± 287, out_of_context +446 ± 211 — every behavioral meter
+inside spread (the dead-steps lean is sub-2-SE and not leaned on).
+**H0(c) does not separate at the registered scale.** The world's
+own machinery was flawless throughout: in all 22 brain-driven
+lives of the day, the end-of-life scoreboard matched the pos-trace
+reconstruction exactly — zero counting errors.
+
+**What the whole arc taught, consolidated:**
+
+1. **The arena stands.** Position-opaque where it must be (the
+   aliased decision pairs at dead chance), 6× deeper than the
+   probe world's chain, mechanically exact across every session,
+   with two theorems earned on the way: under an absolute pose
+   sense, global opacity forces loop geometry; and any monotone
+   exogenous sensed signal is a progress channel (the day clock
+   and the weather both fired the registered WATCH row and are
+   pinned by world config).
+2. **The gate's arena question sits behind a mechanism ladder,
+   each rung now measured, not guessed.** Rung one, futility —
+   the owner's steer — repaired at prototype level: progress-keyed
+   layer fatigue abolished the 4,672-step gate-park, birthed the
+   revive-peek-wander loop the arena prices, and produced the
+   first brain-driven lap crossings on record; its two failed
+   forms (boundary thrash, cohort fallback) are recorded with
+   their numbers. Rung two, process memory, absent: recipes
+   require an acquisition, so a taught PATH cannot be remembered
+   as behavior. Rung three, stage-conditional selection, absent:
+   a declared stage sense reaches selection only through terminal
+   drive value, and the world's own reset zeroes it there — the
+   sibling sense is structurally inert.
+3. **The H0(c) instrument lesson:** "the sibling separates"
+   presumes a stack that can USE a stage sense. With the current
+   stack the pair measures the doability of neither arm — H0(c)
+   is unreadable, not merely failed, until the ladder is climbed.
+   The bar's rebuild clause fired correctly; the rebuild proved to
+   be of the STACK, not the world (the owner's call, vindicated by
+   every subsequent number).
+4. **The implication for the composed arms — the topic's original
+   aim:** tower and bind-pred would carry lap state into the same
+   inert pathways; M1/M2 run today would read zero-vs-zero at any
+   n. This is 0119's lesson measured from the other side: the
+   frames speak only through drive valuation, and on this world
+   nothing downstream of that valuation can express what they
+   would carry. The gate's deciding arena now EXISTS and waits,
+   committed and cheap to revive; what it waits on are two named,
+   rig-prototyped feature candidates — process recipes (a recipe
+   vocabulary for gainless demonstrations) and place-keyed
+   futility — plus a selection pathway for stage. Each has its
+   forcing numbers in this journey.
