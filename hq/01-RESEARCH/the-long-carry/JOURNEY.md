@@ -305,3 +305,33 @@ it revives and re-checks — the peek cadence emerges from (K, W) ≈
 one gate-check per ~1,000 steps, ~6 per life. Registered before the
 re-run; the aborted round's rows discarded (one flat life, its
 numbers kept here).
+
+## 2026-08-28 — layer fatigue witnessed: the deficiency repaired, the peek loop born, chains still zero
+
+**Rounds 1–3 under layer fatigue [measured, paired]:** flat
+crossings/chains/peeks 1/0/0, 0/0/3, 0/0/2; sib 1/0/0, 0/0/2,
+0/0/0. Gate-parking is ABOLISHED (no branch dwell anywhere;
+disengagements 4–6/life; dead_steps 2.4–4.4k ≈ the (K, W)
+cadence); the peek loop the arena prices EMERGED (revive → walk to
+gate → find it shut → fatigue → wander); and the first
+brain-driven lap crossings in the arena's record landed (one per
+arm, round 1). The owner's named deficiency — pushing without
+effect — is repaired at the prototype level. But chains stay zero
+in every life: the curiosity wanderer drifts ~1 crossing/6,000
+steps and cannot bank three crossings between peeks, and the sib
+sense remains selection-inert — no separation.
+
+**The two load-bearing gaps, now isolated with numbers
+[mechanism-argument on measured behavior]:** (1) **process memory
+does not exist** — V1's lap demonstrations were never storable
+(recipes require a pocket gain), so the taught lap lives only in
+kernel fast-weights with no behavioral carrier; the body was
+taught the lap fifteen times and cannot follow it. (2) **futility
+must be place-keyed, not layer-keyed, once process recipes
+exist** — layer fatigue kills the lap recipe together with the
+stalled turn-in cohort; the per-recipe form survived the lap but
+fell to cohort fallback; the clean shape is "this PLACE is
+futile": a dying recipe's stalled subgoal poisons every recipe
+currently pointing there. Both are rig-prototypable; both are, if
+they pay, kernel feature candidates in the recipe head's own
+grain.
