@@ -243,3 +243,48 @@ pathway the composed arms would also need; (c) re-scope the gate's
 question to the mechanism that CAN carry stage into behavior
 (prediction-driven arbitration, not recipe selection), which is a
 kernel-side research direction, not an arena patch.
+
+## 2026-08-28 — the owner's steer: the world stays; the brain must learn futility. Amendment 5, pre-run
+
+**The owner's direction (in session):** narrowing the world makes
+the test less representative — "our brain should be able to figure
+out that pushing something a lot of times with no effect is
+useless." The 4,672-step gate dwell is not a flaw to design around;
+it is the measured deficiency itself.
+
+**The mechanism reading, from the recipe source [measured in
+code]:** (a) recipe selection is a stateless per-step argmax —
+`drive_value_of(terminal) + label_beta·label` — with no
+disconfirmation pathway anywhere; worth is written by demonstration
+and never eroded by futility. (b) The gate-park is nearest-step
+parroting: V2's north-row leg passes through the birth stand, so
+the policy adopts the recipe mid-path; at the closed gate the
+subgoal is the recorded step BEYOND it, in-context, pointer
+stalled, hold pulling forever — and the stall signal already exists
+(`advance_events` froze) feeding nothing. (c) V1's lap
+demonstrations were never stored: `add_demonstration` requires a
+pocket gain, so process-only demonstrations are unrepresentable as
+recipes. (d) The sibling sense is structurally inert in this
+stack: a sense reaches selection only through the terminal's drive
+value, and V2's terminal was recorded after larder entry — the
+world's own reset had already zeroed the laps channel. The sib
+zero is mechanically over-determined.
+
+**Amendment 5 (the spine's policy, pre-run, forced by the numbers
+above):** the life policy gains FUTILITY EROSION, rig-level (a
+RecipePolicy subclass, no kernel change), identical across arms:
+per-recipe stall counters (+1 per selected step without pointer
+advance; −0.25 per unselected step; reset to 0 on advance);
+recipes with stall ≥ K = 300 go temporarily dead; all dead →
+selection None → the curiosity wanderer resumes. Slow forgiveness
+means dead recipes revive and get re-checked — the peek cadence
+emerges from the futility constants rather than being scripted.
+Constants are first-guess dials, registered now. Predictions
+registered before the run: the body abandons the gate within
+~hundreds of steps (disengagement latency measurable); drift
+wandering on a small closed course crosses the lap line; the world
+counts; the gate opens; a revived V2 succeeds — nonzero chains even
+blind, wasteful; the prior no-futility rounds stand as the
+baseline record (renamed *-nofut). Whether the sibling sense can
+separate AFTER futility exists is the re-read — and if it cannot,
+that is the next measured finding, not a failure of the arena.
