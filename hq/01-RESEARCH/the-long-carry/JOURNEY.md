@@ -288,3 +288,20 @@ blind, wasteful; the prior no-futility rounds stand as the
 baseline record (renamed *-nofut). Whether the sibling sense can
 separate AFTER futility exists is the re-read — and if it cannot,
 that is the next measured finding, not a failure of the arena.
+
+**Refinement, one life later [measured, flat-fut life 1]:** the
+per-recipe erosion form is inadequate two ways, both visible in its
+first life — boundary thrash (556 disengagement events, a 50% duty
+cycle at the kill line: die at 300, forgive to 299.75, revive,
+re-select) and, deeper, COHORT FALLBACK: the memory holds ~15
+near-identical turn-in recipes, so when one dies the argmax falls
+to its twin pulling to the same gate — the body still spent
+4,972/6,000 steps at (15,8) even as advance went 5× and
+out_of_context halved. The failure is the FOLLOWING behavior, not
+one recipe's identity, so the refined form is layer fatigue: K =
+200 consecutive followed steps without pointer advance puts the
+whole recipe layer dead for W = 800 steps (curiosity wanders), then
+it revives and re-checks — the peek cadence emerges from (K, W) ≈
+one gate-check per ~1,000 steps, ~6 per life. Registered before the
+re-run; the aborted round's rows discarded (one flat life, its
+numbers kept here).

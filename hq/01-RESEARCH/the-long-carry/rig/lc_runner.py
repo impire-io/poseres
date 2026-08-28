@@ -274,58 +274,54 @@ def build_memory(arm: str) -> RecipeMemory:
     return memory
 
 
-FUTILITY_KILL = 300  # stall steps before a recipe goes temporarily dead
-FUTILITY_FORGIVE = 0.25  # stall decay per unselected step (slow revival)
+FUTILITY_K = 200  # consecutive followed steps without pointer advance -> fatigue
+FUTILITY_W = 800  # steps the recipe layer stays dead before reviving
 
 
 class LoggingRecipePolicy(RecipePolicy):
-    """The 0119 life policy plus amendment 5 (futility erosion) and the
+    """The 0119 life policy plus amendment 5 (futility, refined) and the
     decode probe's observation log (telemetry only, nothing fed back).
 
-    Futility (the owner's steer, 2026-08-28): the stalled-pointer signal
-    the policy already computes erodes the selected recipe's standing —
-    stall + 1 per selected step without pointer advance, reset on real
-    advance, − FUTILITY_FORGIVE per unselected step; a recipe at stall
-    >= FUTILITY_KILL is dead until forgiveness revives it; with every
-    recipe dead, selection yields None and the curiosity wanderer
-    resumes. The re-check cadence emerges from the constants; the world
-    is never touched. Identical across arms."""
+    Futility as layer fatigue (the owner's steer, 2026-08-28; first
+    per-recipe erosion form measured inadequate — near-identical recipes
+    inherit the same stuck subgoal, so recipe-by-recipe death never
+    frees the body within a life): the failure is the FOLLOWING
+    behavior, not one recipe's identity. When the followed pointer has
+    not advanced for FUTILITY_K consecutive steps, the whole recipe
+    layer goes dead for FUTILITY_W steps — selection yields None, the
+    curiosity wanderer resumes — then revives and re-checks. The peek
+    cadence emerges from (K, W); the world is never touched. Identical
+    across arms."""
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.obs_log: list[np.ndarray] = []
-        self.stall: dict[int, float] = {}
-        self.disengagements = 0
-        self._last_recipe_id: int | None = None
+        self.fatigue = 0  # consecutive followed steps without advance
+        self.dead_until = -1  # step index the layer revives at
+        self.disengagements = 0  # layer-death events
+        self.dead_steps = 0
+        self._step = 0
         self._last_ptr = -1
 
     def _select_recipe(self, ctx):
-        live_best, live_v = None, -np.inf
-        for r in self.memory.recipes:
-            if self.stall.get(id(r), 0.0) >= FUTILITY_KILL:
-                continue
-            v = ctx.drive_value_of(r.terminal)
-            if self.label_index is not None:
-                v += self._label_weight(ctx.observation) * float(r.terminal[self.label_index])
-            if v > live_v:
-                live_best, live_v = r, v
-        chosen = live_best
-        chosen_id = None if chosen is None else id(chosen)
-        for r in self.memory.recipes:
-            rid = id(r)
-            if rid != chosen_id:
-                self.stall[rid] = max(0.0, self.stall.get(rid, 0.0) - FUTILITY_FORGIVE)
-        if chosen_id is not None:
-            if chosen_id == self._last_recipe_id and self._prev_ptr == self._last_ptr:
-                self.stall[chosen_id] = self.stall.get(chosen_id, 0.0) + 1.0
-            elif chosen_id == self._last_recipe_id and self._prev_ptr > self._last_ptr:
-                self.stall[chosen_id] = 0.0  # real progress forgives outright
-            if self.stall.get(chosen_id, 0.0) >= FUTILITY_KILL:
+        self._step += 1
+        if self._step < self.dead_until:
+            self.dead_steps += 1
+            self._last_ptr = -1
+            return None
+        chosen = super()._select_recipe(ctx)
+        if chosen is not None:
+            if self._prev_ptr == self._last_ptr and self._last_ptr >= 0:
+                self.fatigue += 1
+            elif self._prev_ptr > self._last_ptr:
+                self.fatigue = 0  # real progress forgives outright
+            self._last_ptr = self._prev_ptr
+            if self.fatigue >= FUTILITY_K:
                 self.disengagements += 1
-        if self._last_recipe_id is not None and chosen_id is None:
-            self.disengagements += 1
-        self._last_recipe_id = chosen_id
-        self._last_ptr = self._prev_ptr
+                self.fatigue = 0
+                self.dead_until = self._step + FUTILITY_W
+                self._last_ptr = -1
+                return None
         return chosen
 
     def select_action(self, context, rng) -> int:
@@ -455,7 +451,7 @@ def life(arm: str, life_no: int) -> dict:
         "advance": policy.advance_events,
         "out_of_context": policy.out_of_context,
         "disengagements": policy.disengagements,
-        "dead_recipes_end": sum(1 for s in policy.stall.values() if s >= FUTILITY_KILL),
+        "dead_steps": policy.dead_steps,
         "steps_per_s": round(len(views) / max(time.monotonic() - t0, 1e-9), 1),
     }
     with p["lives"].open("a") as f:
