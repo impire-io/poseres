@@ -60,8 +60,24 @@ R.BRIDGE_PORT = 25591
 from pra.action.policy import PolicyParams  # noqa: E402
 from pra.action.recipe import RecipeMemory, RecipePolicy  # noqa: E402
 from pra.anatomy.minecraft import C1_MINING_INDEX, C1_POCKET_TOTAL_INDEX  # noqa: E402
+from pra.anatomy.ros2.specs import SensorSpec  # noqa: E402
 from pra.persistence.snapshot import decode, encode  # noqa: E402
 from pra.persistence.store import InMemorySnapshotStore  # noqa: E402
+
+# the sibling's one added sense (bar H0(c)): the world's own lap counter,
+# published by the LAPS-enabled bridge from the buried indicator column.
+# Appended LAST so every flat offset — teacher steering indices included —
+# is unchanged; the flat body simply does not declare it.
+LAPS_SENSOR = SensorSpec(id="laps", topic="laps", width=1, labels=("frac",))
+FLAT_SENSORS = list(R.SENSORS)
+
+
+def set_arm_body(arm: str) -> int:
+    """Point the shared machinery at the arm's declared body; returns obs_dim."""
+    sensors = FLAT_SENSORS + ([LAPS_SENSOR] if arm == "sib" else [])
+    R.SENSORS = sensors
+    return sum(s.width for s in sensors)
+
 
 TEACH_SEGS = 45
 EPISODE = 340  # one uniform lesson budget (module doc)
@@ -220,6 +236,7 @@ def teach(arm: str = "flat") -> None:
         else:
             print(f"{arm} teach: already complete", flush=True)
             return
+    obs_dim = set_arm_body(arm)
     for k in range(start, TEACH_SEGS + 1):
         v = VARIANTS[(k - 1) % len(VARIANTS)]
         for attempt in range(1, 4):
@@ -227,7 +244,9 @@ def teach(arm: str = "flat") -> None:
             views: list[dict] = []
             store = InMemorySnapshotStore()
             teacher = WaypointTeacher(v["waypoints"], v["tail"])
-            cfg = dataclasses.replace(R.BASE, steps_per_episode=EPISODE, n_cycles=k)
+            cfg = dataclasses.replace(
+                R.BASE, obs_dim=obs_dim, steps_per_episode=EPISODE, n_cycles=k
+            )
             resume = (
                 None if state is None else dataclasses.replace(state, config=cfg, world_state=None)
             )
@@ -333,6 +352,7 @@ def chain_metrics(positions: list[list[float]]) -> dict:
 
 def life(arm: str, life_no: int) -> dict:
     p = paths(arm)
+    set_arm_body(arm)
     hungry_newborn()
     state = decode(p["taught"].read_bytes())
     cfg = dataclasses.replace(
@@ -396,24 +416,38 @@ def life(arm: str, life_no: int) -> dict:
     return row
 
 
+def lives_done(arm: str) -> int:
+    lp = paths(arm)["lives"]
+    return sum(1 for _ in lp.read_text().splitlines()) if lp.exists() else 0
+
+
 def main() -> int:
     phase = sys.argv[1] if len(sys.argv) > 1 else ""
     print("world:", R.rcon("tick", "rate", "100"), flush=True)
-    if phase == "teach":
-        teach("flat")
+    if phase == "teach" and len(sys.argv) > 2 and sys.argv[2] in ("flat", "sib"):
+        teach(sys.argv[2])
         return 0
-    if phase == "lives" and len(sys.argv) > 3:
-        for n in range(int(sys.argv[2]), int(sys.argv[3]) + 1):
-            done = 0
-            lp = paths("flat")["lives"]
-            if lp.exists():
-                done = sum(1 for _ in lp.read_text().splitlines())
-            if done >= n:
-                print(f"life {n}: already done", flush=True)
+    if phase == "lives" and len(sys.argv) > 4 and sys.argv[2] in ("flat", "sib"):
+        arm = sys.argv[2]
+        for n in range(int(sys.argv[3]), int(sys.argv[4]) + 1):
+            if lives_done(arm) >= n:
+                print(f"{arm} life {n}: already done", flush=True)
                 continue
-            life("flat", n)
+            life(arm, n)
         return 0
-    raise SystemExit("usage: lc_runner.py teach | lives <from> <to>")
+    if phase == "rounds" and len(sys.argv) > 3:
+        # the H0(c) schedule: flat and sib lives interleaved round-robin
+        # against world drift (the 0119 amendment-1 precedent)
+        for rnd in range(int(sys.argv[2]), int(sys.argv[3]) + 1):
+            for arm in ("flat", "sib"):
+                if lives_done(arm) >= rnd:
+                    print(f"round {rnd} {arm}: already done", flush=True)
+                    continue
+                life(arm, rnd)
+        return 0
+    raise SystemExit(
+        "usage: lc_runner.py teach flat|sib | lives flat|sib <from> <to> | rounds <from> <to>"
+    )
 
 
 if __name__ == "__main__":

@@ -82,6 +82,14 @@ if (SURVIVAL && AIM === "worth") CHANNELS.aim = 9;
 // appended LAST so every shipped offset is unchanged.
 const PEERS = process.env.PEERS === "1";
 if (SURVIVAL && PEERS) CHANNELS.peers = 8;
+// the laps sense (research topic the-long-carry, bar H0(c)): the arena
+// world's own lap counter read from its buried indicator column — the
+// sibling body's restored special case (a progress channel, declared).
+// Opt-in via LAPS="x,y,z" (the column's first cell; three cells along
+// +z); appended LAST so every shipped offset is unchanged.
+const LAPS_COLUMN = (process.env.LAPS || "").split(",").map(Number);
+const LAPS = LAPS_COLUMN.length === 3 && LAPS_COLUMN.every(Number.isFinite);
+if (SURVIVAL && LAPS) CHANNELS.laps = 1;
 const PALATE_FILE = process.env.PALATE_FILE || "";
 const PALATE_ALPHA = 0.25; // 0089's constant: the EMA toward the felt pay
 const TRACE_TICKS = 600; // 30 s game time: the meal pays what the chain touched
@@ -538,6 +546,16 @@ function sampleDrops(p, yaw) {
   return { vec, name: item ? item.name : null };
 }
 
+function sampleLaps() {
+  // the world's own counter, as world state: k gold blocks = k laps
+  let k = 0;
+  for (let i = 0; i < 3; i++) {
+    const b = bot.blockAt(new Vec3(LAPS_COLUMN[0], LAPS_COLUMN[1], LAPS_COLUMN[2] + i));
+    if (b && b.name === "gold_block") k += 1;
+  }
+  return [k / 3];
+}
+
 function samplePeers(p, yaw) {
   // nearest OTHER player within PEERS_RANGE: presence, EGOCENTRIC
   // bearing (same convention as sampleDrops), distance, count,
@@ -707,6 +725,7 @@ function sampleChannels() {
       distal.aim = [...glance.names.map((n) => relPrice(n)), relPrice(drops.name)];
     }
     if (PEERS) distal.peers = samplePeers(p, yaw);
+    if (LAPS) distal.laps = sampleLaps();
   }
 
   return {

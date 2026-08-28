@@ -173,3 +173,26 @@ preserves arrival offsets, so wall contact can wedge the bbox on a
 block corner with solid_ahead reading 0 (measured at both an inner
 and an outer corner) — goto() now carries a deflect-and-push
 unstick, and probe_walk's 6 chains ran clean through it.
+
+## 2026-08-28 — the sibling built; the H0(c) schedule registered before any comparison life
+
+**The laps sense is live [measured]:** the bridge gains an
+env-gated, default-off `LAPS="x,y,z"` sense in the flood/aim/peers
+pattern — width 1, appended LAST, reading the arena's buried
+indicator column with the bot's world API (the world's own counter
+as world state; smoke test: score 2 → 0.667, score 0 → 0). The
+sibling body is declared IN THE RIG — `c1_anatomy(survival=True)` +
+the one sense, obs 74/13 — no kernel or anatomy-module change. The
+bridge runs LAPS-enabled for BOTH arms; the flat body simply does
+not declare the topic, so its observation is unchanged and the
+declared sense stays the only variable.
+
+**Schedule, registered now:** flat pilot lives 1–3 ran under the
+UNPINNED sky (before amendment 3) and cannot pair with sibling
+lives; they move aside as the pre-pin pilot record
+(flat-lives-prepin.jsonl), their zero baseline standing as
+reported. The H0(c) comparison runs fresh: rounds 1–8, one flat
+life and one sib life per round, interleaved round-robin against
+world drift (the 0119 amendment-1 precedent), all under the pinned
+sky, same doses, same seeds, paired by round. H0(b) reads its
+chain length from the sib arm's completed lives, per the README.
