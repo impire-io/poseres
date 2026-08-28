@@ -64,7 +64,9 @@ standard).
   identical geometry on every lap. This is the aliased decision
   point, one per lap: same pose, same walls, same empty hand, a
   different correct action by history alone.
-- **The gate:** a 2-high stone fill at the branch's far end; opened
+- **The gate:** a 2-high obsidian fill at the branch's far end
+  (stone falls to ~150 steps of barehanded digging — a persistent
+  digger could breach it; obsidian is ~5,000, effectively never); opened
   (set to air) by the world's counter at lap N; closed and reset by
   larder entry. Solid blocks — no sightline through, closed or open,
   until the body is inside the branch. Checking the gate without the
@@ -90,10 +92,18 @@ standard).
   so `dig_ahead` cannot tunnel through the design; the only diggable
   blocks anywhere are the larder's melons.
 
-**Chain length at the defaults:** N = 3 laps × ~110 steps + branch +
-larder ≈ 380–440 steps — ≥ 3× the probe world's ~100-step forage
-chain (H0(b)) with margin, and ~14 perfect chains per 6,000-step
-life (the meter keeps its granularity).
+**Chain length as measured (walker run of 2026-08-28, superseding
+the design estimates above):** one lap = 146 steps (4.87 steps per
+block — the gait runs slower than the V1 tape's ~4); a full chain —
+3 laps + branch + larder + exit — ≈ 620–650 steps, ≥ 6× the probe
+world's ~100-step forage chain (H0(b) with double margin), ~9
+perfect chains per 6,000-step life. Two build corrections from the
+walker, both in the provision script: a 1-block step-up needs
+3-high clearance over its approach cell (the jump arc bonks a
+2-high ceiling — the gate and step-up cells carry raised ceilings),
+and the larder's melon blocks are unclimbable walls under the 2-high
+ceiling, which contains the body usefully but constrains in-larder
+pathing to the clear north row and west column.
 
 ## The opacity audit (channel by channel, the rig's 73)
 

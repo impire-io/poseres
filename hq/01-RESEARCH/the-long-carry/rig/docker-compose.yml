@@ -1,0 +1,28 @@
+# The larder-loop arena world (topic the-long-carry, bar H0) — the
+# DECLARED config: vanilla, difficulty NORMAL, mob spawning off,
+# superflat like the probe world so readings stay comparable. Its own
+# server so the probe world stays untouched for any 0119-protocol
+# repeat. Port 25603; container lc-minecraft. The VERSION pin moves
+# with the bridge's mineflayer pin (examples/minecraft/README.md).
+services:
+  minecraft:
+    image: itzg/minecraft-server:latest
+    container_name: lc-minecraft
+    environment:
+      EULA: "TRUE"
+      VERSION: "1.21.11"
+      TYPE: VANILLA
+      MODE: survival
+      DIFFICULTY: normal
+      LEVEL_TYPE: FLAT
+      SPAWN_MONSTERS: "FALSE"
+      ONLINE_MODE: "FALSE"
+      SPAWN_PROTECTION: "0"
+      VIEW_DISTANCE: "6"
+      SNOOPER_ENABLED: "FALSE"
+      MEMORY: 2G
+    ports:
+      - "25603:25565"
+    volumes:
+      - ./data:/data
+    restart: unless-stopped
