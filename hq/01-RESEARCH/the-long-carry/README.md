@@ -39,8 +39,10 @@ carries: the stacked tower or the identity-bound reference?
 
 Protocol spine, common to everything below: the survival rig's
 machinery exactly (`examples/minecraft/survival/` — the blessed
-stack, design 0015's body at obs 86 / 13 actions, deficit gate OFF,
-the 5× fabric), the 0119 composed scaffolding resurrected from
+stack, the body as the machinery declares it: `c1_anatomy(
+survival=True)`, obs 73 / 13 actions — 0119 amendment-2's
+correction, re-verified; deficit gate OFF, the 5× fabric), the
+0119 composed scaffolding resurrected from
 commit 4171779, the frame mechanism the ONLY variable between arms.
 The new world's chain must terminate in an eat so every meter stays
 the drive's own — no reward wire, no synthetic score (the house
