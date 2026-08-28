@@ -73,3 +73,41 @@ body usefully but constrains in-larder pathing. The gate is
 obsidian, not stone: stone is only ~150 steps of barehanded digging
 — a breach path for a persistent digger; obsidian is ~5,000,
 effectively never.
+
+## 2026-08-28 — flat teach 45/45; pilot life 1 reads zero; amendment 2 (probe rows), pre-probe
+
+**Two rig decisions, registered in `lc_runner.py` before its teach
+ran:** the parent's hands go closed-loop (a WaypointTeacher steering
+from the body's own pose and solid_ahead channels — the 146-step lap
+outruns the d23 open-loop tape grammar), and every lesson runs a
+uniform 340-step episode, idle-padded, so the engine config never
+varies across the taught chain's resume. Curriculum: V0 larder-eat
+(the d23 V0 relocated), V1 the-lap, V2 turn-in with the counter
+preset to 2 by classroom prep (teach-time rcon, the registered
+allowance).
+
+**The flat teach landed 45/45 [measured]:** 7 retries, every one a
+V2 first-attempt eat-miss (`done=True eats=0 laps=0` — walk and
+world contract clean, the eat jittered), one lesson needing its
+third attempt. Mechanism read: V2 arrives at the dig by navigation
+with residual pose scatter; V0's teleported stand never missed.
+Demo spans as designed: V0 89 obs, V1 ~140–155, V2 ~250.
+
+**Pilot life 1, the first behavioral datum [measured]:** the taught
+flat rig, hungry-born, 6,000 steps — zero lap crossings, zero
+chains, zero eats; one branch peek; out_of_context 3,099; food
+20→6, no starvation loss. The flat rig as taught does not circulate
+the loop unaided. Not a verdict: H0(c)'s discriminating pair exists
+exactly to classify this — sibling succeeds ⇒ the gap is the memory
+demand; sibling fails too ⇒ the task is too hard for non-memory
+reasons and the rebuild clause fires.
+
+**Amendment 2 (instrument, registered BEFORE the decode probe
+runs):** with zero crossings the pilot rows carry a single lap
+label, and H0(a)'s probe cannot read a one-class dataset. Opacity
+is a world+body property, policy-independent, so the probe's rows
+come from the scripted walker driving real chains through the live
+body (`probe_walk.py`), recording the same 73 channels the body
+senses. The probe's question, span, labels, and chance band are
+unchanged; pilot rows stay in the record as the behavioral
+baseline.
