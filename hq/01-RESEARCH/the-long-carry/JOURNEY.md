@@ -196,3 +196,50 @@ life and one sib life per round, interleaved round-robin against
 world drift (the 0119 amendment-1 precedent), all under the pinned
 sky, same doses, same seeds, paired by round. H0(b) reads its
 chain length from the sib arm's completed lives, per the README.
+
+## 2026-08-28 — H0(c) does NOT separate: both arms zero; the rebuild clause fires with a sharp diagnosis
+
+**The read [measured, rounds 1–3, both arms, pinned sky]:** every
+life zero — flat 0/0/0 and sib 0/0/0 on crossings, chains, and
+eats; every life carried 1–2 false completions and out_of_context
+4.2–5.7k of 6,000. The run was stopped after three witnessed pairs
+rather than eight, recorded openly with the reason: lives are
+fixed-seed from the same taught brain with no cross-life learning,
+so further rounds sample only world jitter around an outcome three
+pairs already witnessed at exactly zero–zero; the registered n = 8
+belongs to the SEPARATION read, which cannot arise here.
+Bar H0(c) FAILS on its own second branch: the sibling failing too
+means the task is too hard for non-memory reasons — rebuild openly,
+no comparison reads until H0 passes.
+
+**The diagnosis, from the traces [measured]:** the failure is NOT
+locomotion. Sib life 1 walked from the stand along the north row,
+into the branch, and parked at (15,8) — one cell before the closed
+gate — for 4,672 of 6,000 steps (dwell map in the npz; the obsidian
+dig-proofing earned its keep). The policy expressed the V2 turn-in
+recipe from birth, with the laps channel reading 0.0 the entire
+life against the demo context's 0.667+: **recipe selection ignores
+the stage signal even when the stage is sensed** — one channel of
+74 carries no weight in context matching, so the closing recipe
+fires on the wrong lap and the recipe hold pins the body at the
+gate. The flat arm fails the same way minus the sense (its zeros
+are over-determined).
+
+**What this means for the topic [judgment, stated for the owner]:**
+the arena passes opacity (H0(a)) and depth (chain ≈ 640 steps,
+6×), but the wild policy stack cannot express stage-conditional
+behavior through recipe selection even with the stage IN the
+observation. That cuts deeper than the arena: 0119 measured that
+frames speak only through drive valuation of one-step predictions —
+if the scaffold cannot act on a sensed stage signal, a composed
+tier carrying the same signal has no behavioral path to a win
+through this scaffold either. The rebuild fork (owner's direction
+call): (a) rebuild the WORLD easier — bring food into distal reach
+so the seen-forage machinery engages, narrowing the carry demand to
+one aliased choice with everything else affordance-driven; (b)
+rebuild the INSTRUMENT — make the sibling's sense enter where
+selection actually happens, at the cost of hand-building the
+pathway the composed arms would also need; (c) re-scope the gate's
+question to the mechanism that CAN carry stage into behavior
+(prediction-driven arbitration, not recipe selection), which is a
+kernel-side research direction, not an arena patch.
