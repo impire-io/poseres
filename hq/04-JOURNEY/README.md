@@ -22,18 +22,23 @@ teaching moved to `../00-GENESIS/how-we-work.md`.
 
 ## Where things stand (2026-08-29)
 
-**The ladder's first rung is in the kernel: place-keyed futility
-ships as feature 045 / v2.3.0**
-([0121](0121-the-futility-ships.md), same day as the topic's
-graduation): `RecipePolicy(futility_k, futility_w)` — K no-advance
-followed steps poison the pointed place for W selection steps,
-every recipe pointing there ineligible together, expiry a clean
-peek — off by default and bit-exact off, RNG included; both
-refuted per-recipe forms (boundary thrash at 556 events, cohort
-fallback) excluded by construction and pinned by tests. The
-prototype's crossings carry over by the degenerate-case argument;
-the dials' next measured reading is the arena revival. Rungs 2
-(process recipes) and 3 (stage-conditional selection) remain.
+**Two rungs of the ladder are in the kernel: place-keyed futility
+(045 / v2.3.0) and process recipes (046 / v2.4.0), both landed the
+day the topic graduated**
+([0121](0121-the-futility-ships.md),
+[0122](0122-the-process-recipes-ship.md)): futility —
+`RecipePolicy(futility_k, futility_w)`, K no-advance followed
+steps poison the pointed place for W selection steps, the whole
+pointing cohort ineligible together, expiry a clean peek, both
+refuted per-recipe forms excluded by construction; process
+recipes — `RecipeMemory(process=True)`, a gainless demonstration
+with a strictly positive label stores the walked path through its
+applauded ending, worth spoken through the existing label/deficit
+grammar with zero policy changes, closing 0120's fifteen-of-fifteen
+unstorable teach. Both off by default and bit-exact off, RNG
+included. Rung 3 (stage-conditional selection) is the ladder's
+last gap; the arena revival's registered question is now
+behavioral — do stored lap paths get walked?
 
 **The gate's deciding arena exists — and what it measured first is
 the scaffold, not the shape**
@@ -1039,3 +1044,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0119 | [The opaque world: composition indistinguishable in the wild, the lab's winner nominally last, the lifecycle benign](0119-the-opaque-world.md) |
 | 0120 | [The long carry: the arena stands, the scaffold cannot walk it — the gate's question sits behind a measured mechanism ladder](0120-the-long-carry.md) |
 | 0121 | [Futility ships: the brain gives up on a blocked place, and peeks back](0121-the-futility-ships.md) |
+| 0122 | [Process recipes ship: the applauded ending stores the taught path](0122-the-process-recipes-ship.md) |

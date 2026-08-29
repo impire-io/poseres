@@ -7,4 +7,4 @@
 - [x] T005 [P] [US3] Worth tests in tests/unit/test_recipe.py: label weight 0 leaves selection at drive order, weight > 0 elects the process recipe, deficit amplifies through the shipped 042 pathway — selection fully explained by existing arithmetic, no new dial (SC-004)
 - [x] T006 [P] [US4] One-vocabulary twin tests in tests/unit/test_recipe.py: identical step sequences stored via each door produce identical subgoal series, hold values, and futility counters through a stall-poison-revive cycle (SC-003)
 - [x] T007 Surface + docs: `process` on the `RecipeMemory` row in tests/contract/surface_inventory.py; Doc 0008 row + [2.4.0] release note; Doc 0010 process-vocabulary paragraph; design 0021 candidate 2 marked shipped; CHANGELOG.md [2.4.0]; pyproject.toml 2.3.0 → 2.4.0
-- [ ] T008 Full gate green; merge to main; tag v2.4.0; journey episode + roadmap row via /journey-log, committed with the work
+- [x] T008 Full gate green; merge to main; tag v2.4.0; journey episode + roadmap row via /journey-log, committed with the work
