@@ -7,4 +7,4 @@
 - [x] T005 [P] [US3] Place-keying tests in tests/unit/test_recipe.py: N recipes pointing at one place die together at poison, zero fallback selections at that place (US3.1); elsewhere-pointing recipe eligibility unchanged (US3.2); poisoned recipe re-eligible through a new pointed place (US3.3); no per-recipe futility state exists (FR-008)
 - [x] T006 [P] [US4] Watch/bounds tests in tests/unit/test_recipe.py: `fatigue_events`/`revive_events` match visibly staged events; futility state bounded across a long synthetic life — expired poisons leave no residue (US4.2)
 - [x] T007 Surface + docs: `futility_k`/`futility_w` rows in tests/contract/surface_inventory.py; Doc 0008 inventory + [2.3.0] release note; Doc 0010 mechanism paragraph; Doc 0011 dial rows (off default, K=200/W=800 prototype-of-record operating point); design 0021 candidate 1 marked shipped; CHANGELOG.md [2.3.0]; pyproject.toml 2.2.0 → 2.3.0
-- [ ] T008 Full gate green; merge to main; tag v2.3.0; journey episode + roadmap row via /journey-log, committed with the work
+- [x] T008 Full gate green; merge to main; tag v2.3.0; journey episode + roadmap row via /journey-log, committed with the work

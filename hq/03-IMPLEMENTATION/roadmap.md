@@ -165,12 +165,14 @@ next experiment each one is gated behind.
   design [0021](../02-DESIGN/0021-the-long-carry.md)), measured
   opaque at the aliased decision pairs and 6× the probe world's
   chain depth, but unreadable until the **mechanism ladder** 0120
-  isolated is climbed: futility (prototyped, progress-keyed),
+  isolated is climbed: futility — **rung 1, SHIPPED as feature
+  045/v2.3.0, place-keyed**
+  ([episode 0121](../04-JOURNEY/0121-the-futility-ships.md)) —
   process recipes (a taught path is currently unstorable as
   behavior — feature 041's assumption), and stage-conditional
-  selection (a declared stage sense was structurally inert). Those
-  three are the gate's real prerequisites now, each a feature
-  candidate with forcing numbers in 0021. The lifecycle costs 0117
+  selection (a declared stage sense was structurally inert). The
+  remaining two are the gate's real prerequisites now, each a
+  feature candidate with forcing numbers in 0021. The lifecycle costs 0117
   feared price out benign live (dangling references under graceful
   degradation; snapshot topology payable as blob+sidecar). The
   teacher-world may run bounded-context inside the measured
@@ -277,6 +279,7 @@ like "ROADMAP A3" resolve here.
 | The-flood | The drives can hear hunger (topic the-flood: instrument MET, intrusion beats gain 7/7/3-vs-0, F1 FAIL as registered — doubles expression and finishes meals but cannot steer; resolved downstream by aim-refutation + commitment); channel ships in the default body, the subcortical fence held | [0106](../04-JOURNEY/0106-the-flood.md) |
 | Motivation-stack | The map that ran the arc (topic motivation-stack, graduated to design 0016): fourteen gates + four spawned topics measured the theses — layers compose (no single layer sufficed), twins arrive on schedule (hangover, perseveration, welfare, the gate inversion), sensation beats valuation at the seam; election answered by the blessed stack's lives; open rungs G2, imagination, gate mechanism | [0107](../04-JOURNEY/0107-motivation-stack.md) |
 | Provisioning | The premise dissolved and that is the result (topic provisioning, abandoned honestly): demonstration gate beat the calendar 8/8 with earlier cheaper weans, purse-not-date fixed infinite welfare, P3 unfalsifiable in the recalibrated lab — then the native world retired the stipend layer entirely; purse rule frozen as first candidate if an expression delay returns | [0108](../04-JOURNEY/0108-provisioning.md) |
+| Futility-ships | Feature 045/v2.3.0: place-keyed futility on RecipePolicy (futility_k/futility_w, off bit-exact RNG-included) — a stalled pointer poisons the pointed place for W selection steps, the whole pointing cohort ineligible together, expiry a clean peek (the revive-peek-wander cadence from the constants); design 0021 rung 1, promoted same-day from 0120's rig prototype (K=200/W=800: the 4,672-step press abolished, first brain-driven crossings); both refuted per-recipe forms excluded by construction and test-pinned; rungs 2–3 remain | [0121](../04-JOURNEY/0121-the-futility-ships.md) |
 | Survival-default | Feature 044/v2.2.0: the survival body promotes into the default anatomy — c1_anatomy() and the bridge wire resolve to design 0015's operating point (obs 86/13; SURVIVAL on, FLOOD=intrusion, AIM=worth when unset); sentinel defaults keep every explicit flag's exact prior meaning, survival=False/SURVIVAL=0 the opt-out (033 precedent); default-matrix test pins all six configurations | [0104](../04-JOURNEY/0104-the-body-that-lives-is-the-default.md) |
 | Native-survival | The composition lives on the world's own metabolism (topic native-survival, graduated): N1 meter real; N2/N3 as registered failed honestly twice with the gate's direction REVERSED (gated life starved, ablated thrived — below-12 time 0.452 vs 0.007); amended bar (eats at native demand ~13/100k) PASS replicated x2 (99.3%/98.1% fed, zero starv-loss, first-eats 573/1,878 unaided); harness-meter layer retired; rig lives at examples/minecraft/survival; design 0015 = the operating point | [0103](../04-JOURNEY/0103-native-survival.md) |
 | The-aim | The palate is real, steering was not the gap (topic the-aim: A1 PASS 11/11 — worth eaten into existence at the body seam, the trace reaching what the chain touched, relative worth, PALATE_FILE body state; A2 FAIL 1/6, ablation same-or-better — the lookup is not the carrier; the decree parked the body AT food and it still starved: the taught dig released at mining 0.97, every time); the drops leg measured for the first time; palate stands as design 0013, successor spawned and solved same day | [0100](../04-JOURNEY/0100-the-aim.md) |
