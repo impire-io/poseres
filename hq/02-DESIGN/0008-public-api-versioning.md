@@ -46,7 +46,15 @@ the gate. What this document adds is the *promise* around the list.
   (`examples/minecraft/contract_check.py`);
   `pra.anatomy.minecraft.protocol.item_signature` (module-level, not
   package-exported) is the signature reference.
-- **Release notes (additive minors)**: v2.3.0 (feature 045) adds
+- **Release notes (additive minors)**: v2.4.0 (feature 046) opens
+  the process door on `RecipeMemory` (`process`, keyword-only, off
+  by default, bit-exact off): a gainless demonstration with a
+  strictly positive label stores as a process recipe — terminal =
+  the applauded observation by the existing max-label rule, the
+  record marked `process` — closing episode 0120's measured absence
+  (a taught path unstorable as behavior); worth is the shipped
+  label/deficit grammar, the policy unchanged (design 0021 rung 2).
+  v2.3.0 (feature 045) adds
   place-keyed futility to `RecipePolicy` (`futility_k`, `futility_w`,
   keyword-only, off by default, bit-exact off RNG included): a subgoal
   pointer stalled for `futility_k` followed steps poisons the pointed
@@ -184,7 +192,7 @@ subject-builder functions listed under Operational below.
 |---|---|---|
 | `pra.action.policy.CompletionItchPolicy` | class | params, kappa, progress_index, pocket_index, completion_threshold, potential_of, label_index, label_beta, deficit_index, deficit_kappa, commit_kappa, explore_defers_holds |
 | `pra.action.recipe.Recipe` | dataclass | — |
-| `pra.action.recipe.RecipeMemory` | class | pocket_index, label_index |
+| `pra.action.recipe.RecipeMemory` | class | pocket_index, label_index, process |
 | `pra.action.recipe.RecipePolicy` | class | params, memory, kappa, progress_index, pocket_index, lambda_r, position_indices, position_scale, completion_threshold, label_index, label_beta, deficit_index, deficit_kappa, commit_kappa, explore_defers_holds, futility_k, futility_w |
 | `pra.action.policy.CuriosityLookaheadPolicy` | class | — |
 | `pra.action.policy.Policy` | protocol | — |

@@ -138,7 +138,12 @@ SURFACE: tuple[SurfaceEntry, ...] = (
     ),
     # recipes: taught order as product (feature 041; recipe-reach, episode 0076)
     E("pra.action.recipe.Recipe", "dataclass", "drive", None),
-    E("pra.action.recipe.RecipeMemory", "class", "drive", ("pocket_index", "label_index")),
+    E(
+        "pra.action.recipe.RecipeMemory",
+        "class",
+        "drive",
+        ("pocket_index", "label_index", "process"),
+    ),
     E(
         "pra.action.recipe.RecipePolicy",
         "class",

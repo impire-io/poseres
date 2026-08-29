@@ -249,6 +249,97 @@ def test_futility_poison_sticks_to_place_not_recipe():
     assert p._subgoal == (0.0, 2.0) and p.fatigue_events == 1  # eligible again
 
 
+# --- process recipes (feature 046) -------------------------------------------
+# A walked loop with no acquisition; the teacher may applaud the ending.
+
+
+def lap_demo(applause=True):
+    seq = [obs(), obs(z=1), obs(z=2), obs(z=1), obs()]
+    if applause:
+        seq[-1] = seq[-1].copy()
+        seq[-1][4] = 1.0
+    return seq
+
+
+def test_process_off_is_off():
+    m = RecipeMemory(pocket_index=3, label_index=4)  # default: the pre-046 rule
+    assert m.add_demonstration(lap_demo()) is None and m.recipes == []
+    on = RecipeMemory(pocket_index=3, label_index=4, process=True)
+    r_off = m.add_demonstration(demo(with_label_at=3))
+    r_on = on.add_demonstration(demo(with_label_at=3))
+    assert r_off is not None and not r_off.process and not r_on.process
+    assert all(np.array_equal(a, b) for a, b in zip(r_on.steps, r_off.steps, strict=True))
+    assert np.array_equal(r_on.terminal, r_off.terminal)
+
+
+def test_process_requires_label_index():
+    with pytest.raises(ValueError):
+        RecipeMemory(pocket_index=3, process=True)
+
+
+def test_process_door_stores_the_walked_path():
+    m = RecipeMemory(pocket_index=3, label_index=4, process=True)
+    r = m.add_demonstration(lap_demo())
+    assert r is not None and r.process
+    assert float(r.terminal[4]) == 1.0 and len(r.steps) == 5  # through the applause
+    # the 0-of-15 closure: episode 0120's unstorable class now stores
+    m15 = RecipeMemory(pocket_index=3, label_index=4, process=True)
+    assert sum(m15.add_demonstration(lap_demo()) is not None for _ in range(15)) == 15
+
+
+def test_process_no_applause_no_recipe():
+    m = RecipeMemory(pocket_index=3, label_index=4, process=True)
+    assert m.add_demonstration(lap_demo(applause=False)) is None and m.recipes == []
+
+
+def test_process_applause_at_first_observation():
+    m = RecipeMemory(pocket_index=3, label_index=4, process=True)
+    seq = lap_demo(applause=False)
+    seq[0] = seq[0].copy()
+    seq[0][4] = 1.0
+    r = m.add_demonstration(seq)
+    assert r is not None and r.process and len(r.steps) == 1
+
+
+def test_process_worth_is_the_label_grammar():
+    m = RecipeMemory(pocket_index=3, label_index=4, process=True)
+    acq = m.add_demonstration(demo())  # unlabeled acquisition, stored first
+    proc = m.add_demonstration(lap_demo())
+    silent = _policy(m, label_beta=0.0)
+    assert silent._select_recipe(_ctx(obs())) is acq  # drive order: first wins
+    voiced = _policy(m, label_beta=0.5)
+    assert voiced._select_recipe(_ctx(obs())) is proc  # the teacher's voice elects it
+    gated = _policy(m, label_beta=0.0, deficit_index=5, deficit_kappa=0.5)
+    sated = obs()
+    sated[5] = 1.0
+    assert gated._select_recipe(_ctx(sated)) is acq
+    assert gated._select_recipe(_ctx(obs())) is proc  # the 042 deficit amplifies
+
+
+def test_process_walks_like_acquisition():
+    # identical positions through each door: subgoal series, hold behavior,
+    # and a full stall-poison-revive futility cycle must be twins.
+    proc_seq = [obs(), obs(z=1), obs(z=2), obs(z=2)]
+    proc_seq[3] = proc_seq[3].copy()
+    proc_seq[3][4] = 1.0
+    m_acq = RecipeMemory(pocket_index=3, label_index=4)
+    m_acq.add_demonstration(demo(with_label_at=3))
+    m_proc = RecipeMemory(pocket_index=3, label_index=4, process=True)
+    m_proc.add_demonstration(proc_seq)
+    assert not m_acq.recipes[0].process and m_proc.recipes[0].process
+    pa = _policy(m_acq, futility_k=2, futility_w=3)
+    pp = _policy(m_proc, futility_k=2, futility_w=3)
+    series_a, series_p = [], []
+    for _ in range(8):  # stall -> poison -> dead -> peek -> re-poison
+        for p, log in ((pa, series_a), (pp, series_p)):
+            p.select_action(_ctx(obs(), event=ZERO), np.random.default_rng(0))
+            log.append(p._subgoal)
+    assert series_a == series_p
+    assert pa.fatigue_events == pp.fatigue_events == 2
+    assert pa.revive_events == pp.revive_events == 1
+    assert pa.advance_events == pp.advance_events
+
+
 def test_futility_state_stays_bounded():
     p = _stall_policy(futility_k=1, futility_w=1)
     for _ in range(100):  # poison/revive churn at one place
