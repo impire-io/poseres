@@ -28,6 +28,22 @@ read only inside fired completions, no hangover at any dose (E3.1).
   `out_of_context` (the parrot watch).
 - Measured operating points of record: κ 0.25, λ_r 0.25, β 0.5. Recipes
   are caller-kept state in v1 (reconstructible from demonstrations).
+- Place-keyed futility (feature 045; the-long-carry episode 0120,
+  design 0021 rung 1): `RecipePolicy(futility_k=…, futility_w=…)` —
+  a pointer stalled `futility_k` followed steps poisons the pointed
+  place (subgoal rounded to the block grid) for `futility_w`
+  selection steps; every recipe pointing there is ineligible
+  together, none eligible degrades to the parent, expiry is a clean
+  peek (re-poison takes `futility_k` fresh steps — the re-check
+  cadence from the constants alone). The ONLY futility state is
+  per-place: per-recipe erosion (boundary thrash, 556 die/revive
+  events) and per-recipe hysteresis (cohort fallback) are its
+  measured failure modes. Off by default (`futility_k=0`, bit-exact,
+  RNG included); prototype of record K=200/W=800 — it abolished a
+  4,672-step futile press and produced the larder arena's first
+  brain-driven crossings. Counters: `fatigue_events`,
+  `revive_events`. Futility state is policy-side, not snapshot
+  state (the recipe rule).
 
 ## The twins, measured and bounded
 

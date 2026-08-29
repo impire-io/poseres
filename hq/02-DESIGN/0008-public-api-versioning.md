@@ -46,7 +46,14 @@ the gate. What this document adds is the *promise* around the list.
   (`examples/minecraft/contract_check.py`);
   `pra.anatomy.minecraft.protocol.item_signature` (module-level, not
   package-exported) is the signature reference.
-- **Release notes (additive minors)**: v2.2.0 (feature 044) makes
+- **Release notes (additive minors)**: v2.3.0 (feature 045) adds
+  place-keyed futility to `RecipePolicy` (`futility_k`, `futility_w`,
+  keyword-only, off by default, bit-exact off RNG included): a subgoal
+  pointer stalled for `futility_k` followed steps poisons the pointed
+  place for `futility_w` selection steps — every recipe pointing there
+  ineligible together, expiry a clean peek — the-long-carry's measured
+  mechanism (episode 0120, design 0021 rung 1; the two per-recipe
+  forms are its recorded failure modes). v2.2.0 (feature 044) makes
   the survival body the C1 default — `c1_anatomy()` and the bridge
   wire resolve to design 0015's measured operating point (obs 86/13;
   SURVIVAL default-on, FLOOD=intrusion, AIM=worth when unset) with
@@ -178,7 +185,7 @@ subject-builder functions listed under Operational below.
 | `pra.action.policy.CompletionItchPolicy` | class | params, kappa, progress_index, pocket_index, completion_threshold, potential_of, label_index, label_beta, deficit_index, deficit_kappa, commit_kappa, explore_defers_holds |
 | `pra.action.recipe.Recipe` | dataclass | — |
 | `pra.action.recipe.RecipeMemory` | class | pocket_index, label_index |
-| `pra.action.recipe.RecipePolicy` | class | params, memory, kappa, progress_index, pocket_index, lambda_r, position_indices, position_scale, completion_threshold, label_index, label_beta, deficit_index, deficit_kappa, commit_kappa, explore_defers_holds |
+| `pra.action.recipe.RecipePolicy` | class | params, memory, kappa, progress_index, pocket_index, lambda_r, position_indices, position_scale, completion_threshold, label_index, label_beta, deficit_index, deficit_kappa, commit_kappa, explore_defers_holds, futility_k, futility_w |
 | `pra.action.policy.CuriosityLookaheadPolicy` | class | — |
 | `pra.action.policy.Policy` | protocol | — |
 | `pra.action.policy.PolicyContext` | dataclass | — |

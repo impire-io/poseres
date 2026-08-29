@@ -39,7 +39,8 @@ claim carries its measurement.
 
 ## The feature candidates (the ladder, in kernel grain)
 
-1. **Futility — progress-keyed disengagement.** The stalled-pointer
+1. **Futility — progress-keyed disengagement. SHIPPED as feature
+   045 (v2.3.0, place-keyed as required).** The stalled-pointer
    signal RecipePolicy already computes must erode the following
    behavior. Prototype of record (rig-level, measured): layer
    fatigue — K = 200 followed steps without pointer advance puts
@@ -49,10 +50,15 @@ claim carries its measurement.
    brain-driven crossings. Two refuted forms with numbers: naive
    per-recipe erosion (boundary thrash, 556 die/revive events) and
    its hysteresis fix (cohort fallback among near-identical
-   recipes). The promoted form should be **place-keyed**: a dying
+   recipes). The promoted form is **place-keyed**: a dying
    recipe's stalled subgoal poisons every recipe currently pointing
    there — required the moment process recipes exist, or the lap
-   recipe dies with the stalled turn-in cohort.
+   recipe dies with the stalled turn-in cohort. The shipped kernel
+   form (`RecipePolicy(futility_k=…, futility_w=…)`, off by
+   default; Doc 0010/0011) generalizes the prototype: the rig's
+   layer-wide fatigue is its degenerate case when every pointer
+   coincides, so the measured crossings carry over; the arena
+   revival reads the dials next.
 2. **Process recipes — a vocabulary for gainless demonstrations.**
    `RecipeMemory.add_demonstration` stores nothing without a pocket
    gain (feature 041's core assumption: recipe = demonstrated

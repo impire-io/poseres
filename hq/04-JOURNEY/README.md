@@ -22,6 +22,19 @@ teaching moved to `../00-GENESIS/how-we-work.md`.
 
 ## Where things stand (2026-08-29)
 
+**The ladder's first rung is in the kernel: place-keyed futility
+ships as feature 045 / v2.3.0**
+([0121](0121-the-futility-ships.md), same day as the topic's
+graduation): `RecipePolicy(futility_k, futility_w)` — K no-advance
+followed steps poison the pointed place for W selection steps,
+every recipe pointing there ineligible together, expiry a clean
+peek — off by default and bit-exact off, RNG included; both
+refuted per-recipe forms (boundary thrash at 556 events, cohort
+fallback) excluded by construction and pinned by tests. The
+prototype's crossings carry over by the degenerate-case argument;
+the dials' next measured reading is the arena revival. Rungs 2
+(process recipes) and 3 (stage-conditional selection) remain.
+
 **The gate's deciding arena exists — and what it measured first is
 the scaffold, not the shape**
 ([0120](0120-the-long-carry.md), 0119's named successor run to its
@@ -1025,3 +1038,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0118 | [Compositional frames: nothing a reference carries beats the tower — the reversal fires by its own condition](0118-compositional-frames.md) |
 | 0119 | [The opaque world: composition indistinguishable in the wild, the lab's winner nominally last, the lifecycle benign](0119-the-opaque-world.md) |
 | 0120 | [The long carry: the arena stands, the scaffold cannot walk it — the gate's question sits behind a measured mechanism ladder](0120-the-long-carry.md) |
+| 0121 | [Futility ships: the brain gives up on a blocked place, and peeks back](0121-the-futility-ships.md) |

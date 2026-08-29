@@ -39,6 +39,8 @@ condition).
 | `deficit_kappa` | `CompletionItchPolicy` / `RecipePolicy` | **0.1** | The *body's* weight: how strongly depletion amplifies remembered felt value. |
 | `commit_kappa` | `CompletionItchPolicy` / `RecipePolicy` | **0.1** | Incumbency: how firmly a started, advancing intention holds against per-frame vote noise. |
 | `explore_defers_holds` | `CompletionItchPolicy` / `RecipePolicy` | **True** (survival bodies) | Whether the ε-gate yields while a held intention advances. |
+| `futility_k` | `RecipePolicy` | **200** (0 = off, the default) | The stall budget: how many followed steps without pointer progress before the pointed place is declared futile. |
+| `futility_w` | `RecipePolicy` | **800** | The poison window: how many selection steps a futile place stays ineligible before the peek. |
 | `exploration_epsilon`, `lookahead_min_age_cycles` | `PolicyParams` | per-protocol | The undirected floor: how often the policy acts randomly, and how mature a frame must be before directed selection trusts it. |
 
 ### `commit_kappa` — the hold that finishes (episode 0101)
@@ -52,6 +54,23 @@ completions); the boundary is part of the dial's definition, not an
 option. Set `explore_defers_holds=True` wherever actions take many
 frames and the world resets progress on interruption (live digs,
 chews); ε returns in full at every intention boundary.
+
+### `futility_k` / `futility_w` — giving up, and peeking back (episode 0120)
+
+K = 200 / W = 800 is the prototype of record from the larder arena:
+it abolished a 4,672-step futile press and its ratio sets the
+revive-peek-wander cadence (the brain re-checks a dead place every
+~W steps at the cost of ~K steps per peek). The dial is
+place-keyed by definition — the poison lands on the stalled subgoal,
+not the recipe — because both per-recipe forms failed with numbers
+(boundary thrash at 556 die/revive events; cohort fallback among
+near-identical recipes). **Failure modes at the ends:** K too low
+punishes genuinely slow travel toward a far subgoal; W too low is a
+nagging peek that re-presses a closed gate; W too high makes the
+world's real changes (a gate that opens) invisible for the whole
+window. Off (`futility_k=0`, the default) is bit-exact pre-045
+behavior; the shipped constants await their next measured reading
+on the revived arena (design 0021).
 
 ### `kappa` — the itch (episodes 0070–0072)
 

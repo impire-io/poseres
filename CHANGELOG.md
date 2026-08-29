@@ -8,6 +8,25 @@ the surface guard (`tests/contract/test_public_surface.py`).
 
 ## [Unreleased]
 
+## [2.3.0] — 2026-08-29
+
+### Added
+
+- **Place-keyed futility on `RecipePolicy`** (feature 045; episode
+  0120, design 0021 rung 1): `futility_k` / `futility_w`
+  (keyword-only, `futility_k=0` off by default, bit-exact off — RNG
+  stream included). A subgoal pointer that makes no progress for
+  `futility_k` followed steps poisons the pointed place for
+  `futility_w` selection steps: every recipe currently pointing
+  there is ineligible together, with none eligible the policy is
+  exactly its parent, and expiry is a clean peek — the re-check
+  cadence emerges from the constants. Watch counters
+  `fatigue_events` / `revive_events`. The measured provenance: the
+  rig prototype (K=200/W=800) abolished a 4,672-step futile press
+  and produced the larder arena's first brain-driven crossings; both
+  per-recipe forms are recorded failure modes (boundary thrash at
+  556 events, cohort fallback).
+
 ## [2.2.0] — 2026-08-16
 
 ### Changed
