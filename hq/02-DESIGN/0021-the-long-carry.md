@@ -59,7 +59,8 @@ claim carries its measurement.
    layer-wide fatigue is its degenerate case when every pointer
    coincides, so the measured crossings carry over; the arena
    revival reads the dials next.
-2. **Process recipes — a vocabulary for gainless demonstrations.**
+2. **Process recipes — a vocabulary for gainless demonstrations.
+   SHIPPED as feature 046 (v2.4.0).**
    `RecipeMemory.add_demonstration` stores nothing without a pocket
    gain (feature 041's core assumption: recipe = demonstrated
    acquisition). Long-horizon worlds demand demonstrated PROCESS —
@@ -67,6 +68,13 @@ claim carries its measurement.
    terminal is its last observation; its worth question (what makes
    a path worth walking when nothing is acquired) is the design's
    open core, adjacent to the completion itch's existing grammar.
+   The shipped answer (Doc 0010): the applauded ending — a gainless
+   demonstration with a strictly positive label stores through the
+   existing max-label terminal rule (`process=True` opt-in on
+   `RecipeMemory`, marked on the record), and worth IS the adjacent
+   grammar — the label pathway, deficit-amplified, no new
+   arithmetic and no policy change. Whether stored paths get walked
+   on this arena is the revival's registered question.
 3. **Stage-conditional selection.** A pathway by which observation
    context (sensed stage — or, for composed tiers, carried stage)
    modulates WHICH recipe is eligible, not just which terminal is

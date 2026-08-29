@@ -8,6 +8,24 @@ the surface guard (`tests/contract/test_public_surface.py`).
 
 ## [Unreleased]
 
+## [2.4.0] — 2026-08-29
+
+### Added
+
+- **Process recipes on `RecipeMemory`** (feature 046; episode 0120,
+  design 0021 rung 2): `process` (keyword-only, off by default,
+  bit-exact off; requires `label_index`). A demonstration with no
+  pocket gain but a strictly positive label stores as a process
+  recipe — terminal = the applauded observation by the existing
+  max-label rule, steps = the walked path through it, the record
+  marked `process` (new defaulted field on `Recipe`). Gainless
+  without applause still stores nothing; the acquisition door is
+  untouched. Worth is the shipped label/deficit grammar (features
+  041/042) and the policy is unchanged — pointing, holding, and
+  place-keyed futility (045) treat both recipe kinds identically.
+  Closes the measured absence of episode 0120: fifteen taught lap
+  demonstrations, zero storable as behavior.
+
 ## [2.3.0] — 2026-08-29
 
 ### Added

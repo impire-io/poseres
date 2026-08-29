@@ -26,6 +26,14 @@ thrashed at the poison boundary (556 die/revive events in one life) and
 per-recipe hysteresis fell back through the cohort of near-identical
 recipes. Futility state follows the recipe rule above: policy-side, not
 snapshot state.
+
+Process recipes (feature 046; episode 0120, design 0021 rung 2): the
+gain requirement made a taught PATH unstorable as behavior — the larder
+arena's fifteen lap demonstrations stored nothing. ``RecipeMemory``
+grows a second, opt-in door (see its docstring): an applauded gainless
+demonstration stores marked ``process``, worth spoken through the
+shipped label/deficit grammar, the policy unchanged — one vocabulary,
+two ways in.
 """
 
 from __future__ import annotations
@@ -45,6 +53,7 @@ class Recipe:
 
     steps: tuple  # tuple[np.ndarray, ...] — the witnessed sequence
     terminal: np.ndarray  # the ending that gets valued (max-label or last gain)
+    process: bool = False  # feature 046: an applauded ending, nothing acquired
 
 
 class RecipeMemory:
@@ -54,30 +63,53 @@ class RecipeMemory:
     success); ``label_index``, when given, is the sensed approval channel —
     the terminal becomes the max-label observation (the applauded ending),
     else the final pocket-gain observation.
+
+    Process recipes (feature 046; the-long-carry episode 0120, design 0021
+    rung 2): with ``process=True`` (requires ``label_index``) a gainless
+    demonstration whose sequence carries a strictly positive label stores
+    as a PROCESS recipe — terminal = the applauded observation (the same
+    max-label/latest-tie rule), steps = the walked path through it, the
+    record marked ``process``. Gainless without applause still stores
+    nothing: a recipe remains a demonstrated something — an acquisition or
+    an applauded ending. ``process=False`` (default) is the exact pre-046
+    rule; the acquisition door is untouched either way. Worth needs no new
+    arithmetic: a process terminal speaks through the shipped label/deficit
+    grammar (features 041/042), and episode 0120's fifteen unstorable lap
+    demonstrations are the measured absence this closes.
     """
 
-    def __init__(self, pocket_index: int, label_index: int | None = None):
+    def __init__(self, pocket_index: int, label_index: int | None = None, *, process: bool = False):
         self.pocket_index = int(pocket_index)
         self.label_index = None if label_index is None else int(label_index)
+        self.process = bool(process)
+        if self.process and self.label_index is None:
+            raise ValueError("RecipeMemory: process=True requires label_index")
         self.recipes: list[Recipe] = []
 
     def add_demonstration(self, observations) -> Recipe | None:
         """Extract one recipe; ``None`` (and nothing stored) if the sequence
-        contains no pocket gain — an undemonstrated success is not a recipe."""
+        contains no pocket gain — unless ``process`` is on and an applauded
+        ending marks the walked path as a demonstration."""
         seq = [np.asarray(o, dtype=float) for o in observations]
         gains = [
             i
             for i in range(1, len(seq))
             if seq[i][self.pocket_index] > seq[i - 1][self.pocket_index]
         ]
+        process = False
         if not gains:
-            return None
+            if not self.process:
+                return None
+            li = self.label_index
+            if not seq or max(float(o[li]) for o in seq) <= 0.0:
+                return None
+            process = True
         if self.label_index is not None:
             li = self.label_index
             end = max(range(len(seq)), key=lambda i: (float(seq[i][li]), i))
         else:
             end = gains[-1]
-        recipe = Recipe(steps=tuple(seq[: end + 1]), terminal=seq[end])
+        recipe = Recipe(steps=tuple(seq[: end + 1]), terminal=seq[end], process=process)
         self.recipes.append(recipe)
         return recipe
 

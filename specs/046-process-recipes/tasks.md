@@ -1,0 +1,10 @@
+# Tasks: Process Recipes
+
+- [x] T001 Gate green on branch (anchor): `ruff format --check . && ruff check . && pytest -q`
+- [x] T002 [US1+US2] The second door in src/pra/action/recipe.py: `Recipe.process: bool = False` field (FR-006), `RecipeMemory(process=False)` keyword-only + ValueError without `label_index` (FR-001/002), guarded process branch in `add_demonstration` — no gain + opted in + strictly positive label → store through the max-label terminal, marked process; acquisition path verbatim (FR-003/004/005); docstring provenance (episode 0120, design 0021 rung 2)
+- [x] T003 [P] [US2] Off-parity tests in tests/unit/test_recipe.py: default stores nothing for gainless labeled sequences (the sharp case), gainful storage byte-identical to pre-046; `process=True` without `label_index` raises (FR-001/002)
+- [x] T004 [P] [US1] Storage tests in tests/unit/test_recipe.py: process store (terminal = applauded obs, steps through it, marked); the 0-of-15 closure — fifteen gainless end-applauded demos store fifteen recipes (SC-002); gainless unlabeled → nothing even opted in; gainful identical on/off and unmarked; applause-at-first degenerate path
+- [x] T005 [P] [US3] Worth tests in tests/unit/test_recipe.py: label weight 0 leaves selection at drive order, weight > 0 elects the process recipe, deficit amplifies through the shipped 042 pathway — selection fully explained by existing arithmetic, no new dial (SC-004)
+- [x] T006 [P] [US4] One-vocabulary twin tests in tests/unit/test_recipe.py: identical step sequences stored via each door produce identical subgoal series, hold values, and futility counters through a stall-poison-revive cycle (SC-003)
+- [x] T007 Surface + docs: `process` on the `RecipeMemory` row in tests/contract/surface_inventory.py; Doc 0008 row + [2.4.0] release note; Doc 0010 process-vocabulary paragraph; design 0021 candidate 2 marked shipped; CHANGELOG.md [2.4.0]; pyproject.toml 2.3.0 → 2.4.0
+- [x] T008 Full gate green; merge to main; tag v2.4.0; journey episode + roadmap row via /journey-log, committed with the work

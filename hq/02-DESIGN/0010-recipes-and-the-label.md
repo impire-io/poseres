@@ -20,6 +20,21 @@ read only inside fired completions, no hangover at any dose (E3.1).
 - `RecipeMemory(pocket_index, label_index=None).add_demonstration(seq)`
   — terminal = max-label observation (label set) else last pocket gain;
   no gain → no recipe.
+- Process recipes (feature 046; the-long-carry episode 0120, design
+  0021 rung 2): `RecipeMemory(…, process=True)` (requires
+  `label_index`; off by default, bit-exact off) opens a second door
+  for the sequences the gain rule rejects — a gainless demonstration
+  with a strictly positive label stores as a PROCESS recipe, terminal
+  = the applauded observation (the same max-label/latest-tie rule),
+  the record marked `process`. Gainless without applause still stores
+  nothing: a recipe remains a demonstrated something — an acquisition
+  or an applauded ending. Worth adds no arithmetic: a process
+  terminal speaks through this doc's label pathway, deficit-amplified
+  (feature 042), and the policy — pointing, holding, place-keyed
+  futility — treats both kinds identically. The measured absence this
+  closes: fifteen taught lap demonstrations stored 0 recipes on the
+  larder arena; whether stored paths get WALKED there is the arena
+  revival's registered question (design 0021), not settled here.
 - `RecipePolicy(params, memory, kappa, progress_index, pocket_index,
   lambda_r, position_indices, position_scale, …)` — per directed step:
   select the most-valued ending (drive + β·label), point the
