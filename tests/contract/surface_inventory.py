@@ -159,6 +159,8 @@ SURFACE: tuple[SurfaceEntry, ...] = (
             "deficit_kappa",
             "commit_kappa",
             "explore_defers_holds",
+            "futility_k",
+            "futility_w",
         ),
     ),
     E("pra.action.policy.PolicyParams", "dataclass", "drive", None),
