@@ -20,7 +20,32 @@ Episodes 0001–0044 were chapters of the original single-file `JOURNEY.md`
 "ch. NN" resolve to `00NN-*.md`). The recurring principles the journey keeps
 teaching moved to `../00-GENESIS/how-we-work.md`.
 
-## Where things stand (2026-08-25)
+## Where things stand (2026-08-29)
+
+**The gate's deciding arena exists — and what it measured first is
+the scaffold, not the shape**
+([0120](0120-the-long-carry.md), 0119's named successor run to its
+honest stop): the larder loop — live Minecraft, food behind N = 3
+laps counted by the world's own buried machinery, chains ≈ 640
+steps (6× the probe world's) — is measured position-opaque exactly
+where it must be (the aliased lap pairs read at dead chance to a
+linear probe) and mechanically exact across every life. On it, the
+taught wild stack scored zero chains in every life — and so did a
+sibling arm with the lap count DECLARED IN ITS OBSERVATION: at the
+registered n = 8, zero–zero on every primary meter. The blocking
+gaps are isolated with numbers, not guessed: futility was absent
+(the body pressed a closed gate for 4,672 steps; the owner's steer
+— the world stays, the brain must learn that pushing without
+effect is useless — led to a progress-keyed fatigue prototype that
+abolished the parking and produced the arena's first crossings),
+process memory is absent (recipes require an acquisition — fifteen
+taught lap demonstrations were unstorable as behavior), and
+stage-conditional selection is absent (a sense reaches selection
+only through terminal drive value, which the world's own reset
+zeroes). Design [0021](../02-DESIGN/0021-the-long-carry.md)
+carries the arena's revival kit and the ladder as feature
+candidates; the gate's comparison waits on the ladder, and running
+it earlier would read zero-vs-zero at any n.
 
 **The wild bounds the lab: composition is indistinguishable from
 flat frames on live Minecraft, and the lab's winner ran nominally
@@ -999,3 +1024,4 @@ weighting, because real sensors are the chapter-25 failure mode.
 | 0117 | [The gate reshaped: references between frames, hierarchy where it earns it](0117-compositional-frames.md) |
 | 0118 | [Compositional frames: nothing a reference carries beats the tower — the reversal fires by its own condition](0118-compositional-frames.md) |
 | 0119 | [The opaque world: composition indistinguishable in the wild, the lab's winner nominally last, the lifecycle benign](0119-the-opaque-world.md) |
+| 0120 | [The long carry: the arena stands, the scaffold cannot walk it — the gate's question sits behind a measured mechanism ladder](0120-the-long-carry.md) |

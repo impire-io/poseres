@@ -108,8 +108,14 @@ meter. So hierarchy-as-built holds its 0118 status only where it
 was measured: **do not build the gate's shape into the kernel on
 the lab ordering alone** — the deciding arena is a position-opaque
 LONG-HORIZON protocol (chains beyond the policy scaffolding's
-reach), which does not exist yet and is the gate's named next
-registration. Two facts from 0119 stand for whoever builds it: the
+reach). That arena now EXISTS — the larder loop (episode 0120,
+design [0021](0021-the-long-carry.md)), measured opaque at the
+aliased decision pairs and 6× the probe world's depth — but it
+cannot read the gate's question until the mechanism ladder 0120
+isolated is climbed (futility, process recipes, stage-conditional
+selection); 0021 carries the ladder as feature candidates beside
+the arena's revival kit. Two facts from 0119 stand for whoever
+runs it: the
 composed scaffolding is live-real at C1 scale (arbiter share
 31–52%, map ≥ 0.9986), and 0117's lifecycle costs price out benign
 — ~74 dangling-reference events per life under graceful

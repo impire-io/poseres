@@ -34,3 +34,4 @@ Read 01 first; it is the map. 03 and 04 describe the validated core.
 | 18 | [Brain anatomy](0018-brain-anatomy.md) | The zones of the learner, visually: what each part holds and where knowledge lives |
 | 19 | [Factored actions](0019-factored-actions.md) | The action side at vocabulary scale: flat's measured ceiling, the product-factoring requirement, the mobility–parity tension (episode 0112) |
 | 20 | [Sequence encoding](0020-sequence-encoding.md) | Sequence worlds and the fixed-width sense: encoding guidance, the competence envelope as the real wall, meter lessons (episode 0115) |
+| 21 | [The long carry](0021-the-long-carry.md) | The gate's deciding arena (the larder loop) as a revivable instrument, and the measured mechanism ladder — futility, process recipes, stage-conditional selection (episode 0120) |

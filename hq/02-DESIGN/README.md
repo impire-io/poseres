@@ -32,6 +32,7 @@ The system is a **continuously-learning machine intelligence** with a configurab
 | 18 | `0018-brain-anatomy.md` | Brain anatomy: the zones of the learner, visually — what each part holds and where knowledge lives |
 | 19 | `0019-factored-actions.md` | Factored actions: the action side at vocabulary scale — flat's measured ceiling, the product-factoring requirement, the mobility–parity tension (episode 0112) |
 | 20 | `0020-sequence-encoding.md` | Sequence worlds and the fixed-width sense: encoding guidance, the competence envelope as the real wall, meter lessons (episode 0115) |
+| 21 | `0021-the-long-carry.md` | The long carry: the gate's deciding arena (the larder loop) as a revivable instrument, and the measured mechanism ladder — futility, process recipes, stage-conditional selection (episode 0120) |
 
 Read 01 first; it is the map. The rest may be read in any order, but 03 and 04 describe the validated core and are the natural place for an implementer to begin building.
 

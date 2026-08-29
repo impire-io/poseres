@@ -159,15 +159,23 @@ next experiment each one is gated behind.
   shape is indistinguishable from flat frames and the lab's winner
   ran nominally last — the gate's shape is NOT to be built into the
   kernel on the lab ordering alone. The gate itself stays open
-  (nothing clears the frozen line anywhere); its deciding arena is a
-  **position-opaque long-horizon protocol** (chains beyond the
-  policy scaffolding's reach), not yet built — the named next
-  registration. The lifecycle costs 0117 feared price out benign
-  live (dangling references under graceful degradation; snapshot
-  topology payable as blob+sidecar). The teacher-world may run
-  bounded-context inside the measured envelope (design 0020's
-  runnable configuration) or wait on that gate. No language showcase
-  before it reads.
+  (nothing clears the frozen line anywhere); its deciding arena —
+  a **position-opaque long-horizon protocol** — now EXISTS: the
+  larder loop ([episode 0120](../04-JOURNEY/0120-the-long-carry.md),
+  design [0021](../02-DESIGN/0021-the-long-carry.md)), measured
+  opaque at the aliased decision pairs and 6× the probe world's
+  chain depth, but unreadable until the **mechanism ladder** 0120
+  isolated is climbed: futility (prototyped, progress-keyed),
+  process recipes (a taught path is currently unstorable as
+  behavior — feature 041's assumption), and stage-conditional
+  selection (a declared stage sense was structurally inert). Those
+  three are the gate's real prerequisites now, each a feature
+  candidate with forcing numbers in 0021. The lifecycle costs 0117
+  feared price out benign live (dangling references under graceful
+  degradation; snapshot topology payable as blob+sidecar). The
+  teacher-world may run bounded-context inside the measured
+  envelope (design 0020's runnable configuration) or wait on that
+  gate. No language showcase before it reads.
 - **Staleness detection — closed, passive and active**
   ([episode 0059](../04-JOURNEY/0059-scheduled-probing.md)): scheduled
   probing, the active successor, failed its registered gate — the benign
