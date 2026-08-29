@@ -127,6 +127,35 @@ WHETHER this mechanism can.
 
 ## Verdict
 
-<Empty until graduation. Filled by /research-graduate: PASS/FAIL per
-bar with the honest numbers, each load-bearing claim tagged
-[measured] / [mechanism-argument] / [judgment].>
+- **H0(a) — opaque: PASS [measured]** (under amendments 2–4, each
+  registered before its read, trail in JOURNEY.md). The registered
+  3-class probe FAILED as written (0.5205 vs band 0.495) and the
+  WATCH row fired — the day clock and rain carried it; with the sky
+  pinned (amendment 3) and the verdict moved to the aliased
+  decision pairs (amendment 4), the arena reads at chance: 2v3 true
+  0.5039 vs control 0.5036 ± 0.0633; 3v4 true 0.518 vs 0.5016 ±
+  0.0113. The multi-class excess (0.361 vs 0.240 ± 0.057) is
+  label-1's half-ring topology, explained on record.
+- **H0(b) — long: PASS as measured [measured, instrument-sourced]:**
+  chain ≈ 620–650 steps at the measured gait (146 steps/lap,
+  4.87/block), ≥ 6× the probe world's ~100 — double the registered
+  floor. Honest caveat: the bar named completed sibling lives as
+  the reader; none completed, so the number stands on the scripted
+  walker's chains (the same body, the same course).
+- **H0(c) — the sibling separates: FAIL, by its own second branch —
+  and the failure is UNREADABLE-until-rebuilt, with the rebuild
+  proven to be of the STACK, not the world [measured]:** at the
+  registered n = 8, paired by round under the futility-repaired
+  stack, chains and eats identically zero in all 16 lives; every
+  secondary meter inside spread. The mechanism ladder that blocks
+  the read, each rung measured: futility absent (repaired at
+  prototype: the 4,672-step gate-park abolished, the peek loop
+  born, first brain-driven crossings); process memory absent (lap
+  demonstrations unstorable — recipes require a pocket gain);
+  stage-conditional selection absent (a declared stage sense
+  reaches selection only through terminal drive value, which the
+  world's own reset zeroes — the sibling sense is structurally
+  inert) [mechanism-argument on measured behavior, code trail].
+- **M0 / M1 / M2 — not run:** gated by H0, as registered. The
+  composed arms today would read zero-vs-zero through the same
+  inert pathways [mechanism-argument].
