@@ -1,7 +1,7 @@
 <!-- SPECKIT START -->
 For additional context about technologies to be used, project structure,
 shell commands, and other important information, read the current plan:
-`specs/045-progress-keyed-futility/plan.md`
+`specs/046-process-recipes/plan.md`
 <!-- SPECKIT END -->
 
 Read `AGENTS.md` for the durable working rules of this repository, and
