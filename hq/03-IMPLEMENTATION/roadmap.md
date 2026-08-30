@@ -164,17 +164,19 @@ next experiment each one is gated behind.
   larder loop ([episode 0120](../04-JOURNEY/0120-the-long-carry.md),
   design [0021](../02-DESIGN/0021-the-long-carry.md)), measured
   opaque at the aliased decision pairs and 6× the probe world's
-  chain depth, but unreadable until the **mechanism ladder** 0120
-  isolated is climbed: futility — **rung 1, SHIPPED as feature
-  045/v2.3.0, place-keyed**
-  ([episode 0121](../04-JOURNEY/0121-the-futility-ships.md)) —
-  process recipes — **rung 2, SHIPPED as feature 046/v2.4.0, the
-  applauded ending through the existing worth grammar**
-  ([episode 0122](../04-JOURNEY/0122-the-process-recipes-ship.md))
-  — and stage-conditional selection (a declared stage sense was
-  structurally inert), the last gap and the gate's real
-  prerequisite now, a feature candidate with forcing numbers in
-  0021. The lifecycle costs 0117
+  chain depth, and the **mechanism ladder** 0120 isolated is now
+  CLIMBED: futility — rung 1, feature 045/v2.3.0, place-keyed
+  ([episode 0121](../04-JOURNEY/0121-the-futility-ships.md));
+  process recipes — rung 2, feature 046/v2.4.0, the applauded
+  ending through the existing worth grammar
+  ([episode 0122](../04-JOURNEY/0122-the-process-recipes-ship.md));
+  stage-conditional selection — rung 3, feature 047/v2.5.0, hard
+  eligibility on the demonstrated trajectory
+  ([episode 0123](../04-JOURNEY/0123-the-ladder-is-climbed.md)).
+  **The arena revival is the next research act**: revive the rig
+  from design 0021's kit, teach with the three rungs on, read
+  whether the stack walks the loop, then run the gate's M0–M2
+  comparison — 0120's reversal conditions governing throughout. The lifecycle costs 0117
   feared price out benign live (dangling references under graceful
   degradation; snapshot topology payable as blob+sidecar). The
   teacher-world may run bounded-context inside the measured
@@ -281,6 +283,7 @@ like "ROADMAP A3" resolve here.
 | The-flood | The drives can hear hunger (topic the-flood: instrument MET, intrusion beats gain 7/7/3-vs-0, F1 FAIL as registered — doubles expression and finishes meals but cannot steer; resolved downstream by aim-refutation + commitment); channel ships in the default body, the subcortical fence held | [0106](../04-JOURNEY/0106-the-flood.md) |
 | Motivation-stack | The map that ran the arc (topic motivation-stack, graduated to design 0016): fourteen gates + four spawned topics measured the theses — layers compose (no single layer sufficed), twins arrive on schedule (hangover, perseveration, welfare, the gate inversion), sensation beats valuation at the seam; election answered by the blessed stack's lives; open rungs G2, imagination, gate mechanism | [0107](../04-JOURNEY/0107-motivation-stack.md) |
 | Provisioning | The premise dissolved and that is the result (topic provisioning, abandoned honestly): demonstration gate beat the calendar 8/8 with earlier cheaper weans, purse-not-date fixed infinite welfare, P3 unfalsifiable in the recalibrated lab — then the native world retired the stipend layer entirely; purse rule frozen as first candidate if an expression delay returns | [0108](../04-JOURNEY/0108-provisioning.md) |
+| Stage-selection | Feature 047/v2.5.0: stage-conditional selection on RecipePolicy (stage_indices/stage_tolerance, off bit-exact RNG-included) — a recipe eligible only where its demonstrated stage trajectory stood, HARD (the soft value route is 0120's measured-inert pathway; higher-worth out-of-context never selected); one law with the ladder: stage-matched AND unpoisoned, process = acquisition; no-context degrades to parent with zero stall; design 0021 rung 3 — THE LADDER COMPLETE, arena revival unblocked | [0123](../04-JOURNEY/0123-the-ladder-is-climbed.md) |
 | Process-recipes | Feature 046/v2.4.0: the second storage door on RecipeMemory (process=True opt-in, requires label_index, off bit-exact — the sharp case: label users must not be silently opted in) — a gainless demonstration with a strictly positive label stores the walked path through its applauded ending (existing max-label rule), marked process; worth = the shipped label/deficit grammar, zero policy delta (the 0020/0021 caution honored); closes 0120's fifteen-of-fifteen unstorable teach; design 0021 rung 2, rung 3 remains | [0122](../04-JOURNEY/0122-the-process-recipes-ship.md) |
 | Futility-ships | Feature 045/v2.3.0: place-keyed futility on RecipePolicy (futility_k/futility_w, off bit-exact RNG-included) — a stalled pointer poisons the pointed place for W selection steps, the whole pointing cohort ineligible together, expiry a clean peek (the revive-peek-wander cadence from the constants); design 0021 rung 1, promoted same-day from 0120's rig prototype (K=200/W=800: the 4,672-step press abolished, first brain-driven crossings); both refuted per-recipe forms excluded by construction and test-pinned; rungs 2–3 remain | [0121](../04-JOURNEY/0121-the-futility-ships.md) |
 | Survival-default | Feature 044/v2.2.0: the survival body promotes into the default anatomy — c1_anatomy() and the bridge wire resolve to design 0015's operating point (obs 86/13; SURVIVAL on, FLOOD=intrusion, AIM=worth when unset); sentinel defaults keep every explicit flag's exact prior meaning, survival=False/SURVIVAL=0 the opt-out (033 precedent); default-matrix test pins all six configurations | [0104](../04-JOURNEY/0104-the-body-that-lives-is-the-default.md) |
