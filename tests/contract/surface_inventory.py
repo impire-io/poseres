@@ -166,6 +166,8 @@ SURFACE: tuple[SurfaceEntry, ...] = (
             "explore_defers_holds",
             "futility_k",
             "futility_w",
+            "stage_indices",
+            "stage_tolerance",
         ),
     ),
     E("pra.action.policy.PolicyParams", "dataclass", "drive", None),

@@ -8,6 +8,28 @@ the surface guard (`tests/contract/test_public_surface.py`).
 
 ## [Unreleased]
 
+## [2.5.0] — 2026-08-30
+
+### Added
+
+- **Stage-conditional selection on `RecipePolicy`** (feature 047;
+  episode 0120, design 0021 rung 3 — the ladder's last):
+  `stage_indices` / `stage_tolerance` (keyword-only, `()` off by
+  default, bit-exact off — RNG stream included). With stage
+  channels declared (anatomy knowledge — a world's sensed counter,
+  or a composed tier's carried context written into observation), a
+  recipe is eligible only where its demonstrated stage trajectory
+  stood: some stored step within `stage_tolerance` of the current
+  observation on every declared channel. Eligibility is hard — an
+  out-of-context recipe is excluded regardless of worth (the soft,
+  value-mediated pathway is the one episode 0120 measured
+  structurally inert: the declared laps sense, zero-zero at n = 8).
+  One eligibility law with the shipped rungs: stage-matched AND
+  unpoisoned; process and acquisition recipes identical throughout;
+  no eligible recipe degrades to the parent and accrues no stall.
+  Watch counter `stage_filtered_events`. The design-0021 mechanism
+  ladder is complete; the larder arena revival is unblocked.
+
 ## [2.4.0] — 2026-08-29
 
 ### Added

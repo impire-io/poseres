@@ -35,6 +35,7 @@ condition).
 | `kappa` | `CompletionItchPolicy` | **0.25** | The completion itch: how much *finishing what is started* weighs against curiosity. |
 | `lambda_r` (and hold λ) | `RecipePolicy` / hold terms | **0.25** | The pull toward the current subgoal per unit of predicted distance — the transport strength. |
 | `completion_threshold` | `CompletionItchPolicy` | **1/128** | The smallest predicted acquisition that counts as a real completion; below it is prediction noise. |
+| `stage_tolerance` | `RecipePolicy` | **1/128** | The stage-match half-width: how close the sensed stage must sit to a demonstrated step's stage to count as the same context (channels via `stage_indices`, anatomy knowledge). |
 | `label_beta` | `CompletionItchPolicy` / `RecipePolicy` | **0.02** or **0.5** | The *social* weight: how loudly a teacher's label speaks. |
 | `deficit_kappa` | `CompletionItchPolicy` / `RecipePolicy` | **0.1** | The *body's* weight: how strongly depletion amplifies remembered felt value. |
 | `commit_kappa` | `CompletionItchPolicy` / `RecipePolicy` | **0.1** | Incumbency: how firmly a started, advancing intention holds against per-frame vote noise. |
