@@ -34,6 +34,17 @@ grows a second, opt-in door (see its docstring): an applauded gainless
 demonstration stores marked ``process``, worth spoken through the
 shipped label/deficit grammar, the policy unchanged — one vocabulary,
 two ways in.
+
+Stage-conditional selection (feature 047; episode 0120, design 0021
+rung 3 — the ladder's last): a declared stage sense was structurally
+inert because a sense reached selection only through the terminal's
+drive value, and the world's own reset zeroed it there (the sibling
+arm: zero-zero at n = 8). Shipped as hard eligibility on the
+demonstrated trajectory (see ``RecipePolicy``): the teacher's
+demonstrations partition behavior by context with no new storage, and
+a composed tier can speak through the same pathway by writing carried
+stage into observation. With this the 0021 ladder is complete; whether
+the stack walks the larder loop is the arena revival's question.
 """
 
 from __future__ import annotations
@@ -141,6 +152,21 @@ class RecipePolicy(CompletionItchPolicy):
     measured failure modes); ``futility_k = 0`` (default) is bit-exact
     pre-045 behavior, RNG stream included. Watch counters:
     ``fatigue_events`` (poisons created), ``revive_events`` (expired).
+
+    Stage-conditional selection (feature 047; episode 0120 measured,
+    module docstring): with ``stage_indices`` declared (anatomy
+    knowledge — a world's sensed counter or a composed tier's carried
+    context), a recipe is eligible only where its demonstrated stage
+    trajectory stood: some stored step within ``stage_tolerance`` of the
+    current observation on EVERY declared channel. Eligibility is HARD —
+    an out-of-context recipe is excluded regardless of worth (the soft,
+    value-mediated pathway is the one 0120 proved inert) — and composes
+    with futility as one law: eligible = stage-matched AND unpoisoned.
+    No eligible recipe degrades to the parent exactly as everywhere
+    else, accruing no stall. ``stage_indices = ()`` (default) is
+    bit-exact pre-047 behavior, RNG stream included. Watch counter:
+    ``stage_filtered_events`` (selection steps where the filter removed
+    an otherwise-eligible recipe; measurement-only).
     """
 
     def __init__(
@@ -163,6 +189,8 @@ class RecipePolicy(CompletionItchPolicy):
         explore_defers_holds: bool = False,
         futility_k: int = 0,
         futility_w: int = 800,
+        stage_indices: tuple[int, ...] = (),
+        stage_tolerance: float = 1.0 / 128.0,
     ):
         super().__init__(
             params,
@@ -189,10 +217,22 @@ class RecipePolicy(CompletionItchPolicy):
             raise ValueError(f"RecipePolicy: futility_w {futility_w} must be a finite integer > 0")
         self.futility_k = int(fk)
         self.futility_w = int(fw)
+        for c in stage_indices:
+            fc = float(c)
+            if not np.isfinite(fc) or fc != int(fc) or fc < 0.0:
+                raise ValueError(f"RecipePolicy: stage index {c} must be an integer >= 0")
+        st = float(stage_tolerance)
+        if not np.isfinite(st) or st < 0.0:
+            raise ValueError(
+                f"RecipePolicy: stage_tolerance {stage_tolerance} must be finite and >= 0"
+            )
+        self.stage_indices = tuple(int(c) for c in stage_indices)
+        self.stage_tolerance = st
         self.advance_events = 0
         self.out_of_context = 0
         self.fatigue_events = 0
         self.revive_events = 0
+        self.stage_filtered_events = 0
         self._prev_ptr = -1
         self._futility_step = 0
         self._poisons: dict[tuple[int, int], int] = {}  # place -> last poisoned step
@@ -237,18 +277,34 @@ class RecipePolicy(CompletionItchPolicy):
         else:
             self._stall = (place, count)
 
+    def _stage_matched(self, ctx: PolicyContext, recipe: Recipe) -> bool:
+        """Whether the recipe's demonstrated stage trajectory includes NOW:
+        some stored step within tolerance of the current observation on
+        every declared stage channel."""
+        obs, tol = ctx.observation, self.stage_tolerance
+        return any(
+            all(abs(float(step[c]) - float(obs[c])) <= tol for c in self.stage_indices)
+            for step in recipe.steps
+        )
+
     def _select_recipe(self, ctx: PolicyContext) -> Recipe | None:
         best, best_v = None, -np.inf
         weight = 0.0 if self.label_index is None else self._label_weight(ctx.observation)
         poisons = self._poisons if self.futility_k else None
+        stage_removed = False
         for r in self.memory.recipes:
             if poisons and self._pointed_place(ctx, r) in poisons:
+                continue
+            if self.stage_indices and not self._stage_matched(ctx, r):
+                stage_removed = True  # an otherwise-eligible recipe, out of context
                 continue
             v = ctx.drive_value_of(r.terminal)
             if self.label_index is not None:
                 v += weight * float(r.terminal[self.label_index])
             if v > best_v:
                 best, best_v = r, v
+        if stage_removed:
+            self.stage_filtered_events += 1
         return best
 
     def _point_subgoal(self, ctx: PolicyContext, recipe: Recipe) -> tuple[float, float]:

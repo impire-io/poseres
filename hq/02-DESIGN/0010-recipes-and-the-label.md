@@ -35,6 +35,27 @@ read only inside fired completions, no hangover at any dose (E3.1).
   closes: fifteen taught lap demonstrations stored 0 recipes on the
   larder arena; whether stored paths get WALKED there is the arena
   revival's registered question (design 0021), not settled here.
+- Stage-conditional selection (feature 047; episode 0120, design
+  0021 rung 3 — the ladder's last): `RecipePolicy(stage_indices=…,
+  stage_tolerance=…)` — with stage channels declared (anatomy
+  knowledge, the `position_indices` precedent; a sensed counter, or
+  a composed tier's carried context written into observation), a
+  recipe is eligible only where its demonstrated stage trajectory
+  stood: some stored step within tolerance of the current
+  observation on every declared channel. Eligibility is HARD — an
+  out-of-context recipe is excluded regardless of worth, because
+  the soft value-mediated pathway is exactly what 0120 measured
+  inert (the declared laps sense, zero-zero at n = 8: a sense
+  reached selection only through terminal drive value, which the
+  world's own reset zeroed). One eligibility law across the
+  ladder: eligible = stage-matched AND unpoisoned; no eligible
+  recipe degrades to the parent, accruing no stall. No new storage
+  — the trajectory IS the stored demonstration, so the teacher's
+  demos partition behavior by context. Off by default
+  (`stage_indices=()`, bit-exact, RNG included); watch counter
+  `stage_filtered_events`. Successors recorded, not built:
+  pointer-local matching and stage-aware pointing wait on an arena
+  reading.
 - `RecipePolicy(params, memory, kappa, progress_index, pocket_index,
   lambda_r, position_indices, position_scale, …)` — per directed step:
   select the most-valued ending (drive + β·label), point the

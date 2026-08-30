@@ -346,3 +346,152 @@ def test_futility_state_stays_bounded():
         p.select_action(_ctx(obs(), event=ZERO), np.random.default_rng(0))
         assert len(p._poisons) <= 1 and (p._stall is None or len(p._stall) == 2)
     assert p.fatigue_events > 10 and p.fatigue_events - p.revive_events in (0, 1)
+
+
+# --- stage-conditional selection (feature 047) -------------------------------
+# Channel 5 doubles as the declared stage sense; process demonstrations carry
+# their stage trajectory in their stored steps.
+
+
+def stage_demo(stages, x0=0.0, label=1.0):
+    seq = []
+    for i, s in enumerate(stages):
+        o = obs(x=x0, z=float(i))
+        o[5] = s
+        seq.append(o)
+    seq[-1] = seq[-1].copy()
+    seq[-1][4] = label  # the applause: a process demonstration
+    return seq
+
+
+def _stage_obs(s):
+    o = obs()
+    o[5] = s
+    return o
+
+
+def test_stage_validation():
+    for bad in ((-1,), (1.5,), (float("nan"),)):
+        with pytest.raises(ValueError):
+            _stall_policy(stage_indices=bad)
+    for bad in (-0.1, float("nan"), float("inf")):
+        with pytest.raises(ValueError):
+            _stall_policy(stage_indices=(5,), stage_tolerance=bad)
+
+
+def test_stage_off_is_off():
+    # default == explicit empty == armed-but-always-matching (pad channel is
+    # 0.0 in every step and observation): the 045/046 parity idiom.
+    eps = PolicyParams(exploration_epsilon=0.3, lookahead_min_age_cycles=2)
+    arms = [
+        _stall_policy(params=eps),
+        _stall_policy(params=eps, stage_indices=()),
+        _stall_policy(params=eps, stage_indices=(5,)),
+    ]
+    rngs = [np.random.default_rng(7) for _ in arms]
+    streams = [
+        [p.select_action(_ctx(obs(), event=ZERO), r) for _ in range(30)]
+        for p, r in zip(arms, rngs, strict=True)
+    ]
+    assert streams[0] == streams[1] == streams[2]
+    assert rngs[0].bit_generator.state == rngs[1].bit_generator.state
+    assert rngs[1].bit_generator.state == rngs[2].bit_generator.state
+    assert arms[0].stage_filtered_events == 0 and arms[2].stage_filtered_events == 0
+
+
+def test_stage_partition_follows_the_demonstration():
+    # the 0120 shape: a lap path demonstrated across stages 0-0.5 and a
+    # HIGHER-WORTH gate entry demonstrated at 0.75 only. Hard eligibility:
+    # the gate's worth never buys it selection out of context.
+    m = RecipeMemory(pocket_index=3, label_index=4, process=True)
+    lap = m.add_demonstration(stage_demo([0.0, 0.25, 0.5], label=0.5))
+    gate = m.add_demonstration(stage_demo([0.75], label=1.0))
+    p = _policy(m, stage_indices=(5,))
+    for s in (0.0, 0.25, 0.5):  # eligible at every demonstrated span point
+        assert p._select_recipe(_ctx(_stage_obs(s))) is lap
+    assert p._select_recipe(_ctx(_stage_obs(0.75))) is gate
+    assert p._select_recipe(_ctx(_stage_obs(0.4))) is None  # never demonstrated
+    assert p.stage_filtered_events > 0
+
+
+def test_stage_tolerance_boundary():
+    m = RecipeMemory(pocket_index=3, label_index=4, process=True)
+    m.add_demonstration(stage_demo([0.5]))
+    p = _policy(m, stage_indices=(5,), stage_tolerance=0.125)
+    assert p._select_recipe(_ctx(_stage_obs(0.625))) is not None  # exactly at
+    assert p._select_recipe(_ctx(_stage_obs(0.65))) is None  # just beyond
+
+
+def test_stage_no_context_degrades_to_parent_no_stall():
+    m = RecipeMemory(pocket_index=3, label_index=4, process=True)
+    m.add_demonstration(stage_demo([0.5]))
+    p = _policy(m, stage_indices=(5,), futility_k=1, futility_w=100)
+    base = CompletionItchPolicy(
+        NEVER_EXPLORE, kappa=0.25, progress_index=2, pocket_index=3, label_index=4, label_beta=0.5
+    )
+    o = _stage_obs(0.0)  # a context nobody demonstrated
+    for _ in range(5):
+        ra, rb = np.random.default_rng(1), np.random.default_rng(1)
+        assert p.select_action(_ctx(o, event=ZERO), ra) == base.select_action(
+            _ctx(o, event=ZERO), rb
+        )
+        assert ra.bit_generator.state == rb.bit_generator.state
+    assert p.fatigue_events == 0 and p._poisons == {}  # no followed step, no stall
+
+
+def test_stage_composes_with_futility():
+    # eligible = stage-matched AND unpoisoned, each filter removing only its
+    # own recipes; expiry does not readmit a recipe the stage excludes.
+    m = RecipeMemory(pocket_index=3, label_index=4, process=True)
+    m.add_demonstration(stage_demo([0.0, 0.0, 0.0]))  # course at x=0
+    m.add_demonstration(stage_demo([0.0], x0=40.0))  # elsewhere, same stage
+    p = _policy(m, stage_indices=(5,), futility_k=2, futility_w=3)
+    step = lambda o: p.select_action(_ctx(o, event=ZERO), np.random.default_rng(0))  # noqa: E731
+    here = _stage_obs(0.0)
+    step(here)
+    step(here)  # stall budget exhausted at (0, 1)
+    assert p.fatigue_events == 1
+    step(here)
+    assert p._subgoal == (40.0, 0.0)  # stage-matched AND unpoisoned wins
+    away = _stage_obs(0.75)
+    for _ in range(3):  # nobody demonstrated this stage; the poison expires meanwhile
+        step(away)
+        assert p._subgoal is None
+    assert p.revive_events == 1 and p.fatigue_events == 1
+    step(away)
+    assert p._subgoal is None  # expired, but still out on stage grounds
+    step(here)
+    assert p._subgoal == (0.0, 1.0)  # both filters pass again; first-stored wins
+
+
+def test_stage_process_acquisition_twins():
+    # identical positions and stage trajectories through each storage door:
+    # stage eligibility must be indistinguishable.
+    acq_seq = [obs(), obs(z=1), obs(z=2), obs(z=2, pocket=0.1)]
+    proc_seq = [obs(), obs(z=1), obs(z=2), obs(z=2)]
+    for o in acq_seq + proc_seq:
+        o[5] = 0.5
+    proc_seq[3] = proc_seq[3].copy()
+    proc_seq[3][4] = 1.0
+    m_a = RecipeMemory(pocket_index=3, label_index=4)
+    m_a.add_demonstration(acq_seq)
+    m_p = RecipeMemory(pocket_index=3, label_index=4, process=True)
+    m_p.add_demonstration(proc_seq)
+    pa = _policy(m_a, stage_indices=(5,))
+    pp = _policy(m_p, stage_indices=(5,))
+    for s in (0.0, 0.5, 1.0):
+        matched = pa._stage_matched(_ctx(_stage_obs(s)), m_a.recipes[0])
+        assert matched == pp._stage_matched(_ctx(_stage_obs(s)), m_p.recipes[0])
+        assert (pa._select_recipe(_ctx(_stage_obs(s))) is None) == (
+            pp._select_recipe(_ctx(_stage_obs(s))) is None
+        )
+
+
+def test_stage_filtered_counter():
+    m = RecipeMemory(pocket_index=3, label_index=4, process=True)
+    m.add_demonstration(stage_demo([0.5]))
+    p = _policy(m, stage_indices=(5,))
+    p._select_recipe(_ctx(_stage_obs(0.5)))
+    assert p.stage_filtered_events == 0  # matched: nothing removed
+    p._select_recipe(_ctx(_stage_obs(0.0)))
+    assert p.stage_filtered_events == 1  # the only unpoisoned recipe, removed

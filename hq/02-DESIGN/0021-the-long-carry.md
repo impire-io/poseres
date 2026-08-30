@@ -75,11 +75,22 @@ claim carries its measurement.
    grammar — the label pathway, deficit-amplified, no new
    arithmetic and no policy change. Whether stored paths get walked
    on this arena is the revival's registered question.
-3. **Stage-conditional selection.** A pathway by which observation
+3. **Stage-conditional selection. SHIPPED as feature 047 (v2.5.0)
+   — the ladder is complete.** A pathway by which observation
    context (sensed stage — or, for composed tiers, carried stage)
    modulates WHICH recipe is eligible, not just which terminal is
    valuable. Without it, the gate's comparison cannot read: this is
-   the pathway a winning composed arm would speak through.
+   the pathway a winning composed arm would speak through. The
+   shipped form (Doc 0010): declared stage channels
+   (`stage_indices`/`stage_tolerance` on `RecipePolicy`, anatomy
+   knowledge, off by default), hard eligibility on the demonstrated
+   stage trajectory — a recipe selectable only where its stored
+   steps stood within tolerance — composing with rung 1 as one law
+   (stage-matched AND unpoisoned) and with rung 2's process
+   recipes carrying their trajectory. With all three rungs in the
+   kernel, the arena revival is unblocked: M0–M2 and the gate's
+   comparison are the next research act, run against this
+   document's revival kit.
 
 ## The arena's revival kit
 

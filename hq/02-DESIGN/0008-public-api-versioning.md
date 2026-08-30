@@ -46,7 +46,16 @@ the gate. What this document adds is the *promise* around the list.
   (`examples/minecraft/contract_check.py`);
   `pra.anatomy.minecraft.protocol.item_signature` (module-level, not
   package-exported) is the signature reference.
-- **Release notes (additive minors)**: v2.4.0 (feature 046) opens
+- **Release notes (additive minors)**: v2.5.0 (feature 047) adds
+  stage-conditional selection to `RecipePolicy` (`stage_indices`,
+  `stage_tolerance`, keyword-only, off by default, bit-exact off RNG
+  included): with stage channels declared (anatomy knowledge — a
+  sensed counter or a composed tier's carried context), a recipe is
+  eligible only where its demonstrated stage trajectory stood within
+  tolerance — hard eligibility, composing with futility as
+  stage-matched AND unpoisoned — closing the design-0021 mechanism
+  ladder (episode 0120's structurally inert stage sense now reaches
+  selection directly). v2.4.0 (feature 046) opens
   the process door on `RecipeMemory` (`process`, keyword-only, off
   by default, bit-exact off): a gainless demonstration with a
   strictly positive label stores as a process recipe — terminal =
@@ -193,7 +202,7 @@ subject-builder functions listed under Operational below.
 | `pra.action.policy.CompletionItchPolicy` | class | params, kappa, progress_index, pocket_index, completion_threshold, potential_of, label_index, label_beta, deficit_index, deficit_kappa, commit_kappa, explore_defers_holds |
 | `pra.action.recipe.Recipe` | dataclass | — |
 | `pra.action.recipe.RecipeMemory` | class | pocket_index, label_index, process |
-| `pra.action.recipe.RecipePolicy` | class | params, memory, kappa, progress_index, pocket_index, lambda_r, position_indices, position_scale, completion_threshold, label_index, label_beta, deficit_index, deficit_kappa, commit_kappa, explore_defers_holds, futility_k, futility_w |
+| `pra.action.recipe.RecipePolicy` | class | params, memory, kappa, progress_index, pocket_index, lambda_r, position_indices, position_scale, completion_threshold, label_index, label_beta, deficit_index, deficit_kappa, commit_kappa, explore_defers_holds, futility_k, futility_w, stage_indices, stage_tolerance |
 | `pra.action.policy.CuriosityLookaheadPolicy` | class | — |
 | `pra.action.policy.Policy` | protocol | — |
 | `pra.action.policy.PolicyContext` | dataclass | — |
