@@ -242,3 +242,51 @@ laps (preset 2's tail) and the turn-ins. What the policy does with that
 partition — and what place-keyed futility does at the closed gate — is
 what the eight rounds read. `rounds 1 8` started 23:19; flat life 1
 first.
+
+## 2026-09-27 — round 1 read: the sibling walks one lap and parks at the loop's closure; the pointer is the mechanism
+
+**Flat life 1 [measured, `rig/flat-lives.jsonl`]:** crossings 1, chains 0,
+branch visits 1, eats 0; 1,650 of 6,000 steps in the gate cell (15, 8) —
+the 0120 press, now with futility: 2 poisons created, 2 expired
+(K = 200 / W = 800 as dialed); out-of-context 3,524. The memoryless
+reference behaves as 0120's flat rows did, plus the peek loop.
+
+**Sibling life 1 [measured, `rig/sib-lives.jsonl`, `mc/sib-life1.npz`]:**
+crossings 1, chains 0, branch visits 0, eats 0. The laps channel went
+0 → 1/3 at step 1,755 — one clean taught lap from birth, the stage
+filter live throughout (`stage_filtered_events` 6,000; out-of-context
+611 vs flat's 3,524). Then **4,128 of the remaining 4,245 steps in cell
+(0, 0)** — the loop's northwest corner, the lap line just crossed — with
+`fatigue_events` 0 and `advance_events` 430.
+
+**The mechanism, reconstructed from the stored demonstrations at the
+parked observation (laps 1/3, body at (0.35, 0.65)) [measured, offline,
+the shipped arithmetic]:** six recipes are stage-eligible — the three
+preset-1 laps (stages {1/3, 2/3}: the lap the body should now walk) and
+the three preset-0 laps (stages {0, 1/3}: the lap just completed). The
+shipped pointer (nearest step by position, plus one) resolves EVERY one
+of them to its last steps: nearest 136–138 of ~140, pointed places
+(0, 0) and (0, 1) — the body's own cell and its neighbour, at 0.02–0.09
+blocks. The loop's start and end coincide at this corner, so a
+position-only pointer at the closure sees the END of the next lap, not
+its beginning; the hold pulls to where the body already stands.
+
+Why futility never fired [mechanism-argument on code + numbers]: the
+pointer index `_prev_ptr` is one scalar shared across recipes, so a
+selection flip between a 139- and a 140-step lap (ptr 137 → 138) counts
+as an advance and resets the place-keyed stall — 430 "advances" while
+parked, 0 stalls reaching K. Place-keyed futility as shipped is defeated
+by argmax flicker among near-identical recipes of unequal length.
+
+What a **stage-aware pointer** does at the same observation [measured,
+offline]: restricting the nearest-step search to the recipe's
+stage-matched steps sends the three preset-1 laps to step 1 → place
+(3, 0) — forward, the next lap — while the preset-0 laps still point at
+their ends (0, 0)/(0, 1). Exactly the successor 0123 named as "awaiting
+an arena reading": pointer-local matching / stage-aware pointing. The
+reading is in after one life; the eight registered rounds run on as
+registered (no amendment mid-comparison). A rig-level prototype of the
+stage-aware pointer with per-recipe pointer tracking is built beside
+the runner (`rig/sap_policy.py`) and verified on the parked state
+offline; it does NOT run in these rounds — whether it runs is the next
+registration's question, per this topic's direction clause.
