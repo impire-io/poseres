@@ -98,7 +98,13 @@ OBS_X, OBS_Z, OBS_SIN, OBS_COS, OBS_SOLID = 0, 1, 3, 4, 11
 ANCHOR_SCALE = 64.0  # bridge pose channels: (coord - anchor) / 64
 
 EAT_TAIL = [R.HOLD] + [R.USE] * 30 + [R.IDLE] * 4
-V0_TAIL = [R.DIG] * 40 + [R.FWD] * 9 + [R.BACK] * 5 + EAT_TAIL
+# Amendment 2 (2026-09-27, measured): the tail settles four idle ticks before
+# the dig. The teacher auto-jumps on solid_ahead, and on the last half-block
+# before the melon the solid block ahead IS the melon; a dig begun mid-jump
+# is priced 5x by mineflayer's not-on-ground rule (145 ticks / 7.51 s vs 29-30
+# ticks / 1.5 s from the ground; 4 idles after a jump restore 29) and 40 dig
+# ticks (2.2 s wall) then release it unfinished — the seg 24/27/30 V2 fails.
+V0_TAIL = [R.IDLE] * 4 + [R.DIG] * 40 + [R.FWD] * 9 + [R.BACK] * 5 + EAT_TAIL
 
 BIRTH_STAND = ARENA.BIRTH_STAND
 LAP_WAYPOINTS = [(9.5, 0.5), (9.5, 6.5), (0.5, 6.5), (0.5, 0.5)]

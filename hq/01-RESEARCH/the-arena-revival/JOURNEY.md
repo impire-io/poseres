@@ -132,3 +132,41 @@ readouts: **2v3 true 0.508 vs control 0.4982 ± 0.0354; 3v4 true 0.519 vs
 The arena is the arena. R1 begins: bridge restarted with the laps sense
 (`LAPS=25,-63,10`), `teach flat`, `teach sib`, the `recipes` readout,
 then `rounds 1 8` — via `rig/r1.sh`, detached, log in `r1.log`.
+
+## 2026-09-27 — the flat teach fails at lesson 30; the cause measured; amendment 2 (the parent's hands)
+
+**What happened [measured, `rig/r1.log`]:** flat teach lessons 1–23 landed
+first try; V2-turn-in at segs 24 and 27 needed a second attempt
+(`done=True eats=0 laps=0`); seg 30 failed all three attempts the same
+way — the body reached the larder (the counter reset to 0) and no dig
+landed. The bridge log carried one line per failed attempt: `dig ended
+early: Digging aborted after 2,127–2,229 ms` — a dig that started and
+was released unfinished by the tail's first FWD after 40 dig ticks.
+
+**The diagnosis, live, with the mechanism walker
+[measured, `rig/dig_probe*.py`]:**
+
+- The lesson melon breaks in **30 ticks (1.55 s)** from the ground, in
+  every body state — as-is (food 0, health 1), healed (20/20), starved
+  (food 6) — and in **29–30 ticks** when the dig begins on the arrival
+  tick after walking the step-ups into the larder exactly as V2's last
+  waypoints do. Body state and arrival momentum are not the cause.
+- A dig that begins **mid-jump takes 145 ticks (7.51 s)** — mineflayer's
+  not-on-ground rule, 5× the break time, computed once at the dig's
+  start. Four idle ticks after the jump restore **29 ticks (1.50 s)**.
+  Two trials each, identical to the tick.
+- The teacher auto-jumps whenever `solid_ahead` reads solid, and on the
+  last half-block before the melon the solid block ahead IS the melon.
+  When the approach's gait phase lands a tick in that window, the dig
+  begins airborne and 40 dig ticks (~2.2 s wall) cannot finish a 7.5 s
+  dig. Intermittent by phase (0/7 early V2 lessons, then 1/2, 1/2, 3/3)
+  — the walker never hit it because it idles a tick before digging.
+
+**Amendment 2 (pre-run for the sibling; rig-level, the parent's hands,
+identical across arms):** `V0_TAIL` begins with four IDLE ticks before
+the 40 DIG ticks — the walker's idiom. The FLAT TEACH IS RESTARTED FROM
+LESSON 1 so both arms carry byte-identical tapes (the registered spine:
+same tapes, same seeds); the 29 lessons taught with the old tail are
+discarded, their `r1.log` kept. The world is untouched. Server health
+during the failure: no "Can't keep up" in the server log, container at
+~14% CPU, tick rate 100 as set.
