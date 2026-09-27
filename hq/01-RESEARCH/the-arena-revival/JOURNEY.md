@@ -405,6 +405,6 @@ precedent, one rig-level subclass, the same 8 rounds) or as its own
 registration is the owner's call; the rig, the taught brains
 (`mc/flat-*`, `mc/sib-*`) and the world are kept for either.
 
-Ops: server and bridge stopped 01:0x (`docker compose stop`; world data
+Ops: server and bridge stopped 01:05 (`docker compose stop`; world data
 kept in `rig/data/`); no "Can't keep up" in the server log all night;
 15.6–15.9 steps/s throughout, 16 lives × 6,000 steps, zero crashes.
