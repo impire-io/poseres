@@ -317,3 +317,94 @@ taught fifteen times as V0 — did not land in the ~900 steps it had.
 Reading for the bar: by the registered primary meter (full-chain eats)
 flat 3 is 0; by 0120's `chains` meter (gate-guaranteed entries) it is
 1. Both are reported at the verdict. Rounds continue unchanged.
+
+## 2026-09-28 — Bar R1 read at the registered n = 8: FAIL as measured. The ladder is in the kernel and the body still cannot walk the loop; the pointer is convicted
+
+**The rows [measured, `rig/flat-lives.jsonl`, `rig/sib-lives.jsonl`,
+`rig/r1-verdict.json`; rounds 1–8 interleaved flat/sib, 23:19–01:02]:**
+
+| arm | life | crossings | gate passages | eats | wasted peeks | poisons | out-of-context | where the life went (cell, steps) |
+|---|---|---|---|---|---|---|---|---|
+| flat | 1 | 1 | 0 | 0 | 1 | 2 | 3,524 | gate cell (15,8), 1,650 |
+| flat | 2 | 1 | 0 | 0 | 0 | 1 | 3,548 | corner (9,6), 2,652 |
+| flat | 3 | 3 | **1** | 0 | 0 | 1 | 2,469 | corner (9,6), 648 |
+| flat | 4 | 0 | 0 | 0 | 2 | 0 | 3,977 | gate cell, 4,351 |
+| flat | 5 | 2 | 0 | 0 | 0 | 0 | 2,629 | corner (9,6), 1,685 |
+| flat | 6 | 4 | 0 | 0 | 0 | 0 | 2,664 | corner (9,6), 1,433 |
+| flat | 7 | 0 | 0 | 0 | 3 | 0 | 4,472 | gate cell, 4,073 |
+| flat | 8 | 1 | 0 | 0 | 1 | 2 | 3,265 | gate cell, 2,461 |
+| sib | 1 | 1 | 0 | 0 | 0 | 0 | 611 | closure (0,0), 4,128 |
+| sib | 2 | 0 | 0 | 0 | 3 | 1 | 3,830 | gate cell, 3,952 |
+| sib | 3 | 1 | 0 | 0 | 0 | 0 | 1,102 | closure (0,0), 3,496 |
+| sib | 4 | 1 | 0 | 0 | 0 | 2 | 2,763 | corner (9,6), 1,138 |
+| sib | 5 | 1 | 0 | 0 | 0 | 0 | 612 | closure (0,0), 4,176 |
+| sib | 6 | 1 | 0 | 0 | 0 | 0 | 1,787 | closure (0,0), 2,334 |
+| sib | 7 | 1 | 0 | 0 | 0 | 2 | 619 | closure (0,0), 4,571 |
+| sib | 8 | 0 | 0 | 0 | 2 | 2 | 4,531 | gate cell, 3,334 |
+
+Paired by round, sib − flat: **full-chain eats 0 − 0 in every round**
+(the registered primary meter; the 0120 sibling baseline of zero
+stands); gate passages −0.12 ± 0.12 SE (flat 1, sib 0); lap crossings
+−0.75 ± 0.49; wasted peeks −0.25 ± 0.65; poisons +0.12 ± 0.48; **out-
+of-context −1,337 ± 581** (the one separation beyond 2 SE — the stage
+filter keeps the sibling on in-context recipes). `stage_filtered_events`
+5,200–6,000 per sibling life (the filter live every step); process
+recipes 10/40 in every life; `wander_steps` 0 in all 16 lives (with 40
+recipes and place-keyed poison, some recipe is always eligible — the
+wander phase the 0120 prototype produced never occurs under the shipped
+form). World counter vs pos-trace reconstruction: exact in 16/16 lives.
+
+**Bar R1: FAIL as measured.** The sibling — stage sensed, all three rungs
+on — completes zero chains in 8/8 lives, as 0120's sibling did without
+the rungs. Its behavior is bimodal and the same in every life of each
+mode: **6/8 lives walk exactly one taught lap from birth (first crossing
+at ~1,700–2,500 steps) and then park at the loop's closure cell (0,0) for
+2,300–4,600 steps; 2/8 lives never lap — pulled from birth to the closed
+gate by the larder recipes (whose post-reset steps stand at stage 0
+too), peeking 2–3 times.** The flat reference is more varied (0–4
+crossings; one life laps three times, passes the open gate, enters the
+larder and fails to finish a dig in its last 961 steps; one life laps
+four times with the gate open and never turns in) and no better.
+
+**Which rung the counters convict [mechanism-argument on measured
+behavior + the offline reconstruction of 2026-09-27]:** none of the
+three as shipped is inert — futility poisons where a stall accumulates
+(0–2 per life, both arms), process recipes exist (10) and are selected
+(the sibling's one lap IS a process recipe walked, stage-filtered, from
+birth to the line), and the stage filter partitions eligibility every
+step. What fails is downstream of all three: **the pointer.** At the
+loop's closure every eligible lap recipe — the next stage's included —
+resolves by position to its own last step (nearest 136–138 of 140,
+pointed places (0,0)/(0,1) at 0.02–0.09 blocks), so the hold keeps the
+body where it stands; and the shared pointer index turns argmax flicker
+among 139-/140-step laps into "advances" that reset the place-keyed
+stall, so futility cannot rescue it (0 poisons in 5 of the 6 parked
+lives; the 2 poisons in life 7 fired elsewhere). This is the successor
+0123 named and deliberately did not build — pointer-local / stage-aware
+pointing — now with an arena reading: a stage-aware pointer sends the
+three next-stage laps forward to (3,0) at that very observation
+(`rig/sap_policy.py`, verified offline, not run). A second kernel-grain
+finding rides along: place-keyed futility's stall tracker keys advance
+on a single `_prev_ptr` shared across recipes.
+
+**Reversal conditions checked:** the ladder's necessity — no flat life
+with the ladder OFF was run (the 0120 baseline stands, zero in 8); with
+the ladder ON flat completed zero chains in 8, so nothing reopens it.
+The eligibility form (0123) — the sibling was never stranded by hard
+eligibility: in every parked life eligible recipes existed and were
+selected; the shape is not convicted, the pointer is. The gate (0119/
+0120) — unread; M0–M2 do not run (zero-vs-zero would read at any n).
+
+**Standing, per this topic's direction clause:** R1 FAIL → the topic
+stops before M1 and records the convicted mechanism. The next gap is
+named with numbers and a verified prototype: stage-aware pointing on
+the recipe policy (the pointer's nearest-step search restricted to
+stage-matched steps; per-recipe pointer tracking for the stall). Whether
+it runs as this topic's amendment 4 (the-long-carry's futility
+precedent, one rig-level subclass, the same 8 rounds) or as its own
+registration is the owner's call; the rig, the taught brains
+(`mc/flat-*`, `mc/sib-*`) and the world are kept for either.
+
+Ops: server and bridge stopped 01:0x (`docker compose stop`; world data
+kept in `rig/data/`); no "Can't keep up" in the server log all night;
+15.6–15.9 steps/s throughout, 16 lives × 6,000 steps, zero crashes.

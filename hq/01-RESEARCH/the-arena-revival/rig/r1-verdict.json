@@ -1,0 +1,804 @@
+{
+ "rounds": [
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8
+ ],
+ "rows": {
+  "flat": {
+   "1": {
+    "arm": "flat",
+    "life": 1,
+    "steps": 6001,
+    "obs_rows": 6000,
+    "lap_crossings": 1,
+    "chains": 0,
+    "branch_visits": 1,
+    "wasted_peeks": 1,
+    "laps_rcon_end": 1,
+    "collects": 0,
+    "eats": 0,
+    "food_min": 4,
+    "food_mean": 6.1,
+    "starv_loss": false,
+    "completions": 0,
+    "false_completions": 0,
+    "advance": 493,
+    "out_of_context": 3524,
+    "recipes": 40,
+    "process_recipes": 10,
+    "stage_indices": [],
+    "fatigue_events": 2,
+    "revive_events": 2,
+    "stage_filtered_events": 0,
+    "wander_steps": 0,
+    "steps_per_s": 15.8,
+    "crossings": 1,
+    "gate_passages": 0,
+    "larder_entries": 0,
+    "first_crossing_step": 3271,
+    "top_cell": {
+     "cell": [
+      15,
+      8
+     ],
+     "steps": 1650
+    }
+   },
+   "2": {
+    "arm": "flat",
+    "life": 2,
+    "steps": 6001,
+    "obs_rows": 6000,
+    "lap_crossings": 1,
+    "chains": 0,
+    "branch_visits": 0,
+    "wasted_peeks": 0,
+    "laps_rcon_end": 1,
+    "collects": 0,
+    "eats": 0,
+    "food_min": 4,
+    "food_mean": 6.3,
+    "starv_loss": false,
+    "completions": 0,
+    "false_completions": 0,
+    "advance": 586,
+    "out_of_context": 3548,
+    "recipes": 40,
+    "process_recipes": 10,
+    "stage_indices": [],
+    "fatigue_events": 1,
+    "revive_events": 0,
+    "stage_filtered_events": 0,
+    "wander_steps": 0,
+    "steps_per_s": 15.9,
+    "crossings": 1,
+    "gate_passages": 0,
+    "larder_entries": 0,
+    "first_crossing_step": 3197,
+    "top_cell": {
+     "cell": [
+      9,
+      6
+     ],
+     "steps": 2652
+    }
+   },
+   "3": {
+    "arm": "flat",
+    "life": 3,
+    "steps": 6001,
+    "obs_rows": 6000,
+    "lap_crossings": 3,
+    "chains": 3,
+    "branch_visits": 1,
+    "wasted_peeks": 0,
+    "laps_rcon_end": 0,
+    "collects": 0,
+    "eats": 0,
+    "food_min": 4,
+    "food_mean": 5.9,
+    "starv_loss": false,
+    "completions": 1,
+    "false_completions": 0,
+    "advance": 694,
+    "out_of_context": 2469,
+    "recipes": 40,
+    "process_recipes": 10,
+    "stage_indices": [],
+    "fatigue_events": 1,
+    "revive_events": 1,
+    "stage_filtered_events": 0,
+    "wander_steps": 0,
+    "steps_per_s": 15.8,
+    "crossings": 3,
+    "gate_passages": 1,
+    "larder_entries": 2,
+    "first_crossing_step": 1548,
+    "top_cell": {
+     "cell": [
+      9,
+      6
+     ],
+     "steps": 648
+    }
+   },
+   "4": {
+    "arm": "flat",
+    "life": 4,
+    "steps": 6001,
+    "obs_rows": 6000,
+    "lap_crossings": 0,
+    "chains": 0,
+    "branch_visits": 2,
+    "wasted_peeks": 2,
+    "laps_rcon_end": 0,
+    "collects": 0,
+    "eats": 0,
+    "food_min": 6,
+    "food_mean": 6.9,
+    "starv_loss": false,
+    "completions": 0,
+    "false_completions": 0,
+    "advance": 256,
+    "out_of_context": 3977,
+    "recipes": 40,
+    "process_recipes": 10,
+    "stage_indices": [],
+    "fatigue_events": 0,
+    "revive_events": 0,
+    "stage_filtered_events": 0,
+    "wander_steps": 0,
+    "steps_per_s": 15.9,
+    "crossings": 0,
+    "gate_passages": 0,
+    "larder_entries": 0,
+    "first_crossing_step": null,
+    "top_cell": {
+     "cell": [
+      15,
+      8
+     ],
+     "steps": 4351
+    }
+   },
+   "5": {
+    "arm": "flat",
+    "life": 5,
+    "steps": 6001,
+    "obs_rows": 6000,
+    "lap_crossings": 2,
+    "chains": 0,
+    "branch_visits": 0,
+    "wasted_peeks": 0,
+    "laps_rcon_end": 2,
+    "collects": 0,
+    "eats": 0,
+    "food_min": 3,
+    "food_mean": 5.5,
+    "starv_loss": false,
+    "completions": 0,
+    "false_completions": 0,
+    "advance": 678,
+    "out_of_context": 2629,
+    "recipes": 40,
+    "process_recipes": 10,
+    "stage_indices": [],
+    "fatigue_events": 0,
+    "revive_events": 0,
+    "stage_filtered_events": 0,
+    "wander_steps": 0,
+    "steps_per_s": 15.9,
+    "crossings": 2,
+    "gate_passages": 0,
+    "larder_entries": 0,
+    "first_crossing_step": 1640,
+    "top_cell": {
+     "cell": [
+      9,
+      6
+     ],
+     "steps": 1685
+    }
+   },
+   "6": {
+    "arm": "flat",
+    "life": 6,
+    "steps": 6001,
+    "obs_rows": 6000,
+    "lap_crossings": 4,
+    "chains": 0,
+    "branch_visits": 0,
+    "wasted_peeks": 0,
+    "laps_rcon_end": 4,
+    "collects": 0,
+    "eats": 0,
+    "food_min": 4,
+    "food_mean": 5.9,
+    "starv_loss": false,
+    "completions": 0,
+    "false_completions": 0,
+    "advance": 791,
+    "out_of_context": 2664,
+    "recipes": 40,
+    "process_recipes": 10,
+    "stage_indices": [],
+    "fatigue_events": 0,
+    "revive_events": 0,
+    "stage_filtered_events": 0,
+    "wander_steps": 0,
+    "steps_per_s": 15.9,
+    "crossings": 4,
+    "gate_passages": 0,
+    "larder_entries": 0,
+    "first_crossing_step": 1108,
+    "top_cell": {
+     "cell": [
+      9,
+      6
+     ],
+     "steps": 1433
+    }
+   },
+   "7": {
+    "arm": "flat",
+    "life": 7,
+    "steps": 6001,
+    "obs_rows": 6000,
+    "lap_crossings": 0,
+    "chains": 0,
+    "branch_visits": 3,
+    "wasted_peeks": 3,
+    "laps_rcon_end": 0,
+    "collects": 0,
+    "eats": 0,
+    "food_min": 4,
+    "food_mean": 6.4,
+    "starv_loss": false,
+    "completions": 0,
+    "false_completions": 0,
+    "advance": 309,
+    "out_of_context": 4472,
+    "recipes": 40,
+    "process_recipes": 10,
+    "stage_indices": [],
+    "fatigue_events": 0,
+    "revive_events": 0,
+    "stage_filtered_events": 0,
+    "wander_steps": 0,
+    "steps_per_s": 15.9,
+    "crossings": 0,
+    "gate_passages": 0,
+    "larder_entries": 0,
+    "first_crossing_step": null,
+    "top_cell": {
+     "cell": [
+      15,
+      8
+     ],
+     "steps": 4073
+    }
+   },
+   "8": {
+    "arm": "flat",
+    "life": 8,
+    "steps": 6001,
+    "obs_rows": 6000,
+    "lap_crossings": 1,
+    "chains": 0,
+    "branch_visits": 1,
+    "wasted_peeks": 1,
+    "laps_rcon_end": 1,
+    "collects": 0,
+    "eats": 0,
+    "food_min": 5,
+    "food_mean": 6.5,
+    "starv_loss": false,
+    "completions": 0,
+    "false_completions": 0,
+    "advance": 503,
+    "out_of_context": 3265,
+    "recipes": 40,
+    "process_recipes": 10,
+    "stage_indices": [],
+    "fatigue_events": 2,
+    "revive_events": 2,
+    "stage_filtered_events": 0,
+    "wander_steps": 0,
+    "steps_per_s": 15.7,
+    "crossings": 1,
+    "gate_passages": 0,
+    "larder_entries": 0,
+    "first_crossing_step": 1134,
+    "top_cell": {
+     "cell": [
+      15,
+      8
+     ],
+     "steps": 2461
+    }
+   }
+  },
+  "sib": {
+   "1": {
+    "arm": "sib",
+    "life": 1,
+    "steps": 6001,
+    "obs_rows": 6000,
+    "lap_crossings": 1,
+    "chains": 0,
+    "branch_visits": 0,
+    "wasted_peeks": 0,
+    "laps_rcon_end": 1,
+    "collects": 0,
+    "eats": 0,
+    "food_min": 4,
+    "food_mean": 6.3,
+    "starv_loss": false,
+    "completions": 1,
+    "false_completions": 1,
+    "advance": 430,
+    "out_of_context": 611,
+    "recipes": 40,
+    "process_recipes": 10,
+    "stage_indices": [
+     73
+    ],
+    "fatigue_events": 0,
+    "revive_events": 0,
+    "stage_filtered_events": 6000,
+    "wander_steps": 0,
+    "steps_per_s": 15.9,
+    "crossings": 1,
+    "gate_passages": 0,
+    "larder_entries": 0,
+    "first_crossing_step": 1777,
+    "top_cell": {
+     "cell": [
+      0,
+      0
+     ],
+     "steps": 4128
+    }
+   },
+   "2": {
+    "arm": "sib",
+    "life": 2,
+    "steps": 6001,
+    "obs_rows": 6000,
+    "lap_crossings": 0,
+    "chains": 0,
+    "branch_visits": 3,
+    "wasted_peeks": 3,
+    "laps_rcon_end": 0,
+    "collects": 0,
+    "eats": 0,
+    "food_min": 5,
+    "food_mean": 6.5,
+    "starv_loss": false,
+    "completions": 1,
+    "false_completions": 1,
+    "advance": 258,
+    "out_of_context": 3830,
+    "recipes": 40,
+    "process_recipes": 10,
+    "stage_indices": [
+     73
+    ],
+    "fatigue_events": 1,
+    "revive_events": 1,
+    "stage_filtered_events": 5200,
+    "wander_steps": 0,
+    "steps_per_s": 15.7,
+    "crossings": 0,
+    "gate_passages": 0,
+    "larder_entries": 0,
+    "first_crossing_step": null,
+    "top_cell": {
+     "cell": [
+      15,
+      8
+     ],
+     "steps": 3952
+    }
+   },
+   "3": {
+    "arm": "sib",
+    "life": 3,
+    "steps": 6001,
+    "obs_rows": 6000,
+    "lap_crossings": 1,
+    "chains": 0,
+    "branch_visits": 0,
+    "wasted_peeks": 0,
+    "laps_rcon_end": 1,
+    "collects": 0,
+    "eats": 0,
+    "food_min": 4,
+    "food_mean": 5.9,
+    "starv_loss": false,
+    "completions": 1,
+    "false_completions": 1,
+    "advance": 424,
+    "out_of_context": 1102,
+    "recipes": 40,
+    "process_recipes": 10,
+    "stage_indices": [
+     73
+    ],
+    "fatigue_events": 0,
+    "revive_events": 0,
+    "stage_filtered_events": 6000,
+    "wander_steps": 0,
+    "steps_per_s": 15.8,
+    "crossings": 1,
+    "gate_passages": 0,
+    "larder_entries": 0,
+    "first_crossing_step": 2464,
+    "top_cell": {
+     "cell": [
+      0,
+      0
+     ],
+     "steps": 3496
+    }
+   },
+   "4": {
+    "arm": "sib",
+    "life": 4,
+    "steps": 6001,
+    "obs_rows": 6000,
+    "lap_crossings": 1,
+    "chains": 0,
+    "branch_visits": 0,
+    "wasted_peeks": 0,
+    "laps_rcon_end": 1,
+    "collects": 0,
+    "eats": 0,
+    "food_min": 4,
+    "food_mean": 5.5,
+    "starv_loss": false,
+    "completions": 1,
+    "false_completions": 1,
+    "advance": 491,
+    "out_of_context": 2763,
+    "recipes": 40,
+    "process_recipes": 10,
+    "stage_indices": [
+     73
+    ],
+    "fatigue_events": 2,
+    "revive_events": 2,
+    "stage_filtered_events": 6000,
+    "wander_steps": 0,
+    "steps_per_s": 15.6,
+    "crossings": 1,
+    "gate_passages": 0,
+    "larder_entries": 0,
+    "first_crossing_step": 4897,
+    "top_cell": {
+     "cell": [
+      9,
+      6
+     ],
+     "steps": 1138
+    }
+   },
+   "5": {
+    "arm": "sib",
+    "life": 5,
+    "steps": 6001,
+    "obs_rows": 6000,
+    "lap_crossings": 1,
+    "chains": 0,
+    "branch_visits": 0,
+    "wasted_peeks": 0,
+    "laps_rcon_end": 1,
+    "collects": 0,
+    "eats": 0,
+    "food_min": 5,
+    "food_mean": 6.2,
+    "starv_loss": false,
+    "completions": 1,
+    "false_completions": 1,
+    "advance": 471,
+    "out_of_context": 612,
+    "recipes": 40,
+    "process_recipes": 10,
+    "stage_indices": [
+     73
+    ],
+    "fatigue_events": 0,
+    "revive_events": 0,
+    "stage_filtered_events": 6000,
+    "wander_steps": 0,
+    "steps_per_s": 15.8,
+    "crossings": 1,
+    "gate_passages": 0,
+    "larder_entries": 0,
+    "first_crossing_step": 1597,
+    "top_cell": {
+     "cell": [
+      0,
+      0
+     ],
+     "steps": 4176
+    }
+   },
+   "6": {
+    "arm": "sib",
+    "life": 6,
+    "steps": 6001,
+    "obs_rows": 6000,
+    "lap_crossings": 1,
+    "chains": 0,
+    "branch_visits": 0,
+    "wasted_peeks": 0,
+    "laps_rcon_end": 1,
+    "collects": 0,
+    "eats": 0,
+    "food_min": 4,
+    "food_mean": 6.1,
+    "starv_loss": false,
+    "completions": 1,
+    "false_completions": 1,
+    "advance": 439,
+    "out_of_context": 1787,
+    "recipes": 40,
+    "process_recipes": 10,
+    "stage_indices": [
+     73
+    ],
+    "fatigue_events": 0,
+    "revive_events": 0,
+    "stage_filtered_events": 6000,
+    "wander_steps": 0,
+    "steps_per_s": 15.8,
+    "crossings": 1,
+    "gate_passages": 0,
+    "larder_entries": 0,
+    "first_crossing_step": 3521,
+    "top_cell": {
+     "cell": [
+      0,
+      0
+     ],
+     "steps": 2334
+    }
+   },
+   "7": {
+    "arm": "sib",
+    "life": 7,
+    "steps": 6001,
+    "obs_rows": 6000,
+    "lap_crossings": 1,
+    "chains": 0,
+    "branch_visits": 0,
+    "wasted_peeks": 0,
+    "laps_rcon_end": 1,
+    "collects": 0,
+    "eats": 0,
+    "food_min": 4,
+    "food_mean": 6.2,
+    "starv_loss": false,
+    "completions": 1,
+    "false_completions": 1,
+    "advance": 387,
+    "out_of_context": 619,
+    "recipes": 40,
+    "process_recipes": 10,
+    "stage_indices": [
+     73
+    ],
+    "fatigue_events": 2,
+    "revive_events": 2,
+    "stage_filtered_events": 6000,
+    "wander_steps": 0,
+    "steps_per_s": 15.8,
+    "crossings": 1,
+    "gate_passages": 0,
+    "larder_entries": 0,
+    "first_crossing_step": 1107,
+    "top_cell": {
+     "cell": [
+      0,
+      0
+     ],
+     "steps": 4571
+    }
+   },
+   "8": {
+    "arm": "sib",
+    "life": 8,
+    "steps": 6001,
+    "obs_rows": 6000,
+    "lap_crossings": 0,
+    "chains": 0,
+    "branch_visits": 2,
+    "wasted_peeks": 2,
+    "laps_rcon_end": 0,
+    "collects": 0,
+    "eats": 0,
+    "food_min": 5,
+    "food_mean": 6.2,
+    "starv_loss": false,
+    "completions": 1,
+    "false_completions": 1,
+    "advance": 203,
+    "out_of_context": 4531,
+    "recipes": 40,
+    "process_recipes": 10,
+    "stage_indices": [
+     73
+    ],
+    "fatigue_events": 2,
+    "revive_events": 1,
+    "stage_filtered_events": 5861,
+    "wander_steps": 0,
+    "steps_per_s": 15.6,
+    "crossings": 0,
+    "gate_passages": 0,
+    "larder_entries": 0,
+    "first_crossing_step": null,
+    "top_cell": {
+     "cell": [
+      15,
+      8
+     ],
+     "steps": 3334
+    }
+   }
+  }
+ },
+ "paired": {
+  "eats": {
+   "sib": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "flat": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "mean_diff": 0.0,
+   "se": 0.0
+  },
+  "gate_passages": {
+   "sib": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "flat": [
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "mean_diff": -0.125,
+   "se": 0.125
+  },
+  "crossings": {
+   "sib": [
+    1,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0
+   ],
+   "flat": [
+    1,
+    1,
+    3,
+    0,
+    2,
+    4,
+    0,
+    1
+   ],
+   "mean_diff": -0.75,
+   "se": 0.4909902530309828
+  },
+  "wasted_peeks": {
+   "sib": [
+    0,
+    3,
+    0,
+    0,
+    0,
+    0,
+    0,
+    2
+   ],
+   "flat": [
+    1,
+    0,
+    0,
+    2,
+    0,
+    0,
+    3,
+    1
+   ],
+   "mean_diff": -0.25,
+   "se": 0.6477984695434662
+  },
+  "fatigue_events": {
+   "sib": [
+    0,
+    1,
+    0,
+    2,
+    0,
+    0,
+    2,
+    2
+   ],
+   "flat": [
+    2,
+    1,
+    1,
+    0,
+    0,
+    0,
+    0,
+    2
+   ],
+   "mean_diff": 0.125,
+   "se": 0.479490056503484
+  },
+  "out_of_context": {
+   "sib": [
+    611,
+    3830,
+    1102,
+    2763,
+    612,
+    1787,
+    619,
+    4531
+   ],
+   "flat": [
+    3524,
+    3548,
+    2469,
+    3977,
+    2629,
+    2664,
+    4472,
+    3265
+   ],
+   "mean_diff": -1336.625,
+   "se": 580.9602561246583
+  }
+ }
+}
