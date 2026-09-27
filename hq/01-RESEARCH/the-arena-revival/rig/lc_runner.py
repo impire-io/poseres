@@ -156,7 +156,14 @@ def lesson_laps(k: int) -> int:
     N"; 0120 fixed it at 0 because nothing then read the stage."""
     v = VARIANTS[(k - 1) % len(VARIANTS)]
     if v["laps"] is None:
-        return V1_PRESETS[((k - 1) // len(VARIANTS)) % len(V1_PRESETS)]
+        # Amendment 3 (measured): the dose cycle is also indexed by the lesson
+        # ordinal j = (k-1)//3 with period 3, so preset = j % 3 pairs every
+        # preset with ONE dose — and the full dose starves the body to food 0,
+        # where the process door stores nothing (0/5 preset-0 laps stored in
+        # the discarded teach). (j + j // 3) % 3 is a Latin-square schedule:
+        # each preset meets every dose across the fifteen V1 lessons.
+        j = (k - 1) // len(VARIANTS)
+        return V1_PRESETS[(j + j // 3) % len(V1_PRESETS)]
     return int(v["laps"])
 
 

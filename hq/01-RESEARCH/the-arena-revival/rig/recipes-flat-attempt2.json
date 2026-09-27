@@ -1,0 +1,201 @@
+{
+ "recipes": 39,
+ "process_recipes": 9,
+ "per_recipe": [
+  {
+   "kind": "acquisition",
+   "len": 93,
+   "stages": []
+  },
+  {
+   "kind": "acquisition",
+   "len": 252,
+   "stages": []
+  },
+  {
+   "kind": "acquisition",
+   "len": 93,
+   "stages": []
+  },
+  {
+   "kind": "process",
+   "len": 140,
+   "stages": []
+  },
+  {
+   "kind": "acquisition",
+   "len": 255,
+   "stages": []
+  },
+  {
+   "kind": "acquisition",
+   "len": 93,
+   "stages": []
+  },
+  {
+   "kind": "process",
+   "len": 141,
+   "stages": []
+  },
+  {
+   "kind": "acquisition",
+   "len": 258,
+   "stages": []
+  },
+  {
+   "kind": "acquisition",
+   "len": 93,
+   "stages": []
+  },
+  {
+   "kind": "acquisition",
+   "len": 255,
+   "stages": []
+  },
+  {
+   "kind": "acquisition",
+   "len": 93,
+   "stages": []
+  },
+  {
+   "kind": "process",
+   "len": 140,
+   "stages": []
+  },
+  {
+   "kind": "acquisition",
+   "len": 255,
+   "stages": []
+  },
+  {
+   "kind": "acquisition",
+   "len": 93,
+   "stages": []
+  },
+  {
+   "kind": "process",
+   "len": 140,
+   "stages": []
+  },
+  {
+   "kind": "acquisition",
+   "len": 255,
+   "stages": []
+  },
+  {
+   "kind": "acquisition",
+   "len": 93,
+   "stages": []
+  },
+  {
+   "kind": "acquisition",
+   "len": 257,
+   "stages": []
+  },
+  {
+   "kind": "acquisition",
+   "len": 93,
+   "stages": []
+  },
+  {
+   "kind": "acquisition",
+   "len": 255,
+   "stages": []
+  },
+  {
+   "kind": "acquisition",
+   "len": 93,
+   "stages": []
+  },
+  {
+   "kind": "process",
+   "len": 139,
+   "stages": []
+  },
+  {
+   "kind": "acquisition",
+   "len": 254,
+   "stages": []
+  },
+  {
+   "kind": "acquisition",
+   "len": 93,
+   "stages": []
+  },
+  {
+   "kind": "acquisition",
+   "len": 260,
+   "stages": []
+  },
+  {
+   "kind": "acquisition",
+   "len": 93,
+   "stages": []
+  },
+  {
+   "kind": "process",
+   "len": 139,
+   "stages": []
+  },
+  {
+   "kind": "acquisition",
+   "len": 254,
+   "stages": []
+  },
+  {
+   "kind": "acquisition",
+   "len": 93,
+   "stages": []
+  },
+  {
+   "kind": "process",
+   "len": 141,
+   "stages": []
+  },
+  {
+   "kind": "acquisition",
+   "len": 257,
+   "stages": []
+  },
+  {
+   "kind": "acquisition",
+   "len": 93,
+   "stages": []
+  },
+  {
+   "kind": "acquisition",
+   "len": 253,
+   "stages": []
+  },
+  {
+   "kind": "acquisition",
+   "len": 93,
+   "stages": []
+  },
+  {
+   "kind": "process",
+   "len": 140,
+   "stages": []
+  },
+  {
+   "kind": "acquisition",
+   "len": 254,
+   "stages": []
+  },
+  {
+   "kind": "acquisition",
+   "len": 93,
+   "stages": []
+  },
+  {
+   "kind": "process",
+   "len": 140,
+   "stages": []
+  },
+  {
+   "kind": "acquisition",
+   "len": 255,
+   "stages": []
+  }
+ ]
+}

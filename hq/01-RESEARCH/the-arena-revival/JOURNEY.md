@@ -170,3 +170,41 @@ same tapes, same seeds); the 29 lessons taught with the old tail are
 discarded, their `r1.log` kept. The world is untouched. Server health
 during the failure: no "Can't keep up" in the server log, container at
 ~14% CPU, tick rate 100 as set.
+
+## 2026-09-27 — the flat teach lands 45/45; the recipes readout catches a curriculum artifact; amendment 3
+
+**Flat teach (attempt 2, settled tail) [measured, `rig/r1-attempt2.log`]:**
+45/45, zero retries — amendment 2 holds.
+
+**The `recipes` readout [measured, `rig/recipes-flat-attempt2.json` and
+the per-demo table]:** 39 recipes from 45 demonstrations; 15 V0 and 15
+V2 stored as acquisitions, **9 of 15 taught laps stored as process
+recipes**. The six unstored laps are exactly the demonstrations whose
+food channel read 0.000 throughout — every preset-0 lap (5/5, all under
+the full hunger dose) and one preset-1 lap (k = 23, medium dose on an
+already-emptied body). The stored laps read food 0.05–0.80.
+
+Two things on the record:
+
+1. **A finding about the shipped door [measured]:** the process door
+   (046) requires a strictly positive label, and here the label is the
+   food channel; a starving body's demonstration carries no applause
+   and stores nothing — 6/15 taught laps discarded by the rule, not by
+   the world. Design 0021 said the applauded ending "closes 0120's
+   fifteen unstorable laps"; on this rig it closes nine of them. Not
+   redesigned here (the kernel is untouched by research); carried to
+   the verdict.
+2. **A curriculum artifact of amendment 1 [mechanism-argument on the
+   numbers above]:** the dose cycle is indexed by the same lesson
+   ordinal as the V1 preset cycle, both with period 3, so preset 0 was
+   always taught under the full dose — the sibling would have entered
+   every life (born at laps = 0) with NO lap recipe in stage, and R1
+   would have measured the curriculum, not the ladder.
+
+**Amendment 3 (pre-run, both arms):** V1's preset follows a Latin-square
+schedule over its ordinal j, `(j + j // 3) % 3`, so each preset meets
+every dose: preset 0 at doses {0, 2, 1, 0, 2}, preset 1 at {1, 0, 2, 1,
+0}, preset 2 at {2, 1, 0, 2, 1}. Expect ≥ 3 stored laps per stage
+(light and medium doses), fewer where a medium dose meets an emptied
+body. Both teaches restart from lesson 1 (identical tapes); the
+sibling's partial teach (lessons 1–~8) is discarded. World untouched.
