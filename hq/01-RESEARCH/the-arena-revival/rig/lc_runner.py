@@ -29,8 +29,17 @@ decorrelated by round — the d23 discipline relocated):
                   (earning lap 3), walk to the junction, turn in
                   through the open gate, dig, eat — the closing act
 
-    python lc_runner.py teach            # flat teach -> mc/flat-*
-    python lc_runner.py lives <from> <to>  # flat pilot lives (1-based)
+Revival (2026-09-27, topic the-arena-revival): the rig's layer-fatigue
+prototype is gone — the three rungs are kernel features now (045/046/047)
+and the rig runs them as shipped, dials recorded in the README. Amendment
+1, pre-run: V1's counter preset cycles 0 -> 1 -> 2 across its fifteen
+lessons (see lesson_laps), so the lap is demonstrated at every stage
+below N and stage-conditional selection has a partition to read.
+
+    python lc_runner.py teach flat|sib       # teach -> mc/<arm>-*
+    python lc_runner.py recipes flat|sib     # what the teach stored (offline)
+    python lc_runner.py lives flat|sib <from> <to>
+    python lc_runner.py rounds <from> <to>   # flat and sib interleaved
 """
 
 from __future__ import annotations
@@ -115,7 +124,7 @@ VARIANTS = (
     {
         "name": "V1-the-lap",
         "stand": BIRTH_STAND,
-        "laps": 0,
+        "laps": None,  # cycles 0 -> 1 -> 2 across the V1 lessons (amendment 1)
         "waypoints": list(LAP_WAYPOINTS),
         "tail": [R.IDLE] * 4,
     },
@@ -127,6 +136,22 @@ VARIANTS = (
         "tail": V0_TAIL,
     },
 )
+
+
+V1_PRESETS = (0, 1, 2)
+
+
+def lesson_laps(k: int) -> int:
+    """The counter preset for lesson k. V1 cycles 0 -> 1 -> 2 across its
+    fifteen lessons (revival amendment 1): with stage-conditional selection
+    in the kernel a lap demonstrated at laps = p is eligible at laps = p, so
+    the lap must be demonstrated at every stage below N or rung 3 has no
+    context partition to read. arena.md registered V1 as "counter set below
+    N"; 0120 fixed it at 0 because nothing then read the stage."""
+    v = VARIANTS[(k - 1) % len(VARIANTS)]
+    if v["laps"] is None:
+        return V1_PRESETS[((k - 1) // len(VARIANTS)) % len(V1_PRESETS)]
+    return int(v["laps"])
 
 
 def paths(arm: str) -> dict[str, Path]:
@@ -198,7 +223,7 @@ def classroom(k: int) -> None:
     R.normalize_hand()
     R.rcon("tp", "pra", *v["stand"])  # tp BEFORE the counter set: the larder
     # zone's reset conditional would zero a preset while the body stands there
-    for player, value in (("laps", v["laps"]), ("armA", 0), ("armB", 0), ("counted", 0)):
+    for player, value in (("laps", lesson_laps(k)), ("armA", 0), ("armB", 0), ("counted", 0)):
         R.rcon("scoreboard", "players", "set", player, "lc", str(value))
     R.rcon("setblock", "15", "-58", "13", "minecraft:melon")  # the lesson melon
     sec, amp = R.HUNGER_DOSES[((k - 1) // len(VARIANTS)) % len(R.HUNGER_DOSES)]
@@ -212,7 +237,8 @@ def lesson_gate(k: int, views: list[dict], teacher: WaypointTeacher) -> tuple[bo
     collects, eats = R.lesson_events(views)
     if name == "V1-the-lap":
         laps = laps_score()
-        return teacher.done and laps == 1, f"done={teacher.done} laps={laps}"
+        want = lesson_laps(k) + 1
+        return teacher.done and laps == want, f"done={teacher.done} laps={laps} want={want}"
     if name == "V2-turn-in":
         laps = laps_score()
         return teacher.done and eats >= 2 and laps == 0, (
@@ -268,65 +294,70 @@ def teach(arm: str = "flat") -> None:
 
 
 def build_memory(arm: str) -> RecipeMemory:
-    memory = RecipeMemory(pocket_index=C1_POCKET_TOTAL_INDEX, label_index=R.FOOD)
+    """Both doors open (feature 046): acquisitions store as before; a
+    gainless demonstration with a positive food label — the taught lap —
+    stores as a PROCESS recipe. Identical across arms."""
+    memory = RecipeMemory(pocket_index=C1_POCKET_TOTAL_INDEX, label_index=R.FOOD, process=PROCESS)
     for demo in json.loads(paths(arm)["demos"].read_text()):
         memory.add_demonstration([np.asarray(o) for o in demo])
     return memory
 
 
-FUTILITY_K = 200  # consecutive followed steps without pointer advance -> fatigue
-FUTILITY_W = 800  # steps the recipe layer stays dead before reviving
+def memory_summary(memory: RecipeMemory, stage: tuple[int, ...]) -> dict:
+    """What the teach left behind, as the R1 instrument reads it: how many
+    recipes, how many process, and per recipe its length and the stage
+    values its steps stood at (the eligibility partition rung 3 reads)."""
+    rows = []
+    for r in memory.recipes:
+        stages = sorted({round(float(s[c]), 3) for s in r.steps for c in stage}) if stage else []
+        rows.append(
+            {
+                "kind": "process" if r.process else "acquisition",
+                "len": len(r.steps),
+                "stages": stages,
+            }
+        )
+    return {
+        "recipes": len(memory.recipes),
+        "process_recipes": sum(1 for r in memory.recipes if r.process),
+        "per_recipe": rows,
+    }
+
+
+# The ladder dials (README "Pre-registered bars", recorded pre-run): the
+# prototype's measured constants on the shipped place-keyed form (045), the
+# process door open (046), the declared stage channel where one exists (047)
+# at the shipped tolerance. The rig's layer-fatigue prototype is gone: the
+# rungs are kernel now and the rig runs them as shipped.
+FUTILITY_K = 200
+FUTILITY_W = 800
+PROCESS = True
+STAGE_TOL = 1.0 / 128.0
+
+
+def stage_indices_for(arm: str, obs_dim: int) -> tuple[int, ...]:
+    """The sibling declares its laps sense (appended LAST) as the stage
+    channel; the flat body has no stage channel to declare."""
+    return (obs_dim - 1,) if arm == "sib" else ()
 
 
 class LoggingRecipePolicy(RecipePolicy):
-    """The 0119 life policy plus amendment 5 (futility, refined) and the
-    decode probe's observation log (telemetry only, nothing fed back).
-
-    Futility as layer fatigue (the owner's steer, 2026-08-28; first
-    per-recipe erosion form measured inadequate — near-identical recipes
-    inherit the same stuck subgoal, so recipe-by-recipe death never
-    frees the body within a life): the failure is the FOLLOWING
-    behavior, not one recipe's identity. When the followed pointer has
-    not advanced for FUTILITY_K consecutive steps, the whole recipe
-    layer goes dead for FUTILITY_W steps — selection yields None, the
-    curiosity wanderer resumes — then revives and re-checks. The peek
-    cadence emerges from (K, W); the world is never touched. Identical
-    across arms."""
+    """The shipped RecipePolicy plus telemetry only, nothing fed back: the
+    decode probe's observation log, and a count of wander steps (no recipe
+    selected this step — every recipe poisoned or out of stage — so the
+    parent policy walked)."""
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.obs_log: list[np.ndarray] = []
-        self.fatigue = 0  # consecutive followed steps without advance
-        self.dead_until = -1  # step index the layer revives at
-        self.disengagements = 0  # layer-death events
-        self.dead_steps = 0
-        self._step = 0
-        self._last_ptr = -1
-
-    def _select_recipe(self, ctx):
-        self._step += 1
-        if self._step < self.dead_until:
-            self.dead_steps += 1
-            self._last_ptr = -1
-            return None
-        chosen = super()._select_recipe(ctx)
-        if chosen is not None:
-            if self._prev_ptr == self._last_ptr and self._last_ptr >= 0:
-                self.fatigue += 1
-            elif self._prev_ptr > self._last_ptr:
-                self.fatigue = 0  # real progress forgives outright
-            self._last_ptr = self._prev_ptr
-            if self.fatigue >= FUTILITY_K:
-                self.disengagements += 1
-                self.fatigue = 0
-                self.dead_until = self._step + FUTILITY_W
-                self._last_ptr = -1
-                return None
-        return chosen
+        self.wander_steps = 0
 
     def select_action(self, context, rng) -> int:
         self.obs_log.append(np.array(context.observation, copy=True))
-        return super().select_action(context, rng)
+        action = super().select_action(context, rng)
+        if self._subgoal is None:
+            self.wander_steps += 1
+        return action
 
 
 def hungry_newborn() -> None:
@@ -394,7 +425,9 @@ def chain_metrics(positions: list[list[float]]) -> dict:
 
 def life(arm: str, life_no: int) -> dict:
     p = paths(arm)
-    set_arm_body(arm)
+    obs_dim = set_arm_body(arm)
+    stage = stage_indices_for(arm, obs_dim)
+    memory = build_memory(arm)
     hungry_newborn()
     state = decode(p["taught"].read_bytes())
     cfg = dataclasses.replace(
@@ -405,7 +438,7 @@ def life(arm: str, life_no: int) -> dict:
     )
     policy = LoggingRecipePolicy(
         PolicyParams.from_config(cfg),
-        build_memory(arm),
+        memory,
         kappa=R.KAP,
         progress_index=C1_MINING_INDEX,
         pocket_index=C1_POCKET_TOTAL_INDEX,
@@ -414,6 +447,10 @@ def life(arm: str, life_no: int) -> dict:
         label_beta=0.0,
         deficit_index=R.FOOD,
         deficit_kappa=KD,
+        futility_k=FUTILITY_K,
+        futility_w=FUTILITY_W,
+        stage_indices=stage,
+        stage_tolerance=STAGE_TOL,
     )
     views: list[dict] = []
     store = InMemorySnapshotStore()
@@ -450,8 +487,13 @@ def life(arm: str, life_no: int) -> dict:
         "false_completions": policy.false_completions,
         "advance": policy.advance_events,
         "out_of_context": policy.out_of_context,
-        "disengagements": policy.disengagements,
-        "dead_steps": policy.dead_steps,
+        "recipes": len(memory.recipes),
+        "process_recipes": sum(1 for r in memory.recipes if r.process),
+        "stage_indices": list(stage),
+        "fatigue_events": policy.fatigue_events,
+        "revive_events": policy.revive_events,
+        "stage_filtered_events": policy.stage_filtered_events,
+        "wander_steps": policy.wander_steps,
         "steps_per_s": round(len(views) / max(time.monotonic() - t0, 1e-9), 1),
     }
     with p["lives"].open("a") as f:
@@ -467,6 +509,11 @@ def lives_done(arm: str) -> int:
 
 def main() -> int:
     phase = sys.argv[1] if len(sys.argv) > 1 else ""
+    if phase == "recipes" and len(sys.argv) > 2 and sys.argv[2] in ("flat", "sib"):
+        arm = sys.argv[2]
+        stage = stage_indices_for(arm, set_arm_body(arm))
+        print(json.dumps(memory_summary(build_memory(arm), stage), indent=1))
+        return 0
     print("world:", R.rcon("tick", "rate", "100"), flush=True)
     if phase == "teach" and len(sys.argv) > 2 and sys.argv[2] in ("flat", "sib"):
         teach(sys.argv[2])
@@ -490,7 +537,8 @@ def main() -> int:
                 life(arm, rnd)
         return 0
     raise SystemExit(
-        "usage: lc_runner.py teach flat|sib | lives flat|sib <from> <to> | rounds <from> <to>"
+        "usage: lc_runner.py teach flat|sib | recipes flat|sib | "
+        "lives flat|sib <from> <to> | rounds <from> <to>"
     )
 
 
