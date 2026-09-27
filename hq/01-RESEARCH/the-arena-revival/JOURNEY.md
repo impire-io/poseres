@@ -219,3 +219,26 @@ throughout); every light- and medium-dose lap stored (food max 0.05–0.80).
 Every stage has lap recipes in context. The sibling teach runs on the
 same tapes; its readout adds the stage values each recipe's steps stood
 at.
+
+## 2026-09-27 — sibling teach 45/45; the eligibility partition as stored; rounds begin 23:19
+
+**[measured, `rig/recipes-sib.json`]:** 40 recipes, 10 process — the same
+counts as flat (identical tapes, identical doses). The stage values each
+recipe's steps stood at (the laps channel, k/3), i.e. where rung 3 will
+hold it eligible:
+
+- 15 × V0 larder-eat (acquisition): {0.0} — the larder, after reset.
+- 15 × V2 turn-in (acquisition): {0.0, 0.667, 1.0} — from the stand at
+  laps 2, the crossing to 3 (gate open), the larder's reset to 0.
+- 10 × V1 the-lap (process): 3 at {0.0, 0.333} (preset 0), 3 at {0.333,
+  0.667} (preset 1), 4 at {0.667, 1.0} (preset 2); lengths 139–141 —
+  the terminal is the lap's end (food constant across a lap, so the
+  latest-max-food rule lands on the last step) and the stored path is
+  the whole lap.
+
+So at birth (laps 0) the sibling has three lap recipes, fifteen larder
+recipes and fifteen turn-ins in stage; at 1/3 and 2/3 only laps; at 1.0
+laps (preset 2's tail) and the turn-ins. What the policy does with that
+partition — and what place-keyed futility does at the closed gate — is
+what the eight rounds read. `rounds 1 8` started 23:19; flat life 1
+first.
