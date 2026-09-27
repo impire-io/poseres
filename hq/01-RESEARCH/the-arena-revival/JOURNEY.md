@@ -208,3 +208,14 @@ every dose: preset 0 at doses {0, 2, 1, 0, 2}, preset 1 at {1, 0, 2, 1,
 (light and medium doses), fewer where a medium dose meets an emptied
 body. Both teaches restart from lesson 1 (identical tapes); the
 sibling's partial teach (lessons 1–~8) is discarded. World untouched.
+
+## 2026-09-27 — flat teach (attempt 3) 45/45; the readout under amendment 3
+
+**[measured, `rig/recipes-flat.json` + per-demo table]:** 40 recipes from
+45 demonstrations — 15 V0 and 15 V2 acquisitions, **10 of 15 laps as
+process recipes: preset 0 → 3/5, preset 1 → 3/5, preset 2 → 4/5**. The
+five unstored laps are exactly the five full-dose lessons (food 0.000
+throughout); every light- and medium-dose lap stored (food max 0.05–0.80).
+Every stage has lap recipes in context. The sibling teach runs on the
+same tapes; its readout adds the stage values each recipe's steps stood
+at.
