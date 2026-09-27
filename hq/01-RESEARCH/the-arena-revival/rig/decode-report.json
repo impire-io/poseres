@@ -1,0 +1,76 @@
+{
+ "arm": "walk",
+ "lives": [
+  "walk-life1.npz"
+ ],
+ "span_steps": 2671,
+ "chains_in_span": 7,
+ "label_counts": {
+  "1": 438,
+  "2": 890,
+  "3": 889,
+  "4": 454
+ },
+ "majority_rate": 0.3332,
+ "context_multiclass": {
+  "true_accuracy": 0.36,
+  "control_mean": 0.2442,
+  "control_sd": 0.0566
+ },
+ "decision_pairs": [
+  {
+   "pair": "2v3",
+   "steps": 1779,
+   "support_cells": 30,
+   "label_counts": {
+    "2": 890,
+    "3": 889
+   },
+   "majority_rate": 0.5003,
+   "true_accuracy": 0.508,
+   "control_mean": 0.4982,
+   "control_sd": 0.0354,
+   "pass": true
+  },
+  {
+   "pair": "3v4",
+   "steps": 887,
+   "support_cells": 15,
+   "label_counts": {
+    "3": 433,
+    "4": 454
+   },
+   "majority_rate": 0.5118,
+   "true_accuracy": 0.519,
+   "control_mean": 0.4988,
+   "control_sd": 0.0118,
+   "pass": true
+  }
+ ],
+ "rule": "PASS if each aliased pair's true accuracy <= its control mean + 2*sd",
+ "h0a_pass": true,
+ "junction_gap_top5_per_life": [
+  [
+   {
+    "channel": "pose.sin_yaw",
+    "gap": 0.2697
+   },
+   {
+    "channel": "pose.cos_yaw",
+    "gap": 0.2451
+   },
+   {
+    "channel": "blocks.solid_ahead",
+    "gap": 0.0495
+   },
+   {
+    "channel": "blocks.solid_eye",
+    "gap": 0.0495
+   },
+   {
+    "channel": "glance.s4_dist",
+    "gap": 0.0439
+   }
+  ]
+ ]
+}

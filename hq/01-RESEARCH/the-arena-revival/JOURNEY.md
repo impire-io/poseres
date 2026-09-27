@@ -106,3 +106,29 @@ bridge (laps off) → `mechanism_check.py` (R0a) → `probe_walk.py 6` +
 `decode_probe.py walk` (R0b) → bridge (laps on) → `teach flat`,
 `teach sib` → `recipes` readout → `rounds 1 8` (R1: sib the bar, flat
 the reference, interleaved against drift as 0120's rounds were).
+
+## 2026-09-27 — Bar R0 PASS: the revived arena binds, both instruments reproduce 0120
+
+Server up from a fresh superflat (`docker compose up`, world regenerated,
+`arena_provision.py` idempotent; gate obsidian, laps 0, `advance_time` /
+`advance_weather` false, time 6000). Bridge with the laps sense OFF.
+
+**R0(a) — mechanism check PASS 15/15 [measured, `rig/mechanism-report.json`]:**
+counter 1/2/3 once per crossing, gate closed through laps 1–2 and open at
+3, larder entry resets and recloses, indicator column rises and falls,
+dig → collect → eat lands, the exit drop returns to the loop and is
+one-way, counting resumes. Gait: lap steps 136 / 147 / 147, **147 steps
+per lap, 4.9 per block** (0120: 146, 4.87). Life length stays 6,000.
+
+**R0(b) — decode probe PASS [measured, `rig/decode-report.json`]:** six
+walker chains, 3,924 steps, 2,671 on the decision span over 7 chains
+(labels 1–4: 438 / 890 / 889 / 454). The aliased pairs as binary linear
+readouts: **2v3 true 0.508 vs control 0.4982 ± 0.0354; 3v4 true 0.519 vs
+0.4988 ± 0.0118** — both within the 2-sd band (0120: 0.5039 vs 0.5036 ±
+0.063; 0.518 vs 0.5016 ± 0.0113). Multiclass context 0.36 vs 0.2442 ±
+0.0566, the half-ring topology of label 1 as before. Chain ≈ 640 steps
+(646 / 628 / 634 / 612 / 627 between walker chains), 6× the probe world.
+
+The arena is the arena. R1 begins: bridge restarted with the laps sense
+(`LAPS=25,-63,10`), `teach flat`, `teach sib`, the `recipes` readout,
+then `rounds 1 8` — via `rig/r1.sh`, detached, log in `r1.log`.
