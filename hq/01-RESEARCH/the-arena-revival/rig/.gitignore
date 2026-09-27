@@ -1,0 +1,5 @@
+# world data, bridge logs, and per-arm run state stay out of git (the
+# the-long-carry pattern); readings that are cited land as *.jsonl / *.json
+data/
+mc/
+*.log
