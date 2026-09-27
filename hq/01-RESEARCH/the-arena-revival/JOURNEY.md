@@ -290,3 +290,30 @@ stage-aware pointer with per-recipe pointer tracking is built beside
 the runner (`rig/sap_policy.py`) and verified on the parked state
 offline; it does NOT run in these rounds — whether it runs is the next
 registration's question, per this topic's direction clause.
+
+## 2026-09-27/28 — rounds 2–3: the flat arm passes the gate for the first time in the arena's record; no eat
+
+**Rows [measured, `rig/*-lives.jsonl`]:** flat 2 — crossings 1, chains 0,
+peeks 0, 1 poison; sib 2 — crossings 0, chains 0, 3 wasted peeks, 1
+poison/1 revive, out-of-context 3,830 (pulled to the closed gate by the
+larder recipes' post-reset steps, which stand at stage 0 too). **Flat 3
+— crossings 3, gate passed, larder entered, eats 0.**
+
+**Flat life 3's trace [measured, `mc/flat-life3.npz`]:** crossings at
+steps 1,548 / 3,339 / 4,561 (the brain's own laps, ~1,200–1,800 steps
+each against the walker's 147); in the gate cell at step 4,986 with the
+gate open; ONE larder entry at step 5,039 (the row's `chains: 3` is the
+box-boundary toggling at z = 12.0 — two re-entries within 20 steps; the
+runner's reconstruction over-counts, and the verdict will count gate
+passages from the traces instead). Inside: 961 steps left, spent at
+(15, 12) / (14, 12) / (14, 13) — the entry cells — with the mining
+channel above zero on 158 steps and peaking at 0.625: digging that never
+finished a block; food stayed 4; no collect, no eat. The first
+brain-driven passage through the gate in the arena's record (0120: zero
+entries in 22 lives), on the arm WITHOUT a stage sense, under futility +
+process recipes; the chain's last act — dig, collect, eat in the larder,
+taught fifteen times as V0 — did not land in the ~900 steps it had.
+
+Reading for the bar: by the registered primary meter (full-chain eats)
+flat 3 is 0; by 0120's `chains` meter (gate-guaranteed entries) it is
+1. Both are reported at the verdict. Rounds continue unchanged.
