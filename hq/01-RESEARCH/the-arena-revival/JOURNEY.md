@@ -535,3 +535,99 @@ zero eats between them.
 Amendment 5's code is written — `arena_provision.py` (arming at (0,4),
 reset box cells 2–4), `mechanism_check.py` (the dither check) — and NOT
 applied: the world stays as it is until this arm's eighth life.
+
+## 2026-09-28 — Amendment 4 read at n = 8: the stage-aware pointer moves the body — more laps, two passages, still no eat
+
+**The rows [measured, `rig/sap-lives.jsonl`, `rig/r1-verdict.json`,
+`rig/lap_classify.py`; lives 1–8, 08:15–09:07, on the sibling's teach]:**
+
+| sap life | real laps | dithered increments | world counter at end | gate passage | eats | poisons | wander steps | where the life went |
+|---|---|---|---|---|---|---|---|---|
+| 1 | 1 | 1 | 2 | 0 | 0 | 4 | 163 | closure (0,0) 1,966; line (0,3) 1,639 |
+| 2 | 2 | 0 | 2 | 0 | 0 | 4 | 138 | line (0,3) 2,006 |
+| 3 | 1 | 1 | 2 | 0 | 0 | 5 | 452 | line (0,3) 2,335 |
+| 4 | **3** | 0 | 0 (reset) | **1** | 0 | 1 | 32 | line 1,289; larder 658 |
+| 5 | 1 | 2 | 3 (gate open) | 0 | 0 | 5 | 433 | line (0,3) 1,339 |
+| 6 | 2 | 0 | 2 | 0 | 0 | 3 | 231 | line (0,3) 1,939 |
+| 7 | 2 | 1 | 3 (gate open) | 0 | 0 | 2 | 143 | corner (9,6) 970 |
+| 8 | 2 | 1 | 0 (reset) | **1** | 0 | 2 | 88 | larder (15,12) 735 |
+
+Paired by life against the sibling (shipped pointer, same teach):
+**real laps +1.00 ± 0.33 SE** (sap 14 vs sib 6; beyond 3 SE); gate
+passages +0.25 ± 0.16 (2 vs 0); full-chain eats 0 − 0; poisons +2.38 ±
+0.84; **wander steps +210 ± 55** (sib 0 in every life); wasted peeks
++0.25 ± 0.94; out-of-context −771 ± 557. Against flat: real laps 14 vs
+12, passages 2 vs 1.
+
+**Predictions checked:** (1) the closure parking is gone as a mode —
+one life at (0,0), 1,966 steps, against the sibling's six lives at
+2,300–4,600 — but it moved, not vanished: five lives park at the lap
+line (0,3) for 1,300–2,300 steps, dithering between the completed lap's
+end and the next lap's start (the argmax flickers between a preset-p
+lap pointing at its end and a preset-(p+1) lap pointing at its start;
+the place-keyed stall resets on every place change, so the alternation
+never accumulates K at one place). Half-held. (2) Laps rise: modal 2
+against the sibling's 1, ≥ 3 real laps in one life and the gate opened
+legitimately in it; two more lives opened the gate by dither (5, 7).
+Held. (3) No sap life was gate-pulled from birth; poisons fired in
+every life (1–5) and wander steps appeared for the first time — per-
+recipe tracking lets stalls accumulate. Held in shape. (4) Chains not
+predicted: **0 eats in 8; two bodies in the larder (lives 4 and 8),
+neither ate.**
+
+**The chain's last act, three bodies in the larder tonight [measured,
+`mc/flat-life3.npz`, `mc/sap-life4.npz`, `mc/sap-life8.npz`]:** flat 3 /
+sap 4 / sap 8 spent 934 / 658 / 1,319 steps in the larder box, 730 /
+522 / 1,036 of them adjacent to the lesson melon cell (15, 13); the
+mining channel was active on 158 / 21 / 119 steps, peaking at 0.625 /
+0.119 / **1.000** (sap 8 broke a block); no collect landed, food never
+rose (4 / 3 / 4–5). The bodies stood where V0 was taught (cell (15,
+12), 467–735 steps) with their heading diagonal at the end (yaw −45° /
+−135°), not square to the melon. Mechanism-argument, not yet measured:
+the recipe hold carries POSITION only — every V0 step stands at one
+cell, so the pointer is satisfied on arrival and the station's act
+(face the melon, dig, walk in, eat) is left to the completion itch and
+exploration; in the teach the body was placed facing the melon. The
+station, not the route, is the next gap for the eat.
+
+**The dither loophole, quantified [measured]:** 7 of the sap arm's 21
+world increments were dithers (lives 1, 3, 5, 5, 7, 8); 0 of 6 sibling
+increments; 0 of 12 flat (flat has no laps sense — its 12 are trace
+crossings and the world counter matched in 8/8). Two sap gates opened
+without three real laps (lives 5 and 7); neither body went in.
+
+**Standing:** the stage-aware pointer is the measured repair of the
+mechanism 0120→0123 named and this topic convicted: it turns the parked
+sibling into a lapping one (+1.00 ± 0.33 real laps, two legitimate
+passages against zero) — and it is not sufficient for a chain, because
+(a) the completed lap's terminal keeps competing with the next lap's
+start (the dither at the line; nothing marks a process recipe DONE at
+its stage), and (b) the larder station's act does not land from the
+position-only hold. Both are named with numbers. R1 as registered
+remains FAIL (no arm ate); M0–M2 do not run. The topic has what it
+came for: the arena binds, the ladder alone does not walk it, the
+pointer does part of the walk, and the next two gaps are exact.
+
+## 2026-09-28 — Amendment 5 applied: the detector fixed and re-witnessed; the session closed
+
+**Applied 09:08 [measured, `rig/mechanism-report.json`,
+`rig/mechanism-report-a5-run1.json`]:** bridge stopped so the bot was out
+of the world, `arena_provision.py` re-run (idempotent; the detector's
+command blocks rewritten: arming at (0, 4), reset box over cells 2–4),
+bridge up, walker run. Run 1: 15/16 — every counting, gate, indicator,
+reset, mouth and one-way check PASS, **the new dither check PASS**
+(counter 1 before and after a 4-cycle hitbox dither at the line), and
+one FAIL on "drop returns to loop", whose sample caught the body at
+y = −59.1 still falling (the next two checks, one-way and counting
+resumes, prove it landed and lapped). Run 2: **16/16 PASS**, drop at
+y = −59.6, dither check PASS again; gait 134 / 147 / 146 steps per lap,
+4.88 per block — the world's geometry unchanged by the fix. Any life
+after this entry runs on the fixed detector; the 24 lives above ran on
+the old one and their real-lap counts come from the corners, not the
+counter.
+
+Ops: bridge and server stopped 09:12 (`docker compose stop`; world data
+kept). Session total: R0, 16 R1 lives, 8 amendment-4 lives, 3 walker
+runs; 15.6–15.9 steps/s throughout; zero crashes; the only faults found
+were in the rig and the world's instrument, each measured and fixed
+pre-run.

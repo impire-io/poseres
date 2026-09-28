@@ -39,6 +39,7 @@
     "wander_steps": 0,
     "steps_per_s": 15.8,
     "crossings": 1,
+    "gate_cell_entries_open": 0,
     "gate_passages": 0,
     "larder_entries": 0,
     "first_crossing_step": 3271,
@@ -48,7 +49,9 @@
       8
      ],
      "steps": 1650
-    }
+    },
+    "real_laps": 1,
+    "dither_increments": 0
    },
    "2": {
     "arm": "flat",
@@ -78,6 +81,7 @@
     "wander_steps": 0,
     "steps_per_s": 15.9,
     "crossings": 1,
+    "gate_cell_entries_open": 0,
     "gate_passages": 0,
     "larder_entries": 0,
     "first_crossing_step": 3197,
@@ -87,7 +91,9 @@
       6
      ],
      "steps": 2652
-    }
+    },
+    "real_laps": 1,
+    "dither_increments": 0
    },
    "3": {
     "arm": "flat",
@@ -117,8 +123,9 @@
     "wander_steps": 0,
     "steps_per_s": 15.8,
     "crossings": 3,
+    "gate_cell_entries_open": 1,
     "gate_passages": 1,
-    "larder_entries": 2,
+    "larder_entries": 3,
     "first_crossing_step": 1548,
     "top_cell": {
      "cell": [
@@ -126,7 +133,9 @@
       6
      ],
      "steps": 648
-    }
+    },
+    "real_laps": 3,
+    "dither_increments": 0
    },
    "4": {
     "arm": "flat",
@@ -156,6 +165,7 @@
     "wander_steps": 0,
     "steps_per_s": 15.9,
     "crossings": 0,
+    "gate_cell_entries_open": 0,
     "gate_passages": 0,
     "larder_entries": 0,
     "first_crossing_step": null,
@@ -165,7 +175,9 @@
       8
      ],
      "steps": 4351
-    }
+    },
+    "real_laps": 0,
+    "dither_increments": 0
    },
    "5": {
     "arm": "flat",
@@ -195,6 +207,7 @@
     "wander_steps": 0,
     "steps_per_s": 15.9,
     "crossings": 2,
+    "gate_cell_entries_open": 0,
     "gate_passages": 0,
     "larder_entries": 0,
     "first_crossing_step": 1640,
@@ -204,7 +217,9 @@
       6
      ],
      "steps": 1685
-    }
+    },
+    "real_laps": 2,
+    "dither_increments": 0
    },
    "6": {
     "arm": "flat",
@@ -234,6 +249,7 @@
     "wander_steps": 0,
     "steps_per_s": 15.9,
     "crossings": 4,
+    "gate_cell_entries_open": 0,
     "gate_passages": 0,
     "larder_entries": 0,
     "first_crossing_step": 1108,
@@ -243,7 +259,9 @@
       6
      ],
      "steps": 1433
-    }
+    },
+    "real_laps": 4,
+    "dither_increments": 0
    },
    "7": {
     "arm": "flat",
@@ -273,6 +291,7 @@
     "wander_steps": 0,
     "steps_per_s": 15.9,
     "crossings": 0,
+    "gate_cell_entries_open": 0,
     "gate_passages": 0,
     "larder_entries": 0,
     "first_crossing_step": null,
@@ -282,7 +301,9 @@
       8
      ],
      "steps": 4073
-    }
+    },
+    "real_laps": 0,
+    "dither_increments": 0
    },
    "8": {
     "arm": "flat",
@@ -312,6 +333,7 @@
     "wander_steps": 0,
     "steps_per_s": 15.7,
     "crossings": 1,
+    "gate_cell_entries_open": 0,
     "gate_passages": 0,
     "larder_entries": 0,
     "first_crossing_step": 1134,
@@ -321,7 +343,9 @@
       8
      ],
      "steps": 2461
-    }
+    },
+    "real_laps": 1,
+    "dither_increments": 0
    }
   },
   "sib": {
@@ -355,6 +379,7 @@
     "wander_steps": 0,
     "steps_per_s": 15.9,
     "crossings": 1,
+    "gate_cell_entries_open": 0,
     "gate_passages": 0,
     "larder_entries": 0,
     "first_crossing_step": 1777,
@@ -364,7 +389,9 @@
       0
      ],
      "steps": 4128
-    }
+    },
+    "real_laps": 1,
+    "dither_increments": 0
    },
    "2": {
     "arm": "sib",
@@ -396,6 +423,7 @@
     "wander_steps": 0,
     "steps_per_s": 15.7,
     "crossings": 0,
+    "gate_cell_entries_open": 0,
     "gate_passages": 0,
     "larder_entries": 0,
     "first_crossing_step": null,
@@ -405,7 +433,9 @@
       8
      ],
      "steps": 3952
-    }
+    },
+    "real_laps": 0,
+    "dither_increments": 0
    },
    "3": {
     "arm": "sib",
@@ -437,6 +467,7 @@
     "wander_steps": 0,
     "steps_per_s": 15.8,
     "crossings": 1,
+    "gate_cell_entries_open": 0,
     "gate_passages": 0,
     "larder_entries": 0,
     "first_crossing_step": 2464,
@@ -446,7 +477,9 @@
       0
      ],
      "steps": 3496
-    }
+    },
+    "real_laps": 1,
+    "dither_increments": 0
    },
    "4": {
     "arm": "sib",
@@ -478,6 +511,7 @@
     "wander_steps": 0,
     "steps_per_s": 15.6,
     "crossings": 1,
+    "gate_cell_entries_open": 0,
     "gate_passages": 0,
     "larder_entries": 0,
     "first_crossing_step": 4897,
@@ -487,7 +521,9 @@
       6
      ],
      "steps": 1138
-    }
+    },
+    "real_laps": 1,
+    "dither_increments": 0
    },
    "5": {
     "arm": "sib",
@@ -519,6 +555,7 @@
     "wander_steps": 0,
     "steps_per_s": 15.8,
     "crossings": 1,
+    "gate_cell_entries_open": 0,
     "gate_passages": 0,
     "larder_entries": 0,
     "first_crossing_step": 1597,
@@ -528,7 +565,9 @@
       0
      ],
      "steps": 4176
-    }
+    },
+    "real_laps": 1,
+    "dither_increments": 0
    },
    "6": {
     "arm": "sib",
@@ -560,6 +599,7 @@
     "wander_steps": 0,
     "steps_per_s": 15.8,
     "crossings": 1,
+    "gate_cell_entries_open": 0,
     "gate_passages": 0,
     "larder_entries": 0,
     "first_crossing_step": 3521,
@@ -569,7 +609,9 @@
       0
      ],
      "steps": 2334
-    }
+    },
+    "real_laps": 1,
+    "dither_increments": 0
    },
    "7": {
     "arm": "sib",
@@ -601,6 +643,7 @@
     "wander_steps": 0,
     "steps_per_s": 15.8,
     "crossings": 1,
+    "gate_cell_entries_open": 0,
     "gate_passages": 0,
     "larder_entries": 0,
     "first_crossing_step": 1107,
@@ -610,7 +653,9 @@
       0
      ],
      "steps": 4571
-    }
+    },
+    "real_laps": 1,
+    "dither_increments": 0
    },
    "8": {
     "arm": "sib",
@@ -642,6 +687,7 @@
     "wander_steps": 0,
     "steps_per_s": 15.6,
     "crossings": 0,
+    "gate_cell_entries_open": 0,
     "gate_passages": 0,
     "larder_entries": 0,
     "first_crossing_step": null,
@@ -651,7 +697,363 @@
       8
      ],
      "steps": 3334
-    }
+    },
+    "real_laps": 0,
+    "dither_increments": 0
+   }
+  },
+  "sap": {
+   "1": {
+    "arm": "sap",
+    "life": 1,
+    "steps": 6001,
+    "obs_rows": 6000,
+    "lap_crossings": 1,
+    "chains": 0,
+    "branch_visits": 0,
+    "wasted_peeks": 0,
+    "laps_rcon_end": 2,
+    "collects": 0,
+    "eats": 0,
+    "food_min": 4,
+    "food_mean": 6.2,
+    "starv_loss": false,
+    "completions": 1,
+    "false_completions": 1,
+    "advance": 378,
+    "out_of_context": 984,
+    "recipes": 40,
+    "process_recipes": 10,
+    "stage_indices": [
+     73
+    ],
+    "fatigue_events": 4,
+    "revive_events": 4,
+    "stage_filtered_events": 6000,
+    "wander_steps": 163,
+    "steps_per_s": 15.6,
+    "crossings": 1,
+    "gate_cell_entries_open": 0,
+    "gate_passages": 0,
+    "larder_entries": 0,
+    "first_crossing_step": 1236,
+    "top_cell": {
+     "cell": [
+      0,
+      0
+     ],
+     "steps": 1966
+    },
+    "real_laps": 1,
+    "dither_increments": 1
+   },
+   "2": {
+    "arm": "sap",
+    "life": 2,
+    "steps": 6001,
+    "obs_rows": 6000,
+    "lap_crossings": 3,
+    "chains": 0,
+    "branch_visits": 0,
+    "wasted_peeks": 0,
+    "laps_rcon_end": 2,
+    "collects": 0,
+    "eats": 0,
+    "food_min": 4,
+    "food_mean": 6.3,
+    "starv_loss": false,
+    "completions": 1,
+    "false_completions": 1,
+    "advance": 504,
+    "out_of_context": 947,
+    "recipes": 40,
+    "process_recipes": 10,
+    "stage_indices": [
+     73
+    ],
+    "fatigue_events": 4,
+    "revive_events": 3,
+    "stage_filtered_events": 6000,
+    "wander_steps": 138,
+    "steps_per_s": 15.6,
+    "crossings": 3,
+    "gate_cell_entries_open": 0,
+    "gate_passages": 0,
+    "larder_entries": 0,
+    "first_crossing_step": 1896,
+    "top_cell": {
+     "cell": [
+      0,
+      3
+     ],
+     "steps": 2006
+    },
+    "real_laps": 2,
+    "dither_increments": 0
+   },
+   "3": {
+    "arm": "sap",
+    "life": 3,
+    "steps": 6001,
+    "obs_rows": 6000,
+    "lap_crossings": 3,
+    "chains": 0,
+    "branch_visits": 0,
+    "wasted_peeks": 0,
+    "laps_rcon_end": 2,
+    "collects": 0,
+    "eats": 0,
+    "food_min": 5,
+    "food_mean": 6.3,
+    "starv_loss": false,
+    "completions": 1,
+    "false_completions": 1,
+    "advance": 384,
+    "out_of_context": 667,
+    "recipes": 40,
+    "process_recipes": 10,
+    "stage_indices": [
+     73
+    ],
+    "fatigue_events": 5,
+    "revive_events": 4,
+    "stage_filtered_events": 6000,
+    "wander_steps": 452,
+    "steps_per_s": 15.6,
+    "crossings": 3,
+    "gate_cell_entries_open": 0,
+    "gate_passages": 0,
+    "larder_entries": 0,
+    "first_crossing_step": 968,
+    "top_cell": {
+     "cell": [
+      0,
+      3
+     ],
+     "steps": 2335
+    },
+    "real_laps": 1,
+    "dither_increments": 1
+   },
+   "4": {
+    "arm": "sap",
+    "life": 4,
+    "steps": 6001,
+    "obs_rows": 6000,
+    "lap_crossings": 3,
+    "chains": 2,
+    "branch_visits": 8,
+    "wasted_peeks": 6,
+    "laps_rcon_end": 0,
+    "collects": 0,
+    "eats": 0,
+    "food_min": 3,
+    "food_mean": 5.6,
+    "starv_loss": false,
+    "completions": 2,
+    "false_completions": 2,
+    "advance": 689,
+    "out_of_context": 1361,
+    "recipes": 40,
+    "process_recipes": 10,
+    "stage_indices": [
+     73
+    ],
+    "fatigue_events": 1,
+    "revive_events": 1,
+    "stage_filtered_events": 6000,
+    "wander_steps": 32,
+    "steps_per_s": 15.9,
+    "crossings": 3,
+    "gate_cell_entries_open": 16,
+    "gate_passages": 1,
+    "larder_entries": 2,
+    "first_crossing_step": 605,
+    "top_cell": {
+     "cell": [
+      0,
+      3
+     ],
+     "steps": 1289
+    },
+    "real_laps": 3,
+    "dither_increments": 0
+   },
+   "5": {
+    "arm": "sap",
+    "life": 5,
+    "steps": 6001,
+    "obs_rows": 6000,
+    "lap_crossings": 3,
+    "chains": 0,
+    "branch_visits": 0,
+    "wasted_peeks": 0,
+    "laps_rcon_end": 3,
+    "collects": 0,
+    "eats": 0,
+    "food_min": 5,
+    "food_mean": 6.3,
+    "starv_loss": false,
+    "completions": 38,
+    "false_completions": 31,
+    "advance": 323,
+    "out_of_context": 1392,
+    "recipes": 40,
+    "process_recipes": 10,
+    "stage_indices": [
+     73
+    ],
+    "fatigue_events": 5,
+    "revive_events": 5,
+    "stage_filtered_events": 6000,
+    "wander_steps": 433,
+    "steps_per_s": 15.6,
+    "crossings": 3,
+    "gate_cell_entries_open": 0,
+    "gate_passages": 0,
+    "larder_entries": 0,
+    "first_crossing_step": 2518,
+    "top_cell": {
+     "cell": [
+      0,
+      3
+     ],
+     "steps": 1339
+    },
+    "real_laps": 1,
+    "dither_increments": 2
+   },
+   "6": {
+    "arm": "sap",
+    "life": 6,
+    "steps": 6001,
+    "obs_rows": 6000,
+    "lap_crossings": 2,
+    "chains": 0,
+    "branch_visits": 0,
+    "wasted_peeks": 0,
+    "laps_rcon_end": 2,
+    "collects": 0,
+    "eats": 0,
+    "food_min": 3,
+    "food_mean": 5.9,
+    "starv_loss": false,
+    "completions": 1,
+    "false_completions": 1,
+    "advance": 536,
+    "out_of_context": 1235,
+    "recipes": 40,
+    "process_recipes": 10,
+    "stage_indices": [
+     73
+    ],
+    "fatigue_events": 3,
+    "revive_events": 2,
+    "stage_filtered_events": 6000,
+    "wander_steps": 231,
+    "steps_per_s": 15.8,
+    "crossings": 2,
+    "gate_cell_entries_open": 0,
+    "gate_passages": 0,
+    "larder_entries": 0,
+    "first_crossing_step": 794,
+    "top_cell": {
+     "cell": [
+      0,
+      3
+     ],
+     "steps": 1939
+    },
+    "real_laps": 2,
+    "dither_increments": 0
+   },
+   "7": {
+    "arm": "sap",
+    "life": 7,
+    "steps": 6001,
+    "obs_rows": 6000,
+    "lap_crossings": 4,
+    "chains": 0,
+    "branch_visits": 1,
+    "wasted_peeks": 1,
+    "laps_rcon_end": 3,
+    "collects": 0,
+    "eats": 0,
+    "food_min": 4,
+    "food_mean": 5.9,
+    "starv_loss": false,
+    "completions": 1,
+    "false_completions": 1,
+    "advance": 723,
+    "out_of_context": 1658,
+    "recipes": 40,
+    "process_recipes": 10,
+    "stage_indices": [
+     73
+    ],
+    "fatigue_events": 2,
+    "revive_events": 2,
+    "stage_filtered_events": 5900,
+    "wander_steps": 143,
+    "steps_per_s": 15.7,
+    "crossings": 4,
+    "gate_cell_entries_open": 2,
+    "gate_passages": 0,
+    "larder_entries": 0,
+    "first_crossing_step": 2138,
+    "top_cell": {
+     "cell": [
+      9,
+      6
+     ],
+     "steps": 970
+    },
+    "real_laps": 2,
+    "dither_increments": 1
+   },
+   "8": {
+    "arm": "sap",
+    "life": 8,
+    "steps": 6001,
+    "obs_rows": 6000,
+    "lap_crossings": 3,
+    "chains": 4,
+    "branch_visits": 1,
+    "wasted_peeks": 0,
+    "laps_rcon_end": 0,
+    "collects": 0,
+    "eats": 0,
+    "food_min": 4,
+    "food_mean": 5.7,
+    "starv_loss": false,
+    "completions": 11,
+    "false_completions": 9,
+    "advance": 594,
+    "out_of_context": 1447,
+    "recipes": 40,
+    "process_recipes": 10,
+    "stage_indices": [
+     73
+    ],
+    "fatigue_events": 2,
+    "revive_events": 2,
+    "stage_filtered_events": 6000,
+    "wander_steps": 88,
+    "steps_per_s": 15.7,
+    "crossings": 3,
+    "gate_cell_entries_open": 1,
+    "gate_passages": 1,
+    "larder_entries": 4,
+    "first_crossing_step": 2188,
+    "top_cell": {
+     "cell": [
+      15,
+      12
+     ],
+     "steps": 735
+    },
+    "real_laps": 2,
+    "dither_increments": 1
    }
   }
  },
@@ -704,7 +1106,7 @@
    "mean_diff": -0.125,
    "se": 0.125
   },
-  "crossings": {
+  "real_laps": {
    "sib": [
     1,
     0,
@@ -799,6 +1201,174 @@
    ],
    "mean_diff": -1336.625,
    "se": 580.9602561246583
+  },
+  "sap-sib:eats": {
+   "sap": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "sib": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "mean_diff": 0.0,
+   "se": 0.0
+  },
+  "sap-sib:gate_passages": {
+   "sap": [
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    1
+   ],
+   "sib": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "mean_diff": 0.25,
+   "se": 0.16366341767699427
+  },
+  "sap-sib:real_laps": {
+   "sap": [
+    1,
+    2,
+    1,
+    3,
+    1,
+    2,
+    2,
+    2
+   ],
+   "sib": [
+    1,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0
+   ],
+   "mean_diff": 1.0,
+   "se": 0.32732683535398854
+  },
+  "sap-sib:wasted_peeks": {
+   "sap": [
+    0,
+    0,
+    0,
+    6,
+    0,
+    0,
+    1,
+    0
+   ],
+   "sib": [
+    0,
+    3,
+    0,
+    0,
+    0,
+    0,
+    0,
+    2
+   ],
+   "mean_diff": 0.25,
+   "se": 0.940174755792013
+  },
+  "sap-sib:fatigue_events": {
+   "sap": [
+    4,
+    4,
+    5,
+    1,
+    5,
+    3,
+    2,
+    2
+   ],
+   "sib": [
+    0,
+    1,
+    0,
+    2,
+    0,
+    0,
+    2,
+    2
+   ],
+   "mean_diff": 2.375,
+   "se": 0.8438326679079041
+  },
+  "sap-sib:wander_steps": {
+   "sap": [
+    163,
+    138,
+    452,
+    32,
+    433,
+    231,
+    143,
+    88
+   ],
+   "sib": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "mean_diff": 210.0,
+   "se": 54.639075499394856
+  },
+  "sap-sib:out_of_context": {
+   "sap": [
+    984,
+    947,
+    667,
+    1361,
+    1392,
+    1235,
+    1658,
+    1447
+   ],
+   "sib": [
+    611,
+    3830,
+    1102,
+    2763,
+    612,
+    1787,
+    619,
+    4531
+   ],
+   "mean_diff": -770.5,
+   "se": 556.775891052354
   }
  }
 }

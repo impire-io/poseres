@@ -5,7 +5,7 @@
    "ok": true,
    "detail": {
     "laps": 1,
-    "steps": 134
+    "steps": 135
    }
   },
   {
@@ -82,7 +82,7 @@
    "name": "melon dug and collected",
    "ok": true,
    "detail": {
-    "slices": 5
+    "slices": 3
    }
   },
   {
@@ -90,16 +90,16 @@
    "ok": true,
    "detail": {
     "before": 0,
-    "after": 10
+    "after": 6
    }
   },
   {
    "name": "drop returns to loop",
-   "ok": true,
+   "ok": false,
    "detail": {
     "pos": [
      6.6,
-     -59.6,
+     -59.1,
      6.7
     ]
    }
@@ -134,13 +134,13 @@
  ],
  "gait": {
   "lap_steps": [
-   134,
+   135,
    147,
    146
   ],
   "steps_per_lap": 146.5,
   "steps_per_block": 4.88,
-  "total_steps": 917
+  "total_steps": 921
  },
- "passed": true
+ "passed": false
 }
