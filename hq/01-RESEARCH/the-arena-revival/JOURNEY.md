@@ -461,3 +461,52 @@ next gap).
 
 Server restarted from its kept world (`docker compose start`), bridge
 with the laps sense, `lives sap 1 8` via `rig/r2.sh`, log `r2.log`.
+
+## 2026-09-28 — sap life 1: the parking becomes a dither; and the arena's lap detector counts a half-block dither as a lap
+
+**Row [measured, `rig/sap-lives.jsonl`]:** crossings (trace) 1, world
+counter at end 2, chains 0, gate visits 0, eats 0; poisons 4 / revives
+4; `wander_steps` 163 (the first non-zero of the night — per-recipe
+tracking lets stalls accumulate and, at moments, every in-stage recipe
+is poisoned); out-of-context 984.
+
+**Where the life went [measured, `mc/sap-life1.npz`]:** (0, 0) 1,966
+steps, (0, 3) 1,639, (3, 0) 401, then (2, 0) / (1, 0) / (0, 2) / (0, 1)
+200–260 each — the whole life on the west straight and the north-west
+corner, dithering between the completed lap's end (0, 0) and the lap
+line (0, 3). Prediction 1 half-holds: the closure dwell halves (4,128 →
+1,966) and the body does move toward (3, 0) — the next lap's start, as
+the offline pointer said — but it comes back: the argmax flickers
+between a preset-0 lap (pointer at its end, (0, 0)) and a preset-1 lap
+(pointer at its start, (3, 0)), and the place-keyed stall resets on
+every place change, so the alternation never accumulates 200 at one
+place. Prediction 2 fails in this life (1 real crossing). Mechanism
+[mechanism-argument on the trace + code]: the completed lap's terminal
+keeps its worth after completion — nothing marks a process recipe DONE
+at its stage — so it competes with the next lap's start forever.
+
+**The detector loophole [measured, sub-cell]:** both world increments
+landed with the body's centre in cell (0, 3) — at z = 3.3 (step 1,108)
+and z = 3.1 (step 1,233), y = −60.0, never airborne (0 samples above
+−59.5 in 1,985 near the line). The body's 0.6-wide hitbox reaches into
+zone B (z < 3) from cell 3; backing south to z ≈ 4.3 leaves the A+B box
+and re-arms; the next approach counts again. A dither of ~1.2 blocks on
+the west straight increments the counter without a lap; 29 consecutive-
+sample flips between cells 2 and 3 in this life. In 16 previous lives
+the world counter and the centre-based reconstruction agreed exactly
+because no body dithered there; this one did. Consequence: the gate can
+open without laps, so a "chain" could be dithered. **The reading is
+protected** — the verdict script credits a gate passage only after
+three centre-crossings in the trace — but the world state a dithering
+body meets is no longer the arena's design.
+
+**Amendment 5 (registered now, applied AFTER this arm's eight lives —
+the world stays untouched mid-comparison):** the detector's reset box
+widens to span cells (0, 2)–(0, 4) so a body must leave the whole
+straight segment to re-arm, and arming moves one cell south to (0, 4):
+a real lap re-arms by leaving the box past z < 2 and re-entering from
+z ≥ 5; a dither inside z ∈ [2, 5) counts once. `mechanism_check.py`
+gains a dither check (hitbox-into-B from A, back to cell 4, repeat:
+counter must not increment). Any life after this arm's eighth runs on
+the fixed detector; per-life world-vs-trace counts are reported for
+every life on record.
