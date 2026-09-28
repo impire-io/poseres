@@ -510,3 +510,28 @@ gains a dither check (hitbox-into-B from A, back to cell 4, repeat:
 counter must not increment). Any life after this arm's eighth runs on
 the fixed detector; per-life world-vs-trace counts are reported for
 every life on record.
+
+## 2026-09-28 — sap lives 2–4: the arm laps; life 4 walks three real laps through the open gate into the larder and does not eat
+
+**Rows [measured]:** sap 2 — world 2, no gate, poisons 4, wander 138;
+sap 3 — world 2, no gate, poisons 5, wander 452; **sap 4 — three laps,
+gate passed, larder entered (world reset at step 5,333), 8 branch
+visits, eats 0**, poisons 1, wander 32.
+
+**Real laps vs dithered increments [measured, `rig/lap_classify.py` —
+an increment is a real lap only if the body's centre visited the three
+far corners (9,0) → (9,6) → (0,6) since the last increment]:** sap 1:
+1 real + 1 dither; sap 2: 2 real; sap 3: 1 real + 1 dither; **sap 4: 3
+real, 0 dither — a legitimate chain to the larder**; sibling lives 1–8:
+every increment real (1, 0, 1, 1, 1, 1, 1, 0). The centre-based
+reconstruction (`lap_crossings`) over-counts a dither the other way
+(sap 2 and 3 read 3 where the world and the corners say 2); the verdict
+reads real laps from the corners. Real laps so far, sap 1, 2, 1, 3 vs
+sib 1, 0, 1, 1, 1, 1, 1, 0 — prediction 2 (crossings past 1, ≥ 3 in
+some lives) holding at four lives; prediction 4 (chains not predicted)
+so far correct: two bodies in the larder tonight, flat 3 and sap 4,
+zero eats between them.
+
+Amendment 5's code is written — `arena_provision.py` (arming at (0,4),
+reset box cells 2–4), `mechanism_check.py` (the dither check) — and NOT
+applied: the world stays as it is until this arm's eighth life.

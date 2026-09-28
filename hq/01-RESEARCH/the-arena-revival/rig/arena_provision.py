@@ -55,7 +55,11 @@ S_LARDER = -58
 GATE = (15, 9)  # gate cell (x, z) at loop feet level
 PATCH = (15, 15)  # melon patch center in the larder
 INDICATOR = (25, -63)  # x, y of the buried lap-indicator column; z 10..12
-ZONE_A = (0, 3)  # lap-line arm A (crossed first in the taught direction)
+# Amendment 5 (2026-09-28, measured on sap life 1): the arming zone moves one cell
+# south and the reset box spans cells 2..4, so a hitbox dither at the line
+# (centre z 3.1-3.3 reaching into B, backing to z 4.3) cannot re-arm; a real
+# lap re-arms by leaving the box past z < 2 and re-entering from z >= 5.
+ZONE_A = (0, 4)  # lap-line arm A (crossed first in the taught direction)
 ZONE_B = (0, 2)  # lap-line arm B
 MACHINERY_Y = -63
 
@@ -163,7 +167,7 @@ def machinery() -> None:
     for player in ("laps", "armA", "armB", "counted"):
         rcon("scoreboard", "players", "set", player, "lc", "0")
     a, b = zone(ZONE_A), zone(ZONE_B)
-    both = zone(ZONE_B, dxz=(0, 1))  # the A+B column as one box
+    both = zone(ZONE_B, dxz=(0, 2))  # the reset box: cells (0,2)..(0,4) as one
     gx, gz = GATE
     gate_cells = f"{gx} -60 {gz} {gx} -59 {gz}"
     ix, iy = INDICATOR

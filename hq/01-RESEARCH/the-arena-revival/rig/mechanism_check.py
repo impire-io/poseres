@@ -76,6 +76,7 @@ GATE_BLOCK = ("15", "-60", "9")
 INDICATOR = tuple(("25", "-63", str(z)) for z in (10, 11, 12))
 
 FWD = {"forward": 1.0}
+BACK = {"back": 1.0}
 JUMP = {"jump_forward": 1.0}
 LEFT = {"turn_left": 1.0}
 RIGHT = {"turn_right": 1.0}
@@ -303,6 +304,25 @@ def main() -> int:
         w.goto(0.5, 6.5)
         w.goto(0.5, 0.5)
         check(report, "counting resumes", laps_score() == 1, {"laps": laps_score()})
+
+        # -- amendment 5: a dither at the lap line must not count -------------
+        # stand in cell (0,3) facing north, nudge to z~3.1 (hitbox into B), back
+        # to z~4.3 (past the old reset), repeat; the counter must not move.
+        before = laps_score()
+        rcon("tp", "pra", "0.5", "-60", "3.6", "180", "0")  # facing north (-z)
+        time.sleep(0.6)
+        for _ in range(4):
+            for _ in range(3):
+                channels, view = w.tick(FWD)  # north: centre toward z 3.1
+            for _ in range(6):
+                channels, view = w.tick(BACK)  # south: past z 4.0
+        time.sleep(0.5)
+        check(
+            report,
+            "dither at the line does not count",
+            laps_score() == before,
+            {"before": before, "after": laps_score(), "pos": view["pos"]},
+        )
 
         # -- gait calibration --------------------------------------------------
         full = lap_steps[1:]  # lap 1 starts from the stand, not the corner
