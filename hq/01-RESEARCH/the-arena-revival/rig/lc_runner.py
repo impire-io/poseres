@@ -72,6 +72,7 @@ from pra.anatomy.minecraft import C1_MINING_INDEX, C1_POCKET_TOTAL_INDEX  # noqa
 from pra.anatomy.ros2.specs import SensorSpec  # noqa: E402
 from pra.persistence.snapshot import decode, encode  # noqa: E402
 from pra.persistence.store import InMemorySnapshotStore  # noqa: E402
+from sap_policy import StageAwareRecipePolicy  # noqa: E402 — amendment 4, rig-level
 
 # the sibling's one added sense (bar H0(c)): the world's own lap counter,
 # published by the LAPS-enabled bridge from the buried indicator column.
@@ -81,9 +82,12 @@ LAPS_SENSOR = SensorSpec(id="laps", topic="laps", width=1, labels=("frac",))
 FLAT_SENSORS = list(R.SENSORS)
 
 
+STAGE_ARMS = ("sib", "sap")  # the sibling body; "sap" = amendment 4's stage-aware pointer
+
+
 def set_arm_body(arm: str) -> int:
     """Point the shared machinery at the arm's declared body; returns obs_dim."""
-    sensors = FLAT_SENSORS + ([LAPS_SENSOR] if arm == "sib" else [])
+    sensors = FLAT_SENSORS + ([LAPS_SENSOR] if arm in STAGE_ARMS else [])
     R.SENSORS = sensors
     return sum(s.width for s in sensors)
 
@@ -168,10 +172,11 @@ def lesson_laps(k: int) -> int:
 
 
 def paths(arm: str) -> dict[str, Path]:
+    taught = "sib" if arm == "sap" else arm  # sap lives on the sibling's teach, unchanged
     return {
-        "taught": MC / f"{arm}-taught.bin",
-        "demos": MC / f"{arm}-demos.json",
-        "progress": MC / f"{arm}-teach-progress.json",
+        "taught": MC / f"{taught}-taught.bin",
+        "demos": MC / f"{taught}-demos.json",
+        "progress": MC / f"{taught}-teach-progress.json",
         "lives": HERE / f"{arm}-lives.jsonl",
     }
 
@@ -351,14 +356,13 @@ STAGE_TOL = 1.0 / 128.0
 def stage_indices_for(arm: str, obs_dim: int) -> tuple[int, ...]:
     """The sibling declares its laps sense (appended LAST) as the stage
     channel; the flat body has no stage channel to declare."""
-    return (obs_dim - 1,) if arm == "sib" else ()
+    return (obs_dim - 1,) if arm in STAGE_ARMS else ()
 
 
-class LoggingRecipePolicy(RecipePolicy):
-    """The shipped RecipePolicy plus telemetry only, nothing fed back: the
-    decode probe's observation log, and a count of wander steps (no recipe
-    selected this step — every recipe poisoned or out of stage — so the
-    parent policy walked)."""
+class TelemetryMixin:
+    """Telemetry only, nothing fed back: the decode probe's observation log,
+    and a count of wander steps (no recipe selected this step — every recipe
+    poisoned or out of stage — so the parent policy walked)."""
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -371,6 +375,18 @@ class LoggingRecipePolicy(RecipePolicy):
         if self._subgoal is None:
             self.wander_steps += 1
         return action
+
+
+class LoggingRecipePolicy(TelemetryMixin, RecipePolicy):
+    """The shipped RecipePolicy plus telemetry (arms flat and sib)."""
+
+
+class LoggingStageAwarePolicy(TelemetryMixin, StageAwareRecipePolicy):
+    """Amendment 4's arm: the stage-aware pointer plus telemetry (arm sap)."""
+
+
+def policy_class(arm: str):
+    return LoggingStageAwarePolicy if arm == "sap" else LoggingRecipePolicy
 
 
 def hungry_newborn() -> None:
@@ -449,7 +465,7 @@ def life(arm: str, life_no: int) -> dict:
         n_cycles=state.cycles_done + LIFE_CYCLES,
         snapshot_every_n_cycles=state.cycles_done + LIFE_CYCLES,
     )
-    policy = LoggingRecipePolicy(
+    policy = policy_class(arm)(
         PolicyParams.from_config(cfg),
         memory,
         kappa=R.KAP,
@@ -522,7 +538,7 @@ def lives_done(arm: str) -> int:
 
 def main() -> int:
     phase = sys.argv[1] if len(sys.argv) > 1 else ""
-    if phase == "recipes" and len(sys.argv) > 2 and sys.argv[2] in ("flat", "sib"):
+    if phase == "recipes" and len(sys.argv) > 2 and sys.argv[2] in ("flat", *STAGE_ARMS):
         arm = sys.argv[2]
         stage = stage_indices_for(arm, set_arm_body(arm))
         print(json.dumps(memory_summary(build_memory(arm), stage), indent=1))
@@ -531,7 +547,7 @@ def main() -> int:
     if phase == "teach" and len(sys.argv) > 2 and sys.argv[2] in ("flat", "sib"):
         teach(sys.argv[2])
         return 0
-    if phase == "lives" and len(sys.argv) > 4 and sys.argv[2] in ("flat", "sib"):
+    if phase == "lives" and len(sys.argv) > 4 and sys.argv[2] in ("flat", *STAGE_ARMS):
         arm = sys.argv[2]
         for n in range(int(sys.argv[3]), int(sys.argv[4]) + 1):
             if lives_done(arm) >= n:
@@ -550,8 +566,8 @@ def main() -> int:
                 life(arm, rnd)
         return 0
     raise SystemExit(
-        "usage: lc_runner.py teach flat|sib | recipes flat|sib | "
-        "lives flat|sib <from> <to> | rounds <from> <to>"
+        "usage: lc_runner.py teach flat|sib | recipes flat|sib|sap | "
+        "lives flat|sib|sap <from> <to> | rounds <from> <to>"
     )
 
 

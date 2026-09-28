@@ -408,3 +408,56 @@ registration is the owner's call; the rig, the taught brains
 Ops: server and bridge stopped 01:05 (`docker compose stop`; world data
 kept in `rig/data/`); no "Can't keep up" in the server log all night;
 15.6–15.9 steps/s throughout, 16 lives × 6,000 steps, zero crashes.
+
+## 2026-09-28 — the owner's call: run it. Amendment 4 (pre-run): the stage-aware pointer as a third arm
+
+**The owner's call [judgment, the owner's]:** "Run it." Run as this
+topic's amendment 4 (the-long-carry's futility precedent: one rig-level
+subclass, the same scale), not a fresh registration — the trail stays in
+one place.
+
+**The arm — `sap`:** the sibling's body (laps sense declared, index 73),
+the sibling's taught brain and demonstrations UNCHANGED
+(`mc/sib-taught.bin`, `mc/sib-demos.json`; 40 recipes, 10 process), the
+same dials (`futility_k=200`, `futility_w=800`, `process=True`,
+`stage_indices=(73,)`, `stage_tolerance=1/128`); the only delta is the
+life policy: `StageAwareRecipePolicy` (`rig/sap_policy.py`) in place of
+the shipped `RecipePolicy` — the pointer's nearest-step search restricted
+to the recipe's stage-matched steps, and the pointer index tracked per
+recipe so a selection flip is not an advance. Verified offline on the
+round-1 parked observation before this entry: the three next-stage laps
+point to (3, 0), forward. Eight hungry-born 6,000-step lives, same
+seeds, same dose, read paired by life number against tonight's eight
+sibling lives (same session, same world, same taught brain; the world is
+pinned and its counter read exact in 16/16 lives, so the interleaving
+0120 used against drift is not repeated — recorded as the one departure
+from the spine).
+
+**Predictions, registered before the run [judgment]:**
+
+1. The parked mode (6/8 sibling lives at the closure cell (0, 0) for
+   2,300–4,600 steps) disappears or shortens by an order of magnitude:
+   at laps 1/3 the next-stage lap's pointer leads forward.
+2. Lap crossings per life rise above the sibling's 1 (the sibling's
+   modal value); ≥ 3 crossings in some lives, i.e. the gate opens by
+   the brain's own laps.
+3. The gate-pulled mode (2/8 sibling lives at the closed gate from
+   birth) may persist — the stage-aware pointer does not change the
+   larder recipes' stage-0 steps — but per-recipe stall tracking should
+   let futility poison the gate place reliably (poisons ≥ 1 in those
+   lives, then departure), where the sibling's shared index reset it.
+4. Chains (full-chain eats) are NOT predicted with confidence: the
+   turn-in at stage 1.0 competes with preset-2 laps' tails, and flat
+   life 3 showed the larder dig can fail to land in the steps left.
+
+**What refutes the pointer as the convicted mechanism:** sap lives that
+still park at the closure with crossings ≤ 1 in ≥ 6/8 — then the
+mechanism is upstream of the pointer (selection/valuation among
+in-stage recipes) and the offline reconstruction misled. What passes
+R1 under this amendment: chains beyond spread above zero; what
+advances without passing: crossings and gate passages beyond the
+sibling's spread with eats still zero (the chain's last act as the
+next gap).
+
+Server restarted from its kept world (`docker compose start`), bridge
+with the laps sense, `lives sap 1 8` via `rig/r2.sh`, log `r2.log`.

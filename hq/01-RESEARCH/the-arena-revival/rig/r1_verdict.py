@@ -72,7 +72,7 @@ def trace_metrics(npz: Path) -> dict:
 def main() -> int:
     out = {}
     rows = {}
-    for arm in ("flat", "sib"):
+    for arm in ("flat", "sib", "sap"):
         rows[arm] = {}
         lp = HERE / f"{arm}-lives.jsonl"
         if not lp.exists():
@@ -82,7 +82,9 @@ def main() -> int:
             t = trace_metrics(MC / f"{arm}-life{r['life']}.npz")
             rows[arm][r["life"]] = {**r, **t}
     rounds = sorted(set(rows["flat"]) & set(rows["sib"]))
-    print(f"paired rounds on record: {len(rounds)}  ({rounds})\n")
+    print(f"paired rounds on record (sib vs flat): {len(rounds)}  ({rounds})")
+    rounds_sap = sorted(set(rows["sap"]) & set(rows["sib"]))
+    print(f"paired rounds on record (sap vs sib): {len(rounds_sap)}  ({rounds_sap})\n")
     cols = (
         "arm",
         "life",
@@ -98,7 +100,7 @@ def main() -> int:
         "top_cell(steps)",
     )
     print("  ".join(f"{c:>7}" for c in cols))
-    for arm in ("flat", "sib"):
+    for arm in ("flat", "sib", "sap"):
         for life in sorted(rows[arm]):
             r = rows[arm][life]
             top = f"{tuple(r['top_cell']['cell'])}({r['top_cell']['steps']})"
