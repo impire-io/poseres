@@ -18,6 +18,7 @@ from collections import Counter
 from pathlib import Path
 
 import numpy as np
+from lap_classify import classify
 
 HERE = Path(__file__).parent
 MC = HERE / "mc"
@@ -35,6 +36,8 @@ def trace_metrics(npz: Path) -> dict:
     entries: list[int] = []
     in_larder = False
     in_gate = False
+    last_gate = -(10**9)
+    passages_real: list[int] = []
     for i, p in enumerate(pos):
         loop = p[1] < -59
         a = loop and int(np.floor(p[0])) == 0 and int(np.floor(p[2])) == 3
@@ -50,20 +53,25 @@ def trace_metrics(npz: Path) -> dict:
         if not a and not b:
             arm_a = arm_b = counted = 0
         gate = loop and int(np.floor(p[0])) == 15 and int(np.floor(p[2])) == 9
+        if gate:
+            last_gate = i
         if gate and not in_gate and laps >= 3:
             passages.append(i)
         in_gate = gate
         larder = 12 <= p[0] < 19 and 12 <= p[2] < 19 and p[1] > -58.5
         if larder and not in_larder:
             entries.append(i)
+            if i - last_gate <= 200:  # came in through the gate: a passage, not a box toggle
+                passages_real.append(i)
             laps = 0  # the world's reset
         in_larder = larder
     cells = Counter((int(np.floor(p[0])), int(np.floor(p[2]))) for p in pos)
     top = cells.most_common(1)[0]
     return {
         "crossings": len(cross),
-        "gate_passages": len(passages),
-        "larder_entries": len({e // 50 for e in entries}),  # merge boundary toggles within 50 steps
+        "gate_cell_entries_open": len(passages),  # entries into the gate cell with the counter >= 3
+        "gate_passages": len(passages_real),  # larder entries reached through the gate cell
+        "larder_entries": len(entries),  # raw box entries (toggles included)
         "first_crossing_step": cross[0] if cross else None,
         "top_cell": {"cell": list(top[0]), "steps": top[1]},
     }
@@ -79,7 +87,11 @@ def main() -> int:
             continue
         for line in lp.read_text().splitlines():
             r = json.loads(line)
-            t = trace_metrics(MC / f"{arm}-life{r['life']}.npz")
+            npz = MC / f"{arm}-life{r['life']}.npz"
+            t = trace_metrics(npz)
+            c = classify(npz)  # real laps from the world's own counter + the corners
+            t["real_laps"] = c.get("real_laps", t["crossings"])  # flat: no sense, centre count
+            t["dither_increments"] = c.get("dither_increments", 0)
             rows[arm][r["life"]] = {**r, **t}
     rounds = sorted(set(rows["flat"]) & set(rows["sib"]))
     print(f"paired rounds on record (sib vs flat): {len(rounds)}  ({rounds})")
@@ -88,9 +100,10 @@ def main() -> int:
     cols = (
         "arm",
         "life",
-        "cross",
+        "real",
+        "dither",
+        "world",
         "gate",
-        "entries",
         "eats",
         "peeks",
         "fatigue",
@@ -107,9 +120,10 @@ def main() -> int:
             vals = (
                 arm,
                 life,
-                r["crossings"],
+                r["real_laps"],
+                r["dither_increments"],
+                r["laps_rcon_end"],
                 r["gate_passages"],
-                r["larder_entries"],
                 r["eats"],
                 r["wasted_peeks"],
                 r["fatigue_events"],
@@ -121,13 +135,16 @@ def main() -> int:
             print("  ".join(f"{str(v):>7}" for v in vals))
         print()
 
-    def paired(key):
-        d = np.array([rows["sib"][k][key] - rows["flat"][k][key] for k in rounds], dtype=float)
+    def paired(key, a="sib", b="flat", rr=None):
+        rr = rounds if rr is None else rr
+        if not rr:
+            return {a: [], b: [], "mean_diff": None, "se": None}
+        d = np.array([rows[a][k][key] - rows[b][k][key] for k in rr], dtype=float)
         se = d.std(ddof=1) / np.sqrt(len(d)) if len(d) > 1 else float("nan")
         return {
-            "sib": [rows["sib"][k][key] for k in rounds],
-            "flat": [rows["flat"][k][key] for k in rounds],
-            "mean_diff": float(d.mean()) if len(d) else None,
+            a: [rows[a][k][key] for k in rr],
+            b: [rows[b][k][key] for k in rr],
+            "mean_diff": float(d.mean()),
             "se": float(se) if len(d) > 1 else None,
         }
 
@@ -135,7 +152,7 @@ def main() -> int:
     for key, label in (
         ("eats", "full-chain eats (registered primary)"),
         ("gate_passages", "gate passages (0120 chains meter)"),
-        ("crossings", "lap crossings"),
+        ("real_laps", "real laps (corners)"),
         ("wasted_peeks", "wasted peeks"),
         ("fatigue_events", "poisons created"),
         ("out_of_context", "out-of-context steps"),
@@ -146,6 +163,22 @@ def main() -> int:
         md = f"{p['mean_diff']:+.2f}" if p["mean_diff"] is not None else "n/a"
         print(f"{label:<38} sib {p['sib']}  flat {p['flat']}")
         print(f"{'':<38} sib−flat {md} ± {se} SE")
+    if rounds_sap:
+        print("\n--- amendment 4: sap − sib, paired by life number ---")
+        for key, label in (
+            ("eats", "full-chain eats"),
+            ("gate_passages", "gate passages"),
+            ("real_laps", "real laps"),
+            ("wasted_peeks", "wasted peeks"),
+            ("fatigue_events", "poisons created"),
+            ("wander_steps", "wander steps"),
+            ("out_of_context", "out-of-context steps"),
+        ):
+            p = paired(key, "sap", "sib", rounds_sap)
+            summary[f"sap-sib:{key}"] = p
+            se = f"{p['se']:.2f}" if p["se"] is not None else "n/a"
+            print(f"{label:<38} sap {p['sap']}  sib {p['sib']}")
+            print(f"{'':<38} sap−sib {p['mean_diff']:+.2f} ± {se} SE")
     sib_eats = sum(rows["sib"][k]["eats"] for k in rounds)
     print()
     print(
